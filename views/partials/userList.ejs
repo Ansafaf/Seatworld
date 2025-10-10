@@ -1,0 +1,22 @@
+   <div class="table-responsive">
+        <table class="table table-bordered table-hover text-center align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">Username</th>
+              <th scope="col">Email</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="userResults">
+            <% users.forEach(user => { %>
+              <tr>
+                <td data-label="Username"><%= user.name %></td>
+                <td data-label="Email"><%= user.email %></td>
+                <td data-label="Actions">
+                  <a href="/admin/block/<%= user._id %>" class="btn btn-sm btn-warning me-2"  onclick="return confirm('Are you sure you want to block this user?')">block</a>
+                  <a href="/admin/unblock/<%= user._id %>" class="btn btn-sm btn-danger">Unblock</a>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>

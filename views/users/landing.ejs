@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SeatWorld | Landing</title>
+  <link rel="icon" href="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1755846364/Seatworld_icon_oyekzz.jpg">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff;
+      color: #333;
+    }
+
+    /* Header */
+    header {
+      background: #fff;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+      flex-wrap: wrap;
+    }
+    header h1 {
+      color: #0b64c0;
+      font-size: 22px;
+      margin: 0;
+    }
+    nav {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+
+    /* Hero */
+    .hero {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  overflow: hidden;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-content {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  transform: translateY(-50%);
+  background: rgba(173, 216, 230, 0.9); /* Light blue with opacity */
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 400px;
+}
+
+.hero-content .tag {
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: #333;
+}
+
+.hero-content h1 {
+  font-size: 32px;
+  font-weight: bold;
+  color: #003366;
+  margin: 10px 0;
+}
+
+.hero-content .desc {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.hero-content .btn {
+  background: #003366;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+
+    /* Features */
+    .features {
+      display: flex;
+      justify-content: space-around;
+      text-align: center;
+      padding: 40px 8%;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .features div {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    /* Section Title */
+    .section-title {
+      text-align: center;
+      font-size: 1.6rem;
+      margin: 40px 0 20px;
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 0 8% 40px;
+    }
+    .grid img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .grid p {
+      text-align: center;
+      margin-top: 8px;
+      font-size: 0.95rem;
+    }
+
+    /* Highlight */
+    .highlight {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 60px 8%;
+      flex-wrap: wrap;
+      background: #f2f7fc;
+    }
+    .highlight div {
+      max-width: 400px;
+    }
+    .highlight button {
+      margin-top: 15px;
+      background: #0b64c0;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .highlight img {
+      max-width: 350px;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    /* Footer */
+    footer {
+      background: #0b1526;
+      color: #aaa;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 40px;
+    }
+    footer nav {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    footer nav a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    footer p {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: #777;
+    }
+   
+    /* .firstimg{
+      max-width: 400px;
+      width: 100%;
+      /* height: 100%; */
+      /* position: relative; */
+      /* right: 500px; */
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero, .highlight {
+        flex-direction: column;
+        text-align: center;
+      }
+      nav {
+        justify-content: center;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>SeatWorld</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/login">Login</a>
+      <a href="/signup">Register</a>
+      <a href="/">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+<section class="hero">
+  <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1755794545/LandingImage_uparu2.png" alt="Chair" class="hero-img">
+
+  <div class="hero-content">
+    <p class="tag">New Arrival</p>
+    <h1>Discover Our New Chairs</h1>
+    <p class="desc">
+      Pain itself, it is pain that loves, it is the main concern. 
+      Let the chosen one be the best, full of comfort and free from distress.
+    </p>
+    <a href="/login"><button class="btn">Buy Now</button></a>
+  </div>
+</section>
+
+
+  <!-- Features -->
+  <section class="features">
+    <div>
+      <h3>🚚 Free Delivery</h3>
+      <p>On all orders above $100</p>
+    </div>
+    <div>
+      <h3>💬 Support 24/7</h3>
+      <p>Always here to help</p>
+    </div>
+    <div>
+      <h3>✅ 100% Authentic</h3>
+      <p>Quality assured products</p>
+    </div>
+  </section>
+
+  <!-- Inspiration Collection -->
+  <h2 class="section-title">Inspiration Collection</h2>
+  <div class="grid">
+    <div>
+      <img src="/images/chair1.jpg" alt="Chair 1" />
+    </div>
+    <div>
+      <img src="/images/chair2.jpg" alt="Chair 2" />
+    </div>
+    <div>
+      <img src="/images/chair3.jpg" alt="Chair 3" />
+    </div>
+  </div>
+
+  <!-- Highlight -->
+  <section class="highlight">
+    <div>
+      <h2>Beautify Your Space</h2>
+      <p>Our modern chairs add a stylish touch to your office and home interiors, making every moment a relaxation moment.</p>
+      <button>Learn More</button>
+    </div>
+    <img src="/images/chair-highlight.jpg" alt="Highlight Chair" />
+  </section>
+
+  <!-- Categories -->
+  <h2 class="section-title">Browse The Categories</h2>
+  <div class="grid">
+    <div>
+      <img src="/images/dining.jpg" alt="Dining Chairs" />
+      <p>Dining Chairs</p>
+    </div>
+    <div>
+      <img src="/images/gaming.jpg" alt="Gaming Chairs" />
+      <p>Gaming Chairs</p>
+    </div>
+    <div>
+      <img src="/images/office.jpg" alt="Office Chairs" />
+      <p>Office Chairs</p>
+    </div>
+  </div>
+
+  <!-- Use Cases -->
+  <h2 class="section-title">Common Use Case</h2>
+  <div class="grid">
+    <div>
+      <img src="/images/use1.jpg" alt="Office Use" />
+      <p>Office Use</p>
+    </div>
+    <div>
+      <img src="/images/use2.jpg" alt="Events" />
+      <p>Events</p>
+    </div>
+    <div>
+      <img src="/images/use3.jpg" alt="Dining Use" />
+      <p>Dining Use</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 SeatWorld. All Rights Reserved.</p>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Login</a>
+      <a href="#">Register</a>
+      <a href="#">Contact</a>
+    </nav>
+    <p>Project SeatWorld</p>
+  </footer>
+
+</body>
+</html>

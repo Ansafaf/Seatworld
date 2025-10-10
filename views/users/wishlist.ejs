@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wishlist - SeatWorld</title>
+  <link rel="stylesheet" href="/css/style.css"> <!-- external CSS -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      border-bottom: 1px solid #eee;
+    }
+
+    header .logo {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 20px;
+      color: #004080;
+    }
+
+    header nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #000;
+    }
+
+    .wishlist {
+      width: 80%;
+      margin: 50px auto;
+    }
+
+    .wishlist h2 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    thead {
+      background: #ddd;
+      font-weight: bold;
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+
+    td img {
+      width: 100px;
+      border-radius: 8px;
+    }
+
+    .remove {
+      font-size: 12px;
+      color: #777;
+      cursor: pointer;
+      display: block;
+      margin-top: 5px;
+    }
+
+    .add-to-cart {
+      padding: 10px 20px;
+      border: none;
+      background: #000;
+      color: #fff;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0;
+      gap: 8px;
+    }
+
+    .pagination button {
+      padding: 6px 12px;
+      border: 1px solid #000;
+      background: #fff;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .pagination .active {
+      background: #000;
+      color: #fff;
+    }
+
+    footer {
+      background: #f9f9f9;
+      padding: 40px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+      font-size: 14px;
+    }
+
+    footer h4 {
+      margin-bottom: 10px;
+    }
+
+    footer a {
+      display: block;
+      text-decoration: none;
+      color: #555;
+      margin-bottom: 5px;
+    }
+
+    footer .logo {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    footer .payments img {
+      height: 25px;
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <img src="/images/logo.png" alt="SeatWorld" style="height:30px; margin-right:8px;">
+      SeatWorld
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/shop">Shop</a>
+      <a href="/contact">Contact us</a>
+      <a href="/about">About</a>
+    </nav>
+    <div class="icons">
+      <span>♡</span>
+      <span>👤</span>
+      <span>🛒</span>
+    </div>
+  </header>
+
+  <!-- WISHLIST -->
+  <div class="wishlist">
+    <h2>WISHLIST</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Details</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% wishlist.forEach(item => { %>
+        <tr>
+          <td>
+            <img src="<%= item.image %>" alt="<%= item.name %>">
+            <a href="/wishlist/remove/<%= item._id %>" class="remove">Remove</a>
+          </td>
+          <td>
+            <h3><%= item.name %></h3>
+            <form action="/cart/add" method="POST">
+              <input type="hidden" name="productId" value="<%= item._id %>">
+              <button class="add-to-cart">Add To Cart</button>
+            </form>
+          </td>
+          <td>₹<%= item.price %></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+
+    <!-- PAGINATION -->
+    <div class="pagination">
+      <button>Previous</button>
+      <button class="active">1</button>
+      <button>2</button>
+      <button>3</button>
+      <button>Next</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <div class="logo">SeatWorld</div>
+      <p>We have clothes that suits your style and which you’re proud to wear. From women to men.</p>
+      <div class="socials">
+        <a href="#">🔵</a>
+        <a href="#">⚫</a>
+        <a href="#">⚪</a>
+      </div>
+    </div>
+
+    <div>
+      <h4>COMPANY</h4>
+      <a href="#">About</a>
+      <a href="#">Features</a>
+      <a href="#">Works</a>
+      <a href="#">Career</a>
+    </div>
+
+    <div>
+      <h4>HELP</h4>
+      <a href="#">Customer Support</a>
+      <a href="#">Delivery Details</a>
+      <a href="#">Terms & Conditions</a>
+      <a href="#">Privacy Policy</a>
+    </div>
+
+    <div>
+      <h4>FAQ</h4>
+      <a href="#">Account</a>
+      <a href="#">Manage Deliveries</a>
+      <a href="#">Orders</a>
+      <a href="#">Payments</a>
+    </div>
+
+    <div>
+      <h4>RESOURCES</h4>
+      <a href="#">Free eBooks</a>
+      <a href="#">Development Tutorial</a>
+      <a href="#">How to - Blog</a>
+      <a href="#">Youtube Playlist</a>
+      <div class="payments">
+        <img src="/images/visa.png" alt="Visa">
+        <img src="/images/paypal.png" alt="PayPal">
+        <img src="/images/applepay.png" alt="Apple Pay">
+        <img src="/images/gpay.png" alt="Google Pay">
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

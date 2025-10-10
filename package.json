@@ -1,0 +1,44 @@
+{
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cloudinary": "^1.41.3",
+    "cron": "^4.3.1",
+    "dotenv": "^17.2.2",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-generator": "^4.14.1",
+    "express-rate-limit": "^7.5.1",
+    "express-session": "^1.18.2",
+    "mongoose": "^8.18.1",
+    "multer": "^2.0.2",
+    "multer-storage-cloudinary": "^4.0.0",
+    "nocache": "^4.0.0",
+    "node-cron": "^4.2.1",
+    "nodemailer": "^7.0.6",
+    "nvm": "^0.0.4",
+    "otp-generator": "^4.0.1",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
+    "validator": "^13.15.15"
+  },
+  "name": "week6project---clone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ansafaf/Login-with-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Ansafaf/Login-with-server/issues"
+  },
+  "homepage": "https://github.com/Ansafaf/Login-with-server#readme"
+}

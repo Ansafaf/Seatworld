@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SeatWorld | Log in</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      width: 100%;
+      padding: 15px 20px;
+      border-bottom: 1px solid #eaeaea;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: bold;
+      color: #0b64c0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    header img {
+      width: 28px;
+      height: 28px;
+    }
+    header a {
+      text-decoration: none;
+      font-size: 14px;
+      color: #333;
+    }
+
+    /* Login Container */
+    .login-container {
+      margin-top: 50px;
+      text-align: center;
+      padding: 0 15px;
+      width: 100%;
+      max-width: 900px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .login-title {
+      font-size: 24px;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    /* Flex box for form + OR + Google */
+    .form-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    /* Left: Form */
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 280px;
+      text-align: left;
+      flex-shrink: 0;
+      background: #fafafa;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .login-form label {
+      font-size: 14px;
+      color: #333;
+    }
+
+    .login-form input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      width: 100%;
+    }
+
+    .login-form button {
+      padding: 12px;
+      background: #0b64c0;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #fff;
+      transition: background 0.3s;
+    }
+
+    .login-form button:hover {
+      background: #084b91;
+    }
+
+    /* Divider */
+    .divider {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 13px;
+    }
+
+    .divider-line {
+      height: 80px;
+      border-left: 1px solid #ddd;
+      margin: 10px 0;
+    }
+
+    /* Right: Google button */
+    .google-btn {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid #ccc;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      background: #fff;
+      font-size: 14px;
+      color: black;
+      max-width: 250px;
+      transition: background 0.3s;
+    }
+
+    .google-btn:hover {
+      background: #f7f7f7;
+    }
+
+    .google-btn img {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Links */
+    .links {
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .links a {
+      color: #0b64c0;
+      text-decoration: none;
+      margin-left: 5px;
+    }
+
+    .links a:hover {
+      text-decoration: underline;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 13px;
+    }
+
+    .error-message {
+      color: red;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .form-box {
+        flex-direction: column;
+        gap: 25px;
+      }
+
+      .divider {
+        flex-direction: row;
+        gap: 10px;
+      }
+
+      .divider-line {
+        height: 1px;
+        width: 60px;
+        border-left: none;
+        border-top: 1px solid #ddd;
+        margin: 0;
+      }
+
+      .login-title {
+        font-size: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 18px;
+      }
+
+      .login-title {
+        font-size: 18px;
+      }
+
+      .login-form,
+      .google-btn {
+        width: 100%;
+        max-width: 320px;
+      }
+
+      .form-box {
+        align-items: center;
+        text-align: center;
+      }
+
+      .divider {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .footer {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>
+      <img src="your-logo.png" alt="Logo" />
+      SeatWorld
+    </h1>
+    <a href="/">&#8592; Back</a>
+  </header>
+
+  <!-- Login Section -->
+  <div class="login-container">
+    <div class="login-title">Log in</div>
+
+    <div class="form-box">
+      <!-- Left: Login form -->
+      <form class="login-form" method="POST" action="/login">
+        <label>Email address</label>
+        <input type="email" name="email" required />
+
+        <label>Password</label>
+        <input type="password" name="password" required />
+
+        <button type="submit">Log in</button>
+
+        <div class="links">
+          <a href="/forgot-password">Forgot password?</a>
+        </div>
+        <div class="links">
+          Don’t have an account? <a href="/signup">Register</a>
+        </div>
+      </form>
+
+      <!-- Divider -->
+      <div class="divider">
+        <div class="divider-line"></div>
+        <div>OR</div>
+        <div class="divider-line"></div>
+      </div>
+
+      <!-- Right: Google button -->
+      <div>
+        <a href="/auth/google" class="google-btn">
+          <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google" />
+          Continue with Google
+        </a>
+      </div>
+    </div>
+
+    <!-- Error message -->
+    <% if (typeof error !== 'undefined' && error) { %>
+      <div class="error-message"><%= error %></div>
+    <% } %>
+  </div>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SeatWorld | Sign Up</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      background: #fff;
+      max-width: 1200px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    /* Left: Signup form */
+    .form-section {
+      flex: 1;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .form-section h1 {
+      font-size: 26px;
+      margin-bottom: 10px;
+      color: #222;
+    }
+
+    .form-section p {
+      font-size: 16px;
+      margin-bottom: 30px;
+      color: #555;
+    }
+
+    .form-section h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      font-weight: bold;
+      color: #111;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    label {
+      font-size: 14px;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .terms {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      margin: 5px 0;
+    }
+
+    .terms a {
+      color: #0b64c0;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .signup-btn {
+      padding: 12px;
+      background: #2e5d12;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+      margin-top: 10px;
+    }
+
+    .divider {
+      text-align: center;
+      margin: 20px 0;
+      color: #777;
+      font-size: 14px;
+    }
+
+    .google-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      gap: 8px;
+      border: 1px solid #ccc;
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #fff;
+      color: black;
+      font-size: 14px;
+    }
+    .google-btn img {
+      width: 18px;
+      height: 18px;
+    }
+
+    .signin-link {
+      margin-top: 20px;
+      font-size: 14px;
+      text-align: center;
+    }
+    .signin-link a {
+      color: #0b64c0;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    /* Right: Illustration */
+    .image-section {
+      flex: 1;
+      background: #f9f9f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-section img {
+      max-width: 90%;
+      height: auto;
+    }
+  .error-message {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+        height: auto;
+      }
+      .image-section {
+        order: -1;
+        padding: 20px;
+      }
+    }
+    /* Hide image on screens smaller than 768px (tablet/mobile) */
+@media (max-width: 768px) {
+  .image-section {
+    display: none;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Left: Signup form -->
+    <div class="form-section">
+      <!-- Header with Logo -->
+      <h1>
+        <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1755846364/Seatworld_icon_oyekzz.jpg" alt="Logo" width="30" style="vertical-align: middle; margin-right: 8px;">
+        SeatWorld
+      </h1>
+      <p>Create an Account for Future Products</p>
+      
+      <h2>Get Started Now</h2>
+
+       <!-- Show error message if present -->
+      <% if (typeof error !== 'undefined' && error) { %>
+        <div class="error-message"><%= error %></div>
+      <% } %>
+
+
+      <form method="POST" action="/signup">
+        <label>Name</label>
+        <input type="text" name="username" placeholder="Enter your name" required>
+
+        <label>Email address</label>
+        <input type="email" name="email" placeholder="Enter your email" required>
+
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Enter your password" required>
+
+        <div class="terms">
+          <input type="checkbox" required>
+          <span>I agree to the <a href="#">terms & policy</a></span>
+        </div>
+
+        <button type="submit" class="signup-btn">Signup</button>
+      </form>
+
+      <div class="divider">or</div>
+
+      <a href="/auth/google"  class="google-btn">
+        <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google">
+        Sign in with Google
+      </a>
+
+      <div class="signin-link">
+        Have an account? <a href="/login">Sign In</a>
+      </div>
+    </div>
+
+    <!-- Right: Image -->
+    <div class="image-section">
+      <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1755845384/1811f344025539b7b4abb446eb6f910d_k0t4tt.jpg" alt="Signup Illustration">
+    </div>
+  </div>
+
+</body>
+</html>
