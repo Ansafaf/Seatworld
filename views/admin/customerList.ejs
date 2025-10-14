@@ -89,15 +89,12 @@
           <a href="/admin/logout" class="btn btn-outline-danger">Logout</a>
         </div>
       </div>
-
-      <!-- Search Bar -->
-      <!-- Remove the form, use plain div or class -->
   <!-- Remove the form, use plain div or class -->
+<!-- Search Bar -->
 <div class="input-group mb-4">
   <input type="text" id="Element" class="form-control rounded-start-pill" placeholder="Search user by email or name" />
+  <button type="button" id="clearSearch" class="btn btn-outline-secondary rounded-end-pill">Clear</button>
 </div>
-
-
       <!-- Users Table -->
       <div class="table-responsive">
         <table class="table table-bordered table-hover text-center align-middle">
@@ -115,7 +112,7 @@
                 <td data-label="Email"><%= user.email %></td>
                 <td data-label="Actions">
                   <a href="/admin/block/<%= user._id %>" class="btn btn-sm btn-danger me-2" onclick="return confirm('Are you sure you want to block this user?')">Block</a>
-                  <a href="/admin/unblock/<%= user._id %>" class="btn btn-sm btn-primary">Unblock</a>
+                  <a href="/admin/unblock/<%= user._id %>" class="btn btn-sm btn-primary" onclick="return confirm('are you sure you want to unblock this user?')">Unblock</a>
                 </td>
               </tr>
             <% }) %>
