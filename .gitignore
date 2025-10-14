@@ -14,6 +14,7 @@ AdminproductController.js
 bannerController.js
 orderController.js
 productController.js
+customerList.ejs
 
 
 
