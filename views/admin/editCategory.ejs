@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Category - Admin Panel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: #2d2d2d;
+            width: 250px;
+            min-height: 100vh;
+            padding: 2rem 0;
+            border-radius: 0 20px 20px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0 1rem;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .sidebar-nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-nav a.active {
+            background-color: rgba(255, 140, 0, 0.2);
+            color: #ff8c00;
+        }
+
+        .sidebar-nav .icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logout-link {
+            color: #ff4444 !important;
+        }
+
+        .logout-link:hover {
+            background-color: rgba(255, 68, 68, 0.1) !important;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            background-color: #e5e5e5;
+            margin: 1rem;
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        /* Header */
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            background-color: #2d2d2d;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+        }
+
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #ff8c00;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: #000;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            width: 300px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-bar input {
+            border: none;
+            outline: none;
+            flex: 1;
+            font-size: 0.9rem;
+            padding: 0.25rem;
+            background-color: transparent;
+            color: white;
+        }
+
+        .search-bar input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 0.5rem;
+            opacity: 0.7;
+            color: white;
+        }
+
+        /* Edit Form Container */
+        .edit-form-container {
+            background-color: #2d2d2d;
+            border-radius: 12px;
+            padding: 3rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .edit-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #ff8c00;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ff8c00;
+            margin-bottom: 0.75rem;
+        }
+
+        .form-input {
+            width: 100%;
+            background-color: #000;
+            border: none;
+            border-radius: 8px;
+            padding: 0.875rem 1rem;
+            font-size: 1rem;
+            color: white;
+            outline: none;
+            transition: background-color 0.2s;
+        }
+
+        .form-input:focus {
+            background-color: #1a1a1a;
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .save-button {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            margin: 2rem auto 0;
+            background-color: #22c55e;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.875rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .save-button:hover {
+            background-color: #16a34a;
+        }
+
+        .save-button:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <nav>
+            <ul class="sidebar-nav">
+                <li>
+                    <a href="/admin/dashboard">
+                        <span class="icon">📊</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/products">
+                        <span>Products</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/customers">
+                        <span>Customers</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/orders">
+                        <span class="icon">🛒</span>
+                        <span>Orders</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/coupons">
+                        <span class="icon">🎫</span>
+                        <span>Coupons</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/categories" class="active">
+                        <span>Category</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/discounts">
+                        <span>Discounts</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/banner">
+                        <span class="icon">🖼️</span>
+                        <span>Banner</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/sales-report">
+                        <span class="icon">📈</span>
+                        <span>Sales Report</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/logout" class="logout-link">
+                        <span class="icon">⚡</span>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <div class="content-header">
+            <h1 class="page-title">Categories</h1>
+            <div class="search-bar">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <input type="text" placeholder="Search for Categories" id="searchInput">
+            </div>
+        </div>
+
+        <!-- Edit Form -->
+        <div class="edit-form-container">
+            <h2 class="edit-title">Edit Category</h2>
+            <form action="/admin/edit-category/<%= category ? category._id : '' %>" method="POST" id="editCategoryForm">
+                <div class="form-group">
+                    <label for="categoryName" class="form-label">Category Name</label>
+                    <input 
+                        type="text" 
+                        id="categoryName" 
+                        name="categoryName" 
+                        class="form-input" 
+                        placeholder="Enter category name"
+                        value="<%= category ? (category.name || category.categoryName || '') : '' %>"
+                        required
+                    >
+                </div>
+                <button type="submit" class="save-button">Save Changes</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        // Search functionality
+        document.getElementById('searchInput')?.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            // Implement search logic if needed
+            console.log('Searching for:', searchTerm);
+        });
+
+        // Form submission handling
+        document.getElementById('editCategoryForm')?.addEventListener('submit', function(e) {
+            const categoryName = document.getElementById('categoryName').value.trim();
+            if (!categoryName) {
+                e.preventDefault();
+                alert('Please enter a category name');
+                return false;
+            }
+        });
+    </script>
+</body>
+</html>
+

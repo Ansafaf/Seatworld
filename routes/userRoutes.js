@@ -9,7 +9,7 @@ router.post('/login',postLogin);
 
 router.get("/verify-otp",getverifyOtp);
 router.post("/verify-otp",verifyOtp);
-router.get("/resent-otp",resendOtp);
+router.get("/resend-otp",resendOtp);
 
 router.get("/forgot-password",getforgotPass);
 router.post("/forgot-password",postforgotPass);

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories - Admin Panel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: #2d2d2d;
+            width: 250px;
+            min-height: 100vh;
+            padding: 2rem 0;
+            border-radius: 0 20px 20px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0 1rem;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .sidebar-nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-nav a.active {
+            background-color: rgba(255, 140, 0, 0.2);
+            color: #ff8c00;
+        }
+
+        .sidebar-nav .icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logout-link {
+            color: #ff4444 !important;
+        }
+
+        .logout-link:hover {
+            background-color: rgba(255, 68, 68, 0.1) !important;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            background-color: #e5e5e5;
+            margin: 1rem;
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        /* Header */
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #ff8c00;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            width: 300px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-bar input {
+            border: none;
+            outline: none;
+            flex: 1;
+            font-size: 0.9rem;
+            padding: 0.25rem;
+        }
+
+        .search-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 0.5rem;
+            opacity: 0.5;
+        }
+
+        /* Table */
+        .table-container {
+            background-color: #e5e5e5;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #e5e5e5;
+        }
+
+        thead {
+            background-color: #000;
+        }
+
+        thead th {
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        tbody tr {
+            background-color: #e5e5e5;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        tbody td {
+            padding: 1rem;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        .status-active {
+            color: #22c55e;
+            font-weight: 600;
+        }
+
+        .status-inactive {
+            color: #ef4444;
+            font-weight: 600;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-edit {
+            background-color: #22c55e;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-edit:hover {
+            background-color: #16a34a;
+        }
+
+        .btn-block {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-block:hover {
+            background-color: #dc2626;
+        }
+
+        .btn-unblock {
+            background-color: #fbbf24;
+            color: #000;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-unblock:hover {
+            background-color: #f59e0b;
+        }
+
+        /* Add Category Button */
+        .add-category-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .btn-add-category {
+            background-color: #ff8c00;
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-add-category:hover {
+            background-color: #e67e00;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .pagination button,
+        .pagination .page-number {
+            background-color: #2d2d2d;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .pagination button:hover {
+            background-color: #3d3d3d;
+        }
+
+        .pagination .page-number.active {
+            background-color: #000;
+            color: white;
+        }
+
+        .pagination .page-number:not(.active):hover {
+            background-color: #3d3d3d;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <nav>
+            <ul class="sidebar-nav">
+                <li>
+                    <a href="/admin/dashboard">
+                        <span class="icon">📊</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/products">
+                        <span>Products</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/customers">
+                        <span>Customers</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/orders">
+                        <span class="icon">🛒</span>
+                        <span>Orders</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/coupons">
+                        <span class="icon">🎫</span>
+                        <span>Coupons</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/categories" class="active">
+                        <span>Category</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/discounts">
+                        <span>Discounts</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/banner">
+                        <span class="icon">🖼️</span>
+                        <span>Banner</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/sales-report">
+                        <span class="icon">📈</span>
+                        <span>Sales Report</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/logout" class="logout-link">
+                        <span class="icon">⚡</span>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <div class="content-header">
+            <h1 class="page-title">Categories</h1>
+            <div class="search-bar">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <input type="text" placeholder="Search for Categories" id="searchInput">
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>SI.No</th>
+                        <th>Name</th>
+                        <th>Added On</th>
+                        <th>Status</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody id="categoriesTableBody">
+                    <% if (categories && categories.length > 0) { %>
+                        <% categories.forEach((category, index) => { %>
+                            <tr>
+                                <td><%= index + 1 %></td>
+                                <td><%= category.name || category.categoryName %></td>
+                                <td><%= new Date(category.createdAt || Date.now()).toLocaleDateString('en-GB') %></td>
+                                <td>
+                                    <span class="<%= category.status === 'active' || category.isActive ? 'status-active' : 'status-inactive' %>">
+                                        <%= category.status === 'active' || category.isActive ? 'Active' : 'InActive' %>
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-edit" onclick="editCategory('<%= category._id %>')">Edit</button>
+                                        <% if (category.status === 'active' || category.isActive) { %>
+                                            <button class="btn-block" onclick="blockCategory('<%= category._id %>')">Block</button>
+                                        <% } else { %>
+                                            <button class="btn-unblock" onclick="unblockCategory('<%= category._id %>')">UnBlock</button>
+                                        <% } %>
+                                    </div>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 2rem; color: #666;">
+                                No categories found.
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Add New Category Button -->
+        <div class="add-category-container">
+            <button class="btn-add-category" onclick="window.location.href='/admin/add-category'">Add New Category</button>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <button onclick="changePage(currentPage - 1)">← Previous</button>
+            <span class="page-number active">1</span>
+            <span class="page-number">2</span>
+            <span class="page-number">3</span>
+            <span style="padding: 0.5rem;">...</span>
+            <span class="page-number">67</span>
+            <span class="page-number">68</span>
+            <button onclick="changePage(currentPage + 1)">Next →</button>
+        </div>
+    </main>
+
+    <script>
+        // Search functionality
+        document.getElementById('searchInput')?.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const rows = document.querySelectorAll('#categoriesTableBody tr');
+            
+            rows.forEach(row => {
+                const nameCell = row.querySelector('td:nth-child(2)');
+                if (nameCell) {
+                    const name = nameCell.textContent.toLowerCase();
+                    row.style.display = name.includes(searchTerm) ? '' : 'none';
+                }
+            });
+        });
+
+        // Pagination (placeholder functions)
+        let currentPage = 1;
+        function changePage(page) {
+            if (page < 1) return;
+            currentPage = page;
+            // Implement actual pagination logic here
+            console.log('Navigate to page:', page);
+        }
+
+        // Category actions (placeholder functions)
+        function editCategory(id) {
+            window.location.href = `/admin/edit-category/${id}`;
+        }
+
+        function blockCategory(id) {
+            if (confirm('Are you sure you want to block this category?')) {
+                // Implement block logic here
+                fetch(`/admin/block-category/${id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }
+
+        function unblockCategory(id) {
+            if (confirm('Are you sure you want to unblock this category?')) {
+                // Implement unblock logic here
+                fetch(`/admin/unblock-category/${id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }
+    </script>
+</body>
+</html>
+

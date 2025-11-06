@@ -33,6 +33,10 @@ const userSchema = new mongoose.Schema({
     },
     otpExpires:{
         type:Date
+    },
+    isBlocked:{
+        type:Boolean,
+        default:false
     }
 },{timestamps:true})
 

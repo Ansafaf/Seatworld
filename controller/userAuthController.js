@@ -4,6 +4,7 @@ import otpGenerator from "otp-generator";
 import nodemailer from "nodemailer";
 import validator from "validator";
 
+
 // Landing Page 
 export function getLanding(req, res) {
   if (req.isAuthenticated?.() || req.session?.user?.id) {
@@ -112,19 +113,21 @@ export async function postSignup(req, res) {
     });
   }
 }
+
 export function getverifyOtp(req, res) {
   const signupInfo = req.session.signupInfo;
   res.render("users/otp", { otpExpires: signupInfo.otpExpires, error: null });
 }
 
 export async function verifyOtp(req, res) {
-  const { otp } = req.body;
+  const { otp1, otp2, otp3, otp4 } = req.body;
+  const otp = [otp1, otp2, otp3, otp4].filter(Boolean).join("");
   try {
     const { signupInfo } = req.session;
     if (!signupInfo) return res.redirect("/signup");
 
     // Check OTP validity
-    if (signupInfo.otp !== otp) {
+    if (!otp || otp.length !== 4 || signupInfo.otp !== otp) {
       return res.render("users/otp", { error: "Invalid OTP", otpExpires: signupInfo.otpExpires });
     }
     if (signupInfo.otpExpires < new Date()) {
@@ -166,8 +169,48 @@ export async function verifyOtp(req, res) {
 // Resend OTP 
 export async function resendOtp(req, res) {
   try {
-    const user = await User.findById(req.session.userId);
-    if (!user) return res.redirect("/signup");
+    // If user is signing up (no user in DB yet), use session info
+    if (req.session.signupInfo) {
+      const otp = otpGenerator.generate(4, {
+        digits: true,
+        upperCaseAlphabets: false,
+        lowerCaseAlphabets: false,
+        specialChars: false
+      });
+      const otpExpires = new Date(Date.now() + 10 * 60 * 1000);
+
+      req.session.signupInfo.otp = otp;
+      req.session.signupInfo.otpExpires = otpExpires;
+
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: { user: process.env.EMAIL, pass: process.env.PASSWORD },
+      });
+      try {
+        await transporter.sendMail({
+          from: process.env.EMAIL,
+          to: req.session.signupInfo.email,
+          subject: "Your OTP Code",
+          text: `Your OTP is ${otp}. It will expire in 10 minutes.`
+        });
+      } catch (mailError) {
+        console.error("Resend signup OTP mail failed:", mailError.message);
+        return res.render("users/otp", { error: "Unable to resend OTP. Try again later." });
+      }
+
+      return res.render("users/otp", { otpExpires, error: "New OTP sent to your email" });
+    }
+
+    // Otherwise, assume resend for existing user (e.g., forgot password flow)
+    const userId = req.session.resetUserId || req.session.user?.id || req.session.userId;
+    if (!userId) {
+      return res.redirect("/signup");
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.redirect("/signup");
+    }
 
     const otp = otpGenerator.generate(4, {
       digits: true,
@@ -183,19 +226,26 @@ export async function resendOtp(req, res) {
 
     const transporter = nodemailer.createTransport({
       service: "gmail",
-      auth: { user: process.env.EMAIL, pass: process.env.PASSWORD }
+      auth: { user: process.env.EMAIL, pass: process.env.PASSWORD },
     });
-    await transporter.sendMail({
-      from: process.env.EMAIL,
-      to: user.email,
-      subject: "Your OTP Code",
-      text: `Your OTP is ${otp}. It will expire in 10 minutes.`
-    });
+    try {
+      await transporter.sendMail({
+        from: process.env.EMAIL,
+        to: user.email,
+        subject: "Your OTP Code",
+        text: `Your OTP is ${otp}. It will expire in 10 minutes.`
+      });
+    } catch (mailError) {
+      console.error("Resend user OTP mail failed:", mailError.message);
+      return res.render("users/otp2", { error: "Unable to resend OTP. Try again later." });
+    }
 
-    res.render("users/otp", { otpExpires: user.otpExpires || null, error: "New OTP sent to your email" });
+    // Use otp2 template if in reset flow, else otp
+    const view = req.session.resetUserId ? "users/otp2" : "users/otp";
+    return res.render(view, { otpExpires: otpExpires || null, error: "New OTP sent to your email" });
   } catch (err) {
     console.error(err);
-    res.render("users/otp", { error: "Unable to resend OTP" });
+    return res.render("users/otp", { error: "Unable to resend OTP" });
   }
 }
 
@@ -221,17 +271,18 @@ export async function postforgotPass(req, res) {
   user.otpExpires = otpExpires;
   await user.save();
 
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: { user: process.env.EMAIL, pass: process.env.PASSWORD }
-  });
-
-  await transporter.sendMail({
-    from: process.env.EMAIL,
-    to: user.email,
-    subject: "Your Password Reset OTP",
-    text: `Your OTP for password reset is ${otp}. It will expire in 10 minutes.`
-  });
+  const transporter = createMailTransporter();
+  try {
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER || process.env.EMAIL,
+      to: user.email,
+      subject: "Your Password Reset OTP",
+      text: `Your OTP for password reset is ${otp}. It will expire in 10 minutes.`
+    });
+  } catch (mailError) {
+    console.error("Forgot password mail failed:", mailError.message);
+    return res.render("users/forgotpassword", { error: "Could not send OTP. Try again later." });
+  }
 
   req.session.resetUserId = user._id;
   res.render("users/otp2",{message:'otp sent to your email', otpExpires: otpExpires});
@@ -245,20 +296,20 @@ export async function otpverifyForgot(req, res) {
 
     // Check if OTP is complete
     if (!otp || otp.length !== 4) {
-      return res.render("users/verifyotp", { error: "Please enter the 4-digit OTP." });
+      return res.render("users/otp2", { error: "Please enter the 4-digit OTP." });
     }
 
     // Get user from session
     const user = await User.findById(req.session.resetUserId);
     if (!user) {
-      return res.render("users/verifyotp", { error: "Session expired. Please try again." });
+      return res.render("users/otp2", { error: "Session expired. Please try again." });
     }
 
     const now = new Date();
 
     // Check if OTP matches and is not expired
     if (user.otp !== otp || user.otpExpires < now) {
-      return res.render("users/verifyotp", { error: "Invalid or expired OTP." });
+      return res.render("users/otp2", { error: "Invalid or expired OTP." });
     }
 
 
@@ -273,7 +324,7 @@ export async function otpverifyForgot(req, res) {
 
   } catch (error) {
     console.error("OTP verification error:", error);
-    res.render("users/verifyotp", { error: "Something went wrong. Please try again." });
+    res.render("users/otp2", { error: "Something went wrong. Please try again." });
   }
 }
 
