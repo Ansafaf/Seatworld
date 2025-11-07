@@ -10,7 +10,7 @@
           <tbody id="userResults">
             <% users.forEach(user => { %>
               <tr>
-                <td data-label="Username"><%= user.name %></td>
+                <td data-label="Username"><%= user.name || user.username %></td>
                 <td data-label="Email"><%= user.email %></td>
                 <td data-label="Actions">
                   <a href="/admin/block/<%= user._id %>" class="btn btn-sm btn-warning me-2"  onclick="return confirm('Are you sure you want to block this user?')">block</a>

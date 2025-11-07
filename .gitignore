@@ -1,20 +1,11 @@
 node_modules/
 
-AdminproductRoutes.js
-adminRoutes.js
 bannerRoute.js
-gAuthRoute.js
-upload.js
 addressModel.js
-categoryModel.js
-productModel.js
 
-adminController.js
-AdminproductController.js
 bannerController.js
 orderController.js
-productController.js
-customerList.ejs
+.env
 
 
 

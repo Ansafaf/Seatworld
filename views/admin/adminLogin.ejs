@@ -4,115 +4,106 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Admin Login</title>
-  <link rel="stylesheet" href="/css/style.css" />
   <style>
     body {
       margin: 0;
       padding: 0;
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #2c3e50, #3498db);
+      background: #fff;
       height: 100vh;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
     }
 
-    .login-container {
-      background-color: #fff;
-      padding: 30px 40px;
-      border-radius: 10px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      width: 100%;
-      max-width: 400px;
+    .header {
+      width: 100vw;
+      background: #dbdbdb;
+      text-align: center;
+      padding: 18px 0 8px 0;
+      font-size: 2rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .login-box {
+      background-color: #878787;
+      border-radius: 50px;
+      box-shadow: 2px 3px 9px 0px #a1a1a1;
+      width: 420px;
+      max-width: 90vw;
+      padding: 56px 55px 40px 55px;
+      box-sizing: border-box;
+      margin: 48px auto 0 auto;
       text-align: center;
     }
 
-    h2 {
-      margin-bottom: 20px;
-      color: #333;
-      font-size: 1.8rem;
-    }
-
-    .input-group {
-      margin-bottom: 20px;
-      text-align: left;
-    }
-
-    .input-group label {
-      display: block;
+    .login-title {
+      font-size: 1.4rem;
+      font-family: inherit;
       font-weight: 600;
-      margin-bottom: 8px;
-      font-size: 14px;
+      color: #fff;
+      margin-bottom: 30px;
     }
 
-    .input-group input {
-      width: 100%;
+    .input-label {
+      font-family: inherit;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 6px;
+      text-align: left;
+      margin-left: 28px;
+    }
+
+    .input-box {
+      width: 80%;
       padding: 10px;
-      font-size: 15px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      box-sizing: border-box;
-    }
-
-    button {
-      background-color: #3498db;
-      color: white;
       border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
+      border-radius: 22px;
+      background: #b9b9b9;
+      margin-bottom: 25px;
+      font-size: 1rem;
+      box-sizing: border-box;
+      outline: none;
+      color: #323232;
+      text-indent: 8px;
+    }
+
+    .login-btn {
+      width: 44%;
+      background-color: #fff;
+      color: #656565;
+      border: none;
+      padding: 12px 0;
+      font-size: 1.13rem;
+      border-radius: 18px;
+      font-weight: 600;
+      margin-top: 27px;
       cursor: pointer;
-      font-size: 16px;
-      width: 100%;
-      transition: background 0.3s ease;
+      transition: box-shadow 0.2s;
+      box-shadow: 0px 2px 7px 1px #86868633;
     }
-
-    button:hover {
-      background-color: #2980b9;
-    }
-
-    .error {
-      color: red;
-      margin-bottom: 15px;
-      font-size: 14px;
-    }
-
-    @media (max-width: 576px) {
-      .login-container {
-        padding: 20px;
-      }
-
-      h2 {
-        font-size: 1.5rem;
-      }
-
-      .input-group label,
-      .input-group input,
-      button {
-        font-size: 14px;
-      }
+    .login-btn:hover {
+      background-color: #f4f4f4;
     }
   </style>
 </head>
 <body>
-  <div class="login-container">
-    <h2>Admin Login</h2>
-
-    <% if (error) { %>
-      <p class="error"><%= error %></p>
-    <% } %>
-
+  <div class="header">SeatWorld</div>
+  <div class="login-box">
+    <div class="login-title">ADMIN LOGIN</div>
     <form action="/admin/login" method="POST">
-      <div class="input-group">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required />
+      <div>
+        <label class="input-label" for="email">Enter Email</label>
+        <input class="input-box" type="email" id="email" name="email" required />
       </div>
-
-      <div class="input-group">
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required />
+      <div>
+        <label class="input-label" for="password">Password</label>
+        <input class="input-box" type="password" id="password" name="password" required />
       </div>
-
-      <button type="submit">Login</button>
+      <button class="login-btn" type="submit">LOGIN</button>
     </form>
   </div>
 </body>

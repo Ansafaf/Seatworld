@@ -3,139 +3,418 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Dashboard</title>
+  <title>Admin Dashboard - Customers</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      background-color: #3b87d3;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #1a1a1a;
+      display: flex;
+      min-height: 100vh;
     }
 
-    .card {
+    /* Sidebar Styles */
+    .sidebar {
+      width: 230px;
+      background-color: #c4c4c4;
+      padding: 2rem 0;
+      position: fixed;
+      height: 100vh;
+      left: 0;
+      top: 0;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.5rem;
+      color: #000;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: background-color 0.2s;
+      cursor: pointer;
+    }
+
+    .sidebar-item:hover {
+      background-color: #b0b0b0;
+    }
+
+    .sidebar-item.active {
+      background-color: #a0a0a0;
+    }
+
+    .sidebar-item i {
+      font-size: 1.2rem;
+      width: 24px;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: 230px;
+      flex: 1;
+      padding: 2rem;
+      background-color: #6b6b6b;
+      min-height: 100vh;
+    }
+
+    /* Search Bar */
+    .search-container {
+      background-color: #3a3a3a;
+      border-radius: 25px;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .search-container i {
+      color: #fff;
+    }
+
+    .search-input {
+      background: transparent;
       border: none;
+      color: #fff;
+      outline: none;
+      flex: 1;
+      font-size: 0.95rem;
     }
 
-    .btn-sm {
-      min-width: 70px;
+    .search-input::placeholder {
+      color: #bbb;
     }
 
-    @media (max-width: 576px) {
-      h3 {
-        font-size: 1.25rem;
+    /* Table Container */
+    .table-container {
+      background-color: #4a4a4a;
+      border-radius: 15px;
+      padding: 1.5rem;
+      overflow-x: auto;
+    }
+
+    /* Table Styles */
+    .customers-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .customers-table thead {
+      background-color: #000;
+      color: #ff8c00;
+    }
+
+    .customers-table thead th {
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-transform: capitalize;
+    }
+
+    .customers-table tbody tr {
+      border-bottom: 1px solid #5a5a5a;
+    }
+
+    .customers-table tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    .customers-table tbody td {
+      padding: 1.25rem 1rem;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+
+    .customers-table tbody tr:hover {
+      background-color: #555;
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn-unblock {
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      padding: 0.4rem 1rem;
+      border-radius: 5px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn-unblock:hover {
+      background-color: #218838;
+    }
+
+    .btn-block {
+      background-color: #dc3545;
+      color: #fff;
+      border: none;
+      padding: 0.4rem 1.2rem;
+      border-radius: 5px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn-block:hover {
+      background-color: #c82333;
+    }
+
+    /* Pagination */
+    .pagination-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+    }
+
+    .pagination-btn {
+      background-color: #5a5a5a;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.2s;
+    }
+
+    .pagination-btn:hover:not(:disabled) {
+      background-color: #6a6a6a;
+    }
+
+    .pagination-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .pagination-btn.active {
+      background-color: #fff;
+      color: #000;
+    }
+
+    /* Clear Button */
+    .clear-btn {
+      background-color: transparent;
+      color: #fff;
+      border: 1px solid #fff;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .clear-btn:hover {
+      background-color: #fff;
+      color: #000;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 70px;
       }
 
-      .btn, .form-control {
-        font-size: 0.9rem;
-      }
-
-      .table thead {
+      .sidebar-item span {
         display: none;
       }
 
-      .table tbody td {
-        display: block;
-        text-align: right;
-        padding-left: 50%;
-        position: relative;
+      .main-content {
+        margin-left: 70px;
       }
 
-      .table tbody td::before {
-        content: attr(data-label);
-        position: absolute;
-        left: 10px;
-        top: 10px;
-        font-weight: bold;
-        text-align: left;
+      .customers-table thead {
+        display: none;
       }
 
-      .table-bordered > :not(caption) > * > * {
-        border-width: 1px 0;
-      }
-
-      .table tbody tr {
+      .customers-table tbody tr {
+        display: flex;
+        flex-direction: column;
         margin-bottom: 1rem;
-        display: block;
-        border-bottom: 2px solid #ddd;
+        padding: 1rem;
+        background-color: #555;
+        border-radius: 8px;
       }
 
-      .d-flex.justify-content-between {
-        flex-direction: column;
-        align-items: start !important;
-        gap: 10px;
+      .customers-table tbody td {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
       }
 
-      .input-group {
-        flex-direction: column;
-      }
-
-      .input-group .form-control,
-      .input-group .btn {
-        width: 100%;
-        border-radius: 0.5rem !important;
-      }
-
-      .input-group .btn {
-        margin-top: 10px;
+      .customers-table tbody td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #ff8c00;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container my-4">
-    <div class="card shadow-lg p-4 rounded-4">
-      <!-- Header -->
-      <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
-        <h3 class="mb-2">Welcome, <span class="text-primary"> <%= admin?.name || 'Admin' %></span></h3>
-        <div class="d-flex flex-wrap gap-2">
-          <a href="/admin/logout" class="btn btn-outline-danger">Logout</a>
-        </div>
-      </div>
-  <!-- Remove the form, use plain div or class -->
-<!-- Search Bar -->
-<div class="input-group mb-4">
-  <input type="text" id="Element" class="form-control rounded-start-pill" placeholder="Search user by email or name" />
-  <button type="button" id="clearSearch" class="btn btn-outline-secondary rounded-end-pill">Clear</button>
-</div>
-      <!-- Users Table -->
-      <div class="table-responsive">
-        <table class="table table-bordered table-hover text-center align-middle">
-          <thead class="table-dark">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <a href="/admin/dashboard" class="sidebar-item">
+      <i class="fas fa-chart-pie"></i>
+      <span>Dashboard</span>
+    </a>
+    <a href="/admin/products" class="sidebar-item">
+      <i class="fas fa-box"></i>
+      <span>Products</span>
+    </a>
+    <a href="/admin/customers" class="sidebar-item active">
+      <i class="fas fa-users"></i>
+      <span>Customers</span>
+    </a>
+    <a href="/admin/orders" class="sidebar-item">
+      <i class="fas fa-shopping-cart"></i>
+      <span>Orders</span>
+    </a>
+    <a href="/admin/coupons" class="sidebar-item">
+      <i class="fas fa-ticket-alt"></i>
+      <span>Coupons</span>
+    </a>
+    <a href="/admin/discounts" class="sidebar-item">
+      <i class="fas fa-percent"></i>
+      <span>Discounts</span>
+    </a>
+    <a href="/admin/banner" class="sidebar-item">
+      <i class="far fa-image"></i>
+      <span>Banner</span>
+    </a>
+    <a href="/admin/sales-report" class="sidebar-item">
+      <i class="fas fa-chart-line"></i>
+      <span>Sales Report</span>
+    </a>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Search Bar -->
+    <div class="search-container">
+      <i class="fas fa-search"></i>
+      <input 
+        type="text" 
+        id="searchInput" 
+        class="search-input" 
+        placeholder="Search for Customers" 
+      />
+      <button type="button" id="clearSearch" class="clear-btn">Clear</button>
+    </div>
+
+    <!-- Table Container -->
+    <div class="table-container">
+      <table class="customers-table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Address</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
+        <tbody id="userResults">
+          <% users.forEach((user, index) => { %>
             <tr>
-              <th scope="col">Username</th>
-              <th scope="col">Email</th>
-              <th scope="col">Actions</th>
+              <td data-label="Id"><%= index + 1 %></td>
+              <td data-label="Name"><%= user.name || user.username || 'N/A' %></td>
+              <td data-label="Email"><%= user.email || 'N/A' %></td>
+              <td data-label="Mobile"><%= user.mobile || user.phone || 'N/A' %></td>
+              <td data-label="Address"><%= user.address || 'N/A' %></td>
+              <td data-label="Edit">
+                <div class="action-buttons">
+                  <button 
+                    class="btn-unblock" 
+                    onclick="handleAction('/admin/unblock/<%= user._id %>', 'unblock')"
+                  >
+                    Unblock
+                  </button>
+                  <button 
+                    class="btn-block" 
+                    onclick="handleAction('/admin/block/<%= user._id %>', 'block')"
+                  >
+                    Block
+                  </button>
+                </div>
+              </td>
             </tr>
-          </thead>
-          <tbody id="userResults">
-            <% users.forEach(user => { %>
-              <tr>
-                <td data-label="Username"><%= user.name %></td>
-                <td data-label="Email"><%= user.email %></td>
-                <td data-label="Actions">
-                  <a href="/admin/block/<%= user._id %>" class="btn btn-sm btn-danger me-2" onclick="return confirm('Are you sure you want to block this user?')">Block</a>
-                  <a href="/admin/unblock/<%= user._id %>" class="btn btn-sm btn-primary" onclick="return confirm('are you sure you want to unblock this user?')">Unblock</a>
-                </td>
-              </tr>
-            <% }) %>
-          </tbody>
-        </table>
+          <% }) %>
+        </tbody>
+      </table>
+
+      <!-- Pagination -->
+      <div class="pagination-container">
+        <button class="pagination-btn" id="prevBtn">← Previous</button>
+        <button class="pagination-btn active">1</button>
+        <button class="pagination-btn">2</button>
+        <button class="pagination-btn">3</button>
+        <span style="color: #fff;">...</span>
+        <button class="pagination-btn">67</button>
+        <button class="pagination-btn">68</button>
+        <button class="pagination-btn" id="nextBtn">Next →</button>
       </div>
     </div>
-  </div>
-</body>
-<script>
-  const searchInput = document.getElementById("Element");
-  const userResults = document.getElementById("userResults");
-  let debounceTimer;
+  </main>
 
-  searchInput.addEventListener("input", () => {
-    clearTimeout(debounceTimer);
+  <script>
+    const searchInput = document.getElementById("searchInput");
+    const clearBtn = document.getElementById("clearSearch");
+    const userResults = document.getElementById("userResults");
+    let debounceTimer;
 
-    debounceTimer = setTimeout(() => {
-      const query = searchInput.value.trim();
+    // Search functionality
+    searchInput.addEventListener("input", () => {
+      clearTimeout(debounceTimer);
 
-      fetch(`/admin/search?search=${encodeURIComponent(query)}`, {
+      debounceTimer = setTimeout(() => {
+        const query = searchInput.value.trim();
+
+        fetch(`/admin/search?search=${encodeURIComponent(query)}`, {
+          headers: {
+            "X-Requested-With": "XMLHttpRequest"
+          }
+        })
+        .then(res => res.text())
+        .then(html => {
+          userResults.innerHTML = html;
+        })
+        .catch(err => {
+          console.error("Search failed", err);
+        });
+
+      }, 300);
+    });
+
+    // Clear search
+    clearBtn.addEventListener("click", () => {
+      searchInput.value = "";
+      
+      fetch('/admin/search?search=', {
         headers: {
-          "X-Requested-With": "XMLHttpRequest" // To detect AJAX request
+          "X-Requested-With": "XMLHttpRequest"
         }
       })
       .then(res => res.text())
@@ -143,11 +422,20 @@
         userResults.innerHTML = html;
       })
       .catch(err => {
-        console.error("Search failed", err);
+        console.error("Clear failed", err);
       });
+    });
 
-    }, 300); // Wait 300ms after user stops typing
-  });
-
-</script>
+    // Handle block/unblock actions
+    function handleAction(url, action) {
+      const message = action === 'block' 
+        ? 'Are you sure you want to block this user?' 
+        : 'Are you sure you want to unblock this user?';
+      
+      if (confirm(message)) {
+        window.location.href = url;
+      }
+    }
+  </script>
+</body>
 </html>

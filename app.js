@@ -4,6 +4,7 @@ import nocache from "nocache";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import adminRouter from "./routes/adminRoutes.js";
+import adminProductRouter from "./routes/AdminproductRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 import uploadRoutes from "./routes/upload.js";
 import passport from "./config/googleAuth.js";
@@ -42,6 +43,7 @@ app.use("/api", uploadRoutes);
 app.use("/auth", AuthRoute);
 app.use("/", userRouter);
 app.use("/admin", adminRouter);
+app.use("/admin", adminProductRouter);
 app.use((req, res, next) => {
   res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, private");
   next();
