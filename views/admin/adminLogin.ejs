@@ -88,12 +88,39 @@
     .login-btn:hover {
       background-color: #f4f4f4;
     }
+
+    .error-message {
+      background-color: #ff4444;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 18px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 20px;
+      text-align: center;
+      display: block;
+      animation: fadeIn 0.3s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
 </head>
 <body>
   <div class="header">SeatWorld</div>
   <div class="login-box">
     <div class="login-title">ADMIN LOGIN</div>
+    <% if (error) { %>
+      <div class="error-message"><%= error %></div>
+    <% } %>
     <form action="/admin/login" method="POST">
       <div>
         <label class="input-label" for="email">Enter Email</label>

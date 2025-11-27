@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SeatWorld | Log in</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+    }
+
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -19,11 +29,13 @@
     /* Header */
     header {
       width: 100%;
+      max-width: 100%;
       padding: 15px 20px;
       border-bottom: 1px solid #eaeaea;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      box-sizing: border-box;
     }
     header h1 {
       margin: 0;
@@ -50,11 +62,12 @@
       text-align: center;
       padding: 0 15px;
       width: 100%;
-      max-width: 900px;
+      max-width: 100%;
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
+      box-sizing: border-box;
     }
 
     .login-title {
@@ -63,14 +76,14 @@
       color: #333;
     }
 
-    /* Flex box for form + OR + Google */
+    /* Form container */
     .form-box {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 40px;
-      flex-wrap: wrap;
       width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
     }
 
     /* Left: Form */
@@ -78,13 +91,15 @@
       display: flex;
       flex-direction: column;
       gap: 15px;
-      width: 280px;
+      width: 100%;
+      max-width: 280px;
       text-align: left;
       flex-shrink: 0;
       background: #fafafa;
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      box-sizing: border-box;
     }
 
     .login-form label {
@@ -98,6 +113,7 @@
       border-radius: 6px;
       font-size: 14px;
       width: 100%;
+      box-sizing: border-box;
     }
 
     .login-form button {
@@ -118,17 +134,11 @@
     /* Divider */
     .divider {
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       color: #666;
       font-size: 13px;
-    }
-
-    .divider-line {
-      height: 80px;
-      border-left: 1px solid #ddd;
-      margin: 10px 0;
+      width: 100%;
     }
 
     /* Right: Google button */
@@ -145,7 +155,9 @@
       background: #fff;
       font-size: 14px;
       color: black;
-      max-width: 250px;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
       transition: background 0.3s;
     }
 
@@ -180,31 +192,54 @@
     }
 
     .error-message {
-      color: red;
+      background-color: #fee;
+      border: 1px solid #fcc;
+      color: #c33;
+      padding: 12px 20px;
+      border-radius: 8px;
       margin-top: 20px;
       text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+      display: block;
+      animation: fadeIn 0.3s ease-in;
+      box-shadow: 0 2px 4px rgba(204, 51, 51, 0.1);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .success-message {
+      background-color: #efe;
+      border: 1px solid #cfc;
+      color: #3c3;
+      padding: 12px 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+      display: block;
+      animation: fadeIn 0.3s ease-in;
+      box-shadow: 0 2px 4px rgba(51, 204, 51, 0.1);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     /* Responsive Styles */
     @media (max-width: 768px) {
-      .form-box {
-        flex-direction: column;
-        gap: 25px;
-      }
-
-      .divider {
-        flex-direction: row;
-        gap: 10px;
-      }
-
-      .divider-line {
-        height: 1px;
-        width: 60px;
-        border-left: none;
-        border-top: 1px solid #ddd;
-        margin: 0;
-      }
-
       .login-title {
         font-size: 20px;
       }
@@ -256,8 +291,20 @@
     <div class="login-title">Log in</div>
 
     <div class="form-box">
-      <!-- Left: Login form -->
+      <!-- Login form -->
       <form class="login-form" method="POST" action="/login">
+        <% if (typeof error !== 'undefined' && error) { %>
+          <div class="error-message" style="margin-top: 0; margin-bottom: 10px;">
+            <strong>⚠️</strong> <%= error %>
+          </div>
+        <% } %>
+
+        <% if (typeof message !== 'undefined' && message) { %>
+          <div class="success-message" style="margin-top: 0; margin-bottom: 10px;">
+            <strong>✓</strong> <%= message %>
+          </div>
+        <% } %>
+
         <label>Email address</label>
         <input type="email" name="email" required />
 
@@ -270,30 +317,24 @@
           <a href="/forgot-password">Forgot password?</a>
         </div>
         <div class="links">
-          Don’t have an account? <a href="/signup">Register</a>
+          Don't have an account? <a href="/signup">Register</a>
         </div>
-      </form>
 
-      <!-- Divider -->
-      <div class="divider">
-        <div class="divider-line"></div>
-        <div>OR</div>
-        <div class="divider-line"></div>
-      </div>
+        <!-- Divider -->
+        <div class="divider" style="flex-direction: row; margin: 15px 0; width: 100%; box-sizing: border-box;">
+          <div class="divider-line" style="height: 1px; flex: 1; border-left: none; border-top: 1px solid #ddd; margin: 0;"></div>
+          <div style="padding: 0 10px; color: #666; font-size: 13px; flex-shrink: 0;">OR</div>
+          <div class="divider-line" style="height: 1px; flex: 1; border-left: none; border-top: 1px solid #ddd; margin: 0;"></div>
+        </div>
 
-      <!-- Right: Google button -->
-      <div>
-        <a href="/auth/google" class="google-btn">
+        <!-- Google button -->
+        <a href="/auth/google" class="google-btn" style="width: 100%; justify-content: center; text-align: center;">
           <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google" />
           Continue with Google
         </a>
-      </div>
+      </form>
     </div>
 
-    <!-- Error message -->
-    <% if (typeof error !== 'undefined' && error) { %>
-      <div class="error-message"><%= error %></div>
-    <% } %>
   </div>
 </body>
 </html>

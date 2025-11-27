@@ -12,7 +12,7 @@ const productSchema = new mongoose.Schema({
     tags:{
         type:[String]
     },
-    price:{
+    Baseprice:{
         type:Number,
         required:true
     },
@@ -29,7 +29,7 @@ const productSchema = new mongoose.Schema({
         ref:"Category",
         required:true
     }
-}, {timestamps:true});  // ✅ Fixed: Added closing brace
+}, {timestamps:true}); 
 
 export const Product = mongoose.model("Product", productSchema);
 

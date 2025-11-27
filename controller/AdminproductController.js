@@ -13,45 +13,70 @@ export const productList = async(req,res)=> {
 }
 export const postAddProduct = async (req, res) => {
   try {
-    const { productName, price, category, brandName, stock, color, description } = req.body;
-    const imageUrls = req.files.map(file => file.path); // Cloudinary returns the URL in path
-     
-    console.log("Uploaded Images:", imageUrls);
+    const {
+      productName,
+      Baseprice,
+      category,
+      brandName,
+      description,
+      color,
+      variantPrice,
+      variantStock,
+    } = req.body;
 
-    // Step 1: Create the main Product
     const product = new Product({
       name: productName,
       brand: brandName,
-      price: price,
+      Baseprice: Baseprice,       
       description: description,
-      categoryId: category, 
-      tags: [] 
+      categoryId: category,
+      tags: [],
     });
-    
+
     const savedProduct = await product.save();
 
-    // Step 2: Create the Product Variant with color, stock, and images
-    const productVariant = new ProductVariant({
-      productId: savedProduct._id, 
-      color: color,
-      stock: stock,
-      price: price,  // Variant can have same or different price
-      images: imageUrls,
-      status: stock > 0 ? "Active" : "OutofStock" 
-    });
-    
-    await productVariant.save();
+    // 2️⃣ Build variants array
+    // Express sends a single string if there's only one item,
+    // so make sure they are arrays:
+    const colors = Array.isArray(color) ? color : [color];
+    const prices = Array.isArray(variantPrice) ? variantPrice : [variantPrice];
+    const stocks = Array.isArray(variantStock) ? variantStock : [variantStock];
 
-    res.redirect("/admin/products"); // redirect to your product list page
+    const files = req.files || []; // multer files (Cloudinary URLs in file.path)
+
+    const variantsToInsert = colors.map((c, index) => {
+      const imageField = `images_${index}`;
+
+      const imageUrls = files
+        .filter((f) => f.fieldname === imageField)
+        .map((f) => f.path); // Cloudinary URL
+
+      return {
+        productId: savedProduct._id,
+        color: c,
+        stock: stocks[index] || 0,
+        price: prices[index] || Baseprice,
+        images: imageUrls,
+        status: (stocks[index] && stocks[index] > 0) ? "Active" : "OutofStock",
+      };
+    });
+
+    // 3️⃣ Save all variants
+    if (variantsToInsert.length > 0) {
+      await ProductVariant.insertMany(variantsToInsert);
+    }
+
+    res.redirect("/admin/products");
   } catch (error) {
     console.error(error);
     res.status(500).send("Something went wrong!");
   }
 };
 
+
 export const getAddProduct = async (req, res) => {
   try {
-    const categories = await Category.find({ isActive: true }).select("categoryName");
+    const categories = await Category.find({ isActive: true }).select("_id categoryName");
     res.render("admin/addproduct", { categories });
   } catch (error) {
     console.error(error);

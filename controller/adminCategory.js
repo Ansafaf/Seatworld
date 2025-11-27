@@ -14,28 +14,28 @@ export const getAddCategory =(req,res)=>{
 export const postAddCategory = async (req,res) =>{
     try{
         const {categoryName} = req.body;
-        const category = new Category({name: categoryName});
+        const category = new Category({categoryName: categoryName});
         await category.save();
-        res.status(201).json({ message: "Category added successfully" });
+        res.redirect("/admin/categories");
     }
     catch(err){
         console.log(err);
-        res.status(500).json({ message: "Error adding category" });
+        res.status(500).render("admin/addCategory", { error: "Error adding category. Please try again." });
     }
 }
 
-export const getEditCategory = (req,res){
+export const getEditCategory = (req,res) => {
     res.render("admin/editCategory");
 }
 export const postEditCategory = async (req,res) =>{
     try{
         const {categoryName} = req.body;
         const {id} = req.params;
-        await Category.findByIdAndUpdate(id,{name:categoryName});
-        res.status(200).json({ message: "Category updated successfully" });
+        await Category.findByIdAndUpdate(id,{categoryName:categoryName});
+        res.redirect("/admin/categories");
     }
     catch(err){
         console.log(err);
-        res.status(500).json({ message: "Error updating category" });
+        res.status(500).render("admin/editCategory", { error: "Error updating category. Please try again." });
     }
 }
