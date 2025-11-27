@@ -289,7 +289,7 @@
         <!-- Edit Form -->
         <div class="edit-form-container">
             <h2 class="edit-title">Edit Category</h2>
-            <form action="/admin/edit-category/<%= category ? category._id : '' %>" method="POST" id="editCategoryForm">
+            <form action="/admin/edit-category/<%= category.id || category._id %>" method="POST" id="editCategoryForm">
                 <div class="form-group">
                     <label for="categoryName" class="form-label">Category Name</label>
                     <input 
@@ -327,4 +327,5 @@
     </script>
 </body>
 </html>
+
 

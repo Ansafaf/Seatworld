@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
         required:true,
         unique:true,
     },
-    avatar: String,
+    avatar: String,   //profile picture fetched from google ac
     mobile:{
         type:String,
         sparse: true,

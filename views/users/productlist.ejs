@@ -1,747 +1,765 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fashion Hub - Products</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SeatWorld - Product Gallery</title>
+  <style>
+    :root {
+      --slate-50: #f5f7fb;
+      --slate-100: #edf1f7;
+      --slate-200: #dfe7f1;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-700: #1f2937;
+      --primary: #2449ff;
+      --accent: #0ea5e9;
+    }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f8f9fa;
-            line-height: 1.6;
-        }
+    * {
+      box-sizing: border-box;
+    }
 
-        .header {
-            background: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+    body {
+      margin: 0;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background-color: var(--slate-50);
+      color: var(--slate-700);
+      line-height: 1.5;
+    }
 
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #007bff;
-        }
+    header {
+      background: #fff;
+      border-bottom: 1px solid var(--slate-100);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
 
-        .logo::before {
-            content: "▲";
-            margin-right: 0.5rem;
-            color: #007bff;
-        }
+    .top-nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--slate-700);
+    }
 
-        .nav-links a {
-            text-decoration: none;
-            color: #666;
-            font-weight: 500;
-        }
+    .brand img {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+    }
 
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.95rem;
+      color: var(--slate-500);
+    }
 
-        .search-bar {
-            padding: 0.5rem 1rem;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            width: 300px;
-            background-color: #f5f5f5;
-        }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
 
-        .icon-btn {
-            background: none;
-            border: none;
-            font-size: 1.2rem;
-            cursor: pointer;
-            padding: 0.5rem;
-        }
+    .search-pill {
+      position: relative;
+      background: var(--slate-100);
+      padding: 0.5rem 0.75rem 0.5rem 2.25rem;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+    }
 
-        .user-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: #ddd;
-        }
+    .search-pill input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 0.95rem;
+      width: 160px;
+      color: var(--slate-700);
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            gap: 2rem;
-        }
+    .search-pill svg {
+      position: absolute;
+      left: 0.8rem;
+      width: 16px;
+      height: 16px;
+      color: var(--slate-400);
+    }
 
-        .filters {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            height: fit-content;
-            position: sticky;
-            top: 100px;
-        }
+    .icon-button {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--slate-200);
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--slate-400);
+      cursor: pointer;
+    }
 
-        .filters h3 {
-            margin-bottom: 1.5rem;
-            color: #333;
-        }
+    .layout {
+      max-width: 1200px;
+      margin: 2rem auto 3rem;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 2rem;
+    }
 
-        .filter-group {
-            margin-bottom: 2rem;
-        }
+    .filters-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+      position: sticky;
+      top: 90px;
+      height: fit-content;
+    }
 
-        .filter-group h4 {
-            margin-bottom: 0.5rem;
-            color: #666;
-            font-weight: 500;
-        }
+    .filters-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
 
-        .filter-select {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            background: white;
-            color: #333;
-        }
+    .filters-header h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: var(--slate-700);
+    }
 
-        .price-range {
-            margin: 1rem 0;
-        }
+    .filter-count {
+      background: var(--slate-100);
+      color: var(--slate-500);
+      border-radius: 999px;
+      padding: 0.2rem 0.75rem;
+      font-size: 0.8rem;
+    }
 
-        .price-slider {
-            width: 100%;
-            margin: 1rem 0;
-            -webkit-appearance: none;
-            height: 4px;
-            border-radius: 2px;
-            background: #ddd;
-            outline: none;
-        }
+    .filter-block {
+      margin-bottom: 1.75rem;
+    }
 
-        .price-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: #007bff;
-            cursor: pointer;
-        }
+    .filter-block h4 {
+      margin: 0 0 0.75rem;
+      font-size: 0.95rem;
+      color: var(--slate-500);
+    }
 
-        .price-labels {
-            display: flex;
-            justify-content: space-between;
-            color: #666;
-            font-size: 0.9rem;
-        }
+    .price-values {
+      display: flex;
+      gap: 0.75rem;
+    }
 
-        .main-content h2 {
-            margin-bottom: 1.5rem;
-            font-size: 2rem;
-            color: #333;
-        }
+    .price-values label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--slate-400);
+      margin-bottom: 0.25rem;
+    }
 
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
+    .price-values input {
+      width: 100%;
+      padding: 0.45rem 0.6rem;
+      border-radius: 10px;
+      border: 1px solid var(--slate-200);
+      font-size: 0.9rem;
+    }
 
-        .product-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-        }
+    .slider-wrapper {
+      position: relative;
+      height: 38px;
+      margin-top: 0.75rem;
+    }
 
-        .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-        }
+    .slider-track {
+      position: absolute;
+      top: 18px;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--slate-200);
+      border-radius: 999px;
+    }
 
-        .product-image {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            background: #f5f5f5;
-        }
+    .slider-track .progress {
+      position: absolute;
+      height: 100%;
+      background: var(--primary);
+      border-radius: 999px;
+      left: 0;
+      right: 0;
+    }
 
-        .product-info {
-            padding: 1.5rem;
-        }
+    .range-inputs input[type="range"] {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      -webkit-appearance: none;
+      background: none;
+    }
 
-        .product-name {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #333;
-        }
+    .range-inputs input[type="range"]::-webkit-slider-thumb {
+      pointer-events: auto;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2px solid var(--primary);
+      -webkit-appearance: none;
+    }
 
-        .product-price {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
+    .checkbox-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
 
-        .current-price {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #dc3545;
-        }
+    .checkbox-item {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      font-size: 0.9rem;
+      color: var(--slate-600);
+    }
 
-        .original-price {
-            font-size: 1rem;
-            color: #666;
-            text-decoration: line-through;
-        }
+    .checkbox-item input {
+      width: 16px;
+      height: 16px;
+    }
 
-        .discount {
-            font-size: 0.8rem;
-            color: #28a745;
-            font-weight: 500;
-        }
+    .filter-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 2rem;
+    }
 
-        .stock-status {
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 0.65rem;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
 
-        .in-stock {
-            color: #28a745;
-        }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
 
-        .out-of-stock {
-            color: #dc3545;
-        }
+    .btn-ghost {
+      background: transparent;
+      color: var(--slate-500);
+      border: 1px solid var(--slate-200);
+    }
 
-        .add-to-cart {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: rgba(255,255,255,0.9);
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
+    .products-area {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
 
-        .product-card:hover .add-to-cart {
-            opacity: 1;
-        }
+    .products-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: flex-start;
+    }
 
-        .mobile-filter-toggle {
-            display: none;
-            background: #007bff;
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            margin-bottom: 1rem;
-            cursor: pointer;
-        }
+    .heading h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: var(--slate-700);
+    }
 
-        @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-                padding: 0 1rem;
-            }
+    .heading p {
+      margin: 0.2rem 0 0;
+      color: var(--slate-500);
+      font-size: 0.95rem;
+    }
 
-            .filters {
-                position: fixed;
-                top: 0;
-                left: -100%;
-                width: 80%;
-                height: 100vh;
-                z-index: 1000;
-                transition: left 0.3s ease;
-                overflow-y: auto;
-            }
+    .sort-control {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      font-size: 0.9rem;
+      color: var(--slate-500);
+    }
 
-            .filters.open {
-                left: 0;
-            }
+    .sort-select {
+      min-width: 220px;
+      border-radius: 999px;
+      border: 1px solid var(--slate-200);
+      padding: 0.55rem 1rem;
+      font-size: 0.95rem;
+      color: var(--slate-700);
+      background: #fff;
+      outline: none;
+    }
 
-            .mobile-filter-toggle {
-                display: block;
-            }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 1.25rem;
+    }
 
-            .search-bar {
-                width: 200px;
-            }
+    .product-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 1rem;
+      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      min-height: 300px;
+    }
 
-            .nav-links {
-                display: none;
-            }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 30px 60px rgba(15, 23, 42, 0.12);
+    }
 
-            .products-grid {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 1rem;
-            }
+    .product-media {
+      position: relative;
+      width: 100%;
+      padding-top: 80%;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #f8fafc, #eef2ff);
+      overflow: hidden;
+      margin-bottom: 0.2rem;
+    }
 
-            .header {
-                padding: 1rem;
-            }
-        }
+    .product-media img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-        @media (max-width: 480px) {
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
+    .placeholder-img {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--slate-400);
+      font-size: 0.9rem;
+    }
 
-            .search-bar {
-                width: 150px;
-            }
-        }
+    .product-brand {
+      font-size: 0.8rem;
+      color: var(--slate-400);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
 
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 999;
-        }
+    .product-name {
+      margin: 0.15rem 0;
+      font-weight: 600;
+      color: var(--slate-700);
+    }
 
-        .overlay.open {
-            display: block;
-        }
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
 
-        .pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 3rem 0 2rem 0;
-            gap: 0.5rem;
-        }
+    .price-current {
+      font-weight: 600;
+      color: var(--primary);
+    }
 
-        .pagination-btn {
-            padding: 0.75rem 1rem;
-            border: 1px solid #ddd;
-            background: white;
-            color: #666;
-            text-decoration: none;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            min-width: 44px;
-            text-align: center;
-            cursor: pointer;
-        }
+    .price-old {
+      font-size: 0.85rem;
+      color: var(--slate-400);
+      text-decoration: line-through;
+    }
 
-        .pagination-btn:hover {
-            background: #f8f9fa;
-            border-color: #007bff;
-            color: #007bff;
-        }
+    .discount-pill {
+      font-size: 0.7rem;
+      color: #10b981;
+      background: rgba(16, 185, 129, 0.12);
+      padding: 0.1rem 0.5rem;
+      border-radius: 999px;
+    }
 
-        .pagination-btn.active {
-            background: #007bff;
-            color: white;
-            border-color: #007bff;
-        }
+    .stock-tag {
+      font-size: 0.82rem;
+      color: var(--slate-500);
+    }
 
-        .pagination-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            background: #f8f9fa;
-        }
+    .stock-tag.in {
+      color: #10b981;
+    }
 
-        .pagination-btn:disabled:hover {
-            background: #f8f9fa;
-            border-color: #ddd;
-            color: #666;
-        }
+    .stock-tag.out {
+      color: #f97316;
+    }
 
-        .pagination-info {
-            margin: 1rem 0;
-            text-align: center;
-            color: #666;
-            font-size: 0.9rem;
-        }
+    .card-actions {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        .pagination-ellipsis {
-            padding: 0.75rem 0.5rem;
-            color: #666;
-        }
+    .card-actions button {
+      border: 1px solid rgba(36, 73, 255, 0.2);
+      border-radius: 999px;
+      padding: 0.45rem 1.25rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: rgba(36, 73, 255, 0.08);
+      color: var(--primary);
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
 
-        @media (max-width: 768px) {
-            .pagination {
-                gap: 0.25rem;
-                margin: 2rem 0 1rem 0;
-            }
+    .card-actions button:hover {
+      background: rgba(36, 73, 255, 0.16);
+      border-color: rgba(36, 73, 255, 0.35);
+    }
 
-            .pagination-btn {
-                padding: 0.5rem 0.75rem;
-                font-size: 0.9rem;
-                min-width: 40px;
-            }
+    .pagination {
+      margin: 1rem auto 0;
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      align-items: center;
+    }
 
-            .pagination-info {
-                font-size: 0.8rem;
-            }
-        }
-    </style>
+    .page-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--slate-200);
+      background: #fff;
+      color: var(--slate-500);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    .page-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    footer {
+      border-top: 1px solid var(--slate-100);
+      padding: 2rem;
+      text-align: center;
+      color: var(--slate-400);
+      font-size: 0.9rem;
+    }
+
+    footer .links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 1024px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .filters-card {
+        position: static;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .top-nav {
+        flex-wrap: wrap;
+        padding: 1rem;
+      }
+
+      nav {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .search-pill input {
+        width: 120px;
+      }
+
+      .products-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header class="header">
-        <nav class="nav">
-            <div class="logo">Fashion Hub</div>
-            <ul class="nav-links">
-                <li><a href="#">New Arrivals</a></li>
-                <li><a href="#">Men</a></li>
-                <li><a href="#">Women</a></li>
-                <li><a href="#">Accessories</a></li>
-                <li><a href="#">Sale</a></li>
-            </ul>
-            <div class="nav-actions">
-                <input type="text" placeholder="Search" class="search-bar">
-                <button class="icon-btn">♡</button>
-                <button class="icon-btn">🛒</button>
-                <div class="user-avatar"></div>
-            </div>
-        </nav>
-    </header>
-
-    <div class="container">
-        <aside class="filters" id="filters">
-            <h3>Filters</h3>
-            
-            <div class="filter-group">
-                <h4>Category</h4>
-                <select class="filter-select">
-                    <option>All Categories</option>
-                    <% if (typeof categories !== 'undefined') { %>
-                        <% categories.forEach(category => { %>
-                            <option value="<%= category.id %>"><%= category.name %></option>
-                        <% }); %>
-                    <% } %>
-                </select>
-            </div>
-
-            <div class="filter-group">
-                <h4>Price Range</h4>
-                <input type="range" min="20" max="200" value="100" class="price-slider">
-                <div class="price-labels">
-                    <span>$20</span>
-                    <span>$200</span>
-                </div>
-            </div>
-
-            <div class="filter-group">
-                <h4>Brand</h4>
-                <select class="filter-select">
-                    <option>All Brands</option>
-                    <% if (typeof brands !== 'undefined') { %>
-                        <% brands.forEach(brand => { %>
-                            <option value="<%= brand.id %>"><%= brand.name %></option>
-                        <% }); %>
-                    <% } %>
-                </select>
-            </div>
-        </aside>
-
-        <main class="main-content">
-            <button class="mobile-filter-toggle" onclick="toggleFilters()">
-                Show Filters
-            </button>
-            
-            <h2>Featured Products</h2>
-            
-            <div class="products-grid">
-                <!-- <% if (typeof products !== 'undefined' && products.length > 0) { %> -->
-                    <!-- <% products.forEach(product => { %> -->
-                     <!-- <% if(true) { %> -->
-                        <div class="product-card">
-                            <img src="<%= product.image || '/placeholder.jpg' " %>" 
-                                 alt="<%= product.name %>" 
-                                 class="product-image">
-                            
-                            <div class="product-info">
-                                <h3 class="product-name"><%= product.name || "chair1" %></h3>
-                                
-                                <div class="product-price">
-                                    <% if (product.salePrice && product.salePrice < product.price) { %>
-                                        <span class="original-price">$<%= product.price %></span>
-                                        <span class="current-price">$<%= product.salePrice %></span>
-                                        <span class="discount">(Save $<%= product.price - product.salePrice %>)</span>
-                                    <% } else { %>
-                                        <span class="current-price">$<%= product.price %></span>
-                                    <% } %>
-                                </div>
-                                
-                                <div class="stock-status <%= product.stock > 0 ? 'in-stock' : 'out-of-stock' %>">
-                                    <% if (product.stock > 0) { %>
-                                        In Stock: <%= product.stock %>
-                                    <% } else { %>
-                                        Out of Stock
-                                    <% } %>
-                                </div>
-                            </div>
-                            
-                            <button class="add-to-cart" onclick="addToCart('<%= product.id %>')">
-                                🛒
-                            </button>
-                        </div>
-                    <% }); %>
-                <% } else { %>
-                    <!-- Sample products for demonstration -->
-                    <div class="product-card">
-                        <div class="product-image" style="background: linear-gradient(45deg, #f0f0f0, #e0e0e0);"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Elegant Silk Scarf</h3>
-                            <div class="product-price">
-                                <span class="original-price">$45</span>
-                                <span class="current-price">$35</span>
-                                <span class="discount">(Save $10)</span>
-                            </div>
-                            <div class="stock-status in-stock">In Stock: 23</div>
-                        </div>
-                        <button class="add-to-cart">🛒</button>
-                    </div>
-
-                    <div class="product-card">
-                        <div class="product-image" style="background: linear-gradient(45deg, #8B4513, #A0522D);"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Classic Leather Belt</h3>
-                            <div class="product-price">
-                                <span class="current-price">$35</span>
-                            </div>
-                            <div class="stock-status in-stock">In Stock: 58</div>
-                        </div>
-                        <button class="add-to-cart">🛒</button>
-                    </div>
-
-                    <div class="product-card">
-                        <div class="product-image" style="background: linear-gradient(45deg, #DEB887, #F5DEB3);"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Summer Straw Hat</h3>
-                            <div class="product-price">
-                                <span class="current-price">$25</span>
-                            </div>
-                            <div class="stock-status out-of-stock">Out of Stock</div>
-                        </div>
-                        <button class="add-to-cart">🛒</button>
-                    </div>
-
-                    <div class="product-card">
-                        <div class="product-image" style="background: linear-gradient(45deg, #F5F5DC, #FFFACD);"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Casual Canvas Tote</h3>
-                            <div class="product-price">
-                                <span class="original-price">$30</span>
-                                <span class="current-price">$22</span>
-                                <span class="discount">(Save $8)</span>
-                            </div>
-                            <div class="stock-status in-stock">In Stock: 15</div>
-                        </div>
-                        <button class="add-to-cart">🛒</button>
-                    </div>
-
-                    <div class="product-card">
-                        <div class="product-image" style="background: linear-gradient(45deg, #2F4F4F, #708090);"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Stylish Sunglasses</h3>
-                            <div class="product-price">
-                                <span class="current-price">$50</span>
-                            </div>
-                            <div class="stock-status in-stock">In Stock: 42</div>
-                        </div>
-                        <button class="add-to-cart">🛒</button>
-                    </div>
-
-                    <div class="product-card">
-                        <div class="product-image" style="background: linear-gradient(45deg, #F5E6D3, #E6D3C1);"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Cotton Socks</h3>
-                            <div class="product-price">
-                                <span class="current-price">$15</span>
-                            </div>
-                            <div class="stock-status out-of-stock">Out of Stock</div>
-                        </div>
-                        <button class="add-to-cart">🛒</button>
-                    </div>
-
-                    <div class="product-card">
-                        <div class="product-image" style="background: linear-gradient(45deg, #2F5233, #355E3B);"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Versatile Backpack</h3>
-                            <div class="product-price">
-                                <span class="current-price">$60</span>
-                            </div>
-                            <div class="stock-status in-stock">In Stock: 7</div>
-                        </div>
-                        <button class="add-to-cart">🛒</button>
-                    </div>
-
-                    <div class="product-card">
-                        <div class="product-image" style="background: linear-gradient(45deg, #D2691E, #CD853F);"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Minimalist Watch</h3>
-                            <div class="product-price">
-                                <span class="original-price">$75</span>
-                                <span class="current-price">$55</span>
-                                <span class="discount">(Save $20)</span>
-                            </div>
-                            <div class="stock-status in-stock">In Stock: 12</div>
-                        </div>
-                        <button class="add-to-cart">🛒</button>
-                    </div>
-                <% } %>
-            </div>
-
-            <!-- Pagination Info -->
-            <div class="pagination-info">
-                <% 
-                const currentPage = typeof pagination !== 'undefined' ? pagination.currentPage : 1;
-                const totalPages = typeof pagination !== 'undefined' ? pagination.totalPages : 1;
-                const totalItems = typeof pagination !== 'undefined' ? pagination.totalItems : (products ? products.length : 8);
-                const itemsPerPage = typeof pagination !== 'undefined' ? pagination.itemsPerPage : 8;
-                const startItem = ((currentPage - 1) * itemsPerPage) + 1;
-                const endItem = Math.min(currentPage * itemsPerPage, totalItems);
-                %>
-                
-                Showing <%= startItem %>-<%= endItem %> of <%= totalItems %> products
-            </div>
-
-            <!-- Pagination Controls -->
-            <div class="pagination">
-                <!-- Previous Button -->
-                <% if (currentPage > 1) { %>
-                    <a href="?page=<%= currentPage - 1 %><%= typeof query !== 'undefined' ? '&' + query : '' %>" 
-                       class="pagination-btn">
-                        ← Previous
-                    </a>
-                <% } else { %>
-                    <button class="pagination-btn" disabled>← Previous</button>
-                <% } %>
-
-                <!-- Page Numbers -->
-                <% 
-                const maxVisiblePages = 5;
-                let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-                let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-                
-                if (endPage - startPage + 1 < maxVisiblePages) {
-                    startPage = Math.max(1, endPage - maxVisiblePages + 1);
-                }
-                %>
-
-                <!-- First page and ellipsis -->
-                <% if (startPage > 1) { %>
-                    <a href="?page=1<%= typeof query !== 'undefined' ? '&' + query : '' %>" 
-                       class="pagination-btn">1</a>
-                    <% if (startPage > 2) { %>
-                        <span class="pagination-ellipsis">...</span>
-                    <% } %>
-                <% } %>
-
-                <!-- Visible page numbers -->
-                <% for (let i = startPage; i <= endPage; i++) { %>
-                    <% if (i === currentPage) { %>
-                        <span class="pagination-btn active"><%= i %></span>
-                    <% } else { %>
-                        <a href="?page=<%= i %><%= typeof query !== 'undefined' ? '&' + query : '' %>" 
-                           class="pagination-btn"><%= i %></a>
-                    <% } %>
-                <% } %>
-
-                <!-- Last page and ellipsis -->
-                <% if (endPage < totalPages) { %>
-                    <% if (endPage < totalPages - 1) { %>
-                        <span class="pagination-ellipsis">...</span>
-                    <% } %>
-                    <a href="?page=<%= totalPages %><%= typeof query !== 'undefined' ? '&' + query : '' %>" 
-                       class="pagination-btn"><%= totalPages %></a>
-                <% } %>
-
-                <!-- Next Button -->
-                <% if (currentPage < totalPages) { %>
-                    <a href="?page=<%= currentPage + 1 %><%= typeof query !== 'undefined' ? '&' + query : '' %>" 
-                       class="pagination-btn">
-                        Next →
-                    </a>
-                <% } else { %>
-                    <button class="pagination-btn" disabled>Next →</button>
-                <% } %>
-            </div>
-        </main>
+  <header>
+    <div class="top-nav">
+      <div class="brand">
+        <% if (logoUrl) { %>
+          <img src="<%= logoUrl %>" alt="SeatWorld logo" onerror="this.style.display='none'">
+        <% } else { %>
+          <img src="https://dummyimage.com/64x64/ffffff/000000&text=SW" alt="SeatWorld logo placeholder">
+        <% } %>
+        <span>SeatWorld</span>
+      </div>
+      <nav>
+        <a href="/dashboard">Home</a>
+        <a href="#">Contact</a>
+        <a href="#">About Us</a>
+      </nav>
+      <div class="nav-actions">
+        <label class="search-pill">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15.5 14h-.79l-.28-.27c1-1.16 1.57-2.65 1.57-4.23A6 6 0 1 0 9.5 16c1.58 0 3.07-.57 4.23-1.57l.27.28v.79l4.75 4.74 1.5-1.5L15.5 14zm-6 0A4.5 4.5 0 1 1 14 9.5 4.51 4.51 0 0 1 9.5 14z"/>
+          </svg>
+          <input form="productFilters" type="text" name="search" value="<%= filters?.search || '' %>" placeholder="Search">
+        </label>
+        <button class="icon-button">♡</button>
+        <button class="icon-button">🛒</button>
+        <button class="icon-button">☺</button>
+      </div>
     </div>
+  </header>
 
-    <div class="overlay" id="overlay" onclick="toggleFilters()"></div>
+  <main class="layout">
+    <aside class="filters-card">
+      <div class="filters-header">
+        <h3>Filters</h3>
+        <% if (appliedFiltersCount) { %>
+          <span class="filter-count"><%= appliedFiltersCount %></span>
+        <% } %>
+      </div>
+      <form id="productFilters" class="filters-form" action="/products" method="GET">
+        <section class="filter-block">
+          <h4>Price Range</h4>
+          <div class="price-values">
+            <div>
+              <label for="minPriceInput">Min</label>
+              <input type="number" id="minPriceInput" name="minPrice" min="<%= priceRange?.min ?? 0 %>" max="<%= priceRange?.max ?? 0 %>" value="<%= filters?.minPrice ?? priceRange?.min ?? 0 %>">
+            </div>
+            <div>
+              <label for="maxPriceInput">Max</label>
+              <input type="number" id="maxPriceInput" name="maxPrice" min="<%= priceRange?.min ?? 0 %>" max="<%= priceRange?.max ?? 0 %>" value="<%= filters?.maxPrice ?? priceRange?.max ?? 0 %>">
+            </div>
+          </div>
+          <div class="slider-wrapper">
+            <div class="slider-track">
+              <div class="progress" id="priceProgress"></div>
+            </div>
+            <div class="range-inputs">
+              <input type="range" id="minRange" min="<%= priceRange?.min ?? 0 %>" max="<%= priceRange?.max ?? 0 %>" value="<%= filters?.minPrice ?? priceRange?.min ?? 0 %>" step="1">
+              <input type="range" id="maxRange" min="<%= priceRange?.min ?? 0 %>" max="<%= priceRange?.max ?? 0 %>" value="<%= filters?.maxPrice ?? priceRange?.max ?? 0 %>" step="1">
+            </div>
+          </div>
+        </section>
 
-    <script>
-        function toggleFilters() {
-            const filters = document.getElementById('filters');
-            const overlay = document.getElementById('overlay');
-            
-            filters.classList.toggle('open');
-            overlay.classList.toggle('open');
-        }
+        <section class="filter-block">
+          <h4>Brand</h4>
+          <div class="checkbox-list">
+            <% if (brands?.length) { %>
+              <% brands.forEach((brandName) => { %>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="brand" value="<%= brandName %>" <%= filters?.brands?.includes(brandName) ? "checked" : "" %>>
+                  <span><%= brandName %></span>
+                </label>
+              <% }) %>
+            <% } else { %>
+              <p style="color: var(--slate-400); font-size: 0.85rem;">Brands coming soon.</p>
+            <% } %>
+          </div>
+        </section>
 
-        function addToCart(productId) {
-            // Add to cart functionality
-            alert(`Added product ${productId} to cart!`);
-            // You can implement actual cart logic here
-        }
+        <section class="filter-block">
+          <h4>Category</h4>
+          <div class="checkbox-list">
+            <% if (categories?.length) { %>
+              <% categories.forEach((categoryItem) => { %>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="category" value="<%= categoryItem._id %>" <%= filters?.categories?.includes(categoryItem._id.toString()) ? "checked" : "" %>>
+                  <span><%= categoryItem.categoryName %></span>
+                </label>
+              <% }) %>
+            <% } else { %>
+              <p style="color: var(--slate-400); font-size: 0.85rem;">No categories available.</p>
+            <% } %>
+          </div>
+        </section>
 
-        // Handle pagination clicks
-        function goToPage(page) {
-            const currentUrl = new URL(window.location);
-            currentUrl.searchParams.set('page', page);
-            window.location.href = currentUrl.toString();
-        }
+        <div class="filter-actions">
+          <button type="submit" class="btn btn-primary">Apply Filters</button>
+          <a href="/products" class="btn btn-ghost">Clear Filters</a>
+        </div>
+      </form>
+    </aside>
 
-        // Close filters when clicking outside on mobile
-        document.addEventListener('click', function(event) {
-            const filters = document.getElementById('filters');
-            const toggleBtn = document.querySelector('.mobile-filter-toggle');
-            
-            if (window.innerWidth <= 768 && 
-                !filters.contains(event.target) && 
-                !toggleBtn.contains(event.target)) {
-                filters.classList.remove('open');
-                document.getElementById('overlay').classList.remove('open');
-            }
-        });
-    </script>
+    <section class="products-area">
+      <div class="products-header">
+        <div class="heading">
+          <p style="margin:0;color:var(--slate-400);font-size:0.9rem;">SeatWorld Collection</p>
+          <h1><%= filters?.heading || "Chairs" %></h1>
+          <p><%= pagination?.totalItems ?? products.length %> results</p>
+        </div>
+        <div class="sort-control">
+          <label for="sortSelect">Sort By</label>
+          <select id="sortSelect" class="sort-select" name="sort" form="productFilters" onchange="document.getElementById('productFilters').requestSubmit();">
+            <% (sortOptions || []).forEach((option) => { %>
+              <option value="<%= option.value %>" <%= (filters?.sort || 'featured') === option.value ? "selected" : "" %>>
+                <%= option.label %>
+              </option>
+            <% }) %>
+          </select>
+        </div>
+      </div>
+
+      <div class="products-grid">
+        <% if (products && products.length) { %>
+          <% products.forEach((product) => { 
+              const basePrice = Number(product.price || 0);
+              const variantPrice = Number(product.variant?.price ?? basePrice);
+              const showDiscount = variantPrice > 0 && variantPrice < basePrice;
+              const discountPercent = showDiscount && basePrice ? Math.round((1 - variantPrice / basePrice) * 100) : 0;
+          %>
+            <article class="product-card">
+              <div class="product-media">
+                <% if (product.image) { %>
+                  <img src="<%= product.image %>" alt="<%= product.name %>">
+                <% } else { %>
+                  <div class="placeholder-img">Image coming soon</div>
+                <% } %>
+              </div>
+              <div class="product-brand"><%= product.brand || "SeatWorld" %></div>
+              <h3 class="product-name"><%= product.name %></h3>
+              <div class="price-row">
+                <span class="price-current">$<%= (showDiscount ? variantPrice : basePrice).toFixed(2) %></span>
+                <% if (showDiscount) { %>
+                  <span class="price-old">$<%= basePrice.toFixed(2) %></span>
+                  <span class="discount-pill"><%= discountPercent %>% off</span>
+                <% } %>
+              </div>
+              <div class="stock-tag <%= product.stock > 0 ? 'in' : 'out' %>">
+                <%= product.stock > 0 ? 'In Stock' : 'Out of Stock' %>
+              </div>
+              <div class="card-actions">
+                <span style="font-size:0.85rem;color:var(--slate-400);"><%= product.color || 'Neutral' %></span>
+                <button type="button">View</button>
+              </div>
+            </article>
+          <% }) %>
+        <% } else { %>
+          <div style="grid-column: 1 / -1; text-align:center; background:#fff; padding:3rem; border-radius:20px;">
+            <h3 style="margin-bottom:0.5rem;">No products match your filters</h3>
+            <p style="color:var(--slate-500);">Try adjusting your filters or clearing them to see more results.</p>
+          </div>
+        <% } %>
+      </div>
+
+      <% if (pagination && pagination.totalPages > 1) { %>
+        <div class="pagination">
+          <% if (pagination.hasPrev) { %>
+            <a class="page-btn" href="?page=<%= pagination.currentPage - 1 %><%= query ? '&' + query : '' %>">‹</a>
+          <% } %>
+          <% for (let i = 1; i <= pagination.totalPages; i++) { %>
+            <a class="page-btn <%= i === pagination.currentPage ? 'active' : '' %>" href="?page=<%= i %><%= query ? '&' + query : '' %>"><%= i %></a>
+          <% } %>
+          <% if (pagination.hasNext) { %>
+            <a class="page-btn" href="?page=<%= pagination.currentPage + 1 %><%= query ? '&' + query : '' %>">›</a>
+          <% } %>
+        </div>
+      <% } %>
+    </section>
+  </main>
+
+  <footer>
+    <div class="links">
+      <a href="#">About Us</a>
+      <a href="#">Contact</a>
+      <a href="#">FAQ</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+    <p>© <%= new Date().getFullYear() %> SeatWorld. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const minRange = document.getElementById("minRange");
+    const maxRange = document.getElementById("maxRange");
+    const minInput = document.getElementById("minPriceInput");
+    const maxInput = document.getElementById("maxPriceInput");
+    const progress = document.getElementById("priceProgress");
+
+    function clampRanges() {
+      const min = Number(minRange.min);
+      const max = Number(minRange.max);
+
+      let minVal = Math.min(Number(minRange.value), Number(maxRange.value) - 1);
+      let maxVal = Math.max(Number(maxRange.value), Number(minRange.value) + 1);
+      minVal = Math.max(min, minVal);
+      maxVal = Math.min(max, maxVal);
+
+      minRange.value = minVal;
+      maxRange.value = maxVal;
+      minInput.value = minVal;
+      maxInput.value = maxVal;
+
+      const left = ((minVal - min) / (max - min)) * 100;
+      const right = 100 - ((maxVal - min) / (max - min)) * 100;
+      progress.style.left = left + "%";
+      progress.style.right = right + "%";
+    }
+
+    if (minRange && maxRange) {
+      clampRanges();
+      minRange.addEventListener("input", clampRanges);
+      maxRange.addEventListener("input", clampRanges);
+    }
+
+    if (minInput && maxInput) {
+      minInput.addEventListener("change", () => {
+        minRange.value = minInput.value || minRange.min;
+        clampRanges();
+      });
+      maxInput.addEventListener("change", () => {
+        maxRange.value = maxInput.value || maxRange.max;
+        clampRanges();
+      });
+    }
+  </script>
 </body>
 </html>
+
+

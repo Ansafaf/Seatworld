@@ -1,18 +1,35 @@
 import { render } from 'ejs';
 import {User} from '../models/userModel.js';
 import bcrypt from 'bcrypt';
+import dotenv from 'dotenv';
+
+dotenv.config();
 export const getLoginAdmin = (req,res)=>{
+     if (req.session?.isAdmin) {
+    return res.redirect("/admin/dashboard");
+  }
+  
     res.render('admin/adminLogin',{error:null});
 }
 export const postLoginAdmin = async(req,res)=>{
     const {email,password} = req.body;
+    
+    // Try both new and old environment variable names for backward compatibility
     const adminExist = {
-        email:process.env.AdminMail,
-        password:process.env.AdminPassword
+        email: process.env.ADMIN_EMAIL || process.env.AdminMail,
+        password: process.env.ADMIN_PASSWORD || process.env.AdminPassword
     }
-    console.log(adminExist)
-    if(adminExist.email == email && adminExist.password == password){
-         
+    
+    // Check if admin credentials are configured
+    if(!adminExist.email || !adminExist.password){
+        console.error("Admin credentials not configured in environment variables");
+        console.error("Looking for: ADMIN_EMAIL, ADMIN_PASSWORD, AdminMail, or AdminPassword");
+        return res.render('admin/adminLogin',{error:"Admin credentials not properly stored. Please check environment variables."});
+    }
+    
+    if(adminExist.email === email && adminExist.password === password){
+        req.session.isAdmin = true;
+        req.session.adminEmail = email;
         return res.redirect("/admin/dashboard");
     }
     res.render('admin/adminLogin',{error:"invalid email or password"});
@@ -22,8 +39,7 @@ export const getAdminDashboard= async(req,res)=>{
 
     let users = await User.find();
     let admin = {
-        email:process.env.AdminMail,
-        password:process.env.AdminPassword
+        email: process.env.ADMIN_EMAIL || process.env.AdminMail,
     }
     res.render("admin/dashboard",{users,admin});
 }
@@ -31,8 +47,7 @@ export const getAdminDashboard= async(req,res)=>{
 export const getCustomerlist = async(req,res)=>{
    let users = await User.find();
     let admin = {
-        email:process.env.AdminMail,
-        password:process.env.AdminPassword
+        email: process.env.ADMIN_EMAIL || process.env.AdminMail,
     }
     res.render("admin/customerList",{users,admin});
 }

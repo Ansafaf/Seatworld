@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import adminRouter from "./routes/adminRoutes.js";
 import adminProductRouter from "./routes/AdminproductRoutes.js";
+import adminCategoryRouter from "./routes/adminCategoryRoute.js";
 import userRouter from "./routes/userRoutes.js";
 import uploadRoutes from "./routes/upload.js";
 import passport from "./config/googleAuth.js";
@@ -32,6 +33,7 @@ app.use(passport.session());
 
 // View engine
 app.set("view engine", "ejs");
+app.set("views", "./views");
 
 // DB
 mongoose.connect("mongodb://127.0.0.1:27017/seatworld")
@@ -44,6 +46,7 @@ app.use("/auth", AuthRoute);
 app.use("/", userRouter);
 app.use("/admin", adminRouter);
 app.use("/admin", adminProductRouter);
+app.use("/admin", adminCategoryRouter);
 app.use((req, res, next) => {
   res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, private");
   next();

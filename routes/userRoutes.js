@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
 import { getLanding,getLogin,postLogin,getverifyOtp,verifyOtp,resendOtp,getforgotPass,postforgotPass,getHome,getProduct,getSignup,postSignup, getLogout, postPassCreation, otpverifyForgot, getPassCreation} from '../controller/userAuthController.js';
-import {authMiddleware} from '../middleware/authMiddleware.js';
+import {authMiddleware} from "../middleware/authMiddleware.js";
 
 router.get('/',getLanding);
 router.get('/login',getLogin);
@@ -17,7 +17,9 @@ router.post("/post-otp",otpverifyForgot);
 router.get("/create-password",getPassCreation);
 router.post("/create-password",postPassCreation);
 
-router.get('/product',getProduct)
+router.get('/products',getProduct)
+// router.get('/cart',getCart);
+// router.get("/wishlist",getWishlist);
 
 router.get('/dashboard',authMiddleware,getHome);
 
