@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import { User } from "../models/userModel.js";
 import { Product, ProductVariant } from "../models/productModel.js";
 import { Category } from "../models/categoryModel.js";
+import Cart from "../models/cartModel.js";
 import otpGenerator from "otp-generator";
 import nodemailer from "nodemailer";
 import validator from "validator";
@@ -29,6 +30,9 @@ export async function postLogin(req, res) {
 
   try {
     const user = await User.findOne({ email });
+    if(user.isBlocked == true){
+      return res.render("users/login",{error:"This account has been blocked by admin"});
+    }
     if (user && await bcrypt.compare(password, user.password)) {
       req.session.user = {
         id: user._id,
@@ -141,7 +145,8 @@ export async function verifyOtp(req, res) {
       username: signupInfo.username,
       email: signupInfo.email,
       password: signupInfo.password,
-      isVerified: true
+      isVerified: true,
+      authType: "local"
     });
     await newUser.save();
 
@@ -286,7 +291,7 @@ export async function postforgotPass(req, res) {
   }
 
   req.session.resetUserId = user._id;
-  res.render("users/otp2",{message:'otp sent to your email', otpExpires: otpExpires});
+  res.render("users/otp2", { message: 'otp sent to your email', otpExpires: otpExpires });
 }
 
 export async function otpverifyForgot(req, res) {
@@ -329,7 +334,7 @@ export async function otpverifyForgot(req, res) {
   }
 }
 
-export function getPassCreation(req,res){
+export function getPassCreation(req, res) {
   res.render("users/createpass");
 }
 export async function postPassCreation(req, res) {
@@ -375,7 +380,7 @@ export async function postPassCreation(req, res) {
 //  Home & Logout
 export async function getHome(req, res) {
   if (!req.session.user) return res.redirect("/login");
-
+  const variants = await ProductVariant.find({ productId: products._id });
   try {
     const freshUser = await User.findById(req.session.user.id);
     if (!freshUser) {
@@ -383,251 +388,19 @@ export async function getHome(req, res) {
       return res.redirect("/login");
     }
 
-    res.render("users/home", { user: freshUser });
+    res.render("users/home", { user: freshUser, image: variants.images });
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error");
   }
 }
-export async function getCart(req,res){
-  try{
-    const carts = await Carts.find({});
-    res.render("users/cart",{carts});
-  }
-  catch(err){
-    // res.status(502).json()
-  }
-}
-export async function getProduct(req, res) {
+export async function getCart(req, res) {
   try {
-    const {
-      category,
-      brand,
-      minPrice,
-      maxPrice,
-      search,
-      sort = "featured",
-      page = 1,
-      limit = 12,
-    } = req.query;
-
-    const normalize = (value) => {
-      if (!value) return [];
-      return Array.isArray(value)
-        ? value.filter(Boolean)
-        : [value].filter(Boolean);
-    };
-
-    const selectedCategories = normalize(category).filter(
-      (value) => value !== "all"
-    );
-    const selectedBrands = normalize(brand).filter((value) => value !== "all");
-
-    const filter = {};
-
-    if (selectedCategories.length) {
-      filter.categoryId = { $in: selectedCategories };
-    }
-
-    if (selectedBrands.length) {
-      filter.brand = { $in: selectedBrands };
-    }
-
-    const minPriceNum = Number(minPrice);
-    const maxPriceNum = Number(maxPrice);
-    const hasMinPrice = !Number.isNaN(minPriceNum);
-    const hasMaxPrice = !Number.isNaN(maxPriceNum);
-
-    if (hasMinPrice || hasMaxPrice) {
-      filter.price = {};
-      if (hasMinPrice) filter.price.$gte = minPriceNum;
-      if (hasMaxPrice) filter.price.$lte = maxPriceNum;
-    }
-
-    if (search) {
-      filter.$or = [
-        { name: { $regex: search, $options: "i" } },
-        { brand: { $regex: search, $options: "i" } },
-        { description: { $regex: search, $options: "i" } },
-      ];
-    }
-
-    const categories = await Category.find({ isActive: true }).lean();
-    const [brandsDistinct, priceStats] = await Promise.all([
-      Product.distinct("brand"),
-      Product.aggregate([
-        {
-          $group: {
-            _id: null,
-            minPrice: { $min: "$price" },
-            maxPrice: { $max: "$price" },
-          },
-        },
-      ]),
-    ]);
-
-    const minPriceValue = priceStats[0]?.minPrice ?? 0;
-    const maxPriceValue = priceStats[0]?.maxPrice ?? 0;
-
-    const priceRange = {
-      min: minPriceValue,
-      max: maxPriceValue,
-      selectedMin: hasMinPrice ? minPriceNum : minPriceValue,
-      selectedMax:
-        hasMaxPrice && maxPriceValue !== 0 ? maxPriceNum : maxPriceValue || minPriceValue,
-    };
-
-    const numericPage = Math.max(1, parseInt(page, 10) || 1);
-    const perPage = Math.max(1, parseInt(limit, 10) || 12);
-    const skip = (numericPage - 1) * perPage;
-
-    const sortMap = {
-      featured: { createdAt: -1 },
-      newest: { createdAt: -1 },
-      "price-low": { price: 1 },
-      "price-high": { price: -1 },
-      name: { name: 1 },
-    };
-
-    const sortOption = sortMap[sort] || sortMap.featured;
-
-    const totalProducts = await Product.countDocuments(filter);
-
-    const products = await Product.find(filter)
-      .populate("categoryId")
-      .populate("offerId")
-      .sort(sortOption)
-      .skip(skip)
-      .limit(perPage);
-
-    const productsWithVariants = await Promise.all(
-      products.map(async (product) => {
-        const variant = await ProductVariant.findOne({
-          productId: product._id,
-          status: "Active",
-        });
-        return {
-          ...product.toObject(),
-          variant: variant ? variant.toObject() : null,
-          image:
-            variant && variant.images && variant.images.length > 0
-              ? variant.images[0]
-              : null,
-          stock: variant ? variant.stock : 0,
-          color: variant ? variant.color : null,
-        };
-      })
-    );
-
-    const brands = brandsDistinct.filter(Boolean).sort();
-
-    const queryParams = new URLSearchParams();
-    selectedCategories.forEach((cat) => queryParams.append("category", cat));
-    selectedBrands.forEach((brandName) =>
-      queryParams.append("brand", brandName)
-    );
-    if (hasMinPrice && minPriceNum !== minPriceValue) {
-      queryParams.append("minPrice", minPriceNum);
-    }
-    if (hasMaxPrice && maxPriceNum !== maxPriceValue) {
-      queryParams.append("maxPrice", maxPriceNum);
-    }
-    if (search) queryParams.append("search", search);
-    if (sort && sort !== "featured") queryParams.append("sort", sort);
-    const queryString = queryParams.toString();
-
-    const heading =
-      selectedCategories.length === 1
-        ? categories.find(
-            (cat) => cat._id.toString() === selectedCategories[0]
-          )?.categoryName || "Chairs"
-        : "Chairs";
-
-    const appliedFiltersCount =
-      selectedCategories.length +
-      selectedBrands.length +
-      (search ? 1 : 0) +
-      (hasMinPrice && minPriceNum > minPriceValue ? 1 : 0) +
-      (hasMaxPrice && maxPriceNum < maxPriceValue ? 1 : 0);
-
-    const sortOptions = [
-      { value: "featured", label: "Featured" },
-      { value: "newest", label: "Newest" },
-      { value: "price-low", label: "Price: Low to High" },
-      { value: "price-high", label: "Price: High to Low" },
-      { value: "name", label: "Name A-Z" },
-    ];
-
-    const logoUrl =
-      process.env.LOGO_URL || process.env.SEATWORLD_LOGO_URL || null;
-
-    res.render("users/productlist", {
-      products: productsWithVariants,
-      categories,
-      brands,
-      priceRange,
-      logoUrl,
-      sortOptions,
-      appliedFiltersCount,
-      pagination: {
-        currentPage: numericPage,
-        totalPages: Math.max(1, Math.ceil(totalProducts / perPage)),
-        totalItems: totalProducts,
-        itemsPerPage: perPage,
-        hasNext: numericPage < Math.ceil(totalProducts / perPage),
-        hasPrev: numericPage > 1,
-      },
-      filters: {
-        categories: selectedCategories,
-        brands: selectedBrands,
-        minPrice: priceRange.selectedMin,
-        maxPrice: priceRange.selectedMax,
-        search: search || "",
-        sort: sort || "featured",
-        heading,
-      },
-      query: queryString,
-    });
-  } catch (err) {
-    console.error("Error fetching products:", err);
-
-    const logoUrl =
-      process.env.LOGO_URL || process.env.SEATWORLD_LOGO_URL || null;
-
-    res.render("users/productlist", {
-      error: "Failed to load products",
-      products: [],
-      categories: [],
-      brands: [],
-      priceRange: { min: 0, max: 0, selectedMin: 0, selectedMax: 0 },
-      logoUrl,
-      sortOptions: [
-        { value: "featured", label: "Featured" },
-        { value: "newest", label: "Newest" },
-        { value: "price-low", label: "Price: Low to High" },
-        { value: "price-high", label: "Price: High to Low" },
-        { value: "name", label: "Name A-Z" },
-      ],
-      appliedFiltersCount: 0,
-      pagination: {
-        currentPage: 1,
-        totalPages: 1,
-        totalItems: 0,
-        itemsPerPage: 12,
-        hasNext: false,
-        hasPrev: false,
-      },
-      filters: {
-        categories: [],
-        brands: [],
-        minPrice: 0,
-        maxPrice: 0,
-        search: "",
-        sort: "featured",
-        heading: "Chairs",
-      },
-      query: "",
-    });
+    const carts = await Cart.find({});
+    res.render("users/cartlist", { cartItems: carts });
+  }
+  catch (err) {
+    res.status(502).json({ "message": "cart page have internal issue" })
   }
 }
 

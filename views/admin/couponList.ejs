@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -235,6 +236,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -245,7 +247,7 @@
             <li><a href="/admin/customers"><i>👥</i> Customers</a></li>
             <li><a href="/admin/orders"><i>🛒</i> Orders</a></li>
             <li><a href="/admin/coupons" class="active"><i>🎟️</i> Coupons</a></li>
-            <li><a href="/admin/category"><i>📁</i> Category</a></li>
+            <li><a href="/admin/categories"><i>📁</i> Categories</a></li>
             <li><a href="/admin/discounts"><i>🏷️</i> Discounts</a></li>
             <li><a href="/admin/banner"><i>🖼️</i> Banner</a></li>
             <li><a href="/admin/sales-report"><i>📈</i> Sales Report</a></li>
@@ -279,34 +281,45 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% if (coupons && coupons.length > 0) { %>
-                        <% coupons.forEach(coupon => { %>
+                    <% if (coupons && coupons.length> 0) { %>
+                        <% coupons.forEach(coupon=> { %>
                             <tr>
-                                <td><%= coupon.code %></td>
                                 <td>
-                                    <% if (coupon.discountType === 'percentage') { %>
-                                        <span class="discount-percentage">🏷️ <%= coupon.discount %>%</span>
-                                    <% } else { %>
-                                        <span class="discount-amount">💰 ₹<%= coupon.discount %></span>
-                                    <% } %>
+                                    <%= coupon.code %>
                                 </td>
-                                <td><%= new Date(coupon.createdDate).toLocaleDateString('en-GB') %></td>
-                                <td><%= new Date(coupon.expiryDate).toLocaleDateString('en-GB') %></td>
-                                <td class="amount-red"><%= coupon.maxAmount ? '₹' + coupon.maxAmount : '—' %></td>
-                                <td class="amount-red">₹<%= coupon.minAmount %></td>
+                                <td>
+                                    <% if (coupon.discountType==='percentage' ) { %>
+                                        <span class="discount-percentage">🏷️ <%= coupon.discount %>%</span>
+                                        <% } else { %>
+                                            <span class="discount-amount">💰 ₹<%= coupon.discount %></span>
+                                            <% } %>
+                                </td>
+                                <td>
+                                    <%= new Date(coupon.createdDate).toLocaleDateString('en-GB') %>
+                                </td>
+                                <td>
+                                    <%= new Date(coupon.expiryDate).toLocaleDateString('en-GB') %>
+                                </td>
+                                <td class="amount-red">
+                                    <%= coupon.maxAmount ? '₹' + coupon.maxAmount : '—' %>
+                                </td>
+                                <td class="amount-red">₹<%= coupon.minAmount %>
+                                </td>
                                 <td>
                                     <div class="action-buttons">
-                                        <button class="btn btn-edit" onclick="editCoupon('<%= coupon._id %>')">Edit</button>
-                                        <button class="btn btn-delete" onclick="deleteCoupon('<%= coupon._id %>')">Delete</button>
+                                        <button class="btn btn-edit"
+                                            onclick="editCoupon('<%= coupon._id %>')">Edit</button>
+                                        <button class="btn btn-delete"
+                                            onclick="deleteCoupon('<%= coupon._id %>')">Delete</button>
                                     </div>
                                 </td>
                             </tr>
-                        <% }); %>
-                    <% } else { %>
-                        <tr>
-                            <td colspan="7" style="text-align: center; padding: 40px;">No coupons found</td>
-                        </tr>
-                    <% } %>
+                            <% }); %>
+                                <% } else { %>
+                                    <tr>
+                                        <td colspan="7" style="text-align: center; padding: 40px;">No coupons found</td>
+                                    </tr>
+                                    <% } %>
                 </tbody>
             </table>
 
@@ -336,21 +349,22 @@
                 fetch(`/admin/coupons/delete/${id}`, {
                     method: 'DELETE',
                 })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Coupon deleted successfully');
-                        window.location.reload();
-                    } else {
-                        alert('Failed to delete coupon');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred');
-                });
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Coupon deleted successfully');
+                            window.location.reload();
+                        } else {
+                            alert('Failed to delete coupon');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred');
+                    });
             }
         }
     </script>
 </body>
+
 </html>

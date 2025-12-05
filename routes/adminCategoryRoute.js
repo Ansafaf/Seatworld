@@ -8,4 +8,6 @@ adminRouter.post("/add-category", postAddCategory);
 adminRouter.get("/edit-category/:id", getEditCategory);
 adminRouter.post("/edit-category/:id", postEditCategory);
 
+// adminRouter.patch("/")
+
 export default adminRouter;
