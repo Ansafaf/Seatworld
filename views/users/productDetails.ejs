@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= product.name %> - SeatWorld
+    </title>
+    <style>
+        :root {
+            --slate-50: #f5f7fb;
+            --slate-100: #edf1f7;
+            --slate-200: #dfe7f1;
+            --slate-400: #94a3b8;
+            --slate-500: #64748b;
+            --slate-700: #1f2937;
+            --primary: #2449ff;
+            --primary-dark: #1d3ae0;
+            --accent: #0ea5e9;
+            --orange: #ff9900;
+            --orange-dark: #e68a00;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background-color: var(--slate-50);
+            color: var(--slate-700);
+            line-height: 1.5;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Header Styles (Copied from productlist.ejs for consistency) */
+        header {
+            background: #fff;
+            border-bottom: 1px solid var(--slate-100);
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .top-nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--slate-700);
+        }
+
+        .brand img {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.95rem;
+            color: var(--slate-500);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .icon-button {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--slate-200);
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--slate-400);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .icon-button:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Main Layout */
+        .container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .product-detail-section {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 3rem;
+            margin-bottom: 5rem;
+            align-items: start;
+        }
+
+        /* Gallery Section */
+        .gallery-container {
+            display: flex;
+            gap: 1.5rem;
+            height: 600px;
+            /* Fixed height for alignment */
+        }
+
+        .main-image-wrapper {
+            flex: 1;
+            background: #fff;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: crosshair;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .main-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .thumbnails-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100px;
+        }
+
+        .thumbnail {
+            width: 100px;
+            height: 100px;
+            background: #fff;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .thumbnail.active {
+            border-color: var(--primary);
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Product Info Section */
+        .product-info {
+            background: #fff;
+            padding: 2.5rem;
+            border-radius: 4px;
+            /* More squared as per design */
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.04);
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .wishlist-btn-abs {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--slate-400);
+        }
+
+        .product-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 0 0 1rem;
+            color: var(--slate-700);
+        }
+
+        .product-desc {
+            color: var(--slate-500);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .price-tag {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--slate-700);
+            margin-bottom: 0.25rem;
+        }
+
+        .tax-note {
+            font-size: 0.8rem;
+            color: var(--slate-400);
+            margin-bottom: 2rem;
+            text-decoration: line-through;
+            /* Just to match 'MRP incl.' style if needed, or just text */
+            text-decoration: none;
+        }
+
+        .color-section {
+            margin-bottom: 2rem;
+        }
+
+        .color-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--slate-400);
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .color-options {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .color-opt {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--slate-200);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.75rem;
+            color: var(--slate-500);
+            transition: all 0.2s;
+        }
+
+        .color-opt.active {
+            border-color: var(--slate-700);
+            color: var(--slate-700);
+            font-weight: 600;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .btn-action {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn-action:hover {
+            opacity: 0.9;
+        }
+
+        .btn-cart {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .btn-buy {
+            background: var(--orange);
+            color: #fff;
+        }
+
+        /* Related Products */
+        .related-section {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .related-title {
+            font-size: 2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+            color: #000;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .related-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .related-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .related-img-box {
+            width: 100%;
+            aspect-ratio: 1;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .related-img-box img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .related-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--slate-700);
+        }
+
+        .related-price {
+            font-weight: 700;
+            color: var(--slate-700);
+        }
+
+        /* Footer (Copied) */
+        footer {
+            border-top: 1px solid var(--slate-100);
+            padding: 2rem;
+            text-align: center;
+            color: var(--slate-400);
+            font-size: 0.9rem;
+            background: #f9fafb;
+        }
+
+        footer .links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Zoom Styles */
+        .zoom-lens {
+            position: absolute;
+            border: 1px solid #d4d4d4;
+            width: 100px;
+            height: 100px;
+            background-color: rgba(255, 255, 255, 0.4);
+            cursor: crosshair;
+            display: none;
+        }
+
+        .zoom-result {
+            position: absolute;
+            top: 0;
+            left: 105%;
+            /* Show to the right of the image */
+            width: 300px;
+            height: 300px;
+            border: 1px solid #d4d4d4;
+            background-repeat: no-repeat;
+            background-color: #fff;
+            z-index: 100;
+            display: none;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 900px) {
+            .product-detail-section {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .gallery-container {
+                flex-direction: column-reverse;
+                height: auto;
+            }
+
+            .thumbnails-col {
+                flex-direction: row;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .main-image-wrapper {
+                aspect-ratio: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="top-nav">
+            <div class="brand">
+                <% if (locals.logoUrl) { %>
+                    <img src="<%= logoUrl %>" alt="SeatWorld logo">
+                    <% } else { %>
+                        <img src="https://dummyimage.com/64x64/ffffff/000000&text=SW" alt="SeatWorld logo placeholder">
+                        <% } %>
+                            <span>SeatWorld</span>
+            </div>
+            <nav>
+                <a href="/dashboard">Home</a>
+                <a href="/products">Shop</a>
+                <a href="#">Contact us</a>
+                <a href="#">About</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="icon-button">♡</button>
+                <button class="icon-button">☺</button>
+                <button class="icon-button">🛒</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="product-detail-section">
+            <!-- Gallery -->
+            <div class="gallery-container">
+                <div class="main-image-wrapper" id="img-container">
+                    <img src="<%= product.image %>" alt="<%= product.name %>" class="main-image" id="main-image">
+                    <div id="zoom-result" class="zoom-result"></div>
+                </div>
+                <div class="thumbnails-col">
+                    <!-- Main image as first thumbnail -->
+                    <div class="thumbnail active" onclick="changeImage('<%= product.image %>', this)">
+                        <img src="<%= product.image %>" alt="View 1">
+                    </div>
+                    <!-- Additional variants/images -->
+                    <% if (product.variants && product.variants.length) { %>
+                        <% product.variants.forEach((variant, idx)=> { %>
+                            <% if (variant.images && variant.images.length) { %>
+                                <div class="thumbnail" onclick="changeImage('<%= variant.images[0] %>', this)">
+                                    <img src="<%= variant.images[0] %>" alt="View <%= idx + 2 %>">
+                                </div>
+                                <% } %>
+                                    <% }) %>
+                                        <% } %>
+                </div>
+            </div>
+
+            <!-- Info -->
+            <div class="product-info">
+                <button class="wishlist-btn-abs">♡</button>
+                <h1 class="product-title">
+                    <%= product.name %>
+                </h1>
+                <p class="product-desc">
+                    <%= product.description
+                        || "Ergonomic gaming chair with durable synthetic leather and high-density foam cushions, built for long hours of comfort and support."
+                        %>
+                </p>
+
+                <div class="price-tag">₹<%= product.variant ? product.variant.price : product.price %>
+                </div>
+                <div class="tax-note">MRP incl. of all taxes</div>
+
+                <div class="color-section">
+                    <span class="color-label">FIND YOUR COLOR</span>
+                    <div class="color-options">
+                        <% if (product.variants && product.variants.length) { %>
+                            <% product.variants.forEach(v=> { %>
+                                <div class="color-opt <%= (product.variant && product.variant._id === v._id) ? 'active' : '' %>"
+                                    onclick="location.href='?variant=<%= v._id %>'">
+                                    <%= v.color %>
+                                </div>
+                                <% }) %>
+                                    <% } else { %>
+                                        <div class="color-opt active">Std</div>
+                                        <% } %>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-action btn-cart">Add to Cart</button>
+                    <button class="btn-action btn-buy">Buy Now</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Related Products -->
+        <section class="related-section">
+            <h2 class="related-title">YOU MIGHT ALSO LIKE</h2>
+            <div class="related-grid">
+                <% if (locals.relatedProducts) { %>
+                    <% relatedProducts.forEach(rp=> { %>
+                        <a href="/product/<%= rp._id %>" class="related-card">
+                            <div class="related-img-box">
+                                <img src="<%= rp.image %>" alt="<%= rp.name %>">
+                            </div>
+                            <div class="related-name">
+                                <%= rp.name %>
+                            </div>
+                            <div class="related-price">₹<%= rp.price %>
+                            </div>
+                        </a>
+                        <% }) %>
+                            <% } %>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="links">
+            <a href="#">About</a>
+            <a href="#">Features</a>
+            <a href="#">Works</a>
+            <a href="#">Career</a>
+            <a href="#">Privacy Policy</a>
+        </div>
+        <p>SeatWorld © <%= new Date().getFullYear() %>. All Rights Reserved</p>
+    </footer>
+
+    <script>
+        // Image Switcher
+        function changeImage(src, el) {
+            document.getElementById('main-image').src = src;
+            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+
+            // Reset zoom
+            setupZoom();
+        }
+
+        // Zoom Functionality
+        function setupZoom() {
+            const container = document.getElementById('img-container');
+            const img = document.getElementById('main-image');
+
+            container.addEventListener('mousemove', function (e) {
+                const { left, top, width, height } = container.getBoundingClientRect();
+                const x = (e.clientX - left) / width;
+                const y = (e.clientY - top) / height;
+
+                img.style.transformOrigin = `${x * 100}% ${y * 100}%`;
+                img.style.transform = "scale(2)"; // Zoom level
+            });
+
+            container.addEventListener('mouseleave', function () {
+                img.style.transform = "scale(1)";
+                setTimeout(() => {
+                    img.style.transformOrigin = "center center";
+                }, 300);
+            });
+        }
+
+        // Initialize
+        setupZoom();
+    </script>
+</body>
+
+</html>

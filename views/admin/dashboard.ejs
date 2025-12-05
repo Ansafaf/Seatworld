@@ -1,359 +1,306 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Admin Panel - Dashboard</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f5f5f5;
-        }
-
-        /* Header Navigation */
-        .header {
-            background-color: white;
-            border-bottom: 1px solid #e5e5e5;
-            padding: 0 2rem;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-            height: 60px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .logo::before {
-            content: '';
-            width: 20px;
-            height: 20px;
-            background-color: #000;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #666;
-            font-size: 0.9rem;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: #000;
-        }
-
-        /* Main Content */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            font-weight: 600;
-        }
-
-        /* Stats Cards */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            border: 1px solid #e5e5e5;
-        }
-
-        .stat-label {
-            font-size: 0.875rem;
-            color: #666;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-value {
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-change {
-            font-size: 0.875rem;
-            color: #22c55e;
-        }
-
-        /* Quick Actions Section */
-        h2 {
-            font-size: 1.25rem;
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-        }
-
-        .actions-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-
-        .action-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            border: 1px solid #e5e5e5;
-            display: flex;
-            gap: 2rem;
-        }
-
-        .action-content {
-            flex: 1;
-        }
-
-        .action-title {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .action-description {
-            font-size: 0.875rem;
-            color: #666;
-            margin-bottom: 1.5rem;
-        }
-
-        .action-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background-color: #f5f5f5;
-            border: none;
-            border-radius: 6px;
-            font-size: 0.875rem;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .action-button:hover {
-            background-color: #e5e5e5;
-        }
-
-        .action-button::after {
-            content: '→';
-            font-size: 1rem;
-        }
-
-        .action-image {
-            width: 220px;
-            height: 150px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 4px;
-        }
-
-        .product-image {
-            background: linear-gradient(135deg, #f5f5f5 0%, #e5e5e5 100%);
-            position: relative;
-        }
-
-        .product-mockup {
-            width: 120px;
-            height: 140px;
-            background: linear-gradient(to right, #f4d03f 0%, #f4d03f 30%, white 30%, white 70%, #d4af37 70%);
-            border-radius: 2px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .order-image {
-            background: linear-gradient(135deg, #f5e6d3 0%, #e8d4bb 100%);
-        }
-
-        .order-mockup {
-            width: 100px;
-            height: 130px;
-            background: white;
-            border-radius: 2px;
-            box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
-            padding: 1rem;
-            position: relative;
-        }
-
-        .order-mockup::before {
-            content: 'Order';
-            font-size: 0.75rem;
-            font-weight: 600;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .order-lines {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .order-line {
-            height: 2px;
-            background-color: #e5e5e5;
-            width: 100%;
-        }
-
-        .customer-image {
-            background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
-            color: #856404;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .category-image {
-            background: linear-gradient(135deg, #ff8c00 0%, #ff6b00 100%);
-            color: white;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        @media (max-width: 768px) {
-            .actions-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .action-card {
-                flex-direction: column;
-            }
-
-            .action-image {
-                width: 100%;
-            }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#F97316",
+                        secondary: "#1F2937",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
 </head>
-<body>
-    <!-- Header Navigation -->
-    <header class="header">
-        <nav class="nav-container">
-            <div class="logo">Admin Panel</div>
-            <ul class="nav-links">
-                <li><a href="/admin/dashboard" class="active">Dashboard</a></li>
-                <li><a href="/admin/products">Products</a></li>
-                <li><a href="/admin/orders">Orders</a></li>
-                <li><a href="/admin/customers">Customers</a></li>
-                <li><a href="/admin/reports">Reports</a></li>
-                <li><a href="/admin/offers">Offer</a></li>
-                <li><a href="/admin/banner">Banner</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <!-- Main Content -->
-    <main class="container">
-        <h1>Dashboard</h1>
-
-        <!-- Stats Cards -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-label">Total Sales</div>
-                <div class="stat-value">$12,500</div>
-                <div class="stat-change">+12%</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Orders</div>
-                <div class="stat-value">345</div>
-                <div class="stat-change">+5%</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">New Customers</div>
-                <div class="stat-value">78</div>
-                <div class="stat-change">+10%</div>
+<body class="font-display bg-gray-50 text-gray-800">
+    <!-- Top Header -->
+    <header class="bg-white shadow-sm fixed w-full z-50 h-16 flex items-center justify-between px-6">
+        <div class="flex items-center gap-4">
+            <button id="mobileMenuBtn" class="md:hidden text-gray-500 hover:text-gray-700">
+                <span class="material-icons-outlined">menu</span>
+            </button>
+            <h1 class="text-xl font-bold text-gray-800 flex items-center gap-2">
+                <span class="w-3 h-3 bg-gray-800 rounded-sm"></span>
+                Admin Panel
+            </h1>
+        </div>
+        <div class="flex items-center gap-8">
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
+                <a href="/admin/dashboard" class="hover:text-indigo-600 transition-colors">Dashboard</a>
+                <a href="/admin/products" class="hover:text-indigo-600 transition-colors">Products</a>
+                <a href="/admin/orders" class="hover:text-indigo-600 transition-colors">Orders</a>
+                <a href="/admin/customers" class="hover:text-indigo-600 transition-colors">Customers</a>
+            </nav>
+            <div class="flex items-center gap-3 pl-6 border-l border-gray-200">
+                <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
+                    <img src="https://ui-avatars.com/api/?name=Admin&background=random" alt="Admin"
+                        class="w-full h-full object-cover">
+                </div>
             </div>
         </div>
+    </header>
 
-        <!-- Quick Actions -->
-        <h2>Quick Actions</h2>
-        <div class="actions-grid">
-            <div class="action-card">
-                <div class="action-content">
-                    <div class="action-title">Manage Products</div>
-                    <div class="action-description">Add, edit, or remove products from your catalog.</div>
-                    <button class="action-button">Go to Products</button>
+    <div class="flex pt-16 min-h-screen">
+        <!-- Sidebar -->
+        <aside id="adminSidebar"
+            class="w-64 bg-white flex flex-col fixed inset-y-0 left-0 z-40 transform -translate-x-full transition-transform duration-300 md:translate-x-0 md:static border-r border-gray-100 pt-16 md:pt-0">
+
+            <div class="p-6">
+                <div class="flex items-center gap-2 text-2xl font-bold text-gray-800 mb-8">
+                    <span class="material-icons-outlined">hexagon</span>
+                    <span>Dashboard</span>
+                    <span class="text-xs font-normal text-gray-400 mt-1">v.01</span>
                 </div>
-                <div class="action-image product-image">
-                    <div class="product-mockup"></div>
-                </div>
+
+                <nav class="space-y-1">
+                    <a href="/admin/dashboard"
+                        class="flex items-center px-4 py-3 text-white bg-indigo-600 rounded-xl shadow-sm transition-all duration-200 group">
+                        <span class="material-icons-outlined mr-3 text-xl">dashboard</span>
+                        <span class="font-medium">Dashboard</span>
+                    </a>
+
+                    <a href="/admin/products"
+                        class="flex items-center px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-all duration-200 group">
+                        <span
+                            class="material-icons-outlined mr-3 text-xl group-hover:text-indigo-600">inventory_2</span>
+                        <span class="font-medium">Product</span>
+                        <span class="ml-auto material-icons-outlined text-gray-300 text-sm">chevron_right</span>
+                    </a>
+
+                    <a href="/admin/customers"
+                        class="flex items-center px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-all duration-200 group">
+                        <span class="material-icons-outlined mr-3 text-xl group-hover:text-indigo-600">people</span>
+                        <span class="font-medium">Customers</span>
+                        <span class="ml-auto material-icons-outlined text-gray-300 text-sm">chevron_right</span>
+                    </a>
+
+                    <a href="/admin/orders"
+                        class="flex items-center px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-all duration-200 group">
+                        <span
+                            class="material-icons-outlined mr-3 text-xl group-hover:text-indigo-600">shopping_cart</span>
+                        <span class="font-medium">Orders</span>
+                        <span class="ml-auto material-icons-outlined text-gray-300 text-sm">chevron_right</span>
+                    </a>
+
+                    <a href="/admin/discounts"
+                        class="flex items-center px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-all duration-200 group">
+                        <span class="material-icons-outlined mr-3 text-xl group-hover:text-indigo-600">campaign</span>
+                        <span class="font-medium">Discounts</span>
+                        <span class="ml-auto material-icons-outlined text-gray-300 text-sm">chevron_right</span>
+                    </a>
+
+                    <a href="/admin/coupons"
+                        class="flex items-center px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-all duration-200 group">
+                        <span
+                            class="material-icons-outlined mr-3 text-xl group-hover:text-indigo-600">local_activity</span>
+                        <span class="font-medium">Coupons</span>
+                        <span class="ml-auto material-icons-outlined text-gray-300 text-sm">chevron_right</span>
+                    </a>
+
+                    <a href="/admin/banner"
+                        class="flex items-center px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-all duration-200 group">
+                        <span class="material-icons-outlined mr-3 text-xl group-hover:text-indigo-600">image</span>
+                        <span class="font-medium">Banner</span>
+                        <span class="ml-auto material-icons-outlined text-gray-300 text-sm">chevron_right</span>
+                    </a>
+
+                    <a href="/admin/sales-report"
+                        class="flex items-center px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-all duration-200 group">
+                        <span class="material-icons-outlined mr-3 text-xl group-hover:text-indigo-600">bar_chart</span>
+                        <span class="font-medium">Sales Report</span>
+                        <span class="ml-auto material-icons-outlined text-gray-300 text-sm">chevron_right</span>
+                    </a>
+
+                    <div class="pt-8 mt-8 border-t border-gray-100">
+                        <a href="/admin/logout"
+                            class="flex items-center px-4 py-3 text-red-500 hover:bg-red-50 rounded-xl transition-all duration-200 group">
+                            <span class="material-icons-outlined mr-3 text-xl">logout</span>
+                            <span class="font-medium">Logout</span>
+                        </a>
+                    </div>
+                </nav>
             </div>
+        </aside>
 
-            <div class="action-card">
-                <div class="action-content">
-                    <div class="action-title">View Orders</div>
-                    <div class="action-description">See all orders, their status, and customer details.</div>
-                    <button class="action-button">Go to Orders</button>
-                </div>
-                <div class="action-image order-image">
-                    <div class="order-mockup">
-                        <div class="order-lines">
-                            <div class="order-line"></div>
-                            <div class="order-line"></div>
-                            <div class="order-line"></div>
-                            <div class="order-line"></div>
-                            <div class="order-line"></div>
+        <!-- Overlay -->
+        <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-30 hidden md:hidden backdrop-blur-sm"></div>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8 overflow-y-auto bg-white/50">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-2xl font-bold text-gray-800 mb-8">Dashboard</h2>
+
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                    <!-- Stat Card 1 -->
+                    <div
+                        class="bg-white p-6 rounded-2xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.1)] border border-gray-100 hover:shadow-md transition-shadow">
+                        <div class="text-sm font-medium text-gray-500 mb-4">Total Sales</div>
+                        <div class="text-3xl font-bold text-gray-800 mb-2">$12,500</div>
+                        <div
+                            class="flex items-center text-sm text-green-600 font-medium bg-green-50 w-fit px-2 py-1 rounded-full">
+                            <span class="material-icons-outlined text-sm mr-1">trending_up</span>
+                            +15%
+                        </div>
+                    </div>
+                    <!-- Stat Card 2 -->
+                    <div
+                        class="bg-white p-6 rounded-2xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.1)] border border-gray-100 hover:shadow-md transition-shadow">
+                        <div class="text-sm font-medium text-gray-500 mb-4">Orders</div>
+                        <div class="text-3xl font-bold text-gray-800 mb-2">350</div>
+                        <div
+                            class="flex items-center text-sm text-green-600 font-medium bg-green-50 w-fit px-2 py-1 rounded-full">
+                            <span class="material-icons-outlined text-sm mr-1">trending_up</span>
+                            +10%
+                        </div>
+                    </div>
+                    <!-- Stat Card 3 -->
+                    <div
+                        class="bg-white p-6 rounded-2xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.1)] border border-gray-100 hover:shadow-md transition-shadow">
+                        <div class="text-sm font-medium text-gray-500 mb-4">New Customers</div>
+                        <div class="text-3xl font-bold text-gray-800 mb-2">75</div>
+                        <div
+                            class="flex items-center text-sm text-green-600 font-medium bg-green-50 w-fit px-2 py-1 rounded-full">
+                            <span class="material-icons-outlined text-sm mr-1">trending_up</span>
+                            +20%
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="action-card">
-                <div class="action-content">
-                    <div class="action-title">Customer Insights</div>
-                    <div class="action-description">Analyze customer behavior and demographics.</div>
-                    <button class="action-button"><a href="/admin/customers" style="text-decoration: none; color: inherit;">Go to Customers</a></button>
-                </div>
-                <div class="action-image customer-image">
-                    <div>Customer<br>Insights</div>
-                </div>
-            </div>
+                <!-- Quick Actions -->
+                <h3 class="text-xl font-bold text-gray-800 mb-6">Quick Actions</h3>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
-            <div class="action-card">
-                <div class="action-content">
-                    <div class="action-title">Category Management</div>
-                    <div class="action-description">Organize and manage product categories for better inventory structure.</div>
-                    <button class="action-button"><a href="/admin/categories" style="text-decoration: none; color: inherit;">Go to Categories</a></button>
-                </div>
-                <div class="action-image category-image">
-                    <div>Category<br>Management</div>
+                    <!-- Manage Products -->
+                    <div class="flex flex-col gap-4">
+                        <div class="mb-2">
+                            <h4 class="text-lg font-bold text-gray-800">Manage Products</h4>
+                            <p class="text-sm text-gray-500">Add, edit, or remove products from your catalog.</p>
+                            <a href="/admin/products"
+                                class="inline-flex items-center mt-3 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-lg transition-colors">
+                                Go to Products <span class="material-icons-outlined text-sm ml-2">arrow_forward</span>
+                            </a>
+                        </div>
+                        <div
+                            class="h-48 rounded-2xl bg-[#2D7A74] relative overflow-hidden group cursor-pointer shadow-lg">
+                            <div
+                                class="absolute inset-0 flex flex-col justify-center items-center text-center p-6 text-white/90">
+                                <h3 class="text-2xl font-serif italic mb-2">Minimal</h3>
+                                <p class="text-xs opacity-70 max-w-[200px]">Keep your catalog up to date with the latest
+                                    trends.</p>
+                            </div>
+                            <!-- Decorative circles -->
+                            <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-white/10 rounded-full blur-2xl">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- View Orders -->
+                    <div class="flex flex-col gap-4">
+                        <div class="mb-2">
+                            <h4 class="text-lg font-bold text-gray-800">View Orders</h4>
+                            <p class="text-sm text-gray-500">Track and manage customer orders.</p>
+                            <a href="/admin/orders"
+                                class="inline-flex items-center mt-3 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-lg transition-colors">
+                                Go to Orders <span class="material-icons-outlined text-sm ml-2">arrow_forward</span>
+                            </a>
+                        </div>
+                        <div
+                            class="h-48 rounded-2xl bg-[#ECA72C] relative overflow-hidden group cursor-pointer shadow-lg">
+                            <div
+                                class="absolute inset-0 flex flex-col justify-center items-center text-center p-6 text-white">
+                                <h3
+                                    class="text-xl font-bold uppercase tracking-widest border-b-2 border-white/30 pb-1 mb-2">
+                                    Order Tracking</h3>
+                                <div class="w-16 h-20 bg-white/20 rounded-md backdrop-blur-sm transform rotate-3 mt-2">
+                                </div>
+                            </div>
+                            <div class="absolute -left-4 top-4 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
+                        </div>
+                    </div>
+
+                    <!-- Customer Management -->
+                    <div class="flex flex-col gap-4">
+                        <div class="mb-2">
+                            <h4 class="text-lg font-bold text-gray-800">Customer Management</h4>
+                            <p class="text-sm text-gray-500">View and manage customer accounts.</p>
+                            <a href="/admin/customers"
+                                class="inline-flex items-center mt-3 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-lg transition-colors">
+                                Go to Customers <span class="material-icons-outlined text-sm ml-2">arrow_forward</span>
+                            </a>
+                        </div>
+                        <div
+                            class="h-48 rounded-2xl bg-[#1F2937] relative overflow-hidden group cursor-pointer shadow-lg">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <!-- Abstract shape representing the vase/plant -->
+                                <div
+                                    class="w-24 h-32 bg-gradient-to-t from-stone-400 to-stone-300 rounded-t-full rounded-b-lg shadow-2xl">
+                                </div>
+                                <div
+                                    class="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-black/50 to-transparent">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category Management -->
+                    <div class="flex flex-col gap-4">
+                        <div class="mb-2">
+                            <h4 class="text-lg font-bold text-gray-800">Category Management</h4>
+                            <p class="text-sm text-gray-500">Manage product categories and subcategories.</p>
+                            <a href="/admin/categories"
+                                class="inline-flex items-center mt-3 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-lg transition-colors">
+                                Go to Categories <span class="material-icons-outlined text-sm ml-2">arrow_forward</span>
+                            </a>
+                        </div>
+                        <div
+                            class="h-48 rounded-2xl bg-gradient-to-br from-[#4F8D55] to-[#2E5C38] relative overflow-hidden group cursor-pointer shadow-lg">
+                            <div
+                                class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10">
+                            </div>
+                            <div class="absolute -right-10 -top-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
+
+    <script>
+        const sidebar = document.getElementById("adminSidebar");
+        const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+        const sidebarOverlay = document.getElementById("sidebarOverlay");
+
+        const toggleSidebar = () => {
+            const isClosed = sidebar.classList.contains("-translate-x-full");
+            if (isClosed) {
+                sidebar.classList.remove("-translate-x-full");
+                sidebarOverlay.classList.remove("hidden");
+                document.body.classList.add("overflow-hidden");
+            } else {
+                sidebar.classList.add("-translate-x-full");
+                sidebarOverlay.classList.add("hidden");
+                document.body.classList.remove("overflow-hidden");
+            }
+        };
+
+        if (mobileMenuBtn) mobileMenuBtn.addEventListener("click", toggleSidebar);
+        if (sidebarOverlay) sidebarOverlay.addEventListener("click", toggleSidebar);
+    </script>
 </body>
+
 </html>

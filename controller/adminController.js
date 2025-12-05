@@ -1,55 +1,56 @@
 import { render } from 'ejs';
-import {User} from '../models/userModel.js';
+import { User } from '../models/userModel.js';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 
 dotenv.config();
-export const getLoginAdmin = (req,res)=>{
-     if (req.session?.isAdmin) {
-    return res.redirect("/admin/dashboard");
-  }
-  
-    res.render('admin/adminLogin',{error:null});
+export const getLoginAdmin = (req, res) => {
+    if (req.session?.isAdmin) {
+        return res.redirect("/admin/dashboard");
+    }
+
+    res.render('admin/adminLogin', { error: null });
 }
-export const postLoginAdmin = async(req,res)=>{
-    const {email,password} = req.body;
-    
+export const postLoginAdmin = async (req, res) => {
+    const { email, password } = req.body;
+
     // Try both new and old environment variable names for backward compatibility
     const adminExist = {
         email: process.env.ADMIN_EMAIL || process.env.AdminMail,
         password: process.env.ADMIN_PASSWORD || process.env.AdminPassword
     }
-    
+
     // Check if admin credentials are configured
-    if(!adminExist.email || !adminExist.password){
+    if (!adminExist.email || !adminExist.password) {
         console.error("Admin credentials not configured in environment variables");
         console.error("Looking for: ADMIN_EMAIL, ADMIN_PASSWORD, AdminMail, or AdminPassword");
-        return res.render('admin/adminLogin',{error:"Admin credentials not properly stored. Please check environment variables."});
+        return res.render('admin/adminLogin', { error: "Admin credentials not properly stored. Please check environment variables." });
     }
-    
-    if(adminExist.email === email && adminExist.password === password){
+
+    if (adminExist.email === email && adminExist.password === password) {
         req.session.isAdmin = true;
         req.session.adminEmail = email;
         return res.redirect("/admin/dashboard");
     }
-    res.render('admin/adminLogin',{error:"invalid email or password"});
+    res.render('admin/adminLogin', { error: "invalid email or password" });
 }
 
-export const getAdminDashboard= async(req,res)=>{
+export const getAdminDashboard = async (req, res) => {
 
     let users = await User.find();
     let admin = {
-        email: process.env.ADMIN_EMAIL || process.env.AdminMail,
+        email: process.env.ADMIN_EMAIL,
     }
-    res.render("admin/dashboard",{users,admin});
+    res.render("admin/dashboard", { users, admin });
 }
 
-export const getCustomerlist = async(req,res)=>{
-   let users = await User.find();
+export const getCustomerlist = async (req, res) => {
+    let users = await User.find();
+    let msg = req.query.msg;
     let admin = {
-        email: process.env.ADMIN_EMAIL || process.env.AdminMail,
+        email: process.env.ADMIN_EMAIL,
     }
-    res.render("admin/customerList",{users,admin});
+    res.render("admin/customerList", { users, admin, msg });
 }
 
 
@@ -57,30 +58,20 @@ export const blockUser = async (req, res) => {
     try {
         const userId = req.params.id;
 
-        // Check if user exists
         const user = await User.findById(userId);
         if (!user) {
-            return res.status(404).json({
-                success: false,
-                message: "User not found"
-            });
+            return res.redirect("/admin/customers?msg=user not found");
         }
 
         // Check if user is already blocked
-        if (user.isBlocked) {
-            return res.status(400).json({
-                success: false,
-                message: "User is already blocked"
-            });
+        if (user.status == "blocked") {
+            return res.redirect("/admin/customers?msg=user is already blocked");
         }
 
         // Block the user
-        await User.findByIdAndUpdate(userId, { isBlocked: true });
+        await User.findByIdAndUpdate(userId, { status: "blocked" });
 
-        res.status(200).json({
-            success: true,
-            message: "User blocked successfully"
-        });
+        res.redirect("/admin/customers?msg=user blocked successfully");
 
     } catch (error) {
         console.error("Error blocking user:", error);
@@ -94,30 +85,18 @@ export const unblockUser = async (req, res) => {
     try {
         const userId = req.params.id;
 
-        // Check if user exists
         const user = await User.findById(userId);
         if (!user) {
-            return res.status(404).json({
-                success: false,
-                message: "User not found"
-            });
+            return res.redirect("/admin/customers?msg=user not found");
         }
 
-        // Check if user is already unblocked
-        if (!user.isBlocked) {
-            return res.status(400).json({
-                success: false,
-                message: "User is already unblocked"
-            });
+        if (user.status == "active") {
+            return res.redirect("/admin/customers?msg= user is already unblocked");
         }
 
-        // Unblock the user
-        await User.findByIdAndUpdate(userId, { isBlocked: false });
+        await User.findByIdAndUpdate(userId, { status: "active" });
 
-        res.status(200).json({
-            success: true,
-            message: "User unblocked successfully"
-        });
+        res.redirect("/admin/customers?msg=user unblocked successfully");
 
     } catch (error) {
         console.error("Error unblocking user:", error);
@@ -128,35 +107,34 @@ export const unblockUser = async (req, res) => {
     }
 };
 
-export const searchUsers = async(req,res)=>{
+export const searchUsers = async (req, res) => {
     let query = req.query.search;
-    try{
+    try {
         let admin = "Admin";
         const users = await User.find(
             {
-                $or:[
-                    {email:{$regex: query, $options:"i"}},
-                    {name:{$regex: query, $options:"i"}},
-                    {username:{$regex: query, $options:"i"}}
-                ] 
+                $or: [
+                    { email: { $regex: query, $options: "i" } },
+                    { name: { $regex: query, $options: "i" } },
+                    { username: { $regex: query, $options: "i" } }
+                ]
             })
-     
-         if(req.xhr){
-        return res.render("partials/userList", { users });
-     }
-        res.render("admin/adminHome",{admin, users});
+
+        if (req.xhr) {
+            return res.render("partials/userList", { users });
+        }
+        res.render("admin/adminHome", { admin, users });
 
     }
-    catch(err){
+    catch (err) {
         console.log("Search error");
         res.send("Internal Server error");
     }
 
 }
-export const adminLogout = (req,res)=>{
-    req.session.destroy((err)=>{
-        if(err)
-        {
+export const adminLogout = (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
             return res.redirect('/admin/adminHome');
         }
         res.clearCookie("admin.id");

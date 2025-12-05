@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Admin - Add Product</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -25,204 +26,262 @@
     };
   </script>
 </head>
-<body class="font-display bg-white text-gray-800">
-  <div class="flex h-screen">
-    <!-- Sidebar -->
-    <aside class="w-64 bg-gray-100 flex flex-col flex-shrink-0 shadow-lg">
-      <div class="h-20 flex items-center justify-center border-b border-gray-300">
-        <h1 class="text-2xl font-bold text-gray-800">Admin</h1>
-      </div>
-      <nav class="flex-1 px-4 py-6 space-y-2">
-        <a class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-200 rounded-lg transition-colors duration-200" href="/admin/dashboard">
-          <span class="material-icons-outlined mr-3">dashboard</span>
-          <span>Dashboard</span>
-        </a>
-        <a class="flex items-center px-4 py-3 text-white bg-primary rounded-lg shadow-md transition-colors duration-200" href="/admin/products">
-          <span class="material-icons-outlined mr-3">grid_view</span>
-          <span>Products</span>
-        </a>
-        <a class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-200 rounded-lg transition-colors duration-200" href="/admin/categories">
-          <span class="material-icons-outlined mr-3">category</span>
-          <span>Category</span>
-        </a>
-        <a class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-200 rounded-lg transition-colors duration-200" href="/admin/customers">
-          <span class="material-icons-outlined mr-3">groups</span>
-          <span>Customers</span>
-        </a>
-        <a class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-200 rounded-lg transition-colors duration-200" href="/admin/orders">
-          <span class="material-icons-outlined mr-3">shopping_cart</span>
-          <span>Orders</span>
-        </a>
-        <a class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-200 rounded-lg transition-colors duration-200" href="/admin/coupons">
-          <span class="material-icons-outlined mr-3">receipt_long</span>
-          <span>Coupons</span>
-        </a>
-        <a class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-200 rounded-lg transition-colors duration-200" href="/admin/discounts">
-          <span class="material-icons-outlined mr-3">discount</span>
-          <span>Discounts</span>
-        </a>
-        <a class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-200 rounded-lg transition-colors duration-200" href="/admin/banner">
-          <span class="material-icons-outlined mr-3">photo_size_select_actual</span>
-          <span>Banner</span>
-        </a>
-        <a class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-200 rounded-lg transition-colors duration-200" href="/admin/sales-report">
-          <span class="material-icons-outlined mr-3">leaderboard</span>
-          <span>Sales Report</span>
-        </a>
+
+<body class="font-display bg-gray-50 text-gray-800">
+  <!-- Top Header -->
+  <header class="bg-white shadow-sm fixed w-full z-50 h-16 flex items-center justify-between px-6">
+    <div class="flex items-center gap-4">
+      <button id="mobileMenuBtn" class="md:hidden text-gray-500 hover:text-gray-700">
+        <span class="material-icons-outlined">menu</span>
+      </button>
+      <h1 class="text-xl font-bold text-gray-800 flex items-center gap-2">
+        <span class="w-3 h-3 bg-gray-800 rounded-sm"></span>
+        Admin Panel
+      </h1>
+    </div>
+    <div class="flex items-center gap-8">
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
+        <a href="/admin/dashboard" class="hover:text-indigo-600 transition-colors">Dashboard</a>
+        <a href="/admin/products" class="text-indigo-600 transition-colors">Products</a>
+        <a href="/admin/orders" class="hover:text-indigo-600 transition-colors">Orders</a>
+        <a href="/admin/customers" class="hover:text-indigo-600 transition-colors">Customers</a>
       </nav>
+      <div class="flex items-center gap-3 pl-6 border-l border-gray-200">
+        <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
+          <img src="https://ui-avatars.com/api/?name=Admin&background=random" alt="Admin"
+            class="w-full h-full object-cover">
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex pt-16 min-h-screen">
+    <!-- Sidebar -->
+    <aside id="adminSidebar"
+      class="w-64 bg-white flex flex-col fixed inset-y-0 left-0 z-40 transform -translate-x-full transition-transform duration-300 md:translate-x-0 md:static border-r border-gray-100 pt-16 md:pt-0">
+
+      <div class="p-6">
+        <div class="flex items-center gap-2 text-2xl font-bold text-gray-800 mb-8">
+          <span class="material-icons-outlined">hexagon</span>
+          <span>Products</span>
+          <span class="text-xs font-normal text-gray-400 mt-1">v.01</span>
+        </div>
+
+        <nav class="space-y-1">
+          <a href="/admin/dashboard"
+            class="flex items-center px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-all duration-200 group">
+            <span class="material-icons-outlined mr-3 text-xl group-hover:text-indigo-600">dashboard</span>
+            <span class="font-medium">Dashboard</span>
+          </a>
+
+          <a href="/admin/products"
+            class="flex items-center px-4 py-3 text-white bg-indigo-600 rounded-xl shadow-sm transition-all duration-200 group">
+            <span class="material-icons-outlined mr-3 text-xl">inventory_2</span>
+            <span class="font-medium">Product</span>
+          </a>
+
+          <a href="/admin/categories"
+            class="flex items-center px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-all duration-200 group">
+            <span class="material-icons-outlined mr-3 text-xl group-hover:text-indigo-600">category</span>
+            <span class="font-medium">Categories</span>
+            <span class="ml-auto material-icons-outlined text-gray-300 text-sm">chevron_right</span>
+          </a>
+
+          <a href="/admin/customers"
+            class="flex items-center px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-all duration-200 group">
+            <span class="material-icons-outlined mr-3 text-xl group-hover:text-indigo-600">people</span>
+            <span class="font-medium">Customers</span>
+            <span class="ml-auto material-icons-outlined text-gray-300 text-sm">chevron_right</span>
+          </a>
+
+          <a href="/admin/orders"
+            class="flex items-center px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-all duration-200 group">
+            <span class="material-icons-outlined mr-3 text-xl group-hover:text-indigo-600">shopping_cart</span>
+            <span class="font-medium">Orders</span>
+            <span class="ml-auto material-icons-outlined text-gray-300 text-sm">chevron_right</span>
+          </a>
+
+          <a href="/admin/discounts"
+            class="flex items-center px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-all duration-200 group">
+            <span class="material-icons-outlined mr-3 text-xl group-hover:text-indigo-600">campaign</span>
+            <span class="font-medium">Discounts</span>
+            <span class="ml-auto material-icons-outlined text-gray-300 text-sm">chevron_right</span>
+          </a>
+
+          <a href="/admin/coupons"
+            class="flex items-center px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-all duration-200 group">
+            <span class="material-icons-outlined mr-3 text-xl group-hover:text-indigo-600">local_activity</span>
+            <span class="font-medium">Coupons</span>
+            <span class="ml-auto material-icons-outlined text-gray-300 text-sm">chevron_right</span>
+          </a>
+
+          <a href="/admin/banner"
+            class="flex items-center px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-all duration-200 group">
+            <span class="material-icons-outlined mr-3 text-xl group-hover:text-indigo-600">image</span>
+            <span class="font-medium">Banner</span>
+            <span class="ml-auto material-icons-outlined text-gray-300 text-sm">chevron_right</span>
+          </a>
+
+          <a href="/admin/sales-report"
+            class="flex items-center px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-all duration-200 group">
+            <span class="material-icons-outlined mr-3 text-xl group-hover:text-indigo-600">bar_chart</span>
+            <span class="font-medium">Sales Report</span>
+            <span class="ml-auto material-icons-outlined text-gray-300 text-sm">chevron_right</span>
+          </a>
+
+          <div class="pt-8 mt-8 border-t border-gray-100">
+            <a href="/admin/logout"
+              class="flex items-center px-4 py-3 text-red-500 hover:bg-red-50 rounded-xl transition-all duration-200 group">
+              <span class="material-icons-outlined mr-3 text-xl">logout</span>
+              <span class="font-medium">Logout</span>
+            </a>
+          </div>
+        </nav>
+      </div>
     </aside>
 
+    <!-- Overlay -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-30 hidden md:hidden backdrop-blur-sm"></div>
+
     <!-- Main Content -->
-    <main class="flex-1 p-8 overflow-y-auto bg-gray-50">
-      <div class="bg-white p-8 rounded-xl shadow-md">
-        <form method="POST" action="/admin/add-product" enctype="multipart/form-data">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Left Column - Product Details -->
-            <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1" for="productName">Product</label>
-                <input
-                  class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
-                  id="productName"
-                  name="productName"
-                  type="text"
-                  required
-                />
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1" for="Baseprice">Base Price</label>
-                <input
-                  class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
-                  id="Baseprice"
-                  name="Baseprice"
-                  type="number"
-                  min="0"
-                  required
-                />
-              </div>
-              <div class="relative">
-                <label class="block text-sm font-medium text-gray-700 mb-1" for="category">Category</label>
-                <select
-                  class="block w-full appearance-none rounded-lg border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary focus:ring-primary pr-10"
-                  id="category"
-                  name="category"
-                  required
-                >
-                  <option value="">Select a category</option>
-                  <% if (categories && categories.length > 0) { %>
-                    <% categories.forEach(category => { %>
-                      <option value="<%= category._id || category.id %>">
-                        <%= category.categoryName || category.name %>
-                      </option>
-                    <% }) %>
-                  <% } %>
-                </select>
-                <div class="pointer-events-none absolute inset-y-0 right-0 top-6 flex items-center px-2 text-gray-700">
-                  <span class="material-icons-outlined">expand_more</span>
+    <main class="flex-1 p-8 overflow-y-auto">
+      <div class="max-w-7xl mx-auto">
+        <h2 class="text-2xl font-bold text-gray-800 mb-8">Add Product</h2>
+
+        <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+          <form method="POST" action="/admin/add-product" enctype="multipart/form-data">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <!-- Left Column - Product Details -->
+              <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1" for="productName">Product</label>
+                  <input
+                    class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
+                    id="productName" name="productName" type="text" required />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1" for="Baseprice">Base Price</label>
+                  <input
+                    class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
+                    id="Baseprice" name="Baseprice" type="number" min="0" required />
+                </div>
+                <div class="relative">
+                  <label class="block text-sm font-medium text-gray-700 mb-1" for="category">Category</label>
+                  <select
+                    class="block w-full appearance-none rounded-lg border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary focus:ring-primary pr-10"
+                    id="category" name="category" required>
+                    <option value="">Select a category</option>
+                    <% if (categories && categories.length> 0) { %>
+                      <% categories.forEach(category=> { %>
+                        <option value="<%= category._id || category.id %>">
+                          <%= category.categoryName || category.name %>
+                        </option>
+                        <% }) %>
+                          <% } %>
+                  </select>
+                  <div
+                    class="pointer-events-none absolute inset-y-0 right-0 top-6 flex items-center px-2 text-gray-700">
+                    <span class="material-icons-outlined">expand_more</span>
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1" for="brandName">Brand</label>
+                  <input
+                    class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
+                    id="brandName" name="brandName" type="text" required />
                 </div>
               </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1" for="brandName">Brand</label>
-                <input
-                  class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
-                  id="brandName"
-                  name="brandName"
-                  type="text"
-                  required
-                />
+
+              <!-- Right Column - Description -->
+              <div class="space-y-6">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1" for="description">Description</label>
+                  <textarea
+                    class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
+                    id="description" name="description" rows="5"></textarea>
+                </div>
               </div>
             </div>
 
-            <!-- Right Column - Description -->
-            <div class="space-y-6">
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1" for="description">Description</label>
-                <textarea
-                  class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
-                  id="description"
-                  name="description"
-                  rows="5"
-                ></textarea>
+            <!-- Variants Section -->
+            <div class="mt-10 pt-8 border-t border-gray-200">
+              <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-semibold text-gray-800">Variants</h2>
+                <button type="button" onclick="addVariant()"
+                  class="inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg border border-primary text-primary hover:bg-orange-50">
+                  <span class="material-icons-outlined text-sm mr-1">add</span>
+                  Add Variant
+                </button>
+              </div>
+
+              <div id="variantContainer" class="space-y-4">
+                <!-- First Variant Row -->
+                <div
+                  class="variant-row grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                  <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Color</label>
+                    <input type="text" name="color[]"
+                      class="block w-full rounded-lg border-gray-300 bg-white text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
+                      placeholder="e.g. Black" required />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Price</label>
+                    <input type="number" name="variantPrice[]"
+                      class="block w-full rounded-lg border-gray-300 bg-white text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
+                      min="0" required />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Stock</label>
+                    <input type="number" name="variantStock[]"
+                      class="block w-full rounded-lg border-gray-300 bg-white text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
+                      min="0" required />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Images</label>
+                    <!-- first variant uses images_0 -->
+                    <input type="file" name="images_0" accept="image/*" multiple
+                      class="block w-full text-sm text-gray-700 file:mr-3 file:py-2 file:px-3 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-orange-600 cursor-pointer" />
+                    <p class="text-[11px] text-gray-400 mt-1">You can upload multiple images for this color.</p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- Variants Section -->
-          <div class="mt-10 pt-8 border-t border-gray-200">
-            <div class="flex items-center justify-between mb-4">
-              <h2 class="text-lg font-semibold text-gray-800">Variants</h2>
+            <!-- Submit Button -->
+            <div class="mt-8 flex justify-end">
               <button
-                type="button"
-                onclick="addVariant()"
-                class="inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg border border-primary text-primary hover:bg-orange-50"
-              >
-                <span class="material-icons-outlined text-sm mr-1">add</span>
-                Add Variant
+                class="w-full sm:w-auto inline-flex justify-center items-center px-8 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-primary hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-200"
+                type="submit">
+                Save Product
               </button>
             </div>
-
-            <div id="variantContainer" class="space-y-4">
-              <!-- First Variant Row -->
-              <div class="variant-row grid grid-cols-1 md:grid-cols-4 gap-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
-                <div>
-                  <label class="block text-xs font-medium text-gray-600 mb-1">Color</label>
-                  <input
-                    type="text"
-                    name="color[]"
-                    class="block w-full rounded-lg border-gray-300 bg-white text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
-                    placeholder="e.g. Black"
-                    required
-                  />
-                </div>
-                <div>
-                  <label class="block text-xs font-medium text-gray-600 mb-1">Price</label>
-                  <input
-                    type="number"
-                    name="variantPrice[]"
-                    class="block w-full rounded-lg border-gray-300 bg-white text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
-                    min="0"
-                    required
-                  />
-                </div>
-                <div>
-                  <label class="block text-xs font-medium text-gray-600 mb-1">Stock</label>
-                  <input
-                    type="number"
-                    name="variantStock[]"
-                    class="block w-full rounded-lg border-gray-300 bg-white text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
-                    min="0"
-                    required
-                  />
-                </div>
-                <div>
-                  <label class="block text-xs font-medium text-gray-600 mb-1">Images</label>
-                  <!-- first variant uses images_0 -->
-                  <input
-                    type="file"
-                    name="images_0"
-                    accept="image/*"
-                    multiple
-                    class="block w-full text-sm text-gray-700 file:mr-3 file:py-2 file:px-3 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-orange-600 cursor-pointer"
-                  />
-                  <p class="text-[11px] text-gray-400 mt-1">You can upload multiple images for this color.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Submit Button -->
-          <div class="mt-8 flex justify-end">
-            <button
-              class="w-full sm:w-auto inline-flex justify-center items-center px-8 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-primary hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-200"
-              type="submit"
-            >
-              Save Product
-            </button>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </main>
   </div>
+
+  <script>
+    const sidebar = document.getElementById("adminSidebar");
+    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+    const sidebarOverlay = document.getElementById("sidebarOverlay");
+
+    const toggleSidebar = () => {
+      const isClosed = sidebar.classList.contains("-translate-x-full");
+      if (isClosed) {
+        sidebar.classList.remove("-translate-x-full");
+        sidebarOverlay.classList.remove("hidden");
+        document.body.classList.add("overflow-hidden");
+      } else {
+        sidebar.classList.add("-translate-x-full");
+        sidebarOverlay.classList.add("hidden");
+        document.body.classList.remove("overflow-hidden");
+      }
+    };
+
+    if (mobileMenuBtn) mobileMenuBtn.addEventListener("click", toggleSidebar);
+    if (sidebarOverlay) sidebarOverlay.addEventListener("click", toggleSidebar);
+  </script>
 
   <script>
     let variantIndex = 1;
@@ -231,7 +290,7 @@
       const container = document.getElementById("variantContainer");
 
       const html = `
-        <div class="variant-row grid grid-cols-1 md:grid-cols-4 gap-4 bg-gray-50 p-4 rounded-lg border border-gray-200 relative">
+        <div class="variant-row grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-gray-50 p-4 rounded-lg border border-gray-200 relative">
           <button
             type="button"
             onclick="removeVariant(this)"
@@ -295,4 +354,5 @@
     }
   </script>
 </body>
+
 </html>

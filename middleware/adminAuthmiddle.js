@@ -14,7 +14,7 @@ export const adminAuthMiddleware = (req, res, next) => {
       return next();
     }
     
-    return res.redirect("/admin/login");
+    return res.redirect("/admin/dashboard");
   } catch (error) {
     console.error("Admin auth middleware error:", error);
     return res.redirect("/admin/login");

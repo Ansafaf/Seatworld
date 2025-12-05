@@ -11,6 +11,7 @@ import uploadRoutes from "./routes/upload.js";
 import passport from "./config/googleAuth.js";
 import AuthRoute from "./routes/gAuthRoute.js";
 
+
 dotenv.config();
 const app = express();
 
@@ -19,12 +20,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(nocache());
 
+
 //Global session middleware
 app.use(session({
   secret: process.env.SESSION_SECRET || "default_secret",
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false } 
+  cookie: { secure: false }
 }));
 
 //  Passport
@@ -53,7 +55,7 @@ app.use((req, res, next) => {
 });
 
 
-app.listen(5000,'0.0.0.0',  () => {
+app.listen(5000, '0.0.0.0', () => {
   console.log("Server running on http://localhost:5000");
 });
 

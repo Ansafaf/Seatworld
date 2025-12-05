@@ -20,23 +20,19 @@ const userSchema = new mongoose.Schema({
     password:{
         type:String
     },
-    isActive:{
-        type:Boolean,
-        default:true
+    status: {
+      type: String,
+      enum: ["active", "blocked"],
+      default: "active"
     },
     isVerified:{
         type:Boolean,
         default:false
     },
-    otp:{
-        type: String
-    },
-    otpExpires:{
-        type:Date
-    },
-    isBlocked:{
-        type:Boolean,
-        default:false
+    authType: {
+      type: String,
+      enum: ["local", "google"],
+      default: "local"
     }
 },{timestamps:true})
 
