@@ -1,12 +1,23 @@
 import express from 'express';
+import { adminAuthMiddleware } from '../middleware/adminAuthmiddle.js';
 const adminRouter = express.Router();
-import { getCategoryList, getAddCategory, postAddCategory, getEditCategory, postEditCategory} from "../controller/adminCategory.js";
+import {
+    getCategoryList,
+    getAddCategory,
+    postAddCategory,
+    getEditCategory,
+    postEditCategory,
+    postBlockCategory,
+    postUnblockCategory
+} from "../controller/adminCategory.js";
 
-adminRouter.get("/categories", getCategoryList);
-adminRouter.get("/add-category",getAddCategory);
-adminRouter.post("/add-category", postAddCategory);
-adminRouter.get("/edit-category/:id", getEditCategory);
-adminRouter.post("/edit-category/:id", postEditCategory);
+adminRouter.get("/categories", adminAuthMiddleware, getCategoryList);
+adminRouter.get("/add-category", adminAuthMiddleware, getAddCategory);
+adminRouter.post("/add-category", adminAuthMiddleware, postAddCategory);
+adminRouter.get("/edit-category/:id", adminAuthMiddleware, getEditCategory);
+adminRouter.post("/edit-category/:id", adminAuthMiddleware, postEditCategory);
+adminRouter.post("/block-category/:id", adminAuthMiddleware, postBlockCategory);
+adminRouter.post("/unblock-category/:id", adminAuthMiddleware, postUnblockCategory);
 
 // adminRouter.patch("/")
 

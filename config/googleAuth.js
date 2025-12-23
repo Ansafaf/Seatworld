@@ -23,7 +23,12 @@ passport.use(new GoogleStrategy({
          authType:"google"
         });
         await user.save();
-      } 
+      }
+     if (user.status === "blocked") {
+     return done(null, false, {
+       message: "Your account has been blocked by the admin. Please contact support."
+       });
+    }
       return done(null,user)
     } catch (err) {
       return done(err, null);

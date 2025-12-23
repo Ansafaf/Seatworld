@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SeatWorld | Log in</title>
+
   <style>
     * {
       box-sizing: border-box;
     }
 
-    html, body {
+    html,
+    body {
       overflow-x: hidden;
       width: 100%;
       max-width: 100%;
@@ -29,14 +32,13 @@
     /* Header */
     header {
       width: 100%;
-      max-width: 100%;
       padding: 15px 20px;
       border-bottom: 1px solid #eaeaea;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-sizing: border-box;
     }
+
     header h1 {
       margin: 0;
       font-size: 22px;
@@ -46,10 +48,12 @@
       align-items: center;
       gap: 8px;
     }
+
     header img {
       width: 28px;
       height: 28px;
     }
+
     header a {
       text-decoration: none;
       font-size: 14px;
@@ -62,12 +66,10 @@
       text-align: center;
       padding: 0 15px;
       width: 100%;
-      max-width: 100%;
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      box-sizing: border-box;
     }
 
     .login-title {
@@ -76,30 +78,26 @@
       color: #333;
     }
 
-    /* Form container */
+    /* Form Box */
     .form-box {
       display: flex;
-      align-items: center;
       justify-content: center;
       width: 100%;
-      max-width: 100%;
-      box-sizing: border-box;
     }
 
-    /* Left: Form */
+    /* Login Form */
     .login-form {
       display: flex;
       flex-direction: column;
       gap: 15px;
       width: 100%;
       max-width: 280px;
-      text-align: left;
-      flex-shrink: 0;
+      /* mobile default */
       background: #fafafa;
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-      box-sizing: border-box;
+      text-align: left;
     }
 
     .login-form label {
@@ -113,7 +111,6 @@
       border-radius: 6px;
       font-size: 14px;
       width: 100%;
-      box-sizing: border-box;
     }
 
     .login-form button {
@@ -124,50 +121,31 @@
       cursor: pointer;
       font-size: 14px;
       color: #fff;
-      transition: background 0.3s;
     }
 
     .login-form button:hover {
       background: #084b91;
     }
 
-    /* Divider */
-    .divider {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #666;
-      font-size: 13px;
-      width: 100%;
-    }
-
-    /* Right: Google button */
-    .google-btn {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      justify-content: center;
-      gap: 8px;
-      border: 1px solid #ccc;
-      padding: 10px 20px;
-      border-radius: 20px;
-      cursor: pointer;
-      background: #fff;
+    /* Messages */
+    .error-message {
+      background: #fee;
+      border: 1px solid #fcc;
+      color: #c33;
+      padding: 12px;
+      border-radius: 8px;
       font-size: 14px;
-      color: black;
-      width: 100%;
-      max-width: 100%;
-      box-sizing: border-box;
-      transition: background 0.3s;
+      text-align: center;
     }
 
-    .google-btn:hover {
-      background: #f7f7f7;
-    }
-
-    .google-btn img {
-      width: 20px;
-      height: 20px;
+    .success-message {
+      background: #efe;
+      border: 1px solid #cfc;
+      color: #3c3;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      text-align: center;
     }
 
     /* Links */
@@ -179,72 +157,60 @@
     .links a {
       color: #0b64c0;
       text-decoration: none;
-      margin-left: 5px;
     }
 
     .links a:hover {
       text-decoration: underline;
     }
 
-    .footer {
-      margin-top: 30px;
-      font-size: 13px;
+    /* Divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 15px 0;
     }
 
-    .error-message {
-      background-color: #fee;
-      border: 1px solid #fcc;
-      color: #c33;
-      padding: 12px 20px;
-      border-radius: 8px;
-      margin-top: 20px;
-      text-align: center;
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: #ddd;
+    }
+
+    /* Google Button */
+    .google-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 20px;
+      text-decoration: none;
+      color: #000;
       font-size: 14px;
-      font-weight: 500;
-      display: block;
-      animation: fadeIn 0.3s ease-in;
-      box-shadow: 0 2px 4px rgba(204, 51, 51, 0.1);
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
     }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
+    .google-btn img {
+      width: 20px;
+    }
+
+    .google-btn:hover {
+      background: #f7f7f7;
+    }
+
+    /* 🔹 DESKTOP ONLY – wider inputs */
+    @media (min-width: 1024px) {
+      .login-form {
+        max-width: 380px;
       }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
 
-    .success-message {
-      background-color: #efe;
-      border: 1px solid #cfc;
-      color: #3c3;
-      padding: 12px 20px;
-      border-radius: 8px;
-      margin-top: 20px;
-      text-align: center;
-      font-size: 14px;
-      font-weight: 500;
-      display: block;
-      animation: fadeIn 0.3s ease-in;
-      box-shadow: 0 2px 4px rgba(51, 204, 51, 0.1);
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    /* Responsive Styles */
-    @media (max-width: 768px) {
-      .login-title {
-        font-size: 20px;
+      .login-form input {
+        padding: 12px;
+        font-size: 15px;
       }
     }
 
+    /* Small Screens */
     @media (max-width: 480px) {
       header h1 {
         font-size: 18px;
@@ -253,88 +219,72 @@
       .login-title {
         font-size: 18px;
       }
+    }
 
-      .login-form,
-      .google-btn {
-        width: 100%;
-        max-width: 320px;
-      }
-
-      .form-box {
-        align-items: center;
-        text-align: center;
-      }
-
-      .divider {
-        width: 100%;
-        justify-content: center;
-      }
-
-      .footer {
-        text-align: center;
-      }
+    .auth-error {
+      background-color: #ffe5e5;
+      color: #b00020;
+      border: 1px solid #000000;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      text-align: center;
+      margin-bottom: 16px;
     }
   </style>
 </head>
+
 <body>
-  <!-- Header -->
-  <header>
-    <h1>
-      <img src="your-logo.png" alt="Logo" />
-      SeatWorld
-    </h1>
-    <a href="/">&#8592; Back</a>
-  </header>
+  <%- include('../partials/flash') %>
 
-  <!-- Login Section -->
-  <div class="login-container">
-    <div class="login-title">Log in</div>
+    <header>
+      <h1>
+        <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765945540/products/rmsn314w038gnfzmemmi.jpg" />
+        SeatWorld
+      </h1>
+      <a href="/">← Back</a>
+    </header>
 
-    <div class="form-box">
-      <!-- Login form -->
-      <form class="login-form" method="POST" action="/login">
-        <% if (typeof error !== 'undefined' && error) { %>
-          <div class="error-message" style="margin-top: 0; margin-bottom: 10px;">
-            <strong>⚠️</strong> <%= error %>
+    <div class="login-container">
+      <div class="login-title">Log in</div>
+
+      <div class="form-box">
+        <form class="login-form" method="POST" action="/login">
+
+
+
+
+          <label>Email address</label>
+          <input type="email" name="email" required>
+
+          <label>Password</label>
+          <input type="password" name="password" required>
+
+          <button type="submit">Log in</button>
+
+          <div class="links">
+            <a href="/forgot-password">Forgot password?</a>
           </div>
-        <% } %>
 
-        <% if (typeof message !== 'undefined' && message) { %>
-          <div class="success-message" style="margin-top: 0; margin-bottom: 10px;">
-            <strong>✓</strong> <%= message %>
+          <div class="links">
+            Don’t have an account? <a href="/signup">Register</a>
           </div>
-        <% } %>
 
-        <label>Email address</label>
-        <input type="email" name="email" required />
+          <div class="divider">
+            <div class="divider-line"></div>
+            <span style="padding:0 10px;">OR</span>
+            <div class="divider-line"></div>
+          </div>
 
-        <label>Password</label>
-        <input type="password" name="password" required />
+          <a href="/auth/google" class="google-btn">
+            <img src="https://www.svgrepo.com/show/355037/google.svg">
+            Continue with Google
+          </a>
 
-        <button type="submit">Log in</button>
-
-        <div class="links">
-          <a href="/forgot-password">Forgot password?</a>
-        </div>
-        <div class="links">
-          Don't have an account? <a href="/signup">Register</a>
-        </div>
-
-        <!-- Divider -->
-        <div class="divider" style="flex-direction: row; margin: 15px 0; width: 100%; box-sizing: border-box;">
-          <div class="divider-line" style="height: 1px; flex: 1; border-left: none; border-top: 1px solid #ddd; margin: 0;"></div>
-          <div style="padding: 0 10px; color: #666; font-size: 13px; flex-shrink: 0;">OR</div>
-          <div class="divider-line" style="height: 1px; flex: 1; border-left: none; border-top: 1px solid #ddd; margin: 0;"></div>
-        </div>
-
-        <!-- Google button -->
-        <a href="/auth/google" class="google-btn" style="width: 100%; justify-content: center; text-align: center;">
-          <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google" />
-          Continue with Google
-        </a>
-      </form>
+        </form>
+      </div>
     </div>
 
-  </div>
 </body>
+
 </html>

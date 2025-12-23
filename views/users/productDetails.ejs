@@ -445,9 +445,8 @@
             </div>
             <nav>
                 <a href="/dashboard">Home</a>
-                <a href="/products">Shop</a>
-                <a href="#">Contact us</a>
-                <a href="#">About</a>
+                <a href="/products">Products</a>
+                <a href="/about">About</a>
             </nav>
             <div class="nav-actions">
                 <button class="icon-button">♡</button>
@@ -456,141 +455,140 @@
             </div>
         </div>
     </header>
+    <%- include('../partials/flash') %>
 
-    <main class="container">
-        <section class="product-detail-section">
-            <!-- Gallery -->
-            <div class="gallery-container">
-                <div class="main-image-wrapper" id="img-container">
-                    <img src="<%= product.image %>" alt="<%= product.name %>" class="main-image" id="main-image">
-                    <div id="zoom-result" class="zoom-result"></div>
-                </div>
-                <div class="thumbnails-col">
-                    <!-- Main image as first thumbnail -->
-                    <div class="thumbnail active" onclick="changeImage('<%= product.image %>', this)">
-                        <img src="<%= product.image %>" alt="View 1">
+        <main class="container">
+            <section class="product-detail-section">
+                <!-- Gallery -->
+                <div class="gallery-container">
+                    <div class="main-image-wrapper" id="img-container">
+                        <img src="<%= product.image %>" alt="<%= product.name %>" class="main-image" id="main-image">
+                        <div id="zoom-result" class="zoom-result"></div>
                     </div>
-                    <!-- Additional variants/images -->
-                    <% if (product.variants && product.variants.length) { %>
-                        <% product.variants.forEach((variant, idx)=> { %>
-                            <% if (variant.images && variant.images.length) { %>
-                                <div class="thumbnail" onclick="changeImage('<%= variant.images[0] %>', this)">
-                                    <img src="<%= variant.images[0] %>" alt="View <%= idx + 2 %>">
-                                </div>
-                                <% } %>
-                                    <% }) %>
-                                        <% } %>
-                </div>
-            </div>
-
-            <!-- Info -->
-            <div class="product-info">
-                <button class="wishlist-btn-abs">♡</button>
-                <h1 class="product-title">
-                    <%= product.name %>
-                </h1>
-                <p class="product-desc">
-                    <%= product.description
-                        || "Ergonomic gaming chair with durable synthetic leather and high-density foam cushions, built for long hours of comfort and support."
-                        %>
-                </p>
-
-                <div class="price-tag">₹<%= product.variant ? product.variant.price : product.price %>
-                </div>
-                <div class="tax-note">MRP incl. of all taxes</div>
-
-                <div class="color-section">
-                    <span class="color-label">FIND YOUR COLOR</span>
-                    <div class="color-options">
+                    <div class="thumbnails-col">
+                        <!-- Main image as first thumbnail -->
+                        <div class="thumbnail active" onclick="changeImage('<%= product.image %>', this)">
+                            <img src="<%= product.image %>" alt="View 1">
+                        </div>
+                        <!-- Additional variants/images -->
                         <% if (product.variants && product.variants.length) { %>
-                            <% product.variants.forEach(v=> { %>
-                                <div class="color-opt <%= (product.variant && product.variant._id === v._id) ? 'active' : '' %>"
-                                    onclick="location.href='?variant=<%= v._id %>'">
-                                    <%= v.color %>
-                                </div>
-                                <% }) %>
-                                    <% } else { %>
-                                        <div class="color-opt active">Std</div>
-                                        <% } %>
+                            <% product.variants.forEach((variant, idx)=> { %>
+                                <% if (variant.images && variant.images.length) { %>
+                                    <div class="thumbnail" onclick="changeImage('<%= variant.images[0] %>', this)">
+                                        <img src="<%= variant.images[0] %>" alt="View <%= idx + 2 %>">
+                                    </div>
+                                    <% } %>
+                                        <% }) %>
+                                            <% } %>
                     </div>
                 </div>
 
-                <div class="action-buttons">
-                    <button class="btn-action btn-cart">Add to Cart</button>
-                    <button class="btn-action btn-buy">Buy Now</button>
+                <!-- Info -->
+                <div class="product-info">
+                    <button class="wishlist-btn-abs">♡</button>
+                    <h1 class="product-title">
+                        <%= product.name %>
+                    </h1>
+                    <p class="product-desc">
+                        <%= product.description
+                            || "Ergonomic gaming chair with durable synthetic leather and high-density foam cushions, built for long hours of comfort and support."
+                            %>
+                    </p>
+
+                    <div class="price-tag">₹<%= product.variant ? product.variant.price : product.price %>
+                    </div>
+                    <div class="tax-note">MRP incl. of all taxes</div>
+
+                    <div class="color-section">
+                        <span class="color-label">FIND YOUR COLOR</span>
+                        <div class="color-options">
+                            <% if (product.variants && product.variants.length) { %>
+                                <% product.variants.forEach(v=> { %>
+                                    <div class="color-opt <%= (product.variant && product.variant._id === v._id) ? 'active' : '' %>"
+                                        onclick="location.href='?variant=<%= v._id %>'">
+                                        <%= v.color %>
+                                    </div>
+                                    <% }) %>
+                                        <% } else { %>
+                                            <div class="color-opt active">Std</div>
+                                            <% } %>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn-action btn-cart">Add to Cart</button>
+                        <button class="btn-action btn-buy">Buy Now</button>
+                    </div>
                 </div>
+            </section>
+
+            <!-- Related Products -->
+            <section class="related-section">
+                <h2 class="related-title">YOU MIGHT ALSO LIKE</h2>
+                <div class="related-grid">
+                    <% if (locals.relatedProducts) { %>
+                        <% relatedProducts.forEach(rp=> { %>
+                            <a href="/product/<%= rp._id %>" class="related-card">
+                                <div class="related-img-box">
+                                    <img src="<%= rp.image %>" alt="<%= rp.name %>">
+                                </div>
+                                <div class="related-name">
+                                    <%= rp.name %>
+                                </div>
+                                <div class="related-price">₹<%= rp.price %>
+                                </div>
+                            </a>
+                            <% }) %>
+                                <% } %>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="links">
+                <a href="/dashboard">Home</a>
+                <a href="/products">Products</a>
+                <a href="/about">About</a>
             </div>
-        </section>
+            <p>SeatWorld © <%= new Date().getFullYear() %>. All Rights Reserved</p>
+        </footer>
 
-        <!-- Related Products -->
-        <section class="related-section">
-            <h2 class="related-title">YOU MIGHT ALSO LIKE</h2>
-            <div class="related-grid">
-                <% if (locals.relatedProducts) { %>
-                    <% relatedProducts.forEach(rp=> { %>
-                        <a href="/product/<%= rp._id %>" class="related-card">
-                            <div class="related-img-box">
-                                <img src="<%= rp.image %>" alt="<%= rp.name %>">
-                            </div>
-                            <div class="related-name">
-                                <%= rp.name %>
-                            </div>
-                            <div class="related-price">₹<%= rp.price %>
-                            </div>
-                        </a>
-                        <% }) %>
-                            <% } %>
-            </div>
-        </section>
-    </main>
+        <script>
+            // Image Switcher
+            function changeImage(src, el) {
+                document.getElementById('main-image').src = src;
+                document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                el.classList.add('active');
 
-    <footer>
-        <div class="links">
-            <a href="#">About</a>
-            <a href="#">Features</a>
-            <a href="#">Works</a>
-            <a href="#">Career</a>
-            <a href="#">Privacy Policy</a>
-        </div>
-        <p>SeatWorld © <%= new Date().getFullYear() %>. All Rights Reserved</p>
-    </footer>
+                // Reset zoom
+                setupZoom();
+            }
 
-    <script>
-        // Image Switcher
-        function changeImage(src, el) {
-            document.getElementById('main-image').src = src;
-            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-            el.classList.add('active');
+            // Zoom Functionality
+            function setupZoom() {
+                const container = document.getElementById('img-container');
+                const img = document.getElementById('main-image');
 
-            // Reset zoom
+                container.addEventListener('mousemove', function (e) {
+                    const { left, top, width, height } = container.getBoundingClientRect();
+                    const x = (e.clientX - left) / width;
+                    const y = (e.clientY - top) / height;
+
+                    img.style.transformOrigin = `${x * 100}% ${y * 100}%`;
+                    img.style.transform = "scale(2)"; // Zoom level
+                });
+
+                container.addEventListener('mouseleave', function () {
+                    img.style.transform = "scale(1)";
+                    setTimeout(() => {
+                        img.style.transformOrigin = "center center";
+                    }, 300);
+                });
+            }
+
+            // Initialize
             setupZoom();
-        }
-
-        // Zoom Functionality
-        function setupZoom() {
-            const container = document.getElementById('img-container');
-            const img = document.getElementById('main-image');
-
-            container.addEventListener('mousemove', function (e) {
-                const { left, top, width, height } = container.getBoundingClientRect();
-                const x = (e.clientX - left) / width;
-                const y = (e.clientY - top) / height;
-
-                img.style.transformOrigin = `${x * 100}% ${y * 100}%`;
-                img.style.transform = "scale(2)"; // Zoom level
-            });
-
-            container.addEventListener('mouseleave', function () {
-                img.style.transform = "scale(1)";
-                setTimeout(() => {
-                    img.style.transformOrigin = "center center";
-                }, 300);
-            });
-        }
-
-        // Initialize
-        setupZoom();
-    </script>
+        </script>
 </body>
 
 </html>

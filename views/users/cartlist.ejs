@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,25 +12,31 @@
       margin: 0;
       padding: 0;
     }
-    header, footer {
+
+    header,
+    footer {
       padding: 20px 40px;
       background: #fff;
       border-bottom: 1px solid #eee;
     }
+
     header nav a {
       margin: 0 10px;
       text-decoration: none;
       color: black;
     }
+
     .cart-container {
       display: flex;
       justify-content: space-between;
       gap: 30px;
       padding: 40px;
     }
+
     .cart-items {
       flex: 2;
     }
+
     .cart-item {
       display: flex;
       align-items: center;
@@ -40,6 +47,7 @@
       margin-bottom: 15px;
       background: #fff;
     }
+
     .cart-item img {
       width: 100px;
       height: 100px;
@@ -47,22 +55,27 @@
       border-radius: 8px;
       margin-right: 15px;
     }
+
     .cart-item-details {
       flex: 1;
     }
+
     .cart-item-details h4 {
       margin: 0 0 5px;
     }
+
     .cart-item-details p {
       margin: 0;
       color: gray;
       font-size: 14px;
     }
+
     .quantity-controls {
       display: flex;
       align-items: center;
       gap: 8px;
     }
+
     .quantity-controls button {
       border: 1px solid #000;
       background: #fff;
@@ -70,10 +83,12 @@
       cursor: pointer;
       border-radius: 5px;
     }
+
     .remove-btn {
       color: red;
       cursor: pointer;
     }
+
     .order-summary {
       flex: 1;
       border: 1px solid #eee;
@@ -81,24 +96,29 @@
       padding: 20px;
       background: #fff;
     }
+
     .order-summary h3 {
       margin-bottom: 20px;
     }
+
     .summary-row {
       display: flex;
       justify-content: space-between;
       margin-bottom: 10px;
     }
+
     .promo {
       display: flex;
       margin: 15px 0;
     }
+
     .promo input {
       flex: 1;
       padding: 8px;
       border: 1px solid #ddd;
       border-radius: 5px 0 0 5px;
     }
+
     .promo button {
       padding: 8px 15px;
       border: none;
@@ -107,6 +127,7 @@
       border-radius: 0 5px 5px 0;
       cursor: pointer;
     }
+
     .checkout-btn {
       width: 100%;
       padding: 12px;
@@ -117,10 +138,12 @@
       cursor: pointer;
       font-size: 16px;
     }
+
     .pagination {
       text-align: center;
       margin: 30px 0;
     }
+
     .pagination button {
       margin: 0 5px;
       padding: 5px 12px;
@@ -131,6 +154,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <!-- Header -->
@@ -138,74 +162,84 @@
     <h2>SeatWorld</h2>
     <nav>
       <a href="/dashboard">Home</a>
-      <a href="/shop">Shop</a>
-      <a href="/contact">Contact us</a>
+      <a href="/products">Products</a>
       <a href="/about">About</a>
     </nav>
   </header>
+  <%- include('../partials/flash') %>
 
-  <!-- Cart -->
-  <section>
-    <h2 style="padding: 20px 40px;">YOUR CART</h2>
-    <div class="cart-container">
-      
-      <!-- Cart Items -->
-      <div class="cart-items">
-        <% cartItems.forEach(item => { %>
-          <div class="cart-item">
-            <img src="<%= item.image %>" alt="<%= item.name %>">
-            <div class="cart-item-details">
-              <h4><%= item.name %></h4>
-              <p><%= item.color %></p>
-              <p>₹<%= item.price %></p>
+    <!-- Cart -->
+    <section>
+      <h2 style="padding: 20px 40px;">YOUR CART</h2>
+      <div class="cart-container">
+
+        <!-- Cart Items -->
+        <div class="cart-items">
+          <% cartItems.forEach(item=> { %>
+            <div class="cart-item">
+              <img src="<%= item.image %>" alt="<%= item.name %>">
+              <div class="cart-item-details">
+                <h4>
+                  <%= item.name %>
+                </h4>
+                <p>
+                  <%= item.color %>
+                </p>
+                <p>₹<%= item.price %>
+                </p>
+              </div>
+              <div class="quantity-controls">
+                <button>-</button>''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                <span>
+                  <%= item.quantity %>
+                </span>''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                <button>+</button>
+              </div>
+              <span class="remove-btn">🗑</span>
             </div>
-            <div class="quantity-controls">
-              <button>-</button>''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-              <span><%= item.quantity %></span>''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-              <button>+</button>
-            </div>
-            <span class="remove-btn">🗑</span>
+            <% }) %>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="order-summary">
+          <h3>Order Summary</h3>
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span>₹<%= subtotal %></span>
           </div>
-        <% }) %>
+          <div class="summary-row">
+            <span>Delivery Fee</span>
+            <span>
+              <%= deliveryFee %>
+            </span>
+          </div>
+          <div class="summary-row" style="font-weight: bold;">
+            <span>Total</span>
+            <span>₹<%= total %></span>
+          </div>
+          <div class="promo">
+            <input type="text" placeholder="Add promo code">
+            <button>Apply</button>
+          </div>
+          <button class="checkout-btn">Go to Checkout →</button>
+        </div>
       </div>
+    </section>
 
-      <!-- Order Summary -->
-      <div class="order-summary">
-        <h3>Order Summary</h3>
-        <div class="summary-row">
-          <span>Subtotal</span>
-          <span>₹<%= subtotal %></span>
-        </div>
-        <div class="summary-row">
-          <span>Delivery Fee</span>
-          <span><%= deliveryFee %></span>
-        </div>
-        <div class="summary-row" style="font-weight: bold;">
-          <span>Total</span>
-          <span>₹<%= total %></span>
-        </div>
-        <div class="promo">
-          <input type="text" placeholder="Add promo code">
-          <button>Apply</button>
-        </div>
-        <button class="checkout-btn">Go to Checkout →</button>
-      </div>
+    <!-- Pagination -->
+    <div class="pagination">
+      <button>Previous</button>
+      <button>1</button>
+      <button>2</button>
+      <button>3</button>
+      <button>Next</button>
     </div>
-  </section>
 
-  <!-- Pagination -->
-  <div class="pagination">
-    <button>Previous</button>
-    <button>1</button>
-    <button>2</button>
-    <button>3</button>
-    <button>Next</button>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    <p>© 2023 SeatWorld. All Rights Reserved</p>
-  </footer>
+    <!-- Footer -->
+    <footer>
+      <p>© 2023 SeatWorld. All Rights Reserved</p>
+    </footer>
 
 </body>
+
 </html>

@@ -34,6 +34,89 @@
       border-top-right-radius: 0.5rem;
       border-bottom-right-radius: 0.5rem;
     }
+
+    /* Pagination Styling */
+    .pagination-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 32px;
+      padding-bottom: 16px;
+    }
+
+    .pagination-bar {
+      background: white;
+      display: flex;
+      align-items: center;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      border: 1px solid #f3f4f6;
+      gap: 8px;
+    }
+
+    .pagination-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      color: #4b5563;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .pagination-nav-link:hover:not(.disabled) {
+      background-color: #f3f4f6;
+      color: #111827;
+    }
+
+    .pagination-nav-link.disabled {
+      color: #d1d5db;
+      cursor: not-allowed;
+    }
+
+    .pagination-numbers {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 0 8px;
+      border-left: 1px solid #e5e7eb;
+      border-right: 1px solid #e5e7eb;
+      margin: 0 8px;
+    }
+
+    .pagination-number {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9999px;
+      color: #6b7280;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .pagination-number:hover:not(.active) {
+      background-color: #f3f4f6;
+      color: #111827;
+    }
+
+    .pagination-number.active {
+      background-color: #F97316;
+      color: white;
+      font-weight: 700;
+      box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3);
+    }
+
+    .pagination-dots {
+      color: #9ca3af;
+      padding: 0 4px;
+    }
   </style>
   <style>
     /* Message alert animation */
@@ -88,7 +171,7 @@
         <a href="/admin/dashboard" class="hover:text-indigo-600 transition-colors">Dashboard</a>
         <a href="/admin/products" class="hover:text-indigo-600 transition-colors">Products</a>
         <a href="/admin/orders" class="hover:text-indigo-600 transition-colors">Orders</a>
-        <a href="/admin/customers" class="text-indigo-600 transition-colors">Customers</a>
+        <a href="/admin/users" class="text-indigo-600 transition-colors">Customers</a>
       </nav>
       <div class="flex items-center gap-3 pl-6 border-l border-gray-200">
         <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
@@ -131,7 +214,7 @@
           </a>
 
           <!-- Customers (Active) -->
-          <a href="/admin/customers"
+          <a href="/admin/users"
             class="flex items-center px-4 py-3 bg-indigo-600 text-white rounded-xl transition-all duration-200 shadow-lg shadow-indigo-200">
             <span class="material-icons-outlined mr-3 text-xl">people</span>
             <span class="font-medium flex-1">Customers</span>
@@ -143,6 +226,14 @@
             class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
             <span class="material-icons-outlined mr-3 text-xl">shopping_cart</span>
             <span class="font-medium flex-1">Orders</span>
+            <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
+          </a>
+
+          <!-- Categories -->
+          <a href="/admin/categories"
+            class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
+            <span class="material-icons-outlined mr-3 text-xl">category</span>
+            <span class="font-medium flex-1">Categories</span>
             <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
           </a>
 
@@ -197,97 +288,145 @@
       <div class="max-w-7xl mx-auto">
 
         <!-- Message Alert -->
-        <% if (msg && msg.trim() !=='' ) { %>
-          <div id="messageAlert" class="mb-6 p-4 rounded-xl shadow-lg border-l-4 flex items-start justify-between animate-slideIn
-            <%= msg.toLowerCase().includes('success') || msg.toLowerCase().includes('unblock') ? 'bg-green-50 border-green-500 text-green-800' : 
-                msg.toLowerCase().includes('error') || msg.toLowerCase().includes('block') ? 'bg-red-50 border-red-500 text-red-800' : 
-                'bg-blue-50 border-blue-500 text-blue-800' %>">
-            <div class="flex items-start gap-3">
-              <span class="material-icons-outlined mt-0.5
-                <%= msg.toLowerCase().includes('success') || msg.toLowerCase().includes('unblock') ? 'text-green-600' : 
-                    msg.toLowerCase().includes('error') || msg.toLowerCase().includes('block') ? 'text-red-600' : 
-                    'text-blue-600' %>">
-                <%= msg.toLowerCase().includes('success') || msg.toLowerCase().includes('unblock') ? 'check_circle' :
-                  msg.toLowerCase().includes('error') || msg.toLowerCase().includes('block') ? 'error' : 'info' %>
-              </span>
-              <div>
-                <p class="font-semibold text-sm">
-                  <%= msg %>
-                </p>
-              </div>
-            </div>
-            <button onclick="dismissMessage()" class="text-gray-500 hover:text-gray-700 transition-colors">
-              <span class="material-icons-outlined text-xl">close</span>
-            </button>
-          </div>
-          <% } %>
-            <!-- Header Actions -->
-            <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-              <div class="hidden md:block"></div>
+        <%- include('../partials/flash') %>
+          <!-- Header Actions -->
+          <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+            <div class="hidden md:block"></div>
 
-              <div class="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto ml-auto">
-                <div class="relative w-full md:w-80">
-                  <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-                    <span class="material-icons-outlined text-xl">search</span>
-                  </span>
-                  <input type="text" id="searchInput" placeholder="Search for customers"
-                    class="w-full py-2.5 pl-10 pr-4 bg-white text-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 shadow-sm">
+            <div class="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto ml-auto">
+              <form action="/admin/users" method="GET" class="relative w-full md:w-80">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                  <span class="material-icons-outlined text-xl">search</span>
+                </span>
+                <input type="text" id="searchInput" name="search" value="<%= search %>"
+                  placeholder="Search for customers"
+                  class="w-full py-2.5 pl-10 pr-4 bg-white text-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 shadow-sm">
+              </form>
+            </div>
+          </div>
+
+          <!-- Table Card -->
+          <div class="bg-white rounded-2xl shadow-sm p-8 min-h-[600px] relative">
+            <div class="overflow-x-auto">
+              <table class="w-full whitespace-nowrap border-separate border-spacing-y-4" id="customersTable">
+                <thead>
+                  <tr class="bg-[#C4C4C4]">
+                    <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">ID</th>
+                    <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">Name</th>
+                    <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">Email</th>
+                    <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">Status</th>
+                    <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="">
+                  <% if (users && users.length> 0) { %>
+                    <% users.forEach((user, index)=> { %>
+                      <tr class="hover:bg-gray-50 transition-colors duration-150 customer-row">
+                        <td class="px-6 py-4 text-sm font-bold text-gray-900">
+                          <%= index + 1 %>
+                        </td>
+                        <td class="px-6 py-4 text-sm font-bold text-gray-900 name-cell">
+                          <%= user.name || user.username || 'N/A' %>
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-600 email-cell">
+                          <%= user.email || 'N/A' %>
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-600">
+                          <%= user.status %>
+                        </td>
+                        <td class="px-6 py-4 text-sm">
+                          <button onclick="handleAction('/admin/users/<%= user._id %>/unblock', 'unblock')"
+                            class="inline-flex items-center justify-center px-4 py-1.5 bg-[#008000] hover:bg-green-800 text-white text-xs font-bold rounded transition-colors duration-200 mr-2">
+                            Unblock
+                          </button>
+                          <button onclick="handleAction('/admin/users/<%= user._id %>/block', 'block')"
+                            class="inline-flex items-center justify-center px-4 py-1.5 bg-[#B91C1C] hover:bg-red-800 text-white text-xs font-bold rounded transition-colors duration-200">
+                            Block
+                          </button>
+                        </td>
+                      </tr>
+                      <% }) %>
+                        <% } else { %>
+                          <tr>
+                            <td colspan="5" class="px-6 py-10 text-center text-gray-500">
+                              No customers found.
+                            </td>
+                          </tr>
+                          <% } %>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination -->
+            <!-- Pagination -->
+            <% if (totalPages> 1) { %>
+              <div class="pagination-container">
+                <div class="pagination-bar">
+                  <!-- Previous Button -->
+                  <% if (currentPage> 1) { %>
+                    <a href="/admin/users?page=<%= currentPage - 1 %>&search=<%= search %>" class="pagination-nav-link">
+                      <span class="material-icons-outlined">arrow_back</span>
+                      <span>Prev</span>
+                    </a>
+                    <% } else { %>
+                      <span class="pagination-nav-link disabled">
+                        <span class="material-icons-outlined">arrow_back</span>
+                        <span>Prev</span>
+                      </span>
+                      <% } %>
+
+                        <!-- Page Numbers -->
+                        <div class="pagination-numbers">
+                          <% let startPage=Math.max(1, currentPage - 2); let endPage=Math.min(totalPages, currentPage +
+                            2); if (currentPage <=3) { startPage=1; endPage=Math.min(totalPages, 5); } else if
+                            (currentPage>= totalPages - 2) {
+                            startPage = Math.max(1, totalPages - 4);
+                            endPage = totalPages;
+                            }
+                            %>
+
+                            <% if (startPage> 1) { %>
+                              <a href="/admin/users?page=1&search=<%= search %>" class="pagination-number">1</a>
+                              <% if (startPage> 2) { %>
+                                <span class="pagination-dots">...</span>
+                                <% } %>
+                                  <% } %>
+
+                                    <% for (let i=startPage; i <=endPage; i++) { %>
+                                      <a href="/admin/users?page=<%= i %>&search=<%= search %>"
+                                        class="pagination-number <%= currentPage === i ? 'active' : '' %>">
+                                        <%= i %>
+                                      </a>
+                                      <% } %>
+
+                                        <% if (endPage < totalPages) { %>
+                                          <% if (endPage < totalPages - 1) { %>
+                                            <span class="pagination-dots">...</span>
+                                            <% } %>
+                                              <a href="/admin/users?page=<%= totalPages %>&search=<%= search %>"
+                                                class="pagination-number">
+                                                <%= totalPages %>
+                                              </a>
+                                              <% } %>
+                        </div>
+
+                        <!-- Next Button -->
+                        <% if (currentPage < totalPages) { %>
+                          <a href="/admin/users?page=<%= currentPage + 1 %>&search=<%= search %>"
+                            class="pagination-nav-link">
+                            <span>Next</span>
+                            <span class="material-icons-outlined">arrow_forward</span>
+                          </a>
+                          <% } else { %>
+                            <span class="pagination-nav-link disabled">
+                              <span>Next</span>
+                              <span class="material-icons-outlined">arrow_forward</span>
+                            </span>
+                            <% } %>
                 </div>
               </div>
-            </div>
-
-            <!-- Table Card -->
-            <div class="bg-white rounded-2xl shadow-sm p-8 min-h-[600px] relative">
-              <div class="overflow-x-auto">
-                <table class="w-full whitespace-nowrap border-separate border-spacing-y-4" id="customersTable">
-                  <thead>
-                    <tr class="bg-[#C4C4C4]">
-                      <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">ID</th>
-                      <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">Name</th>
-                      <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">Email</th>
-                      <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">Status</th>
-                      <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody class="">
-                    <% if (users && users.length> 0) { %>
-                      <% users.forEach((user, index)=> { %>
-                        <tr class="hover:bg-gray-50 transition-colors duration-150 customer-row">
-                          <td class="px-6 py-4 text-sm font-bold text-gray-900">
-                            <%= index + 1 %>
-                          </td>
-                          <td class="px-6 py-4 text-sm font-bold text-gray-900 name-cell">
-                            <%= user.name || user.username || 'N/A' %>
-                          </td>
-                          <td class="px-6 py-4 text-sm text-gray-600 email-cell">
-                            <%= user.email || 'N/A' %>
-                          </td>
-                          <td class="px-6 py-4 text-sm text-gray-600">
-                            <%= user.status %>
-                          </td>
-                          <td class="px-6 py-4 text-sm">
-                            <button onclick="handleAction('/admin/unblock/<%= user._id %>', 'unblock')"
-                              class="inline-flex items-center justify-center px-4 py-1.5 bg-[#008000] hover:bg-green-800 text-white text-xs font-bold rounded transition-colors duration-200 mr-2">
-                              Unblock
-                            </button>
-                            <button onclick="handleAction('/admin/block/<%= user._id %>', 'block')"
-                              class="inline-flex items-center justify-center px-4 py-1.5 bg-[#B91C1C] hover:bg-red-800 text-white text-xs font-bold rounded transition-colors duration-200">
-                              Block
-                            </button>
-                          </td>
-                        </tr>
-                        <% }) %>
-                          <% } else { %>
-                            <tr>
-                              <td colspan="5" class="px-6 py-10 text-center text-gray-500">
-                                No customers found.
-                              </td>
-                            </tr>
-                            <% } %>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+              <% } %>
+          </div>
       </div>
     </main>
   </div>
@@ -314,24 +453,28 @@
     if (mobileMenuBtn) mobileMenuBtn.addEventListener("click", toggleSidebar);
     if (sidebarOverlay) sidebarOverlay.addEventListener("click", toggleSidebar);
 
-    // Client-side search
+    // Debounced search functionality
     const searchInput = document.getElementById('searchInput');
-    const rows = document.querySelectorAll('.customer-row');
+    let searchTimeout;
 
-    searchInput.addEventListener('input', (e) => {
-      const searchTerm = e.target.value.toLowerCase();
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value;
 
-      rows.forEach(row => {
-        const name = row.querySelector('.name-cell').textContent.toLowerCase();
-        const email = row.querySelector('.email-cell').textContent.toLowerCase();
+        // Clear previous timeout
+        clearTimeout(searchTimeout);
 
-        if (name.includes(searchTerm) || email.includes(searchTerm)) {
-          row.style.display = '';
-        } else {
-          row.style.display = 'none';
-        }
+        // Set new timeout for debouncing (500ms delay)
+        searchTimeout = setTimeout(() => {
+          // Get current page from URL or default to 1
+          const urlParams = new URLSearchParams(window.location.search);
+          const currentPage = urlParams.get('page') || '1';
+
+          // Navigate to search results (reset to page 1 for new search)
+          window.location.href = `/admin/users?page=1&search=${encodeURIComponent(searchTerm)}`;
+        }, 500);
       });
-    });
+    }
 
     function handleAction(url, action) {
       const title = action === 'block' ? 'Block User?' : 'Unblock User?';

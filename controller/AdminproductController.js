@@ -83,7 +83,7 @@ export const postAddProduct = async (req, res) => {
     });
 
 
-    const savedProduct = await Product.save();
+    const savedProduct = await Product.insertOne(product);
 
     // 2️⃣ Build variants array
     // Express sends a single string if there's only one item,
@@ -233,18 +233,34 @@ export const postEditProduct = async (req, res) => {
   }
 };
 
-export const deleteProduct = async (req, res) => {
+export const blockProduct = async (req, res) => {
   try {
     const { id } = req.params;
+     if(ProductVariant.status == "Blocked"){
+      return res.status(200).json({message:"Product already blocked"});
+    }
+   
+    await ProductVariant.findByIdAndUpdate(id,{status:"Blocked"});
 
-    await Product.findByIdAndDelete(id);
-
-    await ProductVariant.deleteMany({ productId: id });
-
-    res.status(200).json({ message: "Product deleted successfully" });
+    res.status(200).json({ message: "Product blocked successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Something went wrong!" });
   }
 };
+
+export const unblockProduct = async (req,res) =>{
+  try{
+     const {id} = req.params;
+    if(ProductVariant.status == "Active"){
+      return res.status(200).json({message:"Product already unblocked/active"})
+    }
+     await ProductVariant.findByIdAndUpdate({productId: id}, {status:"Active"});
+
+     res.status(200).json({message:"Product unblocked successfully"});
+  }catch(err){
+    console.log(err);
+    res.status(500).json({message:"Something went wrong"});
+  }
+}
 

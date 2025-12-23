@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,48 +14,57 @@
       padding: 0;
       text-align: center;
     }
+
     .header {
       display: flex;
       align-items: center;
       padding: 15px 40px;
     }
+
     .header img {
       height: 35px;
       margin-right: 10px;
     }
+
     .header h1 {
       font-size: 20px;
       margin: 0;
       color: #0a3d62;
     }
+
     .container {
       display: flex;
       justify-content: center;
       align-items: center;
       height: 80vh;
     }
+
     .card {
       background: #f8f9fa;
       padding: 30px;
       border-radius: 12px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.05);
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
       width: 320px;
       text-align: center;
     }
+
     .card img {
       width: 50px;
       margin-bottom: 15px;
     }
+
     .card p {
       font-size: 14px;
       color: #444;
       margin-bottom: 20px;
     }
+
     .otp-inputs {
       display: flex;
       justify-content: space-between;
       margin-bottom: 15px;
     }
+
     .otp-inputs input {
       width: 50px;
       height: 50px;
@@ -63,27 +73,32 @@
       border: 1px solid #ccc;
       border-radius: 6px;
     }
+
     .resend {
       font-size: 12px;
       margin: 10px 0;
       color: #666;
     }
+
     .resend a {
       text-decoration: none;
       color: #0a3d62;
       font-weight: 600;
       margin-left: 4px;
     }
+
     .timer {
       font-size: 12px;
       color: #444;
       margin-bottom: 15px;
     }
+
     .buttons {
       display: flex;
       justify-content: space-between;
       margin-top: 15px;
     }
+
     .buttons button {
       flex: 1;
       margin: 0 5px;
@@ -93,137 +108,179 @@
       font-size: 14px;
       cursor: pointer;
     }
+
     .cancel {
       background: #ccc;
       color: #fff;
     }
+
     .verify {
       background: #999;
       color: #fff;
     }
+
     .verify:hover {
       background: #666;
     }
 
-    /* Messages */
-    .error {
-      background-color: #ffe5e5;
-      color: #d9534f;
-      border: 1px solid #f5c2c2;
-      border-radius: 6px;
-      padding: 10px;
-      font-size: 13px;
-      margin-bottom: 15px;
-      text-align: center;
-    }
-    .message {
-      background-color: #e8f7e5;
-      color: #2e7d32;
-      border: 1px solid #c3e6cb;
-      border-radius: 6px;
-      padding: 10px;
-      font-size: 13px;
-      margin-bottom: 15px;
-      text-align: center;
+
+    .resend.disabled {
+      opacity: 0.4;
+      pointer-events: none;
+      /* disables click */
     }
   </style>
 </head>
+
 <body>
-  <!-- Header -->
-  <div class="header">
-    <img src="/images/logo.png" alt="SeatWorld Logo">
-    <h1>SeatWorld</h1>
-  </div>
+  <%- include('../partials/flash') %>
+    <!-- Header -->
+    <div class="header">
+      <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765945540/products/rmsn314w038gnfzmemmi.jpg"
+        alt="SeatWorld Logo">
+      <h1>SeatWorld</h1>
+    </div>
 
-  <!-- OTP Card -->
-  <div class="container">
-    <div class="card">
-      <img src="/images/mail-icon.png" alt="Mail Icon">
-      <p>Please check your inbox<br>We’ve sent a code to your email</p>
+    <!-- OTP Card -->
+    <div class="container">
+      <div class="card">
+        <img src="/images/mail-icon.png" alt="Mail Icon">
+        <p>Please check your inbox<br>We’ve sent a code to your email</p>
 
-      <!-- ✅ Show messages -->
-      <% if (typeof error !== 'undefined' && error) { %>
-        <div class="error"><%= error %></div>
-      <% } %>
-      <% if (typeof message !== 'undefined' && message) { %>
-        <div class="message"><%= message %></div>
-      <% } %>
 
-      <form action="/post-otp" method="POST">
-        <div class="otp-inputs">
-          <input type="text" name="otp1" maxlength="1" required>
-          <input type="text" name="otp2" maxlength="1" required>
-          <input type="text" name="otp3" maxlength="1" required>
-          <input type="text" name="otp4" maxlength="1" required>
+        <form action="/post-otp" method="POST">
+          <div class="otp-inputs">
+            <input type="text" name="otp1" maxlength="1" required class="otp-input">
+            <input type="text" name="otp2" maxlength="1" required class="otp-input">
+            <input type="text" name="otp3" maxlength="1" required class="otp-input">
+            <input type="text" name="otp4" maxlength="1" required class="otp-input">
+          </div>
+
+          <div class="timer" id="timer"></div>
+          <div class="buttons">
+            <button type="button" class="cancel" onclick="window.location='/login'">Cancel</button>
+            <button type="submit" class="verify">Verify</button>
+          </div>
+        </form>
+
+        <div class="resend" id="resendBox">
+          Didn't receive code?
+          <a href="/resend-otp?type=forgot">Click to resend</a>
         </div>
-
-        <div class="timer" id="timer"></div>
-
-        <div class="buttons">
-          <button type="button" class="cancel" onclick="window.location='/login'">Cancel</button>
-          <button type="submit" class="verify">Verify</button>
-        </div>
-      </form>
-
-      <div class="resend">
-        Didn't receive code? 
-        <a href="/resend-otp">Click to resend</a>
       </div>
     </div>
-  </div>
 
-  <script>
-    // ✅ OTP expiry timer
-    const expiryTime = new Date("<%= otpExpires ? otpExpires.toISOString() : '' %>").getTime();
+    <script>
+      const expiryTime = <%= (typeof otpExpires !== 'undefined' && otpExpires) ? new Date(otpExpires).getTime() : 0 %>;
+      const resendBox = document.getElementById("resendBox");
+      const timerDisplay = document.querySelector("#timer");
+      const verifyBtn = document.querySelector(".verify");
+      const otpInputs = document.querySelectorAll(".otp-inputs input");
 
-    function startTimer(duration, display) {
-      let timer = duration, minutes, seconds;
-      const interval = setInterval(() => {
-        if (timer <= 0) {
-          clearInterval(interval);
-          display.textContent = "Expired";
-          document.querySelector(".verify").disabled = true;
-          document.querySelector(".verify").style.background = "#ccc";
-          return;
-        }
+      // Auto-advance logic
+      otpInputs.forEach((input, index) => {
+        // Allow only numbers
+        input.addEventListener("input", (e) => {
+          input.value = input.value.replace(/[^0-9]/g, "");
 
-        minutes = Math.floor(timer / 60);
-        seconds = timer % 60;
-        display.textContent =
-          (minutes < 10 ? "0" : "") + minutes + ":" +
-          (seconds < 10 ? "0" : "") + seconds;
+          // Move to next input automatically
+          if (input.value && index < otpInputs.length - 1) {
+            otpInputs[index + 1].focus();
+          }
+        });
 
-        timer--;
-      }, 1000);
-    }
+        // Handle backspace → move to previous
+        input.addEventListener("keydown", (e) => {
+          if (e.key === "Backspace" && !input.value && index > 0) {
+            otpInputs[index - 1].focus();
+          }
+        });
 
-    window.onload = function() {
-      if (!isNaN(expiryTime)) {
-        const now = Date.now();
-        let secondsLeft = Math.floor((expiryTime - now) / 1000);
-        if (secondsLeft > 0) {
-          startTimer(secondsLeft, document.querySelector("#timer"));
-        } else {
-          document.querySelector("#timer").textContent = "Expired";
-          document.querySelector(".verify").disabled = true;
-          document.querySelector(".verify").style.background = "#ccc";
-        }
+        // Handle paste of full OTP
+        input.addEventListener("paste", (e) => {
+          e.preventDefault();
+          const pasteData = e.clipboardData.getData("text").replace(/\D/g, "");
+          if (pasteData.length === otpInputs.length) {
+            otpInputs.forEach((box, i) => {
+              box.value = pasteData[i] || "";
+            });
+            otpInputs[otpInputs.length - 1].focus();
+          }
+        });
+      });
+
+      // Disable resend initially
+      if (resendBox) resendBox.classList.add("disabled");
+
+      function startTimer(duration, display) {
+        let timer = duration;
+        const interval = setInterval(() => {
+          if (timer <= 0) {
+            clearInterval(interval);
+            if (display) display.textContent = "Expired";
+
+            // ✅ Enable resend when timer ends
+            if (resendBox) {
+              resendBox.classList.remove("disabled");
+              resendBox.style.opacity = "1";
+              resendBox.style.pointerEvents = "auto";
+            }
+
+            if (verifyBtn) {
+              verifyBtn.disabled = true;
+              verifyBtn.style.background = "#ccc";
+              verifyBtn.style.opacity = "0.5";
+            }
+            return;
+          }
+
+          const minutes = Math.floor(timer / 60);
+          const seconds = timer % 60;
+          if (display) {
+            display.textContent =
+              (minutes < 10 ? "0" : "") + minutes + ":" +
+              (seconds < 10 ? "0" : "") + seconds;
+          }
+
+          timer--;
+        }, 1000);
       }
-    };
-   //auto focus inputs
-    const inputs = document.querySelectorAll('.otp-inputs input');
-    inputs.forEach((input, index) => {
-      input.addEventListener('input', () => {
-        if (input.value.length === 1 && index < inputs.length - 1) {
-          inputs[index + 1].focus();
+
+      window.onload = function () {
+        // Reset Inputs
+        otpInputs.forEach(input => input.value = "");
+        if (otpInputs[0]) otpInputs[0].focus();
+
+        if (!isNaN(expiryTime) && expiryTime > 0) {
+          const now = Date.now();
+          const secondsLeft = Math.floor((expiryTime - now) / 1000);
+
+          if (secondsLeft > 0) {
+            startTimer(secondsLeft, timerDisplay);
+          } else {
+            if (timerDisplay) timerDisplay.textContent = "Expired";
+            if (resendBox) {
+              resendBox.classList.remove("disabled");
+              resendBox.style.opacity = "1";
+              resendBox.style.pointerEvents = "auto";
+            }
+            if (verifyBtn) {
+              verifyBtn.disabled = true;
+              verifyBtn.style.background = "#ccc";
+              verifyBtn.style.opacity = "0.5";
+            }
+          }
+        } else {
+          if (timerDisplay) timerDisplay.textContent = "Expired";
+          if (resendBox) {
+            resendBox.style.opacity = "1";
+            resendBox.style.pointerEvents = "auto";
+          }
         }
-      });
-      input.addEventListener('keydown', (e) => {
-        if (e.key === 'Backspace' && input.value === '' && index > 0) {
-          inputs[index - 1].focus();
-        }
-      });
-    });
-  </script>
+      };
+    </script>
+
+
 </body>
+
 </html>
