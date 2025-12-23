@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,7 +59,8 @@
       font-weight: bold;
     }
 
-    th, td {
+    th,
+    td {
       padding: 15px;
       text-align: center;
       border-bottom: 1px solid #eee;
@@ -138,6 +140,7 @@
     }
   </style>
 </head>
+
 <body>
   <!-- HEADER -->
   <header>
@@ -146,9 +149,8 @@
       SeatWorld
     </div>
     <nav>
-      <a href="/">Home</a>
-      <a href="/shop">Shop</a>
-      <a href="/contact">Contact us</a>
+      <a href="/dashboard">Home</a>
+      <a href="/products">Products</a>
       <a href="/about">About</a>
     </nav>
     <div class="icons">
@@ -157,97 +159,55 @@
       <span>🛒</span>
     </div>
   </header>
+  <%- include('../partials/flash') %>
 
-  <!-- WISHLIST -->
-  <div class="wishlist">
-    <h2>WISHLIST</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Product</th>
-          <th>Details</th>
-          <th>Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% wishlist.forEach(item => { %>
-        <tr>
-          <td>
-            <img src="<%= item.image %>" alt="<%= item.name %>">
-            <a href="/wishlist/remove/<%= item._id %>" class="remove">Remove</a>
-          </td>
-          <td>
-            <h3><%= item.name %></h3>
-            <form action="/cart/add" method="POST">
-              <input type="hidden" name="productId" value="<%= item._id %>">
-              <button class="add-to-cart">Add To Cart</button>
-            </form>
-          </td>
-          <td>₹<%= item.price %></td>
-        </tr>
-        <% }) %>
-      </tbody>
-    </table>
+    <!-- WISHLIST -->
+    <div class="wishlist">
+      <h2>WISHLIST</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Details</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% wishlist.forEach(item=> { %>
+            <tr>
+              <td>
+                <img src="<%= item.image %>" alt="<%= item.name %>">
+                <a href="/wishlist/remove/<%= item._id %>" class="remove">Remove</a>
+              </td>
+              <td>
+                <h3>
+                  <%= item.name %>
+                </h3>
+                <form action="/cart/add" method="POST">
+                  <input type="hidden" name="productId" value="<%= item._id %>">
+                  <button class="add-to-cart">Add To Cart</button>
+                </form>
+              </td>
+              <td>₹<%= item.price %>
+              </td>
+            </tr>
+            <% }) %>
+        </tbody>
+      </table>
 
-    <!-- PAGINATION -->
-    <div class="pagination">
-      <button>Previous</button>
-      <button class="active">1</button>
-      <button>2</button>
-      <button>3</button>
-      <button>Next</button>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer>
-    <div>
-      <div class="logo">SeatWorld</div>
-      <p>We have clothes that suits your style and which you’re proud to wear. From women to men.</p>
-      <div class="socials">
-        <a href="#">🔵</a>
-        <a href="#">⚫</a>
-        <a href="#">⚪</a>
+      <!-- PAGINATION -->
+      <div class="pagination">
+        <button>Previous</button>
+        <button class="active">1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>Next</button>
       </div>
     </div>
 
-    <div>
-      <h4>COMPANY</h4>
-      <a href="#">About</a>
-      <a href="#">Features</a>
-      <a href="#">Works</a>
-      <a href="#">Career</a>
-    </div>
-
-    <div>
-      <h4>HELP</h4>
-      <a href="#">Customer Support</a>
-      <a href="#">Delivery Details</a>
-      <a href="#">Terms & Conditions</a>
-      <a href="#">Privacy Policy</a>
-    </div>
-
-    <div>
-      <h4>FAQ</h4>
-      <a href="#">Account</a>
-      <a href="#">Manage Deliveries</a>
-      <a href="#">Orders</a>
-      <a href="#">Payments</a>
-    </div>
-
-    <div>
-      <h4>RESOURCES</h4>
-      <a href="#">Free eBooks</a>
-      <a href="#">Development Tutorial</a>
-      <a href="#">How to - Blog</a>
-      <a href="#">Youtube Playlist</a>
-      <div class="payments">
-        <img src="/images/visa.png" alt="Visa">
-        <img src="/images/paypal.png" alt="PayPal">
-        <img src="/images/applepay.png" alt="Apple Pay">
-        <img src="/images/gpay.png" alt="Google Pay">
-      </div>
-    </div>
-  </footer>
+    <footer>
+      <p>© <%= new Date().getFullYear() %> SeatWorld. All Rights Reserved</p>
+    </footer>
 </body>
+
 </html>

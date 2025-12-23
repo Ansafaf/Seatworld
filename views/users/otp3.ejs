@@ -123,47 +123,11 @@
       background: #666;
     }
 
-    /* Messages */
-    .error {
-      background-color: #ffe5e5;
-      color: #d9534f;
-      border: 1px solid #f5c2c2;
-      border-radius: 6px;
-      padding: 10px;
-      font-size: 13px;
-      margin-bottom: 15px;
-      text-align: center;
-    }
-
-    .message {
-      background-color: #e8f7e5;
-      color: #2e7d32;
-      border: 1px solid #c3e6cb;
-      border-radius: 6px;
-      padding: 10px;
-      font-size: 13px;
-      margin-bottom: 15px;
-      text-align: center;
-    }
 
     .resend.disabled {
       opacity: 0.4;
       pointer-events: none;
-
       /* disables click */
-      .resend {
-        display: none;
-        /* hidden initially */
-        font-size: 12px;
-        margin: 10px 0;
-        color: #666;
-      }
-
-      .resend.show {
-        display: block;
-        /* show after expiry */
-      }
-
     }
   </style>
 </head>
@@ -183,9 +147,8 @@
         <img src="/images/mail-icon.png" alt="Mail Icon">
         <p>Please check your inbox<br>We’ve sent a code to your email</p>
 
-        <!-- ✅ Show messages -->
 
-        <form action="/verify-otp" method="POST">
+        <form action="/email/change-otp" method="POST">
           <div class="otp-inputs">
             <input type="text" name="otp1" maxlength="1" required class="otp-input">
             <input type="text" name="otp2" maxlength="1" required class="otp-input">
@@ -199,16 +162,18 @@
             <button type="submit" class="verify">Verify</button>
           </div>
         </form>
+        <input type="hidden" id="otpExpiryValue"
+          value="<%= (typeof otpExpires !== 'undefined' && otpExpires) ? new Date(otpExpires).getTime() : 0 %>">
 
         <div class="resend" id="resendBox">
           Didn't receive code?
-          <a href="/resend-otp?type=signup">Click to resend</a>
+          <a href="/resend-otp?type=email">Click to resend</a>
         </div>
       </div>
     </div>
-
     <script>
-      const expiryTime = <%= (typeof otpExpires !== 'undefined' && otpExpires) ? new Date(otpExpires).getTime() : 0 %>;
+      // Safer handling for otpExpires using hidden input
+      const expiryTime = parseInt(document.getElementById("otpExpiryValue").value) || 0;
       const resendBox = document.getElementById("resendBox");
       const timerDisplay = document.querySelector("#timer");
       const verifyBtn = document.querySelector(".verify");
@@ -257,11 +222,16 @@
             if (display) display.textContent = "Expired";
 
             // ✅ Enable resend when timer ends
-            if (resendBox) resendBox.classList.remove("disabled");
+            if (resendBox) {
+              resendBox.classList.remove("disabled");
+              resendBox.style.opacity = "1";
+              resendBox.style.pointerEvents = "auto";
+            }
 
             if (verifyBtn) {
               verifyBtn.disabled = true;
               verifyBtn.style.background = "#ccc";
+              verifyBtn.style.opacity = "0.5";
             }
             return;
           }
@@ -283,7 +253,7 @@
         otpInputs.forEach(input => input.value = "");
         if (otpInputs[0]) otpInputs[0].focus();
 
-        if (!isNaN(expiryTime) && expiryTime > 0) {
+        if (expiryTime > 0 && !isNaN(expiryTime)) {
           const now = Date.now();
           const secondsLeft = Math.floor((expiryTime - now) / 1000);
 
@@ -291,16 +261,26 @@
             startTimer(secondsLeft, timerDisplay);
           } else {
             if (timerDisplay) timerDisplay.textContent = "Expired";
-            if (resendBox) resendBox.classList.remove("disabled");
+            if (resendBox) {
+              resendBox.classList.remove("disabled");
+              resendBox.style.opacity = "1";
+              resendBox.style.pointerEvents = "auto";
+            }
             if (verifyBtn) {
               verifyBtn.disabled = true;
               verifyBtn.style.background = "#ccc";
+              verifyBtn.style.opacity = "0.5";
             }
+          }
+        } else {
+          if (timerDisplay) timerDisplay.textContent = "No active OTP";
+          if (resendBox) {
+            resendBox.style.opacity = "1";
+            resendBox.style.pointerEvents = "auto";
           }
         }
       };
     </script>
-
 </body>
 
 </html>

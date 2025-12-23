@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import { getLanding, getLogin, postLogin, getverifyOtp, verifyOtp, resendOtp, getforgotPass, postforgotPass, getHome, getSignup, postSignup, getLogout, postPassCreation, otpverifyForgot, getPassCreation,getCart } from '../controller/userAuthController.js';
+import { getLanding, getLogin, postLogin, getverifyOtp, verifyOtp, resendOtp, getforgotPass, postforgotPass, getHome, getSignup, postSignup, getLogout, postPassCreation, otpverifyForgot, getPassCreation,getCart} from '../controller/userAuthController.js';
 import { authMiddleware } from "../middleware/authMiddleware.js";
 
 router.get('/', getLanding);
@@ -19,16 +19,7 @@ router.post("/create-password", postPassCreation);
 
 // router.get('/cart',getCart); 
 
-import { getProduct, getProductdetail } from '../controller/productController.js';
-
-router.get('/products', getProduct);
-router.get('/product/:id', getProductdetail);
-// router.get('/products', getFilteredProducts);
-
-// router.get("/wishlist",getWishlist);
-
 router.get('/dashboard', authMiddleware, getHome);
-
 router.get('/signup', getSignup);
 router.post('/signup', postSignup);
 

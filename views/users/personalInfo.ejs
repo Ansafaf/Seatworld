@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personal Information | SeatWorld</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    body {
+      background: #dcdcdc;
+      color: #111;
+    }
+
+    /* ---------- HEADER ---------- */
+    header {
+      background: #fff;
+      padding: 14px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    nav a {
+      margin: 0 12px;
+      text-decoration: none;
+      color: #111;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .menu-btn {
+      display: none;
+      font-size: 22px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* ---------- MAIN LAYOUT ---------- */
+    .wrapper {
+      display: flex;
+      gap: 30px;
+      padding: 40px;
+    }
+
+    /* ---------- SIDEBAR ---------- */
+    .sidebar {
+      width: 240px;
+      background: #fff;
+      border-radius: 6px;
+      padding: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar h3 {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      letter-spacing: 0.4px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+    }
+
+    .sidebar li {
+      padding: 10px 0;
+      font-size: 14px;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: #111;
+      display: block;
+    }
+
+    .sidebar li.active a {
+      font-weight: 600;
+    }
+
+    /* ---------- CONTENT ---------- */
+    .content {
+      flex: 1;
+      background: #f8f8f8;
+      border-radius: 16px;
+      padding: 30px;
+    }
+
+    .content h2 {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 25px;
+      letter-spacing: 0.6px;
+    }
+
+    /* ---------- FORM ---------- */
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      font-size: 12px;
+      color: #555;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 20px;
+      border: 1px solid #bbb;
+      outline: none;
+    }
+
+    /* ---------- EMAIL FIELD ---------- */
+    .email-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .email-wrapper input {
+      flex: 1;
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .email-wrapper button {
+      padding: 8px 16px;
+      font-size: 11px;
+      border-radius: 20px;
+      border: none;
+      background: #ddd;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .update-btn {
+      margin: 20px auto 0;
+      display: block;
+      padding: 8px 30px;
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    /* ---------- SUCCESS MESSAGE ---------- */
+    .success-msg {
+      margin: 0 auto 20px;
+      padding: 10px 16px;
+      max-width: 400px;
+      background: #e6fffa;
+      color: #065f46;
+      border: 1px solid #99f6e4;
+      border-radius: 8px;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    /* ---------- MOBILE ---------- */
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .wrapper {
+        flex-direction: column;
+        padding: 20px;
+      }
+
+      .sidebar {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        height: 100%;
+        transform: translateX(-100%);
+        z-index: 100;
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <%- include('../partials/flash') %>
+
+    <!-- HEADER -->
+    <header>
+      <div class="logo">SeatWorld</div>
+
+      <nav>
+        <a href="/dashboard">Home</a>
+        <a href="/products">Products</a>
+        <a href="/about">About</a>
+      </nav>
+
+      <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    </header>
+
+    <!-- MAIN -->
+    <div class="wrapper">
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar" id="sidebar">
+        <h3>MY ACCOUNT</h3>
+        <ul>
+          <li class="active"><a href="/profile">Personal Information</a></li>
+          <li><a href="/address">Address</a></li>
+          <li><a href="/orders">Orders</a></li>
+          <li><a href="/wallet">Wallet</a></li>
+          <li><a href="/coupons">Coupon</a></li>
+          <li><a href="/password-change">Password Change</a></li>
+          <li><a href="/logout">Logout</a></li>
+        </ul>
+      </aside>
+
+      <!-- CONTENT -->
+      <section class="content">
+        <h2>PERSONAL INFORMATION</h2>
+
+
+        <form method="POST" action="/profile/edit">
+
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" name="name" value="<%= user.name || user.username %>">
+          </div>
+
+          <div class="form-group">
+            <label>Mobile number</label>
+            <input type="text" name="mobile" value="<%= user.mobile %>">
+          </div>
+
+          <div class="form-group">
+            <label>Email</label>
+            <div class="email-wrapper">
+              <input type="email" value="<%= user.email %>" readonly>
+              <button type="button" onclick="location.href='/profile/change-email'">
+                Change
+              </button>
+            </div>
+          </div>
+
+          <button class="update-btn">Update</button>
+        </form>
+      </section>
+
+    </div>
+
+    <script>
+      function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("active");
+      }
+
+    </script>
+
+</body>
+
+</html>

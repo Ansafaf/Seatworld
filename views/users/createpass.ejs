@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -160,107 +161,98 @@
         }
     </style>
 </head>
+
 <body>
-    <header class="header">
-        <a href="/" class="logo">
-            <div class="logo-icon">🌐</div>
-            <span class="logo-text">SeatWorld</span>
-        </a>
-        <a href="javascript:history.back()" class="back-link">
-            ← Back
-        </a>
-    </header>
+    <%- include('../partials/flash') %>
+        <header class="header">
+            <a href="/" class="logo">
+                <div class="logo-icon">🌐</div>
+                <span class="logo-text">SeatWorld</span>
+            </a>
+            <a href="javascript:history.back()" class="back-link">
+                ← Back
+            </a>
+        </header>
 
-    <div class="container">
-        <div class="form-card">
-            <h1 class="form-title">Create New Password</h1>
-            <form id="passwordForm" action="/create-password" method="POST">
-                <div class="form-group">
-                    <label for="newPassword" class="form-label">New Password</label>
-                    <input 
-                        type="password" 
-                        id="newPassword" 
-                        name="newPassword"
-                        class="form-input" 
-                        placeholder="••••••••••••••••"
-                        required
-                    >
-                    <div class="error-message" id="newPasswordError">Password must be at least 8 characters</div>
-                </div>
+        <div class="container">
+            <div class="form-card">
+                <h1 class="form-title">Create New Password</h1>
+                <form id="passwordForm" action="/create-password" method="POST">
+                    <div class="form-group">
+                        <label for="newPassword" class="form-label">New Password</label>
+                        <input type="password" id="newPassword" name="newPassword" class="form-input"
+                            placeholder="••••••••••••••••" required>
+                        <div class="error-message" id="newPasswordError">Password must be at least 8 characters</div>
+                    </div>
 
-                <div class="form-group">
-                    <label for="confirmPassword" class="form-label">Confirm New Password</label>
-                    <input 
-                        type="password" 
-                        id="confirmPassword" 
-                        name="confirmPassword"
-                        class="form-input" 
-                        placeholder="••••••••••••••••"
-                        required
-                    >
-                    <div class="error-message" id="confirmPasswordError">Passwords do not match</div>
-                </div>
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-input"
+                            placeholder="••••••••••••••••" required>
+                        <div class="error-message" id="confirmPasswordError">Passwords do not match</div>
+                    </div>
 
-                <button type="submit" class="submit-btn" id="submitBtn">
-                    Submit
-                </button>
-            </form>
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        Submit
+                    </button>
+                </form>
+            </div>
         </div>
-    </div>
 
-    <script>
-        const form = document.getElementById('passwordForm');
-        const newPasswordInput = document.getElementById('newPassword');
-        const confirmPasswordInput = document.getElementById('confirmPassword');
-        const submitBtn = document.getElementById('submitBtn');
-        const newPasswordError = document.getElementById('newPasswordError');
-        const confirmPasswordError = document.getElementById('confirmPasswordError');
+        <script>
+            const form = document.getElementById('passwordForm');
+            const newPasswordInput = document.getElementById('newPassword');
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            const submitBtn = document.getElementById('submitBtn');
+            const newPasswordError = document.getElementById('newPasswordError');
+            const confirmPasswordError = document.getElementById('confirmPasswordError');
 
-        function validateForm() {
-            const newPassword = newPasswordInput.value;
-            const confirmPassword = confirmPasswordInput.value;
-            let isValid = true;
+            function validateForm() {
+                const newPassword = newPasswordInput.value;
+                const confirmPassword = confirmPasswordInput.value;
+                let isValid = true;
 
-            // Reset errors
-            newPasswordInput.classList.remove('error');
-            confirmPasswordInput.classList.remove('error');
-            newPasswordError.classList.remove('show');
-            confirmPasswordError.classList.remove('show');
+                // Reset errors
+                newPasswordInput.classList.remove('error');
+                confirmPasswordInput.classList.remove('error');
+                newPasswordError.classList.remove('show');
+                confirmPasswordError.classList.remove('show');
 
-            // Validate new password
-            if (newPassword.length > 0 && newPassword.length < 8) {
-                newPasswordInput.classList.add('error');
-                newPasswordError.classList.add('show');
-                isValid = false;
+                // Validate new password
+                if (newPassword.length > 0 && newPassword.length < 8) {
+                    newPasswordInput.classList.add('error');
+                    newPasswordError.classList.add('show');
+                    isValid = false;
+                }
+
+                // Validate password match
+                if (confirmPassword.length > 0 && newPassword !== confirmPassword) {
+                    confirmPasswordInput.classList.add('error');
+                    confirmPasswordError.classList.add('show');
+                    isValid = false;
+                }
+
+                // Enable/disable submit button
+                if (newPassword.length >= 8 && confirmPassword.length >= 8 && newPassword === confirmPassword) {
+                    submitBtn.classList.add('active');
+                    submitBtn.disabled = false;
+                } else {
+                    submitBtn.classList.remove('active');
+                    submitBtn.disabled = true;
+                }
+
+                return isValid;
             }
 
-            // Validate password match
-            if (confirmPassword.length > 0 && newPassword !== confirmPassword) {
-                confirmPasswordInput.classList.add('error');
-                confirmPasswordError.classList.add('show');
-                isValid = false;
-            }
+            newPasswordInput.addEventListener('input', validateForm);
+            confirmPasswordInput.addEventListener('input', validateForm);
 
-            // Enable/disable submit button
-            if (newPassword.length >= 8 && confirmPassword.length >= 8 && newPassword === confirmPassword) {
-                submitBtn.classList.add('active');
-                submitBtn.disabled = false;
-            } else {
-                submitBtn.classList.remove('active');
-                submitBtn.disabled = true;
-            }
-
-            return isValid;
-        }
-
-        newPasswordInput.addEventListener('input', validateForm);
-        confirmPasswordInput.addEventListener('input', validateForm);
-
-        form.addEventListener('submit', (e) => {
-            if (!validateForm()) {
-                e.preventDefault();
-            }
-        });
-    </script>
+            form.addEventListener('submit', (e) => {
+                if (!validateForm()) {
+                    e.preventDefault();
+                }
+            });
+        </script>
 </body>
+
 </html>

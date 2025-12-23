@@ -1,7 +1,7 @@
 import { Product, ProductVariant } from "../models/productModel.js";
 import { Category } from "../models/categoryModel.js";
 
-export async function getProduct(req, res) {
+export async function getProducts(req, res) {
     try {
         const {
             category,
@@ -35,7 +35,7 @@ export async function getProduct(req, res) {
         if (selectedBrands.length) {
             filter.brand = { $in: selectedBrands };
         }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+
         const minPriceNum = Number(minPrice);
         const maxPriceNum = Number(maxPrice);
         const hasMinPrice = !Number.isNaN(minPriceNum);
@@ -54,6 +54,10 @@ export async function getProduct(req, res) {
                 { description: { $regex: search, $options: "i" } },
             ];
         }
+        const isBlocked = await ProductVariant.find({ status: "blocked" });
+        // if(isBlocked){
+        //     res.render(");
+        // }
 
         const categories = await Category.find({ isActive: true }).lean();
         const [brandsDistinct, priceStats] = await Promise.all([
@@ -298,6 +302,31 @@ export async function getProductdetail(req, res) {
     }
 }
 
+export async function getFilteredProducts(req, res) {
+    try {
+        const { category, brand, minPrice, maxPrice, sort, search } = req.query;
+        const query = {};
+        if (category) {
+            query.category = category;
+        }
+        if (brand) {
+            query.brand = brand;
+        }
+        if (minPrice) {
+            query.price = { $gte: minPrice };;
+        }
+        if (maxPrice) {
+            query.price = { $lte: maxPrice };
+        }
+        const products = await Product.find(query);
+        res.render("users/productlist", { products });
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).send("Internal Server Error");
+    }
+}
+
 export async function getProductbyBrand(req, res) {
     try {
         const products = await Product.find({ brand: req.params.brand });
@@ -308,11 +337,11 @@ export async function getProductbyBrand(req, res) {
     }
 }
 
-export function getProductbyprice(req, res) {
+export async function getProductbyprice(req, res) {
 
 }
 
-export function getProductbycategory(req, res) {
+export async function getProductbycategory(req, res) {
 
 }
 

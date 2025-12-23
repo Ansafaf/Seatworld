@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Login</title>
   <style>
     body {
@@ -85,6 +86,7 @@
       transition: box-shadow 0.2s;
       box-shadow: 0px 2px 7px 1px #86868633;
     }
+
     .login-btn:hover {
       background-color: #f4f4f4;
     }
@@ -107,6 +109,7 @@
         opacity: 0;
         transform: translateY(-10px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -114,24 +117,24 @@
     }
   </style>
 </head>
+
 <body>
   <div class="header">SeatWorld</div>
   <div class="login-box">
     <div class="login-title">ADMIN LOGIN</div>
-    <% if (error) { %>
-      <div class="error-message"><%= error %></div>
-    <% } %>
-    <form action="/admin/login" method="POST">
-      <div>
-        <label class="input-label" for="email">Enter Email</label>
-        <input class="input-box" type="email" id="email" name="email" required />
-      </div>
-      <div>
-        <label class="input-label" for="password">Password</label>
-        <input class="input-box" type="password" id="password" name="password" required />
-      </div>
-      <button class="login-btn" type="submit">LOGIN</button>
-    </form>
+    <%- include('../partials/flash') %>
+      <form action="/admin/login" method="POST">
+        <div>
+          <label class="input-label" for="email">Enter Email</label>
+          <input class="input-box" type="email" id="email" name="email" required />
+        </div>
+        <div>
+          <label class="input-label" for="password">Password</label>
+          <input class="input-box" type="password" id="password" name="password" required />
+        </div>
+        <button class="login-btn" type="submit">LOGIN</button>
+      </form>
   </div>
 </body>
+
 </html>

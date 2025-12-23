@@ -54,7 +54,7 @@ const productVariantSchema = new mongoose.Schema({
     },
     status:{
         type:String,
-        enum:["Active","OutofStock","Hidden"],
+        enum:["Active","OutofStock","Blocked"],
         default:"Active"
     },
     images:{

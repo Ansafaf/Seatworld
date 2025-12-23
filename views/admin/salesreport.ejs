@@ -2,313 +2,293 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Sales Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Report - Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: "class",
             theme: {
                 extend: {
                     colors: {
-                        primary: "#6B46C1",
-                        "background-light": "#F7FAFC",
-                        "background-dark": "#1A202C",
-                        "card-light": "#FFFFFF",
-                        "card-dark": "#2D3748",
-                        "text-primary-light": "#2D3748",
-                        "text-primary-dark": "#EDF2F7",
-                        "text-secondary-light": "#718096",
-                        "text-secondary-dark": "#A0AEC0",
-                        "border-light": "#E2E8F0",
-                        "border-dark": "#4A5568",
-                        "green-button": "#48BB78",
+                        primary: "#F97316",
+                        secondary: "#1F2937",
                     },
                     fontFamily: {
-                        display: ["Poppins", "sans-serif"],
-                    },
-                    borderRadius: {
-                        DEFAULT: "0.5rem",
+                        display: ["Inter", "sans-serif"],
                     },
                 },
             },
         };
     </script>
-    <style>
-        .material-symbols-outlined {
-            font-variation-settings:
-                'FILL' 0,
-                'wght' 400,
-                'GRAD' 0,
-                'opsz' 24
-        }
-    </style>
 </head>
 
-<body class="font-display bg-background-light dark:bg-background-dark">
-    <div class="flex h-screen">
-        <!-- Sidebar -->
-        <aside
-            class="w-64 flex-shrink-0 bg-card-light dark:bg-card-dark border-r border-border-light dark:border-border-dark flex flex-col">
-            <div class="h-16 flex items-center px-6 border-b border-border-light dark:border-border-dark">
-                <span class="material-symbols-outlined text-primary text-3xl">store</span>
-                <span class="ml-3 text-xl font-bold text-text-primary-light dark:text-text-primary-dark">Admin
-                    Panel</span>
-                <span class="material-symbols-outlined mr-3">sell</span>
-                Coupons
-                </a>
-                <a class="flex items-center px-4 py-2 text-sm font-medium rounded <%= currentPage === 'discounts' ? 'bg-primary/10 text-primary' : 'text-text-secondary-light dark:text-text-secondary-dark hover:bg-gray-100 dark:hover:bg-gray-700' %>"
-                    href="/admin/discounts">
-                    <span class="material-symbols-outlined mr-3">local_offer</span>
-                    Discounts
-                </a>
-                <a class="flex items-center px-4 py-2 text-sm font-medium rounded <%= currentPage === 'banner' ? 'bg-primary/10 text-primary' : 'text-text-secondary-light dark:text-text-secondary-dark hover:bg-gray-100 dark:hover:bg-gray-700' %>"
-                    href="/admin/banner">
-                    <span class="material-symbols-outlined mr-3">view_carousel</span>
-                    Banner
-                </a>
-                <a class="flex items-center px-4 py-2 text-sm font-medium rounded <%= currentPage === 'sales-report' ? 'bg-primary/10 text-primary' : 'text-text-secondary-light dark:text-text-secondary-dark hover:bg-gray-100 dark:hover:bg-gray-700' %>"
-                    href="/admin/sales-report">
-                    <span class="material-symbols-outlined mr-3">assessment</span>
-                    Sales Report
-                </a>
-                </nav>
-                <div class="px-4 py-6 border-t border-border-light dark:border-border-dark">
-                    <a class="flex items-center px-4 py-2 text-sm font-medium rounded text-text-secondary-light dark:text-text-secondary-dark hover:bg-gray-100 dark:hover:bg-gray-700"
-                        href="/admin/logout">
-                        <span class="material-symbols-outlined mr-3">logout</span>
-                        Logout
-                    </a>
+<body class="font-display bg-gray-50 text-gray-800">
+    <!-- Top Header -->
+    <header class="bg-white shadow-sm fixed w-full z-50 h-16 flex items-center justify-between px-6">
+        <div class="flex items-center gap-4">
+            <button id="mobileMenuBtn" class="md:hidden text-gray-500 hover:text-gray-700">
+                <span class="material-icons-outlined">menu</span>
+            </button>
+            <h1 class="text-xl font-bold text-gray-800 flex items-center gap-2">
+                <span class="w-3 h-3 bg-gray-800 rounded-sm"></span>
+                Admin Panel
+            </h1>
+        </div>
+        <div class="flex items-center gap-8">
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
+                <a href="/admin/dashboard" class="hover:text-indigo-600 transition-colors">Dashboard</a>
+                <a href="/admin/products" class="hover:text-indigo-600 transition-colors">Products</a>
+                <a href="/admin/orders" class="hover:text-indigo-600 transition-colors">Orders</a>
+                <a href="/admin/users" class="hover:text-indigo-600 transition-colors">Customers</a>
+            </nav>
+            <div class="flex items-center gap-3 pl-6 border-l border-gray-200">
+                <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
+                    <img src="https://ui-avatars.com/api/?name=Admin&background=random" alt="Admin"
+                        class="w-full h-full object-cover">
                 </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex pt-16 min-h-screen">
+        <!-- Sidebar -->
+        <aside id="adminSidebar"
+            class="w-64 bg-white flex flex-col fixed inset-y-0 left-0 z-40 transform -translate-x-full transition-transform duration-300 md:translate-x-0 md:static border-r border-gray-100 pt-16 md:pt-0">
+
+            <div class="p-6">
+                <!-- Sidebar Header -->
+                <div class="flex items-center gap-2 text-2xl font-bold text-gray-800 mb-8">
+                    <span class="material-icons-outlined">hexagon</span>
+                    <span>Reports</span>
+                    <span class="text-xs font-normal text-gray-400 mt-1">v.01</span>
+                </div>
+
+                <!-- Navigation Menu -->
+                <nav class="space-y-2">
+                    <!-- Dashboard -->
+                    <a href="/admin/dashboard"
+                        class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
+                        <span class="material-icons-outlined mr-3 text-xl">dashboard</span>
+                        <span class="font-medium flex-1">Dashboard</span>
+                        <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
+                    </a>
+
+                    <!-- Product -->
+                    <a href="/admin/products"
+                        class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
+                        <span class="material-icons-outlined mr-3 text-xl">inventory_2</span>
+                        <span class="font-medium flex-1">Product</span>
+                        <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
+                    </a>
+
+                    <!-- Categories -->
+                    <a href="/admin/categories"
+                        class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
+                        <span class="material-icons-outlined mr-3 text-xl">category</span>
+                        <span class="font-medium flex-1">Categories</span>
+                        <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
+                    </a>
+
+                    <!-- Customers -->
+                    <a href="/admin/users"
+                        class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
+                        <span class="material-icons-outlined mr-3 text-xl">people</span>
+                        <span class="font-medium flex-1">Customers</span>
+                        <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
+                    </a>
+
+                    <!-- Orders -->
+                    <a href="/admin/orders"
+                        class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
+                        <span class="material-icons-outlined mr-3 text-xl">shopping_cart</span>
+                        <span class="font-medium flex-1">Orders</span>
+                        <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
+                    </a>
+
+                    <!-- Discounts -->
+                    <a href="/admin/discounts"
+                        class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
+                        <span class="material-icons-outlined mr-3 text-xl">local_offer</span>
+                        <span class="font-medium flex-1">Discounts</span>
+                        <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
+                    </a>
+
+                    <!-- Coupons -->
+                    <a href="/admin/coupons"
+                        class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
+                        <span class="material-icons-outlined mr-3 text-xl">confirmation_number</span>
+                        <span class="font-medium flex-1">Coupons</span>
+                        <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
+                    </a>
+
+                    <!-- Banner -->
+                    <a href="/admin/banner"
+                        class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
+                        <span class="material-icons-outlined mr-3 text-xl">image</span>
+                        <span class="font-medium flex-1">Banner</span>
+                        <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
+                    </a>
+
+                    <!-- Sales Report (Active) -->
+                    <a href="/admin/sales-report"
+                        class="flex items-center px-4 py-3 bg-indigo-600 text-white rounded-xl transition-all duration-200 shadow-lg shadow-indigo-200">
+                        <span class="material-icons-outlined mr-3 text-xl">bar_chart</span>
+                        <span class="font-medium flex-1">Sales report</span>
+                        <span class="material-icons-outlined text-sm">chevron_right</span>
+                    </a>
+
+                    <!-- Logout -->
+                    <div class="pt-6 mt-6 border-t border-gray-100">
+                        <a href="/admin/logout"
+                            class="flex items-center justify-center px-4 py-3 text-red-500 hover:bg-red-50 rounded-xl transition-all duration-200 font-medium">
+                            Logout
+                        </a>
+                    </div>
+                </nav>
+            </div>
         </aside>
 
+        <!-- Overlay -->
+        <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-30 hidden md:hidden backdrop-blur-sm"></div>
+
         <!-- Main Content -->
-        <main class="flex-1 flex flex-col">
-            <!-- Header -->
-            <header
-                class="h-16 flex-shrink-0 bg-card-light dark:bg-card-dark border-b border-border-light dark:border-border-dark flex items-center justify-between px-8">
-                <div>
-                    <h1 class="text-xl font-bold text-text-primary-light dark:text-text-primary-dark">Sales Dashboard
-                    </h1>
-                </div>
-                <div class="flex items-center space-x-6">
-                    <a class="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark hover:text-primary"
-                        href="/admin/dashboard">Dashboard</a>
-                    <a class="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark hover:text-primary"
-                        href="/admin/orders">Orders</a>
-                    <a class="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark hover:text-primary"
-                        href="/admin/products">Products</a>
-                    <a class="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark hover:text-primary"
-                        href="/admin/customers">Customers</a>
-                    <a class="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark hover:text-primary"
-                        href="/admin/reports">Reports</a>
-                    <button class="text-text-secondary-light dark:text-text-secondary-dark hover:text-primary">
-                        <span class="material-symbols-outlined">search</span>
+        <main class="flex-1 p-8 overflow-y-auto bg-white/50">
+            <div class="max-w-7xl mx-auto">
+                <!-- Header Section -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-800">Sales Dashboard</h1>
+                        <p class="text-gray-500 text-sm mt-1">Analyze sales performance and trends</p>
+                    </div>
+                    <button onclick="downloadReport()"
+                        class="inline-flex items-center justify-center px-4 py-2.5 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700 transition-colors shadow-sm gap-2">
+                        <span class="material-icons-outlined text-lg">download</span>
+                        Download Report
                     </button>
-                    <img alt="User profile picture" class="h-8 w-8 rounded-full object-cover"
-                        src="<%= user && user.profileImage ? user.profileImage : 'https://via.placeholder.com/32' %>" />
                 </div>
-            </header>
 
-            <!-- Dashboard Content -->
-            <div class="flex-1 overflow-y-auto p-8">
-                <div class="max-w-7xl mx-auto">
-                    <!-- Sales Overview Section -->
-                    <section>
-                        <h2 class="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark">Sales
-                            Overview</h2>
-                        <p class="mt-1 text-text-secondary-light dark:text-text-secondary-dark">Analyze sales
-                            performance and trends</p>
-
-                        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                            <div class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-sm">
-                                <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">Total Sales
-                                </p>
-                                <p class="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mt-2">
-                                    ₹<%= salesData && salesData.totalSales ?
-                                        salesData.totalSales.toLocaleString('en-IN') : '5,000,000' %>
-                                </p>
-                            </div>
-                            <div class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-sm">
-                                <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">Average Order
-                                    Value</p>
-                                <p class="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mt-2">
-                                    ₹<%= salesData && salesData.avgOrderValue ?
-                                        salesData.avgOrderValue.toLocaleString('en-IN') : '445' %>
-                                </p>
-                            </div>
-                            <div class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-sm">
-                                <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">Total Orders
-                                </p>
-                                <p class="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mt-2">
-                                    <%= salesData && salesData.totalOrders ?
-                                        salesData.totalOrders.toLocaleString('en-IN') : '2,000' %>
-                                </p>
-                            </div>
-                            <div class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-sm">
-                                <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">Customer
-                                    Acquisition Cost</p>
-                                <p class="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mt-2">
-                                    ₹<%= salesData && salesData.customerAcquisitionCost ?
-                                        salesData.customerAcquisitionCost.toLocaleString('en-IN') : '550' %>
-                                </p>
-                            </div>
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <!-- Total Sales -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                        <div class="text-sm font-medium text-gray-500 mb-1">Total Sales</div>
+                        <div class="text-2xl font-bold text-gray-900">
+                            ₹<%= salesData && salesData.totalSales ? salesData.totalSales.toLocaleString('en-IN') : '0'
+                                %>
                         </div>
-                    </section>
+                    </div>
 
-                    <!-- Sales Trend and Top Products Section -->
-                    <section class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <!-- Sales Trend Chart -->
-                        <div class="lg:col-span-2 bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-sm">
-                            <h3 class="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">Sales
-                                Trend</h3>
-                            <div class="mt-4 flex items-baseline space-x-2">
-                                <p class="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark">
-                                    ₹<%= salesData && salesData.last12MonthsSales ?
-                                        salesData.last12MonthsSales.toLocaleString('en-IN') : '250,000' %>
-                                </p>
-                                <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">Last 12
-                                    Months</p>
-                            </div>
-                            <div class="mt-6 h-[270px] flex flex-col">
-                                <div class="flex-grow bg-blue-50 dark:bg-blue-900/20 rounded-t-lg p-4 relative"
-                                    style="background-image: repeating-linear-gradient(to bottom, transparent, transparent 19.5%, #e0e7ff 20%);">
-                                    <svg class="absolute inset-0 w-full h-full" fill="none" preserveAspectRatio="none"
-                                        stroke="currentColor" stroke-width="2" viewBox="0 0 540 180"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path class="text-blue-500"
-                                            d="M0 120 C45 100, 90 60, 135 75 S225 110, 270 90 S360 50, 405 80 S495 140, 540 130"
-                                            stroke-linecap="round" stroke-linejoin="round"></path>
-                                    </svg>
-                                </div>
-                                <div
-                                    class="flex justify-between text-xs text-text-secondary-light dark:text-text-secondary-dark px-2 pt-2 border-t border-border-light dark:border-border-dark">
-                                    <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span>
-                                </div>
-                            </div>
+                    <!-- Avg Order Value -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                        <div class="text-sm font-medium text-gray-500 mb-1">Avg. Order Value</div>
+                        <div class="text-2xl font-bold text-gray-900">
+                            ₹<%= salesData && salesData.avgOrderValue ? salesData.avgOrderValue.toLocaleString('en-IN')
+                                : '0' %>
+                        </div>
+                    </div>
+
+                    <!-- Total Orders -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                        <div class="text-sm font-medium text-gray-500 mb-1">Total Orders</div>
+                        <div class="text-2xl font-bold text-gray-900">
+                            <%= salesData && salesData.totalOrders ? salesData.totalOrders.toLocaleString('en-IN') : '0'
+                                %>
+                        </div>
+                    </div>
+
+                    <!-- CAC -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                        <div class="text-sm font-medium text-gray-500 mb-1">Acquisition Cost</div>
+                        <div class="text-2xl font-bold text-gray-900">
+                            ₹<%= salesData && salesData.customerAcquisitionCost ?
+                                salesData.customerAcquisitionCost.toLocaleString('en-IN') : '0' %>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Layout -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Sales Trend -->
+                    <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4">Sales Trend</h3>
+                        <div class="flex items-baseline gap-2 mb-6">
+                            <span class="text-3xl font-bold text-indigo-600">
+                                ₹<%= salesData && salesData.last12MonthsSales ?
+                                    salesData.last12MonthsSales.toLocaleString('en-IN') : '0' %>
+                            </span>
+                            <span class="text-sm text-gray-500">Last 12 Months</span>
                         </div>
 
-                        <!-- Top Selling Products -->
-                        <div class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-sm">
-                            <h3 class="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">Top
-                                Selling Products</h3>
-                            <div class="mt-4 flex items-baseline space-x-2">
-                                <p class="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark">
-                                    ₹<%= salesData && salesData.lastMonthTopProductsSales ?
-                                        salesData.lastMonthTopProductsSales.toLocaleString('en-IN') : '100,000' %>
-                                </p>
-                                <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">Last Month
-                                </p>
-                            </div>
-                            <div class="mt-6">
-                                <ul class="space-y-4">
-                                    <% if (topProducts && topProducts.length> 0) { %>
-                                        <% topProducts.forEach(product=> { %>
-                                            <li class="flex items-center">
-                                                <div
-                                                    class="w-10 h-10 bg-gray-200 dark:bg-gray-600 rounded mr-4 overflow-hidden">
-                                                    <% if (product.image) { %>
-                                                        <img src="<%= product.image %>" alt="<%= product.name %>"
-                                                            class="w-full h-full object-cover" />
-                                                        <% } %>
-                                                </div>
-                                                <div class="flex-1">
-                                                    <p
-                                                        class="font-medium text-sm text-text-primary-light dark:text-text-primary-dark">
-                                                        <%= product.name %>
-                                                    </p>
-                                                    <p
-                                                        class="text-xs text-text-secondary-light dark:text-text-secondary-dark">
-                                                        <%= product.unitsSold %> units sold
-                                                    </p>
-                                                </div>
-                                                <p
-                                                    class="font-semibold text-sm text-text-primary-light dark:text-text-primary-dark">
-                                                    ₹<%= product.revenue.toLocaleString('en-IN') %>
-                                                </p>
-                                            </li>
-                                            <% }); %>
+                        <!-- Simplified Chart Placeholder (keeping original logic visualization) -->
+                        <div
+                            class="h-64 bg-indigo-50 rounded-lg relative overflow-hidden flex items-end justify-between px-4 pb-0 pt-8 gap-2">
+                            <!-- Visual bars mock -->
+                            <div class="w-full h-[30%] bg-indigo-200 rounded-t"></div>
+                            <div class="w-full h-[45%] bg-indigo-300 rounded-t"></div>
+                            <div class="w-full h-[35%] bg-indigo-200 rounded-t"></div>
+                            <div class="w-full h-[60%] bg-indigo-400 rounded-t"></div>
+                            <div class="w-full h-[50%] bg-indigo-300 rounded-t"></div>
+                            <div class="w-full h-[75%] bg-indigo-500 rounded-t"></div>
+                            <div class="w-full h-[65%] bg-indigo-400 rounded-t"></div>
+                            <div class="w-full h-[85%] bg-indigo-600 rounded-t"></div>
+                            <div class="w-full h-[70%] bg-indigo-500 rounded-t"></div>
+                            <div class="w-full h-[90%] bg-indigo-600 rounded-t"></div>
+                            <div class="w-full h-[80%] bg-indigo-500 rounded-t"></div>
+                            <div class="w-full h-[95%] bg-indigo-600 rounded-t"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-gray-400 mt-2 px-1">
+                            <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span>
+                            <span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span>
+                        </div>
+                    </div>
+
+                    <!-- Top Products -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4">Top Selling</h3>
+                        <div class="flex items-baseline gap-2 mb-6">
+                            <span class="text-2xl font-bold text-gray-900">
+                                ₹<%= salesData && salesData.lastMonthTopProductsSales ?
+                                    salesData.lastMonthTopProductsSales.toLocaleString('en-IN') : '0' %>
+                            </span>
+                            <span class="text-sm text-gray-500">Last Month</span>
+                        </div>
+
+                        <div class="space-y-4">
+                            <% if (topProducts && topProducts.length> 0) { %>
+                                <% topProducts.forEach(product=> { %>
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-gray-100 overflow-hidden flex-shrink-0">
+                                            <% if (product.image) { %>
+                                                <img src="<%= product.image %>" alt="<%= product.name %>"
+                                                    class="w-full h-full object-cover">
                                                 <% } else { %>
-                                                    <li class="flex items-center">
-                                                        <div
-                                                            class="w-10 h-10 bg-gray-200 dark:bg-gray-600 rounded mr-4">
-                                                        </div>
-                                                        <div class="flex-1">
-                                                            <p
-                                                                class="font-medium text-sm text-text-primary-light dark:text-text-primary-dark">
-                                                                Product A</p>
-                                                            <p
-                                                                class="text-xs text-text-secondary-light dark:text-text-secondary-dark">
-                                                                150 units sold</p>
-                                                        </div>
-                                                        <p
-                                                            class="font-semibold text-sm text-text-primary-light dark:text-text-primary-dark">
-                                                            ₹25,000</p>
-                                                    </li>
-                                                    <li class="flex items-center">
-                                                        <div
-                                                            class="w-10 h-10 bg-gray-200 dark:bg-gray-600 rounded mr-4">
-                                                        </div>
-                                                        <div class="flex-1">
-                                                            <p
-                                                                class="font-medium text-sm text-text-primary-light dark:text-text-primary-dark">
-                                                                Product B</p>
-                                                            <p
-                                                                class="text-xs text-text-secondary-light dark:text-text-secondary-dark">
-                                                                120 units sold</p>
-                                                        </div>
-                                                        <p
-                                                            class="font-semibold text-sm text-text-primary-light dark:text-text-primary-dark">
-                                                            ₹22,000</p>
-                                                    </li>
-                                                    <li class="flex items-center">
-                                                        <div
-                                                            class="w-10 h-10 bg-gray-200 dark:bg-gray-600 rounded mr-4">
-                                                        </div>
-                                                        <div class="flex-1">
-                                                            <p
-                                                                class="font-medium text-sm text-text-primary-light dark:text-text-primary-dark">
-                                                                Product C</p>
-                                                            <p
-                                                                class="text-xs text-text-secondary-light dark:text-text-secondary-dark">
-                                                                98 units sold</p>
-                                                        </div>
-                                                        <p
-                                                            class="font-semibold text-sm text-text-primary-light dark:text-text-primary-dark">
-                                                            ₹18,500</p>
-                                                    </li>
-                                                    <li class="flex items-center">
-                                                        <div
-                                                            class="w-10 h-10 bg-gray-200 dark:bg-gray-600 rounded mr-4">
-                                                        </div>
-                                                        <div class="flex-1">
-                                                            <p
-                                                                class="font-medium text-sm text-text-primary-light dark:text-text-primary-dark">
-                                                                Product D</p>
-                                                            <p
-                                                                class="text-xs text-text-secondary-light dark:text-text-secondary-dark">
-                                                                85 units sold</p>
-                                                        </div>
-                                                        <p
-                                                            class="font-semibold text-sm text-text-primary-light dark:text-text-primary-dark">
-                                                            ₹15,000</p>
-                                                    </li>
+                                                    <div
+                                                        class="w-full h-full flex items-center justify-center text-gray-400">
+                                                        <span class="material-icons-outlined text-sm">image</span>
+                                                    </div>
                                                     <% } %>
-                                </ul>
-                            </div>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 truncate">
+                                                <%= product.name %>
+                                            </p>
+                                            <p class="text-xs text-gray-500">
+                                                <%= product.unitsSold %> units sold
+                                            </p>
+                                        </div>
+                                        <div class="text-sm font-semibold text-gray-900">
+                                            ₹<%= product.revenue.toLocaleString('en-IN') %>
+                                        </div>
+                                    </div>
+                                    <% }); %>
+                                        <% } else { %>
+                                            <div class="text-center py-4 text-gray-500 text-sm">No sales data available
+                                            </div>
+                                            <% } %>
                         </div>
-                    </section>
-
-                    <!-- Download Report Button -->
-                    <div class="mt-12 text-center">
-                        <button onclick="downloadReport()"
-                            class="bg-green-button text-white font-bold py-3 px-6 rounded-lg inline-flex items-center hover:bg-green-600 transition-colors duration-300">
-                            <span class="material-symbols-outlined mr-2">download</span>
-                            Download Report
-                        </button>
                     </div>
                 </div>
             </div>
@@ -316,8 +296,27 @@
     </div>
 
     <script>
+        const sidebar = document.getElementById("adminSidebar");
+        const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+        const sidebarOverlay = document.getElementById("sidebarOverlay");
+
+        const toggleSidebar = () => {
+            const isClosed = sidebar.classList.contains("-translate-x-full");
+            if (isClosed) {
+                sidebar.classList.remove("-translate-x-full");
+                sidebarOverlay.classList.remove("hidden");
+                document.body.classList.add("overflow-hidden");
+            } else {
+                sidebar.classList.add("-translate-x-full");
+                sidebarOverlay.classList.add("hidden");
+                document.body.classList.remove("overflow-hidden");
+            }
+        };
+
+        if (mobileMenuBtn) mobileMenuBtn.addEventListener("click", toggleSidebar);
+        if (sidebarOverlay) sidebarOverlay.addEventListener("click", toggleSidebar);
+
         function downloadReport() {
-            // Implement report download functionality
             window.location.href = '/admin/sales-report/download';
         }
     </script>

@@ -9,7 +9,7 @@ export const getLoginAdmin = (req, res) => {
         return res.redirect("/admin/dashboard");
     }
 
-    res.render('admin/adminLogin', { error: null });
+    res.render('admin/adminLogin');
 }
 export const postLoginAdmin = async (req, res) => {
     const { email, password } = req.body;
@@ -24,7 +24,8 @@ export const postLoginAdmin = async (req, res) => {
     if (!adminExist.email || !adminExist.password) {
         console.error("Admin credentials not configured in environment variables");
         console.error("Looking for: ADMIN_EMAIL, ADMIN_PASSWORD, AdminMail, or AdminPassword");
-        return res.render('admin/adminLogin', { error: "Admin credentials not properly stored. Please check environment variables." });
+        res.locals.message = { type: 'error', message: "Admin credentials not properly stored. Please check environment variables." };
+        return res.render('admin/adminLogin');
     }
 
     if (adminExist.email === email && adminExist.password === password) {
@@ -32,7 +33,8 @@ export const postLoginAdmin = async (req, res) => {
         req.session.adminEmail = email;
         return res.redirect("/admin/dashboard");
     }
-    res.render('admin/adminLogin', { error: "invalid email or password" });
+    res.locals.message = { type: 'error', message: "invalid email or password" };
+    res.render('admin/adminLogin');
 }
 
 export const getAdminDashboard = async (req, res) => {
@@ -45,12 +47,45 @@ export const getAdminDashboard = async (req, res) => {
 }
 
 export const getCustomerlist = async (req, res) => {
-    let users = await User.find();
-    let msg = req.query.msg;
-    let admin = {
-        email: process.env.ADMIN_EMAIL,
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = 10;
+        const skip = (page - 1) * limit;
+        const searchQuery = req.query.search || "";
+
+        const query = {};
+        if (searchQuery) {
+            query.$or = [
+                { email: { $regex: searchQuery, $options: "i" } },
+                { name: { $regex: searchQuery, $options: "i" } },
+                { username: { $regex: searchQuery, $options: "i" } }
+            ];
+        }
+
+        const totalUsers = await User.countDocuments(query);
+        const totalPages = Math.ceil(totalUsers / limit);
+
+        const users = await User.find(query)
+            .skip(skip)
+            .limit(limit)
+            .sort({ createdAt: -1 });
+
+        let admin = {
+            email: process.env.ADMIN_EMAIL,
+        }
+
+        res.render("admin/customerList", {
+            users,
+            admin,
+            currentPage: page,
+            totalPages,
+            search: searchQuery
+        });
+    } catch (error) {
+
+        console.error("Error fetching customers:", error);
+        res.status(500).send("Something went wrong!");
     }
-    res.render("admin/customerList", { users, admin, msg });
 }
 
 
@@ -60,18 +95,21 @@ export const blockUser = async (req, res) => {
 
         const user = await User.findById(userId);
         if (!user) {
-            return res.redirect("/admin/customers?msg=user not found");
+            req.session.message = { type: 'error', message: "user not found" };
+            return res.redirect("/admin/users");
         }
 
         // Check if user is already blocked
         if (user.status == "blocked") {
-            return res.redirect("/admin/customers?msg=user is already blocked");
+            req.session.message = { type: 'warning', message: "user is already blocked" };
+            return res.redirect("/admin/users");
         }
 
         // Block the user
         await User.findByIdAndUpdate(userId, { status: "blocked" });
 
-        res.redirect("/admin/customers?msg=user blocked successfully");
+        req.session.message = { type: 'success', message: "user blocked successfully" };
+        res.redirect("/admin/users");
 
     } catch (error) {
         console.error("Error blocking user:", error);
@@ -87,16 +125,19 @@ export const unblockUser = async (req, res) => {
 
         const user = await User.findById(userId);
         if (!user) {
-            return res.redirect("/admin/customers?msg=user not found");
+            req.session.message = { type: 'error', message: "user not found" };
+            return res.redirect("/admin/users");
         }
 
         if (user.status == "active") {
-            return res.redirect("/admin/customers?msg= user is already unblocked");
+            req.session.message = { type: 'warning', message: "user is already unblocked" };
+            return res.redirect("/admin/users");
         }
 
         await User.findByIdAndUpdate(userId, { status: "active" });
 
-        res.redirect("/admin/customers?msg=user unblocked successfully");
+        req.session.message = { type: 'success', message: "user unblocked successfully" };
+        res.redirect("/admin/users");
 
     } catch (error) {
         console.error("Error unblocking user:", error);

@@ -1,6 +1,5 @@
 import express from "express";
 import { upload } from "../config/cloudinary.js";
-
 const router = express.Router();
 
 // Single image upload
@@ -19,5 +18,6 @@ router.post("/multi-upload", upload.array("images", 5), (req, res) => {
     imageUrls: urls,
   });
 });
+
 
 export default router;

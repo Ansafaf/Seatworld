@@ -1,7 +1,6 @@
 node_modules/
 
 bannerRoute.js
-addressModel.js
 
 bannerController.js
 orderController.js

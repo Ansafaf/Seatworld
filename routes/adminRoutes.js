@@ -10,7 +10,6 @@ import {
     unblockUser,
     searchUsers
 } from '../controller/adminController.js';
-import { productList } from "../controller/AdminproductController.js";
 import { adminAuthMiddleware } from '../middleware/adminAuthmiddle.js';
 
 adminRouter.get("/login", getLoginAdmin);
@@ -18,17 +17,17 @@ adminRouter.post("/login", postLoginAdmin);
 
 
 adminRouter.get("/dashboard", adminAuthMiddleware, getAdminDashboard);
-adminRouter.get("/customers", getCustomerlist);
 
 adminRouter.get("/logout", adminLogout);
 
-adminRouter.get("/block/:id", blockUser);
-adminRouter.patch("/block/:id", blockUser);
-adminRouter.get("/unblock/:id", unblockUser);
-adminRouter.patch("/unblock/:id", unblockUser);
+adminRouter.get("/users",adminAuthMiddleware,getCustomerlist);
+adminRouter.get("/users/:id/block", adminAuthMiddleware,blockUser);
+adminRouter.patch("/users/:id/block", adminAuthMiddleware,blockUser);
+adminRouter.get("/users/:id/unblock", adminAuthMiddleware,unblockUser);
+adminRouter.patch("/users/:id/unblock", adminAuthMiddleware,unblockUser);
 
 
-adminRouter.get("/search", searchUsers);
+adminRouter.get("/search", adminAuthMiddleware,searchUsers);
 // adminRouter.get("/products", productList);
 
 export default adminRouter;
