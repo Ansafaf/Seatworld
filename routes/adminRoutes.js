@@ -28,6 +28,6 @@ adminRouter.patch("/users/:id/unblock", adminAuthMiddleware,unblockUser);
 
 
 adminRouter.get("/search", adminAuthMiddleware,searchUsers);
-// adminRouter.get("/products", productList);
+
 
 export default adminRouter;

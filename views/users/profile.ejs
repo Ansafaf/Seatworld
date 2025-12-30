@@ -22,73 +22,7 @@
             background-color: #f5f5f5;
         }
 
-        /* ---------- TOP BAR ---------- */
-        .topbar {
-            background: #d6d6d6;
-            padding: 14px 20px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .topbar-inner {
-            max-width: 1200px;
-            margin: auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 20px;
-            font-weight: 700;
-            color: #2563eb;
-        }
-
-        .brand img {
-            width: 32px;
-            height: 32px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 28px;
-            font-weight: 500;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #111;
-        }
-
-        .top-icons {
-            display: flex;
-            gap: 18px;
-        }
-
-        .top-icons a {
-            text-decoration: none;
-        }
-
-        .top-icons span {
-            font-size: 22px;
-            color: #111;
-            cursor: pointer;
-        }
-
-        /* Mobile Menu Button */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: #111;
-            padding: 5px;
-        }
+        /* Custom Profile styles continue below */
 
         /* Mobile Overlay */
         .mobile-overlay {
@@ -503,114 +437,25 @@
 <body>
     <%- include('../partials/flash') %>
 
-        <header class="topbar">
-            <div class="topbar-inner">
-                <div class="brand">
-                    <img
-                        src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765945540/products/rmsn314w038gnfzmemmi.jpg">
-                    SeatWorld
-                </div>
+        <%- include('../partials/header', { showSearch: false }) %>
+            <%- include("../partials/breadcrumb", { breadcrumbs }) %>
 
-                <nav class="nav-links">
-                    <a href="/dashboard">Home</a>
-                    <a href="/products">Products</a>
-                    <a href="/about">About</a>
-                </nav>
+                <!-- Mobile Overlay -->
+                <div class="mobile-overlay" id="mobileOverlay"></div>
 
-                <div class="top-icons">
-                    <a href="/wishlist"><span class="material-icons-outlined">favorite_border</span></a>
-                    <a href="/profile"><span class="material-icons-outlined">person_outline</span></a>
-                    <a href="/cart"><span class="material-icons-outlined">shopping_cart</span></a>
-                </div>
-
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <span class="material-icons-outlined">menu</span>
-                </button>
-            </div>
-        </header>
-
-        <!-- Mobile Overlay -->
-        <div class="mobile-overlay" id="mobileOverlay"></div>
-
-        <!-- Mobile Sidebar -->
-        <aside class="sidebar mobile-sidebar" id="mobileSidebar">
-            <div class="mobile-sidebar-header">
-                <div class="brand">
-                    <img
-                        src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765945540/products/rmsn314w038gnfzmemmi.jpg">
-                    SeatWorld
-                </div>
-                <button class="close-sidebar-btn" id="closeSidebarBtn">
-                    <span class="material-icons-outlined">close</span>
-                </button>
-            </div>
-
-            <div class="profile-header">
-                <form action="/profile/avatar" method="POST" enctype="multipart/form-data">
-                    <div class="avatar-wrapper">
-                        <div class="avatar">
-                            <% if (user.avatar) { %>
-                                <img src="<%= user.avatar %>">
-                                <% } %>
+                <!-- Mobile Sidebar -->
+                <aside class="sidebar mobile-sidebar" id="mobileSidebar">
+                    <div class="mobile-sidebar-header">
+                        <div class="brand">
+                            <img
+                                src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765945540/products/rmsn314w038gnfzmemmi.jpg">
+                            SeatWorld
                         </div>
-                        <label class="avatar-edit-btn" for="avatarInputMobile">✎</label>
-                        <input type="file" id="avatarInputMobile" name="avatar" accept="image/*"
-                            onchange="this.form.submit()">
+                        <button class="close-sidebar-btn" id="closeSidebarBtn">
+                            <span class="material-icons-outlined">close</span>
+                        </button>
                     </div>
-                </form>
 
-
-                <div class="user-name">
-                    <%= user.name || user.username %>
-                </div>
-                <div class="user-email">
-                    <%= user.email %>
-                </div>
-            </div>
-
-            <div class="menu-section">
-                <div class="menu-title">MY ACCOUNT</div>
-                <a href="/profile" class="menu-item active">
-                    <span class="menu-icon material-icons-outlined">person</span>
-                    Personal Information
-                </a>
-                <a href="/address" class="menu-item">
-                    <span class="menu-icon material-icons-outlined">location_on</span>
-                    Address
-                </a>
-                <a href="/orders" class="menu-item">
-                    <span class="menu-icon material-icons-outlined">shopping_bag</span>
-                    Orders
-                </a>
-                <a href="/wallet" class="menu-item">
-                    <span class="menu-icon material-icons-outlined">account_balance_wallet</span>
-                    Wallet
-                </a>
-                <a href="/coupons" class="menu-item">
-                    <span class="menu-icon material-icons-outlined">local_offer</span>
-                    Coupon
-                </a>
-                <a href="/password-change" class="menu-item">
-                    <span class="menu-icon material-icons-outlined">lock</span>
-                    Password Change
-                </a>
-                <a href="/referral" class="menu-item">
-                    <span class="menu-icon material-icons-outlined">share</span>
-                    generate referralcode
-                </a>
-                <a href="/logout" class="menu-item">
-                    <span class="menu-icon material-icons-outlined">logout</span>
-                    Logout
-                </a>
-            </div>
-        </aside>
-
-        <!-- Desktop Sidebar (hidden on mobile) -->
-        <div class="container">
-            <div class="profile-layout">
-
-                <!-- Desktop Sidebar -->
-                <aside class="sidebar desktop-sidebar">
                     <div class="profile-header">
                         <form action="/profile/avatar" method="POST" enctype="multipart/form-data">
                             <div class="avatar-wrapper">
@@ -619,8 +464,8 @@
                                         <img src="<%= user.avatar %>">
                                         <% } %>
                                 </div>
-                                <label class="avatar-edit-btn" for="avatarInput">✎</label>
-                                <input type="file" id="avatarInput" name="avatar" accept="image/*"
+                                <label class="avatar-edit-btn" for="avatarInputMobile">✎</label>
+                                <input type="file" id="avatarInputMobile" name="avatar" accept="image/*"
                                     onchange="this.form.submit()">
                             </div>
                         </form>
@@ -671,87 +516,153 @@
                     </div>
                 </aside>
 
-                <!-- MAIN -->
-                <main class="main-content">
-                    <h1 class="page-title">Account Information</h1>
+                <!-- Desktop Sidebar (hidden on mobile) -->
+                <div class="container">
+                    <div class="profile-layout">
 
-                    <div class="info-card">
-                        <div class="info-grid">
-                            <div>
-                                <div class="field-label">Name</div>
-                                <div class="field-value">
+                        <!-- Desktop Sidebar -->
+                        <aside class="sidebar desktop-sidebar">
+                            <div class="profile-header">
+                                <form action="/profile/avatar" method="POST" enctype="multipart/form-data">
+                                    <div class="avatar-wrapper">
+                                        <div class="avatar">
+                                            <% if (user.avatar) { %>
+                                                <img src="<%= user.avatar %>">
+                                                <% } %>
+                                        </div>
+                                        <label class="avatar-edit-btn" for="avatarInput">✎</label>
+                                        <input type="file" id="avatarInput" name="avatar" accept="image/*"
+                                            onchange="this.form.submit()">
+                                    </div>
+                                </form>
+
+
+                                <div class="user-name">
                                     <%= user.name || user.username %>
                                 </div>
-                            </div>
-                            <div>
-                                <div class="field-label">Email</div>
-                                <div class="field-value">
+                                <div class="user-email">
                                     <%= user.email %>
                                 </div>
                             </div>
-                            <div>
-                                <div class="field-label">Mobile</div>
-                                <div class="field-value">
-                                    <%= user.mobile %>
+
+                            <div class="menu-section">
+                                <div class="menu-title">MY ACCOUNT</div>
+                                <a href="/profile" class="menu-item active">
+                                    <span class="menu-icon material-icons-outlined">person</span>
+                                    Personal Information
+                                </a>
+                                <a href="/address" class="menu-item">
+                                    <span class="menu-icon material-icons-outlined">location_on</span>
+                                    Address
+                                </a>
+                                <a href="/orders" class="menu-item">
+                                    <span class="menu-icon material-icons-outlined">shopping_bag</span>
+                                    Orders
+                                </a>
+                                <a href="/wallet" class="menu-item">
+                                    <span class="menu-icon material-icons-outlined">account_balance_wallet</span>
+                                    Wallet
+                                </a>
+                                <a href="/coupons" class="menu-item">
+                                    <span class="menu-icon material-icons-outlined">local_offer</span>
+                                    Coupon
+                                </a>
+                                <a href="/password-change" class="menu-item">
+                                    <span class="menu-icon material-icons-outlined">lock</span>
+                                    Password Change
+                                </a>
+                                <a href="/referral" class="menu-item">
+                                    <span class="menu-icon material-icons-outlined">share</span>
+                                    generate referralcode
+                                </a>
+                                <a href="/logout" class="menu-item">
+                                    <span class="menu-icon material-icons-outlined">logout</span>
+                                    Logout
+                                </a>
+                            </div>
+                        </aside>
+
+                        <!-- MAIN -->
+                        <main class="main-content">
+                            <h1 class="page-title">Account Information</h1>
+
+                            <div class="info-card">
+                                <div class="info-grid">
+                                    <div>
+                                        <div class="field-label">Name</div>
+                                        <div class="field-value">
+                                            <%= user.name || user.username %>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="field-label">Email</div>
+                                        <div class="field-value">
+                                            <%= user.email %>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="field-label">Mobile</div>
+                                        <div class="field-value">
+                                            <%= user.mobile %>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+
+                            <div class="action-buttons">
+                                <a href="/profile/edit" class="btn btn-primary">Edit info</a>
+                                <a href="/logout" class="btn btn-secondary">Logout</a>
+                            </div>
+                        </main>
+
                     </div>
+                </div>
 
-                    <div class="action-buttons">
-                        <a href="/profile/edit" class="btn btn-primary">Edit info</a>
-                        <a href="/logout" class="btn btn-secondary">Logout</a>
-                    </div>
-                </main>
+                <script>
+                    // Mobile sidebar functionality
+                    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+                    const mobileSidebar = document.getElementById('mobileSidebar');
+                    const mobileOverlay = document.getElementById('mobileOverlay');
+                    const closeSidebarBtn = document.getElementById('closeSidebarBtn');
 
-            </div>
-        </div>
+                    function openMobileSidebar() {
+                        mobileSidebar.classList.add('active');
+                        mobileOverlay.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
 
-        <script>
-            // Mobile sidebar functionality
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const mobileSidebar = document.getElementById('mobileSidebar');
-            const mobileOverlay = document.getElementById('mobileOverlay');
-            const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+                    function closeMobileSidebar() {
+                        mobileSidebar.classList.remove('active');
+                        mobileOverlay.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                    }
 
-            function openMobileSidebar() {
-                mobileSidebar.classList.add('active');
-                mobileOverlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
+                    // Event listeners for mobile menu
+                    mobileMenuBtn.addEventListener('click', openMobileSidebar);
+                    closeSidebarBtn.addEventListener('click', closeMobileSidebar);
+                    mobileOverlay.addEventListener('click', closeMobileSidebar);
 
-            function closeMobileSidebar() {
-                mobileSidebar.classList.remove('active');
-                mobileOverlay.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
+                    // Close sidebar when clicking on menu items
+                    const mobileMenuItems = document.querySelectorAll('#mobileSidebar .menu-item');
+                    mobileMenuItems.forEach(item => {
+                        item.addEventListener('click', closeMobileSidebar);
+                    });
 
-            // Event listeners for mobile menu
-            mobileMenuBtn.addEventListener('click', openMobileSidebar);
-            closeSidebarBtn.addEventListener('click', closeMobileSidebar);
-            mobileOverlay.addEventListener('click', closeMobileSidebar);
-
-            // Close sidebar when clicking on menu items
-            const mobileMenuItems = document.querySelectorAll('#mobileSidebar .menu-item');
-            mobileMenuItems.forEach(item => {
-                item.addEventListener('click', closeMobileSidebar);
-            });
-
-            // Close sidebar on escape key
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && mobileSidebar.classList.contains('active')) {
-                    closeMobileSidebar();
-                }
-            });
+                    // Close sidebar on escape key
+                    document.addEventListener('keydown', (e) => {
+                        if (e.key === 'Escape' && mobileSidebar.classList.contains('active')) {
+                            closeMobileSidebar();
+                        }
+                    });
 
 
-            // Responsive adjustments on window resize
-            window.addEventListener('resize', () => {
-                if (window.innerWidth > 768 && mobileSidebar.classList.contains('active')) {
-                    closeMobileSidebar();
-                }
-            });
-        </script>
+                    // Responsive adjustments on window resize
+                    window.addEventListener('resize', () => {
+                        if (window.innerWidth > 768 && mobileSidebar.classList.contains('active')) {
+                            closeMobileSidebar();
+                        }
+                    });
+                </script>
 
 </body>
 

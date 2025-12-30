@@ -8,6 +8,7 @@
 
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <style>
     * {
@@ -414,202 +415,195 @@
 </head>
 
 <body>
-
-
   <%- include('../partials/flash') %>
 
-    <!-- Sidebar Overlay for Mobile -->
-    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
-    <!-- ================= HEADER ================= -->
-    <header>
-      <div class="logo"> SeatWorld</div>
+    <%- include('../partials/header', { showSearch: false }) %>
+      <%- include("../partials/breadcrumb", { breadcrumbs }) %>
 
-      <button class="menu-btn" onclick="toggleMenu()">
-        <i class="fas fa-bars"></i>
-      </button>
+        <button class="menu-btn" onclick="toggleSidebar()"
+          style="position: fixed; top: 90px; left: 20px; z-index: 100; background: white; border-radius: 50%; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); border: none;">
+          <i class="fas fa-bars" style="font-size: 20px;"></i>
+        </button>
 
-      <nav id="mobileMenu">
-        <a href="/dashboard">Home</a>
-        <a href="/products">Products</a>
-        <a href="/about">About</a>
-      </nav>
+        <!-- ================= MAIN ================= -->
+        <div class="container">
 
-      <div class="icons">
-        <a href="/wishlist"><i class="far fa-heart"></i></a>
-        <a href="/profile"><i class="far fa-user"></i></a>
-        <a href="/cart"><i class="fas fa-cart-shopping"></i></a>
-      </div>
-    </header>
+          <!-- Sidebar -->
+          <aside class="sidebar" id="sidebar">
+            <h3>MY ACCOUNT</h3>
+            <ul>
+              <li><a href="/profile"><i class="fa-regular fa-user"></i> Personal Information</a></li>
+              <li><a href="/address"><i class="fa-solid fa-location-dot"></i> Address</a></li>
+              <li><a href="/orders"><i class="fa-solid fa-box"></i> Order</a></li>
+              <li><a href="/wallet"><i class="fa-solid fa-wallet"></i> Wallet</a></li>
+              <li><a href="/coupon"><i class="fa-solid fa-ticket"></i> Coupon</a></li>
+              <li><a class="active" href="/password-change"><i class="fa-solid fa-lock"></i> Password Change</a></li>
+              <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+            </ul>
+          </aside>
 
-    <!-- ================= MAIN ================= -->
-    <div class="container">
+          <!-- Content -->
+          <section class="content">
+            <h2>PASSWORD CHANGE</h2>
 
-      <!-- Sidebar -->
-      <aside class="sidebar" id="sidebar">
-        <h3>MY ACCOUNT</h3>
-        <ul>
-          <li><a href="/profile"><i class="fa-regular fa-user"></i> Personal Information</a></li>
-          <li><a href="/address"><i class="fa-solid fa-location-dot"></i> Address</a></li>
-          <li><a href="/orders"><i class="fa-solid fa-box"></i> Order</a></li>
-          <li><a href="/wallet"><i class="fa-solid fa-wallet"></i> Wallet</a></li>
-          <li><a href="/coupon"><i class="fa-solid fa-ticket"></i> Coupon</a></li>
-          <li><a class="active" href="/password-change"><i class="fa-solid fa-lock"></i> Password Change</a></li>
-          <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
-        </ul>
-      </aside>
+            <form action="/password-change" method="POST" id="passwordForm">
+              <div class="form-group">
+                <label>Current Password</label>
+                <div class="password-container">
+                  <input type="password" name="currentPass" id="currentPassword" required>
+                  <button type="button" class="toggle-password" onclick="togglePasswordVisibility('currentPassword')">
+                    <i class="far fa-eye"></i>
+                  </button>
+                </div>
+              </div>
 
-      <!-- Content -->
-      <section class="content">
-        <h2>PASSWORD CHANGE</h2>
+              <div class="form-group">
+                <label>New Password</label>
+                <div class="password-container">
+                  <input type="password" name="newPass" id="newPassword" required minlength="6">
+                  <button type="button" class="toggle-password" onclick="togglePasswordVisibility('newPassword')">
+                    <i class="far fa-eye"></i>
+                  </button>
+                </div>
+                <small style="color: #666; font-size: 12px; margin-top: 4px; display: block;">
+                  Must be at least 6 characters long
+                </small>
+              </div>
 
-        <form action="/password-change" method="POST" id="passwordForm" onsubmit="return validatePassword()">
-          <div class="form-group">
-            <label>Current Password</label>
-            <div class="password-container">
-              <input type="password" name="currentPass" id="currentPassword" required>
-              <button type="button" class="toggle-password" onclick="togglePasswordVisibility('currentPassword')">
-                <i class="far fa-eye"></i>
-              </button>
-            </div>
+              <div class="form-group">
+                <label>Confirm Password</label>
+                <div class="password-container">
+                  <input type="password" name="confirmPass" id="confirmPassword" required minlength="6">
+                  <button type="button" class="toggle-password" onclick="togglePasswordVisibility('confirmPassword')">
+                    <i class="far fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+
+              <button type="submit" class="submit-btn">Change Password</button>
+            </form>
+          </section>
+
+        </div>
+
+        <!-- ================= FOOTER ================= -->
+        <footer>
+          <div class="copyright">
+            © <%= new Date().getFullYear() %> SeatWorld. All Rights Reserved
           </div>
+        </footer>
 
-          <div class="form-group">
-            <label>New Password</label>
-            <div class="password-container">
-              <input type="password" name="newPass" id="newPassword" required minlength="6">
-              <button type="button" class="toggle-password" onclick="togglePasswordVisibility('newPassword')">
-                <i class="far fa-eye"></i>
-              </button>
-            </div>
-            <small style="color: #666; font-size: 12px; margin-top: 4px; display: block;">
-              Must be at least 6 characters long
-            </small>
-          </div>
+        <script>
 
-          <div class="form-group">
-            <label>Confirm Password</label>
-            <div class="password-container">
-              <input type="password" name="confirmPass" id="confirmPassword" required minlength="6">
-              <button type="button" class="toggle-password" onclick="togglePasswordVisibility('confirmPassword')">
-                <i class="far fa-eye"></i>
-              </button>
-            </div>
-          </div>
+          // Toggle password visibility
+          function togglePasswordVisibility(fieldId) {
+            const passwordField = document.getElementById(fieldId);
+            const toggleButton = passwordField.nextElementSibling;
+            const icon = toggleButton.querySelector('i');
 
-          <button type="submit" class="submit-btn">Change Password</button>
-        </form>
-      </section>
-
-    </div>
-
-    <!-- ================= FOOTER ================= -->
-    <footer>
-      <div class="copyright">
-        © <%= new Date().getFullYear() %> SeatWorld. All Rights Reserved
-      </div>
-    </footer>
-
-    <script>
-
-      // Toggle password visibility
-      function togglePasswordVisibility(fieldId) {
-        const passwordField = document.getElementById(fieldId);
-        const toggleButton = passwordField.nextElementSibling;
-        const icon = toggleButton.querySelector('i');
-
-        if (passwordField.type === 'password') {
-          passwordField.type = 'text';
-          icon.classList.remove('fa-eye');
-          icon.classList.add('fa-eye-slash');
-        } else {
-          passwordField.type = 'password';
-          icon.classList.remove('fa-eye-slash');
-          icon.classList.add('fa-eye');
-        }
-      }
-
-      // Password validation
-      function validatePassword() {
-        const newPassword = document.getElementById('newPassword').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
-
-        if (newPassword.length < 6) {
-          alert('New password must be at least 6 characters long.');
-          return false;
-        }
-
-        if (newPassword !== confirmPassword) {
-          alert('New password and confirm password do not match.');
-          return false;
-        }
-
-        return true;
-      }
-
-      // Mobile menu toggle
-      function toggleMenu() {
-        document.getElementById('mobileMenu').classList.toggle('active');
-      }
-
-      // Sidebar toggle for mobile
-      function toggleSidebar() {
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('sidebarOverlay');
-        sidebar.classList.toggle('active');
-        overlay.classList.toggle('active');
-      }
-
-      // Open sidebar on clicking profile icon (mobile)
-      document.querySelector('a[href="/profile"]').addEventListener('click', function (e) {
-        if (window.innerWidth <= 900) {
-          e.preventDefault();
-          toggleSidebar();
-        }
-      });
-
-      // Close sidebar when clicking menu items
-      const sidebarLinks = document.querySelectorAll('.sidebar a');
-      sidebarLinks.forEach(link => {
-        link.addEventListener('click', () => {
-          if (window.innerWidth <= 900) {
-            toggleSidebar();
+            if (passwordField.type === 'password') {
+              passwordField.type = 'text';
+              icon.classList.remove('fa-eye');
+              icon.classList.add('fa-eye-slash');
+            } else {
+              passwordField.type = 'password';
+              icon.classList.remove('fa-eye-slash');
+              icon.classList.add('fa-eye');
+            }
           }
-        });
-      });
 
-      // Close sidebar on escape key
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          const sidebar = document.getElementById('sidebar');
-          if (sidebar.classList.contains('active')) {
-            toggleSidebar();
+          // Password validation
+          function validatePassword() {
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (newPassword.length < 8) {
+              Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                text: 'New password must be at least 8 characters long.',
+                confirmButtonColor: '#3b82f6'
+              });
+              return false;
+            }
+
+            if (newPassword !== confirmPassword) {
+              Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                text: 'New password and confirm password do not match.',
+                confirmButtonColor: '#3b82f6'
+              });
+              return false;
+            }
+
+            return true;
           }
-        }
-      });
 
-      // Form submission feedback
-      const form = document.getElementById('passwordForm');
-      form.addEventListener('submit', function (e) {
-        if (!validatePassword()) {
-          e.preventDefault();
-          return;
-        }
+          // Mobile menu toggle
+          function toggleMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+          }
 
-        // Show loading state
-        const submitBtn = form.querySelector('.submit-btn');
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Changing Password...';
-        submitBtn.disabled = true;
+          // Sidebar toggle for mobile
+          function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+          }
 
-        // In real app, this would be handled by form submission
-        // Revert after 2 seconds for demo
-        setTimeout(() => {
-          submitBtn.textContent = originalText;
-          submitBtn.disabled = false;
-        }, 2000);
-      });
-    </script>
+          // Open sidebar on clicking profile icon (mobile)
+          document.querySelector('a[href="/profile"]').addEventListener('click', function (e) {
+            if (window.innerWidth <= 900) {
+              e.preventDefault();
+              toggleSidebar();
+            }
+          });
+
+          // Close sidebar when clicking menu items
+          const sidebarLinks = document.querySelectorAll('.sidebar a');
+          sidebarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+              if (window.innerWidth <= 900) {
+                toggleSidebar();
+              }
+            });
+          });
+
+          // Close sidebar on escape key
+          document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+              const sidebar = document.getElementById('sidebar');
+              if (sidebar.classList.contains('active')) {
+                toggleSidebar();
+              }
+            }
+          });
+
+          // Form submission feedback
+          const form = document.getElementById('passwordForm');
+          form.addEventListener('submit', function (e) {
+            if (!validatePassword()) {
+              e.preventDefault();
+              return;
+            }
+
+            // Show loading state
+            const submitBtn = form.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Changing Password...';
+            submitBtn.disabled = true;
+
+            // In real app, this would be handled by form submission
+            // Revert after 2 seconds for demo
+            setTimeout(() => {
+              submitBtn.textContent = originalText;
+              submitBtn.disabled = false;
+            }, 2000);
+          });
+        </script>
 
 </body>
 

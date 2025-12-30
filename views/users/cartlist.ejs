@@ -137,6 +137,24 @@
       border-radius: 8px;
       cursor: pointer;
       font-size: 16px;
+      transition: all 0.2s;
+    }
+
+    .checkout-btn.btn-disabled {
+      background: #ccc;
+      color: #666;
+      cursor: not-allowed;
+    }
+
+    .stock-warning {
+      color: #ef4444;
+      font-size: 12px;
+      margin-top: 5px;
+      font-weight: 600;
+    }
+
+    .item-out-of-stock {
+      opacity: 0.6;
     }
 
     .pagination {
@@ -157,88 +175,96 @@
 
 <body>
 
-  <!-- Header -->
-  <header>
-    <h2>SeatWorld</h2>
-    <nav>
-      <a href="/dashboard">Home</a>
-      <a href="/products">Products</a>
-      <a href="/about">About</a>
-    </nav>
-  </header>
-  <%- include('../partials/flash') %>
+  <%- include('../partials/header', { showSearch: false }) %>
+    <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+      <%- include('../partials/flash') %>
 
-    <!-- Cart -->
-    <section>
-      <h2 style="padding: 20px 40px;">YOUR CART</h2>
-      <div class="cart-container">
+        <!-- Cart -->
+        <section>
+          <h2 style="padding: 20px 40px;">YOUR CART</h2>
+          <div class="cart-container">
 
-        <!-- Cart Items -->
-        <div class="cart-items">
-          <% cartItems.forEach(item=> { %>
-            <div class="cart-item">
-              <img src="<%= item.image %>" alt="<%= item.name %>">
-              <div class="cart-item-details">
-                <h4>
-                  <%= item.name %>
-                </h4>
-                <p>
-                  <%= item.color %>
-                </p>
-                <p>₹<%= item.price %>
-                </p>
-              </div>
-              <div class="quantity-controls">
-                <button>-</button>''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                <span>
-                  <%= item.quantity %>
-                </span>''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                <button>+</button>
-              </div>
-              <span class="remove-btn">🗑</span>
+            <!-- Cart Items -->
+            <div class="cart-items">
+              <% if (cartItems && cartItems.length> 0) { %>
+                <% cartItems.forEach(item=> { %>
+                  <div class="cart-item <%= item.outOfStock ? 'item-out-of-stock' : '' %>">
+                    <img src="<%= item.image %>" alt="<%= item.name %>">
+                    <div class="cart-item-details">
+                      <h4>
+                        <%= item.name %>
+                      </h4>
+                      <p>Color: <%= item.color %>
+                      </p>
+                      <p>₹<%= item.price %>
+                      </p>
+                      <% if (item.outOfStock) { %>
+                        <div class="stock-warning">Currently Unavailable / Out of Stock</div>
+                        <% } %>
+                    </div>
+                    <div class="quantity-controls">
+                      <button>-</button>
+                      <span>
+                        <%= item.quantity %>
+                      </span>
+                      <button>+</button>
+                    </div>
+                    <span class="remove-btn">🗑</span>
+                  </div>
+                  <% }) %>
+                    <% } else { %>
+                      <div
+                        style="padding: 20px; text-align: center; background: #fff; border-radius: 10px; border: 1px dashed #ccc;">
+                        Your cart is empty. <a href="/products" style="color: var(--primary); font-weight: 600;">Explore
+                          Products</a>
+                      </div>
+                      <% } %>
             </div>
-            <% }) %>
+
+            <!-- Order Summary -->
+            <div class="order-summary">
+              <h3>Order Summary</h3>
+              <div class="summary-row">
+                <span>Subtotal</span>
+                <span>₹<%= subtotal %></span>
+              </div>
+              <div class="summary-row">
+                <span>Delivery Fee</span>
+                <span>
+                  <%= deliveryFee %>
+                </span>
+              </div>
+              <div class="summary-row" style="font-weight: bold;">
+                <span>Total</span>
+                <span>₹<%= total %></span>
+              </div>
+              <div class="promo">
+                <input type="text" placeholder="Add promo code">
+                <button>Apply</button>
+              </div>
+              <% const hasOutOfStock=cartItems.some(item=> item.outOfStock); %>
+                <button class="checkout-btn <%= (hasOutOfStock || cartItems.length === 0) ? 'btn-disabled' : '' %>"
+                  <%=(hasOutOfStock || cartItems.length===0) ? 'disabled' : '' %> >
+                  <%= (hasOutOfStock && cartItems.length> 0) ? 'Remove Out of Stock Items to Checkout' : 'Go to Checkout
+                    →' %>
+                </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Pagination -->
+        <div class="pagination">
+          <button>Previous</button>
+          <button>1</button>
+          <button>2</button>
+          <button>3</button>
+          <button>Next</button>
         </div>
 
-        <!-- Order Summary -->
-        <div class="order-summary">
-          <h3>Order Summary</h3>
-          <div class="summary-row">
-            <span>Subtotal</span>
-            <span>₹<%= subtotal %></span>
-          </div>
-          <div class="summary-row">
-            <span>Delivery Fee</span>
-            <span>
-              <%= deliveryFee %>
-            </span>
-          </div>
-          <div class="summary-row" style="font-weight: bold;">
-            <span>Total</span>
-            <span>₹<%= total %></span>
-          </div>
-          <div class="promo">
-            <input type="text" placeholder="Add promo code">
-            <button>Apply</button>
-          </div>
-          <button class="checkout-btn">Go to Checkout →</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Pagination -->
-    <div class="pagination">
-      <button>Previous</button>
-      <button>1</button>
-      <button>2</button>
-      <button>3</button>
-      <button>Next</button>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-      <p>© 2023 SeatWorld. All Rights Reserved</p>
-    </footer>
+        <!-- Footer -->
+        <footer>
+          <p>© 2023 SeatWorld. All Rights Reserved</p>
+        </footer>
 
 </body>
 

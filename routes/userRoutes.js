@@ -19,7 +19,7 @@ router.post("/create-password", postPassCreation);
 
 // router.get('/cart',getCart); 
 
-router.get('/dashboard', authMiddleware, getHome);
+router.get('/home', authMiddleware, getHome);
 router.get('/signup', getSignup);
 router.post('/signup', postSignup);
 

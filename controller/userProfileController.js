@@ -1,19 +1,32 @@
 import bcrypt from "bcrypt";
+import { uploadToCloudinary } from "../config/cloudinary.js";
 import { User } from "../models/userModel.js";
 import { Address } from "../models/addressModel.js";
 import otpGenerator from "otp-generator";
 import nodemailer from "nodemailer";
 import validator from "validator";
+import { buildBreadcrumb } from "../utils/breadcrumb.js";
 
 
 export async function getProfile(req, res) {
   const customer = await User.findById(req.session.user.id);
-  res.render("users/profile", { user: customer });
+  res.render("users/profile", {
+    user: customer,
+    breadcrumbs: buildBreadcrumb([
+      { label: "Profile", url: "/profile" }
+    ])
+  });
 }
 
 export async function getprofileEdit(req, res) {
   const customer = await User.findById(req.session.user.id || req.session.user._id);
-  res.render("users/personalInfo", { user: customer });
+  res.render("users/personalInfo", {
+    user: customer,
+    breadcrumbs: buildBreadcrumb([
+      { label: "Profile", url: "/profile" },
+      { label: "Edit Profile", url: "/profile/edit" }
+    ])
+  });
 }
 export async function postprofileEdit(req, res) {
   try {
@@ -25,7 +38,6 @@ export async function postprofileEdit(req, res) {
       return res.redirect("/login");
     }
 
-    // 🟡 No change check
     const currentName = customer.name || customer.username;
 
     if (
@@ -36,7 +48,7 @@ export async function postprofileEdit(req, res) {
       return res.redirect("/profile/edit");
     }
 
-    // ✅ Allow mobile update for ALL users (including Google)
+    // Allow mobile update for ALL users (including Google)
     const updateData = {
       name,
       mobile
@@ -57,19 +69,33 @@ export async function postprofileEdit(req, res) {
 export async function updateProfile(req, res) {
   try {
     if (!req.file) {
-      req.session.message = { type: 'error', message: "file not uploaded" };
+      req.session.message = { type: 'error', message: "File not uploaded" };
       return res.redirect("/profile");
     }
 
-    await User.findByIdAndUpdate(req.session.user.id, {
-      avatar: req.file.path, // cloudinary or local path
-
+    // Process image with Sharp
+    const { processImage } = await import('../utils/imageProcessor.js');
+    const processedBuffer = await processImage(req.file.buffer, {
+      maxWidth: 400,
+      maxHeight: 400,
+      format: 'jpeg'
     });
 
-    req.session.message = { type: 'success', message: "profile picture updated" };
+    // Upload to Cloudinary using helper
+    const result = await uploadToCloudinary(processedBuffer, {
+      folder: 'avatars'
+    });
+    const imageUrl = result.secure_url;
+
+    await User.findByIdAndUpdate(req.session.user.id, {
+      avatar: imageUrl
+    });
+
+    req.session.message = { type: 'success', message: "Profile picture updated successfully" };
     res.redirect("/profile");
   } catch (err) {
-    console.error(err);
+    console.error("Profile picture update error:", err);
+    req.session.message = { type: 'error', message: "Failed to update profile picture" };
     res.redirect("/profile");
   }
 };
@@ -93,7 +119,12 @@ export async function getEmailchange(req, res) {
     }
 
     return res.render("users/emailUpdation", {
-      currentEmail: user.email
+      currentEmail: user.email,
+      breadcrumbs: buildBreadcrumb([
+        { label: "Profile", url: "/profile" },
+        { label: "Edit Profile", url: "/profile/edit" },
+        { label: "Change Email", url: "/profile/change-email" }
+      ])
     });
 
   } catch (error) {
@@ -167,7 +198,7 @@ export async function getEmailOtp(req, res) {
       return res.redirect("/login");
     }
 
-    // Find user to get actual OTP expiry
+
     const user = await User.findById(req.session.user.id);
 
     if (!user) {
@@ -175,17 +206,28 @@ export async function getEmailOtp(req, res) {
       return res.redirect("/login");
     }
 
-    // Get the actual OTP expiry from user document
     const otpExpires = user.emailChangeOtpExpiry;
 
     res.render("users/otp3", {
       otpExpires,
-      user
+      user,
+      breadcrumbs: buildBreadcrumb([
+        { label: "Profile", url: "/profile" },
+        { label: "Edit Profile", url: "/profile/edit" },
+        { label: "Change Email", url: "/profile/change-email" },
+        { label: "Verify OTP", url: "/email/change-otp" }
+      ])
     });
   } catch (error) {
     console.error("Get email OTP error:", error);
     res.render("users/otp3", {
-      message: { type: 'error', message: "An error occurred. Please try again." }
+      message: { type: 'error', message: "An error occurred. Please try again." },
+      breadcrumbs: buildBreadcrumb([
+        { label: "Profile", url: "/profile" },
+        { label: "Edit Profile", url: "/profile/edit" },
+        { label: "Change Email", url: "/profile/change-email" },
+        { label: "Verify OTP", url: "/email/change-otp" }
+      ])
     });
   }
 }
@@ -194,109 +236,131 @@ export async function postEmailOtp(req, res) {
   try {
     const { otp1, otp2, otp3, otp4 } = req.body;
 
-    // Check if user is logged in
     if (!req.session.user || !req.session.user.id) {
       req.session.message = { type: 'error', message: "Please login first" };
       return res.redirect("/login");
     }
 
-    // Find user first to get otpExpires for all error cases
     const user = await User.findById(req.session.user.id);
 
-    // Check if user exists
     if (!user) {
       req.session.message = { type: 'error', message: "User not found" };
       return res.redirect("/login");
     }
 
-    // Get otpExpires from user document
-    const otpExpires = user.emailChangeOtpExpiry;
+    const otpExpires = user.emailChangeOtpExpiry; //db value but temporary usage
 
-    // Validate OTP inputs exist - PASS otpExpires
     if (!otp1 || !otp2 || !otp3 || !otp4) {
       res.locals.message = { type: 'error', message: "Please enter all 4 digits of the OTP." };
       return res.render("users/otp3", {
-        otpExpires // Add this
+        otpExpires,
+        user,
+        breadcrumbs: buildBreadcrumb([
+          { label: "Profile", url: "/profile" },
+          { label: "Edit Profile", url: "/profile/edit" },
+          { label: "Change Email", url: "/profile/change-email" },
+          { label: "Verify OTP", url: "/email/change-otp" }
+        ])
       });
     }
 
-    // Combine OTP digits
     const otp = `${otp1}${otp2}${otp3}${otp4}`;
 
-    // Validate OTP format (4 digits, numeric) - PASS otpExpires
     if (!otp || otp.length !== 4 || !/^\d{4}$/.test(otp)) {
       res.locals.message = { type: 'error', message: "Please enter a valid 4-digit numeric OTP." };
       return res.render("users/otp3", {
-        otpExpires // Add this
+        otpExpires,
+        user,
+        breadcrumbs: buildBreadcrumb([
+          { label: "Profile", url: "/profile" },
+          { label: "Edit Profile", url: "/profile/edit" },
+          { label: "Change Email", url: "/profile/change-email" },
+          { label: "Verify OTP", url: "/email/change-otp" }
+        ])
       });
     }
 
-    // Check if user has email change OTP data
     if (!user.emailChangeOtp || !user.emailChangeOtpExpiry) {
       res.locals.message = { type: 'error', message: "No OTP found. Please request a new OTP." };
       return res.render("users/otp3", {
-        otpExpires: null
+        otpExpires: null,
+        user,
+        breadcrumbs: buildBreadcrumb([
+          { label: "Profile", url: "/profile" },
+          { label: "Edit Profile", url: "/profile/edit" },
+          { label: "Change Email", url: "/profile/change-email" },
+          { label: "Verify OTP", url: "/email/change-otp" }
+        ])
       });
     }
 
-    // Check OTP expiry
     const now = Date.now();
     const expiryTime = new Date(user.emailChangeOtpExpiry).getTime();
 
     if (now > expiryTime) {
-      // Clear expired OTP
+
       user.emailChangeOtp = null;
       user.emailChangeOtpExpiry = null;
       await user.save();
 
       res.locals.message = { type: 'error', message: "OTP has expired. Please request a new OTP." };
       return res.render("users/otp3", {
-        otpExpires: null
+        otpExpires: null,
+        user,
+        breadcrumbs: buildBreadcrumb([
+          { label: "Profile", url: "/profile" },
+          { label: "Edit Profile", url: "/profile/edit" },
+          { label: "Change Email", url: "/profile/change-email" },
+          { label: "Verify OTP", url: "/email/change-otp" }
+        ])
       });
     }
 
-    // Verify OTP exists before comparing
+
     if (!user.emailChangeOtp) {
       res.locals.message = { type: 'error', message: "OTP not found. Please request a new OTP." };
       return res.render("users/otp3", {
-        otpExpires: user.emailChangeOtpExpiry
+        otpExpires: user.emailChangeOtpExpiry,
+        user,
+        breadcrumbs: buildBreadcrumb([
+          { label: "Profile", url: "/profile" },
+          { label: "Edit Profile", url: "/profile/edit" },
+          { label: "Change Email", url: "/profile/change-email" },
+          { label: "Verify OTP", url: "/email/change-otp" }
+        ])
       });
     }
 
-    // Verify OTP matches
+
     if (user.emailChangeOtp !== otp) {
-      // Optional: Track failed attempts
-      user.otpAttempts = (user.otpAttempts || 0) + 1;
 
-      // Lock after 3 failed attempts
-      if (user.otpAttempts >= 3) {
-        user.emailChangeOtp = null;
-        user.emailChangeOtpExpiry = null;
-        await user.save();
-
-        res.locals.message = { type: 'error', message: "Too many failed attempts. Please request a new OTP." };
-        return res.render("users/otp3", {
-          otpExpires: null
-        });
-      }
-
-      await user.save();
       res.locals.message = { type: 'error', message: "Invalid OTP. Please try again." };
       return res.render("users/otp3", {
-        attemptsLeft: 3 - user.otpAttempts,
-        otpExpires: user.emailChangeOtpExpiry
+        otpExpires: user.emailChangeOtpExpiry,
+        user,
+        breadcrumbs: buildBreadcrumb([
+          { label: "Profile", url: "/profile" },
+          { label: "Edit Profile", url: "/profile/edit" },
+          { label: "Change Email", url: "/profile/change-email" },
+          { label: "Verify OTP", url: "/email/change-otp" }
+        ])
       });
     }
 
-    // Check if temp email exists - PASS otpExpires
     if (!user.tempEmail) {
       return res.render("users/otp3", {
         message: { type: 'error', message: "Email change request not found. Please start over." },
-        otpExpires // Add this
+        otpExpires,
+        user,
+        breadcrumbs: buildBreadcrumb([
+          { label: "Profile", url: "/profile" },
+          { label: "Edit Profile", url: "/profile/edit" },
+          { label: "Change Email", url: "/profile/change-email" },
+          { label: "Verify OTP", url: "/email/change-otp" }
+        ])
       });
     }
 
-    // Update email
     const oldEmail = user.email;
     user.email = user.tempEmail;
 
@@ -304,12 +368,8 @@ export async function postEmailOtp(req, res) {
     user.tempEmail = null;
     user.emailChangeOtp = null;
     user.emailChangeOtpExpiry = null;
-    user.otpAttempts = 0;
 
     await user.save();
-
-    // Optional: Send confirmation email to new email
-    // await sendEmailConfirmation(user.email);
 
     req.session.message = { type: 'success', message: "Email updated successfully" };
     return res.redirect("/profile/edit");
@@ -317,7 +377,6 @@ export async function postEmailOtp(req, res) {
   } catch (error) {
     console.error("Email OTP verification error:", error);
 
-    //this Prevent double response
     if (res.headersSent) {
       return;
     }
@@ -328,12 +387,19 @@ export async function postEmailOtp(req, res) {
       const user = await User.findById(req.session.user?.id);
       otpExpires = user?.emailChangeOtpExpiry || null;
     } catch (err) {
-      // ignore DB error here
+
     }
 
     return res.render("users/otp3", {
       message: { type: 'error', message: "An error occurred. Please try again." },
-      otpExpires
+      otpExpires,
+      user,
+      breadcrumbs: buildBreadcrumb([
+        { label: "Profile", url: "/profile" },
+        { label: "Edit Profile", url: "/profile/edit" },
+        { label: "Change Email", url: "/profile/change-email" },
+        { label: "Verify OTP", url: "/email/change-otp" }
+      ])
     });
   }
 }
@@ -362,7 +428,11 @@ export async function getAddresslist(req, res) {
     res.render("users/addressList", {
       addresses,
       currentPage: page,
-      totalPages
+      totalPages,
+      breadcrumbs: buildBreadcrumb([
+        { label: "Profile", url: "/profile" },
+        { label: "Address List", url: "/address" }
+      ])
     });
 
   } catch (error) {
@@ -397,7 +467,13 @@ export async function postDefaultAddres(req, res) {
 }
 
 export async function getAddaddress(req, res) {
-  res.render("users/addressAdd");
+  res.render("users/addressAdd", {
+    breadcrumbs: buildBreadcrumb([
+      { label: "Profile", url: "/profile" },
+      { label: "Address List", url: "/address" },
+      { label: "Add Address", url: "/address/add" }
+    ])
+  });
 }
 export async function postAddaddress(req, res) {
   try {
@@ -441,7 +517,14 @@ export const getEditAddress = async (req, res) => {
       return res.redirect("/address");
     }
 
-    res.render("users/editAddress", { address });
+    res.render("users/editAddress", {
+      address,
+      breadcrumbs: buildBreadcrumb([
+        { label: "Profile", url: "/profile" },
+        { label: "Address List", url: "/address" },
+        { label: "Edit Address", url: `/address/edit/${addressId}` }
+      ])
+    });
   } catch (err) {
     console.error(err);
     res.redirect("/address");
@@ -538,7 +621,12 @@ export async function getupdatePass(req, res) {
     return res.redirect("/profile");
   }
 
-  res.render("users/passChange");
+  res.render("users/passChange", {
+    breadcrumbs: buildBreadcrumb([
+      { label: "Profile", url: "/profile" },
+      { label: "Change Password", url: "/password-change" }
+    ])
+  });
 }
 
 

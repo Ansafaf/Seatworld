@@ -1,25 +1,26 @@
 import bcrypt from "bcrypt";
 import { User } from "../models/userModel.js";
 import { Product, ProductVariant } from "../models/productModel.js";
-// import { Category } from "../models/categoryModel.js";
-// import Cart from "../models/cartModel.js";
+import { Category } from "../models/categoryModel.js";
+import Cart from "../models/cartModel.js";
 import mongoose from "mongoose";
 import otpGenerator from "otp-generator";
 import nodemailer from "nodemailer";
 import validator from "validator";
+import { buildBreadcrumb } from "../utils/breadcrumb.js";
 
 
 // Landing Page 
 export function getLanding(req, res) {
   if (req.isAuthenticated?.() || req.session?.user?.id) {
-    return res.redirect("/dashboard");
+    return res.redirect("/home");
   }
   res.render("users/landing");
 }
 
 // Login 
 export function getLogin(req, res) {
-  if (req.session.user) return res.redirect("/dashboard");
+  if (req.session.user) return res.redirect("/home");
   res.render("users/login");
 }
 
@@ -38,7 +39,7 @@ export async function postLogin(req, res) {
         name: user.username || user.name,
         email: user.email
       };
-      return res.redirect("/dashboard");
+      return res.redirect("/home");
     } else {
       res.locals.message = { type: 'error', message: "Invalid email or password" };
       return res.render("users/login");
@@ -130,7 +131,13 @@ export async function postSignup(req, res) {
 
 export function getverifyOtp(req, res) {
   const signupInfo = req.session.signupInfo;
-  res.render("users/otp", { otpExpires: signupInfo.otpExpires });
+  res.render("users/otp", {
+    otpExpires: signupInfo.otpExpires,
+    breadcrumbs: buildBreadcrumb([
+      { label: "Signup", url: "/signup" },
+      { label: "Verify OTP", url: "/verify-otp" }
+    ])
+  });
 }
 
 export async function verifyOtp(req, res) {
@@ -143,11 +150,23 @@ export async function verifyOtp(req, res) {
     // Check OTP validity
     if (!otp || otp.length !== 4 || signupInfo.otp !== otp) {
       res.locals.message = { type: 'error', message: "Invalid OTP" };
-      return res.render("users/otp", { otpExpires: signupInfo.otpExpires });
+      return res.render("users/otp", {
+        otpExpires: signupInfo.otpExpires,
+        breadcrumbs: buildBreadcrumb([
+          { label: "Signup", url: "/signup" },
+          { label: "Verify OTP", url: "/verify-otp" }
+        ])
+      });
     }
     if (signupInfo.otpExpires < new Date()) {
       res.locals.message = { type: 'error', message: "OTP expired. Please resend." };
-      return res.render("users/otp", { otpExpires: signupInfo.otpExpires });
+      return res.render("users/otp", {
+        otpExpires: signupInfo.otpExpires,
+        breadcrumbs: buildBreadcrumb([
+          { label: "Signup", url: "/signup" },
+          { label: "Verify OTP", url: "/verify-otp" }
+        ])
+      });
     }
 
     // Save user only now
@@ -170,16 +189,28 @@ export async function verifyOtp(req, res) {
 
     req.session.save(err => {
       if (err) {
-        return res.render("users/otp", { message: { type: 'error', message: "Something went wrong" } });
+        return res.render("users/otp", {
+          message: { type: 'error', message: "Something went wrong" },
+          breadcrumbs: buildBreadcrumb([
+            { label: "Signup", url: "/signup" },
+            { label: "Verify OTP", url: "/verify-otp" }
+          ])
+        });
       }
       delete req.session.signupInfo;
       delete req.session.otp;
       delete req.session.otpExpires;
-      res.redirect("/dashboard");
+      res.redirect("/home");
     });
   } catch (err) {
     console.error(err);
-    res.render("users/otp", { message: { type: 'error', message: "Something went wrong" } });
+    res.render("users/otp", {
+      message: { type: 'error', message: "Something went wrong" },
+      breadcrumbs: buildBreadcrumb([
+        { label: "Signup", url: "/signup" },
+        { label: "Verify OTP", url: "/verify-otp" }
+      ])
+    });
   }
 }
 
@@ -217,11 +248,23 @@ export async function resendOtp(req, res) {
       } catch (mailError) {
         console.error("Resend signup OTP mail failed:", mailError.message);
         res.locals.message = { type: 'error', message: "Unable to resend OTP. Try again later." };
-        return res.render("users/otp", { otpExpires: req.session.signupInfo.otpExpires });
+        return res.render("users/otp", {
+          otpExpires: req.session.signupInfo.otpExpires,
+          breadcrumbs: buildBreadcrumb([
+            { label: "Signup", url: "/signup" },
+            { label: "Verify OTP", url: "/verify-otp" }
+          ])
+        });
       }
 
       res.locals.message = { type: 'success', message: "New OTP sent to your email" };
-      return res.render("users/otp", { otpExpires });
+      return res.render("users/otp", {
+        otpExpires,
+        breadcrumbs: buildBreadcrumb([
+          { label: "Signup", url: "/signup" },
+          { label: "Verify OTP", url: "/verify-otp" }
+        ])
+      });
     }
 
     // Determine User for and Forgot/Email flows
@@ -265,11 +308,29 @@ export async function resendOtp(req, res) {
       } catch (mailError) {
         console.error("Resend email change OTP mail failed:", mailError.message);
         res.locals.message = { type: 'error', message: "Unable to resend OTP. Try again later." };
-        return res.render("users/otp3", { otpExpires: user.emailChangeOtpExpiry, user });
+        return res.render("users/otp3", {
+          otpExpires: user.emailChangeOtpExpiry,
+          user,
+          breadcrumbs: buildBreadcrumb([
+            { label: "Profile", url: "/profile" },
+            { label: "Edit Profile", url: "/profile/edit" },
+            { label: "Change Email", url: "/profile/change-email" },
+            { label: "Verify OTP", url: "/email/change-otp" }
+          ])
+        });
       }
 
       res.locals.message = { type: 'success', message: "New OTP sent to your email" };
-      return res.render("users/otp3", { otpExpires, user });
+      return res.render("users/otp3", {
+        otpExpires,
+        user,
+        breadcrumbs: buildBreadcrumb([
+          { label: "Profile", url: "/profile" },
+          { label: "Edit Profile", url: "/profile/edit" },
+          { label: "Change Email", url: "/profile/change-email" },
+          { label: "Verify OTP", url: "/email/change-otp" }
+        ])
+      });
     }
 
     // 3. Forgot Password Flow
@@ -287,21 +348,43 @@ export async function resendOtp(req, res) {
     } catch (mailError) {
       console.error("Resend forgot pass OTP mail failed:", mailError.message);
       res.locals.message = { type: 'error', message: "Unable to resend OTP. Try again later." };
-      return res.render("users/otp2", { otpExpires: user.otpExpires });
+      return res.render("users/otp2", {
+        otpExpires: user.otpExpires,
+        breadcrumbs: buildBreadcrumb([
+          { label: "Forgot Password", url: "/forgot-password" },
+          { label: "Verify OTP", url: "/forgot-password/verify" }
+        ])
+      });
     }
 
     res.locals.message = { type: 'success', message: "New OTP sent to your email" };
-    return res.render("users/otp2", { otpExpires });
+    return res.render("users/otp2", {
+      otpExpires,
+      breadcrumbs: buildBreadcrumb([
+        { label: "Forgot Password", url: "/forgot-password" },
+        { label: "Verify OTP", url: "/forgot-password/verify" }
+      ])
+    });
 
   } catch (err) {
     console.error(err);
-    return res.render("users/otp", { message: { type: 'error', message: "Unable to resend OTP" } });
+    return res.render("users/otp", {
+      message: { type: 'error', message: "Unable to resend OTP" },
+      breadcrumbs: buildBreadcrumb([
+        { label: "Signup", url: "/signup" },
+        { label: "Verify OTP", url: "/verify-otp" }
+      ])
+    });
   }
 }
 
 // ------------------ Forgot Password ------------------
 export function getforgotPass(req, res) {
-  res.render("users/forgotpassword");
+  res.render("users/forgotpassword", {
+    breadcrumbs: buildBreadcrumb([
+      { label: "Forgot Password", url: "/forgot-password" }
+    ])
+  });
 }
 
 export async function postforgotPass(req, res) {
@@ -312,7 +395,10 @@ export async function postforgotPass(req, res) {
 
     if (!user) {
       return res.status(404).render("users/forgotpassword", {
-        message: { type: 'error', message: "No account found with this email" }
+        message: { type: 'error', message: "No account found with this email" },
+        breadcrumbs: buildBreadcrumb([
+          { label: "Forgot Password", url: "/forgot-password" }
+        ])
       });
     }
 
@@ -327,7 +413,11 @@ export async function postforgotPass(req, res) {
       return req.session.save(() => {
         res.locals.message = { type: 'info', message: "OTP already sent. You can verify it below." };
         return res.render("users/otp2", {
-          otpExpires: user.otpExpires
+          otpExpires: user.otpExpires,
+          breadcrumbs: buildBreadcrumb([
+            { label: "Forgot Password", url: "/forgot-password" },
+            { label: "Verify OTP", url: "/forgot-password/verify" }
+          ])
         });
       });
     }
@@ -364,14 +454,21 @@ export async function postforgotPass(req, res) {
     req.session.save(() => {
       res.locals.message = { type: 'success', message: "OTP sent to your email" };
       return res.status(201).render("users/otp2", {
-        otpExpires: expiry
+        otpExpires: expiry,
+        breadcrumbs: buildBreadcrumb([
+          { label: "Forgot Password", url: "/forgot-password" },
+          { label: "Verify OTP", url: "/forgot-password/verify" }
+        ])
       });
     });
 
   } catch (error) {
     console.error("Forgot password error:", error);
     return res.status(500).render("users/forgotpassword", {
-      message: { type: 'error', message: "Something went wrong. Please try again." }
+      message: { type: 'error', message: "Something went wrong. Please try again." },
+      breadcrumbs: buildBreadcrumb([
+        { label: "Forgot Password", url: "/forgot-password" }
+      ])
     });
   }
 }
@@ -381,7 +478,11 @@ export async function otpverifyForgot(req, res) {
     if (!req.session || !req.session.resetUserId) {
       return res.status(401).render("users/otp2", {
         message: { type: 'error', message: "Session expired. Please request OTP again." },
-        otpExpires: null
+        otpExpires: null,
+        breadcrumbs: buildBreadcrumb([
+          { label: "Forgot Password", url: "/forgot-password" },
+          { label: "Verify OTP", url: "/forgot-password/verify" }
+        ])
       });
     }
 
@@ -389,7 +490,11 @@ export async function otpverifyForgot(req, res) {
     if (!mongoose.Types.ObjectId.isValid(req.session.resetUserId)) {
       return res.status(401).render("users/otp2", {
         message: { type: 'error', message: "Invalid session. Please request OTP again." },
-        otpExpires: null
+        otpExpires: null,
+        breadcrumbs: buildBreadcrumb([
+          { label: "Forgot Password", url: "/forgot-password" },
+          { label: "Verify OTP", url: "/forgot-password/verify" }
+        ])
       });
     }
 
@@ -398,7 +503,11 @@ export async function otpverifyForgot(req, res) {
     if (!user) {
       return res.status(404).render("users/otp2", {
         message: { type: 'error', message: "User not found." },
-        otpExpires: null
+        otpExpires: null,
+        breadcrumbs: buildBreadcrumb([
+          { label: "Forgot Password", url: "/forgot-password" },
+          { label: "Verify OTP", url: "/forgot-password/verify" }
+        ])
       });
     }
 
@@ -409,7 +518,11 @@ export async function otpverifyForgot(req, res) {
     if (enteredOtp.length !== 4) {
       return res.status(400).render("users/otp2", {
         message: { type: 'error', message: "Please enter the 4-digit OTP." },
-        otpExpires: user.otpExpires
+        otpExpires: user.otpExpires,
+        breadcrumbs: buildBreadcrumb([
+          { label: "Forgot Password", url: "/forgot-password" },
+          { label: "Verify OTP", url: "/forgot-password/verify" }
+        ])
       });
     }
 
@@ -420,7 +533,11 @@ export async function otpverifyForgot(req, res) {
     if (!user.otp || expiresAt < now) {
       return res.status(400).render("users/otp2", {
         message: { type: 'error', message: "OTP expired. Please request a new one." },
-        otpExpires: null
+        otpExpires: null,
+        breadcrumbs: buildBreadcrumb([
+          { label: "Forgot Password", url: "/forgot-password" },
+          { label: "Verify OTP", url: "/forgot-password/verify" }
+        ])
       });
     }
 
@@ -428,7 +545,11 @@ export async function otpverifyForgot(req, res) {
     if (user.otp !== enteredOtp) {
       return res.status(400).render("users/otp2", {
         message: { type: 'error', message: "Invalid OTP. Please try again." },
-        otpExpires: user.otpExpires
+        otpExpires: user.otpExpires,
+        breadcrumbs: buildBreadcrumb([
+          { label: "Forgot Password", url: "/forgot-password" },
+          { label: "Verify OTP", url: "/forgot-password/verify" }
+        ])
       });
     }
 
@@ -447,13 +568,22 @@ export async function otpverifyForgot(req, res) {
     console.error("OTP verification error:", error);
     res.status(500).render("users/otp2", {
       message: { type: 'error', message: "Something went wrong. Please try again." },
-      otpExpires: null
+      otpExpires: null,
+      breadcrumbs: buildBreadcrumb([
+        { label: "Forgot Password", url: "/forgot-password" },
+        { label: "Verify OTP", url: "/forgot-password/verify" }
+      ])
     });
   }
 }
 
 export function getPassCreation(req, res) {
-  res.render("users/createpass");
+  res.render("users/createpass", {
+    breadcrumbs: buildBreadcrumb([
+      { label: "Forgot Password", url: "/forgot-password" },
+      { label: "Create New Password", url: "/create-password" }
+    ])
+  });
 }
 export async function postPassCreation(req, res) {
   try {
@@ -466,11 +596,23 @@ export async function postPassCreation(req, res) {
 
     // Validate passwords
     if (!newPassword || !confirmPassword) {
-      return res.render("users/createpass", { message: { type: 'error', message: "Please fill all fields." } });
+      return res.render("users/createpass", {
+        message: { type: 'error', message: "Please fill all fields." },
+        breadcrumbs: buildBreadcrumb([
+          { label: "Forgot Password", url: "/forgot-password" },
+          { label: "Create New Password", url: "/create-password" }
+        ])
+      });
     }
 
     if (newPassword !== confirmPassword) {
-      return res.render("users/createpass", { message: { type: 'error', message: "Passwords do not match." } });
+      return res.render("users/createpass", {
+        message: { type: 'error', message: "Passwords do not match." },
+        breadcrumbs: buildBreadcrumb([
+          { label: "Forgot Password", url: "/forgot-password" },
+          { label: "Create New Password", url: "/create-password" }
+        ])
+      });
     }
 
     const hashedPassword = await bcrypt.hash(newPassword, 10);
@@ -492,7 +634,13 @@ export async function postPassCreation(req, res) {
 
   } catch (error) {
     console.error("Error creating new password:", error);
-    res.render("users/createpass", { message: { type: 'error', message: "Something went wrong. Please try again." } });
+    res.render("users/createpass", {
+      message: { type: 'error', message: "Something went wrong. Please try again." },
+      breadcrumbs: buildBreadcrumb([
+        { label: "Forgot Password", url: "/forgot-password" },
+        { label: "Create New Password", url: "/create-password" }
+      ])
+    });
   }
 }
 
@@ -517,8 +665,50 @@ export async function getHome(req, res) {
 }
 export async function getCart(req, res) {
   try {
-    const carts = await Cart.find({});
-    res.render("users/cartlist", { cartItems: carts });
+    const carts = await Cart.find({ userId: req.session.user.id })
+      .populate({
+        path: 'variantId',
+        populate: { path: 'productId' }
+      })
+      .lean();
+
+    let subtotal = 0;
+    const cartItems = carts.map(item => {
+      const variant = item.variantId;
+      const product = variant ? variant.productId : null;
+      const itemPrice = variant ? variant.price : 0;
+      const itemQuantity = item.productQuantity || 1;
+
+      const stockAvailable = variant && variant.stock > 0 && variant.status === "Active";
+      const isProductActive = product && !product.isBlocked;
+
+      if (stockAvailable && isProductActive) {
+        subtotal += itemPrice * itemQuantity;
+      }
+
+      return {
+        ...item,
+        name: product ? product.name : "Unavailable Product",
+        image: (variant && variant.images && variant.images.length > 0) ? variant.images[0] : "",
+        color: variant ? variant.color : "",
+        price: itemPrice,
+        quantity: itemQuantity,
+        outOfStock: !stockAvailable || !isProductActive
+      };
+    });
+
+    const deliveryFee = subtotal > 0 ? 50 : 0; // Dummy delivery fee
+    const total = subtotal + deliveryFee;
+
+    res.render("users/cartlist", {
+      cartItems,
+      subtotal,
+      deliveryFee,
+      total,
+      breadcrumbs: buildBreadcrumb([
+        { label: "Cart", url: "/cart" }
+      ])
+    });
   }
   catch (err) {
     res.status(502).json({ "message": "cart page have internal issue" })

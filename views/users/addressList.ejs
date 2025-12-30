@@ -232,291 +232,265 @@
 </head>
 
 <body class="bg-gray-100 text-gray-800">
-
+  <button id="menuToggle" class="menu-toggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
   <%- include('../partials/flash') %>
+    <%- include('../partials/header', { showSearch: false }) %>
+      <%- include("../partials/breadcrumb", { breadcrumbs }) %>
 
-    <!-- Mobile Menu -->
-    <button class="menu-toggle" id="menuToggle">
-      <span></span><span></span><span></span>
-    </button>
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <!-- MAIN -->
+        <main class="container mx-auto px-4 lg:px-8 py-10">
+          <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
 
-    <!-- TOP BAR -->
-    <header class="bg-gray-300">
-      <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-
-        <!-- Logo -->
-        <div class="flex items-center gap-3">
-          <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765945540/products/rmsn314w038gnfzmemmi.jpg"
-            class="w-8 h-8" alt="SeatWorld">
-          <span class="text-xl font-bold text-blue-600">SeatWorld</span>
-        </div>
-
-        <!-- Center Nav -->
-        <nav class="hidden md:flex gap-8 font-medium text-gray-800">
-          <a href="/dashboard">Home</a>
-          <a href="/products">Products</a>
-          <a href="/about">About</a>
-        </nav>
-
-        <!-- Right Icons -->
-        <div class="flex items-center gap-5 text-gray-800">
-          <a href="/wishlist"><span class="material-icons-outlined">favorite_border</span></a>
-          <a href="/profile"><span class="material-icons-outlined">person_outline</span></a>
-          <a href="/cart"><span class="material-icons-outlined">shopping_cart</span></a>
-        </div>
-
-      </div>
-    </header>
-
-    <!-- MAIN -->
-    <main class="container mx-auto px-4 lg:px-8 py-10">
-      <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-
-        <!-- SIDEBAR -->
-        <aside class="lg:col-span-1" id="sidebarWrapper">
-          <div class="bg-white rounded-lg border shadow-sm" id="sidebar">
-            <h2 class="text-lg font-semibold p-4 border-b">My Account</h2>
-            <nav>
-              <a href="/profile" class="flex px-4 py-3 hover:bg-gray-100">Personal Information</a>
-              <a href="/address" class="flex px-4 py-3 bg-gray-100 font-medium">Address</a>
-              <a href="/orders" class="flex px-4 py-3 hover:bg-gray-100">Orders</a>
-              <a href="/wallet" class="flex px-4 py-3 hover:bg-gray-100">Wallet</a>
-              <a href="/coupons" class="flex px-4 py-3 hover:bg-gray-100">Coupon</a>
-              <a href="/password-change" class="flex px-4 py-3 hover:bg-gray-100">Password Change</a>
-              <a href="/logout" class="flex px-4 py-3 hover:bg-gray-100">Logout</a>
-            </nav>
-          </div>
-        </aside>
-
-        <!-- ADDRESS CONTENT -->
-        <section class="lg:col-span-3">
-          <div class="bg-white rounded-lg border shadow-sm p-6">
-
-            <div class="flex justify-between items-center mb-6">
-              <h2 class="text-2xl font-semibold">Address</h2>
-              <a href="/address/add"
-                class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 flex items-center gap-2">
-                <span class="material-icons-outlined text-sm">add</span>
-                Add New
-              </a>
-            </div>
-
-            <% if (addresses && addresses.length) { %>
-              <div class="grid md:grid-cols-2 gap-6">
-                <% addresses.forEach(address=> { %>
-                  <div class="address-card <%= address.isDefault ? 'is-default' : '' %> rounded-lg p-4">
-                    <!-- Default Badge -->
-                    <% if (address.isDefault) { %>
-                      <span class="default-badge">
-                        <span class="material-icons-outlined" style="font-size: 14px;">check_circle</span>
-                        Default Address
-                      </span>
-                      <% } %>
-
-                        <h3 class="font-bold mt-2">
-                          <%= address.name %>
-                        </h3>
-                        <p class="text-sm text-gray-600 mt-1">
-                          <%= address.city %>, <%= address.state %> - <%= address.pincode %>
-                        </p>
-                        <p class="text-sm mt-1">Mobile: <%= address.mobile %>
-                        </p>
-
-                        <!-- Action Buttons -->
-                        <div class="flex gap-2 mt-4">
-                          <a href="/address/edit/<%= address._id %>"
-                            class="flex-1 bg-gray-800 text-white py-2 rounded text-center hover:bg-gray-900 flex items-center justify-center gap-2">
-                            <span class="material-icons-outlined text-sm">edit</span>
-                            Edit
-                          </a>
-                          <button class="delete-btn flex items-center justify-center gap-2"
-                            onclick="openDeleteModal('<%= address._id %>')">
-                            <span class="material-icons-outlined text-sm">delete</span>
-                            Delete
-                          </button>
-                        </div>
-
-                        <!-- Set Default Button -->
-                        <% if (!address.isDefault) { %>
-                          <button class="set-default-btn w-full mt-2" onclick="setDefaultAddress('<%= address._id %>')">
-                            <span class="material-icons-outlined" style="font-size: 16px;">star_border</span>
-                            Set as Default
-                          </button>
-                          <% } else { %>
-                            <button class="set-default-btn active w-full mt-2" disabled>
-                              <span class="material-icons-outlined" style="font-size: 16px;">star</span>
-                              Default Address
-                            </button>
-                            <% } %>
-                  </div>
-                  <% }) %>
+            <!-- SIDEBAR -->
+            <aside class="lg:col-span-1" id="sidebarWrapper">
+              <div class="bg-white rounded-lg border shadow-sm" id="sidebar">
+                <h2 class="text-lg font-semibold p-4 border-b">My Account</h2>
+                <nav>
+                  <a href="/profile" class="flex px-4 py-3 hover:bg-gray-100">Personal Information</a>
+                  <a href="/address" class="flex px-4 py-3 bg-gray-100 font-medium">Address</a>
+                  <a href="/orders" class="flex px-4 py-3 hover:bg-gray-100">Orders</a>
+                  <a href="/wallet" class="flex px-4 py-3 hover:bg-gray-100">Wallet</a>
+                  <a href="/coupons" class="flex px-4 py-3 hover:bg-gray-100">Coupon</a>
+                  <a href="/password-change" class="flex px-4 py-3 hover:bg-gray-100">Password Change</a>
+                  <a href="/logout" class="flex px-4 py-3 hover:bg-gray-100">Logout</a>
+                </nav>
               </div>
-              <% } else { %>
-                <div class="text-center py-20">
-                  <span class="material-icons-outlined text-gray-300" style="font-size: 80px;">location_off</span>
-                  <p class="text-gray-500 mt-4">No addresses found</p>
+            </aside>
+
+            <!-- ADDRESS CONTENT -->
+            <section class="lg:col-span-3">
+              <div class="bg-white rounded-lg border shadow-sm p-6">
+
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-2xl font-semibold">Address</h2>
                   <a href="/address/add"
-                    class="inline-block mt-4 bg-gray-700 text-white px-6 py-2 rounded-lg hover:bg-gray-800">
-                    Add Your First Address
+                    class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 flex items-center gap-2">
+                    <span class="material-icons-outlined text-sm">add</span>
+                    Add New
                   </a>
                 </div>
-                <% } %>
+
+                <% if (addresses && addresses.length) { %>
+                  <div class="grid md:grid-cols-2 gap-6">
+                    <% addresses.forEach(address=> { %>
+                      <div class="address-card <%= address.isDefault ? 'is-default' : '' %> rounded-lg p-4">
+                        <!-- Default Badge -->
+                        <% if (address.isDefault) { %>
+                          <span class="default-badge">
+                            <span class="material-icons-outlined" style="font-size: 14px;">check_circle</span>
+                            Default Address
+                          </span>
+                          <% } %>
+
+                            <h3 class="font-bold mt-2">
+                              <%= address.name %>
+                            </h3>
+                            <p class="text-sm text-gray-600 mt-1">
+                              <%= address.city %>, <%= address.state %> - <%= address.pincode %>
+                            </p>
+                            <p class="text-sm mt-1">Mobile: <%= address.mobile %>
+                            </p>
+
+                            <!-- Action Buttons -->
+                            <div class="flex gap-2 mt-4">
+                              <a href="/address/edit/<%= address._id %>"
+                                class="flex-1 bg-gray-800 text-white py-2 rounded text-center hover:bg-gray-900 flex items-center justify-center gap-2">
+                                <span class="material-icons-outlined text-sm">edit</span>
+                                Edit
+                              </a>
+                              <button class="delete-btn flex items-center justify-center gap-2"
+                                onclick="openDeleteModal('<%= address._id %>')">
+                                <span class="material-icons-outlined text-sm">delete</span>
+                                Delete
+                              </button>
+                            </div>
+
+                            <!-- Set Default Button -->
+                            <% if (!address.isDefault) { %>
+                              <button class="set-default-btn w-full mt-2"
+                                onclick="setDefaultAddress('<%= address._id %>')">
+                                <span class="material-icons-outlined" style="font-size: 16px;">star_border</span>
+                                Set as Default
+                              </button>
+                              <% } else { %>
+                                <button class="set-default-btn active w-full mt-2" disabled>
+                                  <span class="material-icons-outlined" style="font-size: 16px;">star</span>
+                                  Default Address
+                                </button>
+                                <% } %>
+                      </div>
+                      <% }) %>
+                  </div>
+                  <% } else { %>
+                    <div class="text-center py-20">
+                      <span class="material-icons-outlined text-gray-300" style="font-size: 80px;">location_off</span>
+                      <p class="text-gray-500 mt-4">No addresses found</p>
+                      <a href="/address/add"
+                        class="inline-block mt-4 bg-gray-700 text-white px-6 py-2 rounded-lg hover:bg-gray-800">
+                        Add Your First Address
+                      </a>
+                    </div>
+                    <% } %>
+
+              </div>
+            </section>
 
           </div>
-        </section>
+        </main>
 
-      </div>
-    </main>
-
-    <!-- Delete Confirmation Modal -->
-    <div id="deleteModal" class="modal">
-      <div class="modal-content">
-        <span class="material-icons-outlined text-red-500" style="font-size: 48px;">warning</span>
-        <p>Are you sure you want to delete this address?</p>
-        <div class="modal-actions">
-          <button onclick="confirmDelete()">Yes, Delete</button>
-          <button onclick="closeDeleteModal()">Cancel</button>
+        <!-- Delete Confirmation Modal -->
+        <div id="deleteModal" class="modal">
+          <div class="modal-content">
+            <span class="material-icons-outlined text-red-500" style="font-size: 48px;">warning</span>
+            <p>Are you sure you want to delete this address?</p>
+            <div class="modal-actions">
+              <button onclick="confirmDelete()">Yes, Delete</button>
+              <button onclick="closeDeleteModal()">Cancel</button>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <!-- Pagination -->
-    <% if (totalPages> 1) { %>
-      <div class="flex items-center justify-center gap-3 mt-8 select-none">
-        <!-- Previous Button -->
-        <% if (currentPage> 1) { %>
-          <a href="/address?page=<%= currentPage - 1 %>"
-            class="flex items-center gap-1 px-3 py-1 text-gray-500 hover:text-gray-900 transition-colors">
-            <span class="material-icons-outlined text-lg">arrow_back</span>
-            <span class="text-sm font-medium">Previous</span>
-          </a>
-          <% } else { %>
-            <span class="flex items-center gap-1 px-3 py-1 text-gray-300 cursor-not-allowed">
-              <span class="material-icons-outlined text-lg">arrow_back</span>
-              <span class="text-sm font-medium">Previous</span>
-            </span>
-            <% } %>
+        <!-- Pagination -->
+        <% if (totalPages> 1) { %>
+          <div class="flex items-center justify-center gap-3 mt-8 select-none">
+            <!-- Previous Button -->
+            <% if (currentPage> 1) { %>
+              <a href="/address?page=<%= currentPage - 1 %>"
+                class="flex items-center gap-1 px-3 py-1 text-gray-500 hover:text-gray-900 transition-colors">
+                <span class="material-icons-outlined text-lg">arrow_back</span>
+                <span class="text-sm font-medium">Previous</span>
+              </a>
+              <% } else { %>
+                <span class="flex items-center gap-1 px-3 py-1 text-gray-300 cursor-not-allowed">
+                  <span class="material-icons-outlined text-lg">arrow_back</span>
+                  <span class="text-sm font-medium">Previous</span>
+                </span>
+                <% } %>
 
-              <!-- Page Numbers -->
-              <div class="flex items-center gap-1">
-                <% let startPage=Math.max(1, currentPage - 2); let endPage=Math.min(totalPages, currentPage + 2); if
-                  (currentPage <=3) { startPage=1; endPage=Math.min(totalPages, 5); } else if (currentPage>= totalPages
-                  - 2) {
-                  startPage = Math.max(1, totalPages - 4);
-                  endPage = totalPages;
-                  }
-                  %>
+                  <!-- Page Numbers -->
+                  <div class="flex items-center gap-1">
+                    <% let startPage=Math.max(1, currentPage - 2); let endPage=Math.min(totalPages, currentPage + 2); if
+                      (currentPage <=3) { startPage=1; endPage=Math.min(totalPages, 5); } else if (currentPage>=
+                      totalPages
+                      - 2) {
+                      startPage = Math.max(1, totalPages - 4);
+                      endPage = totalPages;
+                      }
+                      %>
 
-                  <% if (startPage> 1) { %>
-                    <a href="/address?page=1"
-                      class="w-8 h-8 flex items-center justify-center rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors">1</a>
-                    <% if (startPage> 2) { %>
-                      <span class="w-8 h-8 flex items-center justify-center text-gray-400">...</span>
-                      <% } %>
-                        <% } %>
-
-                          <% for(let i=startPage; i <=endPage; i++) { %>
-                            <a href="/address?page=<%= i %>"
-                              class="w-8 h-8 flex items-center justify-center rounded-lg text-sm font-medium transition-colors <%= currentPage === i ? 'bg-gray-100 text-gray-900' : 'text-gray-500 hover:bg-gray-100' %>">
-                              <%= i %>
-                            </a>
+                      <% if (startPage> 1) { %>
+                        <a href="/address?page=1"
+                          class="w-8 h-8 flex items-center justify-center rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors">1</a>
+                        <% if (startPage> 2) { %>
+                          <span class="w-8 h-8 flex items-center justify-center text-gray-400">...</span>
+                          <% } %>
                             <% } %>
 
-                              <% if (endPage < totalPages) { %>
-                                <% if (endPage < totalPages - 1) { %>
-                                  <span class="w-8 h-8 flex items-center justify-center text-gray-400">...</span>
-                                  <% } %>
-                                    <a href="/address?page=<%= totalPages %>"
-                                      class="w-8 h-8 flex items-center justify-center rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors">
-                                      <%= totalPages %>
-                                    </a>
-                                    <% } %>
-              </div>
+                              <% for(let i=startPage; i <=endPage; i++) { %>
+                                <a href="/address?page=<%= i %>"
+                                  class="w-8 h-8 flex items-center justify-center rounded-lg text-sm font-medium transition-colors <%= currentPage === i ? 'bg-gray-100 text-gray-900' : 'text-gray-500 hover:bg-gray-100' %>">
+                                  <%= i %>
+                                </a>
+                                <% } %>
 
-              <!-- Next Button -->
-              <% if (currentPage < totalPages) { %>
-                <a href="/address?page=<%= currentPage + 1 %>"
-                  class="flex items-center gap-1 px-3 py-1 text-gray-500 hover:text-gray-900 transition-colors">
-                  <span class="text-sm font-medium">Next</span>
-                  <span class="material-icons-outlined text-lg">arrow_forward</span>
-                </a>
-                <% } else { %>
-                  <span class="flex items-center gap-1 px-3 py-1 text-gray-300 cursor-not-allowed">
-                    <span class="text-sm font-medium">Next</span>
-                    <span class="material-icons-outlined text-lg">arrow_forward</span>
-                  </span>
-                  <% } %>
-      </div>
-      <% } %>
+                                  <% if (endPage < totalPages) { %>
+                                    <% if (endPage < totalPages - 1) { %>
+                                      <span class="w-8 h-8 flex items-center justify-center text-gray-400">...</span>
+                                      <% } %>
+                                        <a href="/address?page=<%= totalPages %>"
+                                          class="w-8 h-8 flex items-center justify-center rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors">
+                                          <%= totalPages %>
+                                        </a>
+                                        <% } %>
+                  </div>
 
-        <script>
-          let deleteId = null;
+                  <!-- Next Button -->
+                  <% if (currentPage < totalPages) { %>
+                    <a href="/address?page=<%= currentPage + 1 %>"
+                      class="flex items-center gap-1 px-3 py-1 text-gray-500 hover:text-gray-900 transition-colors">
+                      <span class="text-sm font-medium">Next</span>
+                      <span class="material-icons-outlined text-lg">arrow_forward</span>
+                    </a>
+                    <% } else { %>
+                      <span class="flex items-center gap-1 px-3 py-1 text-gray-300 cursor-not-allowed">
+                        <span class="text-sm font-medium">Next</span>
+                        <span class="material-icons-outlined text-lg">arrow_forward</span>
+                      </span>
+                      <% } %>
+          </div>
+          <% } %>
 
-          function openDeleteModal(id) {
-            deleteId = id;
-            document.getElementById("deleteModal").style.display = "flex";
-          }
+            <script>
+              let deleteId = null;
 
-          function closeDeleteModal() {
-            document.getElementById("deleteModal").style.display = "none";
-            deleteId = null;
-          }
-
-          function confirmDelete() {
-            if (deleteId) {
-              const form = document.createElement('form');
-              form.method = 'POST';
-              form.action = `/address/delete/${deleteId}`;
-              document.body.appendChild(form);
-              form.submit();
-            }
-          }
-
-          // Set default address
-          function setDefaultAddress(addressId) {
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = `/address/set-default/${addressId}`;
-            document.body.appendChild(form);
-            form.submit();
-          }
-
-
-          // Close modal when clicking outside
-          window.onclick = function (event) {
-            const modal = document.getElementById('deleteModal');
-            if (event.target === modal) {
-              closeDeleteModal();
-            }
-          }
-
-          // Mobile sidebar functionality
-          const menuToggle = document.getElementById("menuToggle");
-          const sidebar = document.getElementById("sidebar");
-          const wrapper = document.getElementById("sidebarWrapper");
-          const overlay = document.getElementById("sidebarOverlay");
-
-          function toggleMenu() {
-            sidebar.classList.toggle("active");
-            wrapper.classList.toggle("mobile-visible");
-            overlay.classList.toggle("active");
-            document.body.style.overflow = sidebar.classList.contains("active") ? "hidden" : "";
-          }
-
-          menuToggle.onclick = toggleMenu;
-          overlay.onclick = toggleMenu;
-
-          // Close sidebar when clicking on menu items (mobile)
-          const menuItems = document.querySelectorAll('#sidebar nav a');
-          menuItems.forEach(item => {
-            item.addEventListener('click', () => {
-              if (window.innerWidth <= 1024) {
-                toggleMenu();
+              function openDeleteModal(id) {
+                deleteId = id;
+                document.getElementById("deleteModal").style.display = "flex";
               }
-            });
-          });
-        </script>
+
+              function closeDeleteModal() {
+                document.getElementById("deleteModal").style.display = "none";
+                deleteId = null;
+              }
+
+              function confirmDelete() {
+                if (deleteId) {
+                  const form = document.createElement('form');
+                  form.method = 'POST';
+                  form.action = `/address/delete/${deleteId}`;
+                  document.body.appendChild(form);
+                  form.submit();
+                }
+              }
+
+              // Set default address
+              function setDefaultAddress(addressId) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = `/address/set-default/${addressId}`;
+                document.body.appendChild(form);
+                form.submit();
+              }
+
+
+              // Close modal when clicking outside
+              window.onclick = function (event) {
+                const modal = document.getElementById('deleteModal');
+                if (event.target === modal) {
+                  closeDeleteModal();
+                }
+              }
+
+              // Mobile sidebar functionality
+              const menuToggle = document.getElementById("menuToggle");
+              const sidebar = document.getElementById("sidebar");
+              const wrapper = document.getElementById("sidebarWrapper");
+              const overlay = document.getElementById("sidebarOverlay");
+
+              function toggleMenu() {
+                sidebar.classList.toggle("active");
+                wrapper.classList.toggle("mobile-visible");
+                overlay.classList.toggle("active");
+                document.body.style.overflow = sidebar.classList.contains("active") ? "hidden" : "";
+              }
+
+              menuToggle.onclick = toggleMenu;
+              overlay.onclick = toggleMenu;
+
+              // Close sidebar when clicking on menu items (mobile)
+              const menuItems = document.querySelectorAll('#sidebar nav a');
+              menuItems.forEach(item => {
+                item.addEventListener('click', () => {
+                  if (window.innerWidth <= 1024) {
+                    toggleMenu();
+                  }
+                });
+              });
+            </script>
 
 </body>
 

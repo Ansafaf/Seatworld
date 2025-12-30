@@ -251,6 +251,7 @@
       }
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -330,7 +331,12 @@
       form.addEventListener('submit', (e) => {
         if (password.value !== confirmPassword.value) {
           e.preventDefault();
-          alert('Passwords do not match');
+          Swal.fire({
+            icon: 'error',
+            title: 'Validation Error',
+            text: 'Passwords do not match',
+            confirmButtonColor: '#3b82f6'
+          });
         }
       });
     </script>

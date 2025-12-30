@@ -1,15 +1,16 @@
 import express from "express";
 import { upload } from "../config/cloudinary.js";
-import { postAddProduct, getAddProduct, editProduct, postEditProduct, blockProduct } from "../controller/AdminproductController.js";
-import { productList } from "../controller/AdminproductController.js";
+import { productList,postAddProduct, getAddProduct, editProduct, postEditProduct, blockProduct, unblockProduct } from "../controller/AdminproductController.js";
+import { adminAuthMiddleware } from "../middleware/adminAuthmiddle.js";
 const adminRouter = express.Router();
 
 
-adminRouter.get("/products", productList);
-adminRouter.get("/add-product", getAddProduct);
-adminRouter.post("/add-product", upload.any(), postAddProduct);
-adminRouter.get("/edit-product/:id", editProduct);
-adminRouter.post("/edit-product/:id", upload.any(), postEditProduct);
-adminRouter.patch("/block-product/:id", blockProduct);
+adminRouter.get("/products", adminAuthMiddleware, productList);
+adminRouter.get("/add-product", adminAuthMiddleware, getAddProduct);
+adminRouter.post("/add-product", adminAuthMiddleware, upload.any(), postAddProduct);
+adminRouter.get("/edit-product/:id", adminAuthMiddleware, editProduct);
+adminRouter.post("/edit-product/:id", adminAuthMiddleware, upload.any(), postEditProduct);
+adminRouter.patch("/block-product/:id", adminAuthMiddleware, blockProduct);
+adminRouter.patch("/unblock-product/:id", adminAuthMiddleware, unblockProduct);
 
 export default adminRouter;

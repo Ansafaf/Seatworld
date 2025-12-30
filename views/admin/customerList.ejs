@@ -323,7 +323,7 @@
                     <% users.forEach((user, index)=> { %>
                       <tr class="hover:bg-gray-50 transition-colors duration-150 customer-row">
                         <td class="px-6 py-4 text-sm font-bold text-gray-900">
-                          <%= index + 1 %>
+                          <%= (currentPage - 1) * limit + index + 1 %>
                         </td>
                         <td class="px-6 py-4 text-sm font-bold text-gray-900 name-cell">
                           <%= user.name || user.username || 'N/A' %>

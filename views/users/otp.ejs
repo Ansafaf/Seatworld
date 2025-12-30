@@ -170,136 +170,132 @@
 
 <body>
   <%- include('../partials/flash') %>
-    <!-- Header -->
-    <div class="header">
-      <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765945540/products/rmsn314w038gnfzmemmi.jpg"
-        alt="SeatWorld Logo">
-      <h1>SeatWorld</h1>
-    </div>
+    <%- include('../partials/header', { showSearch: false }) %>
+      <%- include("../partials/breadcrumb", { breadcrumbs }) %>
 
-    <!-- OTP Card -->
-    <div class="container">
-      <div class="card">
-        <img src="/images/mail-icon.png" alt="Mail Icon">
-        <p>Please check your inbox<br>We’ve sent a code to your email</p>
+        <!-- OTP Card -->
+        <div class="container">
+          <div class="card">
+            <img src="/images/mail-icon.png" alt="Mail Icon">
+            <p>Please check your inbox<br>We’ve sent a code to your email</p>
 
-        <!-- ✅ Show messages -->
+            <!-- ✅ Show messages -->
 
-        <form action="/verify-otp" method="POST">
-          <div class="otp-inputs">
-            <input type="text" name="otp1" maxlength="1" required class="otp-input">
-            <input type="text" name="otp2" maxlength="1" required class="otp-input">
-            <input type="text" name="otp3" maxlength="1" required class="otp-input">
-            <input type="text" name="otp4" maxlength="1" required class="otp-input">
+            <form action="/verify-otp" method="POST">
+              <div class="otp-inputs">
+                <input type="text" name="otp1" maxlength="1" required class="otp-input">
+                <input type="text" name="otp2" maxlength="1" required class="otp-input">
+                <input type="text" name="otp3" maxlength="1" required class="otp-input">
+                <input type="text" name="otp4" maxlength="1" required class="otp-input">
+              </div>
+
+              <div class="timer" id="timer"></div>
+              <div class="buttons">
+                <button type="button" class="cancel" onclick="window.location='/login'">Cancel</button>
+                <button type="submit" class="verify">Verify</button>
+              </div>
+            </form>
+
+            <div class="resend" id="resendBox">
+              Didn't receive code?
+              <a href="/resend-otp?type=signup">Click to resend</a>
+            </div>
           </div>
-
-          <div class="timer" id="timer"></div>
-          <div class="buttons">
-            <button type="button" class="cancel" onclick="window.location='/login'">Cancel</button>
-            <button type="submit" class="verify">Verify</button>
-          </div>
-        </form>
-
-        <div class="resend" id="resendBox">
-          Didn't receive code?
-          <a href="/resend-otp?type=signup">Click to resend</a>
         </div>
-      </div>
-    </div>
 
-    <script>
-      const expiryTime = <%= (typeof otpExpires !== 'undefined' && otpExpires) ? new Date(otpExpires).getTime() : 0 %>;
-      const resendBox = document.getElementById("resendBox");
-      const timerDisplay = document.querySelector("#timer");
-      const verifyBtn = document.querySelector(".verify");
-      const otpInputs = document.querySelectorAll(".otp-inputs input");
+        <script>
+          const expiryTime = <%= (typeof otpExpires !== 'undefined' && otpExpires) ? new Date(otpExpires).getTime() : 0 %>;
+          const resendBox = document.getElementById("resendBox");
+          const timerDisplay = document.querySelector("#timer");
+          const verifyBtn = document.querySelector(".verify");
+          const otpInputs = document.querySelectorAll(".otp-inputs input");
 
-      // Auto-advance logic
-      otpInputs.forEach((input, index) => {
-        // Allow only numbers
-        input.addEventListener("input", (e) => {
-          input.value = input.value.replace(/[^0-9]/g, "");
+          // Auto-advance logic
+          otpInputs.forEach((input, index) => {
+            // Allow only numbers
+            input.addEventListener("input", (e) => {
+              input.value = input.value.replace(/[^0-9]/g, "");
 
-          // Move to next input automatically
-          if (input.value && index < otpInputs.length - 1) {
-            otpInputs[index + 1].focus();
-          }
-        });
-
-        // Handle backspace → move to previous
-        input.addEventListener("keydown", (e) => {
-          if (e.key === "Backspace" && !input.value && index > 0) {
-            otpInputs[index - 1].focus();
-          }
-        });
-
-        // Handle paste of full OTP
-        input.addEventListener("paste", (e) => {
-          e.preventDefault();
-          const pasteData = e.clipboardData.getData("text").replace(/\D/g, "");
-          if (pasteData.length === otpInputs.length) {
-            otpInputs.forEach((box, i) => {
-              box.value = pasteData[i] || "";
+              // Move to next input automatically
+              if (input.value && index < otpInputs.length - 1) {
+                otpInputs[index + 1].focus();
+              }
             });
-            otpInputs[otpInputs.length - 1].focus();
+
+            // Handle backspace → move to previous
+            input.addEventListener("keydown", (e) => {
+              if (e.key === "Backspace" && !input.value && index > 0) {
+                otpInputs[index - 1].focus();
+              }
+            });
+
+            // Handle paste of full OTP
+            input.addEventListener("paste", (e) => {
+              e.preventDefault();
+              const pasteData = e.clipboardData.getData("text").replace(/\D/g, "");
+              if (pasteData.length === otpInputs.length) {
+                otpInputs.forEach((box, i) => {
+                  box.value = pasteData[i] || "";
+                });
+                otpInputs[otpInputs.length - 1].focus();
+              }
+            });
+          });
+
+          // Disable resend initially
+          if (resendBox) resendBox.classList.add("disabled");
+
+          function startTimer(duration, display) {
+            let timer = duration;
+            const interval = setInterval(() => {
+              if (timer <= 0) {
+                clearInterval(interval);
+                if (display) display.textContent = "Expired";
+
+                // ✅ Enable resend when timer ends
+                if (resendBox) resendBox.classList.remove("disabled");
+
+                if (verifyBtn) {
+                  verifyBtn.disabled = true;
+                  verifyBtn.style.background = "#ccc";
+                }
+                return;
+              }
+
+              const minutes = Math.floor(timer / 60);
+              const seconds = timer % 60;
+              if (display) {
+                display.textContent =
+                  (minutes < 10 ? "0" : "") + minutes + ":" +
+                  (seconds < 10 ? "0" : "") + seconds;
+              }
+
+              timer--;
+            }, 1000);
           }
-        });
-      });
 
-      // Disable resend initially
-      if (resendBox) resendBox.classList.add("disabled");
+          window.onload = function () {
+            // Reset Inputs
+            otpInputs.forEach(input => input.value = "");
+            if (otpInputs[0]) otpInputs[0].focus();
 
-      function startTimer(duration, display) {
-        let timer = duration;
-        const interval = setInterval(() => {
-          if (timer <= 0) {
-            clearInterval(interval);
-            if (display) display.textContent = "Expired";
+            if (!isNaN(expiryTime) && expiryTime > 0) {
+              const now = Date.now();
+              const secondsLeft = Math.floor((expiryTime - now) / 1000);
 
-            // ✅ Enable resend when timer ends
-            if (resendBox) resendBox.classList.remove("disabled");
-
-            if (verifyBtn) {
-              verifyBtn.disabled = true;
-              verifyBtn.style.background = "#ccc";
+              if (secondsLeft > 0) {
+                startTimer(secondsLeft, timerDisplay);
+              } else {
+                if (timerDisplay) timerDisplay.textContent = "Expired";
+                if (resendBox) resendBox.classList.remove("disabled");
+                if (verifyBtn) {
+                  verifyBtn.disabled = true;
+                  verifyBtn.style.background = "#ccc";
+                }
+              }
             }
-            return;
-          }
-
-          const minutes = Math.floor(timer / 60);
-          const seconds = timer % 60;
-          if (display) {
-            display.textContent =
-              (minutes < 10 ? "0" : "") + minutes + ":" +
-              (seconds < 10 ? "0" : "") + seconds;
-          }
-
-          timer--;
-        }, 1000);
-      }
-
-      window.onload = function () {
-        // Reset Inputs
-        otpInputs.forEach(input => input.value = "");
-        if (otpInputs[0]) otpInputs[0].focus();
-
-        if (!isNaN(expiryTime) && expiryTime > 0) {
-          const now = Date.now();
-          const secondsLeft = Math.floor((expiryTime - now) / 1000);
-
-          if (secondsLeft > 0) {
-            startTimer(secondsLeft, timerDisplay);
-          } else {
-            if (timerDisplay) timerDisplay.textContent = "Expired";
-            if (resendBox) resendBox.classList.remove("disabled");
-            if (verifyBtn) {
-              verifyBtn.disabled = true;
-              verifyBtn.style.background = "#ccc";
-            }
-          }
-        }
-      };
-    </script>
+          };
+        </script>
 
 </body>
 

@@ -228,91 +228,80 @@
 
 <body>
   <%- include('../partials/flash') %>
+    <%- include('../partials/header', { showSearch: false }) %>
+      <%- include("../partials/breadcrumb", { breadcrumbs }) %>
 
-    <div id="overlay"></div>
-
-    <header>
-      <div class="header-inner">
-        <a href="/" class="logo">SeatWorld</a>
-
-        <nav>
-          <a href="/dashboard">Home</a>
-          <a href="/products">Products</a>
-          <a href="/about">About</a>
-        </nav>
-
-        <button class="menu-toggle" id="menuBtn">
+        <button id="menuBtn" class="menu-toggle"
+          style="position: fixed; top: 90px; left: 20px; z-index: 100; background: white; border-radius: 50%; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); border: none;">
           <i class="fas fa-bars"></i>
         </button>
-      </div>
-    </header>
 
-    <div class="container">
-      <div class="layout">
+        <div class="container">
+          <div class="layout">
 
 
-        <!-- SIDEBAR -->
-        <aside class="sidebar" id="sidebar">
-          <h3>MY ACCOUNT</h3>
-          <ul>
-            <li><a href="/profile" class="active"><i class="fa-regular fa-user"></i> Personal Information</a></li>
-            <li><a href="/address"><i class="fa-solid fa-location-dot"></i> Address</a></li>
-            <li><a href="/orders"><i class="fa-solid fa-box"></i> Orders</a></li>
-            <li><a href="/wallet"><i class="fa-solid fa-wallet"></i> Wallet</a></li>
-            <li><a href="/coupon"><i class="fa-solid fa-ticket"></i> Coupon</a></li>
-            <li><a href="/profile/referral"><i class="fa-solid fa-user-plus"></i> Generate Referral Code</a></li>
-            <li><a href="/password-change"><i class="fa-solid fa-lock"></i> Password Change</a></li>
-            <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
-          </ul>
-        </aside>
+            <!-- SIDEBAR -->
+            <aside class="sidebar" id="sidebar">
+              <h3>MY ACCOUNT</h3>
+              <ul>
+                <li><a href="/profile" class="active"><i class="fa-regular fa-user"></i> Personal Information</a></li>
+                <li><a href="/address"><i class="fa-solid fa-location-dot"></i> Address</a></li>
+                <li><a href="/orders"><i class="fa-solid fa-box"></i> Orders</a></li>
+                <li><a href="/wallet"><i class="fa-solid fa-wallet"></i> Wallet</a></li>
+                <li><a href="/coupon"><i class="fa-solid fa-ticket"></i> Coupon</a></li>
+                <li><a href="/profile/referral"><i class="fa-solid fa-user-plus"></i> Generate Referral Code</a></li>
+                <li><a href="/password-change"><i class="fa-solid fa-lock"></i> Password Change</a></li>
+                <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+              </ul>
+            </aside>
 
-        <!-- CONTENT -->
-        <main class="content">
-          <div class="email-card">
-            <h2>Email Id updation</h2>
+            <!-- CONTENT -->
+            <main class="content">
+              <div class="email-card">
+                <h2>Email Id updation</h2>
 
-            <form action="/profile/change-email" method="POST">
-              <div class="form-group">
-                <label>Current email</label>
-                <div class="current-email">
-                  <%= user.email %>
-                </div>
+                <form action="/profile/change-email" method="POST">
+                  <div class="form-group">
+                    <label>Current email</label>
+                    <div class="current-email">
+                      <%= user.email %>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label>New email</label>
+                    <input type="email" name="newEmail" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Confirm new email</label>
+                    <input type="email" name="confirmEmail" required>
+                  </div>
+
+                  <button class="verify-btn">Verify</button>
+
+                </form>
               </div>
+            </main>
 
-              <div class="form-group">
-                <label>New email</label>
-                <input type="email" name="newEmail" required>
-              </div>
-
-              <div class="form-group">
-                <label>Confirm new email</label>
-                <input type="email" name="confirmEmail" required>
-              </div>
-
-              <button class="verify-btn">Verify</button>
-
-            </form>
           </div>
-        </main>
+        </div>
 
-      </div>
-    </div>
+        <script>
+          const menuBtn = document.getElementById("menuBtn");
+          const sidebar = document.getElementById("sidebar");
+          const overlay = document.getElementById("overlay");
 
-    <script>
-      const menuBtn = document.getElementById("menuBtn");
-      const sidebar = document.getElementById("sidebar");
-      const overlay = document.getElementById("overlay");
+          menuBtn.onclick = () => {
+            sidebar.classList.toggle("active");
+            overlay.style.display = sidebar.classList.contains("active") ? "block" : "none";
+          };
 
-      menuBtn.onclick = () => {
-        sidebar.classList.toggle("active");
-        overlay.style.display = sidebar.classList.contains("active") ? "block" : "none";
-      };
-
-      overlay.onclick = () => {
-        sidebar.classList.remove("active");
-        overlay.style.display = "none";
-      };
-    </script>
+          overlay.onclick = () => {
+            sidebar.classList.remove("active");
+            overlay.style.display = "none";
+          };
+        </script>
 
 </body>
 

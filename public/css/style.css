@@ -1,0 +1,28 @@
+/* Breadcrumb styles */
+.breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-bottom: 1rem;
+}
+
+.breadcrumb a {
+    color: #64748b;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    color: #2449ff;
+}
+
+.breadcrumb .separator {
+    margin: 0 0.4rem;
+    color: #cbd5e1;
+}
+
+.breadcrumb .active {
+    color: #1f2937;
+    font-weight: 500;
+}

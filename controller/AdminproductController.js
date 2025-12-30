@@ -1,5 +1,6 @@
 import { Product, ProductVariant } from '../models/productModel.js';
 import { Category } from '../models/categoryModel.js';
+import { cloudinary } from '../config/cloudinary.js';
 
 export const productList = async (req, res) => {
   try {
@@ -92,14 +93,40 @@ export const postAddProduct = async (req, res) => {
     const prices = Array.isArray(variantPrice) ? variantPrice : [variantPrice];
     const stocks = Array.isArray(variantStock) ? variantStock : [variantStock];
 
-    const files = req.files || []; // multer files (Cloudinary URLs in file.path)
+    const files = req.files || []; // multer files with buffers
 
-    const variantsToInsert = colors.map((c, index) => {
+    // Process images and upload to Cloudinary
+    const variantsToInsert = await Promise.all(colors.map(async (c, index) => {
       const imageField = `images_${index}`;
 
-      const imageUrls = files
-        .filter((f) => f.fieldname === imageField)
-        .map((f) => f.path); // Cloudinary URL
+      const variantFiles = files.filter((f) => f.fieldname === imageField);
+
+      // Process and upload each image
+      const imageUrls = await Promise.all(variantFiles.map(async (file) => {
+        try {
+          // Process image with Sharp
+          const { processImage } = await import('../utils/imageProcessor.js');
+          const processedBuffer = await processImage(file.buffer);
+
+          // Upload to Cloudinary
+          return new Promise((resolve, reject) => {
+            const uploadStream = cloudinary.uploader.upload_stream(
+              {
+                folder: 'products',
+                resource_type: 'image'
+              },
+              (error, result) => {
+                if (error) reject(error);
+                else resolve(result.secure_url);
+              }
+            );
+            uploadStream.end(processedBuffer);
+          });
+        } catch (error) {
+          console.error('Error processing/uploading image:', error);
+          throw error;
+        }
+      }));
 
       return {
         productId: savedProduct._id,
@@ -109,17 +136,19 @@ export const postAddProduct = async (req, res) => {
         images: imageUrls,
         status: (stocks[index] && stocks[index] > 0) ? "Active" : "OutofStock",
       };
-    });
+    }));
 
     // 3️⃣ Save all variants
     if (variantsToInsert.length > 0) {
       await ProductVariant.insertMany(variantsToInsert);
     }
 
+    req.session.message = { type: 'success', message: 'Product added Successfully' };
     res.redirect("/admin/products");
   } catch (error) {
     console.error(error);
-    res.status(500).send("Something went wrong!");
+    req.session.message = { type: 'error', message: 'Failed to add product' };
+    res.redirect("/admin/add-product");
   }
 };
 
@@ -164,9 +193,9 @@ export const postEditProduct = async (req, res) => {
     // Normalize to arrays (in case of single variant)
     const variantIds = Array.isArray(variantId) ? variantId : (variantId ? [variantId] : []);
     const variantIndices = Array.isArray(req.body.variantIndices) ? req.body.variantIndices : (req.body.variantIndices ? [req.body.variantIndices] : []);
-    const colors = Array.isArray(color) ? color : [color];
-    const prices = Array.isArray(variantPrice) ? variantPrice : [variantPrice];
-    const stocks = Array.isArray(variantStock) ? variantStock : [variantStock];
+    const colors = color ? (Array.isArray(color) ? color : [color]) : [];
+    const prices = variantPrice ? (Array.isArray(variantPrice) ? variantPrice : [variantPrice]) : [];
+    const stocks = variantStock ? (Array.isArray(variantStock) ? variantStock : [variantStock]) : [];
 
     const files = req.files || [];
     const processedVariantIds = [];
@@ -174,7 +203,7 @@ export const postEditProduct = async (req, res) => {
     // Loop through submitted variants
     for (let i = 0; i < colors.length; i++) {
       const currentVariantId = variantIds[i];
-      const currentIndex = variantIndices[i]; // Get the index used for this variant's files/images
+      const currentIndex = variantIndices[i];
       const currentColor = colors[i];
       const currentPrice = prices[i];
       const currentStock = stocks[i];
@@ -190,11 +219,30 @@ export const postEditProduct = async (req, res) => {
         }
       }
 
-      // Get new uploaded images for this variant index
+      // Get new uploaded images for this variant index and process them
       const imageField = `images_${currentIndex}`;
-      const newImages = files
-        .filter((f) => f.fieldname === imageField)
-        .map((f) => f.path); // Cloudinary URL
+      const vFiles = files.filter((f) => f.fieldname === imageField);
+
+      const newImages = await Promise.all(vFiles.map(async (file) => {
+        try {
+          const { processImage } = await import('../utils/imageProcessor.js');
+          const processedBuffer = await processImage(file.buffer);
+
+          return new Promise((resolve, reject) => {
+            const uploadStream = cloudinary.uploader.upload_stream(
+              { folder: 'products', resource_type: 'image' },
+              (error, result) => {
+                if (error) reject(error);
+                else resolve(result.secure_url);
+              }
+            );
+            uploadStream.end(processedBuffer);
+          });
+        } catch (error) {
+          console.error('Error processing edit image:', error);
+          throw error;
+        }
+      }));
 
       finalImages = [...finalImages, ...newImages];
 
@@ -219,6 +267,7 @@ export const postEditProduct = async (req, res) => {
       }
     }
 
+
     // 3. Delete Removed Variants
     // Find all variants for this product that were NOT in the processed list
     await ProductVariant.deleteMany({
@@ -226,41 +275,62 @@ export const postEditProduct = async (req, res) => {
       _id: { $nin: processedVariantIds }
     });
 
+    req.session.message = { type: 'success', message: 'Product updated Successfully' };
     res.redirect("/admin/products");
   } catch (error) {
     console.error(error);
-    res.status(500).send("Something went wrong!");
+    req.session.message = { type: 'error', message: 'Failed to update product' };
+    res.redirect(`/admin/edit-product/${req.params.id}`);
   }
 };
 
 export const blockProduct = async (req, res) => {
   try {
     const { id } = req.params;
-     if(ProductVariant.status == "Blocked"){
-      return res.status(200).json({message:"Product already blocked"});
-    }
-   
-    await ProductVariant.findByIdAndUpdate(id,{status:"Blocked"});
+    const product = await Product.findById(id);
 
-    res.status(200).json({ message: "Product blocked successfully" });
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    if (product.isBlocked) {
+      return res.status(200).json({ message: "Product already blocked" });
+    }
+
+    await Product.findByIdAndUpdate(id, { isBlocked: true });
+
+    res.status(200).json({
+      message: `Product "${product.name}" blocked successfully`,
+      productName: product.name
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Something went wrong!" });
   }
 };
 
-export const unblockProduct = async (req,res) =>{
-  try{
-     const {id} = req.params;
-    if(ProductVariant.status == "Active"){
-      return res.status(200).json({message:"Product already unblocked/active"})
-    }
-     await ProductVariant.findByIdAndUpdate({productId: id}, {status:"Active"});
+export const unblockProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findById(id);
 
-     res.status(200).json({message:"Product unblocked successfully"});
-  }catch(err){
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    if (!product.isBlocked) {
+      return res.status(200).json({ message: "Product already active" });
+    }
+
+    await Product.findByIdAndUpdate(id, { isBlocked: false });
+
+    res.status(200).json({
+      message: `Product "${product.name}" unblocked successfully`,
+      productName: product.name
+    });
+  } catch (err) {
     console.log(err);
-    res.status(500).json({message:"Something went wrong"});
+    res.status(500).json({ message: "Something went wrong" });
   }
-}
+};
 

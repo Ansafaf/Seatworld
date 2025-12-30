@@ -1,8 +1,18 @@
 import express from "express";
 import session from "express-session";
+import MongoStore from "connect-mongo";
 import nocache from "nocache";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+
+dotenv.config();
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// DB - Connect first or use existing URI
+const mongoUri = process.env.MONGO_URI;
+import connectDB from "./config/database.js";
+
 import adminRouter from "./routes/adminRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 import uploadRoutes from "./routes/upload.js";
@@ -13,23 +23,25 @@ import adminProductRouter from "./routes/AdminproductRoutes.js";
 import adminCategoryRouter from "./routes/adminCategoryRoute.js";
 import productRouter from "./routes/userProductRoute.js";
 
-
-
-dotenv.config();
-const app = express();
-const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(nocache());
-
+app.use(express.static("public"));
 
 //Global session middleware
 app.use(session({
   secret: process.env.SESSION_SECRET || "default_secret",
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false }
+  store: MongoStore.create({
+    mongoUrl: mongoUri,
+    collectionName: 'sessions'
+  }),
+  cookie: {
+    secure: false, // set to true if using https
+    maxAge: 1000 * 60 * 60 * 24 // 1 day
+  }
 }));
 
 app.use((req, res, next) => {
@@ -54,9 +66,7 @@ app.set("view engine", "ejs");
 app.set("views", "./views");
 
 // DB
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch((error) => console.log(error));
+connectDB();
 
 // Routes
 app.use("/api", uploadRoutes);
@@ -76,10 +86,6 @@ app.use((req, res, next) => {
 // 404 Handler
 app.use((req, res, next) => {
   res.status(404).render("404");
-  // Do not call next() here as we want to end the request cycle or let the 404 page be the response.
-  // Actually, we don't need next() unless we want to log it or something. 
-  // Standard 404 in express:
-  // res.status(404).render("404");
 });
 
 app.use((err, req, res, next) => {

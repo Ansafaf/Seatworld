@@ -36,11 +36,13 @@ export const postAddCategory = async (req, res) => {
         const { categoryName } = req.body;
         const category = new Category({ categoryName: categoryName });
         await category.save();
+        req.session.message = { type: 'success', message: "Category added successfully" };
         res.redirect("/admin/categories");
     }
     catch (err) {
         console.log(err);
-        res.status(500).render("admin/addCategory", { error: "Error adding category. Please try again." });
+        req.session.message = { type: 'error', message: "Error adding category. Please try again." };
+        res.redirect("/admin/add-category");
     }
 }
 export const getEditCategory = async (req, res) => {
@@ -69,12 +71,12 @@ export const postEditCategory = async (req, res) => {
 
         await Category.findByIdAndUpdate(id, { categoryName: categoryName.trim() });
 
+        req.session.message = { type: 'success', message: "Category updated successfully" };
         res.redirect("/admin/categories");
     } catch (err) {
         console.log(err);
-        res
-            .status(500)
-            .render("admin/editCategory", { error: "Error updating category. Please try again." });
+        req.session.message = { type: 'error', message: "Error updating category. Please try again." };
+        res.redirect(`/admin/edit-category/${req.params.id}`);
     }
 };
 

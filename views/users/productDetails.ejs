@@ -20,6 +20,9 @@
             --accent: #0ea5e9;
             --orange: #ff9900;
             --orange-dark: #e68a00;
+            --red: #ef4444;
+            --green: #22c55e;
+            --gold: #f59e0b;
         }
 
         * {
@@ -37,72 +40,6 @@
         a {
             text-decoration: none;
             color: inherit;
-        }
-
-        /* Header Styles (Copied from productlist.ejs for consistency) */
-        header {
-            background: #fff;
-            border-bottom: 1px solid var(--slate-100);
-            position: sticky;
-            top: 0;
-            z-index: 20;
-        }
-
-        .top-nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1.5rem;
-        }
-
-        .brand {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: var(--slate-700);
-        }
-
-        .brand img {
-            width: 36px;
-            height: 36px;
-            object-fit: contain;
-        }
-
-        nav {
-            display: flex;
-            gap: 1.5rem;
-            font-size: 0.95rem;
-            color: var(--slate-500);
-        }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .icon-button {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: 1px solid var(--slate-200);
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--slate-400);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .icon-button:hover {
-            border-color: var(--primary);
-            color: var(--primary);
         }
 
         /* Main Layout */
@@ -219,20 +156,39 @@
             margin-bottom: 2rem;
         }
 
+        .price-group {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
         .price-tag {
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: 700;
             color: var(--slate-700);
-            margin-bottom: 0.25rem;
+        }
+
+        .old-price {
+            font-size: 1.2rem;
+            color: var(--slate-400);
+            text-decoration: line-through;
+        }
+
+        .discount-badge {
+            background-color: var(--red);
+            color: #fff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
         }
 
         .tax-note {
             font-size: 0.8rem;
             color: var(--slate-400);
             margin-bottom: 2rem;
-            text-decoration: line-through;
-            /* Just to match 'MRP incl.' style if needed, or just text */
-            text-decoration: none;
         }
 
         .color-section {
@@ -275,39 +231,162 @@
 
         .action-buttons {
             display: flex;
-            flex-direction: column;
             gap: 1rem;
+            margin-top: auto;
+            padding-top: 2rem;
         }
 
         .btn-action {
-            width: 100%;
+            flex: 1;
             padding: 1rem;
             border: none;
             border-radius: 4px;
             font-weight: 600;
             font-size: 1rem;
             cursor: pointer;
-            transition: opacity 0.2s;
-        }
-
-        .btn-action:hover {
-            opacity: 0.9;
+            transition: all 0.2s;
+            text-transform: uppercase;
         }
 
         .btn-cart {
-            background: var(--primary);
-            color: #fff;
+            background-color: var(--slate-100);
+            color: var(--slate-700);
+        }
+
+        .btn-cart:hover:not(.btn-disabled) {
+            background-color: var(--slate-200);
         }
 
         .btn-buy {
-            background: var(--orange);
+            background-color: var(--orange);
             color: #fff;
+        }
+
+        .btn-buy:hover:not(.btn-disabled) {
+            background-color: var(--orange-dark);
+        }
+
+        .btn-disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background-color: var(--slate-200) !important;
+            color: var(--slate-400) !important;
+        }
+
+        .stock-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .stock-badge.in-stock {
+            background-color: #ecfdf5;
+            color: var(--green);
+        }
+
+        .stock-badge.out-of-stock {
+            background-color: #fef2f2;
+            color: var(--red);
+        }
+
+        /* Ratings & Reviews */
+        .rating-summary {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--slate-500);
+        }
+
+        .stars {
+            color: var(--gold);
+            display: flex;
+            gap: 2px;
+        }
+
+        .reviews-section {
+            margin-top: 4rem;
+            padding-top: 4rem;
+            border-top: 1px solid var(--slate-200);
+        }
+
+        .reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 2.5rem;
+        }
+
+        .reviews-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .review-card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .review-user {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--slate-100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 0.85rem;
+        }
+
+        .user-info .name {
+            font-weight: 600;
+            display: block;
+            font-size: 0.95rem;
+        }
+
+        .user-info .date {
+            font-size: 0.8rem;
+            color: var(--slate-400);
+        }
+
+        .review-content {
+            font-size: 0.95rem;
+            color: var(--slate-500);
+            line-height: 1.6;
         }
 
         /* Related Products */
         .related-section {
-            text-align: center;
-            margin-bottom: 4rem;
+            margin-top: 4rem;
+            padding-top: 4rem;
+            border-top: 1px solid var(--slate-200);
         }
 
         .related-title {
@@ -433,162 +512,220 @@
 </head>
 
 <body>
-    <header>
-        <div class="top-nav">
-            <div class="brand">
-                <% if (locals.logoUrl) { %>
-                    <img src="<%= logoUrl %>" alt="SeatWorld logo">
-                    <% } else { %>
-                        <img src="https://dummyimage.com/64x64/ffffff/000000&text=SW" alt="SeatWorld logo placeholder">
-                        <% } %>
-                            <span>SeatWorld</span>
-            </div>
-            <nav>
-                <a href="/dashboard">Home</a>
-                <a href="/products">Products</a>
-                <a href="/about">About</a>
-            </nav>
-            <div class="nav-actions">
-                <button class="icon-button">♡</button>
-                <button class="icon-button">☺</button>
-                <button class="icon-button">🛒</button>
-            </div>
-        </div>
-    </header>
-    <%- include('../partials/flash') %>
+    <%- include('../partials/header', { showSearch: false }) %>
+        <%- include('../partials/flash') %>
+            <%- include("../partials/breadcrumb", { breadcrumbs }) %>
 
-        <main class="container">
-            <section class="product-detail-section">
-                <!-- Gallery -->
-                <div class="gallery-container">
-                    <div class="main-image-wrapper" id="img-container">
-                        <img src="<%= product.image %>" alt="<%= product.name %>" class="main-image" id="main-image">
-                        <div id="zoom-result" class="zoom-result"></div>
-                    </div>
-                    <div class="thumbnails-col">
-                        <!-- Main image as first thumbnail -->
-                        <div class="thumbnail active" onclick="changeImage('<%= product.image %>', this)">
-                            <img src="<%= product.image %>" alt="View 1">
+
+                <main class="container">
+                    <section class="product-detail-section">
+                        <!-- Gallery -->
+                        <div class="gallery-container">
+                            <div class="main-image-wrapper" id="img-container">
+                                <img src="<%= product.image %>" alt="<%= product.name %>" class="main-image"
+                                    id="main-image">
+                                <div id="zoom-result" class="zoom-result"></div>
+                            </div>
+                            <div class="thumbnails-col">
+                                <!-- Main image as first thumbnail -->
+                                <div class="thumbnail active" onclick="changeImage('<%= product.image %>', this)">
+                                    <img src="<%= product.image %>" alt="View 1">
+                                </div>
+                                <!-- Additional variants/images -->
+                                <% if (product.variants && product.variants.length) { %>
+                                    <% product.variants.forEach((variant, idx)=> { %>
+                                        <% if (variant.images && variant.images.length) { %>
+                                            <div class="thumbnail"
+                                                onclick="changeImage('<%= variant.images[0] %>', this)">
+                                                <img src="<%= variant.images[0] %>" alt="View <%= idx + 2 %>">
+                                            </div>
+                                            <% } %>
+                                                <% }) %>
+                                                    <% } %>
+                            </div>
                         </div>
-                        <!-- Additional variants/images -->
-                        <% if (product.variants && product.variants.length) { %>
-                            <% product.variants.forEach((variant, idx)=> { %>
-                                <% if (variant.images && variant.images.length) { %>
-                                    <div class="thumbnail" onclick="changeImage('<%= variant.images[0] %>', this)">
-                                        <img src="<%= variant.images[0] %>" alt="View <%= idx + 2 %>">
-                                    </div>
+
+                        <!-- Info -->
+                        <div class="product-info">
+                            <button class="wishlist-btn-abs">♡</button>
+
+                            <% if (product.stock> 0) { %>
+                                <div class="stock-badge in-stock">In Stock</div>
+                                <% } else { %>
+                                    <div class="stock-badge out-of-stock">Out of Stock</div>
                                     <% } %>
-                                        <% }) %>
-                                            <% } %>
-                    </div>
-                </div>
 
-                <!-- Info -->
-                <div class="product-info">
-                    <button class="wishlist-btn-abs">♡</button>
-                    <h1 class="product-title">
-                        <%= product.name %>
-                    </h1>
-                    <p class="product-desc">
-                        <%= product.description
-                            || "Ergonomic gaming chair with durable synthetic leather and high-density foam cushions, built for long hours of comfort and support."
-                            %>
-                    </p>
+                                        <h1 class="product-title">
+                                            <%= product.name %>
+                                        </h1>
 
-                    <div class="price-tag">₹<%= product.variant ? product.variant.price : product.price %>
-                    </div>
-                    <div class="tax-note">MRP incl. of all taxes</div>
+                                        <div class="rating-summary">
+                                            <div class="stars">
+                                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                                            </div>
+                                            <span>4.8 (124 reviews)</span>
+                                        </div>
 
-                    <div class="color-section">
-                        <span class="color-label">FIND YOUR COLOR</span>
-                        <div class="color-options">
-                            <% if (product.variants && product.variants.length) { %>
-                                <% product.variants.forEach(v=> { %>
-                                    <div class="color-opt <%= (product.variant && product.variant._id === v._id) ? 'active' : '' %>"
-                                        onclick="location.href='?variant=<%= v._id %>'">
-                                        <%= v.color %>
-                                    </div>
-                                    <% }) %>
-                                        <% } else { %>
-                                            <div class="color-opt active">Std</div>
-                                            <% } %>
+                                        <p class="product-desc">
+                                            <%= product.description
+                                                || "Ergonomic gaming chair with durable synthetic leather and high-density foam cushions, built for long hours of comfort and support."
+                                                %>
+                                        </p>
+
+                                        <% const currentPrice=product.variant ? product.variant.price :
+                                            product.Baseprice; const originalPrice=product.Baseprice; const
+                                            isOnSale=currentPrice < originalPrice; const offPercent=isOnSale ?
+                                            Math.round((1 - currentPrice / originalPrice) * 100) : 0; %>
+                                            <div class="price-group">
+                                                <div class="price-tag">₹<%= Number(currentPrice).toLocaleString('en-IN')
+                                                        %>
+                                                </div>
+                                                <% if (isOnSale) { %>
+                                                    <div class="old-price">₹<%=
+                                                            Number(originalPrice).toLocaleString('en-IN') %>
+                                                    </div>
+                                                    <div class="discount-badge">
+                                                        <%= offPercent %>% OFF
+                                                    </div>
+                                                    <% } %>
+                                            </div>
+                                            <div class="tax-note">MRP incl. of all taxes</div>
+
+                                            <div class="color-section">
+                                                <span class="color-label">FIND YOUR COLOR</span>
+                                                <div class="color-options">
+                                                    <% if (product.variants && product.variants.length) { %>
+                                                        <% product.variants.forEach(v=> { %>
+                                                            <div class="color-opt <%= (product.variant && product.variant._id === v._id) ? 'active' : '' %>"
+                                                                onclick="location.href='?variant=<%= v._id %>'">
+                                                                <%= v.color %>
+                                                            </div>
+                                                            <% }) %>
+                                                                <% } else { %>
+                                                                    <div class="color-opt active">Std</div>
+                                                                    <% } %>
+                                                </div>
+                                            </div>
+
+                                            <div class="action-buttons">
+                                                <button
+                                                    class="btn-action btn-cart <%= product.stock <= 0 ? 'btn-disabled' : '' %>"
+                                                    <%=product.stock <=0 ? 'disabled' : '' %>>Add to Cart</button>
+                                                <button
+                                                    class="btn-action btn-buy <%= product.stock <= 0 ? 'btn-disabled' : '' %>"
+                                                    <%=product.stock <=0 ? 'disabled' : '' %>>Buy Now</button>
+                                            </div>
                         </div>
+                    </section>
+
+                    <!-- Dummy Reviews Section -->
+                    <section class="reviews-section">
+                        <div class="reviews-header">
+                            <h2 class="reviews-title">Customer Reviews</h2>
+                        </div>
+                        <div class="reviews-grid">
+                            <div class="review-card">
+                                <div class="review-user">
+                                    <div class="user-avatar">JD</div>
+                                    <div class="user-info">
+                                        <span class="name">John Doe</span>
+                                        <span class="date">Dec 15, 2023</span>
+                                    </div>
+                                    <div class="stars" style="margin-left: auto;">
+                                        ★ ★ ★ ★ ★
+                                    </div>
+                                </div>
+                                <div class="review-content">
+                                    "Absolutely love this chair! Extremely comfortable for long gaming sessions and the
+                                    lumbar support is exactly what I needed. Build quality is top-notch."
+                                </div>
+                            </div>
+                            <div class="review-card">
+                                <div class="review-user">
+                                    <div class="user-avatar">AS</div>
+                                    <div class="user-info">
+                                        <span class="name">Alice Smith</span>
+                                        <span class="date">Nov 28, 2023</span>
+                                    </div>
+                                    <div class="stars" style="margin-left: auto;">
+                                        ★ ★ ★ ★ ★
+                                    </div>
+                                </div>
+                                <div class="review-content">
+                                    "Great aesthetics and very sturdy. Set up was straightforward. The material feels
+                                    premium and it fits perfectly in my home office space."
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Related Products -->
+                    <section class="related-section">
+                        <h2 class="related-title">YOU MIGHT ALSO LIKE</h2>
+                        <div class="related-grid">
+                            <% if (locals.relatedProducts) { %>
+                                <% relatedProducts.forEach(rp=> { %>
+                                    <a href="/product/<%= rp._id %>" class="related-card">
+                                        <div class="related-img-box">
+                                            <img src="<%= rp.image %>" alt="<%= rp.name %>">
+                                        </div>
+                                        <div class="related-name">
+                                            <%= rp.name %>
+                                        </div>
+                                        <div class="related-price">₹<%= rp.price %>
+                                        </div>
+                                    </a>
+                                    <% }) %>
+                                        <% } %>
+                        </div>
+                    </section>
+                </main>
+
+                <footer>
+                    <div class="links">
+                        <a href="/home">Home</a>
+                        <a href="/products">Products</a>
+                        <a href="/about">About</a>
                     </div>
+                    <p>SeatWorld © <%= new Date().getFullYear() %>. All Rights Reserved</p>
+                </footer>
 
-                    <div class="action-buttons">
-                        <button class="btn-action btn-cart">Add to Cart</button>
-                        <button class="btn-action btn-buy">Buy Now</button>
-                    </div>
-                </div>
-            </section>
+                <script>
+                    // Image Switcher
+                    function changeImage(src, el) {
+                        document.getElementById('main-image').src = src;
+                        document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                        el.classList.add('active');
 
-            <!-- Related Products -->
-            <section class="related-section">
-                <h2 class="related-title">YOU MIGHT ALSO LIKE</h2>
-                <div class="related-grid">
-                    <% if (locals.relatedProducts) { %>
-                        <% relatedProducts.forEach(rp=> { %>
-                            <a href="/product/<%= rp._id %>" class="related-card">
-                                <div class="related-img-box">
-                                    <img src="<%= rp.image %>" alt="<%= rp.name %>">
-                                </div>
-                                <div class="related-name">
-                                    <%= rp.name %>
-                                </div>
-                                <div class="related-price">₹<%= rp.price %>
-                                </div>
-                            </a>
-                            <% }) %>
-                                <% } %>
-                </div>
-            </section>
-        </main>
+                        // Reset zoom
+                        setupZoom();
+                    }
 
-        <footer>
-            <div class="links">
-                <a href="/dashboard">Home</a>
-                <a href="/products">Products</a>
-                <a href="/about">About</a>
-            </div>
-            <p>SeatWorld © <%= new Date().getFullYear() %>. All Rights Reserved</p>
-        </footer>
+                    // Zoom Functionality
+                    function setupZoom() {
+                        const container = document.getElementById('img-container');
+                        const img = document.getElementById('main-image');
 
-        <script>
-            // Image Switcher
-            function changeImage(src, el) {
-                document.getElementById('main-image').src = src;
-                document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-                el.classList.add('active');
+                        container.addEventListener('mousemove', function (e) {
+                            const { left, top, width, height } = container.getBoundingClientRect();
+                            const x = (e.clientX - left) / width;
+                            const y = (e.clientY - top) / height;
 
-                // Reset zoom
-                setupZoom();
-            }
+                            img.style.transformOrigin = `${x * 100}% ${y * 100}%`;
+                            img.style.transform = "scale(2)"; // Zoom level
+                        });
 
-            // Zoom Functionality
-            function setupZoom() {
-                const container = document.getElementById('img-container');
-                const img = document.getElementById('main-image');
+                        container.addEventListener('mouseleave', function () {
+                            img.style.transform = "scale(1)";
+                            setTimeout(() => {
+                                img.style.transformOrigin = "center center";
+                            }, 300);
+                        });
+                    }
 
-                container.addEventListener('mousemove', function (e) {
-                    const { left, top, width, height } = container.getBoundingClientRect();
-                    const x = (e.clientX - left) / width;
-                    const y = (e.clientY - top) / height;
-
-                    img.style.transformOrigin = `${x * 100}% ${y * 100}%`;
-                    img.style.transform = "scale(2)"; // Zoom level
-                });
-
-                container.addEventListener('mouseleave', function () {
-                    img.style.transform = "scale(1)";
-                    setTimeout(() => {
-                        img.style.transformOrigin = "center center";
-                    }, 300);
-                });
-            }
-
-            // Initialize
-            setupZoom();
-        </script>
+                    // Initialize
+                    setupZoom();
+                </script>
 </body>
 
 </html>

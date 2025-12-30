@@ -5,27 +5,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SeatWorld - Product Gallery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --slate-50: #f5f7fb;
-      --slate-100: #edf1f7;
-      --slate-200: #dfe7f1;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
       --slate-400: #94a3b8;
       --slate-500: #64748b;
-      --slate-700: #1f2937;
-      --primary: #2449ff;
-      --accent: #0ea5e9;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --max-width: 1200px;
     }
 
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
-      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: 'Inter', sans-serif;
       background-color: var(--slate-50);
-      color: var(--slate-700);
+      color: var(--slate-800);
       line-height: 1.5;
     }
 
@@ -34,767 +40,707 @@
       color: inherit;
     }
 
-    header {
-      background: #fff;
-      border-bottom: 1px solid var(--slate-100);
-      position: sticky;
-      top: 0;
-      z-index: 20;
-    }
-
-    .top-nav {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.5rem;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-weight: 600;
-      font-size: 1.1rem;
-      color: var(--slate-700);
-    }
-
-    .brand img {
-      width: 36px;
-      height: 36px;
-      object-fit: contain;
-    }
-
-    nav {
-      display: flex;
-      gap: 1.5rem;
-      font-size: 0.95rem;
-      color: var(--slate-500);
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .search-pill {
-      position: relative;
-      background: var(--slate-100);
-      padding: 0.5rem 0.75rem 0.5rem 2.25rem;
-      border-radius: 999px;
-      display: flex;
-      align-items: center;
-    }
-
-    .search-pill input {
-      border: none;
-      background: transparent;
-      outline: none;
-      font-size: 0.95rem;
-      width: 160px;
-      color: var(--slate-700);
-    }
-
-    .search-pill svg {
-      position: absolute;
-      left: 0.8rem;
-      width: 16px;
-      height: 16px;
-      color: var(--slate-400);
-    }
-
-    .icon-button {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: 1px solid var(--slate-200);
-      background: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--slate-400);
-      cursor: pointer;
-    }
-
+    /* --- LAYOUT --- */
     .layout {
-      max-width: 1200px;
-      margin: 2rem auto 3rem;
-      padding: 0 2rem;
+      max-width: var(--max-width);
+      margin: 2rem auto;
+      padding: 0 1.5rem;
       display: grid;
-      grid-template-columns: 260px 1fr;
-      gap: 2rem;
+      grid-template-columns: 240px 1fr;
+      gap: 3rem;
     }
 
-    .filters-card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 1.5rem;
-      box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+    /* --- SIDEBAR --- */
+    .filters-sidebar {
       position: sticky;
-      top: 90px;
+      top: 5.5rem;
       height: fit-content;
     }
 
-    .filters-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1.5rem;
+    .filter-section {
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--slate-200);
     }
 
-    .filters-header h3 {
-      margin: 0;
-      font-size: 1.1rem;
-      color: var(--slate-700);
+    .filter-section:last-child {
+      border-bottom: none;
     }
 
-    .filter-count {
-      background: var(--slate-100);
-      color: var(--slate-500);
-      border-radius: 999px;
-      padding: 0.2rem 0.75rem;
-      font-size: 0.8rem;
-    }
-
-    .filter-block {
-      margin-bottom: 1.75rem;
-    }
-
-    .filter-block h4 {
-      margin: 0 0 0.75rem;
+    .filter-title {
       font-size: 0.95rem;
-      color: var(--slate-500);
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      color: var(--slate-800);
     }
 
-    .price-values {
+    /* Price Range */
+    .price-inputs {
       display: flex;
-      gap: 0.75rem;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
     }
 
-    .price-values label {
+    .price-input-group {
+      flex: 1;
+    }
+
+    .price-input-group label {
       display: block;
-      font-size: 0.8rem;
-      color: var(--slate-400);
+      font-size: 0.7rem;
+      color: var(--slate-500);
       margin-bottom: 0.25rem;
     }
 
-    .price-values input {
+    .price-input-group input {
       width: 100%;
-      padding: 0.45rem 0.6rem;
-      border-radius: 10px;
+      padding: 0.4rem;
       border: 1px solid var(--slate-200);
-      font-size: 0.9rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      outline: none;
+      background: var(--slate-100);
     }
 
-    .slider-wrapper {
+    .range-slider {
       position: relative;
-      height: 38px;
-      margin-top: 0.75rem;
-    }
-
-    .slider-track {
-      position: absolute;
-      top: 18px;
-      left: 0;
-      right: 0;
       height: 4px;
       background: var(--slate-200);
       border-radius: 999px;
+      margin: 1.5rem 0;
     }
 
-    .slider-track .progress {
+    .range-slider .progress {
       position: absolute;
       height: 100%;
       background: var(--primary);
       border-radius: 999px;
-      left: 0;
-      right: 0;
     }
 
-    .range-inputs input[type="range"] {
+    .range-slider input {
       position: absolute;
       width: 100%;
-      top: 0;
-      left: 0;
+      height: 4px;
+      top: -4px;
+      background: none;
       pointer-events: none;
       -webkit-appearance: none;
       appearance: none;
-      background: none;
     }
 
-    .range-inputs input[type="range"]::-webkit-slider-thumb {
-      pointer-events: auto;
-      width: 16px;
+    .range-slider input::-webkit-slider-thumb {
       height: 16px;
+      width: 16px;
       border-radius: 50%;
       background: #fff;
       border: 2px solid var(--primary);
+      pointer-events: auto;
       -webkit-appearance: none;
+      appearance: none;
+      cursor: pointer;
     }
 
-    .checkbox-list {
+    /* Checkbox lists */
+    .filter-list {
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
+      gap: 0.6rem;
     }
 
-    .checkbox-item {
+    .filter-item {
       display: flex;
-      gap: 0.5rem;
       align-items: center;
-      font-size: 0.9rem;
+      gap: 0.75rem;
+      cursor: pointer;
+      font-size: 0.85rem;
       color: var(--slate-600);
     }
 
-    .checkbox-item input {
+    .filter-item input {
       width: 16px;
       height: 16px;
+      border-radius: 4px;
     }
 
-    .filter-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      margin-top: 2rem;
+    /* Color */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(28px, 1fr));
+      gap: 0.5rem;
     }
 
-    .btn {
-      border: none;
-      border-radius: 999px;
-      padding: 0.65rem;
-      font-weight: 600;
-      text-align: center;
+    .color-swatch {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
       cursor: pointer;
-      font-size: 0.95rem;
+      border: 2px solid transparent;
+      position: relative;
     }
 
-    .btn-primary {
-      background: var(--primary);
-      color: #fff;
+    .color-swatch input {
+      position: absolute;
+      opacity: 0;
     }
 
-    .btn-ghost {
-      background: transparent;
-      color: var(--slate-500);
-      border: 1px solid var(--slate-200);
+    .color-swatch.active {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--primary);
     }
 
-    .products-area {
+    /* --- MAIN AREA --- */
+    .results-section {
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 2rem;
     }
 
-    .products-header {
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      align-items: flex-start;
+    .results-header {
+      margin-bottom: 2rem;
     }
 
     .heading h1 {
-      margin: 0;
-      font-size: 2rem;
-      color: var(--slate-700);
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--slate-800);
     }
 
     .heading p {
-      margin: 0.2rem 0 0;
       color: var(--slate-500);
-      font-size: 0.95rem;
+      font-size: 1rem;
     }
 
-    .sort-control {
+    .sort-bar {
+      margin-top: 2rem;
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
-      font-size: 0.9rem;
-      color: var(--slate-500);
+      gap: 0.5rem;
+      max-width: 320px;
+    }
+
+    .sort-bar label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--slate-600);
     }
 
     .sort-select {
-      min-width: 220px;
-      border-radius: 999px;
-      border: 1px solid var(--slate-200);
-      padding: 0.55rem 1rem;
-      font-size: 0.95rem;
-      color: var(--slate-700);
-      background: #fff;
-      outline: none;
-    }
-
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 2.5rem 1.5rem;
-    }
-
-    .product-card {
-      display: flex;
-      flex-direction: column;
-      text-decoration: none;
-      color: inherit;
-      background: transparent;
-      border: none;
-      box-shadow: none;
-      padding: 0;
-      transition: opacity 0.2s;
-    }
-
-    .product-card:hover {
-      opacity: 0.85;
-      transform: none;
-      box-shadow: none;
-    }
-
-    .product-media {
-      position: relative;
-      background-color: #f3f4f6;
-      border-radius: 12px;
-      aspect-ratio: 1;
-      overflow: hidden;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .product-media img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      padding: 1.5rem;
-      mix-blend-mode: multiply;
-    }
-
-    .placeholder-img {
-      color: var(--slate-400);
-      font-size: 0.9rem;
-    }
-
-    .product-name {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #1f2937;
-      margin: 0 0 0.5rem 0;
-      line-height: 1.4;
-    }
-
-    .price-block {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-
-    .price-current {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #1f2937;
-    }
-
-    .original-price-row {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.85rem;
-      color: #64748b;
-    }
-
-    .price-old {
-      text-decoration: line-through;
-      color: #64748b;
-      font-size: 0.85rem;
-    }
-
-    .discount-text {
-      color: #64748b;
-    }
-
-    .status-text {
-      font-size: 0.9rem;
-      color: #64748b;
-      margin-top: 0.25rem;
-    }
-
-    .pagination {
-      margin: 2rem auto 0;
-      display: flex;
-      gap: 0.5rem;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .page-btn {
-      min-width: 36px;
-      height: 36px;
-      padding: 0 0.5rem;
+      padding: 0.75rem 1rem;
       border-radius: 8px;
       border: 1px solid var(--slate-200);
       background: #fff;
-      color: var(--slate-500);
+      font-size: 0.9rem;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* --- PRODUCT GRID --- */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 2.5rem 1.75rem;
+    }
+
+    .product-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid var(--slate-100);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .product-card.out-of-stock {
+      opacity: 0.7;
+    }
+
+    .product-card.out-of-stock .product-media::after {
+      content: 'OUT OF STOCK';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.4);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: all 0.2s;
+      color: var(--slate-700);
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
     }
 
-    .page-btn:hover {
-      border-color: var(--primary);
+    .product-media {
+      background: #f1f5f9;
+      border-radius: 12px;
+      aspect-ratio: 1;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .product-media img {
+      width: 85%;
+      height: 85%;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+    }
+
+    .off-badge {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: #fff;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
       color: var(--primary);
     }
 
-    .page-btn.active {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
+    .product-info h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
     }
 
-    .page-btn.prev-next {
-      padding: 0 1rem;
-      width: auto;
+    .price-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
     }
 
-    .page-dots {
+    .p-current {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .p-old-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+    }
+
+    .p-old {
       color: var(--slate-400);
-      letter-spacing: 2px;
+      text-decoration: line-through;
     }
 
-    footer {
-      border-top: 1px solid var(--slate-100);
-      padding: 2rem;
-      text-align: center;
-      color: var(--slate-400);
-      font-size: 0.9rem;
+    .p-off {
+      color: var(--primary);
+      font-weight: 600;
     }
 
-    footer .links {
+    .stock-status {
+      font-size: 0.8rem;
+      margin-top: 0.4rem;
+    }
+
+    /* --- PAGINATION --- */
+    .pagination-container {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .pagination {
       display: flex;
       justify-content: center;
-      gap: 2rem;
-      margin-bottom: 1rem;
+      align-items: center;
+      gap: 2.5rem;
     }
 
+    .page-node {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: #334155;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .page-node.active {
+      background: #eaeff4;
+      color: #000;
+      font-weight: 700;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+    }
+
+    .page-node:hover:not(.active) {
+      color: var(--primary);
+    }
+
+    .page-node.disabled {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .pagination-info {
+      font-size: 0.9rem;
+      color: var(--slate-500);
+    }
+
+    /* --- FOOTER --- */
+    footer {
+      background: #fff;
+      border-top: 1px solid var(--slate-200);
+      padding: 5rem 1.5rem 2rem;
+      margin-top: 6rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--slate-500);
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .footer-bottom {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      border-top: 1px solid var(--slate-100);
+      padding-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1.5rem;
+      color: var(--slate-400);
+    }
+
+    .copyright {
+      font-size: 0.85rem;
+      color: var(--slate-400);
+    }
+
+    /* --- RESPONSIVE --- */
     @media (max-width: 1024px) {
       .layout {
         grid-template-columns: 1fr;
       }
 
-      .filters-card {
-        position: static;
+      .filters-sidebar {
+        display: none;
       }
     }
 
     @media (max-width: 768px) {
-      .top-nav {
+      .footer-links {
         flex-wrap: wrap;
-        padding: 1rem;
+        gap: 2rem;
       }
-
-      nav {
-        width: 100%;
-        justify-content: center;
-      }
-
-      .search-pill input {
-        width: 120px;
-      }
-
-      .products-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-
-    .pagination {
-      margin: 2rem auto 0;
-      display: flex;
-      gap: 0.5rem;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <div class="top-nav">
-      <div class="brand">
+  <!-- Integrated Header Partial -->
+  <%- include('../partials/header', { showSearch: true }) %>
 
-        <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765945540/products/rmsn314w038gnfzmemmi.jpg"
-          alt="SeatWorld logo" onerror="this.style.display='none'">
-        <span>SeatWorld</span>
-      </div>
-      <nav>
-        <a href="/dashboard">Home</a>
-        <a href="/products">Products</a>
-        <a href="/about">About</a>
-      </nav>
-      <div class="nav-actions">
-        <label class="search-pill">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M15.5 14h-.79l-.28-.27c1-1.16 1.57-2.65 1.57-4.23A6 6 0 1 0 9.5 16c1.58 0 3.07-.57 4.23-1.57l.27.28v.79l4.75 4.74 1.5-1.5L15.5 14zm-6 0A4.5 4.5 0 1 1 14 9.5 4.51 4.51 0 0 1 9.5 14z" />
-          </svg>
-          <input form="productFilters" type="text" name="search" value="<%= filters?.search || '' %>"
-            placeholder="Search">
-        </label>
-        <button class="icon-button">♡</button>
-        <button class="icon-button">🛒</button>
-        <button class="icon-button">☺</button>
-      </div>
-    </div>
-  </header>
-  <%- include('../partials/flash') %>
+    <%- include('../partials/flash') %>
+      <%- include("../partials/breadcrumb", { breadcrumbs }) %>
 
-    <main class="layout">
-      <aside class="filters-card">
-        <div class="filters-header">
-          <h3>Filters</h3>
-          <% if (appliedFiltersCount) { %>
-            <span class="filter-count">
-              <%= appliedFiltersCount %>
-            </span>
-            <% } %>
-        </div>
-        <form id="productFilters" class="filters-form" action="/products" method="GET">
-          <section class="filter-block">
-            <h4>Price Range</h4>
-            <div class="price-values">
-              <div>
-                <label for="minPriceInput">Min</label>
-                <input type="number" id="minPriceInput" name="minPrice" min="<%= priceRange?.min ?? 0 %>"
-                  max="<%= priceRange?.max ?? 0 %>" value="<%= filters?.minPrice ?? priceRange?.min ?? 0 %>">
-              </div>
-              <div>
-                <label for="maxPriceInput">Max</label>
-                <input type="number" id="maxPriceInput" name="maxPrice" min="<%= priceRange?.min ?? 0 %>"
-                  max="<%= priceRange?.max ?? 0 %>" value="<%= filters?.maxPrice ?? priceRange?.max ?? 0 %>">
-              </div>
-            </div>
-            <div class="slider-wrapper">
-              <div class="slider-track">
-                <div class="progress" id="priceProgress"></div>
-              </div>
-              <div class="range-inputs">
-                <input type="range" id="minRange" min="<%= priceRange?.min ?? 0 %>" max="<%= priceRange?.max ?? 0 %>"
-                  value="<%= filters?.minPrice ?? priceRange?.min ?? 0 %>" step="1">
-                <input type="range" id="maxRange" min="<%= priceRange?.min ?? 0 %>" max="<%= priceRange?.max ?? 0 %>"
-                  value="<%= filters?.maxPrice ?? priceRange?.max ?? 0 %>" step="1">
-              </div>
-            </div>
-          </section>
 
-          <section class="filter-block">
-            <h4>Brand</h4>
-            <div class="checkbox-list">
-              <% if (brands?.length) { %>
-                <% brands.forEach((brandName)=> { %>
-                  <label class="checkbox-item">
-                    <input type="checkbox" name="brand" value="<%= brandName %>" <%=filters?.brands?.includes(brandName)
-                      ? "checked" : "" %>>
-                    <span>
-                      <%= brandName %>
-                    </span>
-                  </label>
-                  <% }) %>
-                    <% } else { %>
-                      <p style="color: var(--slate-400); font-size: 0.85rem;">Brands coming soon.</p>
-                      <% } %>
-            </div>
-          </section>
+        <main class="layout">
+          <!-- Sidebar -->
+          <aside class="filters-sidebar">
+            <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem;">Filters</h2>
 
-          <section class="filter-block">
-            <h4>Category</h4>
-            <div class="checkbox-list">
-              <% if (categories?.length) { %>
-                <% categories.forEach((categoryItem)=> { %>
-                  <label class="checkbox-item">
-                    <input type="checkbox" name="category" value="<%= categoryItem._id %>"
-                      <%=filters?.categories?.includes(categoryItem._id.toString()) ? "checked" : "" %>>
-                    <span>
-                      <%= categoryItem.categoryName %>
-                    </span>
-                  </label>
-                  <% }) %>
-                    <% } else { %>
-                      <p style="color: var(--slate-400); font-size: 0.85rem;">No categories available.</p>
-                      <% } %>
-            </div>
-          </section>
+            <form id="productFilters" action="/products" method="GET">
+              <input type="hidden" name="search" value="<%= filters?.search || '' %>">
 
-          <div class="filter-actions">
-            <button type="submit" class="btn btn-primary">Apply Filters</button>
-            <a href="/products" class="btn btn-ghost">Clear Filters</a>
-          </div>
-        </form>
-      </aside>
-
-      <section class="products-area">
-        <div class="products-header">
-          <div class="heading">
-            <p style="margin:0;color:var(--slate-400);font-size:0.9rem;">SeatWorld Collection</p>
-            <h1>
-              <%= filters?.heading || "Chairs" %>
-            </h1>
-            <p>
-              <%= pagination?.totalItems ?? products.length %> results
-            </p>
-          </div>
-          <div class="sort-control">
-            <label for="sortSelect">Sort By</label>
-            <select id="sortSelect" class="sort-select" name="sort" form="productFilters"
-              onchange="document.getElementById('productFilters').requestSubmit();">
-              <% (sortOptions || []).forEach((option)=> { %>
-                <option value="<%= option.value %>" <%=(filters?.sort || 'featured' )===option.value ? "selected" : ""
-                  %>>
-                  <%= option.label %>
-                </option>
-                <% }) %>
-            </select>
-          </div>
-        </div>
-
-        <div class="products-grid">
-          <% if (products && products.length) { %>
-            <% products.forEach((product)=> {
-              const basePrice = Number(product.price || 0);
-              const variantPrice = Number(product.variant?.price ?? basePrice);
-              const showDiscount = variantPrice > 0 && variantPrice < basePrice; const discountPercent=showDiscount &&
-                basePrice ? Math.round((1 - variantPrice / basePrice) * 100) : 0; const isOutOfStock=product.stock <=0;
-                %>
-                <a href="/product/<%= product._id %>" class="product-card">
-                  <div class="product-media">
-                    <% if (product.image) { %>
-                      <img src="<%= product.image %>" alt="<%= product.name %>">
-                      <% } else { %>
-                        <div class="placeholder-img">Image coming soon</div>
-                        <% } %>
+              <div class="filter-section">
+                <h3 class="filter-title">Price Range</h3>
+                <div class="price-inputs">
+                  <div class="price-input-group">
+                    <label>Min</label>
+                    <input type="number" id="minPriceInput" name="minPrice"
+                      value="<%= filters?.minPrice || priceRange?.min || 0 %>">
                   </div>
-                  <h3 class="product-name">
-                    <%= product.name %>
-                  </h3>
+                  <div class="price-input-group">
+                    <label>Max</label>
+                    <input type="number" id="maxPriceInput" name="maxPrice"
+                      value="<%= filters?.maxPrice || priceRange?.max || 5000 %>">
+                  </div>
+                </div>
+                <div class="range-slider">
+                  <div class="progress" id="priceProgress"></div>
+                  <input type="range" id="minRange" min="<%= priceRange?.min || 0 %>"
+                    max="<%= priceRange?.max || 5000 %>" value="<%= filters?.minPrice || priceRange?.min || 0 %>"
+                    step="10">
+                  <input type="range" id="maxRange" min="<%= priceRange?.min || 0 %>"
+                    max="<%= priceRange?.max || 5000 %>" value="<%= filters?.maxPrice || priceRange?.max || 5000 %>"
+                    step="10">
+                </div>
+              </div>
 
-                  <div class="price-block">
-                    <% if (isOutOfStock) { %>
-                      <span class="price-current">₹<%= variantPrice.toFixed(2) %></span>
-                      <span class="status-text">Out of Stock</span>
-                      <% } else { %>
-                        <span class="price-current">₹<%= variantPrice.toFixed(2) %></span>
-                        <% if (showDiscount) { %>
-                          <div class="original-price-row">
-                            <span class="price-old">₹<%= basePrice.toFixed(2) %></span>
-                            <span class="discount-text">
-                              <%= discountPercent %>% off
-                            </span>
+              <div class="filter-section">
+                <h3 class="filter-title">Brand</h3>
+                <div class="filter-list">
+                  <% if (brands && brands.length) { %>
+                    <% brands.forEach(brand=> { %>
+                      <label class="filter-item">
+                        <input type="checkbox" name="brand" value="<%= brand %>" <%=filters?.brands?.includes(brand)
+                          ? 'checked' : '' %>>
+                        <span>
+                          <%= brand %>
+                        </span>
+                      </label>
+                      <% }) %>
+                        <% } %>
+                </div>
+              </div>
+
+              <div class="filter-section">
+                <h3 class="filter-title">Category</h3>
+                <div class="filter-list">
+                  <% if (categories && categories.length) { %>
+                    <% categories.forEach(cat=> { %>
+                      <label class="filter-item">
+                        <input type="checkbox" name="category" value="<%= cat._id %>"
+                          <%=filters?.categories?.includes(cat._id.toString()) ? 'checked' : '' %>>
+                        <span>
+                          <%= cat.categoryName %>
+                        </span>
+                      </label>
+                      <% }) %>
+                        <% } %>
+                </div>
+              </div>
+
+              <div class="filter-section">
+                <h3 class="filter-title">Color</h3>
+                <div class="color-grid">
+                  <% if (colors && colors.length) { %>
+                    <% colors.forEach(color=> { %>
+                      <label class="color-swatch <%= filters?.colors?.includes(color) ? 'active' : '' %>"
+                        style="background-color: <%= color.toLowerCase() %>;" title="<%= color %>">
+                        <input type="checkbox" name="color" value="<%= color %>" <%=filters?.colors?.includes(color)
+                          ? 'checked' : '' %> onchange="this.parentElement.classList.toggle('active')">
+                      </label>
+                      <% }) %>
+                        <% } %>
+                </div>
+              </div>
+
+              <button type="submit"
+                style="width: 100%; padding: 0.75rem; background: var(--slate-800); color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 1rem;">Apply</button>
+            </form>
+          </aside>
+
+          <!-- Main Content -->
+          <section class="results-section">
+            <div class="results-header">
+              <div class="heading">
+                <h1>
+                  <%= filters?.heading || 'Chairs' %>
+                </h1>
+                <p>
+                  <%= pagination?.totalItems || 0 %> results found
+                </p>
+              </div>
+
+              <div class="sort-bar">
+                <label>Sort By</label>
+                <select class="sort-select" name="sort" form="productFilters" onchange="this.form.submit()">
+                  <option value="featured" <%=filters?.sort==='featured' ? 'selected' : '' %>>Featured</option>
+                  <option value="newest" <%=filters?.sort==='newest' ? 'selected' : '' %>>Latest Arrivals</option>
+                  <option value="name" <%=filters?.sort==='name' ? 'selected' : '' %>>A to Z</option>
+                  <option value="price-high" <%=filters?.sort==='price-high' ? 'selected' : '' %>>Price: High to Low
+                  </option>
+                  <option value="price-low" <%=filters?.sort==='price-low' ? 'selected' : '' %>>Price: Low to High
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Grid -->
+            <div class="products-grid">
+              <% if (products && products.length) { %>
+                <% products.forEach(product=> { %>
+                  <% const currentPrice=product.variant?.price || product.Baseprice; const isOnSale=currentPrice <
+                    product.Baseprice; const offPercent=isOnSale ? Math.round((1 - currentPrice / product.Baseprice) *
+                    100) : 0; %>
+                    <a href="/product/<%= product._id %>"
+                      class="product-card <%= product.stock <= 0 ? 'out-of-stock' : '' %>">
+                      <div class="product-media">
+                        <img src="<%= product.image || 'https://via.placeholder.com/400?text=SeatWorld' %>"
+                          alt="<%= product.name %>">
+                        <% if (isOnSale) { %>
+                          <div class="off-badge">
+                            <%= offPercent %>% off
                           </div>
                           <% } %>
-                            <% } %>
-                  </div>
-                </a>
-                <% }) %>
-                  <% } else { %>
-                    <div
-                      style="grid-column: 1 / -1; text-align:center; background:#fffefe; padding:3rem; border-radius:20px;">
-                      <h3 style="margin-bottom:0.5rem;">No products match your filters</h3>
-                      <p style="color:var(--slate-500);">
-                        Try adjusting your filters or clearing them to see more results.
-                      </p>
-                    </div>
-                    <% } %>
-        </div>
-
-        <% if (pagination && pagination.totalPages> 1) { %>
-          <div class="pagination">
-            <% if (pagination.hasPrev) { %>
-              <a class="page-btn prev-next"
-                href="?page=<%= pagination.currentPage - 1 %><%= query ? '&' + query : '' %>">
-                Previous
-              </a>
-              <% } %>
-
-                <% for (let i=1; i <=pagination.totalPages; i++) { %>
-                  <% if ( i===1 || i===pagination.totalPages || (i>= pagination.currentPage - 1 && i <=
-                      pagination.currentPage + 1) ) { %>
-                      <a class="page-btn <%= i === pagination.currentPage ? 'active' : '' %>"
-                        href="?page=<%= i %><%= query ? '&' + query : '' %>">
-                        <%= i %>
-                      </a>
-                      <% } else if (i===pagination.currentPage - 2 || i===pagination.currentPage + 2) { %>
-                        <span class="page-dots">...</span>
+                      </div>
+                      <div class="product-info">
+                        <h3>
+                          <%= product.name %>
+                        </h3>
+                        <div class="price-info">
+                          <% if (isOnSale) { %>
+                            <div class="p-current">₹<%= Number(currentPrice).toLocaleString('en-IN') %>
+                            </div>
+                            <div class="p-old-row">
+                              <span class="p-old">₹<%= Number(product.Baseprice).toLocaleString('en-IN') %></span>
+                              <span class="p-off">
+                                <%= offPercent %>% off
+                              </span>
+                            </div>
+                            <% } else { %>
+                              <div class="p-current">₹<%= Number(product.Baseprice).toLocaleString('en-IN') %>
+                              </div>
+                              <% } %>
+                        </div>
+                        <div class="stock-status" style="color: <%= product.stock > 0 ? '#10b981' : '#ef4444' %>">
+                          <%= product.stock> 0 ? 'In Stock' : 'Out of Stock' %>
+                        </div>
+                      </div>
+                    </a>
+                    <% }) %>
+                      <% } else { %>
+                        <div
+                          style="grid-column: 1/-1; text-align: center; padding: 4rem; background: #fff; border-radius: 12px;">
+                          <p style="color: var(--slate-400);">No products match your criteria.</p>
+                        </div>
                         <% } %>
-                          <% } %>
+            </div>
 
-                            <% if (pagination.hasNext) { %>
-                              <a class="page-btn prev-next"
-                                href="?page=<%= pagination.currentPage + 1 %><%= query ? '&' + query : '' %>">
-                                Next
+            <!-- Pagination -->
+            <div class="pagination-container">
+              <% if (pagination && pagination.totalItems> 0) { %>
+                <div class="pagination">
+                  <% if (pagination.totalPages> 1) { %>
+                    <a href="?page=<%= pagination.currentPage - 1 %>&<%= query %>"
+                      class="page-node <%= !pagination.hasPrev ? 'disabled' : '' %>" aria-label="Previous">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                      </svg>
+                    </a>
+
+                    <% const current=pagination.currentPage; const total=pagination.totalPages; const delta=2; let
+                      pagesList=[]; for (let i=1; i <=total; i++) { if (i===1 || i===total || (i>= current - delta && i
+                      <= current + delta)) { pagesList.push(i); } else if (pagesList[pagesList.length-1] !=='...' ) {
+                        pagesList.push('...'); } } %>
+
+                        <% pagesList.forEach(p=> { %>
+                          <% if (p==='...' ) { %>
+                            <span style="color: var(--slate-400)">...</span>
+                            <% } else { %>
+                              <a href="?page=<%= p %>&<%= query %>"
+                                class="page-node <%= p === current ? 'active' : '' %>">
+                                <%= p %>
                               </a>
                               <% } %>
+                                <% }) %>
+
+                                  <a href="?page=<%= pagination.currentPage + 1 %>&<%= query %>"
+                                    class="page-node <%= !pagination.hasNext ? 'disabled' : '' %>" aria-label="Next">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                      <polyline points="9 18 15 12 9 6"></polyline>
+                                    </svg>
+                                  </a>
+                                  <% } else { %>
+                                    <!-- Minimal pagination for single page to reassure user -->
+                                    <span class="page-node active">1</span>
+                                    <% } %>
+                </div>
+                <div class="pagination-info">
+                  Showing <%= Math.min(pagination.totalItems, (pagination.currentPage - 1) * pagination.itemsPerPage +
+                    1) %>-<%= Math.min(pagination.totalItems, pagination.currentPage * pagination.itemsPerPage) %> of
+                      <%= pagination.totalItems %> products
+                </div>
+                <% } %>
+            </div>
+          </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+          <div class="footer-links">
+            <a href="/about">About Us</a>
+            <a href="#">Contact</a>
+            <a href="#">FAQ</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
           </div>
-          <% } %>
-      </section>
-    </main>
+          <div class="footer-bottom">
+            <div class="social-icons">
+              <span>Twitter</span>
+              <span>Instagram</span>
+              <span>Facebook</span>
+            </div>
+            <div class="copyright">© <%= new Date().getFullYear() %> SeatWorld. All rights reserved.</div>
+          </div>
+        </footer>
 
-    <footer>
-      <div class="links">
-        <a href="/dashboard">Home</a>
-        <a href="/products">Products</a>
-        <a href="/about">About</a>
-      </div>
-      <p>© <%= new Date().getFullYear() %> SeatWorld. All rights reserved. </p>
-    </footer>
+        <script>
+          // Price Range Sync
+          const minRange = document.getElementById('minRange');
+          const maxRange = document.getElementById('maxRange');
+          const minInput = document.getElementById('minPriceInput');
+          const maxInput = document.getElementById('maxPriceInput');
+          const progress = document.getElementById('priceProgress');
 
-    <script>
-      const minRange = document.getElementById("minRange");
-      const maxRange = document.getElementById("maxRange");
-      const minInput = document.getElementById("minPriceInput");
-      const maxInput = document.getElementById("maxPriceInput");
-      const progress = document.getElementById("priceProgress");
+          function updateSlider() {
+            if (!minRange) return;
+            const min = parseInt(minRange.min);
+            const max = parseInt(minRange.max);
+            const minVal = parseInt(minRange.value);
+            const maxVal = parseInt(maxRange.value);
 
-      function clampRanges() {
-        const min = Number(minRange.min);
-        const max = Number(minRange.max);
+            if (maxVal - minVal < 100) {
+              if (event && event.target === minRange) minRange.value = maxVal - 100;
+              else if (event && event.target === maxRange) maxRange.value = minVal + 100;
+            }
 
-        let minVal = Math.min(Number(minRange.value), Number(maxRange.value) - 1);
-        let maxVal = Math.max(Number(maxRange.value), Number(minRange.value) + 1);
-        minVal = Math.max(min, minVal);
-        maxVal = Math.min(max, maxVal);
+            const cMin = parseInt(minRange.value);
+            const cMax = parseInt(maxRange.value);
 
-        minRange.value = minVal;
-        maxRange.value = maxVal;
-        minInput.value = minVal;
-        maxInput.value = maxVal;
+            minInput.value = cMin;
+            maxInput.value = cMax;
 
-        const left = ((minVal - min) / (max - min)) * 100;
-        const right = 100 - ((maxVal - min) / (max - min)) * 100;
-        progress.style.left = left + "%";
-        progress.style.right = right + "%";
-      }
+            const p1 = ((cMin - min) / (max - min)) * 100;
+            const p2 = ((cMax - min) / (max - min)) * 100;
 
-      if (minRange && maxRange) {
-        clampRanges();
-        minRange.addEventListener("input", clampRanges);
-        maxRange.addEventListener("input", clampRanges);
-      }
+            progress.style.left = p1 + '%';
+            progress.style.width = (p2 - p1) + '%';
+          }
 
-      if (minInput && maxInput) {
-        minInput.addEventListener("change", () => {
-          minRange.value = minInput.value || minRange.min;
-          clampRanges();
-        });
-        maxInput.addEventListener("change", () => {
-          maxRange.value = maxInput.value || maxRange.max;
-          clampRanges();
-        });
-      }
-    </script>
+          if (minRange) {
+            minRange.addEventListener('input', updateSlider);
+            maxRange.addEventListener('input', updateSlider);
+            minInput.addEventListener('change', () => { minRange.value = minInput.value; updateSlider(); });
+            maxInput.addEventListener('change', () => { maxRange.value = maxInput.value; updateSlider(); });
+            updateSlider();
+          }
+        </script>
 </body>
 
 </html>

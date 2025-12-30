@@ -49,7 +49,7 @@ export const getAdminDashboard = async (req, res) => {
 export const getCustomerlist = async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;
-        const limit = 10;
+        const limit = 5;
         const skip = (page - 1) * limit;
         const searchQuery = req.query.search || "";
 
@@ -70,16 +70,13 @@ export const getCustomerlist = async (req, res) => {
             .limit(limit)
             .sort({ createdAt: -1 });
 
-        let admin = {
-            email: process.env.ADMIN_EMAIL,
-        }
 
         res.render("admin/customerList", {
             users,
-            admin,
             currentPage: page,
             totalPages,
-            search: searchQuery
+            search: searchQuery,
+            limit
         });
     } catch (error) {
 
