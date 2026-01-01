@@ -6,265 +6,103 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your Cart - SeatWorld</title>
   <link rel="stylesheet" href="/css/styles.css">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-
-    header,
-    footer {
-      padding: 20px 40px;
-      background: #fff;
-      border-bottom: 1px solid #eee;
-    }
-
-    header nav a {
-      margin: 0 10px;
-      text-decoration: none;
-      color: black;
-    }
-
-    .cart-container {
-      display: flex;
-      justify-content: space-between;
-      gap: 30px;
-      padding: 40px;
-    }
-
-    .cart-items {
-      flex: 2;
-    }
-
-    .cart-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border: 1px solid #eee;
-      border-radius: 10px;
-      padding: 15px;
-      margin-bottom: 15px;
-      background: #fff;
-    }
-
-    .cart-item img {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-right: 15px;
-    }
-
-    .cart-item-details {
-      flex: 1;
-    }
-
-    .cart-item-details h4 {
-      margin: 0 0 5px;
-    }
-
-    .cart-item-details p {
-      margin: 0;
-      color: gray;
-      font-size: 14px;
-    }
-
-    .quantity-controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .quantity-controls button {
-      border: 1px solid #000;
-      background: #fff;
-      padding: 5px 10px;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-
-    .remove-btn {
-      color: red;
-      cursor: pointer;
-    }
-
-    .order-summary {
-      flex: 1;
-      border: 1px solid #eee;
-      border-radius: 10px;
-      padding: 20px;
-      background: #fff;
-    }
-
-    .order-summary h3 {
-      margin-bottom: 20px;
-    }
-
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-    }
-
-    .promo {
-      display: flex;
-      margin: 15px 0;
-    }
-
-    .promo input {
-      flex: 1;
-      padding: 8px;
-      border: 1px solid #ddd;
-      border-radius: 5px 0 0 5px;
-    }
-
-    .promo button {
-      padding: 8px 15px;
-      border: none;
-      background: black;
-      color: white;
-      border-radius: 0 5px 5px 0;
-      cursor: pointer;
-    }
-
-    .checkout-btn {
-      width: 100%;
-      padding: 12px;
-      background: black;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-      transition: all 0.2s;
-    }
-
-    .checkout-btn.btn-disabled {
-      background: #ccc;
-      color: #666;
-      cursor: not-allowed;
-    }
-
-    .stock-warning {
-      color: #ef4444;
-      font-size: 12px;
-      margin-top: 5px;
-      font-weight: 600;
-    }
-
-    .item-out-of-stock {
-      opacity: 0.6;
-    }
-
-    .pagination {
-      text-align: center;
-      margin: 30px 0;
-    }
-
-    .pagination button {
-      margin: 0 5px;
-      padding: 5px 12px;
-      border: 1px solid #000;
-      background: #fff;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-  </style>
+  <link rel="stylesheet" href="/css/users/cartList.css">
 </head>
 
 <body>
 
   <%- include('../partials/header', { showSearch: false }) %>
     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
-      <%- include('../partials/flash') %>
 
-        <!-- Cart -->
-        <section>
-          <h2 style="padding: 20px 40px;">YOUR CART</h2>
-          <div class="cart-container">
+      <!-- Cart -->
+      <section>
+        <h2 style="padding: 20px 40px;">YOUR CART</h2>
+        <div class="cart-container">
 
-            <!-- Cart Items -->
-            <div class="cart-items">
-              <% if (cartItems && cartItems.length> 0) { %>
-                <% cartItems.forEach(item=> { %>
-                  <div class="cart-item <%= item.outOfStock ? 'item-out-of-stock' : '' %>">
-                    <img src="<%= item.image %>" alt="<%= item.name %>">
-                    <div class="cart-item-details">
-                      <h4>
-                        <%= item.name %>
-                      </h4>
-                      <p>Color: <%= item.color %>
-                      </p>
-                      <p>₹<%= item.price %>
-                      </p>
-                      <% if (item.outOfStock) { %>
-                        <div class="stock-warning">Currently Unavailable / Out of Stock</div>
-                        <% } %>
-                    </div>
-                    <div class="quantity-controls">
-                      <button>-</button>
-                      <span>
-                        <%= item.quantity %>
-                      </span>
-                      <button>+</button>
-                    </div>
-                    <span class="remove-btn">🗑</span>
-                  </div>
-                  <% }) %>
-                    <% } else { %>
-                      <div
-                        style="padding: 20px; text-align: center; background: #fff; border-radius: 10px; border: 1px dashed #ccc;">
-                        Your cart is empty. <a href="/products" style="color: var(--primary); font-weight: 600;">Explore
-                          Products</a>
-                      </div>
+          <!-- Cart Items -->
+          <div class="cart-items">
+            <% if (cartItems && cartItems.length> 0) { %>
+              <% cartItems.forEach(item=> { %>
+                <div class="cart-item <%= item.outOfStock ? 'item-out-of-stock' : '' %>">
+                  <img src="<%= item.image %>" alt="<%= item.name %>">
+                  <div class="cart-item-details">
+                    <h4>
+                      <%= item.name %>
+                    </h4>
+                    <p>Color: <%= item.color %>
+                    </p>
+                    <p>₹<%= item.price %>
+                    </p>
+                    <% if (item.outOfStock) { %>
+                      <div class="stock-warning">Currently Unavailable / Out of Stock</div>
                       <% } %>
-            </div>
-
-            <!-- Order Summary -->
-            <div class="order-summary">
-              <h3>Order Summary</h3>
-              <div class="summary-row">
-                <span>Subtotal</span>
-                <span>₹<%= subtotal %></span>
-              </div>
-              <div class="summary-row">
-                <span>Delivery Fee</span>
-                <span>
-                  <%= deliveryFee %>
-                </span>
-              </div>
-              <div class="summary-row" style="font-weight: bold;">
-                <span>Total</span>
-                <span>₹<%= total %></span>
-              </div>
-              <div class="promo">
-                <input type="text" placeholder="Add promo code">
-                <button>Apply</button>
-              </div>
-              <% const hasOutOfStock=cartItems.some(item=> item.outOfStock); %>
-                <button class="checkout-btn <%= (hasOutOfStock || cartItems.length === 0) ? 'btn-disabled' : '' %>"
-                  <%=(hasOutOfStock || cartItems.length===0) ? 'disabled' : '' %> >
-                  <%= (hasOutOfStock && cartItems.length> 0) ? 'Remove Out of Stock Items to Checkout' : 'Go to Checkout
-                    →' %>
-                </button>
-            </div>
+                  </div>
+                  <div class="quantity-controls">
+                    <button>-</button>
+                    <span>
+                      <%= item.quantity %>
+                    </span>
+                    <button>+</button>
+                  </div>
+                  <span class="remove-btn">🗑</span>
+                </div>
+                <% }) %>
+                  <% } else { %>
+                    <div
+                      style="padding: 20px; text-align: center; background: #fff; border-radius: 10px; border: 1px dashed #ccc;">
+                      Your cart is empty. <a href="/products" style="color: var(--primary); font-weight: 600;">Explore
+                        Products</a>
+                    </div>
+                    <% } %>
           </div>
-        </section>
 
-        <!-- Pagination -->
-        <div class="pagination">
-          <button>Previous</button>
-          <button>1</button>
-          <button>2</button>
-          <button>3</button>
-          <button>Next</button>
+          <!-- Order Summary -->
+          <div class="order-summary">
+            <h3>Order Summary</h3>
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span>₹<%= subtotal %></span>
+            </div>
+            <div class="summary-row">
+              <span>Delivery Fee</span>
+              <span>
+                <%= deliveryFee %>
+              </span>
+            </div>
+            <div class="summary-row" style="font-weight: bold;">
+              <span>Total</span>
+              <span>₹<%= total %></span>
+            </div>
+            <div class="promo">
+              <input type="text" placeholder="Add promo code">
+              <button>Apply</button>
+            </div>
+            <% const hasOutOfStock=cartItems.some(item=> item.outOfStock); %>
+              <button class="checkout-btn <%= (hasOutOfStock || cartItems.length === 0) ? 'btn-disabled' : '' %>"
+                <%=(hasOutOfStock || cartItems.length===0) ? 'disabled' : '' %> >
+                <% if (hasOutOfStock && cartItems.length> 0) { %>
+                  Remove Out of Stock Items to Checkout
+                  <% } else { %>
+                    Go to Checkout &rarr;
+                    <% } %>
+              </button>
+          </div>
         </div>
+      </section>
 
-        <!-- Footer -->
-        <footer>
-          <p>© 2023 SeatWorld. All Rights Reserved</p>
-        </footer>
+      <!-- Pagination -->
+      <div class="pagination">
+        <button>Previous</button>
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>Next</button>
+      </div>
+
+      <!-- Footer -->
+      <footer>
+        <p>© 2023 SeatWorld. All Rights Reserved</p>
+      </footer>
 
 </body>
 

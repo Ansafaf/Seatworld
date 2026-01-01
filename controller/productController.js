@@ -4,32 +4,32 @@ import { buildBreadcrumb } from "../utils/breadcrumb.js";
 
 
 // Helper: Normalize query params into arrays and apply defaults
-    const normalizeQuery = (query) => {
-        const normalizeArr = (value) => {
-            if (!value) return [];
-            return Array.isArray(value) ? value.filter(Boolean) : [value].filter(Boolean);
-        };
-
-        const normalizeValue = (value, fallback, filterValue = "all") => {
-            const arr = normalizeArr(value).filter((v) => v !== filterValue);
-            return arr;
-        };
-
-        return {
-            selectedCategories: normalizeValue(query.category),
-            selectedBrands: normalizeValue(query.brand),
-            selectedColors: normalizeValue(query.color),
-            selectedTags: normalizeValue(query.tag),
-            sort: query.sort || "featured",
-            page: Math.max(1, parseInt(query.page, 10) || 1),
-            limit: Math.max(1, parseInt(query.limit, 6) || 8),
-            stock: query.stock,
-            discount: query.discount,
-            search: query.search,
-            minPrice: Number(query.minPrice),
-            maxPrice: Number(query.maxPrice)
-        };
+const normalizeQuery = (query) => {
+    const normalizeArr = (value) => {
+        if (!value) return [];
+        return Array.isArray(value) ? value.filter(Boolean) : [value].filter(Boolean);
     };
+
+    const normalizeValue = (value, fallback, filterValue = "all") => {
+        const arr = normalizeArr(value).filter((v) => v !== filterValue);
+        return arr;
+    };
+
+    return {
+        selectedCategories: normalizeValue(query.category),
+        selectedBrands: normalizeValue(query.brand),
+        selectedColors: normalizeValue(query.color),
+        selectedTags: normalizeValue(query.tag),
+        sort: query.sort || "featured",
+        page: Math.max(1, parseInt(query.page, 10) || 1),
+        limit: Math.max(1, parseInt(query.limit, 10) || 8),
+        stock: query.stock,
+        discount: query.discount,
+        search: query.search,
+        minPrice: Number(query.minPrice),
+        maxPrice: Number(query.maxPrice)
+    };
+};
 
 // Helper: Build base product filter
 const buildBaseFilter = (params) => {
@@ -225,7 +225,7 @@ export async function getProducts(req, res) {
         const totalPages = Math.max(1, Math.ceil(totalProducts / params.limit));
 
         // 8. Render
-        res.render("users/productlist", {
+        res.render("users/productList", {
             products: productsWithVariants,
             categories,
             brands,
@@ -263,7 +263,7 @@ export async function getProducts(req, res) {
     } catch (err) {
         console.error("Error fetching products:", err);
         const logoUrl = process.env.LOGO_URL || process.env.SEATWORLD_LOGO_URL || null;
-        res.render("users/productlist", {
+        res.render("users/productList", {
             error: "Failed to load products",
             products: [],
             categories: [],

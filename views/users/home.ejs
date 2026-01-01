@@ -6,285 +6,97 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SeatWorld | Home</title>
   <link rel="stylesheet" href="/css/style.css" />
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #fff;
-    }
-
-    /* Hero Section */
-    .hero {
-      position: relative;
-      width: 100%;
-      height: 80vh;
-      overflow: hidden;
-    }
-
-    .hero-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .hero-content {
-      position: absolute;
-      top: 50%;
-      right: 5%;
-      transform: translateY(-50%);
-      background: rgba(173, 216, 230, 0.9);
-      /* Light blue with opacity */
-      padding: 30px;
-      border-radius: 12px;
-      max-width: 400px;
-    }
-
-    .hero-content .tag {
-      font-size: 14px;
-      letter-spacing: 2px;
-      color: #333;
-    }
-
-    .hero-content h1 {
-      font-size: 32px;
-      font-weight: bold;
-      color: #003366;
-      margin: 10px 0;
-    }
-
-    .hero-content .desc {
-      font-size: 14px;
-      color: #333;
-      margin-bottom: 20px;
-    }
-
-    .hero-content .shopnow-button {
-      background: #003366;
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    /* Features */
-    .features {
-      display: flex;
-      justify-content: space-around;
-      text-align: center;
-      padding: 40px 8%;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .features div {
-      flex: 1;
-      min-width: 200px;
-    }
-
-    /* Inspiration */
-    .section-title {
-      text-align: center;
-      font-size: 1.6rem;
-      margin: 40px 0 10px;
-    }
-
-    .section-subtitle {
-      text-align: center;
-      color: #777;
-      margin-bottom: 40px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      padding: 0 8% 40px;
-    }
-
-    .grid img {
-      width: 100%;
-      border-radius: 10px;
-    }
-
-    /* Highlight Section */
-    .highlight {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 60px 8%;
-      flex-wrap: wrap;
-      background: #f2f7fc;
-    }
-
-    .highlight div {
-      max-width: 400px;
-    }
-
-    .highlight button {
-      margin-top: 15px;
-      background: #0b64c0;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .highlight img {
-      max-width: 350px;
-      width: 100%;
-    }
-
-    /* Footer */
-    footer {
-      background: #222;
-      color: #aaa;
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-
-      .hero,
-      .highlight {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      header {
-        flex-direction: column;
-        gap: 10px;
-      }
-    }
-
-    #welcome {
-      text-align: center;
-    }
-
-    .shopnow-button a {
-      text-decoration: none;
-      color: white;
-    }
-
-    header h1 {
-      color: #0b64c0;
-      font-size: 22px;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    header h1 img {
-      width: 40px;
-      height: 40px;
-      object-fit: contain;
-    }
-  </style>
+  <link rel="stylesheet" href="/css/users/home.css">
 </head>
 
 <body>
   <%- include('../partials/header', { showSearch: false }) %>
-    <%- include('../partials/flash') %>
-      <h2 id="welcome">Welcome, <%= user.username || user.name %>
-      </h2>
+    <h2 id="welcome">Welcome, <%= user.username || user.name %>
+    </h2>
 
-      <!-- Hero -->
-      <section class="hero">
-        <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1755794545/LandingImage_uparu2.png" alt="Chair"
-          class="hero-img">
+    <!-- Hero -->
+    <section class="hero">
+      <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1755794545/LandingImage_uparu2.png" alt="Chair"
+        class="hero-img">
 
-        <div class="hero-content">
-          <p class="tag">New Arrival</p>
-          <h1>Discover Our New Chairs</h1>
-          <p class="desc">
-            Pain itself, it is pain that loves, it is the main concern.
-            Let the chosen one be the best, full of comfort and free from distress.
-          </p>
-          <a href="/products"><button class="shopnow-button">Shop Now</button></a>
-        </div>
-      </section>
+      <div class="hero-content">
+        <p class="tag">New Arrival</p>
+        <h1>Discover Our New Chairs</h1>
+        <p class="desc">
+          Pain itself, it is pain that loves, it is the main concern.
+          Let the chosen one be the best, full of comfort and free from distress.
+        </p>
+        <a href="/products"><button class="shopnow-button">Shop Now</button></a>
+      </div>
+    </section>
 
-      <!-- Features -->
-      <section class="features">
-        <div>
-          <h3>🚚 Free Delivery</h3>
-          <p>On all orders above $100</p>
-        </div>
-        <div>
-          <h3>💬 Support 24/7</h3>
-          <p>Always here to help</p>
-        </div>
-        <div>
-          <h3>✅ 100% Authentic</h3>
-          <p>Quality assured products</p>
-        </div>
-      </section>
+    <!-- Features -->
+    <section class="features">
+      <div>
+        <h3>🚚 Free Delivery</h3>
+        <p>On all orders above $100</p>
+      </div>
+      <div>
+        <h3>💬 Support 24/7</h3>
+        <p>Always here to help</p>
+      </div>
+      <div>
+        <h3>✅ 100% Authentic</h3>
+        <p>Quality assured products</p>
+      </div>
+    </section>
 
-      <!-- Inspiration Collection -->
-      <h2 class="section-title">Inspiration Collection</h2>
-      <div class="grid">
-        <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765780775/products/scttvsxu2dcu9vow5sss.webp"
-          alt="Chair 1" />
+
+
+    <!-- Highlight Section -->
+    <section class="highlight">
+      <div>
+        <h2>Beautify Your Space</h2>
+        <p>Our modern chairs add a stylish touch to your office and home interiors, making every moment a relaxation
+          moment.</p>
+        <button>Learn More</button>
+      </div>
+      <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765781240/products/t9cvndkn4rt9j9zbfgji.webp"
+        alt="Highlight Chair" />
+    </section>
+
+    <!-- Categories -->
+    <!-- Categories -->
+    <!-- Dynamic Categories -->
+    <h2 class="section-title">Browse The Categories</h2>
+    <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <div class="grid">
+      <div>
+        <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp"
+          alt="Dining Chairs" />
+        <p>Dining Chairs</p>
+      </div>
+      <div>
         <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765780860/products/t1z6w3of7dcdlzcvsa1c.webp"
-          alt="Chair 2" />
+          alt="Gaming Chairs" />
+        <p>Gaming chairs</p>
+      </div>
+      <div>
         <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765780921/products/fldhlhdyjy1erk74joyc.webp"
-          alt="Chair 3" />
+          alt="Office Chairs" />
+        <p>Office chairs</p>
       </div>
+    </div>
+    <!-- Use Cases -->
+    <h2 class="section-title">Common Use Case</h2>
+    <div class="grid">
+      <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787853/products/olwwoizg6ktaw8ry2fjs.png"
+        alt="Office Use" />
+      <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765788018/products/pc6pm8mkmepubyx7fmbz.png"
+        alt="Events" />
+      <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765788112/products/ace1c9vlvbrkqumbwvgr.png"
+        alt="Dining" />
+    </div>
 
-      <!-- Highlight Section -->
-      <section class="highlight">
-        <div>
-          <h2>Beautify Your Space</h2>
-          <p>Our modern chairs add a stylish touch to your office and home interiors, making every moment a relaxation
-            moment.</p>
-          <button>Learn More</button>
-        </div>
-        <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765781240/products/t9cvndkn4rt9j9zbfgji.webp"
-          alt="Highlight Chair" />
-      </section>
-
-      <!-- Categories -->
-      <!-- Categories -->
-      <h2 class="section-title">Browse The Categories</h2>
-      <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <div class="grid">
-        <div>
-          <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp"
-            alt="Dining Chairs" />
-          <p>Dining Chairs</p>
-        </div>
-        <div>
-          <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765780860/products/t1z6w3of7dcdlzcvsa1c.webp"
-            alt="Gaming Chairs" />
-          <p>Gaming chairs</p>
-        </div>
-        <div>
-          <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765780921/products/fldhlhdyjy1erk74joyc.webp"
-            alt="Office Chairs" />
-          <p>Office chairs</p>
-        </div>
-      </div>
-
-      <!-- Use Cases -->
-      <h2 class="section-title">Common Use Case</h2>
-      <div class="grid">
-        <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787853/products/olwwoizg6ktaw8ry2fjs.png"
-          alt="Office Use" />
-        <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765788018/products/pc6pm8mkmepubyx7fmbz.png"
-          alt="Events" />
-        <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765788112/products/ace1c9vlvbrkqumbwvgr.png"
-          alt="Dining" />
-      </div>
-
-      <!-- Footer -->
-      <footer>
-        <p>&copy; 2025 SeatWorld. All Rights Reserved.</p>
-      </footer>
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 SeatWorld. All Rights Reserved.</p>
+    </footer>
 
 </body>
 

@@ -9,6 +9,7 @@ export const adminAuthMiddleware = (req, res, next) => {
       req.session?.isAdmin &&
       req.session?.adminEmail === ADMIN_EMAIL
     ) {
+      console.log(`[Auth] User authenticated: ${req.session.adminEmail} for ${req.method} ${req.url}`);
       res.locals.admin = {
         email: req.session.adminEmail,
       };

@@ -8,25 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: "#F97316",
-                        secondary: "#1F2937",
-                    },
-                    fontFamily: {
-                        display: ["Inter", "sans-serif"],
-                    },
-                },
-            },
-        };
-    </script>
+    <script src="/js/admin/common.js"></script>
 </head>
 
 <body class="font-display bg-gray-50 text-gray-800">
-    <%- include('../partials/flash') %>
         <!-- Top Header -->
         <header class="bg-white shadow-sm fixed w-full z-50 h-16 flex items-center justify-between px-6">
             <div class="flex items-center gap-4">
@@ -297,27 +282,7 @@
             </main>
         </div>
 
-        <script>
-            const sidebar = document.getElementById("adminSidebar");
-            const mobileMenuBtn = document.getElementById("mobileMenuBtn");
-            const sidebarOverlay = document.getElementById("sidebarOverlay");
 
-            const toggleSidebar = () => {
-                const isClosed = sidebar.classList.contains("-translate-x-full");
-                if (isClosed) {
-                    sidebar.classList.remove("-translate-x-full");
-                    sidebarOverlay.classList.remove("hidden");
-                    document.body.classList.add("overflow-hidden");
-                } else {
-                    sidebar.classList.add("-translate-x-full");
-                    sidebarOverlay.classList.add("hidden");
-                    document.body.classList.remove("overflow-hidden");
-                }
-            };
-
-            if (mobileMenuBtn) mobileMenuBtn.addEventListener("click", toggleSidebar);
-            if (sidebarOverlay) sidebarOverlay.addEventListener("click", toggleSidebar);
-        </script>
 </body>
 
 </html>

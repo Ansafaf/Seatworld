@@ -8,150 +8,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: "#F97316",
-            secondary: "#1F2937",
-          },
-          fontFamily: {
-            display: ["Inter", "sans-serif"],
-          },
-        },
-      },
-    };
-  </script>
-  <style>
-    /* Custom styles for table header rounding */
-    thead tr th:first-child {
-      border-top-left-radius: 0.5rem;
-      border-bottom-left-radius: 0.5rem;
-    }
-
-    thead tr th:last-child {
-      border-top-right-radius: 0.5rem;
-      border-bottom-right-radius: 0.5rem;
-    }
-
-    /* Pagination Styling */
-    .pagination-container {
-      display: flex;
-      justify-content: center;
-      margin-top: 32px;
-      padding-bottom: 16px;
-    }
-
-    .pagination-bar {
-      background: white;
-      display: flex;
-      align-items: center;
-      padding: 8px 16px;
-      border-radius: 9999px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-      border: 1px solid #f3f4f6;
-      gap: 8px;
-    }
-
-    .pagination-nav-link {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      padding: 6px 16px;
-      border-radius: 9999px;
-      color: #4b5563;
-      font-size: 0.875rem;
-      font-weight: 600;
-      transition: all 0.2s;
-      text-decoration: none;
-    }
-
-    .pagination-nav-link:hover:not(.disabled) {
-      background-color: #f3f4f6;
-      color: #111827;
-    }
-
-    .pagination-nav-link.disabled {
-      color: #d1d5db;
-      cursor: not-allowed;
-    }
-
-    .pagination-numbers {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      padding: 0 8px;
-      border-left: 1px solid #e5e7eb;
-      border-right: 1px solid #e5e7eb;
-      margin: 0 8px;
-    }
-
-    .pagination-number {
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 9999px;
-      color: #6b7280;
-      font-size: 0.875rem;
-      font-weight: 500;
-      transition: all 0.2s;
-      text-decoration: none;
-    }
-
-    .pagination-number:hover:not(.active) {
-      background-color: #f3f4f6;
-      color: #111827;
-    }
-
-    .pagination-number.active {
-      background-color: #F97316;
-      color: white;
-      font-weight: 700;
-      box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3);
-    }
-
-    .pagination-dots {
-      color: #9ca3af;
-      padding: 0 4px;
-    }
-  </style>
-  <style>
-    /* Message alert animation */
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .animate-slideIn {
-      animation: slideIn 0.4s ease-out;
-    }
-
-    @keyframes fadeOut {
-      from {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      to {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-    }
-
-    .animate-fadeOut {
-      animation: fadeOut 0.3s ease-in forwards;
-    }
-  </style>
+  <script src="/js/admin/common.js"></script>
+  <link rel="stylesheet" href="/css/admin/customerList.css">
 </head>
 
 <body class="font-display bg-gray-100 text-gray-800">
@@ -288,238 +146,158 @@
       <div class="max-w-7xl mx-auto">
 
         <!-- Message Alert -->
-        <%- include('../partials/flash') %>
-          <!-- Header Actions -->
-          <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-            <div class="hidden md:block"></div>
+        <!-- Header Actions -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+          <div class="hidden md:block"></div>
 
-            <div class="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto ml-auto">
-              <form action="/admin/users" method="GET" class="relative w-full md:w-80">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-                  <span class="material-icons-outlined text-xl">search</span>
-                </span>
-                <input type="text" id="searchInput" name="search" value="<%= search %>"
-                  placeholder="Search for customers"
-                  class="w-full py-2.5 pl-10 pr-4 bg-white text-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 shadow-sm">
-              </form>
-            </div>
+          <div class="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto ml-auto">
+            <form action="/admin/users" method="GET" class="relative w-full md:w-80">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                <span class="material-icons-outlined text-xl">search</span>
+              </span>
+              <input type="text" id="searchInput" name="search" value="<%= search %>" placeholder="Search for customers"
+                class="w-full py-2.5 pl-10 pr-4 bg-white text-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 shadow-sm">
+            </form>
+          </div>
+        </div>
+
+        <!-- Table Card -->
+        <div class="bg-white rounded-2xl shadow-sm p-8 min-h-[600px] relative">
+          <div class="overflow-x-auto">
+            <table class="w-full whitespace-nowrap border-separate border-spacing-y-4" id="customersTable">
+              <thead>
+                <tr class="bg-[#C4C4C4]">
+                  <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">ID</th>
+                  <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">Name</th>
+                  <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">Email</th>
+                  <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">Status</th>
+                  <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">Action</th>
+                </tr>
+              </thead>
+              <tbody id="customerTableBody" class="">
+                <% if (users && users.length> 0) { %>
+                  <% users.forEach((user, index)=> { %>
+                    <tr data-user-id="<%= user._id %>"
+                      class="hover:bg-gray-50 transition-colors duration-150 customer-row">
+                      <td class="px-6 py-4 text-sm font-bold text-gray-900">
+                        <%= (currentPage - 1) * limit + index + 1 %>
+                      </td>
+                      <td class="px-6 py-4 text-sm font-bold text-gray-900 name-cell">
+                        <%= user.name || user.username || 'N/A' %>
+                      </td>
+                      <td class="px-6 py-4 text-sm text-gray-600 email-cell">
+                        <%= user.email || 'N/A' %>
+                      </td>
+                      <td class="px-6 py-4 text-sm text-gray-600 status-cell">
+                        <span
+                          class="status-badge px-2 inline-flex text-xs leading-5 font-semibold rounded-full capitalize <%= user.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' %>">
+                          <%= user.status %>
+                        </span>
+                      </td>
+                      <td class="px-6 py-4 text-sm action-cell">
+                        <div class="flex items-center gap-2 action-btn-container">
+                          <% if (user.status==='blocked' ) { %>
+                            <button onclick="handleAction('/admin/users/<%= user._id %>/unblock', 'unblock')"
+                              class="action-btn inline-flex items-center justify-center px-4 py-1.5 bg-green-600 hover:bg-green-700 text-white text-xs font-bold rounded transition-colors duration-200">
+                              Unblock
+                            </button>
+                            <% } else { %>
+                              <button onclick="handleAction('/admin/users/<%= user._id %>/block', 'block')"
+                                class="action-btn inline-flex items-center justify-center px-4 py-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded transition-colors duration-200">
+                                Block
+                              </button>
+                              <% } %>
+                        </div>
+                      </td>
+                    </tr>
+                    <% }) %>
+                      <% } else { %>
+                        <tr>
+                          <td colspan="5" class="px-6 py-10 text-center text-gray-500">
+                            No customers found.
+                          </td>
+                        </tr>
+                        <% } %>
+              </tbody>
+            </table>
           </div>
 
-          <!-- Table Card -->
-          <div class="bg-white rounded-2xl shadow-sm p-8 min-h-[600px] relative">
-            <div class="overflow-x-auto">
-              <table class="w-full whitespace-nowrap border-separate border-spacing-y-4" id="customersTable">
-                <thead>
-                  <tr class="bg-[#C4C4C4]">
-                    <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">ID</th>
-                    <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">Name</th>
-                    <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">Email</th>
-                    <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">Status</th>
-                    <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">Action</th>
-                  </tr>
-                </thead>
-                <tbody class="">
-                  <% if (users && users.length> 0) { %>
-                    <% users.forEach((user, index)=> { %>
-                      <tr class="hover:bg-gray-50 transition-colors duration-150 customer-row">
-                        <td class="px-6 py-4 text-sm font-bold text-gray-900">
-                          <%= (currentPage - 1) * limit + index + 1 %>
-                        </td>
-                        <td class="px-6 py-4 text-sm font-bold text-gray-900 name-cell">
-                          <%= user.name || user.username || 'N/A' %>
-                        </td>
-                        <td class="px-6 py-4 text-sm text-gray-600 email-cell">
-                          <%= user.email || 'N/A' %>
-                        </td>
-                        <td class="px-6 py-4 text-sm text-gray-600">
-                          <%= user.status %>
-                        </td>
-                        <td class="px-6 py-4 text-sm">
-                          <button onclick="handleAction('/admin/users/<%= user._id %>/unblock', 'unblock')"
-                            class="inline-flex items-center justify-center px-4 py-1.5 bg-[#008000] hover:bg-green-800 text-white text-xs font-bold rounded transition-colors duration-200 mr-2">
-                            Unblock
-                          </button>
-                          <button onclick="handleAction('/admin/users/<%= user._id %>/block', 'block')"
-                            class="inline-flex items-center justify-center px-4 py-1.5 bg-[#B91C1C] hover:bg-red-800 text-white text-xs font-bold rounded transition-colors duration-200">
-                            Block
-                          </button>
-                        </td>
-                      </tr>
-                      <% }) %>
-                        <% } else { %>
-                          <tr>
-                            <td colspan="5" class="px-6 py-10 text-center text-gray-500">
-                              No customers found.
-                            </td>
-                          </tr>
-                          <% } %>
-                </tbody>
-              </table>
-            </div>
-
-            <!-- Pagination -->
-            <!-- Pagination -->
-            <% if (totalPages> 1) { %>
-              <div class="pagination-container">
-                <div class="pagination-bar">
-                  <!-- Previous Button -->
-                  <% if (currentPage> 1) { %>
-                    <a href="/admin/users?page=<%= currentPage - 1 %>&search=<%= search %>" class="pagination-nav-link">
+          <!-- Pagination -->
+          <!-- Pagination -->
+          <% if (totalPages> 1) { %>
+            <div id="paginationContainer" class="pagination-container">
+              <div class="pagination-bar">
+                <!-- Previous Button -->
+                <% if (currentPage> 1) { %>
+                  <a href="/admin/users?page=<%= currentPage - 1 %>&search=<%= search %>" class="pagination-nav-link">
+                    <span class="material-icons-outlined">arrow_back</span>
+                    <span>Prev</span>
+                  </a>
+                  <% } else { %>
+                    <span class="pagination-nav-link disabled">
                       <span class="material-icons-outlined">arrow_back</span>
                       <span>Prev</span>
-                    </a>
-                    <% } else { %>
-                      <span class="pagination-nav-link disabled">
-                        <span class="material-icons-outlined">arrow_back</span>
-                        <span>Prev</span>
-                      </span>
-                      <% } %>
+                    </span>
+                    <% } %>
 
-                        <!-- Page Numbers -->
-                        <div class="pagination-numbers">
-                          <% let startPage=Math.max(1, currentPage - 2); let endPage=Math.min(totalPages, currentPage +
-                            2); if (currentPage <=3) { startPage=1; endPage=Math.min(totalPages, 5); } else if
-                            (currentPage>= totalPages - 2) {
-                            startPage = Math.max(1, totalPages - 4);
-                            endPage = totalPages;
-                            }
-                            %>
+                      <!-- Page Numbers -->
+                      <div class="pagination-numbers">
+                        <% let startPage=Math.max(1, currentPage - 2); let endPage=Math.min(totalPages, currentPage +
+                          2); if (currentPage <=3) { startPage=1; endPage=Math.min(totalPages, 5); } else if
+                          (currentPage>= totalPages - 2) {
+                          startPage = Math.max(1, totalPages - 4);
+                          endPage = totalPages;
+                          }
+                          %>
 
-                            <% if (startPage> 1) { %>
-                              <a href="/admin/users?page=1&search=<%= search %>" class="pagination-number">1</a>
-                              <% if (startPage> 2) { %>
-                                <span class="pagination-dots">...</span>
+                          <% if (startPage> 1) { %>
+                            <a href="/admin/users?page=1&search=<%= search %>" class="pagination-number">1</a>
+                            <% if (startPage> 2) { %>
+                              <span class="pagination-dots">...</span>
+                              <% } %>
                                 <% } %>
-                                  <% } %>
 
-                                    <% for (let i=startPage; i <=endPage; i++) { %>
-                                      <a href="/admin/users?page=<%= i %>&search=<%= search %>"
-                                        class="pagination-number <%= currentPage === i ? 'active' : '' %>">
-                                        <%= i %>
-                                      </a>
-                                      <% } %>
+                                  <% for (let i=startPage; i <=endPage; i++) { %>
+                                    <a href="/admin/users?page=<%= i %>&search=<%= search %>"
+                                      class="pagination-number <%= currentPage === i ? 'active' : '' %>">
+                                      <%= i %>
+                                    </a>
+                                    <% } %>
 
-                                        <% if (endPage < totalPages) { %>
-                                          <% if (endPage < totalPages - 1) { %>
-                                            <span class="pagination-dots">...</span>
+                                      <% if (endPage < totalPages) { %>
+                                        <% if (endPage < totalPages - 1) { %>
+                                          <span class="pagination-dots">...</span>
+                                          <% } %>
+                                            <a href="/admin/users?page=<%= totalPages %>&search=<%= search %>"
+                                              class="pagination-number">
+                                              <%= totalPages %>
+                                            </a>
                                             <% } %>
-                                              <a href="/admin/users?page=<%= totalPages %>&search=<%= search %>"
-                                                class="pagination-number">
-                                                <%= totalPages %>
-                                              </a>
-                                              <% } %>
-                        </div>
+                      </div>
 
-                        <!-- Next Button -->
-                        <% if (currentPage < totalPages) { %>
-                          <a href="/admin/users?page=<%= currentPage + 1 %>&search=<%= search %>"
-                            class="pagination-nav-link">
+                      <!-- Next Button -->
+                      <% if (currentPage < totalPages) { %>
+                        <a href="/admin/users?page=<%= currentPage + 1 %>&search=<%= search %>"
+                          class="pagination-nav-link">
+                          <span>Next</span>
+                          <span class="material-icons-outlined">arrow_forward</span>
+                        </a>
+                        <% } else { %>
+                          <span class="pagination-nav-link disabled">
                             <span>Next</span>
                             <span class="material-icons-outlined">arrow_forward</span>
-                          </a>
-                          <% } else { %>
-                            <span class="pagination-nav-link disabled">
-                              <span>Next</span>
-                              <span class="material-icons-outlined">arrow_forward</span>
-                            </span>
-                            <% } %>
-                </div>
+                          </span>
+                          <% } %>
               </div>
-              <% } %>
-          </div>
+            </div>
+            <% } %>
+        </div>
       </div>
     </main>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script>
-    const sidebar = document.getElementById("adminSidebar");
-    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
-    const sidebarOverlay = document.getElementById("sidebarOverlay");
-
-    const toggleSidebar = () => {
-      const isClosed = sidebar.classList.contains("-translate-x-full");
-      if (isClosed) {
-        sidebar.classList.remove("-translate-x-full");
-        sidebarOverlay.classList.remove("hidden");
-        document.body.classList.add("overflow-hidden");
-      } else {
-        sidebar.classList.add("-translate-x-full");
-        sidebarOverlay.classList.add("hidden");
-        document.body.classList.remove("overflow-hidden");
-      }
-    };
-
-    if (mobileMenuBtn) mobileMenuBtn.addEventListener("click", toggleSidebar);
-    if (sidebarOverlay) sidebarOverlay.addEventListener("click", toggleSidebar);
-
-    // Debounced search functionality
-    const searchInput = document.getElementById('searchInput');
-    let searchTimeout;
-
-    if (searchInput) {
-      searchInput.addEventListener('input', (e) => {
-        const searchTerm = e.target.value;
-
-        // Clear previous timeout
-        clearTimeout(searchTimeout);
-
-        // Set new timeout for debouncing (500ms delay)
-        searchTimeout = setTimeout(() => {
-          // Get current page from URL or default to 1
-          const urlParams = new URLSearchParams(window.location.search);
-          const currentPage = urlParams.get('page') || '1';
-
-          // Navigate to search results (reset to page 1 for new search)
-          window.location.href = `/admin/users?page=1&search=${encodeURIComponent(searchTerm)}`;
-        }, 500);
-      });
-    }
-
-    function handleAction(url, action) {
-      const title = action === 'block' ? 'Block User?' : 'Unblock User?';
-      const text = action === 'block'
-        ? "Are you sure you want to block this user? They won't be able to login."
-        : "Are you sure you want to unblock this user?";
-      const confirmBtnColor = action === 'block' ? '#B91C1C' : '#008000';
-
-      Swal.fire({
-        title: title,
-        text: text,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: confirmBtnColor,
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Yes, proceed!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href = url;
-        }
-      })
-    }
-
-    // Message alert dismiss functionality
-    function dismissMessage() {
-      const messageAlert = document.getElementById('messageAlert');
-      if (messageAlert) {
-        messageAlert.classList.remove('animate-slideIn');
-        messageAlert.classList.add('animate-fadeOut');
-        setTimeout(() => {
-          messageAlert.remove();
-        }, 300);
-      }
-    }
-
-    // Auto-dismiss message after 5 seconds
-    window.addEventListener('DOMContentLoaded', () => {
-      const messageAlert = document.getElementById('messageAlert');
-      if (messageAlert) {
-        setTimeout(() => {
-          dismissMessage();
-        }, 5000);
-      }
-    });
-  </script>
+  <script type="module" src="/js/admin/customerList.js"></script>
 </body>
 
 </html>

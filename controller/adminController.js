@@ -31,10 +31,9 @@ export const postLoginAdmin = async (req, res) => {
     if (adminExist.email === email && adminExist.password === password) {
         req.session.isAdmin = true;
         req.session.adminEmail = email;
-        return res.redirect("/admin/dashboard");
+        return res.status(200).json({ success: true, message: "Login successful", redirectUrl: "/admin/dashboard" });
     }
-    res.locals.message = { type: 'error', message: "invalid email or password" };
-    res.render('admin/adminLogin');
+    res.status(401).json({ success: false, message: "Invalid email or password", redirectUrl: "/admin/login" });
 }
 
 export const getAdminDashboard = async (req, res) => {
@@ -46,10 +45,10 @@ export const getAdminDashboard = async (req, res) => {
     res.render("admin/dashboard", { users, admin });
 }
 
-export const getCustomerlist = async (req, res) => {
+export const getCustomerlist = async (req, res, next) => {
     try {
         const page = parseInt(req.query.page) || 1;
-        const limit = 5;
+        const limit = parseInt(req.query.limit) || 5;
         const skip = (page - 1) * limit;
         const searchQuery = req.query.search || "";
 
@@ -70,6 +69,17 @@ export const getCustomerlist = async (req, res) => {
             .limit(limit)
             .sort({ createdAt: -1 });
 
+        // AJAX Support
+        if (req.xhr || req.headers.accept?.includes("application/json")) {
+            return res.status(200).json({
+                success: true,
+                users,
+                currentPage: page,
+                totalPages,
+                search: searchQuery,
+                limit
+            });
+        }
 
         res.render("admin/customerList", {
             users,
@@ -79,9 +89,8 @@ export const getCustomerlist = async (req, res) => {
             limit
         });
     } catch (error) {
-
         console.error("Error fetching customers:", error);
-        res.status(500).send("Something went wrong!");
+        next(error);
     }
 }
 
@@ -98,15 +107,13 @@ export const blockUser = async (req, res) => {
 
         // Check if user is already blocked
         if (user.status == "blocked") {
-            req.session.message = { type: 'warning', message: "user is already blocked" };
-            return res.redirect("/admin/users");
+            return res.status(200).json({ success: false, message: "User is already blocked" });
         }
 
         // Block the user
         await User.findByIdAndUpdate(userId, { status: "blocked" });
 
-        req.session.message = { type: 'success', message: "user blocked successfully" };
-        res.redirect("/admin/users");
+        res.status(200).json({ success: true, message: "User blocked successfully", redirectUrl: "/admin/users" });
 
     } catch (error) {
         console.error("Error blocking user:", error);
@@ -127,14 +134,12 @@ export const unblockUser = async (req, res) => {
         }
 
         if (user.status == "active") {
-            req.session.message = { type: 'warning', message: "user is already unblocked" };
-            return res.redirect("/admin/users");
+            return res.status(200).json({ success: false, message: "User is already unblocked" });
         }
 
         await User.findByIdAndUpdate(userId, { status: "active" });
 
-        req.session.message = { type: 'success', message: "user unblocked successfully" };
-        res.redirect("/admin/users");
+        res.status(200).json({ success: true, message: "User unblocked successfully", redirectUrl: "/admin/users" });
 
     } catch (error) {
         console.error("Error unblocking user:", error);

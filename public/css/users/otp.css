@@ -1,0 +1,158 @@
+    body {
+        font-family: 'Inter', sans-serif;
+        background: #fff;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    .header {
+        display: flex;
+        align-items: center;
+        padding: 15px 40px;
+    }
+
+    .header img {
+        height: 35px;
+        margin-right: 10px;
+    }
+
+    .header h1 {
+        font-size: 20px;
+        margin: 0;
+        color: #0a3d62;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+    }
+
+    .card {
+        background: #f8f9fa;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+        width: 320px;
+        text-align: center;
+    }
+
+    .card img {
+        width: 50px;
+        margin-bottom: 15px;
+    }
+
+    .card p {
+        font-size: 14px;
+        color: #444;
+        margin-bottom: 20px;
+    }
+
+    .otp-inputs {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+    }
+
+    .otp-inputs input {
+        width: 50px;
+        height: 50px;
+        font-size: 22px;
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+    }
+
+    .resend {
+        font-size: 12px;
+        margin: 10px 0;
+        color: #666;
+    }
+
+    .resend a {
+        text-decoration: none;
+        color: #0a3d62;
+        font-weight: 600;
+        margin-left: 4px;
+    }
+
+    .timer {
+        font-size: 12px;
+        color: #444;
+        margin-bottom: 15px;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+    }
+
+    .buttons button {
+        flex: 1;
+        margin: 0 5px;
+        padding: 12px;
+        border: none;
+        border-radius: 25px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .cancel {
+        background: #ccc;
+        color: #fff;
+    }
+
+    .verify {
+        background: #999;
+        color: #fff;
+    }
+
+    .verify:hover {
+        background: #666;
+    }
+
+    /* Messages */
+    .error {
+        background-color: #ffe5e5;
+        color: #d9534f;
+        border: 1px solid #f5c2c2;
+        border-radius: 6px;
+        padding: 10px;
+        font-size: 13px;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .message {
+        background-color: #e8f7e5;
+        color: #2e7d32;
+        border: 1px solid #c3e6cb;
+        border-radius: 6px;
+        padding: 10px;
+        font-size: 13px;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .resend.disabled {
+        opacity: 0.4;
+        pointer-events: none;
+
+        /* disables click */
+        .resend {
+            display: none;
+            /* hidden initially */
+            font-size: 12px;
+            margin: 10px 0;
+            color: #666;
+        }
+
+        .resend.show {
+            display: block;
+            /* show after expiry */
+        }
+
+    }

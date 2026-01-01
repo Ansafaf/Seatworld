@@ -2,39 +2,11 @@
     <% let finalMessage=messageData || message; let msgType=(typeof finalMessage==='object' && finalMessage &&
         finalMessage.type) ? finalMessage.type : 'info' ; let msgText=(typeof finalMessage==='object' && finalMessage &&
         finalMessage.message) ? finalMessage.message : (typeof finalMessage==='string' ? finalMessage : '' ); if
-        (msgText) { let bgColor, textColor, borderColor; switch(msgType) { case 'success' : bgColor='#e6fffa' ;
-        textColor='#2c7a7b' ; borderColor='#b2f5ea' ; break; case 'error' : bgColor='#fff5f5' ; textColor='#c53030' ;
-        borderColor='#feb2b2' ; break; case 'warning' : bgColor='#fffaf0' ; textColor='#975a16' ; borderColor='#fbd38d'
-        ; break; case 'info' : default: bgColor='#ebf8ff' ; textColor='#2b6cb0' ; borderColor='#bee3f8' ; break; } %>
-        <div class="flash-container"
-            style="padding: 15px 20px; margin: 0 auto; max-width: 600px; width: 90%; border-radius: 8px; text-align: center; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 10000; animation: slideIn 0.3s ease-out; background-color: <%= bgColor %>; color: <%= textColor %>; border: 1px solid <%= borderColor %>;">
+        (msgText) { %>
+        <link rel="stylesheet" href="/css/users/flash.css">
+        <div class="flash-container flash-<%= msgType %>">
             <%= msgText %>
         </div>
+        <script src="/js/users/flash.js"></script>
         <% } %>
             <% } %>
-
-                <style>
-                    @keyframes slideIn {
-                        from {
-                            transform: translateY(-20px);
-                            opacity: 0;
-                        }
-
-                        to {
-                            transform: translateY(0);
-                            opacity: 1;
-                        }
-                    }
-                </style>
-
-                <script>
-                    // Auto-hide flash messages after 5 seconds
-                    setTimeout(() => {
-                        const flash = document.querySelector('.flash-container');
-                        if (flash) {
-                            flash.style.transition = 'opacity 0.5s ease';
-                            flash.style.opacity = '0';
-                            setTimeout(() => flash.remove(), 500);
-                        }
-                    }, 5000);
-                </script>

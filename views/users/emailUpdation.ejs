@@ -8,300 +8,72 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      background: #f3f3f3;
-      color: #222;
-    }
-
-    /* ---------- HEADER ---------- */
-    header {
-      background: #fff;
-      border-bottom: 1px solid #ddd;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .header-inner {
-      max-width: 1200px;
-      margin: auto;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-size: 22px;
-      font-weight: 700;
-      color: #0b64c0;
-      text-decoration: none;
-    }
-
-    nav a {
-      margin-left: 25px;
-      text-decoration: none;
-      color: #444;
-      font-size: 14px;
-    }
-
-    .menu-toggle {
-      display: none;
-      font-size: 22px;
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
-
-    /* ---------- LAYOUT ---------- */
-    .container {
-      max-width: 1200px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-
-    .layout {
-      display: flex;
-      gap: 40px;
-    }
-
-    /* ---------- SIDEBAR ---------- */
-    .sidebar {
-      width: 260px;
-      background: #f7f7f7;
-      border-radius: 18px;
-      padding: 24px;
-      border: 1px solid #ddd;
-    }
-
-    .sidebar h3 {
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      letter-spacing: 1px;
-    }
-
-    .sidebar ul {
-      list-style: none;
-    }
-
-    .sidebar li a {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px;
-      text-decoration: none;
-      color: #222;
-      font-size: 14px;
-      border-radius: 10px;
-    }
-
-    .sidebar li a:hover,
-    .sidebar li a.active {
-      background: #e5e5e5;
-    }
-
-    /* ---------- CONTENT ---------- */
-    .content {
-      flex: 1;
-    }
-
-    .email-card {
-      background: #f6f6f6;
-      border-radius: 20px;
-      padding: 50px;
-      max-width: 700px;
-      margin: auto;
-      border: 1px solid #ddd;
-    }
-
-    .email-card h2 {
-      text-align: center;
-      font-size: 18px;
-      margin-bottom: 40px;
-    }
-
-    .form-group {
-      margin-bottom: 25px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 13px;
-      margin-bottom: 8px;
-      color: #333;
-    }
-
-    .current-email {
-      background: #fff;
-      padding: 14px 20px;
-      border-radius: 30px;
-      border: 1px solid #ccc;
-      font-size: 14px;
-    }
-
-    input {
-      width: 100%;
-      padding: 14px 20px;
-      border-radius: 30px;
-      border: 1px solid #ccc;
-      font-size: 14px;
-    }
-
-    .verify-btn {
-      background: #000;
-      color: #fff;
-      border: none;
-      padding: 12px 50px;
-      border-radius: 30px;
-      cursor: pointer;
-      display: block;
-      margin: 30px auto 0;
-      font-size: 14px;
-    }
-
-    /* ---------- MESSAGE ---------- */
-    .message {
-      margin-top: 20px;
-      text-align: center;
-      font-size: 14px;
-      padding: 12px;
-      border-radius: 10px;
-    }
-
-    .error {
-      background: #ffe6e6;
-      color: #b00000;
-    }
-
-    .success {
-      background: #e6ffe9;
-      color: #007a2f;
-    }
-
-    /* ---------- MOBILE ---------- */
-    @media (max-width: 768px) {
-      nav {
-        display: none;
-      }
-
-      .menu-toggle {
-        display: block;
-      }
-
-      .layout {
-        flex-direction: column;
-      }
-
-      .sidebar {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        height: 100vh;
-        z-index: 1000;
-        transition: left 0.3s ease;
-      }
-
-      .sidebar.active {
-        left: 0;
-      }
-    }
-
-    /* ---------- OVERLAY ---------- */
-    #overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.4);
-      display: none;
-      z-index: 999;
-    }
-  </style>
+  <link rel="stylesheet" href="/css/users/emailUpdation.css">
 </head>
 
 <body>
-  <%- include('../partials/flash') %>
-    <%- include('../partials/header', { showSearch: false }) %>
-      <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+  <%- include('../partials/header', { showSearch: false }) %>
+    <%- include("../partials/breadcrumb", { breadcrumbs }) %>
 
-        <button id="menuBtn" class="menu-toggle"
-          style="position: fixed; top: 90px; left: 20px; z-index: 100; background: white; border-radius: 50%; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); border: none;">
-          <i class="fas fa-bars"></i>
-        </button>
+      <button id="menuBtn" class="menu-toggle"
+        style="position: fixed; top: 90px; left: 20px; z-index: 100; background: white; border-radius: 50%; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); border: none;">
+        <i class="fas fa-bars"></i>
+      </button>
 
-        <div class="container">
-          <div class="layout">
+      <div class="container">
+        <div class="layout">
 
 
-            <!-- SIDEBAR -->
-            <aside class="sidebar" id="sidebar">
-              <h3>MY ACCOUNT</h3>
-              <ul>
-                <li><a href="/profile" class="active"><i class="fa-regular fa-user"></i> Personal Information</a></li>
-                <li><a href="/address"><i class="fa-solid fa-location-dot"></i> Address</a></li>
-                <li><a href="/orders"><i class="fa-solid fa-box"></i> Orders</a></li>
-                <li><a href="/wallet"><i class="fa-solid fa-wallet"></i> Wallet</a></li>
-                <li><a href="/coupon"><i class="fa-solid fa-ticket"></i> Coupon</a></li>
-                <li><a href="/profile/referral"><i class="fa-solid fa-user-plus"></i> Generate Referral Code</a></li>
-                <li><a href="/password-change"><i class="fa-solid fa-lock"></i> Password Change</a></li>
-                <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
-              </ul>
-            </aside>
+          <!-- SIDEBAR -->
+          <aside class="sidebar" id="sidebar">
+            <h3>MY ACCOUNT</h3>
+            <ul>
+              <li><a href="/profile" class="active"><i class="fa-regular fa-user"></i> Personal Information</a></li>
+              <li><a href="/address"><i class="fa-solid fa-location-dot"></i> Address</a></li>
+              <li><a href="/orders"><i class="fa-solid fa-box"></i> Orders</a></li>
+              <li><a href="/wallet"><i class="fa-solid fa-wallet"></i> Wallet</a></li>
+              <li><a href="/coupon"><i class="fa-solid fa-ticket"></i> Coupon</a></li>
+              <li><a href="/profile/referral"><i class="fa-solid fa-user-plus"></i> Generate Referral Code</a></li>
+              <li><a href="/password-change"><i class="fa-solid fa-lock"></i> Password Change</a></li>
+              <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+            </ul>
+          </aside>
 
-            <!-- CONTENT -->
-            <main class="content">
-              <div class="email-card">
-                <h2>Email Id updation</h2>
+          <!-- CONTENT -->
+          <main class="content">
+            <div class="email-card">
+              <h2>Email Id updation</h2>
 
-                <form action="/profile/change-email" method="POST">
-                  <div class="form-group">
-                    <label>Current email</label>
-                    <div class="current-email">
-                      <%= user.email %>
-                    </div>
+              <form action="/profile/change-email" method="POST">
+                <div class="form-group">
+                  <label>Current email</label>
+                  <div class="current-email">
+                    <%= user.email %>
                   </div>
+                </div>
 
-                  <div class="form-group">
-                    <label>New email</label>
-                    <input type="email" name="newEmail" required>
-                  </div>
+                <div class="form-group">
+                  <label>New email</label>
+                  <input type="email" name="newEmail" required>
+                </div>
 
-                  <div class="form-group">
-                    <label>Confirm new email</label>
-                    <input type="email" name="confirmEmail" required>
-                  </div>
+                <div class="form-group">
+                  <label>Confirm new email</label>
+                  <input type="email" name="confirmEmail" required>
+                </div>
 
-                  <button class="verify-btn">Verify</button>
+                <button class="verify-btn">Verify</button>
 
-                </form>
-              </div>
-            </main>
+              </form>
+            </div>
+          </main>
 
-          </div>
         </div>
+      </div>
 
-        <script>
-          const menuBtn = document.getElementById("menuBtn");
-          const sidebar = document.getElementById("sidebar");
-          const overlay = document.getElementById("overlay");
-
-          menuBtn.onclick = () => {
-            sidebar.classList.toggle("active");
-            overlay.style.display = sidebar.classList.contains("active") ? "block" : "none";
-          };
-
-          overlay.onclick = () => {
-            sidebar.classList.remove("active");
-            overlay.style.display = "none";
-          };
-        </script>
+      <div id="overlay"></div>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script type="module" src="/js/users/emailUpdation.js"></script>
 
 </body>
 

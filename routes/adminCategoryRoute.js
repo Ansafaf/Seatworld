@@ -1,5 +1,5 @@
 import express from 'express';
-import { adminAuthMiddleware } from '../middleware/adminAuthmiddle.js';
+import { adminAuthMiddleware } from '../middleware/adminAuthMiddleware.js';
 const adminRouter = express.Router();
 import {
     getCategoryList,

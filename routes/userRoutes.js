@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import { getLanding, getLogin, postLogin, getverifyOtp, verifyOtp, resendOtp, getforgotPass, postforgotPass, getHome, getSignup, postSignup, getLogout, postPassCreation, otpverifyForgot, getPassCreation,getCart} from '../controller/userAuthController.js';
+import { getLanding, getLogin, postLogin, getverifyOtp, verifyOtp, resendOtp, getforgotPass, postforgotPass, getHome, getSignup, postSignup, getLogout, postPassCreation, otpverifyForgot, getPassCreation, getCart, getotpForgot } from '../controller/userAuthController.js';
 import { authMiddleware } from "../middleware/authMiddleware.js";
 
 router.get('/', getLanding);
@@ -13,6 +13,7 @@ router.get("/resend-otp", resendOtp);
 
 router.get("/forgot-password", getforgotPass);
 router.post("/forgot-password", postforgotPass);
+router.get("/forgot-password/verify", getotpForgot);
 router.post("/post-otp", otpverifyForgot);
 router.get("/create-password", getPassCreation);
 router.post("/create-password", postPassCreation);

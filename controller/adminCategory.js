@@ -1,106 +1,112 @@
-import { Category } from '../models/categoryModel.js';
+import * as categoryService from '../services/adminCategoryService.js';
+import logger from '../utils/logger.js';
 
-export const getCategoryList = async (req, res) => {
+export const getCategoryList = async (req, res, next) => {
     try {
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 5;
         const skip = (page - 1) * limit;
+        const searchQuery = req.query.search || "";
 
-        const totalCategories = await Category.countDocuments();
+        const query = {};
+        if (searchQuery) {
+            query.categoryName = { $regex: searchQuery, $options: "i" };
+        }
+
+        const totalCategories = await categoryService.getCategoryCount(query);
         const totalPages = Math.ceil(totalCategories / limit);
+        const categories = await categoryService.getCategories(query, skip, limit);
 
-        const categories = await Category.find()
-            .sort({ createdAt: -1 })
-            .skip(skip)
-            .limit(limit);
+        // AJAX Support
+        if (req.xhr || req.headers.accept?.includes("application/json")) {
+            return res.status(200).json({
+                success: true,
+                categories,
+                currentPage: page,
+                totalPages,
+                totalCategories,
+                search: searchQuery,
+                limit
+            });
+        }
 
         res.render("admin/categoryList", {
             categories,
             currentPage: page,
             totalPages,
             totalCategories,
+            search: searchQuery,
             limit
         });
     } catch (error) {
-        console.error("Error fetching categories:", error);
-        res.status(500).json({ message: "Error fetching categories" });
+        next(error);
     }
 };
-
 
 export const getAddCategory = (req, res) => {
     res.render("admin/addCategory");
 }
-export const postAddCategory = async (req, res) => {
+
+export const postAddCategory = async (req, res, next) => {
     try {
         const { categoryName } = req.body;
-        const category = new Category({ categoryName: categoryName });
-        await category.save();
-        req.session.message = { type: 'success', message: "Category added successfully" };
-        res.redirect("/admin/categories");
-    }
-    catch (err) {
-        console.log(err);
-        req.session.message = { type: 'error', message: "Error adding category. Please try again." };
-        res.redirect("/admin/add-category");
+        await categoryService.createCategory(categoryName);
+        res.status(200).json({ success: true, message: "Category added successfully", redirectUrl: "/admin/categories" });
+    } catch (err) {
+        next(err);
     }
 }
-export const getEditCategory = async (req, res) => {
+
+export const getEditCategory = async (req, res, next) => {
     try {
         const { id } = req.params;
+        const category = await categoryService.getCategoryById(id);
 
-        const category = await Category.findById(id);
-        console.log(category);
         if (!category) {
-            return res
-                .status(404)
-                .render("admin/editCategory", { error: "Category not found" });
+            req.session.message = { type: 'error', message: "Category not found" };
+            return res.redirect("/admin/categories");
         }
 
-        res.render("admin/editCategory", { category });
+        res.render("admin/editCategory", {
+            category,
+            breadcrumbs: [
+                { label: "Dashboard", url: "/admin/dashboard" },
+                { label: "Categories", url: "/admin/categories" },
+                { label: "Edit Category", url: `/admin/edit-category/${id}` }
+            ]
+        });
     } catch (error) {
-        console.log(error);
-        res.status(500).render("admin/editCategory", { error: "Something went wrong" });
+        next(error);
     }
 };
 
-export const postEditCategory = async (req, res) => {
+export const postEditCategory = async (req, res, next) => {
     try {
         const { categoryName } = req.body;
         const { id } = req.params;
-
-        await Category.findByIdAndUpdate(id, { categoryName: categoryName.trim() });
-
-        req.session.message = { type: 'success', message: "Category updated successfully" };
-        res.redirect("/admin/categories");
+        await categoryService.updateCategory(id, categoryName);
+        res.status(200).json({ success: true, message: "Category updated successfully", redirectUrl: "/admin/categories" });
     } catch (err) {
-        console.log(err);
-        req.session.message = { type: 'error', message: "Error updating category. Please try again." };
-        res.redirect(`/admin/edit-category/${req.params.id}`);
+        next(err);
     }
 };
 
-export const postBlockCategory = async (req, res) => {
+export const postBlockCategory = async (req, res, next) => {
     try {
         const { id } = req.params;
-        await Category.findByIdAndUpdate(id, { isActive: false });
-        req.session.message = { type: 'success', message: "Category blocked successfully" };
-        res.redirect("/admin/categories");
+        await categoryService.updateCategoryStatus(id, false);
+        res.status(200).json({ success: true, message: "Category blocked successfully", redirectUrl: "/admin/categories" });
     } catch (error) {
-        console.error("Error blocking category:", error);
-        req.session.message = { type: 'error', message: "Error blocking category" };
-        res.redirect("/admin/categories");
+        next(error);
     }
 };
-export const postUnblockCategory = async (req, res) => {
+
+export const postUnblockCategory = async (req, res, next) => {
     try {
         const { id } = req.params;
-        await Category.findByIdAndUpdate(id, { isActive: true });
-        req.session.message = { type: 'success', message: "Category unblocked successfully" };
-        res.redirect("/admin/categories");
+        await categoryService.updateCategoryStatus(id, true);
+        res.status(200).json({ success: true, message: "Category unblocked successfully", redirectUrl: "/admin/categories" });
     } catch (error) {
-        console.error("Error unblocking category:", error);
-        req.session.message = { type: 'error', message: "Error unblocking category" };
-        res.redirect("/admin/categories");
+        next(error);
     }
 };
