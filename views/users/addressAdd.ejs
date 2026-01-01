@@ -5,869 +5,129 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New Address - SeatWorld</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-            background-color: #f5f5f5;
-            padding: 0;
-        }
-
-        /* Header */
-        header {
-            background: #e5e7eb;
-            padding: 15px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #d1d5db;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            color: #111827;
-        }
-
-        .logo svg {
-            width: 30px;
-            height: 30px;
-        }
-
-        .logo span {
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        nav {
-            display: flex;
-            gap: 30px;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #4b5563;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        nav a:hover {
-            color: #111827;
-        }
-
-        .header-icons {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .header-icons a {
-            color: #4b5563;
-            text-decoration: none;
-            font-size: 20px;
-            transition: color 0.2s;
-            display: flex;
-            align-items: center;
-        }
-
-        .header-icons a:hover {
-            color: #111827;
-        }
-
-        /* Mobile Menu Button - Fixed */
-        .mobile-menu-btn {
-            display: none;
-            background: #111827;
-            border: none;
-            border-radius: 6px;
-            padding: 10px 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-            z-index: 1001;
-            margin-left: auto;
-            margin-right: 15px;
-        }
-
-        .mobile-menu-btn:hover {
-            background: #1f2937;
-        }
-
-        .mobile-menu-btn span {
-            display: block;
-            width: 22px;
-            height: 2px;
-            background-color: white;
-            margin: 4px 0;
-            transition: all 0.3s;
-            border-radius: 2px;
-        }
-
-        .mobile-menu-btn.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-
-        .mobile-menu-btn.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .mobile-menu-btn.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -6px);
-        }
-
-        /* Mobile Sidebar Overlay */
-        .sidebar-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 998;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .sidebar-overlay.active {
-            opacity: 1;
-            display: block;
-        }
-
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .layout {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 40px;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            background: white;
-            border-radius: 12px;
-            border: 1px solid #e5e7eb;
-            padding: 0;
-            height: fit-content;
-            position: sticky;
-            top: 90px;
-        }
-
-        /* Mobile Sidebar Styling */
-        .sidebar.mobile-sidebar {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: -100%;
-            height: 100vh;
-            width: 300px;
-            max-width: 85%;
-            z-index: 999;
-            transition: left 0.3s ease-in-out;
-            overflow-y: auto;
-            margin: 0;
-            border-radius: 0;
-            border: none;
-            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .sidebar.mobile-sidebar.active {
-            left: 0;
-        }
-
-        .mobile-sidebar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            border-bottom: 1px solid #e5e7eb;
-            background: #f9fafb;
-        }
-
-        .mobile-sidebar-header .logo {
-            font-size: 18px;
-        }
-
-        .close-sidebar-btn {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: #111827;
-            padding: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            transition: background-color 0.2s;
-        }
-
-        .close-sidebar-btn:hover {
-            background-color: #e5e7eb;
-        }
-
-        .sidebar-header {
-            padding: 20px;
-            border-bottom: 1px solid #e5e7eb;
-            font-size: 16px;
-            font-weight: 600;
-            color: #111827;
-            background: #f9fafb;
-            border-radius: 12px 12px 0 0;
-        }
-
-        .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 16px 20px;
-            text-decoration: none;
-            color: #4b5563;
-            transition: all 0.2s;
-            font-size: 15px;
-            border-left: 4px solid transparent;
-            border-bottom: 1px solid #f3f4f6;
-        }
-
-        .menu-item:last-child {
-            border-bottom: none;
-        }
-
-        .menu-item:hover {
-            background-color: #f8f9fa;
-            color: #111827;
-            border-left-color: #6b7280;
-        }
-
-        .menu-item.active {
-            background-color: #f3f4f6;
-            color: #111827;
-            border-left-color: #111827;
-            font-weight: 600;
-        }
-
-        .menu-icon {
-            font-size: 20px;
-            width: 24px;
-            text-align: center;
-        }
-
-        /* Main Content */
-        .main-content {
-            background: white;
-            border-radius: 12px;
-            border: 1px solid #e5e7eb;
-            padding: 40px;
-        }
-
-        .page-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #111827;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        /* Form */
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            color: #374151;
-            margin-bottom: 8px;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: all 0.2s;
-            outline: none;
-            background: white;
-        }
-
-        .form-input:focus {
-            border-color: #111827;
-            box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.1);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .form-actions {
-            display: flex;
-            justify-content: center;
-            margin-top: 30px;
-        }
-
-        .btn-save {
-            background-color: #111827;
-            color: white;
-            padding: 14px 48px;
-            border: none;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-save:hover {
-            background-color: #1f2937;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .btn-save:active {
-            transform: translateY(0);
-        }
-
-        /* Footer */
-        footer {
-            background-color: #e5e7eb;
-            padding: 40px 20px 20px;
-            margin-top: 60px;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 30px;
-        }
-
-        .footer-section h3 {
-            font-size: 14px;
-            font-weight: 600;
-            color: #111827;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 10px;
-        }
-
-        .footer-section ul li a {
-            color: #6b7280;
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.2s;
-        }
-
-        .footer-section ul li a:hover {
-            color: #111827;
-        }
-
-        .footer-bottom {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-top: 20px;
-            border-top: 1px solid #d1d5db;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 13px;
-            color: #6b7280;
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 15px;
-        }
-
-        .social-icons a {
-            color: #6b7280;
-            font-size: 20px;
-            transition: color 0.2s;
-        }
-
-        .social-icons a:hover {
-            color: #111827;
-        }
-
-        .payment-icons {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .layout {
-                grid-template-columns: 250px 1fr;
-                gap: 30px;
-            }
-
-            .main-content {
-                padding: 30px;
-            }
-        }
-
-        @media (max-width: 968px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            nav {
-                display: none;
-            }
-
-            .layout {
-                grid-template-columns: 1fr;
-            }
-
-            .sidebar:not(.mobile-sidebar) {
-                display: none;
-            }
-
-            .sidebar.mobile-sidebar {
-                display: block;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
-            }
-
-            .payment-icons {
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 768px) {
-            header {
-                padding: 15px 20px;
-            }
-
-            .main-content {
-                padding: 25px;
-            }
-
-            .page-title {
-                font-size: 22px;
-            }
-
-            .btn-save {
-                width: 100%;
-                padding: 16px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 15px;
-                margin: 30px auto;
-            }
-
-            .main-content {
-                padding: 20px;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .mobile-menu-btn {
-                padding: 8px 10px;
-                margin-right: 10px;
-            }
-
-            .mobile-menu-btn span {
-                width: 20px;
-            }
-
-            .sidebar.mobile-sidebar {
-                width: 85%;
-            }
-        }
-
-        /* Animation for sidebar */
-        @keyframes slideIn {
-            from {
-                transform: translateX(-100%);
-            }
-
-            to {
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideOut {
-            from {
-                transform: translateX(0);
-            }
-
-            to {
-                transform: translateX(-100%);
-            }
-        }
-
-        /* Prevent body scroll when sidebar is open */
-        body.sidebar-open {
-            overflow: hidden;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/users/addressAdd.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
-    <%- include('../partials/flash') %>
-        <!-- Header -->
-        <header>
-            <a href="/" class="logo">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-                <span>SeatWorld</span>
-            </a>
-            <nav>
-                <a href="/dashboard">Home</a>
-                <a href="/products">Products</a>
-                <a href="/about">About</a>
-            </nav>
-            <div class="header-icons">
-                <a href="/wishlist">♡</a>
-                <a href="/profile">👤</a>
-                <a href="/cart">🛒</a>
-                <!-- Mobile Menu Button -->
-                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-        </header>
+    <%- include('../partials/header', { showSearch: false }) %>
+        <%- include("../partials/breadcrumb", { breadcrumbs }) %>
 
-        <!-- Mobile Sidebar Overlay -->
-        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+            <button id="mobileMenuBtn" class="mobile-menu-btn"
+                style="position: fixed; top: 90px; left: 20px; z-index: 1001; background: #111827; border-radius: 6px; padding: 10px 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
 
-        <!-- Mobile Sidebar -->
-        <aside class="sidebar mobile-sidebar" id="mobileSidebar">
-            <div class="mobile-sidebar-header">
-                <a href="/" class="logo">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                    <span>SeatWorld</span>
-                </a>
-                <button class="close-sidebar-btn" id="closeSidebarBtn" aria-label="Close menu">
-                    ✕
-                </button>
-            </div>
+            <!-- Main Container -->
+            <div class="container">
+                <div class="layout">
+                    <!-- Desktop Sidebar -->
+                    <aside class="sidebar desktop-sidebar">
+                        <div class="sidebar-header">My Account</div>
+                        <a href="/profile" class="menu-item">
+                            <span class="menu-icon">👤</span>
+                            <span>Personal Information</span>
+                        </a>
+                        <a href="/address" class="menu-item active">
+                            <span class="menu-icon">📍</span>
+                            <span>Address</span>
+                        </a>
+                        <a href="/orders" class="menu-item">
+                            <span class="menu-icon">📦</span>
+                            <span>Order</span>
+                        </a>
+                        <a href="/wallet" class="menu-item">
+                            <span class="menu-icon">💳</span>
+                            <span>Wallet</span>
+                        </a>
+                        <a href="/coupons" class="menu-item">
+                            <span class="menu-icon">🎟️</span>
+                            <span>Coupon</span>
+                        </a>
+                        <a href="/password-change" class="menu-item">
+                            <span class="menu-icon">🔒</span>
+                            <span>Password Change</span>
+                        </a>
+                        <a href="/logout" class="menu-item">
+                            <span class="menu-icon">🚪</span>
+                            <span>Logout</span>
+                        </a>
+                    </aside>
 
-            <div class="sidebar-header">My Account</div>
-            <a href="/profile" class="menu-item">
-                <span class="menu-icon">👤</span>
-                <span>Personal Information</span>
-            </a>
-            <a href="/address" class="menu-item active">
-                <span class="menu-icon">📍</span>
-                <span>Address</span>
-            </a>
-            <a href="/orders" class="menu-item">
-                <span class="menu-icon">📦</span>
-                <span>Order</span>
-            </a>
-            <a href="/wallet" class="menu-item">
-                <span class="menu-icon">💳</span>
-                <span>Wallet</span>
-            </a>
-            <a href="/coupons" class="menu-item">
-                <span class="menu-icon">🎟️</span>
-                <span>Coupon</span>
-            </a>
-            <a href="/password-change" class="menu-item">
-                <span class="menu-icon">🔒</span>
-                <span>Password Change</span>
-            </a>
-            <a href="/logout" class="menu-item">
-                <span class="menu-icon">🚪</span>
-                <span>Logout</span>
-            </a>
-        </aside>
+                    <!-- Main Content -->
+                    <main class="main-content">
+                        <h1 class="page-title">Add New Address</h1>
 
-        <!-- Main Container -->
-        <div class="container">
-            <div class="layout">
-                <!-- Desktop Sidebar -->
-                <aside class="sidebar desktop-sidebar">
-                    <div class="sidebar-header">My Account</div>
-                    <a href="/profile" class="menu-item">
-                        <span class="menu-icon">👤</span>
-                        <span>Personal Information</span>
-                    </a>
-                    <a href="/address" class="menu-item active">
-                        <span class="menu-icon">📍</span>
-                        <span>Address</span>
-                    </a>
-                    <a href="/orders" class="menu-item">
-                        <span class="menu-icon">📦</span>
-                        <span>Order</span>
-                    </a>
-                    <a href="/wallet" class="menu-item">
-                        <span class="menu-icon">💳</span>
-                        <span>Wallet</span>
-                    </a>
-                    <a href="/coupons" class="menu-item">
-                        <span class="menu-icon">🎟️</span>
-                        <span>Coupon</span>
-                    </a>
-                    <a href="/password-change" class="menu-item">
-                        <span class="menu-icon">🔒</span>
-                        <span>Password Change</span>
-                    </a>
-                    <a href="/logout" class="menu-item">
-                        <span class="menu-icon">🚪</span>
-                        <span>Logout</span>
-                    </a>
-                </aside>
-
-                <!-- Main Content -->
-                <main class="main-content">
-                    <h1 class="page-title">Add New Address</h1>
-
-                    <form action="/address/add" method="POST">
-                        <div class="form-group">
-                            <label class="form-label" for="name">Name</label>
-                            <input type="text" id="name" name="name" class="form-input"
-                                placeholder="Enter your full name" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="houseName">House Name/No</label>
-                            <input type="text" id="houseName" name="houseName" class="form-input"
-                                placeholder="Enter house name or number" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="locality">Locality/Street</label>
-                            <input type="text" id="locality" name="locality" class="form-input"
-                                placeholder="Enter street or locality" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="city">Town/City</label>
-                            <input type="text" id="city" name="city" class="form-input" placeholder="Enter your city"
-                                required>
-                        </div>
-
-                        <div class="form-row">
+                        <form action="/address/add" method="POST">
                             <div class="form-group">
-                                <label class="form-label" for="state">State</label>
-                                <input type="text" id="state" name="state" class="form-input" placeholder="Enter state"
-                                    required>
+                                <label class="form-label" for="name">Name</label>
+                                <input type="text" id="name" name="name" class="form-input"
+                                    placeholder="Enter your full name" required>
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label" for="country">Country</label>
-                                <input type="text" id="country" name="country" class="form-input" value="India" required
-                                    readonly>
+                                <label class="form-label" for="houseName">House Name/No</label>
+                                <input type="text" id="houseName" name="houseName" class="form-input"
+                                    placeholder="Enter house name or number" required>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="form-label" for="pincode">Pincode</label>
-                            <input type="text" id="pincode" name="pincode" class="form-input"
-                                placeholder="6-digit pincode" pattern="[0-9]{6}" required>
-                        </div>
+                            <div class="form-group">
+                                <label class="form-label" for="locality">Locality/Street</label>
+                                <input type="text" id="locality" name="locality" class="form-input"
+                                    placeholder="Enter street or locality" required>
+                            </div>
 
-                        <div class="form-group">
-                            <label class="form-label" for="mobile">Mobile Number</label>
-                            <input type="tel" id="mobile" name="mobile" class="form-input"
-                                placeholder="10-digit mobile number" pattern="[0-9]{10}" required>
-                        </div>
+                            <div class="form-group">
+                                <label class="form-label" for="city">Town/City</label>
+                                <input type="text" id="city" name="city" class="form-input"
+                                    placeholder="Enter your city" required>
+                            </div>
 
-                        <div class="form-actions">
-                            <button type="submit" class="btn-save">Save Address</button>
-                        </div>
-                    </form>
-                </main>
-            </div>
-        </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="state">State</label>
+                                    <input type="text" id="state" name="state" class="form-input"
+                                        placeholder="Enter state" required>
+                                </div>
 
-        <!-- Footer -->
-        <footer>
-            <footer>
-                <div class="footer-bottom">
-                    <p>SeatWorld © <%= new Date().getFullYear() %>, All Rights Reserved</p>
+                                <div class="form-group">
+                                    <label class="form-label" for="country">Country</label>
+                                    <input type="text" id="country" name="country" class="form-input" value="India"
+                                        required readonly>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="pincode">Pincode</label>
+                                <input type="text" id="pincode" name="pincode" class="form-input"
+                                    placeholder="6-digit pincode" pattern="[0-9]{6}" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="mobile">Mobile Number</label>
+                                <input type="tel" id="mobile" name="mobile" class="form-input"
+                                    placeholder="10-digit mobile number" pattern="[0-9]{10}" required>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn-save">Save Address</button>
+                            </div>
+                        </form>
+                    </main>
                 </div>
-            </footer>
+            </div>
 
-            <script>
-                // Mobile Menu Toggle
-                const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-                const closeSidebarBtn = document.getElementById('closeSidebarBtn');
-                const mobileSidebar = document.getElementById('mobileSidebar');
-                const sidebarOverlay = document.getElementById('sidebarOverlay');
-                const body = document.body;
+            <!-- Footer -->
+            <footer>
+                <footer>
+                    <div class="footer-bottom">
+                        <p>SeatWorld © <%= new Date().getFullYear() %>, All Rights Reserved</p>
+                    </div>
+                </footer>
 
-                function openMobileSidebar() {
-                    mobileMenuBtn.classList.add('active');
-                    mobileSidebar.classList.add('active');
-                    sidebarOverlay.classList.add('active');
-                    body.classList.add('sidebar-open');
-                }
-
-                function closeMobileSidebar() {
-                    mobileMenuBtn.classList.remove('active');
-                    mobileSidebar.classList.remove('active');
-                    sidebarOverlay.classList.remove('active');
-                    body.classList.remove('sidebar-open');
-                }
-
-                function toggleMobileSidebar() {
-                    if (mobileSidebar.classList.contains('active')) {
-                        closeMobileSidebar();
-                    } else {
-                        openMobileSidebar();
-                    }
-                }
-
-                // Event Listeners
-                mobileMenuBtn.addEventListener('click', toggleMobileSidebar);
-                closeSidebarBtn.addEventListener('click', closeMobileSidebar);
-                sidebarOverlay.addEventListener('click', closeMobileSidebar);
-
-                // Close sidebar when clicking menu items on mobile
-                const mobileMenuItems = document.querySelectorAll('.mobile-sidebar .menu-item');
-                mobileMenuItems.forEach(item => {
-                    item.addEventListener('click', closeMobileSidebar);
-                });
-
-                // Close sidebar with Escape key
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape') {
-                        closeMobileSidebar();
-                    }
-                });
-
-                // Close sidebar on window resize to desktop
-                window.addEventListener('resize', () => {
-                    if (window.innerWidth > 968) {
-                        closeMobileSidebar();
-                    }
-                });
-
-                // Form validation feedback
-                const form = document.querySelector('form');
-                const inputs = form.querySelectorAll('.form-input');
-
-                inputs.forEach(input => {
-                    // Add focus styles
-                    input.addEventListener('focus', function () {
-                        this.parentElement.classList.add('focused');
-                    });
-
-                    input.addEventListener('blur', function () {
-                        this.parentElement.classList.remove('focused');
-                        if (this.value.trim() !== '') {
-                            this.classList.add('has-value');
-                        } else {
-                            this.classList.remove('has-value');
-                        }
-                    });
-
-                    // Real-time validation for pincode and mobile
-                    if (input.type === 'tel' || input.id === 'pincode') {
-                        input.addEventListener('input', function () {
-                            const value = this.value.replace(/\D/g, '');
-                            this.value = value;
-
-                            if (input.id === 'pincode' && value.length > 6) {
-                                this.value = value.slice(0, 6);
-                            } else if (input.id === 'mobile' && value.length > 10) {
-                                this.value = value.slice(0, 10);
-                            }
-                        });
-                    }
-                });
-
-                // Handle form submission
-                form.addEventListener('submit', function (e) {
-                    const pincode = document.getElementById('pincode');
-                    const mobile = document.getElementById('mobile');
-
-                    if (pincode.value.length !== 6) {
-                        e.preventDefault();
-                        pincode.focus();
-                        alert('Please enter a valid 6-digit pincode');
-                        return;
-                    }
-
-                    if (mobile.value.length !== 10) {
-                        e.preventDefault();
-                        mobile.focus();
-                        alert('Please enter a valid 10-digit mobile number');
-                        return;
-                    }
-
-                    // Show loading state
-                    const submitBtn = form.querySelector('.btn-save');
-                    const originalText = submitBtn.textContent;
-                    submitBtn.textContent = 'Saving...';
-                    submitBtn.disabled = true;
-
-                    // In a real app, you would handle the form submission via fetch/AJAX
-                    // For now, just revert after 2 seconds
-                    setTimeout(() => {
-                        submitBtn.textContent = originalText;
-                        submitBtn.disabled = false;
-                    }, 2000);
-                });
-            </script>
+                <script type="module" src="/js/users/addressAdd.js"></script>
 </body>
 
 </html>

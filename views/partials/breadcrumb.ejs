@@ -1,0 +1,18 @@
+<% if (breadcrumbs && breadcrumbs.length) { %>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <% breadcrumbs.forEach((crumb, index)=> { %>
+            <% const isLast=index===breadcrumbs.length - 1; %>
+
+                <% if (!isLast && crumb.url) { %>
+                    <a href="<%= crumb.url %>">
+                        <%= crumb.label %>
+                    </a>
+                    <span class="separator">/</span>
+                    <% } else { %>
+                        <span class="active">
+                            <%= crumb.label %>
+                        </span>
+                        <% } %>
+                            <% }) %>
+    </nav>
+    <% } %>

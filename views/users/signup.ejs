@@ -5,335 +5,79 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SeatWorld | Create an Account</title>
-  <style>
-    :root {
-      --primary-color: #007bff;
-      --primary-hover: #0056b3;
-      --text-dark: #333;
-      --text-light: #666;
-      --bg-light: #f8f9fa;
-      --border-color: #ddd;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-
-    body {
-      background: #fff;
-      color: var(--text-dark);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .container {
-      display: flex;
-      flex: 1;
-      width: 100%;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    /* Left Section: Form */
-    .form-section {
-      flex: 1;
-      padding: 40px 60px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      max-width: 600px;
-    }
-
-    .brand-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .brand-header h1 {
-      font-size: 24px;
-      font-weight: 700;
-      color: #004a99;
-    }
-
-    .main-title {
-      font-size: 32px;
-      font-weight: 500;
-      line-height: 1.2;
-      margin-bottom: 40px;
-      color: #111;
-    }
-
-    .form-container {
-      width: 100%;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-
-    .form-container h2 {
-      font-size: 20px;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 24px;
-      color: #111;
-    }
-
-    .form-group {
-      margin-bottom: 16px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: #333;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 12px 16px;
-      border: 1px solid #e1e4e8;
-      border-radius: 8px;
-      font-size: 14px;
-      background-color: #fcfdfe;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    .form-group input:focus {
-      outline: none;
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
-    }
-
-    .form-group input::placeholder {
-      color: #9ca3af;
-    }
-
-    .signup-btn {
-      width: 100%;
-      padding: 12px;
-      background: var(--primary-color);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 10px;
-      transition: background 0.2s;
-    }
-
-    .signup-btn:hover {
-      background: var(--primary-hover);
-    }
-
-    .google-btn {
-      width: 100%;
-      padding: 12px;
-      background: #f1f3f5;
-      color: #333;
-      border: 1px solid #e1e4e8;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      text-decoration: none;
-      margin-top: 12px;
-      transition: background 0.2s;
-    }
-
-    .google-btn:hover {
-      background: #e9ecef;
-    }
-
-    .google-btn img {
-      width: 18px;
-      height: 18px;
-    }
-
-    .signin-link {
-      margin-top: 24px;
-      font-size: 13px;
-      text-align: center;
-      color: #666;
-    }
-
-    .signin-link a {
-      color: #111;
-      text-decoration: none;
-      font-weight: 700;
-    }
-
-    .signin-link a:hover {
-      text-decoration: underline;
-    }
-
-    /* Right Section: Illustration */
-    .image-section {
-      flex: 1.2;
-      background-color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 40px;
-    }
-
-    .illustration-container {
-      width: 100%;
-      height: 100%;
-      max-width: 700px;
-      background-image: url('https://res.cloudinary.com/dbdnmlzy6/image/upload/v1734932040/C:/Users/MUHAMMED%20ANSAF%20AF/.gemini/antigravity/brain/cf4161eb-ebca-48a9-b1ac-846dd29a6033/uploaded_image_1766467440130.png');
-      /* Note: This is a placeholder for the actual asset once uploaded/served correctly */
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      border-radius: 40px;
-      /* Matching the rounded container in mock */
-    }
-
-    /* Fallback if image isn't loaded correctly via direct path */
-    .image-section img {
-      max-width: 90%;
-      height: auto;
-      border-radius: 40px;
-    }
-
-    /* Error Message Styling */
-    .error-msg {
-      background-color: #fee2e2;
-      color: #dc2626;
-      padding: 10px;
-      border-radius: 6px;
-      font-size: 13px;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 1100px) {
-      .form-section {
-        padding: 40px;
-      }
-    }
-
-    @media (max-width: 968px) {
-      .image-section {
-        display: none;
-      }
-
-      .form-section {
-        max-width: 100%;
-        padding: 40px 20px;
-      }
-
-      .form-container {
-        max-width: 100%;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .main-title {
-        font-size: 24px;
-        margin-bottom: 30px;
-      }
-
-      .form-section {
-        padding: 30px 16px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="/css/users/signup.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
-  <%- include('../partials/flash') %>
 
-    <div class="container">
-      <!-- Left Section -->
-      <div class="form-section">
-        <div class="brand-header">
-          <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1755846364/Seatworld_icon_oyekzz.jpg" alt="Logo"
-            width="30">
-          <h1>SeatWorld</h1>
-        </div>
-
-        <h1 class="main-title">Create an Account for Future Products</h1>
-
-        <div class="form-container">
-          <h2>Create your account</h2>
-
-          <form id="signupForm" method="POST" action="/signup">
-            <div class="form-group">
-              <label>Name</label>
-              <input type="text" name="username" placeholder="Enter your name" required>
-            </div>
-
-            <div class="form-group">
-              <label>Email address</label>
-              <input type="email" name="email" placeholder="Enter your email" required>
-            </div>
-
-            <div class="form-group">
-              <label>Password</label>
-              <input type="password" id="password" name="password" placeholder="Enter your password" required
-                minlength="6">
-            </div>
-
-            <div class="form-group">
-              <label>Confirm Password</label>
-              <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Enter your password"
-                required>
-            </div>
-
-            <div class="form-group">
-              <label>referralCode(optional)</label>
-              <input type="text" name="referralCode" placeholder="Enter your referralcode">
-            </div>
-
-            <button type="submit" class="signup-btn">Sign up</button>
-          </form>
-
-          <a href="/auth/google" class="google-btn">
-            <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google">
-            Sign up with Google
-          </a>
-
-          <div class="signin-link">
-            Already have an account? <a href="/login">Log in</a>
-          </div>
-        </div>
+  <div class="container">
+    <!-- Left Section -->
+    <div class="form-section">
+      <div class="brand-header">
+        <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1755846364/Seatworld_icon_oyekzz.jpg" alt="Logo"
+          width="30">
+        <h1>SeatWorld</h1>
       </div>
 
-      <!-- Right Section -->
-      <div class="image-section">
-        <!-- Using a placeholder for now since I can't directly use the local path as a URL in EJS unless served -->
-        <img
-          src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1734932040/C:/Users/MUHAMMED%20ANSAF%20AF/.gemini/antigravity/brain/cf4161eb-ebca-48a9-b1ac-846dd29a6033/uploaded_image_1766467440130.png"
-          alt="Signup Illustration"
-          onerror="this.src='https://res.cloudinary.com/dbdnmlzy6/image/upload/v1755845384/1811f344025539b7b4abb446eb6f910d_k0t4tt.jpg'">
+      <h1 class="main-title">Create an Account for Future Products</h1>
+
+      <div class="form-container">
+        <h2>Create your account</h2>
+
+        <form id="signupForm" method="POST" action="/signup">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" name="username" placeholder="Enter your name" required>
+          </div>
+
+          <div class="form-group">
+            <label>Email address</label>
+            <input type="email" name="email" placeholder="Enter your email" required>
+          </div>
+
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required
+              minlength="6">
+          </div>
+
+          <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Enter your password"
+              required>
+          </div>
+
+          <div class="form-group">
+            <label>referralCode(optional)</label>
+            <input type="text" name="referralCode" placeholder="Enter your referralcode">
+          </div>
+
+          <button type="submit" class="signup-btn">Sign up</button>
+        </form>
+
+        <a href="/auth/google" class="google-btn">
+          <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google">
+          Sign up with Google
+        </a>
+
+        <div class="signin-link">
+          Already have an account? <a href="/login">Log in</a>
+        </div>
       </div>
     </div>
 
-    <script>
-      const form = document.getElementById('signupForm');
-      const password = document.getElementById('password');
-      const confirmPassword = document.getElementById('confirmPassword');
+    <!-- Right Section -->
+    <div class="image-section">
+      <!-- Using a placeholder for now since I can't directly use the local path as a URL in EJS unless served -->
+      <img
+        src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1734932040/C:/Users/MUHAMMED%20ANSAF%20AF/.gemini/antigravity/brain/cf4161eb-ebca-48a9-b1ac-846dd29a6033/uploaded_image_1766467440130.png"
+        alt="Signup Illustration"
+        onerror="this.src='https://res.cloudinary.com/dbdnmlzy6/image/upload/v1755845384/1811f344025539b7b4abb446eb6f910d_k0t4tt.jpg'">
+    </div>
+  </div>
 
-      form.addEventListener('submit', (e) => {
-        if (password.value !== confirmPassword.value) {
-          e.preventDefault();
-          alert('Passwords do not match');
-        }
-      });
-    </script>
+  <script type="module" src="/js/users/signup.js"></script>
 </body>
 
 </html>

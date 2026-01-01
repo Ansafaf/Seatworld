@@ -2,6 +2,7 @@ import express from 'express';
 const router = express.Router();
 import { upload } from "../config/cloudinary.js";
 import { getProfile, getprofileEdit, postprofileEdit, updateProfile, getAddresslist, getAddaddress, postAddaddress, getEmailchange, postEmailchange, getupdatePass, postupdatePass, getEditAddress, postEditAddress, deleteAddress, getEmailOtp, postEmailOtp, postDefaultAddres } from "../controller/userProfileController.js";
+import { uploadToCloudinary } from "../config/cloudinary.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
 
 router.get("/profile", authMiddleware, getProfile);

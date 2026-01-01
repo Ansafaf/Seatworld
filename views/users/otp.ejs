@@ -6,300 +6,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OTP Verification - SeatWorld</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #fff;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
-
-    .header {
-      display: flex;
-      align-items: center;
-      padding: 15px 40px;
-    }
-
-    .header img {
-      height: 35px;
-      margin-right: 10px;
-    }
-
-    .header h1 {
-      font-size: 20px;
-      margin: 0;
-      color: #0a3d62;
-    }
-
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 80vh;
-    }
-
-    .card {
-      background: #f8f9fa;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
-      width: 320px;
-      text-align: center;
-    }
-
-    .card img {
-      width: 50px;
-      margin-bottom: 15px;
-    }
-
-    .card p {
-      font-size: 14px;
-      color: #444;
-      margin-bottom: 20px;
-    }
-
-    .otp-inputs {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 15px;
-    }
-
-    .otp-inputs input {
-      width: 50px;
-      height: 50px;
-      font-size: 22px;
-      text-align: center;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-
-    .resend {
-      font-size: 12px;
-      margin: 10px 0;
-      color: #666;
-    }
-
-    .resend a {
-      text-decoration: none;
-      color: #0a3d62;
-      font-weight: 600;
-      margin-left: 4px;
-    }
-
-    .timer {
-      font-size: 12px;
-      color: #444;
-      margin-bottom: 15px;
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 15px;
-    }
-
-    .buttons button {
-      flex: 1;
-      margin: 0 5px;
-      padding: 12px;
-      border: none;
-      border-radius: 25px;
-      font-size: 14px;
-      cursor: pointer;
-    }
-
-    .cancel {
-      background: #ccc;
-      color: #fff;
-    }
-
-    .verify {
-      background: #999;
-      color: #fff;
-    }
-
-    .verify:hover {
-      background: #666;
-    }
-
-    /* Messages */
-    .error {
-      background-color: #ffe5e5;
-      color: #d9534f;
-      border: 1px solid #f5c2c2;
-      border-radius: 6px;
-      padding: 10px;
-      font-size: 13px;
-      margin-bottom: 15px;
-      text-align: center;
-    }
-
-    .message {
-      background-color: #e8f7e5;
-      color: #2e7d32;
-      border: 1px solid #c3e6cb;
-      border-radius: 6px;
-      padding: 10px;
-      font-size: 13px;
-      margin-bottom: 15px;
-      text-align: center;
-    }
-
-    .resend.disabled {
-      opacity: 0.4;
-      pointer-events: none;
-
-      /* disables click */
-      .resend {
-        display: none;
-        /* hidden initially */
-        font-size: 12px;
-        margin: 10px 0;
-        color: #666;
-      }
-
-      .resend.show {
-        display: block;
-        /* show after expiry */
-      }
-
-    }
-  </style>
+  <link rel="stylesheet" href="/css/users/otp.css">
 </head>
 
 <body>
-  <%- include('../partials/flash') %>
-    <!-- Header -->
-    <div class="header">
-      <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765945540/products/rmsn314w038gnfzmemmi.jpg"
-        alt="SeatWorld Logo">
-      <h1>SeatWorld</h1>
-    </div>
+  <%- include('../partials/header', { showSearch: false }) %>
+    <%- include("../partials/breadcrumb", { breadcrumbs }) %>
 
-    <!-- OTP Card -->
-    <div class="container">
-      <div class="card">
-        <img src="/images/mail-icon.png" alt="Mail Icon">
-        <p>Please check your inbox<br>We’ve sent a code to your email</p>
+      <!-- OTP Card -->
+      <div class="container">
+        <div class="card">
+          <img src="/images/mail-icon.png" alt="Mail Icon">
+          <p>Please check your inbox<br>We’ve sent a code to your email</p>
 
-        <!-- ✅ Show messages -->
+          <!-- ✅ Show messages -->
 
-        <form action="/verify-otp" method="POST">
-          <div class="otp-inputs">
-            <input type="text" name="otp1" maxlength="1" required class="otp-input">
-            <input type="text" name="otp2" maxlength="1" required class="otp-input">
-            <input type="text" name="otp3" maxlength="1" required class="otp-input">
-            <input type="text" name="otp4" maxlength="1" required class="otp-input">
+          <form action="/verify-otp" method="POST">
+            <div class="otp-inputs">
+              <input type="text" name="otp1" maxlength="1" required class="otp-input">
+              <input type="text" name="otp2" maxlength="1" required class="otp-input">
+              <input type="text" name="otp3" maxlength="1" required class="otp-input">
+              <input type="text" name="otp4" maxlength="1" required class="otp-input">
+            </div>
+
+            <div class="timer" id="timer"></div>
+            <div class="buttons">
+              <button type="button" class="cancel" onclick="window.location='/login'">Cancel</button>
+              <button type="submit" class="verify">Verify</button>
+            </div>
+          </form>
+
+          <div class="resend" id="resendBox">
+            Didn't receive code?
+            <a href="/resend-otp?type=signup">Click to resend</a>
           </div>
-
-          <div class="timer" id="timer"></div>
-          <div class="buttons">
-            <button type="button" class="cancel" onclick="window.location='/login'">Cancel</button>
-            <button type="submit" class="verify">Verify</button>
-          </div>
-        </form>
-
-        <div class="resend" id="resendBox">
-          Didn't receive code?
-          <a href="/resend-otp?type=signup">Click to resend</a>
         </div>
       </div>
-    </div>
 
-    <script>
-      const expiryTime = <%= (typeof otpExpires !== 'undefined' && otpExpires) ? new Date(otpExpires).getTime() : 0 %>;
-      const resendBox = document.getElementById("resendBox");
-      const timerDisplay = document.querySelector("#timer");
-      const verifyBtn = document.querySelector(".verify");
-      const otpInputs = document.querySelectorAll(".otp-inputs input");
-
-      // Auto-advance logic
-      otpInputs.forEach((input, index) => {
-        // Allow only numbers
-        input.addEventListener("input", (e) => {
-          input.value = input.value.replace(/[^0-9]/g, "");
-
-          // Move to next input automatically
-          if (input.value && index < otpInputs.length - 1) {
-            otpInputs[index + 1].focus();
-          }
-        });
-
-        // Handle backspace → move to previous
-        input.addEventListener("keydown", (e) => {
-          if (e.key === "Backspace" && !input.value && index > 0) {
-            otpInputs[index - 1].focus();
-          }
-        });
-
-        // Handle paste of full OTP
-        input.addEventListener("paste", (e) => {
-          e.preventDefault();
-          const pasteData = e.clipboardData.getData("text").replace(/\D/g, "");
-          if (pasteData.length === otpInputs.length) {
-            otpInputs.forEach((box, i) => {
-              box.value = pasteData[i] || "";
-            });
-            otpInputs[otpInputs.length - 1].focus();
-          }
-        });
-      });
-
-      // Disable resend initially
-      if (resendBox) resendBox.classList.add("disabled");
-
-      function startTimer(duration, display) {
-        let timer = duration;
-        const interval = setInterval(() => {
-          if (timer <= 0) {
-            clearInterval(interval);
-            if (display) display.textContent = "Expired";
-
-            // ✅ Enable resend when timer ends
-            if (resendBox) resendBox.classList.remove("disabled");
-
-            if (verifyBtn) {
-              verifyBtn.disabled = true;
-              verifyBtn.style.background = "#ccc";
-            }
-            return;
-          }
-
-          const minutes = Math.floor(timer / 60);
-          const seconds = timer % 60;
-          if (display) {
-            display.textContent =
-              (minutes < 10 ? "0" : "") + minutes + ":" +
-              (seconds < 10 ? "0" : "") + seconds;
-          }
-
-          timer--;
-        }, 1000);
-      }
-
-      window.onload = function () {
-        // Reset Inputs
-        otpInputs.forEach(input => input.value = "");
-        if (otpInputs[0]) otpInputs[0].focus();
-
-        if (!isNaN(expiryTime) && expiryTime > 0) {
-          const now = Date.now();
-          const secondsLeft = Math.floor((expiryTime - now) / 1000);
-
-          if (secondsLeft > 0) {
-            startTimer(secondsLeft, timerDisplay);
-          } else {
-            if (timerDisplay) timerDisplay.textContent = "Expired";
-            if (resendBox) resendBox.classList.remove("disabled");
-            if (verifyBtn) {
-              verifyBtn.disabled = true;
-              verifyBtn.style.background = "#ccc";
-            }
-          }
-        }
-      };
-    </script>
+      <input type="hidden" id="otpExpiryValue"
+        value="<%= (typeof otpExpires !== 'undefined' && otpExpires) ? new Date(otpExpires).getTime() : 0 %>">
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script type="module" src="/js/users/otp.js"></script>
 
 </body>
 

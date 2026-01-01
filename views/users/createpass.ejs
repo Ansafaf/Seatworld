@@ -5,254 +5,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create New Password - SeatWorld</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f5f5f5;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .header {
-            background-color: white;
-            padding: 15px 30px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-        }
-
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            background-color: #0066cc;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-        }
-
-        .logo-text {
-            font-size: 24px;
-            font-weight: 600;
-            color: #0066cc;
-        }
-
-        .back-link {
-            color: #666;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 14px;
-        }
-
-        .back-link:hover {
-            color: #0066cc;
-        }
-
-        .container {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-        }
-
-        .form-card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            width: 100%;
-            max-width: 450px;
-        }
-
-        .form-title {
-            font-size: 28px;
-            font-weight: 600;
-            color: #333;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 12px 16px;
-            font-size: 14px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            transition: border-color 0.3s;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: #0066cc;
-        }
-
-        .form-input::placeholder {
-            color: #999;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 14px;
-            background-color: #ccc;
-            color: white;
-            font-size: 16px;
-            font-weight: 500;
-            border: none;
-            border-radius: 25px;
-            cursor: not-allowed;
-            transition: background-color 0.3s;
-            margin-top: 10px;
-        }
-
-        .submit-btn.active {
-            background-color: #0066cc;
-            cursor: pointer;
-        }
-
-        .submit-btn.active:hover {
-            background-color: #0052a3;
-        }
-
-        .error-message {
-            color: #d32f2f;
-            font-size: 12px;
-            margin-top: 5px;
-            display: none;
-        }
-
-        .error-message.show {
-            display: block;
-        }
-
-        .form-input.error {
-            border-color: #d32f2f;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/users/createPass.css">
 </head>
 
 <body>
-    <%- include('../partials/flash') %>
-        <header class="header">
-            <a href="/" class="logo">
-                <div class="logo-icon">🌐</div>
-                <span class="logo-text">SeatWorld</span>
-            </a>
-            <a href="javascript:history.back()" class="back-link">
-                ← Back
-            </a>
-        </header>
+    <%- include('../partials/header', { showSearch: false }) %>
+        <%- include("../partials/breadcrumb", { breadcrumbs }) %>
 
-        <div class="container">
-            <div class="form-card">
-                <h1 class="form-title">Create New Password</h1>
-                <form id="passwordForm" action="/create-password" method="POST">
-                    <div class="form-group">
-                        <label for="newPassword" class="form-label">New Password</label>
-                        <input type="password" id="newPassword" name="newPassword" class="form-input"
-                            placeholder="••••••••••••••••" required>
-                        <div class="error-message" id="newPasswordError">Password must be at least 8 characters</div>
-                    </div>
+            <div class="container">
+                <div class="form-card">
+                    <h1 class="form-title">Create New Password</h1>
+                    <form id="passwordForm" action="/create-password" method="POST">
+                        <div class="form-group">
+                            <label for="newPassword" class="form-label">New Password</label>
+                            <input type="password" id="newPassword" name="newPassword" class="form-input"
+                                placeholder="••••••••••••••••" required>
+                            <div class="error-message" id="newPasswordError">Password must be at least 8 characters
+                            </div>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="confirmPassword" class="form-label">Confirm New Password</label>
-                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-input"
-                            placeholder="••••••••••••••••" required>
-                        <div class="error-message" id="confirmPasswordError">Passwords do not match</div>
-                    </div>
+                        <div class="form-group">
+                            <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" class="form-input"
+                                placeholder="••••••••••••••••" required>
+                            <div class="error-message" id="confirmPasswordError">Passwords do not match</div>
+                        </div>
 
-                    <button type="submit" class="submit-btn" id="submitBtn">
-                        Submit
-                    </button>
-                </form>
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            Submit
+                        </button>
+                    </form>
+                </div>
             </div>
-        </div>
 
-        <script>
-            const form = document.getElementById('passwordForm');
-            const newPasswordInput = document.getElementById('newPassword');
-            const confirmPasswordInput = document.getElementById('confirmPassword');
-            const submitBtn = document.getElementById('submitBtn');
-            const newPasswordError = document.getElementById('newPasswordError');
-            const confirmPasswordError = document.getElementById('confirmPasswordError');
-
-            function validateForm() {
-                const newPassword = newPasswordInput.value;
-                const confirmPassword = confirmPasswordInput.value;
-                let isValid = true;
-
-                // Reset errors
-                newPasswordInput.classList.remove('error');
-                confirmPasswordInput.classList.remove('error');
-                newPasswordError.classList.remove('show');
-                confirmPasswordError.classList.remove('show');
-
-                // Validate new password
-                if (newPassword.length > 0 && newPassword.length < 8) {
-                    newPasswordInput.classList.add('error');
-                    newPasswordError.classList.add('show');
-                    isValid = false;
-                }
-
-                // Validate password match
-                if (confirmPassword.length > 0 && newPassword !== confirmPassword) {
-                    confirmPasswordInput.classList.add('error');
-                    confirmPasswordError.classList.add('show');
-                    isValid = false;
-                }
-
-                // Enable/disable submit button
-                if (newPassword.length >= 8 && confirmPassword.length >= 8 && newPassword === confirmPassword) {
-                    submitBtn.classList.add('active');
-                    submitBtn.disabled = false;
-                } else {
-                    submitBtn.classList.remove('active');
-                    submitBtn.disabled = true;
-                }
-
-                return isValid;
-            }
-
-            newPasswordInput.addEventListener('input', validateForm);
-            confirmPasswordInput.addEventListener('input', validateForm);
-
-            form.addEventListener('submit', (e) => {
-                if (!validateForm()) {
-                    e.preventDefault();
-                }
-            });
-        </script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script type="module" src="/js/users/createPass.js"></script>
 </body>
 
 </html>

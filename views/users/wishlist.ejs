@@ -6,139 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wishlist - SeatWorld</title>
   <link rel="stylesheet" href="/css/style.css"> <!-- external CSS -->
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 40px;
-      border-bottom: 1px solid #eee;
-    }
-
-    header .logo {
-      display: flex;
-      align-items: center;
-      font-weight: bold;
-      font-size: 20px;
-      color: #004080;
-    }
-
-    header nav a {
-      margin: 0 15px;
-      text-decoration: none;
-      color: #000;
-    }
-
-    .wishlist {
-      width: 80%;
-      margin: 50px auto;
-    }
-
-    .wishlist h2 {
-      text-align: center;
-      font-size: 24px;
-      margin-bottom: 20px;
-      font-weight: bold;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    thead {
-      background: #ddd;
-      font-weight: bold;
-    }
-
-    th,
-    td {
-      padding: 15px;
-      text-align: center;
-      border-bottom: 1px solid #eee;
-    }
-
-    td img {
-      width: 100px;
-      border-radius: 8px;
-    }
-
-    .remove {
-      font-size: 12px;
-      color: #777;
-      cursor: pointer;
-      display: block;
-      margin-top: 5px;
-    }
-
-    .add-to-cart {
-      padding: 10px 20px;
-      border: none;
-      background: #000;
-      color: #fff;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .pagination {
-      display: flex;
-      justify-content: center;
-      margin: 30px 0;
-      gap: 8px;
-    }
-
-    .pagination button {
-      padding: 6px 12px;
-      border: 1px solid #000;
-      background: #fff;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-
-    .pagination .active {
-      background: #000;
-      color: #fff;
-    }
-
-    footer {
-      background: #f9f9f9;
-      padding: 40px;
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 20px;
-      font-size: 14px;
-    }
-
-    footer h4 {
-      margin-bottom: 10px;
-    }
-
-    footer a {
-      display: block;
-      text-decoration: none;
-      color: #555;
-      margin-bottom: 5px;
-    }
-
-    footer .logo {
-      font-weight: bold;
-      font-size: 18px;
-    }
-
-    footer .payments img {
-      height: 25px;
-      margin: 5px;
-    }
-  </style>
+  <link rel="stylesheet" href="/css/users/wishlist.css">
 </head>
 
 <body>
@@ -149,7 +17,7 @@
       SeatWorld
     </div>
     <nav>
-      <a href="/dashboard">Home</a>
+      <a href="/home">Home</a>
       <a href="/products">Products</a>
       <a href="/about">About</a>
     </nav>

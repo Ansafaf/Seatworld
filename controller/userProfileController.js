@@ -1,19 +1,32 @@
 import bcrypt from "bcrypt";
+import { uploadToCloudinary } from "../config/cloudinary.js";
 import { User } from "../models/userModel.js";
 import { Address } from "../models/addressModel.js";
 import otpGenerator from "otp-generator";
 import nodemailer from "nodemailer";
 import validator from "validator";
+import { buildBreadcrumb } from "../utils/breadcrumb.js";
 
 
 export async function getProfile(req, res) {
   const customer = await User.findById(req.session.user.id);
-  res.render("users/profile", { user: customer });
+  res.render("users/profile", {
+    user: customer,
+    breadcrumbs: buildBreadcrumb([
+      { label: "Profile", url: "/profile" }
+    ])
+  });
 }
 
 export async function getprofileEdit(req, res) {
   const customer = await User.findById(req.session.user.id || req.session.user._id);
-  res.render("users/personalInfo", { user: customer });
+  res.render("users/personalInfo", {
+    user: customer,
+    breadcrumbs: buildBreadcrumb([
+      { label: "Profile", url: "/profile" },
+      { label: "Edit Profile", url: "/profile/edit" }
+    ])
+  });
 }
 export async function postprofileEdit(req, res) {
   try {
@@ -22,21 +35,27 @@ export async function postprofileEdit(req, res) {
 
     const customer = await User.findById(userId);
     if (!customer) {
-      return res.redirect("/login");
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized. Please login again.",
+        redirectUrl: "/login"
+      });
     }
 
-    // 🟡 No change check
     const currentName = customer.name || customer.username;
 
     if (
       currentName === name &&
       (customer.mobile || "") === (mobile || "")
     ) {
-      req.session.message = { type: 'info', message: "You did not change anything" };
-      return res.redirect("/profile/edit");
+      return res.status(200).json({
+        success: false,
+        message: "You did not change anything",
+        noChange: true
+      });
     }
 
-    // ✅ Allow mobile update for ALL users (including Google)
+    // Allow mobile update for ALL users (including Google)
     const updateData = {
       name,
       mobile
@@ -44,33 +63,59 @@ export async function postprofileEdit(req, res) {
 
     await User.findByIdAndUpdate(userId, updateData);
 
-    req.session.message = { type: 'success', message: "Successfully updated profile info" };
-    return res.redirect("/profile/edit");
+    return res.status(200).json({
+      success: true,
+      message: "Successfully updated profile info",
+      redirectUrl: "/profile/edit"
+    });
 
   } catch (error) {
     console.error(error);
-    req.session.message = { type: 'error', message: "Something went wrong" };
-    return res.redirect("/profile/edit");
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong while updating profile"
+    });
   }
 }
 
 export async function updateProfile(req, res) {
   try {
     if (!req.file) {
-      req.session.message = { type: 'error', message: "file not uploaded" };
-      return res.redirect("/profile");
+      return res.status(400).json({
+        success: false,
+        message: "File not uploaded"
+      });
     }
 
-    await User.findByIdAndUpdate(req.session.user.id, {
-      avatar: req.file.path, // cloudinary or local path
-
+    // Process image with Sharp
+    const { processImage } = await import('../utils/imageProcessor.js');
+    const processedBuffer = await processImage(req.file.buffer, {
+      maxWidth: 400,
+      maxHeight: 400,
+      format: 'jpeg'
     });
 
-    req.session.message = { type: 'success', message: "profile picture updated" };
-    res.redirect("/profile");
+    // Upload to Cloudinary using helper
+    const result = await uploadToCloudinary(processedBuffer, {
+      folder: 'avatars'
+    });
+    const imageUrl = result.secure_url;
+
+    await User.findByIdAndUpdate(req.session.user.id, {
+      avatar: imageUrl
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Profile picture updated successfully",
+      avatarUrl: imageUrl
+    });
   } catch (err) {
-    console.error(err);
-    res.redirect("/profile");
+    console.error("Profile picture update error:", err);
+    return res.status(500).json({
+      success: false,
+      message: "Failed to update profile picture"
+    });
   }
 };
 
@@ -93,7 +138,12 @@ export async function getEmailchange(req, res) {
     }
 
     return res.render("users/emailUpdation", {
-      currentEmail: user.email
+      currentEmail: user.email,
+      breadcrumbs: buildBreadcrumb([
+        { label: "Profile", url: "/profile" },
+        { label: "Edit Profile", url: "/profile/edit" },
+        { label: "Change Email", url: "/profile/change-email" }
+      ])
     });
 
   } catch (error) {
@@ -109,17 +159,23 @@ export async function postEmailchange(req, res) {
     let user = await User.findById(req.session.user.id);
     const { newEmail, confirmEmail } = req.body;
     if (user.email == newEmail) {
-      req.session.message = { type: 'warning', message: "Your current email id and new email id are same" };
-      return res.redirect("/profile/change-email")
+      return res.status(400).json({
+        success: false,
+        message: "Your current email id and new email id are same"
+      });
     }
     if (newEmail !== confirmEmail) {
-      req.session.message = { type: 'error', message: "Your email not matching" };
-      return res.redirect("/profile/change-email")
+      return res.status(400).json({
+        success: false,
+        message: "Your email not matching"
+      });
     }
     const isAvailable = await User.findOne({ email: newEmail });
     if (isAvailable) {
-      req.session.message = { type: 'error', message: "Entered email id is already exist" };
-      return res.redirect("/profile/change-email");
+      return res.status(400).json({
+        success: false,
+        message: "Entered email id is already exist"
+      });
     }
     const otp = otpGenerator.generate(4, {
       digits: true,
@@ -134,28 +190,39 @@ export async function postEmailchange(req, res) {
       auth: { user: process.env.EMAIL, pass: process.env.PASSWORD }
     })
 
-    await transporter.sendMail({
-      from: process.env.EMAIL,
-      to: newEmail,
-      subject: "Your OTP Code",
-      text: `Your Otp is ${otp}. It will expire in 5 minutes`
-    })
-    if (newEmail == confirmEmail) {
-      user.tempEmail = newEmail;
-      user.emailChangeOtp = otp;
-      user.emailChangeOtpExpiry = otpExpires;
-      await user.save();
+    try {
+      await transporter.sendMail({
+        from: process.env.EMAIL,
+        to: newEmail,
+        subject: "Your OTP Code",
+        text: `Your Otp is ${otp}. It will expire in 5 minutes`
+      });
+    } catch (mailError) {
+      console.error(mailError);
+      return res.status(500).json({
+        success: false,
+        message: "Internal Server cant generate mail right now"
+      });
     }
 
-    req.session.message = { type: 'success', message: "Otp has been send successfully" };
-    res.redirect("/email/change-otp");
-  }
-  catch (mailError) {
-    console.log(mailError);
-    req.session.message = { type: 'error', message: "Internal Server cant generate mail right now" };
-    res.redirect("/profile/change-email");
-  }
+    user.tempEmail = newEmail;
+    user.emailChangeOtp = otp;
+    user.emailChangeOtpExpiry = otpExpires;
+    await user.save();
 
+    return res.status(200).json({
+      success: true,
+      message: "Otp has been sent successfully",
+      redirectUrl: "/email/change-otp"
+    });
+  }
+  catch (err) {
+    console.error(err);
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong"
+    });
+  }
 }
 
 
@@ -167,7 +234,7 @@ export async function getEmailOtp(req, res) {
       return res.redirect("/login");
     }
 
-    // Find user to get actual OTP expiry
+
     const user = await User.findById(req.session.user.id);
 
     if (!user) {
@@ -175,17 +242,29 @@ export async function getEmailOtp(req, res) {
       return res.redirect("/login");
     }
 
-    // Get the actual OTP expiry from user document
     const otpExpires = user.emailChangeOtpExpiry;
 
     res.render("users/otp3", {
       otpExpires,
-      user
+      user,
+      breadcrumbs: buildBreadcrumb([
+        { label: "Profile", url: "/profile" },
+        { label: "Edit Profile", url: "/profile/edit" },
+        { label: "Change Email", url: "/profile/change-email" },
+        { label: "Verify OTP", url: "/email/change-otp" }
+      ])
     });
+
   } catch (error) {
     console.error("Get email OTP error:", error);
     res.render("users/otp3", {
-      message: { type: 'error', message: "An error occurred. Please try again." }
+      message: { type: 'error', message: "An error occurred. Please try again." },
+      breadcrumbs: buildBreadcrumb([
+        { label: "Profile", url: "/profile" },
+        { label: "Edit Profile", url: "/profile/edit" },
+        { label: "Change Email", url: "/profile/change-email" },
+        { label: "Verify OTP", url: "/email/change-otp" }
+      ])
     });
   }
 }
@@ -194,146 +273,96 @@ export async function postEmailOtp(req, res) {
   try {
     const { otp1, otp2, otp3, otp4 } = req.body;
 
-    // Check if user is logged in
     if (!req.session.user || !req.session.user.id) {
-      req.session.message = { type: 'error', message: "Please login first" };
-      return res.redirect("/login");
+      return res.status(401).json({
+        success: false,
+        message: "Please login first",
+        redirectUrl: "/login"
+      });
     }
 
-    // Find user first to get otpExpires for all error cases
     const user = await User.findById(req.session.user.id);
 
-    // Check if user exists
     if (!user) {
-      req.session.message = { type: 'error', message: "User not found" };
-      return res.redirect("/login");
-    }
-
-    // Get otpExpires from user document
-    const otpExpires = user.emailChangeOtpExpiry;
-
-    // Validate OTP inputs exist - PASS otpExpires
-    if (!otp1 || !otp2 || !otp3 || !otp4) {
-      res.locals.message = { type: 'error', message: "Please enter all 4 digits of the OTP." };
-      return res.render("users/otp3", {
-        otpExpires // Add this
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+        redirectUrl: "/login"
       });
     }
 
-    // Combine OTP digits
+    if (!otp1 || !otp2 || !otp3 || !otp4) {
+      return res.status(400).json({
+        success: false,
+        message: "Please enter all 4 digits of the OTP."
+      });
+    }
+
     const otp = `${otp1}${otp2}${otp3}${otp4}`;
 
-    // Validate OTP format (4 digits, numeric) - PASS otpExpires
     if (!otp || otp.length !== 4 || !/^\d{4}$/.test(otp)) {
-      res.locals.message = { type: 'error', message: "Please enter a valid 4-digit numeric OTP." };
-      return res.render("users/otp3", {
-        otpExpires // Add this
+      return res.status(400).json({
+        success: false,
+        message: "Please enter a valid 4-digit numeric OTP."
       });
     }
 
-    // Check if user has email change OTP data
     if (!user.emailChangeOtp || !user.emailChangeOtpExpiry) {
-      res.locals.message = { type: 'error', message: "No OTP found. Please request a new OTP." };
-      return res.render("users/otp3", {
-        otpExpires: null
+      return res.status(400).json({
+        success: false,
+        message: "No OTP found. Please request a new OTP."
       });
     }
 
-    // Check OTP expiry
     const now = Date.now();
     const expiryTime = new Date(user.emailChangeOtpExpiry).getTime();
 
     if (now > expiryTime) {
-      // Clear expired OTP
       user.emailChangeOtp = null;
       user.emailChangeOtpExpiry = null;
       await user.save();
 
-      res.locals.message = { type: 'error', message: "OTP has expired. Please request a new OTP." };
-      return res.render("users/otp3", {
-        otpExpires: null
+      return res.status(400).json({
+        success: false,
+        message: "OTP has expired. Please request a new OTP."
       });
     }
 
-    // Verify OTP exists before comparing
-    if (!user.emailChangeOtp) {
-      res.locals.message = { type: 'error', message: "OTP not found. Please request a new OTP." };
-      return res.render("users/otp3", {
-        otpExpires: user.emailChangeOtpExpiry
-      });
-    }
 
-    // Verify OTP matches
     if (user.emailChangeOtp !== otp) {
-      // Optional: Track failed attempts
-      user.otpAttempts = (user.otpAttempts || 0) + 1;
-
-      // Lock after 3 failed attempts
-      if (user.otpAttempts >= 3) {
-        user.emailChangeOtp = null;
-        user.emailChangeOtpExpiry = null;
-        await user.save();
-
-        res.locals.message = { type: 'error', message: "Too many failed attempts. Please request a new OTP." };
-        return res.render("users/otp3", {
-          otpExpires: null
-        });
-      }
-
-      await user.save();
-      res.locals.message = { type: 'error', message: "Invalid OTP. Please try again." };
-      return res.render("users/otp3", {
-        attemptsLeft: 3 - user.otpAttempts,
-        otpExpires: user.emailChangeOtpExpiry
+      return res.status(400).json({
+        success: false,
+        message: "Invalid OTP. Please try again."
       });
     }
 
-    // Check if temp email exists - PASS otpExpires
     if (!user.tempEmail) {
-      return res.render("users/otp3", {
-        message: { type: 'error', message: "Email change request not found. Please start over." },
-        otpExpires // Add this
+      return res.status(400).json({
+        success: false,
+        message: "Email change request not found. Please start over."
       });
     }
 
-    // Update email
-    const oldEmail = user.email;
     user.email = user.tempEmail;
 
     // Cleanup OTP data
     user.tempEmail = null;
     user.emailChangeOtp = null;
     user.emailChangeOtpExpiry = null;
-    user.otpAttempts = 0;
 
     await user.save();
 
-    // Optional: Send confirmation email to new email
-    // await sendEmailConfirmation(user.email);
-
-    req.session.message = { type: 'success', message: "Email updated successfully" };
-    return res.redirect("/profile/edit");
+    return res.status(200).json({
+      success: true,
+      message: "Email updated successfully",
+      redirectUrl: "/profile/edit"
+    });
 
   } catch (error) {
     console.error("Email OTP verification error:", error);
-
-    //this Prevent double response
-    if (res.headersSent) {
-      return;
-    }
-
-    let otpExpires = null;
-
-    try {
-      const user = await User.findById(req.session.user?.id);
-      otpExpires = user?.emailChangeOtpExpiry || null;
-    } catch (err) {
-      // ignore DB error here
-    }
-
-    return res.render("users/otp3", {
-      message: { type: 'error', message: "An error occurred. Please try again." },
-      otpExpires
+    return res.status(500).json({
+      success: false,
+      message: "An error occurred. Please try again."
     });
   }
 }
@@ -362,7 +391,11 @@ export async function getAddresslist(req, res) {
     res.render("users/addressList", {
       addresses,
       currentPage: page,
-      totalPages
+      totalPages,
+      breadcrumbs: buildBreadcrumb([
+        { label: "Profile", url: "/profile" },
+        { label: "Address List", url: "/address" }
+      ])
     });
 
   } catch (error) {
@@ -387,17 +420,28 @@ export async function postDefaultAddres(req, res) {
       $set: { isDefault: true }
     });
 
-    req.session.message = { type: 'success', message: "Default address updated successfully" };
-    res.redirect('/address');
+    return res.status(200).json({
+      success: true,
+      message: "Default address updated successfully",
+      redirectUrl: "/address"
+    });
   } catch (error) {
     console.error("Set default address error:", error);
-    req.session.message = { type: 'error', message: "Failed to set default address" };
-    res.redirect('/address');
+    return res.status(500).json({
+      success: false,
+      message: "Failed to set default address"
+    });
   }
 }
 
 export async function getAddaddress(req, res) {
-  res.render("users/addressAdd");
+  res.render("users/addressAdd", {
+    breadcrumbs: buildBreadcrumb([
+      { label: "Profile", url: "/profile" },
+      { label: "Address List", url: "/address" },
+      { label: "Add Address", url: "/address/add" }
+    ])
+  });
 }
 export async function postAddaddress(req, res) {
   try {
@@ -415,15 +459,19 @@ export async function postAddaddress(req, res) {
       mobile
     })
     await address.save();
-    req.session.message = { type: 'success', message: "New Address added successfully" };
-    res.redirect("/address")
+    return res.status(200).json({
+      success: true,
+      message: "New Address added successfully",
+      redirectUrl: "/address"
+    });
   }
   catch (err) {
-    console.log("Error in address adding");
-
+    console.error("Error in address adding", err);
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong while adding address"
+    });
   }
-
-
 }
 
 export const getEditAddress = async (req, res) => {
@@ -441,7 +489,14 @@ export const getEditAddress = async (req, res) => {
       return res.redirect("/address");
     }
 
-    res.render("users/editAddress", { address });
+    res.render("users/editAddress", {
+      address,
+      breadcrumbs: buildBreadcrumb([
+        { label: "Profile", url: "/profile" },
+        { label: "Address List", url: "/address" },
+        { label: "Edit Address", url: `/address/edit/${addressId}` }
+      ])
+    });
   } catch (err) {
     console.error(err);
     res.redirect("/address");
@@ -480,16 +535,23 @@ export async function postEditAddress(req, res) {
     );
 
     if (!updated) {
-      req.session.message = { type: 'error', message: "Address not found or unauthorized" };
-      return res.redirect(`/address`);
+      return res.status(404).json({
+        success: false,
+        message: "Address not found or unauthorized"
+      });
     }
 
-    req.session.message = { type: 'success', message: "Address edited successfully" };
-    res.redirect(`/address`);
+    return res.status(200).json({
+      success: true,
+      message: "Address edited successfully",
+      redirectUrl: "/address"
+    });
   } catch (err) {
     console.error(err);
-    req.session.message = { type: 'error', message: "Error editing address" };
-    res.redirect(`/address`);
+    return res.status(500).json({
+      success: false,
+      message: "Error editing address"
+    });
   }
 }
 
@@ -500,28 +562,39 @@ export async function deleteAddress(req, res) {
     const address = await Address.findOne({ _id: addressId, userId: userId })
 
     if (!address) {
-      req.session.message = { type: 'error', message: "Address not found" };
-      return res.redirect("/address");
+      return res.status(404).json({
+        success: false,
+        message: "Address not found"
+      });
     }
     // Count total addresses
     const addressCount = await Address.countDocuments({ userId });
     if (addressCount === 1) {
-      req.session.message = { type: 'warning', message: "You must have at least one address" };
-      return res.redirect("/address");
+      return res.status(400).json({
+        success: false,
+        message: "You must have at least one address"
+      });
     }
     if (address.isDefault) {
-      req.session.message = { type: 'warning', message: "Default address cannot be deleted" };
-      return res.redirect("/address");
+      return res.status(400).json({
+        success: false,
+        message: "Default address cannot be deleted"
+      });
     }
 
     await Address.deleteOne({ _id: addressId, userId });
 
-    req.session.message = { type: 'success', message: "Address deleted successfully" };
-    res.redirect("/address");
+    return res.status(200).json({
+      success: true,
+      message: "Address deleted successfully",
+      redirectUrl: "/address"
+    });
   } catch (err) {
     console.error(err);
-    req.session.message = { type: 'error', message: "Failed to delete address" };
-    res.redirect("/address");
+    return res.status(500).json({
+      success: false,
+      message: "Failed to delete address"
+    });
   }
 }
 
@@ -538,7 +611,12 @@ export async function getupdatePass(req, res) {
     return res.redirect("/profile");
   }
 
-  res.render("users/passChange");
+  res.render("users/passChange", {
+    breadcrumbs: buildBreadcrumb([
+      { label: "Profile", url: "/profile" },
+      { label: "Change Password", url: "/password-change" }
+    ])
+  });
 }
 
 
@@ -549,48 +627,61 @@ export async function postupdatePass(req, res) {
 
     // Check if all fields are provided
     if (!currentPass || !newPass || !confirmPass) {
-      req.session.message = { type: 'error', message: "All fields are required" };
-      return res.redirect("/password-change");
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required"
+      });
     }
 
     // Validate new password length
     if (newPass.length < 8) {
-      req.session.message = { type: 'error', message: "New password must be at least 8 characters" };
-      return res.redirect("/password-change");
+      return res.status(400).json({
+        success: false,
+        message: "New password must be at least 8 characters"
+      });
     }
-
-
 
     // Check if new password and confirm password match
     if (newPass !== confirmPass) {
-      req.session.message = { type: 'error', message: "Passwords do not match" };
-      return res.redirect("/password-change");
+      return res.status(400).json({
+        success: false,
+        message: "Passwords do not match"
+      });
     }
 
     const user = await User.findById(userId);
     if (!user) {
-      req.session.message = { type: 'error', message: "User not found" };
-      return res.redirect("/login");
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+        redirectUrl: "/login"
+      });
     }
 
     // Check if user is a Google user (can't change password)
     if (user.authType === "google") {
-      req.session.message = { type: 'warning', message: "You cannot change password for Google Sign-In accounts" };
-      return res.redirect("/password-change");
+      return res.status(403).json({
+        success: false,
+        message: "You cannot change password for Google Sign-In accounts"
+      });
     }
 
     //CORRECT: Use bcrypt.compare() to verify current password
     const isCurrentPasswordCorrect = await bcrypt.compare(currentPass, user.password);
     if (!isCurrentPasswordCorrect) {
-      req.session.message = { type: 'error', message: "Current password is incorrect" };
-      return res.redirect("/password-change");
+      return res.status(401).json({
+        success: false,
+        message: "Current password is incorrect"
+      });
     }
 
     // Check if new password is same as current password
     const isSameAsOldPassword = await bcrypt.compare(newPass, user.password);
     if (isSameAsOldPassword) {
-      req.session.message = { type: 'error', message: "New password cannot be the same as your current password" };
-      return res.redirect("/password-change");
+      return res.status(400).json({
+        success: false,
+        message: "New password cannot be the same as your current password"
+      });
     }
 
     // Hash the new password
@@ -603,13 +694,17 @@ export async function postupdatePass(req, res) {
     // Optional: Log password change activity
     console.log(`Password changed for user: ${user.email} at ${new Date().toISOString()}`);
 
-    // Redirect with success message
-    req.session.message = { type: 'success', message: "Password updated successfully" };
-    return res.redirect("/profile");
+    return res.status(200).json({
+      success: true,
+      message: "Password updated successfully",
+      redirectUrl: "/profile"
+    });
 
   } catch (error) {
     console.error("Error updating password:", error);
-    req.session.message = { type: 'error', message: "Something went wrong. Please try again" };
-    return res.redirect("/password-change");
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong. Please try again"
+    });
   }
 }

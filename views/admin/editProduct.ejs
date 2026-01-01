@@ -8,26 +8,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: "#F97316",
-                    },
-                    fontFamily: {
-                        display: ["Inter", "sans-serif"],
-                    },
-                    borderRadius: {
-                        DEFAULT: "0.5rem",
-                    },
-                },
-            },
-        };
-    </script>
+    <script src="/js/admin/common.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <link rel="stylesheet" href="/css/admin/editProduct.css">
 </head>
 
 <body class="font-display bg-gray-50 text-gray-800">
+    <!-- Cropper Modal -->
+    <div id="cropperModal">
+        <div class="modal-content">
+            <h3 class="text-lg font-bold mb-4">Crop Image</h3>
+            <div class="cropper-container">
+                <img id="cropperImage" src="" alt="To crop">
+            </div>
+            <div class="flex justify-end gap-3">
+                <button type="button" onclick="closeCropper()"
+                    class="px-4 py-2 border rounded-lg hover:bg-gray-50">Cancel</button>
+                <button type="button" onclick="applyCrop()"
+                    class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-orange-600">Apply Crop</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Top Header -->
     <header class="bg-white shadow-sm fixed w-full z-50 h-16 flex items-center justify-between px-6">
         <div class="flex items-center gap-4">
@@ -150,7 +153,8 @@
             <div class="max-w-7xl mx-auto">
                 <h2 class="text-2xl font-bold text-gray-800 mb-8">Edit Product</h2>
                 <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
-                    <form method="POST" action="/admin/edit-product/<%= product._id %>" enctype="multipart/form-data">
+                    <form id="editProductForm" method="POST" action="/admin/edit-product/<%= product._id %>"
+                        enctype="multipart/form-data">
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                             <!-- Left Column - Product Details -->
                             <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -241,7 +245,7 @@
                                             <input type="hidden" name="variantIndices[]" value="<%= index %>">
                                             <input type="hidden" name="existingImages_<%= index %>"
                                                 id="existingImages_<%= index %>"
-                                                value="<%= JSON.stringify(variant.images) %>">
+                                                value="<%= JSON.stringify(variant.images).replace(/" /g, '&quot;' ) %>">
 
                                             <div>
                                                 <label
@@ -268,7 +272,12 @@
                                                 <label
                                                     class="block text-xs font-medium text-gray-600 mb-1">Images</label>
                                                 <input type="file" name="images_<%= index %>" accept="image/*" multiple
+                                                    onchange="handleImageSelect(event, '<%= index %>')"
                                                     class="block w-full text-sm text-gray-700 file:mr-3 file:py-2 file:px-3 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-orange-600 cursor-pointer" />
+
+                                                <div id="new_preview_<%= index %>" class="image-preview-container">
+                                                </div>
+
 
                                                 <!-- Existing Images Preview -->
                                                 <div class="mt-2 flex gap-2 flex-wrap" id="preview_<%= index %>">
@@ -309,119 +318,8 @@
         </main>
     </div>
 
-    <script>
-        const sidebar = document.getElementById("adminSidebar");
-        const mobileMenuBtn = document.getElementById("mobileMenuBtn");
-        const sidebarOverlay = document.getElementById("sidebarOverlay");
-
-        const toggleSidebar = () => {
-            const isClosed = sidebar.classList.contains("-translate-x-full");
-            if (isClosed) {
-                sidebar.classList.remove("-translate-x-full");
-                sidebarOverlay.classList.remove("hidden");
-                document.body.classList.add("overflow-hidden");
-            } else {
-                sidebar.classList.add("-translate-x-full");
-                sidebarOverlay.classList.add("hidden");
-                document.body.classList.remove("overflow-hidden");
-            }
-        };
-
-        if (mobileMenuBtn) mobileMenuBtn.addEventListener("click", toggleSidebar);
-        if (sidebarOverlay) sidebarOverlay.addEventListener("click", toggleSidebar);
-    </script>
-
-    <script>
-        // Initialize variantIndex based on existing variants
-        let variantIndex = <%= variants ?variants.length: 0 %>;
-
-        function addVariant() {
-            const container = document.getElementById("variantContainer");
-
-            const html = `
-        <div class="variant-row grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-gray-50 p-4 rounded-lg border border-gray-200 relative">
-          <button
-            type="button"
-            onclick="removeVariant(this)"
-            class="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-white rounded-full p-1 shadow-md"
-            title="Remove variant"
-          >
-            <span class="material-icons-outlined text-sm">close</span>
-          </button>
-
-          <input type="hidden" name="variantId[]" value="">
-          <input type="hidden" name="variantIndices[]" value="${variantIndex}">
-          <input type="hidden" name="existingImages_${variantIndex}" value="[]">
-
-          <div>
-            <label class="block text-xs font-medium text-gray-600 mb-1">Color</label>
-            <input
-              type="text"
-              name="color[]"
-              class="block w-full rounded-lg border-gray-300 bg-white text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
-              placeholder="e.g. Yellow"
-              required
-            />
-          </div>
-          <div>
-            <label class="block text-xs font-medium text-gray-600 mb-1">Price</label>
-            <input
-              type="number"
-              name="variantPrice[]"
-              class="block w-full rounded-lg border-gray-300 bg-white text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
-              min="0"
-              required
-            />
-          </div>
-          <div>
-            <label class="block text-xs font-medium text-gray-600 mb-1">Stock</label>
-            <input
-              type="number"
-              name="variantStock[]"
-              class="block w-full rounded-lg border-gray-300 bg-white text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
-              min="0"
-              required
-            />
-          </div>
-          <div>
-            <label class="block text-xs font-medium text-gray-600 mb-1">Images</label>
-            <input
-              type="file"
-              name="images_${variantIndex}"
-              accept="image/*"
-              multiple
-              class="block w-full text-sm text-gray-700 file:mr-3 file:py-2 file:px-3 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-orange-600 cursor-pointer"
-            />
-            <p class="text-[11px] text-gray-400 mt-1">You can upload multiple images for this color.</p>
-          </div>
-        </div>
-      `;
-
-            container.insertAdjacentHTML("beforeend", html);
-            variantIndex++;
-        }
-
-        function removeVariant(button) {
-            const row = button.closest(".variant-row");
-            if (row) row.remove();
-        }
-
-        function removeExistingImage(variantIdx, imageUrl) {
-            const inputId = `existingImages_${variantIdx}`;
-            const input = document.getElementById(inputId);
-            if (!input) return;
-
-            let images = JSON.parse(input.value);
-            images = images.filter(img => img !== imageUrl);
-            input.value = JSON.stringify(images);
-
-            // Remove the visual element
-            const btn = event.target.closest('button');
-            if (btn) {
-                btn.parentElement.remove();
-            }
-        }
-    </script>
+    <input type="hidden" id="serverVariantIndex" value="<%= variants ? variants.length : 0 %>">
+    <script type="module" src="/js/admin/editProduct.js"></script>
 </body>
 
 </html>

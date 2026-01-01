@@ -1,0 +1,126 @@
+    /* Custom styles for table header rounding */
+    thead tr th:first-child {
+        border-top-left-radius: 0.5rem;
+        border-bottom-left-radius: 0.5rem;
+    }
+
+    thead tr th:last-child {
+        border-top-right-radius: 0.5rem;
+        border-bottom-right-radius: 0.5rem;
+    }
+
+    /* Pagination Styling */
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 32px;
+        padding-bottom: 16px;
+    }
+
+    .pagination-bar {
+        background: white;
+        display: flex;
+        align-items: center;
+        padding: 8px 16px;
+        border-radius: 9999px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        border: 1px solid #f3f4f6;
+        gap: 8px;
+    }
+
+    .pagination-nav-link {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 6px 16px;
+        border-radius: 9999px;
+        color: #4b5563;
+        font-size: 0.875rem;
+        font-weight: 600;
+        transition: all 0.2s;
+        text-decoration: none;
+    }
+
+    .pagination-nav-link:hover:not(.disabled) {
+        background-color: #f3f4f6;
+        color: #111827;
+    }
+
+    .pagination-nav-link.disabled {
+        color: #d1d5db;
+        cursor: not-allowed;
+    }
+
+    .pagination-numbers {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 0 8px;
+        border-left: 1px solid #e5e7eb;
+        border-right: 1px solid #e5e7eb;
+        margin: 0 8px;
+    }
+
+    .pagination-number {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9999px;
+        color: #6b7280;
+        font-size: 0.875rem;
+        font-weight: 500;
+        transition: all 0.2s;
+        text-decoration: none;
+    }
+
+    .pagination-number:hover:not(.active) {
+        background-color: #f3f4f6;
+        color: #111827;
+    }
+
+    .pagination-number.active {
+        background-color: #F97316;
+        color: white;
+        font-weight: 700;
+        box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3);
+    }
+
+    .pagination-dots {
+        color: #9ca3af;
+        padding: 0 4px;
+    }
+
+    /* Message alert animation */
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-slideIn {
+        animation: slideIn 0.4s ease-out;
+    }
+
+    @keyframes fadeOut {
+        from {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        to {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+    }
+
+    .animate-fadeOut {
+        animation: fadeOut 0.3s ease-in forwards;
+    }

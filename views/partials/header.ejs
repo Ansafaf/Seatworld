@@ -1,0 +1,64 @@
+<header class="main-header">
+    <div class="header-container">
+        <div class="header-left">
+            <a href="/home" class="brand">
+                <img src="<%= typeof logoUrl !== 'undefined' && logoUrl ? logoUrl : 'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765945540/products/rmsn314w038gnfzmemmi.jpg' %>"
+                    alt="SeatWorld Logo">
+                <span>SeatWorld</span>
+            </a>
+            <nav class="nav-menu">
+                <a href="/home">Home</a>
+                <a href="/products">Products</a>
+                <a href="/about">About Us</a>
+            </nav>
+        </div>
+
+        <div class="header-right">
+            <% if (typeof showSearch !=='undefined' && showSearch) { %>
+                <form action="/products" method="GET" class="header-search">
+                    <div class="search-box">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="search-icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        <input type="text" name="search" id="headerSearchInput"
+                            value="<%= (typeof filters !== 'undefined' && filters?.search) || '' %>"
+                            placeholder="Search furniture...">
+                    </div>
+                </form>
+                <% } %>
+
+                    <div class="header-icons">
+                        <a href="/wishlist" class="icon-link" title="Wishlist">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
+                                </path>
+                            </svg>
+                        </a>
+                        <a href="/cart" class="icon-link" title="Cart">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
+                                </path>
+                            </svg>
+                        </a>
+                        <a href="/profile" class="profile-link">
+                            <img src="https://ui-avatars.com/api/?name=<%= (typeof user !== 'undefined' && (user.username || user.name)) || 'User' %>&background=random"
+                                alt="Profile">
+                        </a>
+                    </div>
+
+                    <button class="mobile-menu-toggle" onclick="toggleMobileNav()">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+        </div>
+    </div>
+</header>
+
+<link rel="stylesheet" href="/css/users/header.css">
+
+<script src="/js/users/header.js"></script>

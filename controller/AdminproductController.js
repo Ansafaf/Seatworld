@@ -1,10 +1,12 @@
-import { Product, ProductVariant } from '../models/productModel.js';
-import { Category } from '../models/categoryModel.js';
+import * as productService from '../services/adminProductService.js';
+import * as categoryService from '../services/adminCategoryService.js';
+import logger from '../utils/logger.js';
+import { Product } from '../models/productModel.js';
 
-export const productList = async (req, res) => {
+export const productList = async (req, res, next) => {
   try {
     const page = parseInt(req.query.page) || 1;
-    const limit = 7;
+    const limit = parseInt(req.query.limit) || 7;
     const skip = (page - 1) * limit;
     const searchQuery = req.query.search || "";
 
@@ -13,254 +15,228 @@ export const productList = async (req, res) => {
       query.name = { $regex: searchQuery, $options: "i" };
     }
 
-    const totalProducts = await Product.countDocuments(query);
+    const totalProducts = await productService.getProductsCount(query);
     const totalPages = Math.ceil(totalProducts / limit);
+    const products = await productService.getAllProducts(query, skip, limit);
 
-    const products = await Product.find(query)
-      .populate("categoryId")
-      .skip(skip)
-      .limit(limit)
-      .sort({ createdAt: -1 });
+    // AJAX Support
+    if (req.xhr || req.headers.accept?.includes("application/json")) {
+      return res.status(200).json({
+        success: true,
+        products,
+        currentPage: page,
+        totalPages,
+        search: searchQuery,
+        limit
+      });
+    }
 
-    // Fetch stock for each product from variants
-    const productsWithStock = await Promise.all(
-      products.map(async (product) => {
-        const variants = await ProductVariant.find({ productId: product._id });
-        const totalStock = variants.reduce((acc, curr) => acc + curr.stock, 0);
-        return {
-          ...product.toObject(),
-          totalStock,
-          variantsCount: variants.length
-        };
-      })
-    );
-
-    res.render("admin/adminProductlist", {
-      products: productsWithStock,
+    res.render("admin/adminProductList", {
+      products,
       currentPage: page,
       totalPages,
       search: searchQuery,
+      limit
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Something went wrong!");
+    next(error);
   }
 };
 
-export const getAddProduct = async (req, res) => {
+export const getAddProduct = async (req, res, next) => {
   try {
-    const categories = await Category.find({ isActive: true }).select("_id categoryName");
-    res.render("admin/addproduct", { categories });
+    const categories = await categoryService.getActiveCategories();
+    res.render("admin/addProduct", { categories });
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Something went wrong!");
+    next(error);
   }
 }
 
-
-export const postAddProduct = async (req, res) => {
+export const postAddProduct = async (req, res, next) => {
   try {
     const {
-      productName,
-      Baseprice,
-      category,
-      brandName,
-      description,
-      color,
-      variantPrice,
-      variantStock,
-      images
+      productName, Baseprice, category, brandName, description,
+      color, variantPrice, variantStock
     } = req.body;
 
-    const product = new Product({
+    const existingProduct = await Product.findOne({
+      name: { $regex: new RegExp(`^${productName}$`, 'i') }
+    });
+
+    if (existingProduct) {
+      return res.status(400).json({ success: false, message: 'Product with this name already exists' });
+    }
+
+    const productData = {
       name: productName,
       brand: brandName,
       Baseprice: Baseprice,
       description: description,
       categoryId: category,
-      tags: [],
-      images: images
-    });
+    };
 
-
-    const savedProduct = await Product.insertOne(product);
-
-    // 2️⃣ Build variants array
-    // Express sends a single string if there's only one item,
-    // so make sure they are arrays:
     const colors = Array.isArray(color) ? color : [color];
     const prices = Array.isArray(variantPrice) ? variantPrice : [variantPrice];
     const stocks = Array.isArray(variantStock) ? variantStock : [variantStock];
+    let vIndices = req.body.variantIndices || req.body['variantIndices[]'];
+    const variantIndices = Array.isArray(vIndices) ? vIndices : (vIndices ? [vIndices] : []);
 
-    const files = req.files || []; // multer files (Cloudinary URLs in file.path)
+    const variantsData = colors.map((c, index) => ({
+      color: c,
+      stock: stocks[index] || 0,
+      price: prices[index] || Baseprice,
+      imageIndex: variantIndices[index]
+    }));
 
-    const variantsToInsert = colors.map((c, index) => {
-      const imageField = `images_${index}`;
+    await productService.addProductWithVariants(productData, variantsData, req.files || []);
 
-      const imageUrls = files
-        .filter((f) => f.fieldname === imageField)
-        .map((f) => f.path); // Cloudinary URL
-
-      return {
-        productId: savedProduct._id,
-        color: c,
-        stock: stocks[index] || 0,
-        price: prices[index] || Baseprice,
-        images: imageUrls,
-        status: (stocks[index] && stocks[index] > 0) ? "Active" : "OutofStock",
-      };
-    });
-
-    // 3️⃣ Save all variants
-    if (variantsToInsert.length > 0) {
-      await ProductVariant.insertMany(variantsToInsert);
-    }
-
-    res.redirect("/admin/products");
+    res.status(200).json({ success: true, message: 'Product added Successfully', redirectUrl: "/admin/products" });
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Something went wrong!");
+    next(error);
   }
 };
 
-export const editProduct = async (req, res) => {
+export const editProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
+    const { ProductVariant } = await import('../models/productModel.js');
     const product = await Product.findById(id);
     const variants = await ProductVariant.find({ productId: id });
-    const categories = await Category.find({ isActive: true });
+    const categories = await categoryService.getActiveCategories();
     res.render("admin/editProduct", { product, variants, categories });
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Something went wrong!");
+    next(error);
   }
 };
 
-export const postEditProduct = async (req, res) => {
+export const postEditProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
+    logger.info(`[postEditProduct] Request received for Product ID: ${id}`);
+
+    // Log body keys to debug data
+    logger.info(`[postEditProduct] Body keys: ${Object.keys(req.body).join(', ')}`);
+
     const {
-      productName,
-      Baseprice,
-      category,
-      brandName,
-      description,
-      variantId,
-      color,
-      variantPrice,
-      variantStock,
+      productName, Baseprice, category, brandName, description,
+      color, variantPrice, variantStock, variantId
     } = req.body;
 
-    // 1. Update Product Details
-    await Product.findByIdAndUpdate(id, {
+    const productData = {
       name: productName,
       brand: brandName,
       Baseprice: Baseprice,
       description: description,
       categoryId: category,
-    });
+    };
 
-    // 2. Handle Variants
-    // Normalize to arrays (in case of single variant)
     const variantIds = Array.isArray(variantId) ? variantId : (variantId ? [variantId] : []);
-    const variantIndices = Array.isArray(req.body.variantIndices) ? req.body.variantIndices : (req.body.variantIndices ? [req.body.variantIndices] : []);
-    const colors = Array.isArray(color) ? color : [color];
-    const prices = Array.isArray(variantPrice) ? variantPrice : [variantPrice];
-    const stocks = Array.isArray(variantStock) ? variantStock : [variantStock];
+    const colors = color ? (Array.isArray(color) ? color : [color]) : [];
+    const prices = variantPrice ? (Array.isArray(variantPrice) ? variantPrice : [variantPrice]) : [];
+    const stocks = variantStock ? (Array.isArray(variantStock) ? variantStock : [variantStock]) : [];
+
+    // Normalized variant indices
+    let vIndices = req.body.variantIndices || req.body['variantIndices[]'];
+    const variantIndices = Array.isArray(vIndices) ? vIndices : (vIndices ? [vIndices] : []);
+
+    logger.info(`[postEditProduct] Colors count: ${colors.length}, VariantIndices count: ${variantIndices.length}`);
 
     const files = req.files || [];
-    const processedVariantIds = [];
+    const processedVariants = [];
 
-    // Loop through submitted variants
+    const { processImage } = await import('../utils/imageProcessor.js');
+    const { cloudinary } = await import('../config/cloudinary.js');
+
     for (let i = 0; i < colors.length; i++) {
+      logger.info(`[postEditProduct] Processing variant index ${i}`);
+
       const currentVariantId = variantIds[i];
-      const currentIndex = variantIndices[i]; // Get the index used for this variant's files/images
-      const currentColor = colors[i];
-      const currentPrice = prices[i];
-      const currentStock = stocks[i];
+      const currentIndex = variantIndices[i];
+      if (typeof currentIndex === 'undefined') {
+        logger.error(`[postEditProduct] currentIndex is undefined for i=${i}`);
+        throw new Error(`Missing variant index for variant ${i}`);
+      }
 
-      // Get existing images from hidden input using the correct index
       const existingImagesJson = req.body[`existingImages_${currentIndex}`];
-      let finalImages = [];
-      if (existingImagesJson) {
-        try {
-          finalImages = JSON.parse(existingImagesJson);
-        } catch (e) {
-          console.error("Error parsing existing images", e);
-        }
-      }
+      let finalImages = existingImagesJson ? JSON.parse(existingImagesJson) : [];
 
-      // Get new uploaded images for this variant index
       const imageField = `images_${currentIndex}`;
-      const newImages = files
-        .filter((f) => f.fieldname === imageField)
-        .map((f) => f.path); // Cloudinary URL
+      const vFiles = files.filter((f) => f.fieldname === imageField);
 
-      finalImages = [...finalImages, ...newImages];
+      logger.info(`[postEditProduct] Variant ${i}: Existing images: ${finalImages.length}, New files: ${vFiles.length}`);
 
-      const variantData = {
-        productId: id,
-        color: currentColor,
-        price: currentPrice,
-        stock: currentStock,
-        images: finalImages,
-        status: (currentStock && currentStock > 0) ? "Active" : "OutofStock",
-      };
-
-      if (currentVariantId) {
-        // Update existing variant
-        await ProductVariant.findByIdAndUpdate(currentVariantId, variantData);
-        processedVariantIds.push(currentVariantId);
-      } else {
-        // Create new variant
-        const newVariant = new ProductVariant(variantData);
-        const savedVariant = await newVariant.save();
-        processedVariantIds.push(savedVariant._id);
+      if (vFiles.length > 0) {
+        const newImages = await Promise.all(vFiles.map(async (file) => {
+          const processedBuffer = await processImage(file.buffer);
+          return new Promise((resolve, reject) => {
+            const uploadStream = cloudinary.uploader.upload_stream(
+              { folder: 'products', resource_type: 'image' },
+              (error, result) => {
+                if (error) reject(error);
+                else resolve(result.secure_url);
+              }
+            );
+            uploadStream.end(processedBuffer);
+          });
+        }));
+        finalImages = [...finalImages, ...newImages];
       }
+
+      processedVariants.push({
+        id: currentVariantId,
+        data: {
+          productId: id,
+          color: colors[i],
+          price: prices[i],
+          stock: stocks[i],
+          images: finalImages,
+          status: (stocks[i] > 0) ? "Active" : "OutofStock",
+        }
+      });
     }
 
-    // 3. Delete Removed Variants
-    // Find all variants for this product that were NOT in the processed list
-    await ProductVariant.deleteMany({
-      productId: id,
-      _id: { $nin: processedVariantIds }
-    });
+    const processedVariantIds = processedVariants.map(v => v.id).filter(id => id);
+    const { ProductVariant } = await import('../models/productModel.js');
+    const allCurrentVariants = await ProductVariant.find({ productId: id });
+    const deletedVariantIds = allCurrentVariants
+      .filter(v => !processedVariantIds.includes(v._id.toString()))
+      .map(v => v._id);
 
-    res.redirect("/admin/products");
+    logger.info(`[postEditProduct] Updating database. Deleted variants: ${deletedVariantIds.length}`);
+
+    await productService.updateProductWithVariants(id, productData, processedVariants, deletedVariantIds);
+
+    logger.info(`[postEditProduct] Success.`);
+    res.status(200).json({ success: true, message: 'Product updated Successfully', redirectUrl: "/admin/products" });
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Something went wrong!");
+    logger.error(`[postEditProduct] Error: ${error.message}`);
+    next(error);
   }
 };
 
-export const blockProduct = async (req, res) => {
+export const blockProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
-     if(ProductVariant.status == "Blocked"){
-      return res.status(200).json({message:"Product already blocked"});
-    }
-   
-    await ProductVariant.findByIdAndUpdate(id,{status:"Blocked"});
+    const product = await productService.getProductById(id);
+    if (!product) return res.status(404).json({ message: "Product not found" });
 
-    res.status(200).json({ message: "Product blocked successfully" });
+    await productService.updateProductStatus(id, true);
+    res.status(200).json({ message: `Product "${product.name}" blocked successfully`, productName: product.name });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Something went wrong!" });
+    next(error);
   }
 };
 
-export const unblockProduct = async (req,res) =>{
-  try{
-     const {id} = req.params;
-    if(ProductVariant.status == "Active"){
-      return res.status(200).json({message:"Product already unblocked/active"})
-    }
-     await ProductVariant.findByIdAndUpdate({productId: id}, {status:"Active"});
+export const unblockProduct = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const product = await productService.getProductById(id);
+    if (!product) return res.status(404).json({ message: "Product not found" });
 
-     res.status(200).json({message:"Product unblocked successfully"});
-  }catch(err){
-    console.log(err);
-    res.status(500).json({message:"Something went wrong"});
+    await productService.updateProductStatus(id, false);
+    res.status(200).json({ message: `Product "${product.name}" unblocked successfully`, productName: product.name });
+  } catch (error) {
+    next(error);
   }
-}
+};
 

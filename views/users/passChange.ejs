@@ -8,608 +8,92 @@
 
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', system-ui, sans-serif;
-    }
-
-    body {
-      background: #f5f5f5;
-      color: #111;
-    }
-
-
-    /* ================= HEADER ================= */
-    header {
-      background: #eae6e3;
-      padding: 14px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      /* Lower than flash message */
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .logo {
-      font-weight: 700;
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: #111;
-      font-size: 14px;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-
-    nav a:hover {
-      color: #3b82f6;
-    }
-
-    .icons {
-      display: flex;
-      gap: 16px;
-      font-size: 16px;
-    }
-
-    .icons i {
-      cursor: pointer;
-      transition: color 0.2s;
-    }
-
-    .icons i:hover {
-      color: #3b82f6;
-    }
-
-    .menu-btn {
-      display: none;
-      font-size: 22px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #111;
-    }
-
-    /* ================= LAYOUT ================= */
-    .container {
-      max-width: 1200px;
-      margin: 40px auto;
-      padding: 0 16px;
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      gap: 30px;
-      margin-top: 80px;
-      /* Added space for flash message */
-    }
-
-    /* ================= SIDEBAR ================= */
-    .sidebar {
-      background: #fff;
-      border-radius: 14px;
-      padding: 20px;
-      border: 1px solid #ddd;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      height: fit-content;
-      position: sticky;
-      top: 80px;
-    }
-
-    .sidebar h3 {
-      font-size: 14px;
-      margin-bottom: 18px;
-      font-weight: 700;
-      color: #666;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .sidebar ul {
-      list-style: none;
-    }
-
-    .sidebar li {
-      margin-bottom: 14px;
-    }
-
-    .sidebar a {
-      text-decoration: none;
-      color: #111;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
-      border-radius: 8px;
-      transition: all 0.2s;
-    }
-
-    .sidebar a:hover {
-      background: #f5f5f5;
-      transform: translateX(5px);
-    }
-
-    .sidebar a.active {
-      background: #3b82f6;
-      color: white;
-      font-weight: 600;
-    }
-
-    .sidebar a.active i {
-      color: white;
-    }
-
-    .sidebar a i {
-      color: #666;
-      width: 18px;
-    }
-
-    /* ================= CONTENT ================= */
-    .content {
-      background: #fff;
-      border-radius: 14px;
-      padding: 40px;
-      border: 1px solid #ddd;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    }
-
-    .content h2 {
-      text-align: center;
-      font-size: 28px;
-      margin-bottom: 40px;
-      font-weight: 700;
-      color: #111;
-      position: relative;
-      padding-bottom: 15px;
-    }
-
-    .content h2::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60px;
-      height: 3px;
-      background: #3b82f6;
-      border-radius: 2px;
-    }
-
-    .form-group {
-      max-width: 420px;
-      margin: 0 auto 24px;
-    }
-
-    .form-group label {
-      font-size: 14px;
-      margin-bottom: 8px;
-      display: block;
-      font-weight: 500;
-      color: #333;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 14px 18px;
-      border-radius: 10px;
-      border: 2px solid #e5e7eb;
-      outline: none;
-      font-size: 15px;
-      transition: all 0.2s;
-      background: #f9fafb;
-    }
-
-    .form-group input:focus {
-      border-color: #3b82f6;
-      background: white;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-    }
-
-    .password-container {
-      position: relative;
-    }
-
-    .toggle-password {
-      position: absolute;
-      right: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      color: #666;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    .submit-btn {
-      display: block;
-      margin: 40px auto 0;
-      padding: 14px 36px;
-      border-radius: 10px;
-      border: none;
-      background: linear-gradient(135deg, #111, #333);
-      color: #fff;
-      cursor: pointer;
-      font-size: 15px;
-      font-weight: 600;
-      transition: all 0.3s;
-      letter-spacing: 0.5px;
-    }
-
-    .submit-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-      background: linear-gradient(135deg, #222, #444);
-    }
-
-    .submit-btn:active {
-      transform: translateY(0);
-    }
-
-    /* ================= FOOTER ================= */
-    footer {
-      background: #eee;
-      margin-top: 80px;
-      padding: 50px 20px 30px;
-      border-top: 1px solid #ddd;
-    }
-
-    .footer-grid {
-      max-width: 1200px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 40px;
-    }
-
-    footer h4 {
-      font-size: 16px;
-      margin-bottom: 20px;
-      font-weight: 600;
-      color: #111;
-    }
-
-    footer a {
-      display: block;
-      text-decoration: none;
-      color: #555;
-      font-size: 14px;
-      margin-bottom: 10px;
-      transition: color 0.2s;
-    }
-
-    footer a:hover {
-      color: #3b82f6;
-    }
-
-    .copyright {
-      text-align: center;
-      font-size: 13px;
-      margin-top: 40px;
-      color: #777;
-      padding-top: 20px;
-      border-top: 1px solid #ddd;
-    }
-
-    /* ================= MOBILE ================= */
-    @media (max-width: 900px) {
-      .container {
-        grid-template-columns: 1fr;
-        margin: 20px auto;
-        margin-top: 60px;
-        /* Adjusted for mobile */
-      }
-
-      .sidebar {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 280px;
-        height: 100vh;
-        z-index: 999;
-        margin: 0;
-        border-radius: 0;
-        padding-top: 70px;
-        transition: left 0.3s ease;
-        overflow-y: auto;
-      }
-
-      .sidebar.active {
-        left: 0;
-        display: block;
-      }
-
-      .sidebar-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 998;
-      }
-
-      .sidebar-overlay.active {
-        display: block;
-      }
-
-      nav {
-        position: absolute;
-        top: 60px;
-        left: 0;
-        width: 100%;
-        background: #eae6e3;
-        flex-direction: column;
-        padding: 20px;
-        display: none;
-        z-index: 99;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      }
-
-      nav.active {
-        display: flex;
-      }
-
-      .menu-btn {
-        display: block;
-      }
-
-      .content {
-        padding: 30px 20px;
-      }
-
-      .content h2 {
-        font-size: 24px;
-      }
-
-      .flash-message {
-        top: 15px;
-        width: 95%;
-        z-index: 9999;
-        /* Ensure it stays on top */
-      }
-    }
-
-    @media (max-width: 480px) {
-      header {
-        padding: 12px 16px;
-      }
-
-      .content {
-        padding: 25px 16px;
-      }
-
-      .form-group input {
-        padding: 12px 16px;
-      }
-
-      .submit-btn {
-        width: 100%;
-      }
-
-      .flash-message {
-        padding: 14px 18px;
-        font-size: 14px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="/css/users/passChange.css">
 </head>
 
 <body>
 
 
-  <%- include('../partials/flash') %>
+  <%- include('../partials/header', { showSearch: false }) %>
+    <%- include("../partials/breadcrumb", { breadcrumbs }) %>
 
-    <!-- Sidebar Overlay for Mobile -->
-    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-
-    <!-- ================= HEADER ================= -->
-    <header>
-      <div class="logo"> SeatWorld</div>
-
-      <button class="menu-btn" onclick="toggleMenu()">
-        <i class="fas fa-bars"></i>
+      <button class="menu-btn" onclick="toggleSidebar()"
+        style="position: fixed; top: 90px; left: 20px; z-index: 100; background: white; border-radius: 50%; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); border: none;">
+        <i class="fas fa-bars" style="font-size: 20px;"></i>
       </button>
 
-      <nav id="mobileMenu">
-        <a href="/dashboard">Home</a>
-        <a href="/products">Products</a>
-        <a href="/about">About</a>
-      </nav>
+      <!-- ================= MAIN ================= -->
+      <div class="container">
 
-      <div class="icons">
-        <a href="/wishlist"><i class="far fa-heart"></i></a>
-        <a href="/profile"><i class="far fa-user"></i></a>
-        <a href="/cart"><i class="fas fa-cart-shopping"></i></a>
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+          <h3>MY ACCOUNT</h3>
+          <ul>
+            <li><a href="/profile"><i class="fa-regular fa-user"></i> Personal Information</a></li>
+            <li><a href="/address"><i class="fa-solid fa-location-dot"></i> Address</a></li>
+            <li><a href="/orders"><i class="fa-solid fa-box"></i> Order</a></li>
+            <li><a href="/wallet"><i class="fa-solid fa-wallet"></i> Wallet</a></li>
+            <li><a href="/coupon"><i class="fa-solid fa-ticket"></i> Coupon</a></li>
+            <li><a class="active" href="/password-change"><i class="fa-solid fa-lock"></i> Password Change</a></li>
+            <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+          </ul>
+        </aside>
+
+        <!-- Content -->
+        <section class="content">
+          <h2>PASSWORD CHANGE</h2>
+
+          <form action="/password-change" method="POST" id="passwordForm">
+            <div class="form-group">
+              <label>Current Password</label>
+              <div class="password-container">
+                <input type="password" name="currentPass" id="currentPassword" required>
+                <button type="button" class="toggle-password" onclick="togglePasswordVisibility('currentPassword')">
+                  <i class="far fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>New Password</label>
+              <div class="password-container">
+                <input type="password" name="newPass" id="newPassword" required minlength="6">
+                <button type="button" class="toggle-password" onclick="togglePasswordVisibility('newPassword')">
+                  <i class="far fa-eye"></i>
+                </button>
+              </div>
+              <small style="color: #666; font-size: 12px; margin-top: 4px; display: block;">
+                Must be at least 6 characters long
+              </small>
+            </div>
+
+            <div class="form-group">
+              <label>Confirm Password</label>
+              <div class="password-container">
+                <input type="password" name="confirmPass" id="confirmPassword" required minlength="6">
+                <button type="button" class="toggle-password" onclick="togglePasswordVisibility('confirmPassword')">
+                  <i class="far fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Change Password</button>
+          </form>
+        </section>
+
       </div>
-    </header>
 
-    <!-- ================= MAIN ================= -->
-    <div class="container">
+      <!-- ================= FOOTER ================= -->
+      <footer>
+        <div class="copyright">
+          © <%= new Date().getFullYear() %> SeatWorld. All Rights Reserved
+        </div>
+      </footer>
 
-      <!-- Sidebar -->
-      <aside class="sidebar" id="sidebar">
-        <h3>MY ACCOUNT</h3>
-        <ul>
-          <li><a href="/profile"><i class="fa-regular fa-user"></i> Personal Information</a></li>
-          <li><a href="/address"><i class="fa-solid fa-location-dot"></i> Address</a></li>
-          <li><a href="/orders"><i class="fa-solid fa-box"></i> Order</a></li>
-          <li><a href="/wallet"><i class="fa-solid fa-wallet"></i> Wallet</a></li>
-          <li><a href="/coupon"><i class="fa-solid fa-ticket"></i> Coupon</a></li>
-          <li><a class="active" href="/password-change"><i class="fa-solid fa-lock"></i> Password Change</a></li>
-          <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
-        </ul>
-      </aside>
-
-      <!-- Content -->
-      <section class="content">
-        <h2>PASSWORD CHANGE</h2>
-
-        <form action="/password-change" method="POST" id="passwordForm" onsubmit="return validatePassword()">
-          <div class="form-group">
-            <label>Current Password</label>
-            <div class="password-container">
-              <input type="password" name="currentPass" id="currentPassword" required>
-              <button type="button" class="toggle-password" onclick="togglePasswordVisibility('currentPassword')">
-                <i class="far fa-eye"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label>New Password</label>
-            <div class="password-container">
-              <input type="password" name="newPass" id="newPassword" required minlength="6">
-              <button type="button" class="toggle-password" onclick="togglePasswordVisibility('newPassword')">
-                <i class="far fa-eye"></i>
-              </button>
-            </div>
-            <small style="color: #666; font-size: 12px; margin-top: 4px; display: block;">
-              Must be at least 6 characters long
-            </small>
-          </div>
-
-          <div class="form-group">
-            <label>Confirm Password</label>
-            <div class="password-container">
-              <input type="password" name="confirmPass" id="confirmPassword" required minlength="6">
-              <button type="button" class="toggle-password" onclick="togglePasswordVisibility('confirmPassword')">
-                <i class="far fa-eye"></i>
-              </button>
-            </div>
-          </div>
-
-          <button type="submit" class="submit-btn">Change Password</button>
-        </form>
-      </section>
-
-    </div>
-
-    <!-- ================= FOOTER ================= -->
-    <footer>
-      <div class="copyright">
-        © <%= new Date().getFullYear() %> SeatWorld. All Rights Reserved
-      </div>
-    </footer>
-
-    <script>
-
-      // Toggle password visibility
-      function togglePasswordVisibility(fieldId) {
-        const passwordField = document.getElementById(fieldId);
-        const toggleButton = passwordField.nextElementSibling;
-        const icon = toggleButton.querySelector('i');
-
-        if (passwordField.type === 'password') {
-          passwordField.type = 'text';
-          icon.classList.remove('fa-eye');
-          icon.classList.add('fa-eye-slash');
-        } else {
-          passwordField.type = 'password';
-          icon.classList.remove('fa-eye-slash');
-          icon.classList.add('fa-eye');
-        }
-      }
-
-      // Password validation
-      function validatePassword() {
-        const newPassword = document.getElementById('newPassword').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
-
-        if (newPassword.length < 6) {
-          alert('New password must be at least 6 characters long.');
-          return false;
-        }
-
-        if (newPassword !== confirmPassword) {
-          alert('New password and confirm password do not match.');
-          return false;
-        }
-
-        return true;
-      }
-
-      // Mobile menu toggle
-      function toggleMenu() {
-        document.getElementById('mobileMenu').classList.toggle('active');
-      }
-
-      // Sidebar toggle for mobile
-      function toggleSidebar() {
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('sidebarOverlay');
-        sidebar.classList.toggle('active');
-        overlay.classList.toggle('active');
-      }
-
-      // Open sidebar on clicking profile icon (mobile)
-      document.querySelector('a[href="/profile"]').addEventListener('click', function (e) {
-        if (window.innerWidth <= 900) {
-          e.preventDefault();
-          toggleSidebar();
-        }
-      });
-
-      // Close sidebar when clicking menu items
-      const sidebarLinks = document.querySelectorAll('.sidebar a');
-      sidebarLinks.forEach(link => {
-        link.addEventListener('click', () => {
-          if (window.innerWidth <= 900) {
-            toggleSidebar();
-          }
-        });
-      });
-
-      // Close sidebar on escape key
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          const sidebar = document.getElementById('sidebar');
-          if (sidebar.classList.contains('active')) {
-            toggleSidebar();
-          }
-        }
-      });
-
-      // Form submission feedback
-      const form = document.getElementById('passwordForm');
-      form.addEventListener('submit', function (e) {
-        if (!validatePassword()) {
-          e.preventDefault();
-          return;
-        }
-
-        // Show loading state
-        const submitBtn = form.querySelector('.submit-btn');
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Changing Password...';
-        submitBtn.disabled = true;
-
-        // In real app, this would be handled by form submission
-        // Revert after 2 seconds for demo
-        setTimeout(() => {
-          submitBtn.textContent = originalText;
-          submitBtn.disabled = false;
-        }, 2000);
-      });
-    </script>
+      <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
+      <script type="module" src="/js/users/passChange.js"></script>
 
 </body>
 
