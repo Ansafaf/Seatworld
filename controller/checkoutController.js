@@ -5,7 +5,8 @@ import { Address } from "../models/addressModel.js";
 import Order from "../models/orderModel.js";
 import Cart from "../models/cartModel.js";
 import * as cartService from "../services/cartService.js";
-
+import { getSelectedPaymentMethod } from "../public/js/users/paymentOptions.js";
+import Coupon  from "../models/couponModel.js";
 
 export const getCheckoutAddress = async (req, res) => {
     try {
@@ -18,11 +19,13 @@ export const getCheckoutAddress = async (req, res) => {
         }
       
         const addresses = await Address.find({ userId }).sort({ isDefault: -1, createdAt: -1 });
+        const availableCoupons = await Coupon.find({});
         logger.info(`${cartTotals}`);
         res.render("users/checkout", {
             user: req.session.user,
             addresses,
             ...cartTotals,
+            coupons:availableCoupons,
             breadcrumbs: buildBreadcrumb([
                 { label: "Cart", url: "/cart" },
                 { label: "Checkout", url: "/checkout" }
@@ -93,7 +96,7 @@ export const getPaymentOptions = async (req, res) => {
 export const placeOrder = async (req, res) => {
     try {
         const userId = req.session.user.id;
-
+        const paymentMethod = getSelectedPaymentMethod();
 
         if (!req.session.checkout || !req.session.checkout.address) {
             return res.status(400).json({ success: false, message: "Session expired or address missing" });
@@ -131,16 +134,15 @@ export const placeOrder = async (req, res) => {
                 country: addressData.country || 'India',
                 mobile: addressData.mobile
             },
-            paymentMethod: 'COD', // Default
+            paymentMethod: paymentMethod, // Default
             orderStatus: 'Pending',
             paymentStatus: 'Pending'
         });
 
         await newOrder.save();
-
         await Cart.deleteMany({ userId });
-
         req.session.checkout = null;
+        req.session.order = newOrder;
 
         if (req.xhr || req.headers.accept.indexOf('json') > -1) {
             return res.status(200).json({

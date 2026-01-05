@@ -7,11 +7,11 @@ import {
     getPaymentOptions,
     placeOrder,
 } from "../controller/checkoutController.js";
-import {getOrderSuccess} from "../controller/adminOrderController.js";
+import {getOrderSuccess} from "../controller/orderController.js";
 
-checkoutRouter.get("/", authMiddleware, getCheckoutAddress);
-checkoutRouter.post("/address", authMiddleware, postAddress);
-checkoutRouter.get("/payment-options", authMiddleware, getPaymentOptions);
+checkoutRouter.get("/checkout", authMiddleware, getCheckoutAddress);
+checkoutRouter.post("/checkout/address", authMiddleware, postAddress);
+checkoutRouter.get("/checkout/payment-options", authMiddleware, getPaymentOptions);
 checkoutRouter.post("/place-order", authMiddleware, placeOrder);
 checkoutRouter.get("/order-success", authMiddleware, getOrderSuccess);
 

@@ -83,7 +83,7 @@ app.use("/", productRouter);
 app.use("/admin", adminCategoryRouter);
 app.use("/admin", adminProductRouter);
 app.use("/cart", cartRouter);
-app.use("/checkout", checkoutRouter);
+app.use("/", checkoutRouter);
 app.use("/admin/orders", adminOrderRouter);
 
 app.use((req, res, next) => {

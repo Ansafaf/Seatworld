@@ -1,4 +1,4 @@
-import {getCartByUserId, calculateCartTotals} from "../services/cartService";
+import {getCartByUserId, calculateCartTotals} from "../services/cartService.js";
 
 
 export async function verifyCheckoutCart(userId){
@@ -18,9 +18,4 @@ export async function validateAddress(address){
    if(!address?.name || !address?.phone || !address?.pincode){
     throw new Error("Invalid delivery address");
    }
-}
-
-export const getSelectedPaymentMethod=()=>{
-    const selected = document.querySelector('input[name="payment"]:checked');
-    return selected ? selected.value : null;
 }

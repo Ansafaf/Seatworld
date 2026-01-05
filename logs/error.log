@@ -218,3 +218,15 @@ If the above error is not helpful, you may want to try EJS-Lint:
 https://github.com/RyanZim/EJS-Lint
 Or, if you meant to create an async function, pass `async: true` as an option.
 [2026-01-05 15:56:53] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required.
+[2026-01-05 19:33:30] ERROR: Place Order Error: document is not defined
+[2026-01-05 19:37:01] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required.
+[2026-01-05 19:53:31] ERROR: Missing catch or finally after try in E:\Brocamp\SeatWorld\views\admin\orderList.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+[2026-01-05 19:53:37] ERROR: Missing catch or finally after try in E:\Brocamp\SeatWorld\views\admin\orderList.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
