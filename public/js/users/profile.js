@@ -1,46 +1,22 @@
-// Mobile sidebar functionality
-const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-const mobileSidebar = document.getElementById('mobileSidebar');
-const mobileOverlay = document.getElementById('mobileOverlay');
-const closeSidebarBtn = document.getElementById('closeSidebarBtn');
-
-function openMobileSidebar() {
-    if (!mobileSidebar || !mobileOverlay) return;
-    mobileSidebar.classList.add('active');
-    mobileOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
+// Sidebar toggle for mobile
+function toggleSidebar() {
+    const sidebar = document.getElementById('mobileSidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    if (sidebar) sidebar.classList.toggle('active');
+    if (overlay) overlay.classList.toggle('active');
 }
 
-function closeMobileSidebar() {
-    if (!mobileSidebar || !mobileOverlay) return;
-    mobileSidebar.classList.remove('active');
-    mobileOverlay.classList.remove('active');
-    document.body.style.overflow = 'auto';
-}
+// Attach to window for HTML event handlers
+window.toggleSidebar = toggleSidebar;
 
-// Event listeners for mobile menu
-if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMobileSidebar);
-if (closeSidebarBtn) closeSidebarBtn.addEventListener('click', closeMobileSidebar);
-if (mobileOverlay) mobileOverlay.addEventListener('click', closeMobileSidebar);
-
-// Close sidebar when clicking on menu items
+// Close sidebar when clicking menu items
 const mobileMenuItems = document.querySelectorAll('#mobileSidebar .menu-item');
 mobileMenuItems.forEach(item => {
-    item.addEventListener('click', closeMobileSidebar);
-});
-
-// Close sidebar on escape key
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && mobileSidebar && mobileSidebar.classList.contains('active')) {
-        closeMobileSidebar();
-    }
-});
-
-// Responsive adjustments on window resize
-window.addEventListener('resize', () => {
-    if (window.innerWidth > 768 && mobileSidebar && mobileSidebar.classList.contains('active')) {
-        closeMobileSidebar();
-    }
+    item.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+            toggleSidebar();
+        }
+    });
 });
 
 // Avatar upload handling

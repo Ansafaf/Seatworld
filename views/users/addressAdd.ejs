@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New Address - SeatWorld</title>
     <link rel="stylesheet" href="/css/users/addressAdd.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
@@ -13,18 +14,21 @@
     <%- include('../partials/header', { showSearch: false }) %>
         <%- include("../partials/breadcrumb", { breadcrumbs }) %>
 
-            <button id="mobileMenuBtn" class="mobile-menu-btn"
-                style="position: fixed; top: 90px; left: 20px; z-index: 1001; background: #111827; border-radius: 6px; padding: 10px 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);">
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" onclick="toggleSidebar()">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
 
+            <!-- Overlay -->
+            <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
             <!-- Main Container -->
             <div class="container">
                 <div class="layout">
-                    <!-- Desktop Sidebar -->
-                    <aside class="sidebar desktop-sidebar">
+                    <!-- Sidebar -->
+                    <aside class="sidebar mobile-sidebar">
                         <div class="sidebar-header">My Account</div>
                         <a href="/profile" class="menu-item">
                             <span class="menu-icon">👤</span>
@@ -89,7 +93,7 @@
                                 <div class="form-group">
                                     <label class="form-label" for="state">State</label>
                                     <input type="text" id="state" name="state" class="form-input"
-                                        placeholder="Enter state" required>
+                                       placeholder="Enter state" required>
                                 </div>
 
                                 <div class="form-group">
@@ -119,14 +123,8 @@
                 </div>
             </div>
 
-            <!-- Footer -->
-            <footer>
-                <footer>
-                    <div class="footer-bottom">
-                        <p>SeatWorld © <%= new Date().getFullYear() %>, All Rights Reserved</p>
-                    </div>
-                </footer>
-
+            <%- include('../partials/footer')  %>
+            
                 <script type="module" src="/js/users/addressAdd.js"></script>
 </body>
 

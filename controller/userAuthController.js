@@ -441,7 +441,7 @@ export async function postforgotPass(req, res) {
 
     try {
       await transporter.sendMail({
-        from: process.env.EMAIL_USER || process.env.EMAIL,
+        from: process.env.EMAIL,
         to: user.email,
         subject: "Your Password Reset OTP",
         text: `Your OTP for password reset is ${otp}. It will expire in 5 minutes.`
@@ -662,61 +662,6 @@ export async function getHome(req, res) {
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error");
-  }
-}
-export async function getCart(req, res) {
-  if (!req.session.user) return res.redirect("/login");
-
-  try {
-    const carts = await Cart.find({ userId: req.session.user.id })
-      .populate({
-        path: 'variantId',
-        populate: { path: 'productId' }
-      })
-      .lean();
-
-    let subtotal = 0;
-    const cartItems = carts.map(item => {
-      const variant = item.variantId;
-      const product = variant ? variant.productId : null;
-      const itemPrice = (variant && variant.salePrice) ? variant.salePrice : (variant ? variant.price : 0);
-      const itemQuantity = item.productQuantity || 1;
-
-      const stockAvailable = variant && variant.stock > 0 && variant.status === "Active";
-      const isProductActive = product && !product.isBlocked;
-
-      if (stockAvailable && isProductActive) {
-        subtotal += itemPrice * itemQuantity;
-      }
-
-      return {
-        ...item,
-        name: product ? product.name : "Unavailable Product",
-        image: (variant && variant.images && variant.images.length > 0) ? variant.images[0] : "",
-        color: variant ? variant.color : "",
-        price: itemPrice,
-        quantity: itemQuantity,
-        outOfStock: !stockAvailable || !isProductActive
-      };
-    });
-
-    const deliveryFee = subtotal > 0 ? 50 : 0; // Dummy delivery fee
-    const total = subtotal + deliveryFee;
-
-    res.render("users/cartList", {
-      cartItems,
-      subtotal,
-      deliveryFee,
-      total,
-      breadcrumbs: buildBreadcrumb([
-        { label: "Cart", url: "/cart" }
-      ])
-    });
-  }
-  catch (err) {
-    console.error("Cart page error:", err);
-    req.session.message = { type: 'error', message: "Unable to load cart page. Please try again." };
-    res.redirect("/home");
   }
 }
 

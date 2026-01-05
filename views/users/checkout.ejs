@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | SeatWorld</title>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="/css/users/checkout.css">
+</head>
+
+<body>
+
+    <%- include('../partials/header', { showSearch: false }) %>
+        <%- include("../partials/breadcrumb", { breadcrumbs: typeof breadcrumbs !=='undefined' ? breadcrumbs : [] }) %>
+
+            <main class="checkout-container">
+                <h1 class="checkout-title">Checkout - Select Address</h1>
+
+                <div class="checkout-layout">
+                    <!-- Left Column: Shipping -->
+                    <section class="shipping-section">
+                        <div class="shipping-card">
+                            <div class="card-header">
+                                <h2>Shipping</h2>
+                            </div>
+                            <div class="card-body">
+                                <form id="shippingForm" class="address-form">
+                                    <div class="form-group full-width">
+                                        <label>Address*</label>
+                                        <input type="text" id="addressName" class="form-input"
+                                            placeholder="Address Name" name="name">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>House Name*</label>
+                                        <input type="text" id="houseName" class="form-input" placeholder="House Name/No"
+                                            name="houseName">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Street*</label>
+                                        <input type="text" id="street" class="form-input" placeholder="Street Name"
+                                            name="street">
+                                    </div>
+
+                                    <div class="form-group full-width">
+                                        <label>Landmark*</label>
+                                        <input type="text" id="landmark" class="form-input"
+                                            placeholder="Nearby Landmark" name="landmark">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>City*</label>
+                                        <input type="text" id="city" class="form-input" placeholder="City" name="city">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Area Pin Code*</label>
+                                        <input type="text" id="pincode" class="form-input" placeholder="6-digit Pincode"
+                                            name="pincode">
+                                    </div>
+
+                                    <div class="form-group full-width">
+                                        <label>Country*</label>
+                                        <input type="text" id="country" class="form-input" value="India" name="country"
+                                            readonly>
+                                    </div>
+
+                                    <div class="form-group full-width">
+                                        <label>Phone number*</label>
+                                        <input type="tel" id="mobile" class="form-input"
+                                            placeholder="10-digit Mobile Number" name="mobile">
+                                    </div>
+                                </form>
+
+                                </form>
+
+                                <div class="address-actions" style="display: flex; gap: 10px; margin-top: 15px;">
+                                    <button class="btn-black btn-save-address" type="button"
+                                        onclick="saveAddressForOrder()">Save Address</button>
+                                    <button class="btn-black btn-clear-address" type="button"
+                                        onclick="clearAddressForm()"
+                                        style="background-color: #f5f5f5; color: #333; border: 1px solid #ddd;">Clear
+                                        Form</button>
+                                </div>
+
+                                <% if (typeof addresses !=='undefined' && addresses.length> 0) { %>
+                                    <div class="existing-addresses-title">Or select an existing address</div>
+                                    <div class="addresses-grid">
+                                        <% addresses.forEach((addr, index)=> { %>
+                                            <div class="address-card <%= index === 0 ? 'active' : '' %>"
+                                                onclick="selectAddress(this)"
+                                                data-address='<%= JSON.stringify(addr) %>'>
+                                                <div class="address-radio"></div>
+                                                <div class="address-details">
+                                                    <span class="address-name">Address <%= index + 1 %></span>
+                                                    <%= addr.name %><br>
+                                                        <%= addr.housename %>, <%= addr.street %><br>
+                                                                <%= addr.city %>, <%= addr.pincode %><br>
+                                                                        phn: <%= addr.mobile %>
+                                                                            <div style="margin-top: 5px;">
+                                                                                <a href="/address/edit/<%= addr._id %>?returnTo=checkout"
+                                                                                    style="color: #666; font-size: 0.9em; text-decoration: underline; cursor: pointer;"
+                                                                                    onclick="event.stopPropagation()">
+                                                                                    <i
+                                                                                        class="fa-solid fa-pen-to-square"></i>
+                                                                                    Edit
+                                                                                </a>
+                                                                            </div>
+                                                </div>
+                                            </div>
+                                            <% }) %>
+                                    </div>
+                                    <% } %>
+
+                                        <button class="btn-black btn-continue" onclick="proceedToPayment()">Continue to
+                                            Payment</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Right Column: Summary -->
+                    <aside class="summary-section">
+                        <div class="summary-card">
+                            <h3 class="summary-title">Order Summary</h3>
+
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span>₹<%= typeof subtotal !=='undefined' ? subtotal.toLocaleString('en-IN') : '0' %>
+                                        </span>
+                            </div>
+
+                            <div class="summary-row">
+                                <span>Shipping</span>
+                                <span
+                                    class="<%= (typeof deliveryFee !== 'undefined' && deliveryFee === 'Free') ? 'shipping-free' : '' %>">
+                                    <%= typeof deliveryFee !=='undefined' ? deliveryFee : 'Calculated at next step' %>
+                                </span>
+                            </div>
+
+                            <div class="summary-row total">
+                                <span>Total</span>
+                                <span>₹<%= typeof total !=='undefined' ? total.toLocaleString('en-IN') : '0' %></span>
+                            </div>
+
+                            <div class="coupon-section">
+                                <div class="coupon-toggle" onclick="toggleCoupon()">
+                                    <div class="coupon-icon">
+                                        <i class="fa-solid fa-tag"></i>
+                                        <span>Have a coupon?</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-down" id="couponArrow"></i>
+                                </div>
+                                <div class="coupon-content" id="couponContent">
+                                    <input type="text" class="coupon-input" placeholder="Enter coupon code">
+                                    <button class="btn-black" style="padding: 10px 20px;">Apply</button>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </main>
+
+            <%- include('../partials/footer') %>
+
+                <script src="/js/users/checkout.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+</html>

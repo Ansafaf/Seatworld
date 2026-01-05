@@ -9,37 +9,38 @@
 </head>
 
 <body>
-    <%- include('../partials/header', { showSearch: false }) %>
-        <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    <%- include('../partials/authHeader') %>
 
-            <div class="container">
-                <div class="form-card">
-                    <h1 class="form-title">Create New Password</h1>
-                    <form id="passwordForm" action="/create-password" method="POST">
-                        <div class="form-group">
-                            <label for="newPassword" class="form-label">New Password</label>
-                            <input type="password" id="newPassword" name="newPassword" class="form-input"
-                                placeholder="••••••••••••••••" required>
-                            <div class="error-message" id="newPasswordError">Password must be at least 8 characters
-                            </div>
+        <div class="container">
+            <div class="form-card">
+                <h1 class="form-title">Create New Password</h1>
+                <form id="passwordForm" action="/create-password" method="POST">
+                    <div class="form-group">
+                        <label for="newPassword" class="form-label">New Password</label>
+                        <input type="password" id="newPassword" name="newPassword" class="form-input"
+                            placeholder="••••••••••••••••" required>
+                        <div class="error-message" id="newPasswordError">Password must be at least 8 characters
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label for="confirmPassword" class="form-label">Confirm New Password</label>
-                            <input type="password" id="confirmPassword" name="confirmPassword" class="form-input"
-                                placeholder="••••••••••••••••" required>
-                            <div class="error-message" id="confirmPasswordError">Passwords do not match</div>
-                        </div>
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-input"
+                            placeholder="••••••••••••••••" required>
+                        <div class="error-message" id="confirmPasswordError">Passwords do not match</div>
+                    </div>
 
-                        <button type="submit" class="submit-btn" id="submitBtn">
-                            Submit
-                        </button>
-                    </form>
-                </div>
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        Submit
+                    </button>
+                </form>
             </div>
+        </div>
 
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-            <script type="module" src="/js/users/createPass.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script type="module" src="/js/users/createPass.js"></script>
+
+        <%- include('../partials/footer') %>
 </body>
 
 </html>

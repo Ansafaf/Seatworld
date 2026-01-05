@@ -1,42 +1,41 @@
 import * as categoryService from '../services/adminCategoryService.js';
 import logger from '../utils/logger.js';
+import { Category } from '../models/categoryModel.js';
+import { paginate } from '../utils/paginationHelper.js';
 
 export const getCategoryList = async (req, res, next) => {
     try {
         const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 5;
-        const skip = (page - 1) * limit;
+        const limit = parseInt(req.query.limit) || 8;
         const searchQuery = req.query.search || "";
 
         const query = {};
         if (searchQuery) {
             query.categoryName = { $regex: searchQuery, $options: "i" };
         }
-
-        const totalCategories = await categoryService.getCategoryCount(query);
-        const totalPages = Math.ceil(totalCategories / limit);
-        const categories = await categoryService.getCategories(query, skip, limit);
+        
+        const { items: categories, pagination } = await paginate(Category, query, {
+            page,
+            limit,
+            sort: { createdAt: -1 }
+        });
 
         // AJAX Support
         if (req.xhr || req.headers.accept?.includes("application/json")) {
             return res.status(200).json({
                 success: true,
                 categories,
-                currentPage: page,
-                totalPages,
-                totalCategories,
-                search: searchQuery,
-                limit
+                pagination,
+                search: searchQuery
             });
         }
 
         res.render("admin/categoryList", {
             categories,
-            currentPage: page,
-            totalPages,
-            totalCategories,
+            pagination,
             search: searchQuery,
-            limit
+            currentPage: pagination.currentPage,
+            limit: pagination.limit
         });
     } catch (error) {
         next(error);

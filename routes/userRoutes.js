@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import { getLanding, getLogin, postLogin, getverifyOtp, verifyOtp, resendOtp, getforgotPass, postforgotPass, getHome, getSignup, postSignup, getLogout, postPassCreation, otpverifyForgot, getPassCreation, getCart, getotpForgot } from '../controller/userAuthController.js';
+import { getLanding, getLogin, postLogin, getverifyOtp, verifyOtp, resendOtp, getforgotPass, postforgotPass, getHome, getSignup, postSignup, getLogout, postPassCreation, otpverifyForgot, getPassCreation, getotpForgot } from '../controller/userAuthController.js';
 import { authMiddleware } from "../middleware/authMiddleware.js";
 
 router.get('/', getLanding);

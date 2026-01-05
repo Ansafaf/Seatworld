@@ -7,22 +7,23 @@
   <title>SeatWorld | Landing</title>
   <link rel="icon" href="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1755846364/Seatworld_icon_oyekzz.jpg">
   <link rel="stylesheet" href="/css/users/landing.css">
+  <link rel="stylesheet" href="/css/users/authHeader.css">
 </head>
 
 <body>
 
   <!-- Header -->
-  <header>
-    <h1>
+  <header class="auth-header">
+    <a href="/" class="brand">
       <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765945540/products/rmsn314w038gnfzmemmi.jpg"
         alt="Logo">
       SeatWorld
-    </h1>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/login">Login</a>
-      <a href="/signup">Register</a>
-      <a href="/">Contact</a>
+    </a>
+    <nav class="hidden md:flex gap-6 text-sm font-medium">
+      <a href="/" class="hover:text-blue-600">Home</a>
+      <a href="/login" class="hover:text-blue-600">Login</a>
+      <a href="/signup" class="hover:text-blue-600">Register</a>
+      <a href="/" class="hover:text-blue-600">Contact</a>
     </nav>
   </header>
 
@@ -128,17 +129,7 @@
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 SeatWorld. All Rights Reserved.</p>
-    <nav>
-      <a href="#">Home</a>
-      <a href="#">Login</a>
-      <a href="#">Register</a>
-      <a href="#">Contact</a>
-    </nav>
-    <p>Project SeatWorld</p>
-  </footer>
+  <%- include('../partials/footer') %>
 
 </body>
 

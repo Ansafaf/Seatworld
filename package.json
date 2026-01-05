@@ -37,8 +37,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "lint:ejs": "ejs-lint views/**/*.ejs",
-    "lint": "npm run lint:ejs"
+    "lint:ejs": "npx ejs-lint views/**/*.ejs",
+    "lint": "npm run lint:ejs && npm run lint:frontend",
+    "lint:frontend": "eslint public/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -53,6 +54,9 @@
   },
   "homepage": "https://github.com/Ansafaf/Login-with-server#readme",
   "devDependencies": {
-    "ejs-lint": "^2.0.1"
+    "@eslint/js": "^9.39.2",
+    "ejs-lint": "^2.0.1",
+    "eslint": "^9.39.2",
+    "globals": "^17.0.0"
   }
 }

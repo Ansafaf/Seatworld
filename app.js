@@ -22,7 +22,10 @@ import AuthRoute from "./routes/gAuthRoute.js";
 import profileRouter from "./routes/userProfileRoutes.js";
 import adminProductRouter from "./routes/adminProductRoutes.js";
 import adminCategoryRouter from "./routes/adminCategoryRoute.js";
+import adminOrderRouter from "./routes/adminOrderRoutes.js";
 import productRouter from "./routes/userProductRoute.js";
+import cartRouter from "./routes/cartRoute.js";
+import checkoutRouter from "./routes/checkoutRoute.js";
 
 // Middleware
 app.use(express.json());
@@ -32,6 +35,7 @@ app.use(express.static("public"));
 
 app.use((req, res, next) => {
   logger.info(`[${req.method}] ${req.url}`);
+  res.locals.path = req.path;
   next();
 });
 
@@ -78,6 +82,9 @@ app.use("/", profileRouter);
 app.use("/", productRouter);
 app.use("/admin", adminCategoryRouter);
 app.use("/admin", adminProductRouter);
+app.use("/cart", cartRouter);
+app.use("/checkout", checkoutRouter);
+app.use("/admin/orders", adminOrderRouter);
 
 app.use((req, res, next) => {
   res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, private");
@@ -116,6 +123,6 @@ app.use((err, req, res, next) => {
 
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running on ${process.env.LOCALURL}`);
+  console.log(`Server running on ${process.env.LOCALURL}${PORT}`);
 });
 

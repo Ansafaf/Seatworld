@@ -103,10 +103,11 @@
                                         </div>
 
                                         <div class="action-buttons">
-                                            <button
+                                            <button id="cart-button"
                                                 class="btn-action btn-cart <%= product.stock <= 0 ? 'btn-disabled' : '' %>"
+                                                data-variant-id="<%= product.variant ? product.variant._id : '' %>"
                                                 <%=product.stock <=0 ? 'disabled' : '' %>>Add to Cart</button>
-                                            <button
+                                            <button id="buy-button"
                                                 class="btn-action btn-buy <%= product.stock <= 0 ? 'btn-disabled' : '' %>"
                                                 <%=product.stock <=0 ? 'disabled' : '' %>>Buy Now</button>
                                         </div>
@@ -176,16 +177,10 @@
                 </section>
             </main>
 
-            <footer>
-                <div class="links">
-                    <a href="/home">Home</a>
-                    <a href="/products">Products</a>
-                    <a href="/about">About</a>
-                </div>
-                <p>SeatWorld © <%= new Date().getFullYear() %>. All Rights Reserved</p>
-            </footer>
+            <%- include('../partials/footer') %>
 
-            <script src="/js/users/productDetails.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script src="/js/users/productDetails.js"></script>
 </body>
 
 </html>

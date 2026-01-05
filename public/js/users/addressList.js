@@ -80,28 +80,23 @@ window.openDeleteModal = async (addressId) => {
     }
 }
 
-// Mobile sidebar functionality
-const menuToggle = document.getElementById("menuToggle");
-const sidebar = document.getElementById("sidebar");
-const wrapper = document.getElementById("sidebarWrapper");
-const overlay = document.getElementById("sidebarOverlay");
-
-window.toggleMenu = function () {
-    if (sidebar) sidebar.classList.toggle("active");
-    if (wrapper) wrapper.classList.toggle("mobile-visible");
-    if (overlay) overlay.classList.toggle("active");
-    if (sidebar) document.body.style.overflow = sidebar.classList.contains("active") ? "hidden" : "";
+// Sidebar toggle for mobile
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    if (sidebar) sidebar.classList.toggle('active');
+    if (overlay) overlay.classList.toggle('active');
 }
 
-if (menuToggle) menuToggle.onclick = window.toggleMenu;
-if (overlay) overlay.onclick = window.toggleMenu;
+// Attach to window for HTML event handlers
+window.toggleSidebar = toggleSidebar;
 
-// Close sidebar when clicking on menu items (mobile)
-const menuItems = document.querySelectorAll('#sidebar nav a');
-menuItems.forEach(item => {
-    item.addEventListener('click', () => {
+// Close sidebar when clicking menu items
+const sidebarLinks = document.querySelectorAll('.sidebar a');
+sidebarLinks.forEach(link => {
+    link.addEventListener('click', () => {
         if (window.innerWidth <= 1024) {
-            window.toggleMenu();
+            toggleSidebar();
         }
     });
 });

@@ -1,0 +1,220 @@
+[2026-01-02 15:56:32] ERROR: E:\Brocamp\SeatWorld\views\users\cartlist.ejs:158
+    156|       </main>
+    157| 
+ >> 158|       <%- include('../partials/footer') %>
+    159| 
+    160|         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    161|         <script src="/js/users/cartList.js"></script>
+
+Could not find the include file "../partials/footer"
+[2026-01-02 18:08:28] ERROR: Remove from cart error: Cast to ObjectId failed for value "[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-02 18:10:42] ERROR: Remove from cart error: Cast to ObjectId failed for value "[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-02 22:09:42] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-02 22:09:42] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-02 22:09:42] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-02 22:09:42] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-02 22:09:43] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-02 22:09:52] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-02 22:09:52] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-02 22:09:52] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-02 22:10:03] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-02 22:10:03] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-02 22:10:03] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-02 22:10:17] ERROR: Remove from cart error: Cast to ObjectId failed for value "[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-02 22:26:15] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-01.uuxwmkk.mongodb.net
+[2026-01-02 22:59:25] ERROR: Remove from cart error: Cast to ObjectId failed for value "[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-03 09:35:51] ERROR: Remove from cart error: Cast to ObjectId failed for value "[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-03 09:38:18] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 09:41:32] ERROR: Remove from cart error: Cast to ObjectId failed for value "[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-03 09:46:28] ERROR: Remove from cart error: Cast to ObjectId failed for value ":[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-03 09:46:32] ERROR: Remove from cart error: Cast to ObjectId failed for value ":[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-03 09:50:06] ERROR: Remove from cart error: Cast to ObjectId failed for value ":[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-03 09:51:47] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 09:53:14] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 09:53:16] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 09:53:17] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 09:53:18] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 09:53:19] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 09:53:55] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 09:54:03] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:04:15] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:04:17] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:04:17] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:04:17] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:04:18] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:04:18] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:04:18] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:04:19] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:04:19] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:04:19] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:04:19] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:04:21] ERROR: Remove from cart error: Cast to ObjectId failed for value "[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-03 10:04:25] ERROR: Remove from cart error: Cast to ObjectId failed for value "[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-03 10:07:30] ERROR: Remove from cart error: Cast to ObjectId failed for value "[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-03 10:07:56] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:07:59] ERROR: Remove from cart error: Cast to ObjectId failed for value "[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-03 10:09:13] ERROR: Remove from cart error: Cast to ObjectId failed for value "[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-03 10:09:18] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:15:46] ERROR: Remove from cart error: mongoose is not defined
+[2026-01-03 10:15:49] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:15:50] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:16:38] ERROR: Remove from cart error: mongoose is not defined
+[2026-01-03 10:17:26] ERROR: Remove from cart error: mongoose is not defined
+[2026-01-03 10:18:16] ERROR: Remove from cart error: input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+[2026-01-03 10:18:18] ERROR: Remove from cart error: input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+[2026-01-03 10:20:07] ERROR: Remove from cart error: input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+[2026-01-03 10:20:41] ERROR: Remove from cart error: input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+[2026-01-03 13:41:08] ERROR: E11000 duplicate key error collection: seatworld.users index: username_1 dup key: { username: null }
+[2026-01-03 13:48:40] ERROR: E:\Brocamp\SeatWorld\views\admin\categoryList.ejs:200
+    198|                                             class="hover:bg-gray-50 transition-colors">
+    199|                                             <td class="px-6 py-4 text-sm text-gray-500">
+ >> 200|                                                 <%= (currentPage - 1) * limit + index + 1 %>
+    201|                                             </td>
+    202|                                             <td class="px-6 py-4">
+    203|                                                 <span class="text-sm font-medium text-gray-900">
+
+currentPage is not defined
+[2026-01-03 13:48:43] ERROR: E:\Brocamp\SeatWorld\views\admin\categoryList.ejs:200
+    198|                                             class="hover:bg-gray-50 transition-colors">
+    199|                                             <td class="px-6 py-4 text-sm text-gray-500">
+ >> 200|                                                 <%= (currentPage - 1) * limit + index + 1 %>
+    201|                                             </td>
+    202|                                             <td class="px-6 py-4">
+    203|                                                 <span class="text-sm font-medium text-gray-900">
+
+currentPage is not defined
+[2026-01-03 13:49:03] ERROR: E:\Brocamp\SeatWorld\views\admin\customerList.ejs:184
+    182|                       class="hover:bg-gray-50 transition-colors duration-150 customer-row">
+    183|                       <td class="px-6 py-4 text-sm font-bold text-gray-900">
+ >> 184|                         <%= (currentPage - 1) * limit + index + 1 %>
+    185|                       </td>
+    186|                       <td class="px-6 py-4 text-sm font-bold text-gray-900 name-cell">
+    187|                         <%= user.name || user.username || 'N/A' %>
+
+currentPage is not defined
+[2026-01-03 13:49:07] ERROR: E:\Brocamp\SeatWorld\views\admin\customerList.ejs:184
+    182|                       class="hover:bg-gray-50 transition-colors duration-150 customer-row">
+    183|                       <td class="px-6 py-4 text-sm font-bold text-gray-900">
+ >> 184|                         <%= (currentPage - 1) * limit + index + 1 %>
+    185|                       </td>
+    186|                       <td class="px-6 py-4 text-sm font-bold text-gray-900 name-cell">
+    187|                         <%= user.name || user.username || 'N/A' %>
+
+currentPage is not defined
+[2026-01-03 13:49:13] ERROR: E:\Brocamp\SeatWorld\views\admin\customerList.ejs:184
+    182|                       class="hover:bg-gray-50 transition-colors duration-150 customer-row">
+    183|                       <td class="px-6 py-4 text-sm font-bold text-gray-900">
+ >> 184|                         <%= (currentPage - 1) * limit + index + 1 %>
+    185|                       </td>
+    186|                       <td class="px-6 py-4 text-sm font-bold text-gray-900 name-cell">
+    187|                         <%= user.name || user.username || 'N/A' %>
+
+currentPage is not defined
+[2026-01-03 13:49:17] ERROR: E:\Brocamp\SeatWorld\views\admin\categoryList.ejs:200
+    198|                                             class="hover:bg-gray-50 transition-colors">
+    199|                                             <td class="px-6 py-4 text-sm text-gray-500">
+ >> 200|                                                 <%= (currentPage - 1) * limit + index + 1 %>
+    201|                                             </td>
+    202|                                             <td class="px-6 py-4">
+    203|                                                 <span class="text-sm font-medium text-gray-900">
+
+currentPage is not defined
+[2026-01-03 14:05:47] ERROR: Add to cart error: This product is currently unavailable
+[2026-01-03 14:05:50] ERROR: Add to cart error: This product is currently unavailable
+[2026-01-03 15:11:40] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:11:44] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:13:11] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:13:16] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:13:21] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:13:51] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:13:56] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:16:25] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:17:17] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:17:17] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:17:17] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:23:40] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:23:44] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:51:52] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 15:51:55] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 15:51:55] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 15:51:55] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 15:51:56] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 15:52:13] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 15:52:18] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 15:52:22] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 15:58:13] ERROR: Update quantity error: Quantity must be less than 10
+[2026-01-03 15:58:17] ERROR: Update quantity error: Quantity must be less than 10
+[2026-01-03 15:58:56] ERROR: Update quantity error: Quantity must be less than or equal to 10
+[2026-01-03 16:01:13] ERROR: Update quantity error: Quantity must be less than or equal to 10
+[2026-01-03 16:01:34] ERROR: Update quantity error: Quantity must be less than or equal to 10
+[2026-01-03 16:12:39] ERROR: Update quantity error: Only 7 items in stock
+[2026-01-03 16:12:44] ERROR: Update quantity error: Only 7 items in stock
+[2026-01-03 17:10:18] ERROR: Add to cart error: This product is currently unavailable
+[2026-01-03 18:31:18] ERROR: E:\Brocamp\SeatWorld\views\users\checkout.ejs:113
+    111|                                 <div class="summary-row">
+    112|                                     <span>Item Sub Total</span>
+ >> 113|                                     <span>₹<%= subtotal || 0 %></span>
+    114|                                 </div>
+    115|                                 <div class="summary-row">
+    116|                                     <span>Shipping</span>
+
+subtotal is not defined
+[2026-01-03 19:00:40] ERROR: E:\Brocamp\SeatWorld\views\users\checkout.ejs:113
+    111|                                 <div class="summary-row">
+    112|                                     <span>Item Sub Total</span>
+ >> 113|                                     <span>₹<%= subtotal || 0 %></span>
+    114|                                 </div>
+    115|                                 <div class="summary-row">
+    116|                                     <span>Shipping</span>
+
+subtotal is not defined
+[2026-01-03 19:42:33] ERROR: E:\Brocamp\SeatWorld\views\users\checkout.ejs:113
+    111|                                 <div class="summary-row">
+    112|                                     <span>Item Sub Total</span>
+ >> 113|                                     <span>₹<%= subtotal || 0 %></span>
+    114|                                 </div>
+    115|                                 <div class="summary-row">
+    116|                                     <span>Shipping</span>
+
+subtotal is not defined
+[2026-01-03 21:56:28] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 21:56:30] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 21:56:33] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 21:56:35] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 21:56:37] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 21:56:37] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 21:56:58] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 21:57:00] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 21:57:03] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 21:57:05] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 22:29:39] ERROR: Update quantity error: Quantity must be less than or equal to 10
+[2026-01-03 22:29:39] ERROR: Update quantity error: Quantity must be less than or equal to 10
+[2026-01-03 22:29:39] ERROR: Update quantity error: Quantity must be less than or equal to 10
+[2026-01-04 14:43:49] ERROR: Cart page error: logger is not defined
+[2026-01-04 14:43:56] ERROR: Cart page error: logger is not defined
+[2026-01-04 14:43:58] ERROR: Cart page error: logger is not defined
+[2026-01-04 14:44:01] ERROR: Cart page error: logger is not defined
+[2026-01-04 14:44:03] ERROR: Cart page error: logger is not defined
+[2026-01-04 14:44:04] ERROR: Cart page error: logger is not defined
+[2026-01-04 14:44:36] ERROR: Cart page error: loggers.info is not a function
+[2026-01-04 14:44:37] ERROR: Cart page error: loggers.info is not a function
+[2026-01-04 22:26:52] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required.
+[2026-01-04 22:27:21] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required.
+[2026-01-04 22:57:16] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required.
+[2026-01-04 22:57:27] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required.
+[2026-01-05 15:45:32] ERROR: Missing catch or finally after try in E:\Brocamp\SeatWorld\views\admin\orderList.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+[2026-01-05 15:45:53] ERROR: Missing catch or finally after try in E:\Brocamp\SeatWorld\views\admin\orderList.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+[2026-01-05 15:46:01] ERROR: Missing catch or finally after try in E:\Brocamp\SeatWorld\views\admin\orderList.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+[2026-01-05 15:56:53] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required.

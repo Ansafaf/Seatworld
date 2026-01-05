@@ -1,3 +1,4 @@
+import {debounce} from "../utils/debounce.js";
 let searchTimeout;
 const searchInput = document.getElementById('productSearch');
 const tableBody = document.getElementById('productTableBody');
@@ -14,7 +15,7 @@ const fetchProducts = async (page = 1, search = '') => {
             updateTable(data.products, data.currentPage, data.limit);
             updatePagination(data.currentPage, data.totalPages, data.search);
             const newUrl = `/admin/products?page=${page}${search ? `&search=${encodeURIComponent(search)}` : ''}`;
-            window.history.pushState({ page, search }, '', newUrl);
+            window.history.pushState({ page, search }, newUrl);
         }
     } catch (error) {
         console.error('Error fetching products:', error);
@@ -27,7 +28,6 @@ const updateTable = (products, currentPage, limit) => {
         tableBody.innerHTML = `<tr><td colspan="5" class="px-6 py-10 text-center text-gray-500">No products found matching your criteria.</td></tr>`;
         return;
     }
-
     tableBody.innerHTML = products.map(p => `
         <tr data-product-id="${p._id}" class="hover:bg-gray-50 transition-colors duration-150">
             <td class="px-6 py-4 text-sm font-bold text-gray-900">${p.name}</td>
@@ -112,14 +112,14 @@ const updatePagination = (currentPage, totalPages, search) => {
     });
 };
 
-if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
-        const searchTerm = e.target.value;
-        clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => {
-            fetchProducts(1, searchTerm);
-        }, 800);
-    });
+
+const handleSearch = (e)=>{
+    const searchTerm = e.target.value;
+    fetchProducts(1,searchTerm);
+}
+const debouncedSearch = debounce(handleSearch,400);
+if(searchInput){
+    searchInput.addEventListener("input",debouncedSearch);
 }
 
 // Initial Pagination Listeners

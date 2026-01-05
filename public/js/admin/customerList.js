@@ -1,3 +1,5 @@
+import { debounce } from "../utils/debounce.js";
+
 const sidebar = document.getElementById("adminSidebar");
 const mobileMenuBtn = document.getElementById("mobileMenuBtn");
 const sidebarOverlay = document.getElementById("sidebarOverlay");
@@ -33,8 +35,8 @@ const fetchCustomers = async (page = 1, search = '') => {
         const data = await response.json();
 
         if (data.success) {
-            updateTable(data.users, data.currentPage, data.limit);
-            updatePagination(data.currentPage, data.totalPages, data.search);
+            updateTable(data.users, data.pagination.currentPage, data.pagination.limit);
+            updatePagination(data.pagination.currentPage, data.pagination.totalPages, data.search);
             // Update URL without reload
             const newUrl = `/admin/users?page=${page}${search ? `&search=${encodeURIComponent(search)}` : ''}`;
             window.history.pushState({ page, search }, '', newUrl);
@@ -148,14 +150,14 @@ document.querySelectorAll('.pagination-link, .pagination-nav-link, .pagination-n
     });
 });
 
+
+let searchHandler = (e) => {
+    let searchTerm = e.target.value;
+    fetchCustomers(1, searchTerm);
+}
+const debouncedSearch = debounce(searchHandler, 400);
 if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
-        const searchTerm = e.target.value;
-        clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => {
-            fetchCustomers(1, searchTerm);
-        }, 800);
-    });
+    searchInput.addEventListener('input', debouncedSearch);
 }
 
 window.handleAction = (url, action) => {

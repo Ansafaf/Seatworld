@@ -1,0 +1,101 @@
+<!-- Sidebar -->
+<aside id="adminSidebar"
+    class="w-64 bg-white flex flex-col fixed inset-y-0 left-0 z-40 transform -translate-x-full transition-transform duration-300 md:translate-x-0 md:static border-r border-gray-100 pt-16 md:pt-0">
+
+    <div class="p-6">
+        <div class="flex items-center gap-2 text-2xl font-bold text-gray-800 mb-8">
+            <span class="material-icons-outlined">hexagon</span>
+            <span>Dashboard</span>
+            <span class="text-xs font-normal text-gray-400 mt-1">v.01</span>
+        </div>
+
+        <nav class="space-y-1">
+            <a href="/admin/dashboard"
+                class="flex items-center px-4 py-3 <%= path === '/admin/dashboard' ? 'text-white bg-indigo-600 shadow-sm' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900' %> rounded-xl transition-all duration-200 group">
+                <span
+                    class="material-icons-outlined mr-3 text-xl <%= path === '/admin/dashboard' ? '' : 'group-hover:text-indigo-600' %>">dashboard</span>
+                <span class="font-medium">Dashboard</span>
+            </a>
+
+            <a href="/admin/products"
+                class="flex items-center px-4 py-3 <%= path === '/admin/products' ? 'text-white bg-indigo-600 shadow-sm' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900' %> rounded-xl transition-all duration-200 group">
+                <span
+                    class="material-icons-outlined mr-3 text-xl <%= path === '/admin/products' ? '' : 'group-hover:text-indigo-600' %>">inventory_2</span>
+                <span class="font-medium">Product</span>
+                <span
+                    class="ml-auto material-icons-outlined <%= path === '/admin/products' ? 'text-white' : 'text-gray-300' %> text-sm">chevron_right</span>
+            </a>
+
+            <a href="/admin/users"
+                class="flex items-center px-4 py-3 <%= path === '/admin/users' ? 'text-white bg-indigo-600 shadow-sm' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900' %> rounded-xl transition-all duration-200 group">
+                <span
+                    class="material-icons-outlined mr-3 text-xl <%= path === '/admin/users' ? '' : 'group-hover:text-indigo-600' %>">people</span>
+                <span class="font-medium">Customers</span>
+                <span
+                    class="ml-auto material-icons-outlined <%= path === '/admin/users' ? 'text-white' : 'text-gray-300' %> text-sm">chevron_right</span>
+            </a>
+
+            <a href="/admin/orders"
+                class="flex items-center px-4 py-3 <%= path === '/admin/orders' ? 'text-white bg-indigo-600 shadow-sm' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900' %> rounded-xl transition-all duration-200 group">
+                <span
+                    class="material-icons-outlined mr-3 text-xl <%= path === '/admin/orders' ? '' : 'group-hover:text-indigo-600' %>">shopping_cart</span>
+                <span class="font-medium">Orders</span>
+                <span
+                    class="ml-auto material-icons-outlined <%= path === '/admin/orders' ? 'text-white' : 'text-gray-300' %> text-sm">chevron_right</span>
+            </a>
+
+            <a href="/admin/discounts"
+                class="flex items-center px-4 py-3 <%= path === '/admin/discounts' ? 'text-white bg-indigo-600 shadow-sm' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900' %> rounded-xl transition-all duration-200 group">
+                <span
+                    class="material-icons-outlined mr-3 text-xl <%= path === '/admin/discounts' ? '' : 'group-hover:text-indigo-600' %>">campaign</span>
+                <span class="font-medium">Discounts</span>
+                <span
+                    class="ml-auto material-icons-outlined <%= path === '/admin/discounts' ? 'text-white' : 'text-gray-300' %> text-sm">chevron_right</span>
+            </a>
+
+            <a href="/admin/coupons"
+                class="flex items-center px-4 py-3 <%= path === '/admin/coupons' ? 'text-white bg-indigo-600 shadow-sm' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900' %> rounded-xl transition-all duration-200 group">
+                <span
+                    class="material-icons-outlined mr-3 text-xl <%= path === '/admin/coupons' ? '' : 'group-hover:text-indigo-600' %>">local_activity</span>
+                <span class="font-medium">Coupons</span>
+                <span
+                    class="ml-auto material-icons-outlined <%= path === '/admin/coupons' ? 'text-white' : 'text-gray-300' %> text-sm">chevron_right</span>
+            </a>
+
+            <a href="/admin/categories"
+                class="flex items-center px-4 py-3 <%= path === '/admin/categories' ? 'text-white bg-indigo-600 shadow-sm' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900' %> rounded-xl transition-all duration-200 group">
+                <span
+                    class="material-icons-outlined mr-3 text-xl <%= path === '/admin/categories' ? '' : 'group-hover:text-indigo-600' %>">category</span>
+                <span class="font-medium">Categories</span>
+                <span
+                    class="ml-auto material-icons-outlined <%= path === '/admin/categories' ? 'text-white' : 'text-gray-300' %> text-sm">chevron_right</span>
+            </a>
+
+            <a href="/admin/banner"
+                class="flex items-center px-4 py-3 <%= path === '/admin/banner' ? 'text-white bg-indigo-600 shadow-sm' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900' %> rounded-xl transition-all duration-200 group">
+                <span
+                    class="material-icons-outlined mr-3 text-xl <%= path === '/admin/banner' ? '' : 'group-hover:text-indigo-600' %>">image</span>
+                <span class="font-medium">Banner</span>
+                <span
+                    class="ml-auto material-icons-outlined <%= path === '/admin/banner' ? 'text-white' : 'text-gray-300' %> text-sm">chevron_right</span>
+            </a>
+
+            <a href="/admin/sales-report"
+                class="flex items-center px-4 py-3 <%= path === '/admin/sales-report' ? 'text-white bg-indigo-600 shadow-sm' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900' %> rounded-xl transition-all duration-200 group">
+                <span
+                    class="material-icons-outlined mr-3 text-xl <%= path === '/admin/sales-report' ? '' : 'group-hover:text-indigo-600' %>">bar_chart</span>
+                <span class="font-medium">Sales Report</span>
+                <span
+                    class="ml-auto material-icons-outlined <%= path === '/admin/sales-report' ? 'text-white' : 'text-gray-300' %> text-sm">chevron_right</span>
+            </a>
+
+            <div class="pt-8 mt-8 border-t border-gray-100">
+                <a href="/admin/logout"
+                    class="flex items-center px-4 py-3 text-red-500 hover:bg-red-50 rounded-xl transition-all duration-200 group">
+                    <span class="material-icons-outlined mr-3 text-xl">logout</span>
+                    <span class="font-medium">Logout</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+</aside>

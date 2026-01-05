@@ -20,7 +20,9 @@ document.getElementById('loginForm').addEventListener('submit', async function (
         } else {
             errorDiv.textContent = data.message || 'Login failed';
             errorDiv.style.display = 'block';
-            // Shake effect or visual feedback could be added here
+            errorDiv.style.borderRadius = '0';
+            errorDiv.style.marginBottom = '0';
+            errorDiv.style.width = '100%';
         }
     } catch (error) {
         console.error('Error:', error);

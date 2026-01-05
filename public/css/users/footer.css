@@ -1,0 +1,150 @@
+.footer {
+    background-color: #F0F0F0;
+    padding: 20px 40px 15px;
+    /* ↓ reduced */
+    font-family: 'Inter', sans-serif;
+    color: #000000;
+}
+
+.footer-container {
+    max-width: 1240px;
+    margin: 0 auto;
+}
+
+.footer-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 25px;
+    margin-bottom: 25px;
+}
+
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px;
+    /* Limit width for readability */
+}
+
+.footer-brand .footer-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Center logo text/icon */
+    gap: 10px;
+    font-size: 24px;
+    font-weight: 800;
+    text-decoration: none;
+    color: #000;
+    margin-bottom: 15px;
+}
+
+.footer-brand .footer-desc {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.7);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    max-width: 100%;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 12px;
+    /* ↓ reduced */
+}
+
+.footer-socials a {
+    width: 30px;
+    height: 30px;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    transition: all 0.3s ease;
+}
+
+.footer-column h3 {
+    font-size: 15px;
+    /* ↓ reduced */
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+    /* ↓ reduced */
+}
+
+.footer-column ul li {
+    margin-bottom: 6px;
+    /* ↓ reduced */
+}
+
+.footer-column ul li a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 13px;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 10px;
+    /* ↓ reduced */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-bottom .copyright {
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.payment-icons {
+    display: flex;
+    gap: 10px;
+    /* ↓ reduced */
+}
+
+.payment-icons img {
+    height: 26px;
+    /* ↓ reduced */
+    background: #fff;
+    padding: 4px 6px;
+    border-radius: 6px;
+}
+
+/* ---------- Tablet ---------- */
+@media (max-width: 1024px) {
+    .footer {
+        padding: 18px 30px 12px;
+    }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 1200px) {
+    .footer {
+        padding: 15px 20px 10px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 12px;
+        padding-top: 15px;
+    }
+}
+
+/* ---------- Small Mobile ---------- */
+@media (max-width: 480px) {
+    .footer {
+        padding: 12px 15px 8px;
+    }
+
+    .payment-icons {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

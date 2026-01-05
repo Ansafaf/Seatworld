@@ -1,0 +1,91 @@
+<% if (pagination && pagination.totalPages> 1) { %>
+    <nav class="pagination-container" aria-label="Pagination">
+        <ul class="pagination-list flex items-center justify-center gap-2 mt-8">
+            <!-- Previous Page -->
+            <li>
+                <% if (pagination.hasPrevPage) { %>
+                    <a href="?page=<%= pagination.currentPage - 1 %>&limit=<%= pagination.limit %><%= typeof query !== 'undefined' && query ? '&' + query : '' %>"
+                        class="pagination-item prev flex items-center justify-center w-10 h-10 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
+                        aria-label="Previous Page">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </a>
+                    <% } else { %>
+                        <span
+                            class="pagination-item prev disabled flex items-center justify-center w-10 h-10 rounded-lg border border-gray-100 text-gray-300 cursor-not-allowed">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </span>
+                        <% } %>
+            </li>
+
+            <!-- Page Numbers -->
+            <% let startPage=Math.max(1, pagination.currentPage - 2); let endPage=Math.min(pagination.totalPages,
+                pagination.currentPage + 2); if (pagination.currentPage <=3) { endPage=Math.min(pagination.totalPages,
+                5); } if (pagination.currentPage> pagination.totalPages - 3) {
+                startPage = Math.max(1, pagination.totalPages - 4);
+                }
+                %>
+
+                <% if (startPage> 1) { %>
+                    <li>
+                        <a href="?page=1&limit=<%= pagination.limit %><%= typeof query !== 'undefined' && query ? '&' + query : '' %>"
+                            class="pagination-item w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 hover:bg-black hover:text-white transition-all">1</a>
+                    </li>
+                    <% if (startPage> 2) { %>
+                        <li class="px-2 text-gray-400">...</li>
+                        <% } %>
+                            <% } %>
+
+                                <% for(let i=startPage; i <=endPage; i++) { %>
+                                    <li>
+                                        <a href="?page=<%= i %>&limit=<%= pagination.limit %><%= typeof query !== 'undefined' && query ? '&' + query : '' %>"
+                                            class="pagination-item w-10 h-10 flex items-center justify-center rounded-lg border <%= pagination.currentPage === i ? 'bg-black text-white border-black' : 'border-gray-200 hover:bg-gray-50' %> transition-all">
+                                            <%= i %>
+                                        </a>
+                                    </li>
+                                    <% } %>
+
+                                        <% if (endPage < pagination.totalPages) { %>
+                                            <% if (endPage < pagination.totalPages - 1) { %>
+                                                <li class="px-2 text-gray-400">...</li>
+                                                <% } %>
+                                                    <li>
+                                                        <a href="?page=<%= pagination.totalPages %>&limit=<%= pagination.limit %><%= typeof query !== 'undefined' && query ? '&' + query : '' %>"
+                                                            class="pagination-item w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 hover:bg-black hover:text-white transition-all">
+                                                            <%= pagination.totalPages %>
+                                                        </a>
+                                                    </li>
+                                                    <% } %>
+
+                                                        <!-- Next Page -->
+                                                        <li>
+                                                            <% if (pagination.hasNextPage) { %>
+                                                                <a href="?page=<%= pagination.currentPage + 1 %>&limit=<%= pagination.limit %><%= typeof query !== 'undefined' && query ? '&' + query : '' %>"
+                                                                    class="pagination-item next flex items-center justify-center w-10 h-10 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
+                                                                    aria-label="Next Page">
+                                                                    <svg class="w-5 h-5" fill="none"
+                                                                        stroke="currentColor" viewBox="0 0 24 24">
+                                                                        <path stroke-linecap="round"
+                                                                            stroke-linejoin="round" stroke-width="2"
+                                                                            d="M9 5l7 7-7 7" />
+                                                                    </svg>
+                                                                </a>
+                                                                <% } else { %>
+                                                                    <span
+                                                                        class="pagination-item next disabled flex items-center justify-center w-10 h-10 rounded-lg border border-gray-100 text-gray-300 cursor-not-allowed">
+                                                                        <svg class="w-5 h-5" fill="none"
+                                                                            stroke="currentColor" viewBox="0 0 24 24">
+                                                                            <path stroke-linecap="round"
+                                                                                stroke-linejoin="round" stroke-width="2"
+                                                                                d="M9 5l7 7-7 7" />
+                                                                        </svg>
+                                                                    </span>
+                                                                    <% } %>
+                                                        </li>
+        </ul>
+    </nav>
+    <% } %>

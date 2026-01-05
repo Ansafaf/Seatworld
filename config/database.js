@@ -12,7 +12,7 @@ const connectDB = async () => {
             socketTimeoutMS: 45000, // Close sockets after 45s of inactivity
         });
 
-        console.log(`MongoDB Atlas Connected: ${conn.connection.host}`);
+        console.log(`MongoDB Connected: ${conn.connection.host}`);
 
         // Handle connection events
         mongoose.connection.on('error', (err) => {

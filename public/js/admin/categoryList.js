@@ -1,5 +1,5 @@
+import { debounce } from "../utils/debounce.js";
 import { blockCategory, unblockCategory } from "../services/categoryService.js";
-
 // Sidebar logic
 const sidebar = document.getElementById("adminSidebar");
 const mobileMenuBtn = document.getElementById("mobileMenuBtn");
@@ -36,8 +36,8 @@ const fetchCategories = async (page = 1, search = '') => {
         const data = await response.json();
 
         if (data.success) {
-            updateTable(data.categories, data.currentPage, data.limit);
-            updatePagination(data.currentPage, data.totalPages, data.search);
+            updateTable(data.categories, data.pagination.currentPage, data.pagination.limit);
+            updatePagination(data.pagination.currentPage, data.pagination.totalPages, data.search);
             // Update URL without reload
             const newUrl = `/admin/categories?page=${page}${search ? `&search=${encodeURIComponent(search)}` : ''}`;
             window.history.pushState({ page, search }, '', newUrl);
@@ -140,14 +140,13 @@ const updatePagination = (currentPage, totalPages, search) => {
     });
 };
 
+let searchHandler = (e) => {
+    let searchTerm = e.target.value;
+    fetchCategories(1, searchTerm);
+}
+const debouncedSearch = debounce(searchHandler, 400);
 if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
-        const searchTerm = e.target.value;
-        clearTimeout(categorySearchTimeout);
-        categorySearchTimeout = setTimeout(() => {
-            fetchCategories(1, searchTerm);
-        }, 500);
-    });
+    searchInput.addEventListener('input', debouncedSearch);
 }
 
 // Initial Pagination Listeners

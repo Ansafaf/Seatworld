@@ -2,6 +2,7 @@ import { render } from 'ejs';
 import { User } from '../models/userModel.js';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
+import { paginate } from '../utils/paginationHelper.js';
 
 dotenv.config();
 export const getLoginAdmin = (req, res) => {
@@ -48,8 +49,7 @@ export const getAdminDashboard = async (req, res) => {
 export const getCustomerlist = async (req, res, next) => {
     try {
         const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 5;
-        const skip = (page - 1) * limit;
+        const limit = parseInt(req.query.limit) || 8;
         const searchQuery = req.query.search || "";
 
         const query = {};
@@ -61,32 +61,28 @@ export const getCustomerlist = async (req, res, next) => {
             ];
         }
 
-        const totalUsers = await User.countDocuments(query);
-        const totalPages = Math.ceil(totalUsers / limit);
-
-        const users = await User.find(query)
-            .skip(skip)
-            .limit(limit)
-            .sort({ createdAt: -1 });
+        const { items: users, pagination } = await paginate(User, query, {
+            page,
+            limit,
+            sort: { createdAt: -1 }
+        });
 
         // AJAX Support
         if (req.xhr || req.headers.accept?.includes("application/json")) {
             return res.status(200).json({
                 success: true,
                 users,
-                currentPage: page,
-                totalPages,
-                search: searchQuery,
-                limit
+                pagination,
+                search: searchQuery
             });
         }
 
         res.render("admin/customerList", {
             users,
-            currentPage: page,
-            totalPages,
+            pagination,
             search: searchQuery,
-            limit
+            currentPage: pagination.currentPage,
+            limit: pagination.limit
         });
     } catch (error) {
         console.error("Error fetching customers:", error);

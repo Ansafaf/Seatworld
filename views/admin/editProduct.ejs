@@ -11,6 +11,7 @@
     <script src="/js/admin/common.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="/css/admin/editProduct.css">
 </head>
 
@@ -60,262 +61,181 @@
 
     <div class="flex pt-16 min-h-screen">
         <!-- Sidebar -->
-        <aside id="adminSidebar"
-            class="w-64 bg-white flex flex-col fixed inset-y-0 left-0 z-40 transform -translate-x-full transition-transform duration-300 md:translate-x-0 md:static border-r border-gray-100 pt-16 md:pt-0">
+        <%- include('../partials/adminSidebar') %>
 
-            <div class="p-6">
-                <div class="flex items-center gap-2 text-2xl font-bold text-gray-800 mb-8">
-                    <span class="material-icons-outlined">hexagon</span>
-                    <span>Products</span>
-                    <span class="text-xs font-normal text-gray-400 mt-1">v.01</span>
-                </div>
+            <!-- Overlay -->
+            <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-30 hidden md:hidden backdrop-blur-sm"></div>
 
-                <nav class="space-y-1">
-                    <a href="/admin/dashboard"
-                        class="flex items-center px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-all duration-200 group">
-                        <span class="material-icons-outlined mr-3 text-xl group-hover:text-indigo-600">dashboard</span>
-                        <span class="font-medium">Dashboard</span>
-                    </a>
-
-                    <a href="/admin/products"
-                        class="flex items-center px-4 py-3 text-white bg-indigo-600 rounded-xl shadow-sm transition-all duration-200 group">
-                        <span class="material-icons-outlined mr-3 text-xl">inventory_2</span>
-                        <span class="font-medium">Product</span>
-                    </a>
-
-                    <a href="/admin/categories"
-                        class="flex items-center px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-all duration-200 group">
-                        <span class="material-icons-outlined mr-3 text-xl group-hover:text-indigo-600">category</span>
-                        <span class="font-medium">Categories</span>
-                        <span class="ml-auto material-icons-outlined text-gray-300 text-sm">chevron_right</span>
-                    </a>
-
-                    <a href="/admin/customers"
-                        class="flex items-center px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-all duration-200 group">
-                        <span class="material-icons-outlined mr-3 text-xl group-hover:text-indigo-600">people</span>
-                        <span class="font-medium">Customers</span>
-                        <span class="ml-auto material-icons-outlined text-gray-300 text-sm">chevron_right</span>
-                    </a>
-
-                    <a href="/admin/orders"
-                        class="flex items-center px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-all duration-200 group">
-                        <span
-                            class="material-icons-outlined mr-3 text-xl group-hover:text-indigo-600">shopping_cart</span>
-                        <span class="font-medium">Orders</span>
-                        <span class="ml-auto material-icons-outlined text-gray-300 text-sm">chevron_right</span>
-                    </a>
-
-                    <a href="/admin/discounts"
-                        class="flex items-center px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-all duration-200 group">
-                        <span class="material-icons-outlined mr-3 text-xl group-hover:text-indigo-600">campaign</span>
-                        <span class="font-medium">Discounts</span>
-                        <span class="ml-auto material-icons-outlined text-gray-300 text-sm">chevron_right</span>
-                    </a>
-
-                    <a href="/admin/coupons"
-                        class="flex items-center px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-all duration-200 group">
-                        <span
-                            class="material-icons-outlined mr-3 text-xl group-hover:text-indigo-600">local_activity</span>
-                        <span class="font-medium">Coupons</span>
-                        <span class="ml-auto material-icons-outlined text-gray-300 text-sm">chevron_right</span>
-                    </a>
-
-                    <a href="/admin/banner"
-                        class="flex items-center px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-all duration-200 group">
-                        <span class="material-icons-outlined mr-3 text-xl group-hover:text-indigo-600">image</span>
-                        <span class="font-medium">Banner</span>
-                        <span class="ml-auto material-icons-outlined text-gray-300 text-sm">chevron_right</span>
-                    </a>
-
-                    <a href="/admin/sales-report"
-                        class="flex items-center px-4 py-3 text-gray-500 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-all duration-200 group">
-                        <span class="material-icons-outlined mr-3 text-xl group-hover:text-indigo-600">bar_chart</span>
-                        <span class="font-medium">Sales Report</span>
-                        <span class="ml-auto material-icons-outlined text-gray-300 text-sm">chevron_right</span>
-                    </a>
-
-                    <div class="pt-8 mt-8 border-t border-gray-100">
-                        <a href="/admin/logout"
-                            class="flex items-center px-4 py-3 text-red-500 hover:bg-red-50 rounded-xl transition-all duration-200 group">
-                            <span class="material-icons-outlined mr-3 text-xl">logout</span>
-                            <span class="font-medium">Logout</span>
-                        </a>
-                    </div>
-                </nav>
-            </div>
-        </aside>
-
-        <!-- Overlay -->
-        <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-30 hidden md:hidden backdrop-blur-sm"></div>
-
-        <!-- Main Content -->
-        <main class="flex-1 p-8 overflow-y-auto">
-            <div class="max-w-7xl mx-auto">
-                <h2 class="text-2xl font-bold text-gray-800 mb-8">Edit Product</h2>
-                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
-                    <form id="editProductForm" method="POST" action="/admin/edit-product/<%= product._id %>"
-                        enctype="multipart/form-data">
-                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                            <!-- Left Column - Product Details -->
-                            <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1"
-                                        for="productName">Product</label>
-                                    <input
-                                        class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
-                                        id="productName" name="productName" type="text" value="<%= product.name %>"
-                                        required />
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1" for="Baseprice">Base
-                                        Price</label>
-                                    <input
-                                        class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
-                                        id="Baseprice" name="Baseprice" type="number" min="0"
-                                        value="<%= product.Baseprice %>" required />
-                                </div>
-                                <div class="relative">
-                                    <label class="block text-sm font-medium text-gray-700 mb-1"
-                                        for="category">Category</label>
-                                    <select
-                                        class="block w-full appearance-none rounded-lg border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary focus:ring-primary pr-10"
-                                        id="category" name="category" required>
-                                        <option value="">Select a category</option>
-                                        <% if (categories && categories.length> 0) { %>
-                                            <% categories.forEach(category=> { %>
-                                                <option value="<%= category._id %>" <%=product.categoryId &&
-                                                    product.categoryId.toString()===category._id.toString() ? 'selected'
-                                                    : '' %>>
-                                                    <%= category.categoryName || category.name %>
-                                                </option>
-                                                <% }) %>
-                                                    <% } %>
-                                    </select>
-                                    <div
-                                        class="pointer-events-none absolute inset-y-0 right-0 top-6 flex items-center px-2 text-gray-700">
-                                        <span class="material-icons-outlined">expand_more</span>
+            <!-- Main Content -->
+            <main class="flex-1 p-8 overflow-y-auto">
+                <div class="max-w-7xl mx-auto">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-8">Edit Product</h2>
+                    <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+                        <form id="editProductForm" method="POST" action="/admin/edit-product/<%= product._id %>"
+                            enctype="multipart/form-data">
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                                <!-- Left Column - Product Details -->
+                                <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1"
+                                            for="productName">Product</label>
+                                        <input
+                                            class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
+                                            id="productName" name="productName" type="text" value="<%= product.name %>"
+                                            required />
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1" for="Baseprice">Base
+                                            Price</label>
+                                        <input
+                                            class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
+                                            id="Baseprice" name="Baseprice" type="number" min="0"
+                                            value="<%= product.Baseprice %>" required />
+                                    </div>
+                                    <div class="relative">
+                                        <label class="block text-sm font-medium text-gray-700 mb-1"
+                                            for="category">Category</label>
+                                        <select
+                                            class="block w-full appearance-none rounded-lg border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary focus:ring-primary pr-10"
+                                            id="category" name="category" required>
+                                            <option value="">Select a category</option>
+                                            <% if (categories && categories.length> 0) { %>
+                                                <% categories.forEach(category=> { %>
+                                                    <option value="<%= category._id %>" <%=product.categoryId &&
+                                                        product.categoryId.toString()===category._id.toString()
+                                                        ? 'selected' : '' %>>
+                                                        <%= category.categoryName || category.name %>
+                                                    </option>
+                                                    <% }) %>
+                                                        <% } %>
+                                        </select>
+                                        <div
+                                            class="pointer-events-none absolute inset-y-0 right-0 top-6 flex items-center px-2 text-gray-700">
+                                            <span class="material-icons-outlined">expand_more</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1"
+                                            for="brandName">Brand</label>
+                                        <input
+                                            class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
+                                            id="brandName" name="brandName" type="text" value="<%= product.brand %>"
+                                            required />
                                     </div>
                                 </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1"
-                                        for="brandName">Brand</label>
-                                    <input
-                                        class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
-                                        id="brandName" name="brandName" type="text" value="<%= product.brand %>"
-                                        required />
+
+                                <!-- Right Column - Description -->
+                                <div class="space-y-6">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1"
+                                            for="description">Description</label>
+                                        <textarea
+                                            class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
+                                            id="description" name="description"
+                                            rows="5"><%= product.description %></textarea>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- Right Column - Description -->
-                            <div class="space-y-6">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1"
-                                        for="description">Description</label>
-                                    <textarea
-                                        class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
-                                        id="description" name="description"
-                                        rows="5"><%= product.description %></textarea>
+                            <!-- Variants Section -->
+                            <div class="mt-10 pt-8 border-t border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h2 class="text-lg font-semibold text-gray-800">Variants</h2>
+                                    <button type="button" onclick="addVariant()"
+                                        class="inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg border border-primary text-primary hover:bg-orange-50">
+                                        <span class="material-icons-outlined text-sm mr-1">add</span>
+                                        Add Variant
+                                    </button>
+                                </div>
+
+                                <div id="variantContainer" class="space-y-4">
+                                    <% if (variants && variants.length> 0) { %>
+                                        <% variants.forEach((variant, index)=> { %>
+                                            <div
+                                                class="variant-row grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-gray-50 p-4 rounded-lg border border-gray-200 relative">
+                                                <button type="button" onclick="removeVariant(this)"
+                                                    class="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-white rounded-full p-1 shadow-md"
+                                                    title="Remove variant">
+                                                    <span class="material-icons-outlined text-sm">close</span>
+                                                </button>
+
+                                                <input type="hidden" name="variantId[]" value="<%= variant._id %>">
+                                                <input type="hidden" name="variantIndices[]" value="<%= index %>">
+                                                <input type="hidden" name="existingImages_<%= index %>"
+                                                    id="existingImages_<%= index %>"
+                                                    value="<%= JSON.stringify(variant.images) %>">
+
+                                                <div>
+                                                    <label
+                                                        class="block text-xs font-medium text-gray-600 mb-1">Color</label>
+                                                    <input type="text" name="color[]" value="<%= variant.color %>"
+                                                        class="block w-full rounded-lg border-gray-300 bg-white text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
+                                                        required />
+                                                </div>
+                                                <div>
+                                                    <label
+                                                        class="block text-xs font-medium text-gray-600 mb-1">Price</label>
+                                                    <input type="number" name="variantPrice[]"
+                                                        value="<%= variant.price %>"
+                                                        class="block w-full rounded-lg border-gray-300 bg-white text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
+                                                        min="0" required />
+                                                </div>
+                                                <div>
+                                                    <label
+                                                        class="block text-xs font-medium text-gray-600 mb-1">Stock</label>
+                                                    <input type="number" name="variantStock[]"
+                                                        value="<%= variant.stock %>"
+                                                        class="block w-full rounded-lg border-gray-300 bg-white text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
+                                                        min="0" required />
+                                                </div>
+                                                <div>
+                                                    <label
+                                                        class="block text-xs font-medium text-gray-600 mb-1">Images</label>
+                                                    <input type="file" name="images_<%= index %>" accept="image/*"
+                                                        multiple onchange="handleImageSelect(event, '<%= index %>')"
+                                                        class="block w-full text-sm text-gray-700 file:mr-3 file:py-2 file:px-3 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-orange-600 cursor-pointer" />
+
+                                                    <div id="new_preview_<%= index %>" class="image-preview-container">
+                                                    </div>
+
+
+                                                    <!-- Existing Images Preview -->
+                                                    <div class="mt-2 flex gap-2 flex-wrap" id="preview_<%= index %>">
+                                                        <% if (variant.images && variant.images.length> 0) { %>
+                                                            <% variant.images.forEach((img, imgIndex)=> { %>
+                                                                <div
+                                                                    class="relative w-12 h-12 border border-gray-300 rounded overflow-hidden group">
+                                                                    <img src="<%= img %>"
+                                                                        class="w-full h-full object-cover">
+                                                                    <button type="button"
+                                                                        onclick="removeExistingImage('<%= index %>', '<%= img %>')"
+                                                                        class="absolute inset-0 bg-black/50 text-white opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                                                                        <span
+                                                                            class="material-icons-outlined text-xs">close</span>
+                                                                    </button>
+                                                                </div>
+                                                                <% }) %>
+                                                                    <% } %>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <% }) %>
+                                                <% } %>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Variants Section -->
-                        <div class="mt-10 pt-8 border-t border-gray-200">
-                            <div class="flex items-center justify-between mb-4">
-                                <h2 class="text-lg font-semibold text-gray-800">Variants</h2>
-                                <button type="button" onclick="addVariant()"
-                                    class="inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg border border-primary text-primary hover:bg-orange-50">
-                                    <span class="material-icons-outlined text-sm mr-1">add</span>
-                                    Add Variant
+                            <!-- Submit Button -->
+                            <div class="mt-8 flex justify-end">
+                                <button
+                                    class="w-full sm:w-auto inline-flex justify-center items-center px-8 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-primary hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-200"
+                                    type="submit">
+                                    Update Product
                                 </button>
                             </div>
-
-                            <div id="variantContainer" class="space-y-4">
-                                <% if (variants && variants.length> 0) { %>
-                                    <% variants.forEach((variant, index)=> { %>
-                                        <div
-                                            class="variant-row grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-gray-50 p-4 rounded-lg border border-gray-200 relative">
-                                            <button type="button" onclick="removeVariant(this)"
-                                                class="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-white rounded-full p-1 shadow-md"
-                                                title="Remove variant">
-                                                <span class="material-icons-outlined text-sm">close</span>
-                                            </button>
-
-                                            <input type="hidden" name="variantId[]" value="<%= variant._id %>">
-                                            <input type="hidden" name="variantIndices[]" value="<%= index %>">
-                                            <input type="hidden" name="existingImages_<%= index %>"
-                                                id="existingImages_<%= index %>"
-                                                value="<%= JSON.stringify(variant.images).replace(/" /g, '&quot;' ) %>">
-
-                                            <div>
-                                                <label
-                                                    class="block text-xs font-medium text-gray-600 mb-1">Color</label>
-                                                <input type="text" name="color[]" value="<%= variant.color %>"
-                                                    class="block w-full rounded-lg border-gray-300 bg-white text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
-                                                    required />
-                                            </div>
-                                            <div>
-                                                <label
-                                                    class="block text-xs font-medium text-gray-600 mb-1">Price</label>
-                                                <input type="number" name="variantPrice[]" value="<%= variant.price %>"
-                                                    class="block w-full rounded-lg border-gray-300 bg-white text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
-                                                    min="0" required />
-                                            </div>
-                                            <div>
-                                                <label
-                                                    class="block text-xs font-medium text-gray-600 mb-1">Stock</label>
-                                                <input type="number" name="variantStock[]" value="<%= variant.stock %>"
-                                                    class="block w-full rounded-lg border-gray-300 bg-white text-gray-900 shadow-sm focus:border-primary focus:ring-primary"
-                                                    min="0" required />
-                                            </div>
-                                            <div>
-                                                <label
-                                                    class="block text-xs font-medium text-gray-600 mb-1">Images</label>
-                                                <input type="file" name="images_<%= index %>" accept="image/*" multiple
-                                                    onchange="handleImageSelect(event, '<%= index %>')"
-                                                    class="block w-full text-sm text-gray-700 file:mr-3 file:py-2 file:px-3 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-orange-600 cursor-pointer" />
-
-                                                <div id="new_preview_<%= index %>" class="image-preview-container">
-                                                </div>
-
-
-                                                <!-- Existing Images Preview -->
-                                                <div class="mt-2 flex gap-2 flex-wrap" id="preview_<%= index %>">
-                                                    <% if (variant.images && variant.images.length> 0) { %>
-                                                        <% variant.images.forEach((img, imgIndex)=> { %>
-                                                            <div
-                                                                class="relative w-12 h-12 border border-gray-300 rounded overflow-hidden group">
-                                                                <img src="<%= img %>"
-                                                                    class="w-full h-full object-cover">
-                                                                <button type="button"
-                                                                    onclick="removeExistingImage('<%= index %>', '<%= img %>')"
-                                                                    class="absolute inset-0 bg-black/50 text-white opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                                                                    <span
-                                                                        class="material-icons-outlined text-xs">close</span>
-                                                                </button>
-                                                            </div>
-                                                            <% }) %>
-                                                                <% } %>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <% }) %>
-                                            <% } %>
-                            </div>
-                        </div>
-
-                        <!-- Submit Button -->
-                        <div class="mt-8 flex justify-end">
-                            <button
-                                class="w-full sm:w-auto inline-flex justify-center items-center px-8 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-primary hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-200"
-                                type="submit">
-                                Update Product
-                            </button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </main>
+            </main>
     </div>
 
     <input type="hidden" id="serverVariantIndex" value="<%= variants ? variants.length : 0 %>">

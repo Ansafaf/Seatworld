@@ -1,10 +1,34 @@
 import { apiRequest } from '../utils/fetchClient.js';
 
-window.toggleSidebar = function () {
-    const sidebar = document.getElementById("sidebar");
-    if (sidebar) {
-        sidebar.classList.toggle("active");
-    }
+// Sidebar toggle for mobile
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    if (sidebar) sidebar.classList.toggle('active');
+    if (overlay) overlay.classList.toggle('active');
+}
+
+// Attach to window for HTML event handlers
+window.toggleSidebar = toggleSidebar;
+
+// Close sidebar when clicking menu items
+const sidebarLinks = document.querySelectorAll('.sidebar a');
+sidebarLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        if (window.innerWidth <= 900) {
+            toggleSidebar();
+        }
+    });
+});
+
+window.showGoogleEmailWarning = function () {
+    Swal.fire({
+        icon: 'warning',
+        title: 'Access Restricted',
+        text: 'Email address cannot be changed because this account was created using Google Sign-In.',
+        confirmButtonColor: '#000',
+        confirmButtonText: 'Got it'
+    });
 }
 
 // Handle profile update form submission via AJAX

@@ -10,6 +10,8 @@
     <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
 
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="/css/users/profile.css">
 </head>
 
@@ -19,8 +21,10 @@
         <%- include("../partials/breadcrumb", { breadcrumbs }) %>
             <%- include("../partials/flash", { messageData: locals.message }) %>
 
-                <!-- Mobile Overlay -->
-                <div class="mobile-overlay" id="mobileOverlay"></div>
+                <button class="menu-btn" onclick="toggleSidebar()"
+                    style="position: fixed; top: 90px; left: 20px; z-index: 100; background: white; border-radius: 50%; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); border: none;">
+                    <i class="fas fa-bars" style="font-size: 20px;"></i>
+                </button>
 
                 <!-- Mobile Sidebar -->
                 <aside class="sidebar mobile-sidebar" id="mobileSidebar">
@@ -194,9 +198,11 @@
 
                     </div>
                 </div>
-
+                <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                 <script src="/js/users/profile.js"></script>
+
+                <%- include('../partials/footer') %>
 
 </body>
 

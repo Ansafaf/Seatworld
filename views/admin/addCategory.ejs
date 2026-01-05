@@ -43,121 +43,27 @@
 
     <div class="flex pt-16 min-h-screen">
         <!-- Sidebar -->
-        <aside id="adminSidebar"
-            class="w-64 bg-white flex flex-col fixed inset-y-0 left-0 z-40 transform -translate-x-full transition-transform duration-300 md:translate-x-0 md:static border-r border-gray-100 pt-16 md:pt-0">
+        <%- include('../partials/adminSidebar') %>
 
-            <div class="p-6">
-                <!-- Sidebar Header -->
-                <div class="flex items-center gap-2 text-2xl font-bold text-gray-800 mb-8">
-                    <span class="material-icons-outlined">hexagon</span>
-                    <span>Categories</span>
-                    <span class="text-xs font-normal text-gray-400 mt-1">v.01</span>
-                </div>
+            <!-- Overlay -->
+            <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-30 hidden md:hidden backdrop-blur-sm"></div>
 
-                <!-- Navigation Menu -->
-                <nav class="space-y-2">
-                    <!-- Dashboard -->
-                    <a href="/admin/dashboard"
-                        class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
-                        <span class="material-icons-outlined mr-3 text-xl">dashboard</span>
-                        <span class="font-medium flex-1">Dashboard</span>
-                        <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
-                    </a>
-
-                    <!-- Product -->
-                    <a href="/admin/products"
-                        class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
-                        <span class="material-icons-outlined mr-3 text-xl">inventory_2</span>
-                        <span class="font-medium flex-1">Product</span>
-                        <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
-                    </a>
-
-                    <!-- Categories (Active) -->
-                    <a href="/admin/categories"
-                        class="flex items-center px-4 py-3 bg-indigo-600 text-white rounded-xl transition-all duration-200 shadow-lg shadow-indigo-200">
-                        <span class="material-icons-outlined mr-3 text-xl">category</span>
-                        <span class="font-medium flex-1">Categories</span>
-                        <span class="material-icons-outlined text-sm">chevron_right</span>
-                    </a>
-
-                    <!-- Customers -->
-                    <a href="/admin/users"
-                        class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
-                        <span class="material-icons-outlined mr-3 text-xl">people</span>
-                        <span class="font-medium flex-1">Customers</span>
-                        <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
-                    </a>
-
-                    <!-- Orders -->
-                    <a href="/admin/orders"
-                        class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
-                        <span class="material-icons-outlined mr-3 text-xl">shopping_cart</span>
-                        <span class="font-medium flex-1">Orders</span>
-                        <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
-                    </a>
-
-                    <!-- Discounts -->
-                    <a href="/admin/discounts"
-                        class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
-                        <span class="material-icons-outlined mr-3 text-xl">local_offer</span>
-                        <span class="font-medium flex-1">Discounts</span>
-                        <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
-                    </a>
-
-                    <!-- Coupons -->
-                    <a href="/admin/coupons"
-                        class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
-                        <span class="material-icons-outlined mr-3 text-xl">confirmation_number</span>
-                        <span class="font-medium flex-1">Coupons</span>
-                        <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
-                    </a>
-
-                    <!-- Banner -->
-                    <a href="/admin/banner"
-                        class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
-                        <span class="material-icons-outlined mr-3 text-xl">image</span>
-                        <span class="font-medium flex-1">Banner</span>
-                        <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
-                    </a>
-
-                    <!-- Sales Report -->
-                    <a href="/admin/sales-report"
-                        class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
-                        <span class="material-icons-outlined mr-3 text-xl">bar_chart</span>
-                        <span class="font-medium flex-1">Sales report</span>
-                        <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
-                    </a>
-
-                    <!-- Logout -->
-                    <div class="pt-6 mt-6 border-t border-gray-100">
-                        <a href="/admin/logout"
-                            class="flex items-center justify-center px-4 py-3 text-red-500 hover:bg-red-50 rounded-xl transition-all duration-200 font-medium">
-                            Logout
-                        </a>
+            <!-- Main Content -->
+            <main class="flex-1 p-8 overflow-y-auto bg-white/50">
+                <div class="max-w-4xl mx-auto">
+                    <div class="form-container">
+                        <div class="title">Add Category</div>
+                        <form action="/admin/add-category" method="POST" id="addCategoryForm">
+                            <div class="form-group">
+                                <label for="categoryName">Category name</label>
+                                <input id="categoryName" name="categoryName" type="text"
+                                    placeholder="Enter category name" required>
+                            </div>
+                            <button type="submit" class="submit-btn font-bold">Add Category</button>
+                        </form>
                     </div>
-                </nav>
-            </div>
-        </aside>
-
-        <!-- Overlay -->
-        <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-30 hidden md:hidden backdrop-blur-sm"></div>
-
-        <!-- Main Content -->
-        <main class="flex-1 p-8 overflow-y-auto bg-white/50">
-            <div class="max-w-4xl mx-auto">
-                <div class="form-container">
-                    <div class="title">Add Category</div>
-                    <form action="/admin/add-category" method="POST" id="addCategoryForm">
-                        <div class="form-group">
-                            <label for="categoryName">Category name</label>
-                            <input id="categoryName" name="categoryName" type="text" placeholder="Enter category name"
-                                required>
-                        </div>
-                        <button type="submit" class="submit-btn font-bold">Add Category</button>
-                    </form>
                 </div>
-            </div>
-        </main>
+            </main>
     </div>
 
     <script type="module" src="/js/admin/addCategory.js"></script>

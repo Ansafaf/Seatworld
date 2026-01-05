@@ -1,60 +1,24 @@
 import { apiRequest } from '../utils/fetchClient.js';
 
-// Mobile Menu Toggle
-const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-const closeSidebarBtn = document.getElementById('closeSidebarBtn');
-const mobileSidebar = document.getElementById('mobileSidebar');
-const sidebarOverlay = document.getElementById('sidebarOverlay');
-const body = document.body;
-
-function openMobileSidebar() {
-    if (!mobileMenuBtn || !mobileSidebar || !sidebarOverlay) return;
-    mobileMenuBtn.classList.add('active');
-    mobileSidebar.classList.add('active');
-    sidebarOverlay.classList.add('active');
-    body.classList.add('sidebar-open');
+// Sidebar toggle for mobile
+function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    if (sidebar) sidebar.classList.toggle('active');
+    if (overlay) overlay.classList.toggle('active');
 }
 
-function closeMobileSidebar() {
-    if (!mobileMenuBtn || !mobileSidebar || !sidebarOverlay) return;
-    mobileMenuBtn.classList.remove('active');
-    mobileSidebar.classList.remove('active');
-    sidebarOverlay.classList.remove('active');
-    body.classList.remove('sidebar-open');
-}
+// Attach to window for HTML event handlers
+window.toggleSidebar = toggleSidebar;
 
-function toggleMobileSidebar() {
-    if (!mobileSidebar) return; // Add null check
-    if (mobileSidebar.classList.contains('active')) {
-        closeMobileSidebar();
-    } else {
-        openMobileSidebar();
-    }
-}
-
-// Event Listeners
-if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileSidebar);
-if (closeSidebarBtn) closeSidebarBtn.addEventListener('click', closeMobileSidebar);
-if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeMobileSidebar);
-
-// Close sidebar when clicking menu items on mobile
-const mobileMenuItems = document.querySelectorAll('.mobile-sidebar .menu-item');
-mobileMenuItems.forEach(item => {
-    item.addEventListener('click', closeMobileSidebar);
-});
-
-// Close sidebar with Escape key
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        closeMobileSidebar();
-    }
-});
-
-// Close sidebar on window resize to desktop
-window.addEventListener('resize', () => {
-    if (window.innerWidth > 968) {
-        closeMobileSidebar();
-    }
+// Close sidebar when clicking menu items
+const sidebarLinks = document.querySelectorAll('.sidebar a');
+sidebarLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        if (window.innerWidth <= 968) {
+            toggleSidebar();
+        }
+    });
 });
 
 // Form validation feedback

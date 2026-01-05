@@ -32,3 +32,3184 @@
 [2026-01-01 16:15:22] INFO: [GET] /admin/dashboard
 [2026-01-01 16:15:24] INFO: [GET] /admin/products
 [2026-01-01 16:15:29] INFO: [GET] /admin/edit-product/692d42af31e01e9d9ba8dc04
+[2026-01-02 12:17:46] INFO: [GET] /
+[2026-01-02 12:17:51] INFO: [GET] /login
+[2026-01-02 12:17:51] INFO: [GET] /favicon.ico
+[2026-01-02 12:17:53] INFO: [GET] /auth/google
+[2026-01-02 12:18:32] INFO: [GET] /login
+[2026-01-02 12:18:38] INFO: [GET] /auth/google
+[2026-01-02 12:21:58] INFO: [GET] /auth/google
+[2026-01-02 12:24:20] INFO: [GET] /login
+[2026-01-02 12:24:21] INFO: [GET] /login
+[2026-01-02 12:24:24] INFO: [GET] /auth/google
+[2026-01-02 12:24:29] INFO: [GET] /admin/login
+[2026-01-02 12:24:36] INFO: [GET] /
+[2026-01-02 12:24:38] INFO: [GET] /login
+[2026-01-02 12:24:40] INFO: [GET] /auth/google
+[2026-01-02 12:25:11] INFO: [GET] /auth/google
+[2026-01-02 12:25:11] INFO: [GET] /auth/google/callback?code=4%2F0ATX87lP1oVGQQjiGVBpWW-yk44sIUFuE0qAuXoEuR37KYK-LYpc8wAMyZr3ondfXZ5bU3A&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=0&prompt=none
+[2026-01-02 12:25:12] INFO: [GET] /home
+[2026-01-02 12:25:17] INFO: [GET] /profile
+[2026-01-02 12:25:24] INFO: [POST] /profile/avatar
+[2026-01-02 12:25:31] INFO: [GET] /profile/edit
+[2026-01-02 12:25:32] INFO: [POST] /profile/edit
+[2026-01-02 12:25:36] INFO: [POST] /profile/edit
+[2026-01-02 12:25:38] INFO: [GET] /profile/edit
+[2026-01-02 12:25:43] INFO: [GET] /profile/change-email
+[2026-01-02 12:25:43] INFO: [GET] /profile/edit
+[2026-01-02 12:25:45] INFO: [GET] /profile/change-email
+[2026-01-02 12:25:45] INFO: [GET] /profile/edit
+[2026-01-02 12:25:46] INFO: [GET] /profile/change-email
+[2026-01-02 12:25:46] INFO: [GET] /profile/edit
+[2026-01-02 12:25:47] INFO: [GET] /profile/change-email
+[2026-01-02 12:25:47] INFO: [GET] /profile/edit
+[2026-01-02 12:25:48] INFO: [GET] /profile/change-email
+[2026-01-02 12:25:48] INFO: [GET] /profile/edit
+[2026-01-02 12:25:49] INFO: [GET] /profile/change-email
+[2026-01-02 12:25:49] INFO: [GET] /profile/edit
+[2026-01-02 12:25:50] INFO: [GET] /profile/change-email
+[2026-01-02 12:25:50] INFO: [GET] /profile/edit
+[2026-01-02 12:25:51] INFO: [GET] /profile/change-email
+[2026-01-02 12:25:51] INFO: [GET] /profile/edit
+[2026-01-02 14:00:32] INFO: [GET] /
+[2026-01-02 14:03:34] INFO: [POST] /profile/edit
+[2026-01-02 14:03:43] INFO: [POST] /profile/edit
+[2026-01-02 14:03:45] INFO: [GET] /profile/edit
+[2026-01-02 14:03:53] INFO: [GET] /home
+[2026-01-02 14:03:55] INFO: [GET] /profile
+[2026-01-02 14:03:56] INFO: [GET] /profile/edit
+[2026-01-02 14:07:25] INFO: [GET] /home
+[2026-01-02 14:07:27] INFO: [GET] /profile
+[2026-01-02 14:07:28] INFO: [GET] /profile/edit
+[2026-01-02 14:07:50] INFO: [POST] /profile/edit
+[2026-01-02 14:07:52] INFO: [GET] /profile/edit
+[2026-01-02 14:07:56] INFO: [POST] /profile/edit
+[2026-01-02 14:07:57] INFO: [GET] /profile/edit
+[2026-01-02 14:08:01] INFO: [POST] /profile/edit
+[2026-01-02 14:08:05] INFO: [POST] /profile/edit
+[2026-01-02 14:08:07] INFO: [GET] /profile/edit
+[2026-01-02 14:08:11] INFO: [GET] /address
+[2026-01-02 14:08:13] INFO: [POST] /address/set-default/69550d4b525d3650ff32964d
+[2026-01-02 14:08:15] INFO: [GET] /address
+[2026-01-02 14:08:20] INFO: [GET] /home
+[2026-01-02 14:08:23] INFO: [GET] /products
+[2026-01-02 14:08:32] INFO: [GET] /products?search=fic&minPrice=550&maxPrice=1300&sort=featured
+[2026-01-02 14:08:37] INFO: [GET] /products?search=ficma&minPrice=550&maxPrice=1300&sort=featured
+[2026-01-02 14:08:37] INFO: [GET] /products?search=ficmax&minPrice=550&maxPrice=1300&sort=featured
+[2026-01-02 14:08:42] INFO: [GET] /products?search=&minPrice=550&maxPrice=1300&sort=featured
+[2026-01-02 14:08:54] INFO: [GET] /products?search=&minPrice=550&maxPrice=1300&brand=Ficmax&sort=featured
+[2026-01-02 14:08:58] INFO: [GET] /products?search=&minPrice=550&maxPrice=1300&brand=Ficmax&category=6921788030e767c20cdf0ce1&sort=featured
+[2026-01-02 14:09:01] INFO: [GET] /products?search=&minPrice=550&maxPrice=1300&brand=Ficmax&category=6921788030e767c20cdf0ce1&sort=featured
+[2026-01-02 14:09:08] INFO: [GET] /products?search=&minPrice=550&maxPrice=1300&brand=Ficmax&category=6921788030e767c20cdf0ce1&sort=featured
+[2026-01-02 14:10:34] INFO: [GET] /products
+[2026-01-02 14:12:00] INFO: [GET] /home
+[2026-01-02 14:12:01] INFO: [GET] /products
+[2026-01-02 14:12:09] INFO: [GET] /products?search=&minPrice=550&maxPrice=1300&brand=Ficmax&sort=featured
+[2026-01-02 14:12:12] INFO: [GET] /products?search=&minPrice=550&maxPrice=1300&brand=Ficmax&category=6953bd0220897bab717b4b2a&sort=featured
+[2026-01-02 14:12:15] INFO: [GET] /products?search=&minPrice=550&maxPrice=1300&brand=Ficmax&category=6953bd0220897bab717b4b2a&sort=featured
+[2026-01-02 14:12:18] INFO: [GET] /products?search=&minPrice=550&maxPrice=1300&category=6953bd0220897bab717b4b2a&sort=featured
+[2026-01-02 14:12:21] INFO: [GET] /products?search=&minPrice=550&maxPrice=1300&sort=featured
+[2026-01-02 14:14:49] INFO: [GET] /products
+[2026-01-02 14:15:04] INFO: [GET] /products?search=&minPrice=550&maxPrice=1300&brand=Ficmax&category=6921788030e767c20cdf0ce1&sort=featured
+[2026-01-02 14:15:07] INFO: [GET] /products
+[2026-01-02 14:15:21] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-02 14:15:27] INFO: [GET] /product/694fa44cf0a089520a1144ab?variant=694fa4a7f0a089520a1144da
+[2026-01-02 14:15:31] INFO: [GET] /products
+[2026-01-02 14:15:33] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-02 14:15:38] INFO: [GET] /products
+[2026-01-02 14:15:39] INFO: [GET] /product/693faef8c1dc3ee2a4a4f878
+[2026-01-02 14:15:43] INFO: [GET] /products
+[2026-01-02 14:15:46] INFO: [GET] /product/692d673590f31c452d819e08
+[2026-01-02 14:15:49] INFO: [GET] /products
+[2026-01-02 14:15:51] INFO: [GET] /product/693fad27c1dc3ee2a4a4f821
+[2026-01-02 14:15:56] INFO: [GET] /products
+[2026-01-02 14:15:59] INFO: [GET] /product/693fadb9c1dc3ee2a4a4f85d
+[2026-01-02 14:16:07] INFO: [GET] /products
+[2026-01-02 14:16:10] INFO: [GET] /product/692d673590f31c452d819e08
+[2026-01-02 14:16:13] INFO: [GET] /product/692d673590f31c452d819e08?variant=692d673590f31c452d819e0a
+[2026-01-02 14:16:13] INFO: [GET] /product/692d673590f31c452d819e08?variant=692d673590f31c452d819e0a
+[2026-01-02 14:16:13] INFO: [GET] /product/692d673590f31c452d819e08?variant=692d673590f31c452d819e0a
+[2026-01-02 14:16:13] INFO: [GET] /product/692d673590f31c452d819e08?variant=692d673590f31c452d819e0a
+[2026-01-02 14:16:14] INFO: [GET] /product/692d673590f31c452d819e08?variant=692d673590f31c452d819e0a
+[2026-01-02 14:16:20] INFO: [GET] /admin/login
+[2026-01-02 14:16:29] INFO: [POST] /admin/login
+[2026-01-02 14:16:31] INFO: [POST] /admin/login
+[2026-01-02 14:16:32] INFO: [POST] /admin/login
+[2026-01-02 14:16:32] INFO: [POST] /admin/login
+[2026-01-02 14:16:32] INFO: [POST] /admin/login
+[2026-01-02 14:16:38] INFO: [POST] /admin/login
+[2026-01-02 14:16:39] INFO: [POST] /admin/login
+[2026-01-02 14:16:39] INFO: [POST] /admin/login
+[2026-01-02 14:16:39] INFO: [POST] /admin/login
+[2026-01-02 14:17:39] INFO: [GET] /admin/login
+[2026-01-02 14:17:43] INFO: [POST] /admin/login
+[2026-01-02 14:18:02] INFO: [GET] /admin/login
+[2026-01-02 14:18:06] INFO: [POST] /admin/login
+[2026-01-02 14:18:39] INFO: [POST] /admin/login
+[2026-01-02 14:18:40] INFO: [POST] /admin/login
+[2026-01-02 14:18:41] INFO: [POST] /admin/login
+[2026-01-02 14:18:41] INFO: [POST] /admin/login
+[2026-01-02 14:18:41] INFO: [POST] /admin/login
+[2026-01-02 14:18:41] INFO: [POST] /admin/login
+[2026-01-02 14:18:42] INFO: [POST] /admin/login
+[2026-01-02 14:18:42] INFO: [POST] /admin/login
+[2026-01-02 14:18:42] INFO: [POST] /admin/login
+[2026-01-02 14:18:42] INFO: [POST] /admin/login
+[2026-01-02 14:18:42] INFO: [POST] /admin/login
+[2026-01-02 14:18:44] INFO: [POST] /admin/login
+[2026-01-02 14:18:44] INFO: [POST] /admin/login
+[2026-01-02 14:18:45] INFO: [POST] /admin/login
+[2026-01-02 14:18:45] INFO: [POST] /admin/login
+[2026-01-02 14:18:46] INFO: [POST] /admin/login
+[2026-01-02 14:18:50] INFO: [POST] /admin/login
+[2026-01-02 14:18:50] INFO: [POST] /admin/login
+[2026-01-02 14:18:51] INFO: [POST] /admin/login
+[2026-01-02 14:18:52] INFO: [POST] /admin/login
+[2026-01-02 14:18:52] INFO: [POST] /admin/login
+[2026-01-02 14:18:52] INFO: [POST] /admin/login
+[2026-01-02 14:18:52] INFO: [POST] /admin/login
+[2026-01-02 14:18:52] INFO: [POST] /admin/login
+[2026-01-02 14:18:55] INFO: [POST] /admin/login
+[2026-01-02 14:18:55] INFO: [POST] /admin/login
+[2026-01-02 14:18:55] INFO: [POST] /admin/login
+[2026-01-02 14:18:55] INFO: [POST] /admin/login
+[2026-01-02 14:18:56] INFO: [POST] /admin/login
+[2026-01-02 14:19:08] INFO: [POST] /admin/login
+[2026-01-02 14:19:08] INFO: [POST] /admin/login
+[2026-01-02 14:19:08] INFO: [POST] /admin/login
+[2026-01-02 14:19:09] INFO: [POST] /admin/login
+[2026-01-02 14:19:09] INFO: [POST] /admin/login
+[2026-01-02 14:19:09] INFO: [POST] /admin/login
+[2026-01-02 14:19:10] INFO: [POST] /admin/login
+[2026-01-02 14:19:10] INFO: [POST] /admin/login
+[2026-01-02 14:19:10] INFO: [POST] /admin/login
+[2026-01-02 14:19:10] INFO: [POST] /admin/login
+[2026-01-02 14:19:10] INFO: [POST] /admin/login
+[2026-01-02 14:19:11] INFO: [POST] /admin/login
+[2026-01-02 14:19:11] INFO: [POST] /admin/login
+[2026-01-02 14:19:16] INFO: [POST] /admin/login
+[2026-01-02 14:19:16] INFO: [GET] /admin/dashboard
+[2026-01-02 14:19:24] INFO: [GET] /admin/products
+[2026-01-02 14:19:29] INFO: [PATCH] /admin/block-product/694fa44cf0a089520a1144ab
+[2026-01-02 14:19:32] INFO: [PATCH] /admin/unblock-product/694fa44cf0a089520a1144ab
+[2026-01-02 14:19:37] INFO: [GET] /admin/edit-product/693fc66c6ecc42bce6fc7548
+[2026-01-02 14:19:40] INFO: [GET] /admin/products
+[2026-01-02 14:19:45] INFO: [GET] /admin/edit-product/692d673590f31c452d819e08
+[2026-01-02 14:20:50] INFO: [GET] /admin/categories
+[2026-01-02 14:20:55] INFO: [GET] /admin/categories?page=1&search=sa
+[2026-01-02 14:20:57] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-02 14:21:00] INFO: [GET] /admin/categories?page=2&search=
+[2026-01-02 14:21:01] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-02 14:21:02] INFO: [GET] /admin/products
+[2026-01-02 14:21:09] INFO: [GET] /admin/users
+[2026-01-02 14:21:13] INFO: [GET] /admin/users?page=1&search=suhail
+[2026-01-02 14:21:16] INFO: [GET] /admin/users?page=1&search=
+[2026-01-02 14:21:18] INFO: [GET] /admin/categories
+[2026-01-02 14:21:23] INFO: [POST] /admin/block-category/69562d9d0d6cc01cb0f12330
+[2026-01-02 14:21:27] INFO: [POST] /admin/unblock-category/69562d9d0d6cc01cb0f12330
+[2026-01-02 14:21:31] INFO: [GET] /admin/dashboard
+[2026-01-02 14:21:33] INFO: [GET] /admin/products
+[2026-01-02 14:21:34] INFO: [GET] /admin/add-product
+[2026-01-02 14:22:50] INFO: [GET] /admin/products
+[2026-01-02 14:22:57] INFO: [GET] /products
+[2026-01-02 14:22:58] INFO: [GET] /home
+[2026-01-02 14:48:50] INFO: [GET] /products
+[2026-01-02 14:48:59] INFO: [GET] /products
+[2026-01-02 14:51:05] INFO: [GET] /admin/products
+[2026-01-02 14:51:10] INFO: [GET] /admin/add-product
+[2026-01-02 15:27:45] INFO: [GET] /admin/login
+[2026-01-02 15:27:45] INFO: [GET] /admin/dashboard
+[2026-01-02 15:27:47] INFO: [GET] /admin/products
+[2026-01-02 15:27:50] INFO: [GET] /admin/edit-product/693fad27c1dc3ee2a4a4f821
+[2026-01-02 15:27:56] INFO: [POST] /admin/edit-product/693fad27c1dc3ee2a4a4f821
+[2026-01-02 15:27:56] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-02 15:27:57] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-02 15:27:57] INFO: [postEditProduct] Request received for Product ID: 693fad27c1dc3ee2a4a4f821
+[2026-01-02 15:27:57] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock
+[2026-01-02 15:27:57] INFO: [postEditProduct] Colors count: 1, VariantIndices count: 1
+[2026-01-02 15:27:57] INFO: [postEditProduct] Processing variant index 0
+[2026-01-02 15:27:57] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-02 15:27:57] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-02 15:27:57] INFO: [postEditProduct] Success.
+[2026-01-02 15:27:58] INFO: [GET] /admin/products
+[2026-01-02 15:28:08] INFO: [GET] /admin/edit-product/693fad27c1dc3ee2a4a4f821
+[2026-01-02 15:28:13] INFO: [POST] /admin/edit-product/693fad27c1dc3ee2a4a4f821
+[2026-01-02 15:28:13] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-02 15:28:13] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-02 15:28:13] INFO: [postEditProduct] Request received for Product ID: 693fad27c1dc3ee2a4a4f821
+[2026-01-02 15:28:13] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock
+[2026-01-02 15:28:13] INFO: [postEditProduct] Colors count: 1, VariantIndices count: 1
+[2026-01-02 15:28:13] INFO: [postEditProduct] Processing variant index 0
+[2026-01-02 15:28:13] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-02 15:28:13] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-02 15:28:14] INFO: [postEditProduct] Success.
+[2026-01-02 15:28:15] INFO: [GET] /admin/products
+[2026-01-02 15:28:21] INFO: [PATCH] /admin/block-product/694fa44cf0a089520a1144ab
+[2026-01-02 15:28:28] INFO: [GET] /admin/login
+[2026-01-02 15:28:28] INFO: [GET] /admin/dashboard
+[2026-01-02 15:28:29] INFO: [GET] /
+[2026-01-02 15:28:29] INFO: [GET] /home
+[2026-01-02 15:28:31] INFO: [GET] /products
+[2026-01-02 15:28:39] INFO: [GET] /products
+[2026-01-02 15:28:45] INFO: [PATCH] /admin/unblock-product/694fa44cf0a089520a1144ab
+[2026-01-02 15:28:53] INFO: [GET] /products
+[2026-01-02 15:29:02] INFO: [GET] /admin/add-product
+[2026-01-02 15:30:21] INFO: [POST] /admin/add-product
+[2026-01-02 15:30:25] INFO: [GET] /admin/products
+[2026-01-02 15:30:36] INFO: [GET] /products
+[2026-01-02 15:30:43] INFO: [GET] /product/695797358049643367cd3501
+[2026-01-02 15:30:56] INFO: [GET] /products
+[2026-01-02 15:31:10] INFO: [GET] /products?search=&minPrice=550&maxPrice=2000&color=Yellow&sort=featured
+[2026-01-02 15:31:17] INFO: [GET] /products?search=&minPrice=550&maxPrice=2000&color=black&sort=featured
+[2026-01-02 15:31:21] INFO: [GET] /products?search=&minPrice=550&maxPrice=2000&color=black+&sort=featured
+[2026-01-02 15:31:26] INFO: [GET] /products?search=&minPrice=550&maxPrice=2000&color=blue&sort=featured
+[2026-01-02 15:31:31] INFO: [GET] /products?search=&minPrice=550&maxPrice=2000&color=Yellow&color=blue&sort=featured
+[2026-01-02 15:31:35] INFO: [GET] /products?search=&minPrice=550&maxPrice=2000&color=Brown&color=Yellow&sort=featured
+[2026-01-02 15:31:45] INFO: [GET] /products?search=&minPrice=550&maxPrice=2000&color=Brown&color=Green&color=Red&color=Yellow&sort=featured
+[2026-01-02 15:31:51] INFO: [GET] /products?search=&minPrice=550&maxPrice=2000&color=Brown&color=Green&color=Red&color=Yellow&color=black&sort=featured
+[2026-01-02 15:31:55] INFO: [GET] /products
+[2026-01-02 15:32:08] INFO: [GET] /admin/categories
+[2026-01-02 15:32:09] INFO: [GET] /admin/dashboard
+[2026-01-02 15:56:10] INFO: [GET] /home
+[2026-01-02 15:56:13] INFO: [GET] /products
+[2026-01-02 15:56:15] INFO: [GET] /wishlist
+[2026-01-02 15:56:18] INFO: [GET] /wishlist
+[2026-01-02 15:56:31] INFO: [GET] /cart
+[2026-01-02 15:56:32] ERROR: E:\Brocamp\SeatWorld\views\users\cartlist.ejs:158
+    156|       </main>
+    157| 
+ >> 158|       <%- include('../partials/footer') %>
+    159| 
+    160|         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    161|         <script src="/js/users/cartList.js"></script>
+
+Could not find the include file "../partials/footer"
+[2026-01-02 15:56:38] INFO: [GET] /
+[2026-01-02 15:56:38] INFO: [GET] /home
+[2026-01-02 16:00:39] INFO: [GET] /products
+[2026-01-02 16:02:24] INFO: [GET] /home
+[2026-01-02 16:02:26] INFO: [GET] /products
+[2026-01-02 16:02:28] INFO: [GET] /cart
+[2026-01-02 16:02:34] INFO: [GET] /cart
+[2026-01-02 16:02:40] INFO: [GET] /cart
+[2026-01-02 16:03:28] INFO: [GET] /products
+[2026-01-02 16:03:31] INFO: [GET] /cart
+[2026-01-02 16:03:31] INFO: [GET] /css/styles.css
+[2026-01-02 16:03:34] INFO: [GET] /products
+[2026-01-02 16:03:36] INFO: [GET] /cart
+[2026-01-02 16:03:37] INFO: [GET] /css/styles.css
+[2026-01-02 16:04:07] INFO: [GET] /products
+[2026-01-02 16:04:13] INFO: [GET] /home
+[2026-01-02 16:04:18] INFO: [GET] /products
+[2026-01-02 16:04:21] INFO: [GET] /cart
+[2026-01-02 16:04:22] INFO: [GET] /css/styles.css
+[2026-01-02 16:07:07] INFO: [GET] /home
+[2026-01-02 16:07:09] INFO: [GET] /cart
+[2026-01-02 16:07:09] INFO: [GET] /css/styles.css
+[2026-01-02 16:07:13] INFO: [GET] /products
+[2026-01-02 16:07:14] INFO: [GET] /product/695797358049643367cd3501
+[2026-01-02 16:58:22] INFO: [GET] /admin/products
+[2026-01-02 16:58:30] INFO: [PATCH] /admin/block-product/695797358049643367cd3501
+[2026-01-02 16:58:37] INFO: [PATCH] /admin/unblock-product/695797358049643367cd3501
+[2026-01-02 16:58:45] INFO: [PATCH] /admin/block-product/694fa44cf0a089520a1144ab
+[2026-01-02 16:58:53] INFO: [PATCH] /admin/unblock-product/694fa44cf0a089520a1144ab
+[2026-01-02 17:05:02] INFO: [GET] /admin/dashboard
+[2026-01-02 17:05:03] INFO: [GET] /admin/products
+[2026-01-02 17:05:06] INFO: [PATCH] /admin/block-product/695797358049643367cd3501
+[2026-01-02 17:05:49] INFO: [PATCH] /admin/unblock-product/695797358049643367cd3501
+[2026-01-02 17:05:55] INFO: [PATCH] /admin/block-product/694fa44cf0a089520a1144ab
+[2026-01-02 17:05:58] INFO: [PATCH] /admin/unblock-product/694fa44cf0a089520a1144ab
+[2026-01-02 17:28:45] INFO: [GET] /product/695797358049643367cd3501
+[2026-01-02 17:28:45] INFO: [GET] /login
+[2026-01-02 17:28:46] INFO: [GET] /admin/products
+[2026-01-02 17:28:46] INFO: [GET] /admin/login
+[2026-01-02 17:37:55] INFO: [GET] /auth/google
+[2026-01-02 17:37:56] INFO: [GET] /auth/google/callback?code=4%2F0ATX87lOycwDXrDZhOBP10aymw6XPGT4XqqHeiCfqJAH3bMXCFlc2MVAQXaZlILgjobhQ-A&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=0&prompt=none
+[2026-01-02 17:37:57] INFO: [GET] /home
+[2026-01-02 17:38:00] INFO: [GET] /products
+[2026-01-02 17:38:38] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-02 18:05:49] INFO: [GET] /home
+[2026-01-02 18:05:51] INFO: [GET] /products
+[2026-01-02 18:05:54] INFO: [GET] /product/693fadb9c1dc3ee2a4a4f85d
+[2026-01-02 18:05:57] INFO: [POST] /cart/add
+[2026-01-02 18:06:03] INFO: [GET] /cart
+[2026-01-02 18:06:04] INFO: [GET] /css/styles.css
+[2026-01-02 18:06:07] INFO: [GET] /checkout
+[2026-01-02 18:06:11] INFO: [GET] /products
+[2026-01-02 18:06:13] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-02 18:06:15] INFO: [POST] /cart/add
+[2026-01-02 18:06:18] INFO: [GET] /cart
+[2026-01-02 18:06:18] INFO: [GET] /css/styles.css
+[2026-01-02 18:08:20] INFO: [GET] /checkout
+[2026-01-02 18:08:21] INFO: [GET] /cart
+[2026-01-02 18:08:22] INFO: [GET] /css/styles.css
+[2026-01-02 18:08:28] INFO: [DELETE] /cart/remove/[object%20Object]
+[2026-01-02 18:08:28] ERROR: Remove from cart error: Cast to ObjectId failed for value "[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-02 18:09:15] INFO: [GET] /products
+[2026-01-02 18:09:17] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-02 18:09:19] INFO: [POST] /cart/add
+[2026-01-02 18:09:21] INFO: [GET] /home
+[2026-01-02 18:09:28] INFO: [GET] /products
+[2026-01-02 18:09:32] INFO: [GET] /product/692d42af31e01e9d9ba8dc04
+[2026-01-02 18:09:34] INFO: [POST] /cart/add
+[2026-01-02 18:09:36] INFO: [GET] /cart
+[2026-01-02 18:09:36] INFO: [GET] /css/styles.css
+[2026-01-02 18:09:43] INFO: [GET] /cart
+[2026-01-02 18:09:43] INFO: [GET] /css/styles.css
+[2026-01-02 18:09:44] INFO: [GET] /products
+[2026-01-02 18:09:46] INFO: [GET] /product/692d673590f31c452d819e08
+[2026-01-02 18:09:48] INFO: [POST] /cart/add
+[2026-01-02 18:09:50] INFO: [GET] /cart
+[2026-01-02 18:09:50] INFO: [GET] /css/styles.css
+[2026-01-02 18:10:42] INFO: [DELETE] /cart/remove/[object%20Object]
+[2026-01-02 18:10:42] ERROR: Remove from cart error: Cast to ObjectId failed for value "[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-02 18:10:45] INFO: [GET] /home
+[2026-01-02 18:14:08] INFO: [GET] /admin/login
+[2026-01-02 18:14:21] INFO: [POST] /admin/login
+[2026-01-02 18:14:22] INFO: [GET] /admin/dashboard
+[2026-01-02 18:14:23] INFO: [GET] /admin/products
+[2026-01-02 18:14:29] INFO: [PATCH] /admin/unblock-product/695797358049643367cd3501
+[2026-01-02 18:14:32] INFO: [PATCH] /admin/unblock-product/694fa44cf0a089520a1144ab
+[2026-01-02 18:14:37] INFO: [GET] /admin/products?page=2&search=
+[2026-01-02 18:14:39] INFO: [GET] /admin/products?page=1&search=
+[2026-01-02 18:14:42] INFO: [GET] /admin/categories
+[2026-01-02 18:14:48] INFO: [GET] /admin/categories?page=2&search=
+[2026-01-02 18:14:51] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-02 18:14:54] INFO: [GET] /admin/users
+[2026-01-02 18:14:59] INFO: [PATCH] /admin/users/6929484b8117897be4e7d1dc/block
+[2026-01-02 18:15:03] INFO: [PATCH] /admin/users/6929484b8117897be4e7d1dc/unblock
+[2026-01-02 18:15:06] INFO: [GET] /admin/dashboard
+[2026-01-02 18:17:38] INFO: [GET] /admin/products
+[2026-01-02 18:17:45] INFO: [PATCH] /admin/unblock-product/694fa44cf0a089520a1144ab
+[2026-01-02 18:17:49] INFO: [GET] /products
+[2026-01-02 18:17:56] INFO: [GET] /products
+[2026-01-02 18:18:09] INFO: [GET] /admin/edit-product/694fa44cf0a089520a1144ab
+[2026-01-02 18:18:12] INFO: [POST] /admin/edit-product/694fa44cf0a089520a1144ab
+[2026-01-02 18:18:12] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-02 18:18:12] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-02 18:18:12] INFO: [postEditProduct] Request received for Product ID: 694fa44cf0a089520a1144ab
+[2026-01-02 18:18:12] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock
+[2026-01-02 18:18:12] INFO: [postEditProduct] Colors count: 1, VariantIndices count: 1
+[2026-01-02 18:18:12] INFO: [postEditProduct] Processing variant index 0
+[2026-01-02 18:18:12] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-02 18:18:13] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-02 18:18:13] INFO: [postEditProduct] Success.
+[2026-01-02 18:18:14] INFO: [GET] /admin/products
+[2026-01-02 18:18:19] INFO: [GET] /products
+[2026-01-02 18:18:24] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-02 18:18:29] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-02 18:18:32] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-02 18:18:46] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-02 18:18:50] INFO: [PATCH] /admin/unblock-product/694fa44cf0a089520a1144ab
+[2026-01-02 18:18:54] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-02 18:18:56] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-02 18:18:58] INFO: [GET] /products
+[2026-01-02 18:19:07] INFO: [PATCH] /admin/unblock-product/695797358049643367cd3501
+[2026-01-02 18:19:10] INFO: [GET] /admin/dashboard
+[2026-01-02 18:19:11] INFO: [GET] /admin/products
+[2026-01-02 18:19:17] INFO: [PATCH] /admin/unblock-product/695797358049643367cd3501
+[2026-01-02 18:19:19] INFO: [PATCH] /admin/unblock-product/694fa44cf0a089520a1144ab
+[2026-01-02 18:19:21] INFO: [GET] /admin/dashboard
+[2026-01-02 18:19:22] INFO: [GET] /admin/products
+[2026-01-02 18:19:30] INFO: [PATCH] /admin/block-product/693faef8c1dc3ee2a4a4f878
+[2026-01-02 18:19:33] INFO: [GET] /admin/orders
+[2026-01-02 18:19:34] INFO: [GET] /admin/products
+[2026-01-02 18:19:37] INFO: [GET] /admin/dashboard
+[2026-01-02 18:19:38] INFO: [GET] /admin/products
+[2026-01-02 18:19:40] INFO: [PATCH] /admin/unblock-product/693faef8c1dc3ee2a4a4f878
+[2026-01-02 18:19:43] INFO: [GET] /admin/dashboard
+[2026-01-02 18:19:44] INFO: [GET] /admin/products
+[2026-01-02 18:24:27] INFO: [GET] /admin/dashboard
+[2026-01-02 18:24:28] INFO: [GET] /admin/products
+[2026-01-02 18:24:32] INFO: [PATCH] /admin/unblock-product/695797358049643367cd3501
+[2026-01-02 18:24:36] INFO: [GET] /admin/users
+[2026-01-02 18:24:37] INFO: [GET] /admin/products
+[2026-01-02 18:24:40] INFO: [PATCH] /admin/unblock-product/694fa44cf0a089520a1144ab
+[2026-01-02 18:24:45] INFO: [PATCH] /admin/unblock-product/693faef8c1dc3ee2a4a4f878
+[2026-01-02 18:24:52] INFO: [GET] /products
+[2026-01-02 18:25:01] INFO: [PATCH] /admin/block-product/695797358049643367cd3501
+[2026-01-02 18:25:09] INFO: [GET] /product/695797358049643367cd3501
+[2026-01-02 18:25:14] INFO: [PATCH] /admin/unblock-product/695797358049643367cd3501
+[2026-01-02 18:25:19] INFO: [GET] /products
+[2026-01-02 18:25:21] INFO: [GET] /product/695797358049643367cd3501
+[2026-01-02 18:25:28] INFO: [PATCH] /admin/block-product/695797358049643367cd3501
+[2026-01-02 18:25:32] INFO: [POST] /cart/add
+[2026-01-02 18:25:35] INFO: [GET] /home
+[2026-01-02 18:25:37] INFO: [GET] /products
+[2026-01-02 18:25:43] INFO: [PATCH] /admin/unblock-product/695797358049643367cd3501
+[2026-01-02 22:07:55] INFO: [GET] /
+[2026-01-02 22:07:56] INFO: [GET] /home
+[2026-01-02 22:08:54] INFO: [GET] /cart
+[2026-01-02 22:08:56] INFO: [GET] /css/styles.css
+[2026-01-02 22:09:41] INFO: [PATCH] /cart/update-quantity
+[2026-01-02 22:09:42] INFO: [PATCH] /cart/update-quantity
+[2026-01-02 22:09:42] INFO: [PATCH] /cart/update-quantity
+[2026-01-02 22:09:42] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-02 22:09:42] INFO: [PATCH] /cart/update-quantity
+[2026-01-02 22:09:42] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-02 22:09:42] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-02 22:09:42] INFO: [PATCH] /cart/update-quantity
+[2026-01-02 22:09:42] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-02 22:09:43] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-02 22:09:51] INFO: [PATCH] /cart/update-quantity
+[2026-01-02 22:09:52] INFO: [PATCH] /cart/update-quantity
+[2026-01-02 22:09:52] INFO: [PATCH] /cart/update-quantity
+[2026-01-02 22:09:52] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-02 22:09:52] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-02 22:09:52] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-02 22:10:02] INFO: [PATCH] /cart/update-quantity
+[2026-01-02 22:10:02] INFO: [PATCH] /cart/update-quantity
+[2026-01-02 22:10:03] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-02 22:10:03] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-02 22:10:03] INFO: [PATCH] /cart/update-quantity
+[2026-01-02 22:10:03] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-02 22:10:10] INFO: [GET] /home
+[2026-01-02 22:10:13] INFO: [GET] /cart
+[2026-01-02 22:10:14] INFO: [GET] /css/styles.css
+[2026-01-02 22:10:17] INFO: [DELETE] /cart/remove/[object%20Object]
+[2026-01-02 22:10:17] ERROR: Remove from cart error: Cast to ObjectId failed for value "[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-02 22:10:24] INFO: [GET] /products
+[2026-01-02 22:10:37] INFO: [GET] /products
+[2026-01-02 22:10:38] INFO: [GET] /product/695797358049643367cd3501
+[2026-01-02 22:11:04] INFO: [GET] /product/693fad27c1dc3ee2a4a4f821
+[2026-01-02 22:11:22] INFO: [GET] /home
+[2026-01-02 22:11:50] INFO: [GET] /profile
+[2026-01-02 22:11:55] INFO: [GET] /profile/edit
+[2026-01-02 22:11:57] INFO: [POST] /profile/edit
+[2026-01-02 22:12:46] INFO: [GET] /profile
+[2026-01-02 22:12:50] INFO: [GET] /home
+[2026-01-02 22:22:44] INFO: [GET] /
+[2026-01-02 22:23:04] INFO: [GET] /login
+[2026-01-02 22:23:42] INFO: [POST] /login
+[2026-01-02 22:23:45] INFO: [POST] /login
+[2026-01-02 22:23:50] INFO: [GET] /favicon.ico
+[2026-01-02 22:23:52] INFO: [GET] /login
+[2026-01-02 22:24:06] INFO: [POST] /login
+[2026-01-02 22:24:31] INFO: [GET] /
+[2026-01-02 22:25:45] INFO: [GET] /profile
+[2026-01-02 22:26:15] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-01.uuxwmkk.mongodb.net
+[2026-01-02 22:41:31] INFO: [GET] /
+[2026-01-02 22:58:04] INFO: [GET] /
+[2026-01-02 22:58:04] INFO: [GET] /home
+[2026-01-02 22:58:07] INFO: [GET] /favicon.ico
+[2026-01-02 22:58:30] INFO: [GET] /home
+[2026-01-02 22:58:36] INFO: [GET] /profile
+[2026-01-02 22:58:39] INFO: [GET] /logout
+[2026-01-02 22:58:40] INFO: [GET] /login
+[2026-01-02 22:58:57] INFO: [GET] /auth/google
+[2026-01-02 22:58:59] INFO: [GET] /auth/google/callback?code=4%2F0ATX87lPmDG1PVLCmU5UaRiynU_Nxmdt0KslW1BAPx8ShTDPfa8qbzTLdruOpacNQBeNjKw&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=0&prompt=none
+[2026-01-02 22:59:02] INFO: [GET] /home
+[2026-01-02 22:59:12] INFO: [GET] /profile
+[2026-01-02 22:59:20] INFO: [GET] /cart
+[2026-01-02 22:59:21] INFO: [GET] /css/styles.css
+[2026-01-02 22:59:25] INFO: [DELETE] /cart/remove/[object%20Object]
+[2026-01-02 22:59:25] ERROR: Remove from cart error: Cast to ObjectId failed for value "[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-03 09:34:20] INFO: [GET] /
+[2026-01-03 09:34:20] INFO: [GET] /home
+[2026-01-03 09:34:21] INFO: [GET] /favicon.ico
+[2026-01-03 09:35:47] INFO: [GET] /cart
+[2026-01-03 09:35:48] INFO: [GET] /css/styles.css
+[2026-01-03 09:35:51] INFO: [DELETE] /cart/remove/[object%20Object]
+[2026-01-03 09:35:51] ERROR: Remove from cart error: Cast to ObjectId failed for value "[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-03 09:38:17] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 09:38:18] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 09:41:32] INFO: [DELETE] /cart/remove/[object%20Object]
+[2026-01-03 09:41:32] ERROR: Remove from cart error: Cast to ObjectId failed for value "[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-03 09:45:44] INFO: [GET] /home
+[2026-01-03 09:46:24] INFO: [GET] /cart
+[2026-01-03 09:46:25] INFO: [GET] /css/styles.css
+[2026-01-03 09:46:27] INFO: [DELETE] /cart/remove/:[object%20Object]
+[2026-01-03 09:46:28] ERROR: Remove from cart error: Cast to ObjectId failed for value ":[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-03 09:46:32] INFO: [DELETE] /cart/remove/:[object%20Object]
+[2026-01-03 09:46:32] ERROR: Remove from cart error: Cast to ObjectId failed for value ":[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-03 09:49:56] INFO: [GET] /home
+[2026-01-03 09:49:58] INFO: [GET] /profile
+[2026-01-03 09:49:59] INFO: [GET] /logout
+[2026-01-03 09:49:59] INFO: [GET] /login
+[2026-01-03 09:50:00] INFO: [GET] /auth/google
+[2026-01-03 09:50:01] INFO: [GET] /auth/google/callback?code=4%2F0ATX87lNFwMB1dY8yXxP8LCWyz6IuP8fSe2wY_AZS306peJdIqcxQe2oY2Y3HS4E5pijAMA&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=0&prompt=none
+[2026-01-03 09:50:01] INFO: [GET] /home
+[2026-01-03 09:50:03] INFO: [GET] /cart
+[2026-01-03 09:50:03] INFO: [GET] /css/styles.css
+[2026-01-03 09:50:06] INFO: [DELETE] /cart/remove/:[object%20Object]
+[2026-01-03 09:50:06] ERROR: Remove from cart error: Cast to ObjectId failed for value ":[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-03 09:51:18] INFO: [GET] /home
+[2026-01-03 09:51:20] INFO: [GET] /cart
+[2026-01-03 09:51:20] INFO: [GET] /css/styles.css
+[2026-01-03 09:51:23] INFO: [DELETE] /cart/remove/[object%20Object]
+[2026-01-03 09:51:36] INFO: [DELETE] /cart/remove/[object%20Object]
+[2026-01-03 09:51:40] INFO: [DELETE] /cart/remove/[object%20Object]
+[2026-01-03 09:51:47] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 09:51:47] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 09:52:59] INFO: [GET] /home
+[2026-01-03 09:53:01] INFO: [GET] /cart
+[2026-01-03 09:53:01] INFO: [GET] /css/styles.css
+[2026-01-03 09:53:07] INFO: [DELETE] /cart/remove/[object%20Object]
+[2026-01-03 09:53:11] INFO: [DELETE] /cart/remove/[object%20Object]
+[2026-01-03 09:53:14] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 09:53:14] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 09:53:16] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 09:53:16] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 09:53:17] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 09:53:17] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 09:53:18] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 09:53:18] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 09:53:19] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 09:53:19] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 09:53:55] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 09:53:55] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 09:53:57] INFO: [GET] /products
+[2026-01-03 09:54:00] INFO: [GET] /cart
+[2026-01-03 09:54:00] INFO: [GET] /css/styles.css
+[2026-01-03 09:54:03] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 09:54:03] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:04:10] INFO: [GET] /home
+[2026-01-03 10:04:11] INFO: [GET] /cart
+[2026-01-03 10:04:11] INFO: [GET] /css/styles.css
+[2026-01-03 10:04:15] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 10:04:15] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:04:17] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 10:04:17] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:04:17] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 10:04:17] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:04:17] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 10:04:17] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:04:18] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 10:04:18] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:04:18] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 10:04:18] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:04:18] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 10:04:18] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:04:19] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 10:04:19] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:04:19] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 10:04:19] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:04:19] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 10:04:19] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:04:19] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 10:04:19] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:04:21] INFO: [DELETE] /cart/remove/[object%20Object]
+[2026-01-03 10:04:21] ERROR: Remove from cart error: Cast to ObjectId failed for value "[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-03 10:04:25] INFO: [DELETE] /cart/remove/[object%20Object]
+[2026-01-03 10:04:25] ERROR: Remove from cart error: Cast to ObjectId failed for value "[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-03 10:07:30] INFO: [DELETE] /cart/remove/[object%20Object]
+[2026-01-03 10:07:30] ERROR: Remove from cart error: Cast to ObjectId failed for value "[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-03 10:07:47] INFO: [GET] /
+[2026-01-03 10:07:47] INFO: [GET] /home
+[2026-01-03 10:07:53] INFO: [GET] /cart
+[2026-01-03 10:07:53] INFO: [GET] /css/styles.css
+[2026-01-03 10:07:56] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 10:07:56] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:07:59] INFO: [DELETE] /cart/remove/[object%20Object]
+[2026-01-03 10:07:59] ERROR: Remove from cart error: Cast to ObjectId failed for value "[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-03 10:08:23] INFO: [DELETE] /cart/remove/[object%20Object]
+[2026-01-03 10:09:13] INFO: [DELETE] /cart/remove/[object%20Object]
+[2026-01-03 10:09:13] ERROR: Remove from cart error: Cast to ObjectId failed for value "[object Object]" (type string) at path "variantId" for model "Cart"
+[2026-01-03 10:09:18] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 10:09:18] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:15:42] INFO: [GET] /products
+[2026-01-03 10:15:43] INFO: [GET] /cart
+[2026-01-03 10:15:44] INFO: [GET] /css/styles.css
+[2026-01-03 10:15:46] INFO: [DELETE] /cart/remove/[object%20Object]
+[2026-01-03 10:15:46] ERROR: Remove from cart error: mongoose is not defined
+[2026-01-03 10:15:49] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 10:15:49] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:15:50] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 10:15:50] ERROR: Update quantity error: Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "ProductVariant"
+[2026-01-03 10:16:37] INFO: [DELETE] /cart/remove/[object%20Object]
+[2026-01-03 10:16:38] ERROR: Remove from cart error: mongoose is not defined
+[2026-01-03 10:17:22] INFO: [GET] /products
+[2026-01-03 10:17:24] INFO: [GET] /cart
+[2026-01-03 10:17:24] INFO: [GET] /css/styles.css
+[2026-01-03 10:17:26] INFO: [DELETE] /cart/remove/[object%20Object]
+[2026-01-03 10:17:26] ERROR: Remove from cart error: mongoose is not defined
+[2026-01-03 10:18:10] INFO: [GET] /products
+[2026-01-03 10:18:12] INFO: [GET] /cart
+[2026-01-03 10:18:12] INFO: [GET] /css/styles.css
+[2026-01-03 10:18:16] INFO: [DELETE] /cart/remove/[object%20Object]
+[2026-01-03 10:18:16] ERROR: Remove from cart error: input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+[2026-01-03 10:18:18] INFO: [DELETE] /cart/remove/[object%20Object]
+[2026-01-03 10:18:18] ERROR: Remove from cart error: input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+[2026-01-03 10:20:07] INFO: [DELETE] /cart/remove/[object%20Object]
+[2026-01-03 10:20:07] ERROR: Remove from cart error: input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+[2026-01-03 10:20:37] INFO: [GET] /products
+[2026-01-03 10:20:39] INFO: [GET] /cart
+[2026-01-03 10:20:39] INFO: [GET] /css/styles.css
+[2026-01-03 10:20:41] INFO: [DELETE] /cart/remove/[object%20Object]
+[2026-01-03 10:20:41] ERROR: Remove from cart error: input must be a 24 character hex string, 12 byte Uint8Array, or an integer
+[2026-01-03 10:27:18] INFO: [GET] /products
+[2026-01-03 10:27:20] INFO: [GET] /cart
+[2026-01-03 10:27:20] INFO: [GET] /css/styles.css
+[2026-01-03 10:27:22] INFO: [DELETE] /cart/remove/692d42af31e01e9d9ba8dc06
+[2026-01-03 10:27:29] INFO: [DELETE] /cart/remove/692d673590f31c452d819e0a
+[2026-01-03 10:27:33] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 10:27:34] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 10:27:36] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 10:27:36] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 10:27:39] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 10:27:40] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 10:27:41] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 10:27:43] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 10:27:43] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 10:27:47] INFO: [GET] /home
+[2026-01-03 10:27:49] INFO: [GET] /cart
+[2026-01-03 10:27:49] INFO: [GET] /css/styles.css
+[2026-01-03 10:47:56] INFO: [GET] /products
+[2026-01-03 10:48:08] INFO: [GET] /profile
+[2026-01-03 10:48:14] INFO: [GET] /address
+[2026-01-03 10:48:22] INFO: [GET] /address?limit=6
+[2026-01-03 10:48:26] INFO: [GET] /address?limit=4
+[2026-01-03 10:48:33] INFO: [GET] /address?limit=8
+[2026-01-03 11:05:43] INFO: [GET] /password-change
+[2026-01-03 11:05:43] INFO: [GET] /profile
+[2026-01-03 11:05:48] INFO: [GET] /home
+[2026-01-03 11:07:11] INFO: [GET] /cart
+[2026-01-03 11:07:11] INFO: [GET] /css/styles.css
+[2026-01-03 11:13:34] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 11:13:36] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 11:13:39] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 11:13:42] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 12:21:56] INFO: [GET] /checkout
+[2026-01-03 12:21:58] INFO: [GET] /cart
+[2026-01-03 12:21:58] INFO: [GET] /css/styles.css
+[2026-01-03 12:22:07] INFO: [GET] /profile
+[2026-01-03 12:22:21] INFO: [GET] /address
+[2026-01-03 12:22:28] INFO: [GET] /address?limit=8
+[2026-01-03 12:32:05] INFO: [POST] /address/set-default/6951fd2cc6298d9de0988cc3
+[2026-01-03 12:32:07] INFO: [GET] /address?limit=8
+[2026-01-03 13:27:02] INFO: [POST] /address/set-default/69550d4b525d3650ff32964d
+[2026-01-03 13:27:05] INFO: [GET] /address?limit=8
+[2026-01-03 13:27:10] INFO: [GET] /cart
+[2026-01-03 13:27:10] INFO: [GET] /css/styles.css
+[2026-01-03 13:27:16] INFO: [GET] /home
+[2026-01-03 13:27:18] INFO: [GET] /profile
+[2026-01-03 13:31:55] INFO: [GET] /home
+[2026-01-03 13:31:57] INFO: [GET] /cart
+[2026-01-03 13:31:58] INFO: [GET] /css/styles.css
+[2026-01-03 13:34:23] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 13:34:26] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 13:34:27] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 13:34:45] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 13:34:47] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 13:34:53] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 13:36:08] INFO: [GET] /checkout
+[2026-01-03 13:36:09] INFO: [GET] /cart
+[2026-01-03 13:36:09] INFO: [GET] /css/styles.css
+[2026-01-03 13:40:10] INFO: [GET] /
+[2026-01-03 13:40:15] INFO: [GET] /login
+[2026-01-03 13:40:15] INFO: [GET] /favicon.ico
+[2026-01-03 13:40:18] INFO: [GET] /auth/google
+[2026-01-03 13:41:07] INFO: [GET] /auth/google/callback?code=4%2F0ATX87lPpPvvf7JhT-q5NvaDBiA8obFLHxrr2zINjVitZYFKllEa8B27ltrL2OklcUab-jA&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=1&prompt=consent
+[2026-01-03 13:41:08] ERROR: E11000 duplicate key error collection: seatworld.users index: username_1 dup key: { username: null }
+[2026-01-03 13:41:11] INFO: [GET] /
+[2026-01-03 13:41:13] INFO: [GET] /login
+[2026-01-03 13:41:16] INFO: [GET] /
+[2026-01-03 13:41:17] INFO: [GET] /signup
+[2026-01-03 13:41:39] INFO: [GET] /profile
+[2026-01-03 13:41:40] INFO: [GET] /logout
+[2026-01-03 13:41:40] INFO: [GET] /login
+[2026-01-03 13:41:42] INFO: [GET] /signup
+[2026-01-03 13:45:20] INFO: [GET] /auth/google
+[2026-01-03 13:45:25] INFO: [GET] /login
+[2026-01-03 13:45:29] INFO: [GET] /auth/google
+[2026-01-03 13:45:52] INFO: [POST] /login
+[2026-01-03 13:46:05] INFO: [POST] /login
+[2026-01-03 13:46:12] INFO: [POST] /login
+[2026-01-03 13:46:18] INFO: [POST] /login
+[2026-01-03 13:46:24] INFO: [POST] /login
+[2026-01-03 13:46:26] INFO: [POST] /login
+[2026-01-03 13:46:40] INFO: [POST] /login
+[2026-01-03 13:46:41] INFO: [GET] /
+[2026-01-03 13:46:41] INFO: [GET] /login
+[2026-01-03 13:46:51] INFO: [GET] /login
+[2026-01-03 13:47:03] INFO: [GET] /login
+[2026-01-03 13:47:07] INFO: [GET] /
+[2026-01-03 13:47:10] INFO: [GET] /
+[2026-01-03 13:47:12] INFO: [GET] /
+[2026-01-03 13:47:15] INFO: [GET] /login
+[2026-01-03 13:47:50] INFO: [GET] /signup
+[2026-01-03 13:48:03] INFO: [GET] /
+[2026-01-03 13:48:04] INFO: [GET] /admin/login
+[2026-01-03 13:48:11] INFO: [POST] /admin/login
+[2026-01-03 13:48:11] INFO: [GET] /admin/dashboard
+[2026-01-03 13:48:27] INFO: [GET] /admin/products
+[2026-01-03 13:48:39] INFO: [GET] /admin/categories
+[2026-01-03 13:48:40] ERROR: E:\Brocamp\SeatWorld\views\admin\categoryList.ejs:200
+    198|                                             class="hover:bg-gray-50 transition-colors">
+    199|                                             <td class="px-6 py-4 text-sm text-gray-500">
+ >> 200|                                                 <%= (currentPage - 1) * limit + index + 1 %>
+    201|                                             </td>
+    202|                                             <td class="px-6 py-4">
+    203|                                                 <span class="text-sm font-medium text-gray-900">
+
+currentPage is not defined
+[2026-01-03 13:48:43] INFO: [GET] /admin/categories
+[2026-01-03 13:48:43] ERROR: E:\Brocamp\SeatWorld\views\admin\categoryList.ejs:200
+    198|                                             class="hover:bg-gray-50 transition-colors">
+    199|                                             <td class="px-6 py-4 text-sm text-gray-500">
+ >> 200|                                                 <%= (currentPage - 1) * limit + index + 1 %>
+    201|                                             </td>
+    202|                                             <td class="px-6 py-4">
+    203|                                                 <span class="text-sm font-medium text-gray-900">
+
+currentPage is not defined
+[2026-01-03 13:48:45] INFO: [GET] /
+[2026-01-03 13:48:59] INFO: [GET] /admin/login
+[2026-01-03 13:48:59] INFO: [GET] /admin/dashboard
+[2026-01-03 13:49:03] INFO: [GET] /admin/users
+[2026-01-03 13:49:03] ERROR: E:\Brocamp\SeatWorld\views\admin\customerList.ejs:184
+    182|                       class="hover:bg-gray-50 transition-colors duration-150 customer-row">
+    183|                       <td class="px-6 py-4 text-sm font-bold text-gray-900">
+ >> 184|                         <%= (currentPage - 1) * limit + index + 1 %>
+    185|                       </td>
+    186|                       <td class="px-6 py-4 text-sm font-bold text-gray-900 name-cell">
+    187|                         <%= user.name || user.username || 'N/A' %>
+
+currentPage is not defined
+[2026-01-03 13:49:07] INFO: [GET] /admin/users
+[2026-01-03 13:49:07] ERROR: E:\Brocamp\SeatWorld\views\admin\customerList.ejs:184
+    182|                       class="hover:bg-gray-50 transition-colors duration-150 customer-row">
+    183|                       <td class="px-6 py-4 text-sm font-bold text-gray-900">
+ >> 184|                         <%= (currentPage - 1) * limit + index + 1 %>
+    185|                       </td>
+    186|                       <td class="px-6 py-4 text-sm font-bold text-gray-900 name-cell">
+    187|                         <%= user.name || user.username || 'N/A' %>
+
+currentPage is not defined
+[2026-01-03 13:49:13] INFO: [GET] /admin/users
+[2026-01-03 13:49:13] ERROR: E:\Brocamp\SeatWorld\views\admin\customerList.ejs:184
+    182|                       class="hover:bg-gray-50 transition-colors duration-150 customer-row">
+    183|                       <td class="px-6 py-4 text-sm font-bold text-gray-900">
+ >> 184|                         <%= (currentPage - 1) * limit + index + 1 %>
+    185|                       </td>
+    186|                       <td class="px-6 py-4 text-sm font-bold text-gray-900 name-cell">
+    187|                         <%= user.name || user.username || 'N/A' %>
+
+currentPage is not defined
+[2026-01-03 13:49:16] INFO: [GET] /admin/categories
+[2026-01-03 13:49:17] ERROR: E:\Brocamp\SeatWorld\views\admin\categoryList.ejs:200
+    198|                                             class="hover:bg-gray-50 transition-colors">
+    199|                                             <td class="px-6 py-4 text-sm text-gray-500">
+ >> 200|                                                 <%= (currentPage - 1) * limit + index + 1 %>
+    201|                                             </td>
+    202|                                             <td class="px-6 py-4">
+    203|                                                 <span class="text-sm font-medium text-gray-900">
+
+currentPage is not defined
+[2026-01-03 13:54:31] INFO: [GET] /forgot-password
+[2026-01-03 13:54:34] INFO: [GET] /cart
+[2026-01-03 13:54:34] INFO: [GET] /login
+[2026-01-03 13:54:36] INFO: [GET] /forgot-password
+[2026-01-03 13:54:45] INFO: [GET] /profile
+[2026-01-03 13:54:45] INFO: [GET] /login
+[2026-01-03 13:54:47] INFO: [GET] /forgot-password
+[2026-01-03 13:54:56] INFO: [GET] /login
+[2026-01-03 13:54:57] INFO: [GET] /forgot-password
+[2026-01-03 14:00:38] INFO: [GET] /admin/users
+[2026-01-03 14:00:44] INFO: [GET] /admin/categories
+[2026-01-03 14:00:48] INFO: [GET] /admin/users
+[2026-01-03 14:02:52] INFO: [PATCH] /admin/users/6929484b8117897be4e7d1dc/block
+[2026-01-03 14:02:57] INFO: [PATCH] /admin/users/6929484b8117897be4e7d1dc/unblock
+[2026-01-03 14:03:56] INFO: [POST] /login
+[2026-01-03 14:03:58] INFO: [GET] /home
+[2026-01-03 14:04:07] INFO: [GET] /cart
+[2026-01-03 14:04:07] INFO: [GET] /css/styles.css
+[2026-01-03 14:04:13] INFO: [GET] /products
+[2026-01-03 14:04:19] INFO: [GET] /product/693fad27c1dc3ee2a4a4f821
+[2026-01-03 14:04:27] INFO: [POST] /cart/add
+[2026-01-03 14:04:32] INFO: [GET] /cart
+[2026-01-03 14:04:33] INFO: [GET] /css/styles.css
+[2026-01-03 14:04:39] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 14:04:43] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 14:05:04] INFO: [GET] /admin/products
+[2026-01-03 14:05:09] INFO: [PATCH] /admin/block-product/695797358049643367cd3501
+[2026-01-03 14:05:14] INFO: [GET] /products
+[2026-01-03 14:05:22] INFO: [PATCH] /admin/unblock-product/695797358049643367cd3501
+[2026-01-03 14:05:30] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-03 14:05:39] INFO: [PATCH] /admin/block-product/693fc66c6ecc42bce6fc7548
+[2026-01-03 14:05:46] INFO: [POST] /cart/add
+[2026-01-03 14:05:47] ERROR: Add to cart error: This product is currently unavailable
+[2026-01-03 14:05:50] INFO: [POST] /cart/add
+[2026-01-03 14:05:50] ERROR: Add to cart error: This product is currently unavailable
+[2026-01-03 14:05:53] INFO: [GET] /products
+[2026-01-03 14:06:00] INFO: [PATCH] /admin/unblock-product/693fc66c6ecc42bce6fc7548
+[2026-01-03 14:06:08] INFO: [GET] /products
+[2026-01-03 14:09:06] INFO: [GET] /profile
+[2026-01-03 14:09:14] INFO: [POST] /profile/avatar
+[2026-01-03 14:09:25] INFO: [GET] /profile
+[2026-01-03 14:09:40] INFO: [GET] /profile/edit
+[2026-01-03 14:09:42] INFO: [POST] /profile/edit
+[2026-01-03 14:10:13] INFO: [GET] /profile
+[2026-01-03 14:10:16] INFO: [GET] /address
+[2026-01-03 14:10:19] INFO: [GET] /address/add
+[2026-01-03 14:10:25] INFO: [POST] /address/add
+[2026-01-03 14:10:26] INFO: [GET] /address
+[2026-01-03 14:10:32] INFO: [GET] /password-change
+[2026-01-03 14:10:36] INFO: [GET] /profile
+[2026-01-03 14:10:37] INFO: [GET] /profile/edit
+[2026-01-03 14:10:42] INFO: [POST] /profile/edit
+[2026-01-03 14:11:02] INFO: [GET] /profile
+[2026-01-03 14:11:07] INFO: [GET] /logout
+[2026-01-03 14:11:07] INFO: [GET] /login
+[2026-01-03 14:11:09] INFO: [GET] /auth/google
+[2026-01-03 14:11:10] INFO: [GET] /auth/google/callback?code=4%2F0ATX87lPd1sMlGg22qlz_LY1jrF8ARDdTMozhI2M97s8GnF3QAFc7vewTE4O8bQZvZlWylw&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=0&prompt=none
+[2026-01-03 14:11:11] INFO: [GET] /home
+[2026-01-03 14:11:13] INFO: [GET] /profile
+[2026-01-03 14:11:15] INFO: [GET] /profile/edit
+[2026-01-03 14:11:16] INFO: [POST] /profile/edit
+[2026-01-03 14:11:24] INFO: [GET] /profile
+[2026-01-03 14:11:25] INFO: [GET] /logout
+[2026-01-03 14:11:25] INFO: [GET] /login
+[2026-01-03 14:12:13] INFO: [GET] /profile/edit
+[2026-01-03 14:12:13] INFO: [GET] /login
+[2026-01-03 14:12:13] INFO: [GET] /profile
+[2026-01-03 14:12:13] INFO: [GET] /login
+[2026-01-03 14:12:14] INFO: [GET] /home
+[2026-01-03 14:12:14] INFO: [GET] /login
+[2026-01-03 14:12:15] INFO: [GET] /login
+[2026-01-03 14:12:15] INFO: [GET] /profile
+[2026-01-03 14:12:15] INFO: [GET] /login
+[2026-01-03 14:12:15] INFO: [GET] /login
+[2026-01-03 14:12:16] INFO: [GET] /login
+[2026-01-03 14:12:16] INFO: [GET] /login
+[2026-01-03 14:12:17] INFO: [GET] /login
+[2026-01-03 14:12:17] INFO: [GET] /profile/edit
+[2026-01-03 14:12:17] INFO: [GET] /profile
+[2026-01-03 14:12:17] INFO: [GET] /login
+[2026-01-03 14:12:18] INFO: [GET] /password-change
+[2026-01-03 14:12:18] INFO: [GET] /login
+[2026-01-03 14:12:18] INFO: [GET] /address
+[2026-01-03 14:12:18] INFO: [GET] /login
+[2026-01-03 14:12:18] INFO: [GET] /address/add
+[2026-01-03 14:12:18] INFO: [GET] /login
+[2026-01-03 14:12:19] INFO: [GET] /login
+[2026-01-03 14:12:20] INFO: [GET] /profile/edit
+[2026-01-03 14:12:20] INFO: [GET] /login
+[2026-01-03 14:12:20] INFO: [GET] /profile
+[2026-01-03 14:12:20] INFO: [GET] /login
+[2026-01-03 14:12:20] INFO: [GET] /login
+[2026-01-03 14:12:24] INFO: [GET] /admin/categories
+[2026-01-03 14:12:24] INFO: [GET] /admin/login
+[2026-01-03 14:12:38] INFO: [POST] /admin/login
+[2026-01-03 14:12:38] INFO: [GET] /admin/dashboard
+[2026-01-03 14:12:40] INFO: [GET] /admin/products
+[2026-01-03 14:12:44] INFO: [GET] /admin/categories
+[2026-01-03 14:12:51] INFO: [GET] /admin/categories?page=2&limit=8&search=
+[2026-01-03 14:12:52] INFO: [GET] /admin/categories?page=1&limit=8&search=
+[2026-01-03 14:13:00] INFO: [POST] /admin/unblock-category/692d607a31e01e9d9ba8dcae
+[2026-01-03 14:13:06] INFO: [POST] /admin/block-category/69562d9d0d6cc01cb0f1232e
+[2026-01-03 14:13:12] INFO: [POST] /admin/block-category/69562d9d0d6cc01cb0f12330
+[2026-01-03 14:13:20] INFO: [GET] /admin/categories?page=1&search=ding
+[2026-01-03 14:13:20] INFO: [GET] /admin/categories?page=1&search=din
+[2026-01-03 14:13:22] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-03 14:13:25] INFO: [GET] /admin/categories?page=1&search=s
+[2026-01-03 14:13:26] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-03 14:13:30] INFO: [GET] /admin/products
+[2026-01-03 14:13:31] INFO: [GET] /admin/categories
+[2026-01-03 14:13:34] INFO: [GET] /admin/products
+[2026-01-03 14:13:36] INFO: [GET] /admin/categories
+[2026-01-03 14:13:37] INFO: [GET] /admin/users
+[2026-01-03 14:13:40] INFO: [GET] /admin/products
+[2026-01-03 14:13:42] INFO: [GET] /admin/categories
+[2026-01-03 14:13:46] INFO: [GET] /admin/dashboard
+[2026-01-03 14:15:35] INFO: [GET] /auth/google
+[2026-01-03 14:15:35] INFO: [GET] /auth/google/callback?code=4%2F0ATX87lPReCneOnufN0C-4c5fAlpH3UkcRbQ5PmIlIA5jvyJYIpbW8onPi7ARr8gham0heA&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&authuser=0&prompt=none
+[2026-01-03 14:15:37] INFO: [GET] /home
+[2026-01-03 14:15:40] INFO: [GET] /profile
+[2026-01-03 14:15:42] INFO: [GET] /profile/edit
+[2026-01-03 14:15:43] INFO: [POST] /profile/edit
+[2026-01-03 14:15:51] INFO: [POST] /profile/edit
+[2026-01-03 14:15:53] INFO: [GET] /profile
+[2026-01-03 14:16:13] INFO: [GET] /forgot-password
+[2026-01-03 14:16:17] INFO: [GET] /forgot-password
+[2026-01-03 14:16:47] INFO: [GET] /forgot-password
+[2026-01-03 14:16:50] INFO: [GET] /forgot-password
+[2026-01-03 14:16:51] INFO: [GET] /forgot-password
+[2026-01-03 14:16:55] INFO: [GET] /
+[2026-01-03 14:16:59] INFO: [GET] /login
+[2026-01-03 14:19:16] INFO: [GET] /admin/products
+[2026-01-03 14:19:16] INFO: [GET] /admin/login
+[2026-01-03 14:34:15] INFO: [POST] /admin/login
+[2026-01-03 14:34:15] INFO: [GET] /admin/dashboard
+[2026-01-03 14:34:17] INFO: [GET] /admin/products
+[2026-01-03 14:34:28] INFO: [GET] /home
+[2026-01-03 14:34:32] INFO: [GET] /products
+[2026-01-03 14:34:36] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-03 14:34:38] INFO: [POST] /cart/add
+[2026-01-03 14:34:40] INFO: [GET] /cart
+[2026-01-03 14:34:41] INFO: [GET] /css/styles.css
+[2026-01-03 14:34:46] INFO: [DELETE] /cart/remove/693fc66c6ecc42bce6fc754a
+[2026-01-03 14:34:52] INFO: [DELETE] /cart/remove/693fadb9c1dc3ee2a4a4f85f
+[2026-01-03 14:34:56] INFO: [GET] /products
+[2026-01-03 14:34:58] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-03 14:35:01] INFO: [POST] /cart/add
+[2026-01-03 14:35:03] INFO: [GET] /cart
+[2026-01-03 14:35:04] INFO: [GET] /css/styles.css
+[2026-01-03 14:35:09] INFO: [GET] /products
+[2026-01-03 14:35:11] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-03 14:35:14] INFO: [POST] /cart/add
+[2026-01-03 14:35:16] INFO: [GET] /cart
+[2026-01-03 14:35:17] INFO: [GET] /css/styles.css
+[2026-01-03 14:35:22] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 14:35:24] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 14:35:39] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 14:35:42] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 14:35:48] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 14:35:50] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:11:05] INFO: [GET] /admin/edit-product/694fa44cf0a089520a1144ab
+[2026-01-03 15:11:21] INFO: [POST] /admin/edit-product/694fa44cf0a089520a1144ab
+[2026-01-03 15:11:21] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-03 15:11:21] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-03 15:11:21] INFO: [postEditProduct] Request received for Product ID: 694fa44cf0a089520a1144ab
+[2026-01-03 15:11:21] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock
+[2026-01-03 15:11:21] INFO: [postEditProduct] Colors count: 1, VariantIndices count: 1
+[2026-01-03 15:11:21] INFO: [postEditProduct] Processing variant index 0
+[2026-01-03 15:11:21] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-03 15:11:21] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-03 15:11:21] INFO: [postEditProduct] Success.
+[2026-01-03 15:11:23] INFO: [GET] /admin/products
+[2026-01-03 15:11:39] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:11:40] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:11:43] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:11:44] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:13:11] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:13:11] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:13:16] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:13:16] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:13:21] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:13:21] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:13:50] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:13:51] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:13:55] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:13:56] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:14:15] INFO: [GET] /checkout
+[2026-01-03 15:14:17] INFO: [GET] /cart
+[2026-01-03 15:14:17] INFO: [GET] /css/styles.css
+[2026-01-03 15:14:22] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-03 15:14:26] INFO: [GET] /cart
+[2026-01-03 15:14:26] INFO: [GET] /css/styles.css
+[2026-01-03 15:15:00] INFO: [GET] /cart
+[2026-01-03 15:15:01] INFO: [GET] /css/styles.css
+[2026-01-03 15:15:05] INFO: [GET] /admin/edit-product/694fa44cf0a089520a1144ab
+[2026-01-03 15:15:10] INFO: [POST] /admin/edit-product/694fa44cf0a089520a1144ab
+[2026-01-03 15:15:10] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-03 15:15:10] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-03 15:15:10] INFO: [postEditProduct] Request received for Product ID: 694fa44cf0a089520a1144ab
+[2026-01-03 15:15:10] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock
+[2026-01-03 15:15:10] INFO: [postEditProduct] Colors count: 1, VariantIndices count: 1
+[2026-01-03 15:15:10] INFO: [postEditProduct] Processing variant index 0
+[2026-01-03 15:15:10] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-03 15:15:10] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-03 15:15:10] INFO: [postEditProduct] Success.
+[2026-01-03 15:15:13] INFO: [GET] /admin/products
+[2026-01-03 15:15:18] INFO: [GET] /home
+[2026-01-03 15:15:21] INFO: [GET] /cart
+[2026-01-03 15:15:21] INFO: [GET] /css/styles.css
+[2026-01-03 15:15:35] INFO: [GET] /admin/edit-product/694fa44cf0a089520a1144ab
+[2026-01-03 15:15:40] INFO: [POST] /admin/edit-product/694fa44cf0a089520a1144ab
+[2026-01-03 15:15:40] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-03 15:15:40] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-03 15:15:40] INFO: [postEditProduct] Request received for Product ID: 694fa44cf0a089520a1144ab
+[2026-01-03 15:15:40] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock
+[2026-01-03 15:15:40] INFO: [postEditProduct] Colors count: 1, VariantIndices count: 1
+[2026-01-03 15:15:40] INFO: [postEditProduct] Processing variant index 0
+[2026-01-03 15:15:40] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-03 15:15:40] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-03 15:15:40] INFO: [postEditProduct] Success.
+[2026-01-03 15:15:42] INFO: [GET] /admin/products
+[2026-01-03 15:15:57] INFO: [GET] /home
+[2026-01-03 15:15:59] INFO: [GET] /cart
+[2026-01-03 15:16:00] INFO: [GET] /css/styles.css
+[2026-01-03 15:16:07] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:16:13] INFO: [GET] /admin/edit-product/694fa44cf0a089520a1144ab
+[2026-01-03 15:16:17] INFO: [POST] /admin/edit-product/694fa44cf0a089520a1144ab
+[2026-01-03 15:16:18] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-03 15:16:18] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-03 15:16:18] INFO: [postEditProduct] Request received for Product ID: 694fa44cf0a089520a1144ab
+[2026-01-03 15:16:18] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock
+[2026-01-03 15:16:18] INFO: [postEditProduct] Colors count: 1, VariantIndices count: 1
+[2026-01-03 15:16:18] INFO: [postEditProduct] Processing variant index 0
+[2026-01-03 15:16:18] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-03 15:16:18] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-03 15:16:18] INFO: [postEditProduct] Success.
+[2026-01-03 15:16:20] INFO: [GET] /admin/products
+[2026-01-03 15:16:24] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:16:25] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:16:41] INFO: [GET] /home
+[2026-01-03 15:16:44] INFO: [GET] /cart
+[2026-01-03 15:16:45] INFO: [GET] /css/styles.css
+[2026-01-03 15:17:16] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:17:17] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:17:17] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:17:17] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:17:17] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:17:17] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:17:18] INFO: [GET] /products
+[2026-01-03 15:17:31] INFO: [GET] /cart
+[2026-01-03 15:17:32] INFO: [GET] /css/styles.css
+[2026-01-03 15:17:50] INFO: [GET] /cart
+[2026-01-03 15:17:51] INFO: [GET] /css/styles.css
+[2026-01-03 15:22:32] INFO: [GET] /home
+[2026-01-03 15:22:41] INFO: [GET] /products
+[2026-01-03 15:22:45] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-03 15:22:48] INFO: [POST] /cart/add
+[2026-01-03 15:22:51] INFO: [GET] /cart
+[2026-01-03 15:22:52] INFO: [GET] /css/styles.css
+[2026-01-03 15:23:19] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:23:21] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:23:39] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:23:40] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:23:44] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:23:44] ERROR: Update quantity error: Only 0 items in stock
+[2026-01-03 15:24:03] INFO: [GET] /admin/edit-product/694fa44cf0a089520a1144ab
+[2026-01-03 15:24:08] INFO: [POST] /admin/edit-product/694fa44cf0a089520a1144ab
+[2026-01-03 15:24:08] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-03 15:24:08] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-03 15:24:08] INFO: [postEditProduct] Request received for Product ID: 694fa44cf0a089520a1144ab
+[2026-01-03 15:24:08] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock
+[2026-01-03 15:24:08] INFO: [postEditProduct] Colors count: 1, VariantIndices count: 1
+[2026-01-03 15:24:08] INFO: [postEditProduct] Processing variant index 0
+[2026-01-03 15:24:08] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-03 15:24:08] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-03 15:24:09] INFO: [postEditProduct] Success.
+[2026-01-03 15:24:10] INFO: [GET] /admin/products
+[2026-01-03 15:25:36] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:25:45] INFO: [GET] /cart
+[2026-01-03 15:25:46] INFO: [GET] /css/styles.css
+[2026-01-03 15:25:48] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:25:50] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:33:00] INFO: [GET] /login
+[2026-01-03 15:38:10] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:38:12] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:38:38] INFO: [GET] /admin/products?page=1&search=suhail
+[2026-01-03 15:38:41] INFO: [GET] /admin/products?page=1&search=
+[2026-01-03 15:50:57] INFO: [GET] /products
+[2026-01-03 15:51:03] INFO: [GET] /cart
+[2026-01-03 15:51:22] INFO: [GET] /home
+[2026-01-03 15:51:25] INFO: [GET] /home
+[2026-01-03 15:51:25] INFO: [GET] /home
+[2026-01-03 15:51:25] INFO: [GET] /home
+[2026-01-03 15:51:26] INFO: [GET] /home
+[2026-01-03 15:51:43] INFO: [GET] /admin/categories
+[2026-01-03 15:51:48] INFO: [GET] /admin/dashboard
+[2026-01-03 15:51:52] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 15:51:55] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 15:51:55] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 15:51:55] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 15:51:56] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 15:52:13] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 15:52:18] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 15:52:22] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 15:55:46] INFO: [GET] /
+[2026-01-03 15:55:46] INFO: [GET] /home
+[2026-01-03 15:55:51] INFO: [GET] /cart
+[2026-01-03 15:55:52] INFO: [GET] /css/styles.css
+[2026-01-03 15:56:01] INFO: [GET] /admin/login
+[2026-01-03 15:56:01] INFO: [GET] /admin/dashboard
+[2026-01-03 15:56:03] INFO: [GET] /admin/products
+[2026-01-03 15:57:59] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:58:01] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:58:03] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:58:04] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:58:05] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:58:06] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:58:07] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:58:08] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:58:09] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:58:13] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:58:13] ERROR: Update quantity error: Quantity must be less than 10
+[2026-01-03 15:58:17] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:58:17] ERROR: Update quantity error: Quantity must be less than 10
+[2026-01-03 15:58:21] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:58:24] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:58:52] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:58:54] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:58:55] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 15:58:56] ERROR: Update quantity error: Quantity must be less than or equal to 10
+[2026-01-03 16:01:13] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:13] ERROR: Update quantity error: Quantity must be less than or equal to 10
+[2026-01-03 16:01:18] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:19] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:21] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:22] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:24] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:25] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:26] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:27] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:28] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:29] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:31] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:32] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:33] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:34] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:34] ERROR: Update quantity error: Quantity must be less than or equal to 10
+[2026-01-03 16:01:40] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:41] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:42] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:43] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:44] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:45] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:47] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:49] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:50] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:52] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:53] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:54] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:54] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:55] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:01:59] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:02:01] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:02:08] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:02:09] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:02:16] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:03:04] INFO: [DELETE] /cart/remove/693fc66c6ecc42bce6fc754a
+[2026-01-03 16:03:14] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:03:17] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:03:25] INFO: [GET] /products
+[2026-01-03 16:03:38] INFO: [GET] /admin/edit-product/693fad27c1dc3ee2a4a4f821
+[2026-01-03 16:03:51] INFO: [POST] /admin/edit-product/693fad27c1dc3ee2a4a4f821
+[2026-01-03 16:03:51] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-03 16:03:51] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-03 16:03:51] INFO: [postEditProduct] Request received for Product ID: 693fad27c1dc3ee2a4a4f821
+[2026-01-03 16:03:51] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock
+[2026-01-03 16:03:51] INFO: [postEditProduct] Colors count: 1, VariantIndices count: 1
+[2026-01-03 16:03:51] INFO: [postEditProduct] Processing variant index 0
+[2026-01-03 16:03:51] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-03 16:03:51] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-03 16:03:51] INFO: [postEditProduct] Success.
+[2026-01-03 16:03:53] INFO: [GET] /admin/products
+[2026-01-03 16:04:04] INFO: [GET] /admin/edit-product/692d673590f31c452d819e08
+[2026-01-03 16:04:23] INFO: [POST] /admin/edit-product/692d673590f31c452d819e08
+[2026-01-03 16:04:23] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-03 16:04:23] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-03 16:04:23] INFO: [postEditProduct] Request received for Product ID: 692d673590f31c452d819e08
+[2026-01-03 16:04:23] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock
+[2026-01-03 16:04:23] INFO: [postEditProduct] Colors count: 1, VariantIndices count: 1
+[2026-01-03 16:04:23] INFO: [postEditProduct] Processing variant index 0
+[2026-01-03 16:04:23] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-03 16:04:23] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-03 16:04:24] INFO: [postEditProduct] Success.
+[2026-01-03 16:04:25] INFO: [GET] /admin/products
+[2026-01-03 16:04:35] INFO: [GET] /admin/edit-product/692d673590f31c452d819e08
+[2026-01-03 16:04:42] INFO: [POST] /admin/edit-product/692d673590f31c452d819e08
+[2026-01-03 16:04:42] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-03 16:04:42] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-03 16:04:42] INFO: [postEditProduct] Request received for Product ID: 692d673590f31c452d819e08
+[2026-01-03 16:04:42] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock
+[2026-01-03 16:04:42] INFO: [postEditProduct] Colors count: 1, VariantIndices count: 1
+[2026-01-03 16:04:42] INFO: [postEditProduct] Processing variant index 0
+[2026-01-03 16:04:42] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-03 16:04:42] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-03 16:04:42] INFO: [postEditProduct] Success.
+[2026-01-03 16:04:44] INFO: [GET] /admin/products
+[2026-01-03 16:04:52] INFO: [GET] /cart
+[2026-01-03 16:04:53] INFO: [GET] /css/styles.css
+[2026-01-03 16:04:56] INFO: [GET] /home
+[2026-01-03 16:04:59] INFO: [GET] /products
+[2026-01-03 16:05:05] INFO: [GET] /product/693fad27c1dc3ee2a4a4f821
+[2026-01-03 16:05:24] INFO: [POST] /cart/add
+[2026-01-03 16:05:27] INFO: [GET] /cart
+[2026-01-03 16:05:27] INFO: [GET] /css/styles.css
+[2026-01-03 16:05:32] INFO: [DELETE] /cart/remove/694fa4a7f0a089520a1144da
+[2026-01-03 16:05:45] INFO: [GET] /admin/edit-product/693fad27c1dc3ee2a4a4f821
+[2026-01-03 16:05:56] INFO: [POST] /admin/edit-product/693fad27c1dc3ee2a4a4f821
+[2026-01-03 16:05:56] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-03 16:05:56] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-03 16:05:56] INFO: [postEditProduct] Request received for Product ID: 693fad27c1dc3ee2a4a4f821
+[2026-01-03 16:05:56] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock
+[2026-01-03 16:05:56] INFO: [postEditProduct] Colors count: 1, VariantIndices count: 1
+[2026-01-03 16:05:56] INFO: [postEditProduct] Processing variant index 0
+[2026-01-03 16:05:56] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-03 16:05:56] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-03 16:05:56] INFO: [postEditProduct] Success.
+[2026-01-03 16:05:58] INFO: [GET] /admin/products
+[2026-01-03 16:06:05] INFO: [GET] /products
+[2026-01-03 16:06:13] INFO: [GET] /cart
+[2026-01-03 16:06:14] INFO: [GET] /css/styles.css
+[2026-01-03 16:06:35] INFO: [GET] /admin/edit-product/693fad27c1dc3ee2a4a4f821
+[2026-01-03 16:06:42] INFO: [POST] /admin/edit-product/693fad27c1dc3ee2a4a4f821
+[2026-01-03 16:06:42] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-03 16:06:42] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-03 16:06:42] INFO: [postEditProduct] Request received for Product ID: 693fad27c1dc3ee2a4a4f821
+[2026-01-03 16:06:42] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock
+[2026-01-03 16:06:42] INFO: [postEditProduct] Colors count: 1, VariantIndices count: 1
+[2026-01-03 16:06:42] INFO: [postEditProduct] Processing variant index 0
+[2026-01-03 16:06:42] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-03 16:06:42] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-03 16:06:42] INFO: [postEditProduct] Success.
+[2026-01-03 16:06:44] INFO: [GET] /admin/products
+[2026-01-03 16:07:01] INFO: [GET] /products
+[2026-01-03 16:07:03] INFO: [GET] /cart
+[2026-01-03 16:07:04] INFO: [GET] /css/styles.css
+[2026-01-03 16:11:21] INFO: [GET] /admin/edit-product/694fa44cf0a089520a1144ab
+[2026-01-03 16:11:27] INFO: [POST] /admin/edit-product/694fa44cf0a089520a1144ab
+[2026-01-03 16:11:28] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-03 16:11:28] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-03 16:11:28] INFO: [postEditProduct] Request received for Product ID: 694fa44cf0a089520a1144ab
+[2026-01-03 16:11:28] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock
+[2026-01-03 16:11:28] INFO: [postEditProduct] Colors count: 1, VariantIndices count: 1
+[2026-01-03 16:11:28] INFO: [postEditProduct] Processing variant index 0
+[2026-01-03 16:11:28] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-03 16:11:28] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-03 16:11:28] INFO: [postEditProduct] Success.
+[2026-01-03 16:11:30] INFO: [GET] /admin/products
+[2026-01-03 16:11:36] INFO: [GET] /products
+[2026-01-03 16:11:40] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-03 16:11:46] INFO: [POST] /cart/add
+[2026-01-03 16:11:55] INFO: [GET] /cart
+[2026-01-03 16:11:56] INFO: [GET] /css/styles.css
+[2026-01-03 16:12:31] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:12:33] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:12:34] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:12:35] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:12:36] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:12:38] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:12:39] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:12:39] ERROR: Update quantity error: Only 7 items in stock
+[2026-01-03 16:12:43] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:12:44] ERROR: Update quantity error: Only 7 items in stock
+[2026-01-03 16:12:45] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:12:47] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:12:48] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:12:49] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:12:50] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 16:12:51] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 17:04:42] INFO: [GET] /home
+[2026-01-03 17:04:48] INFO: [GET] /products
+[2026-01-03 17:05:07] INFO: [GET] /product/695797358049643367cd3501
+[2026-01-03 17:06:07] INFO: [GET] /admin/products
+[2026-01-03 17:09:40] INFO: [PATCH] /admin/block-product/695797358049643367cd3501
+[2026-01-03 17:10:18] INFO: [POST] /cart/add
+[2026-01-03 17:10:18] ERROR: Add to cart error: This product is currently unavailable
+[2026-01-03 17:10:23] INFO: [GET] /home
+[2026-01-03 17:10:26] INFO: [GET] /products
+[2026-01-03 17:10:40] INFO: [PATCH] /admin/unblock-product/695797358049643367cd3501
+[2026-01-03 17:13:49] INFO: [GET] /cart
+[2026-01-03 17:13:50] INFO: [GET] /css/styles.css
+[2026-01-03 17:14:02] INFO: [DELETE] /cart/remove/693fad27c1dc3ee2a4a4f823
+[2026-01-03 17:14:21] INFO: [GET] /admin/edit-product/694fa44cf0a089520a1144ab
+[2026-01-03 17:14:25] INFO: [POST] /admin/edit-product/694fa44cf0a089520a1144ab
+[2026-01-03 17:14:25] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-03 17:14:25] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-03 17:14:25] INFO: [postEditProduct] Request received for Product ID: 694fa44cf0a089520a1144ab
+[2026-01-03 17:14:25] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock
+[2026-01-03 17:14:25] INFO: [postEditProduct] Colors count: 1, VariantIndices count: 1
+[2026-01-03 17:14:25] INFO: [postEditProduct] Processing variant index 0
+[2026-01-03 17:14:25] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-03 17:14:25] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-03 17:14:25] INFO: [postEditProduct] Success.
+[2026-01-03 17:14:27] INFO: [GET] /admin/products
+[2026-01-03 17:15:12] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 17:15:12] INFO: [GET] /cart
+[2026-01-03 17:15:13] INFO: [GET] /css/styles.css
+[2026-01-03 17:15:21] INFO: [GET] /products
+[2026-01-03 17:15:24] INFO: [GET] /cart
+[2026-01-03 17:15:25] INFO: [GET] /css/styles.css
+[2026-01-03 17:15:26] INFO: [GET] /products
+[2026-01-03 17:16:24] INFO: [GET] /product/695797358049643367cd3501
+[2026-01-03 17:16:26] INFO: [POST] /cart/add
+[2026-01-03 17:16:28] INFO: [GET] /cart
+[2026-01-03 17:16:29] INFO: [GET] /css/styles.css
+[2026-01-03 17:16:32] INFO: [GET] /admin/edit-product/695797358049643367cd3501
+[2026-01-03 17:16:36] INFO: [POST] /admin/edit-product/695797358049643367cd3501
+[2026-01-03 17:16:36] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-03 17:16:36] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-03 17:16:36] INFO: [postEditProduct] Request received for Product ID: 695797358049643367cd3501
+[2026-01-03 17:16:36] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock
+[2026-01-03 17:16:36] INFO: [postEditProduct] Colors count: 1, VariantIndices count: 1
+[2026-01-03 17:16:36] INFO: [postEditProduct] Processing variant index 0
+[2026-01-03 17:16:36] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-03 17:16:36] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-03 17:16:36] INFO: [postEditProduct] Success.
+[2026-01-03 17:16:37] INFO: [GET] /admin/products
+[2026-01-03 17:16:43] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 17:16:44] INFO: [GET] /cart
+[2026-01-03 17:16:44] INFO: [GET] /css/styles.css
+[2026-01-03 17:16:48] INFO: [GET] /products
+[2026-01-03 18:10:59] INFO: [GET] /cart
+[2026-01-03 18:11:00] INFO: [GET] /css/styles.css
+[2026-01-03 18:11:03] INFO: [GET] /products
+[2026-01-03 18:12:02] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-03 18:13:34] INFO: [GET] /products
+[2026-01-03 18:14:22] INFO: [GET] /cart
+[2026-01-03 18:14:23] INFO: [GET] /css/styles.css
+[2026-01-03 18:14:25] INFO: [GET] /products
+[2026-01-03 18:14:26] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-03 18:14:31] INFO: [GET] /home
+[2026-01-03 18:14:36] INFO: [GET] /wishlist
+[2026-01-03 18:14:41] INFO: [GET] /products
+[2026-01-03 18:14:43] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-03 18:14:45] INFO: [POST] /cart/add
+[2026-01-03 18:14:48] INFO: [GET] /cart
+[2026-01-03 18:14:49] INFO: [GET] /css/styles.css
+[2026-01-03 18:14:55] INFO: [GET] /checkout
+[2026-01-03 18:14:57] INFO: [GET] /checkout
+[2026-01-03 18:31:12] INFO: [GET] /home
+[2026-01-03 18:31:14] INFO: [GET] /cart
+[2026-01-03 18:31:15] INFO: [GET] /css/styles.css
+[2026-01-03 18:31:17] INFO: [GET] /checkout
+[2026-01-03 18:31:18] ERROR: E:\Brocamp\SeatWorld\views\users\checkout.ejs:113
+    111|                                 <div class="summary-row">
+    112|                                     <span>Item Sub Total</span>
+ >> 113|                                     <span>₹<%= subtotal || 0 %></span>
+    114|                                 </div>
+    115|                                 <div class="summary-row">
+    116|                                     <span>Shipping</span>
+
+subtotal is not defined
+[2026-01-03 18:31:22] INFO: [GET] /
+[2026-01-03 18:31:22] INFO: [GET] /home
+[2026-01-03 19:00:37] INFO: [GET] /cart
+[2026-01-03 19:00:39] INFO: [GET] /css/styles.css
+[2026-01-03 19:00:40] INFO: [GET] /checkout
+[2026-01-03 19:00:40] ERROR: E:\Brocamp\SeatWorld\views\users\checkout.ejs:113
+    111|                                 <div class="summary-row">
+    112|                                     <span>Item Sub Total</span>
+ >> 113|                                     <span>₹<%= subtotal || 0 %></span>
+    114|                                 </div>
+    115|                                 <div class="summary-row">
+    116|                                     <span>Shipping</span>
+
+subtotal is not defined
+[2026-01-03 19:00:42] INFO: [GET] /
+[2026-01-03 19:00:42] INFO: [GET] /home
+[2026-01-03 19:18:59] INFO: [GET] /
+[2026-01-03 19:19:01] INFO: [GET] /login
+[2026-01-03 19:19:01] INFO: [GET] /favicon.ico
+[2026-01-03 19:19:32] INFO: [GET] /auth/google
+[2026-01-03 19:20:30] INFO: [GET] /login
+[2026-01-03 19:20:35] INFO: [GET] /signup
+[2026-01-03 19:20:58] INFO: [POST] /signup
+[2026-01-03 19:21:17] INFO: [POST] /signup
+[2026-01-03 19:21:25] INFO: [GET] /profile
+[2026-01-03 19:21:27] INFO: [GET] /logout
+[2026-01-03 19:21:28] INFO: [GET] /login
+[2026-01-03 19:21:29] INFO: [GET] /signup
+[2026-01-03 19:21:58] INFO: [POST] /signup
+[2026-01-03 19:23:04] INFO: [POST] /signup
+[2026-01-03 19:23:10] INFO: [GET] /
+[2026-01-03 19:23:11] INFO: [GET] /
+[2026-01-03 19:23:12] INFO: [GET] /
+[2026-01-03 19:24:31] INFO: [GET] /
+[2026-01-03 19:24:32] INFO: [GET] /login
+[2026-01-03 19:24:34] INFO: [GET] /signup
+[2026-01-03 19:24:49] INFO: [POST] /signup
+[2026-01-03 19:32:08] INFO: [GET] /login
+[2026-01-03 19:33:23] INFO: [GET] /signup
+[2026-01-03 19:33:27] INFO: [GET] /favicon.ico
+[2026-01-03 19:33:30] INFO: [GET] /
+[2026-01-03 19:33:31] INFO: [GET] /login
+[2026-01-03 19:33:32] INFO: [GET] /signup
+[2026-01-03 19:33:49] INFO: [POST] /signup
+[2026-01-03 19:33:54] INFO: [GET] /verify-otp
+[2026-01-03 19:33:54] INFO: [GET] /images/mail-icon.png
+[2026-01-03 19:34:32] INFO: [POST] /verify-otp
+[2026-01-03 19:38:00] INFO: [GET] /signup
+[2026-01-03 19:38:05] INFO: [GET] /
+[2026-01-03 19:38:41] INFO: [GET] /
+[2026-01-03 19:38:44] INFO: [GET] /
+[2026-01-03 19:38:47] INFO: [GET] /signup
+[2026-01-03 19:39:02] INFO: [POST] /signup
+[2026-01-03 19:39:07] INFO: [GET] /verify-otp
+[2026-01-03 19:39:07] INFO: [GET] /images/mail-icon.png
+[2026-01-03 19:39:19] INFO: [POST] /verify-otp
+[2026-01-03 19:39:28] INFO: [POST] /verify-otp
+[2026-01-03 19:39:30] INFO: [GET] /home
+[2026-01-03 19:39:34] INFO: [GET] /profile
+[2026-01-03 19:39:44] INFO: [GET] /profile
+[2026-01-03 19:39:45] INFO: [GET] /profile/edit
+[2026-01-03 19:39:46] INFO: [POST] /profile/edit
+[2026-01-03 19:39:51] INFO: [POST] /profile/edit
+[2026-01-03 19:39:53] INFO: [GET] /profile
+[2026-01-03 19:39:55] INFO: [GET] /address
+[2026-01-03 19:39:58] INFO: [GET] /address/add
+[2026-01-03 19:40:14] INFO: [POST] /address/add
+[2026-01-03 19:40:16] INFO: [GET] /address
+[2026-01-03 19:40:21] INFO: [GET] /address/edit/695923461b57f2ec85791734
+[2026-01-03 19:40:48] INFO: [POST] /address/edit/695923461b57f2ec85791734
+[2026-01-03 19:40:49] INFO: [GET] /address
+[2026-01-03 19:40:55] INFO: [POST] /address/set-default/695923461b57f2ec85791734
+[2026-01-03 19:40:56] INFO: [GET] /address
+[2026-01-03 19:41:08] INFO: [GET] /cart
+[2026-01-03 19:41:08] INFO: [GET] /css/styles.css
+[2026-01-03 19:41:10] INFO: [GET] /profile
+[2026-01-03 19:41:13] INFO: [GET] /password-change
+[2026-01-03 19:41:20] INFO: [GET] /profile
+[2026-01-03 19:41:23] INFO: [GET] /address
+[2026-01-03 19:41:29] INFO: [GET] /address?limit=4
+[2026-01-03 19:41:40] INFO: [GET] /home
+[2026-01-03 19:41:41] INFO: [GET] /products
+[2026-01-03 19:41:47] INFO: [GET] /products?search=&minPrice=550&maxPrice=2000&sort=newest
+[2026-01-03 19:41:50] INFO: [GET] /products?search=&minPrice=550&maxPrice=2000&sort=name
+[2026-01-03 19:41:52] INFO: [GET] /product/692d673590f31c452d819e08
+[2026-01-03 19:42:12] INFO: [POST] /cart/add
+[2026-01-03 19:42:14] INFO: [GET] /cart
+[2026-01-03 19:42:15] INFO: [GET] /css/styles.css
+[2026-01-03 19:42:17] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 19:42:19] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 19:42:21] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 19:42:23] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 19:42:25] INFO: [GET] /cart?limit=4
+[2026-01-03 19:42:26] INFO: [GET] /css/styles.css
+[2026-01-03 19:42:27] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 19:42:28] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 19:42:30] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 19:42:31] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 19:42:33] INFO: [GET] /checkout
+[2026-01-03 19:42:33] ERROR: E:\Brocamp\SeatWorld\views\users\checkout.ejs:113
+    111|                                 <div class="summary-row">
+    112|                                     <span>Item Sub Total</span>
+ >> 113|                                     <span>₹<%= subtotal || 0 %></span>
+    114|                                 </div>
+    115|                                 <div class="summary-row">
+    116|                                     <span>Shipping</span>
+
+subtotal is not defined
+[2026-01-03 19:42:35] INFO: [GET] /
+[2026-01-03 19:42:35] INFO: [GET] /home
+[2026-01-03 19:42:37] INFO: [GET] /cart
+[2026-01-03 19:42:37] INFO: [GET] /css/styles.css
+[2026-01-03 19:42:41] INFO: [GET] /home
+[2026-01-03 19:42:50] INFO: [GET] /home
+[2026-01-03 19:42:52] INFO: [GET] /cart
+[2026-01-03 19:42:53] INFO: [GET] /css/styles.css
+[2026-01-03 19:42:56] INFO: [DELETE] /cart/remove/692d673590f31c452d819e0a
+[2026-01-03 19:42:57] INFO: [GET] /cart
+[2026-01-03 19:42:57] INFO: [GET] /css/styles.css
+[2026-01-03 19:42:59] INFO: [GET] /products
+[2026-01-03 19:48:20] INFO: [GET] /auth/google
+[2026-01-03 19:48:21] INFO: [GET] /auth/google/callback?code=4%2F0ATX87lM5wo4V-vY2rfUkEHNmzKMKPUHgf77tUZjJ91oMVmpPqDHsgavPlmcon2JSSvuFuA&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=0&prompt=none
+[2026-01-03 19:48:22] INFO: [GET] /home
+[2026-01-03 19:48:34] INFO: [GET] /profile
+[2026-01-03 19:48:53] INFO: [GET] /home
+[2026-01-03 19:49:03] INFO: [GET] /profile
+[2026-01-03 19:49:06] INFO: [GET] /logout
+[2026-01-03 19:49:06] INFO: [GET] /login
+[2026-01-03 19:49:07] INFO: [GET] /login
+[2026-01-03 19:49:08] INFO: [GET] /
+[2026-01-03 19:50:32] INFO: [GET] /
+[2026-01-03 19:50:56] INFO: [GET] /
+[2026-01-03 19:51:10] INFO: [GET] /
+[2026-01-03 19:51:12] INFO: [GET] /
+[2026-01-03 19:51:24] INFO: [GET] /
+[2026-01-03 19:52:41] INFO: [GET] /
+[2026-01-03 19:53:43] INFO: [GET] /
+[2026-01-03 19:53:44] INFO: [GET] /
+[2026-01-03 19:54:00] INFO: [GET] /products
+[2026-01-03 19:54:17] INFO: [GET] /profile
+[2026-01-03 19:54:19] INFO: [GET] /address
+[2026-01-03 20:00:24] INFO: [GET] /login
+[2026-01-03 20:00:33] INFO: [POST] /login
+[2026-01-03 20:00:35] INFO: [GET] /home
+[2026-01-03 20:00:37] INFO: [GET] /profile
+[2026-01-03 20:00:40] INFO: [GET] /address
+[2026-01-03 20:00:45] INFO: [GET] /address
+[2026-01-03 20:02:35] INFO: [GET] /admin/products
+[2026-01-03 20:02:35] INFO: [GET] /admin/login
+[2026-01-03 21:55:58] INFO: [POST] /admin/login
+[2026-01-03 21:56:00] INFO: [POST] /admin/login
+[2026-01-03 21:56:03] INFO: [POST] /admin/login
+[2026-01-03 21:56:05] INFO: [POST] /admin/login
+[2026-01-03 21:56:07] INFO: [POST] /admin/login
+[2026-01-03 21:56:07] INFO: [POST] /admin/login
+[2026-01-03 21:56:28] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 21:56:28] INFO: [GET] /home
+[2026-01-03 21:56:30] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 21:56:30] INFO: [POST] /admin/login
+[2026-01-03 21:56:33] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 21:56:33] INFO: [POST] /admin/login
+[2026-01-03 21:56:35] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 21:56:35] INFO: [POST] /admin/login
+[2026-01-03 21:56:37] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 21:56:37] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 21:56:58] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 21:57:00] INFO: [GET] /
+[2026-01-03 21:57:00] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 21:57:03] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 21:57:05] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-03 22:22:32] INFO: [GET] /
+[2026-01-03 22:22:34] INFO: [GET] /login
+[2026-01-03 22:22:41] INFO: [GET] /admin/login
+[2026-01-03 22:22:54] INFO: [POST] /admin/login
+[2026-01-03 22:22:54] INFO: [GET] /admin/dashboard
+[2026-01-03 22:22:57] INFO: [GET] /admin/products
+[2026-01-03 22:23:04] INFO: [GET] /admin/edit-product/685fe89869548e7ad7b5f899
+[2026-01-03 22:23:08] INFO: [GET] /admin/products
+[2026-01-03 22:23:12] INFO: [PATCH] /admin/block-product/685fe89869548e7ad7b5f899
+[2026-01-03 22:23:19] INFO: [GET] /admin/categories
+[2026-01-03 22:23:22] INFO: [GET] /admin/users
+[2026-01-03 22:23:28] INFO: [GET] /admin/dashboard
+[2026-01-03 22:24:15] INFO: [GET] /
+[2026-01-03 22:24:20] INFO: [GET] /login
+[2026-01-03 22:24:24] INFO: [GET] /admin/login
+[2026-01-03 22:24:33] INFO: [POST] /admin/login
+[2026-01-03 22:24:33] INFO: [GET] /admin/dashboard
+[2026-01-03 22:24:35] INFO: [GET] /admin/products
+[2026-01-03 22:24:40] INFO: [GET] /admin/categories
+[2026-01-03 22:24:44] INFO: [GET] /admin/categories?page=1&search=s
+[2026-01-03 22:24:46] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-03 22:24:47] INFO: [GET] /admin/users
+[2026-01-03 22:25:06] INFO: [PATCH] /admin/users/694a2c0f8280db76d4012aee/block
+[2026-01-03 22:25:15] INFO: [PATCH] /admin/users/694a2c0f8280db76d4012aee/unblock
+[2026-01-03 22:25:19] INFO: [GET] /admin/orders
+[2026-01-03 22:25:20] INFO: [GET] /admin/users
+[2026-01-03 22:25:24] INFO: [GET] /admin/categories
+[2026-01-03 22:25:28] INFO: [POST] /admin/block-category/692d608c31e01e9d9ba8dcba
+[2026-01-03 22:25:32] INFO: [POST] /admin/unblock-category/692d608c31e01e9d9ba8dcba
+[2026-01-03 22:25:35] INFO: [GET] /admin/edit-category/692d608c31e01e9d9ba8dcba
+[2026-01-03 22:25:40] INFO: [POST] /admin/edit-category/692d608c31e01e9d9ba8dcba
+[2026-01-03 22:25:42] INFO: [GET] /admin/categories
+[2026-01-03 22:25:44] INFO: [GET] /admin/users
+[2026-01-03 22:25:46] INFO: [GET] /admin/products
+[2026-01-03 22:25:47] INFO: [GET] /admin/edit-product/694fa44cf0a089520a1144ab
+[2026-01-03 22:25:57] INFO: [GET] /admin/customers
+[2026-01-03 22:26:00] INFO: [GET] /admin/dashboard
+[2026-01-03 22:26:02] INFO: [GET] /admin/users
+[2026-01-03 22:26:04] INFO: [GET] /admin/products
+[2026-01-03 22:26:05] INFO: [GET] /admin/categories
+[2026-01-03 22:26:07] INFO: [GET] /admin/users
+[2026-01-03 22:26:41] INFO: [POST] /login
+[2026-01-03 22:26:49] INFO: [POST] /login
+[2026-01-03 22:26:51] INFO: [GET] /home
+[2026-01-03 22:26:56] INFO: [GET] /profile
+[2026-01-03 22:27:00] INFO: [GET] /profile/edit
+[2026-01-03 22:27:01] INFO: [POST] /profile/edit
+[2026-01-03 22:27:06] INFO: [POST] /profile/edit
+[2026-01-03 22:27:08] INFO: [GET] /profile
+[2026-01-03 22:27:11] INFO: [GET] /profile/edit
+[2026-01-03 22:27:12] INFO: [GET] /profile/change-email
+[2026-01-03 22:27:15] INFO: [GET] /profile
+[2026-01-03 22:27:17] INFO: [GET] /address
+[2026-01-03 22:27:24] INFO: [POST] /address/set-default/694f6e91f0a089520a11427b
+[2026-01-03 22:27:25] INFO: [GET] /address
+[2026-01-03 22:27:28] INFO: [POST] /address/set-default/694f6e82f0a089520a114268
+[2026-01-03 22:27:30] INFO: [GET] /address
+[2026-01-03 22:27:31] INFO: [GET] /address/edit/694f6e91f0a089520a11427b
+[2026-01-03 22:27:37] INFO: [POST] /address/edit/694f6e91f0a089520a11427b
+[2026-01-03 22:27:38] INFO: [GET] /address
+[2026-01-03 22:27:39] INFO: [GET] /address/edit/694f6e91f0a089520a11427b
+[2026-01-03 22:27:46] INFO: [GET] /password-change
+[2026-01-03 22:27:50] INFO: [GET] /profile
+[2026-01-03 22:27:55] INFO: [GET] /cart
+[2026-01-03 22:27:55] INFO: [GET] /css/styles.css
+[2026-01-03 22:28:00] INFO: [GET] /products
+[2026-01-03 22:28:08] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-03 22:28:23] INFO: [POST] /cart/add
+[2026-01-03 22:28:32] INFO: [POST] /cart/add
+[2026-01-03 22:28:35] INFO: [GET] /cart
+[2026-01-03 22:28:35] INFO: [GET] /css/styles.css
+[2026-01-03 22:28:44] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:28:47] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:28:50] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:28:52] INFO: [GET] /admin/products
+[2026-01-03 22:29:00] INFO: [GET] /admin/edit-product/693fc66c6ecc42bce6fc7548
+[2026-01-03 22:29:09] INFO: [POST] /admin/edit-product/693fc66c6ecc42bce6fc7548
+[2026-01-03 22:29:09] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-03 22:29:09] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-03 22:29:09] INFO: [postEditProduct] Request received for Product ID: 693fc66c6ecc42bce6fc7548
+[2026-01-03 22:29:09] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock
+[2026-01-03 22:29:09] INFO: [postEditProduct] Colors count: 1, VariantIndices count: 1
+[2026-01-03 22:29:09] INFO: [postEditProduct] Processing variant index 0
+[2026-01-03 22:29:09] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-03 22:29:09] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-03 22:29:09] INFO: [postEditProduct] Success.
+[2026-01-03 22:29:10] INFO: [GET] /admin/products
+[2026-01-03 22:29:19] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:29:20] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:29:23] INFO: [GET] /home
+[2026-01-03 22:29:26] INFO: [GET] /cart
+[2026-01-03 22:29:26] INFO: [GET] /css/styles.css
+[2026-01-03 22:29:34] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:29:36] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:29:37] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:29:38] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:29:38] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:29:38] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:29:38] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:29:39] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:29:39] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:29:39] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:29:39] ERROR: Update quantity error: Quantity must be less than or equal to 10
+[2026-01-03 22:29:39] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:29:39] ERROR: Update quantity error: Quantity must be less than or equal to 10
+[2026-01-03 22:29:39] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:29:39] ERROR: Update quantity error: Quantity must be less than or equal to 10
+[2026-01-03 22:29:43] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:29:44] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:29:44] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:29:45] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:29:45] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:29:45] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:29:45] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:29:46] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:29:47] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:29:47] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:30:03] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:30:04] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:30:08] INFO: [DELETE] /cart/remove/693fc66c6ecc42bce6fc754a
+[2026-01-03 22:30:09] INFO: [GET] /cart
+[2026-01-03 22:30:09] INFO: [GET] /css/styles.css
+[2026-01-03 22:30:10] INFO: [GET] /products
+[2026-01-03 22:30:12] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-03 22:30:14] INFO: [POST] /cart/add
+[2026-01-03 22:30:15] INFO: [GET] /cart
+[2026-01-03 22:30:15] INFO: [GET] /css/styles.css
+[2026-01-03 22:30:22] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:30:23] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:30:24] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:30:25] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:30:26] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:30:27] INFO: [PATCH] /cart/update-quantity
+[2026-01-03 22:52:18] INFO: [GET] /admin/products
+[2026-01-04 08:45:49] INFO: [GET] /
+[2026-01-04 08:45:49] INFO: [GET] /
+[2026-01-04 08:45:49] INFO: [GET] /home
+[2026-01-04 08:45:49] INFO: [GET] /home
+[2026-01-04 08:45:49] INFO: [GET] /favicon.ico
+[2026-01-04 08:45:56] INFO: [GET] /products
+[2026-01-04 08:46:15] INFO: [GET] /product/693faef8c1dc3ee2a4a4f878
+[2026-01-04 08:46:32] INFO: [POST] /cart/add
+[2026-01-04 08:46:40] INFO: [GET] /cart
+[2026-01-04 08:46:40] INFO: [GET] /css/styles.css
+[2026-01-04 08:49:57] INFO: [GET] /cart?limit=4
+[2026-01-04 08:49:57] INFO: [GET] /css/styles.css
+[2026-01-04 08:50:07] INFO: [GET] /cart?limit=8
+[2026-01-04 08:50:07] INFO: [GET] /css/styles.css
+[2026-01-04 08:51:59] INFO: [GET] /cart?limit=8
+[2026-01-04 08:51:59] INFO: [GET] /css/styles.css
+[2026-01-04 08:52:10] INFO: [GET] /cart?limit=8
+[2026-01-04 08:52:10] INFO: [GET] /css/styles.css
+[2026-01-04 08:55:27] INFO: [GET] /checkout
+[2026-01-04 08:56:15] INFO: [GET] /cart
+[2026-01-04 08:56:15] INFO: [GET] /css/styles.css
+[2026-01-04 08:56:54] INFO: [GET] /checkout
+[2026-01-04 08:56:57] INFO: [GET] /cart
+[2026-01-04 08:56:57] INFO: [GET] /css/styles.css
+[2026-01-04 08:57:09] INFO: [GET] /checkout
+[2026-01-04 14:42:16] INFO: [GET] /home
+[2026-01-04 14:42:18] INFO: [GET] /profile
+[2026-01-04 14:42:24] INFO: [GET] /password-change
+[2026-01-04 14:42:45] INFO: [GET] /address
+[2026-01-04 14:42:48] INFO: [POST] /address/set-default/694f6e91f0a089520a11427b
+[2026-01-04 14:42:50] INFO: [GET] /address
+[2026-01-04 14:43:05] INFO: [GET] /profile
+[2026-01-04 14:43:25] INFO: [GET] /address
+[2026-01-04 14:43:31] INFO: [GET] /address?limit=8
+[2026-01-04 14:43:43] INFO: [GET] /products
+[2026-01-04 14:43:46] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-04 14:43:48] INFO: [POST] /cart/add
+[2026-01-04 14:43:49] INFO: [GET] /cart
+[2026-01-04 14:43:49] ERROR: Cart page error: logger is not defined
+[2026-01-04 14:43:49] INFO: [GET] /home
+[2026-01-04 14:43:52] INFO: [GET] /products
+[2026-01-04 14:43:53] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-04 14:43:55] INFO: [POST] /cart/add
+[2026-01-04 14:43:56] INFO: [GET] /cart
+[2026-01-04 14:43:56] ERROR: Cart page error: logger is not defined
+[2026-01-04 14:43:56] INFO: [GET] /home
+[2026-01-04 14:43:58] INFO: [GET] /cart
+[2026-01-04 14:43:58] ERROR: Cart page error: logger is not defined
+[2026-01-04 14:43:58] INFO: [GET] /home
+[2026-01-04 14:44:01] INFO: [GET] /cart
+[2026-01-04 14:44:01] ERROR: Cart page error: logger is not defined
+[2026-01-04 14:44:01] INFO: [GET] /home
+[2026-01-04 14:44:03] INFO: [GET] /cart
+[2026-01-04 14:44:03] ERROR: Cart page error: logger is not defined
+[2026-01-04 14:44:03] INFO: [GET] /home
+[2026-01-04 14:44:04] INFO: [GET] /cart
+[2026-01-04 14:44:04] ERROR: Cart page error: logger is not defined
+[2026-01-04 14:44:04] INFO: [GET] /home
+[2026-01-04 14:44:35] INFO: [GET] /cart
+[2026-01-04 14:44:36] ERROR: Cart page error: loggers.info is not a function
+[2026-01-04 14:44:36] INFO: [GET] /home
+[2026-01-04 14:44:37] INFO: [GET] /cart
+[2026-01-04 14:44:37] ERROR: Cart page error: loggers.info is not a function
+[2026-01-04 14:44:38] INFO: [GET] /home
+[2026-01-04 14:44:39] INFO: [GET] /products
+[2026-01-04 14:48:28] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-04 14:48:30] INFO: [POST] /cart/add
+[2026-01-04 14:48:32] INFO: [GET] /cart
+[2026-01-04 14:48:32] INFO: {
+  _id: new ObjectId('6959db90491a86ef2c3a140f'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('693faef8c1dc3ee2a4a4f87a'),
+    productId: {
+      isBlocked: false,
+      _id: new ObjectId('693faef8c1dc3ee2a4a4f878'),
+      name: 'Wakefit Edge Gaming Chair',
+      brand: 'Wakefit',
+      tags: [],
+      Baseprice: 1300,
+      description: '',
+      categoryId: new ObjectId('6921788030e767c20cdf0ce1'),
+      createdAt: 2025-12-15T06:47:20.203Z,
+      updatedAt: 2025-12-15T06:47:20.203Z,
+      __v: 0
+    },
+    color: 'black ',
+    stock: 28,
+    price: 1300,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765781240/products/t9cvndkn4rt9j9zbfgji.webp'
+    ],
+    __v: 0,
+    createdAt: 2025-12-15T06:47:20.207Z,
+    updatedAt: 2025-12-15T06:47:20.207Z
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-04T03:16:32.054Z,
+  updatedAt: 2026-01-04T03:16:32.054Z,
+  __v: 0
+},{
+  _id: new ObjectId('695a2f4c68fe11f470e09f34'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('693fc66c6ecc42bce6fc754a'),
+    productId: {
+      _id: new ObjectId('693fc66c6ecc42bce6fc7548'),
+      name: 'Ashley Dining Chair',
+      brand: 'Ashley',
+      tags: [],
+      Baseprice: 1000,
+      description: '',
+      categoryId: new ObjectId('692d607f31e01e9d9ba8dcb4'),
+      createdAt: 2025-12-15T08:27:24.893Z,
+      updatedAt: 2026-01-03T16:59:09.265Z,
+      __v: 0,
+      isBlocked: false
+    },
+    color: 'Brown',
+    stock: 25,
+    price: 1000,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp'
+    ],
+    __v: 0,
+    createdAt: 2025-12-15T08:27:24.930Z,
+    updatedAt: 2026-01-03T16:59:09.276Z
+  },
+  productQuantity: 3,
+  deliveryFee: 0,
+  createdAt: 2026-01-04T09:13:48.083Z,
+  updatedAt: 2026-01-04T09:18:30.943Z,
+  __v: 0
+},{
+  _id: new ObjectId('69594b1e5c7836c2ea07e910'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('694fa4a7f0a089520a1144da'),
+    productId: {
+      _id: new ObjectId('694fa44cf0a089520a1144ab'),
+      name: 'Herman Dining chair',
+      brand: 'Herman',
+      tags: [],
+      Baseprice: 980,
+      description: '',
+      categoryId: new ObjectId('692d607f31e01e9d9ba8dcb4'),
+      isBlocked: false,
+      createdAt: 2025-12-27T09:18:04.208Z,
+      updatedAt: 2025-12-27T09:19:55.255Z,
+      __v: 0
+    },
+    color: 'Brown',
+    stock: 14,
+    price: 977,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1766827174/products/i4byb0iiurxcmswi4wfl.jpg'
+    ],
+    createdAt: 2025-12-27T09:19:35.678Z,
+    updatedAt: 2025-12-27T09:19:35.678Z,
+    __v: 0
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-03T17:00:14.296Z,
+  updatedAt: 2026-01-03T17:00:27.316Z,
+  __v: 0
+}
+[2026-01-04 14:48:32] INFO: [GET] /css/styles.css
+[2026-01-04 14:48:50] INFO: [DELETE] /cart/remove/693fc66c6ecc42bce6fc754a
+[2026-01-04 14:49:16] INFO: [GET] /home
+[2026-01-04 14:49:17] INFO: [GET] /cart
+[2026-01-04 14:49:17] INFO: {
+  _id: new ObjectId('6959db90491a86ef2c3a140f'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('693faef8c1dc3ee2a4a4f87a'),
+    productId: {
+      isBlocked: false,
+      _id: new ObjectId('693faef8c1dc3ee2a4a4f878'),
+      name: 'Wakefit Edge Gaming Chair',
+      brand: 'Wakefit',
+      tags: [],
+      Baseprice: 1300,
+      description: '',
+      categoryId: new ObjectId('6921788030e767c20cdf0ce1'),
+      createdAt: 2025-12-15T06:47:20.203Z,
+      updatedAt: 2025-12-15T06:47:20.203Z,
+      __v: 0
+    },
+    color: 'black ',
+    stock: 28,
+    price: 1300,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765781240/products/t9cvndkn4rt9j9zbfgji.webp'
+    ],
+    __v: 0,
+    createdAt: 2025-12-15T06:47:20.207Z,
+    updatedAt: 2025-12-15T06:47:20.207Z
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-04T03:16:32.054Z,
+  updatedAt: 2026-01-04T03:16:32.054Z,
+  __v: 0
+},{
+  _id: new ObjectId('69594b1e5c7836c2ea07e910'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('694fa4a7f0a089520a1144da'),
+    productId: {
+      _id: new ObjectId('694fa44cf0a089520a1144ab'),
+      name: 'Herman Dining chair',
+      brand: 'Herman',
+      tags: [],
+      Baseprice: 980,
+      description: '',
+      categoryId: new ObjectId('692d607f31e01e9d9ba8dcb4'),
+      isBlocked: false,
+      createdAt: 2025-12-27T09:18:04.208Z,
+      updatedAt: 2025-12-27T09:19:55.255Z,
+      __v: 0
+    },
+    color: 'Brown',
+    stock: 14,
+    price: 977,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1766827174/products/i4byb0iiurxcmswi4wfl.jpg'
+    ],
+    createdAt: 2025-12-27T09:19:35.678Z,
+    updatedAt: 2025-12-27T09:19:35.678Z,
+    __v: 0
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-03T17:00:14.296Z,
+  updatedAt: 2026-01-03T17:00:27.316Z,
+  __v: 0
+}
+[2026-01-04 14:49:17] INFO: [GET] /css/styles.css
+[2026-01-04 17:11:11] INFO: [GET] /
+[2026-01-04 17:11:11] INFO: [GET] /home
+[2026-01-04 17:11:12] INFO: [GET] /favicon.ico
+[2026-01-04 18:11:15] INFO: [GET] /products
+[2026-01-04 18:11:17] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-04 18:11:19] INFO: [POST] /cart/add
+[2026-01-04 18:11:20] INFO: [GET] /cart
+[2026-01-04 18:11:20] INFO: {
+  _id: new ObjectId('6959db90491a86ef2c3a140f'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('693faef8c1dc3ee2a4a4f87a'),
+    productId: {
+      isBlocked: false,
+      _id: new ObjectId('693faef8c1dc3ee2a4a4f878'),
+      name: 'Wakefit Edge Gaming Chair',
+      brand: 'Wakefit',
+      tags: [],
+      Baseprice: 1300,
+      description: '',
+      categoryId: new ObjectId('6921788030e767c20cdf0ce1'),
+      createdAt: 2025-12-15T06:47:20.203Z,
+      updatedAt: 2025-12-15T06:47:20.203Z,
+      __v: 0
+    },
+    color: 'black ',
+    stock: 28,
+    price: 1300,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765781240/products/t9cvndkn4rt9j9zbfgji.webp'
+    ],
+    __v: 0,
+    createdAt: 2025-12-15T06:47:20.207Z,
+    updatedAt: 2025-12-15T06:47:20.207Z
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-04T03:16:32.054Z,
+  updatedAt: 2026-01-04T03:16:32.054Z,
+  __v: 0
+},{
+  _id: new ObjectId('695a5fef1b1d8437dc3df3bd'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('693fc66c6ecc42bce6fc754a'),
+    productId: {
+      _id: new ObjectId('693fc66c6ecc42bce6fc7548'),
+      name: 'Ashley Dining Chair',
+      brand: 'Ashley',
+      tags: [],
+      Baseprice: 1000,
+      description: '',
+      categoryId: new ObjectId('692d607f31e01e9d9ba8dcb4'),
+      createdAt: 2025-12-15T08:27:24.893Z,
+      updatedAt: 2026-01-03T16:59:09.265Z,
+      __v: 0,
+      isBlocked: false
+    },
+    color: 'Brown',
+    stock: 25,
+    price: 1000,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp'
+    ],
+    __v: 0,
+    createdAt: 2025-12-15T08:27:24.930Z,
+    updatedAt: 2026-01-03T16:59:09.276Z
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-04T12:41:19.363Z,
+  updatedAt: 2026-01-04T12:41:19.363Z,
+  __v: 0
+},{
+  _id: new ObjectId('69594b1e5c7836c2ea07e910'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('694fa4a7f0a089520a1144da'),
+    productId: {
+      _id: new ObjectId('694fa44cf0a089520a1144ab'),
+      name: 'Herman Dining chair',
+      brand: 'Herman',
+      tags: [],
+      Baseprice: 980,
+      description: '',
+      categoryId: new ObjectId('692d607f31e01e9d9ba8dcb4'),
+      isBlocked: false,
+      createdAt: 2025-12-27T09:18:04.208Z,
+      updatedAt: 2025-12-27T09:19:55.255Z,
+      __v: 0
+    },
+    color: 'Brown',
+    stock: 14,
+    price: 977,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1766827174/products/i4byb0iiurxcmswi4wfl.jpg'
+    ],
+    createdAt: 2025-12-27T09:19:35.678Z,
+    updatedAt: 2025-12-27T09:19:35.678Z,
+    __v: 0
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-03T17:00:14.296Z,
+  updatedAt: 2026-01-03T17:00:27.316Z,
+  __v: 0
+}
+[2026-01-04 18:11:20] INFO: [GET] /css/styles.css
+[2026-01-04 18:11:22] INFO: [GET] /checkout
+[2026-01-04 20:02:13] INFO: [GET] /
+[2026-01-04 20:02:13] INFO: [GET] /home
+[2026-01-04 20:02:17] INFO: [GET] /products
+[2026-01-04 20:02:18] INFO: [GET] /cart
+[2026-01-04 20:02:18] INFO: {
+  _id: new ObjectId('6959db90491a86ef2c3a140f'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('693faef8c1dc3ee2a4a4f87a'),
+    productId: {
+      isBlocked: false,
+      _id: new ObjectId('693faef8c1dc3ee2a4a4f878'),
+      name: 'Wakefit Edge Gaming Chair',
+      brand: 'Wakefit',
+      tags: [],
+      Baseprice: 1300,
+      description: '',
+      categoryId: new ObjectId('6921788030e767c20cdf0ce1'),
+      createdAt: 2025-12-15T06:47:20.203Z,
+      updatedAt: 2025-12-15T06:47:20.203Z,
+      __v: 0
+    },
+    color: 'black ',
+    stock: 28,
+    price: 1300,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765781240/products/t9cvndkn4rt9j9zbfgji.webp'
+    ],
+    __v: 0,
+    createdAt: 2025-12-15T06:47:20.207Z,
+    updatedAt: 2025-12-15T06:47:20.207Z
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-04T03:16:32.054Z,
+  updatedAt: 2026-01-04T03:16:32.054Z,
+  __v: 0
+},{
+  _id: new ObjectId('695a5fef1b1d8437dc3df3bd'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('693fc66c6ecc42bce6fc754a'),
+    productId: {
+      _id: new ObjectId('693fc66c6ecc42bce6fc7548'),
+      name: 'Ashley Dining Chair',
+      brand: 'Ashley',
+      tags: [],
+      Baseprice: 1000,
+      description: '',
+      categoryId: new ObjectId('692d607f31e01e9d9ba8dcb4'),
+      createdAt: 2025-12-15T08:27:24.893Z,
+      updatedAt: 2026-01-03T16:59:09.265Z,
+      __v: 0,
+      isBlocked: false
+    },
+    color: 'Brown',
+    stock: 25,
+    price: 1000,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp'
+    ],
+    __v: 0,
+    createdAt: 2025-12-15T08:27:24.930Z,
+    updatedAt: 2026-01-03T16:59:09.276Z
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-04T12:41:19.363Z,
+  updatedAt: 2026-01-04T12:41:19.363Z,
+  __v: 0
+},{
+  _id: new ObjectId('69594b1e5c7836c2ea07e910'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('694fa4a7f0a089520a1144da'),
+    productId: {
+      _id: new ObjectId('694fa44cf0a089520a1144ab'),
+      name: 'Herman Dining chair',
+      brand: 'Herman',
+      tags: [],
+      Baseprice: 980,
+      description: '',
+      categoryId: new ObjectId('692d607f31e01e9d9ba8dcb4'),
+      isBlocked: false,
+      createdAt: 2025-12-27T09:18:04.208Z,
+      updatedAt: 2025-12-27T09:19:55.255Z,
+      __v: 0
+    },
+    color: 'Brown',
+    stock: 14,
+    price: 977,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1766827174/products/i4byb0iiurxcmswi4wfl.jpg'
+    ],
+    createdAt: 2025-12-27T09:19:35.678Z,
+    updatedAt: 2025-12-27T09:19:35.678Z,
+    __v: 0
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-03T17:00:14.296Z,
+  updatedAt: 2026-01-03T17:00:27.316Z,
+  __v: 0
+}
+[2026-01-04 20:02:18] INFO: [GET] /css/styles.css
+[2026-01-04 20:02:20] INFO: [GET] /checkout
+[2026-01-04 20:02:27] INFO: [GET] /address/edit/694f6e91f0a089520a11427b?returnTo=checkout
+[2026-01-04 20:02:41] INFO: [POST] /address/edit/694f6e91f0a089520a11427b
+[2026-01-04 20:02:42] INFO: [GET] /checkout
+[2026-01-04 20:02:51] INFO: [GET] /products
+[2026-01-04 20:02:53] INFO: [GET] /profile
+[2026-01-04 20:02:54] INFO: [GET] /address
+[2026-01-04 20:03:00] INFO: [GET] /address/edit/694f6e91f0a089520a11427b
+[2026-01-04 20:03:01] INFO: [POST] /address/edit/694f6e91f0a089520a11427b
+[2026-01-04 20:03:03] INFO: [GET] /address
+[2026-01-04 20:03:06] INFO: [GET] /profile
+[2026-01-04 20:32:14] INFO: [GET] /products
+[2026-01-04 20:32:17] INFO: [GET] /cart
+[2026-01-04 20:32:17] INFO: {
+  _id: new ObjectId('6959db90491a86ef2c3a140f'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('693faef8c1dc3ee2a4a4f87a'),
+    productId: {
+      isBlocked: false,
+      _id: new ObjectId('693faef8c1dc3ee2a4a4f878'),
+      name: 'Wakefit Edge Gaming Chair',
+      brand: 'Wakefit',
+      tags: [],
+      Baseprice: 1300,
+      description: '',
+      categoryId: new ObjectId('6921788030e767c20cdf0ce1'),
+      createdAt: 2025-12-15T06:47:20.203Z,
+      updatedAt: 2025-12-15T06:47:20.203Z,
+      __v: 0
+    },
+    color: 'black ',
+    stock: 28,
+    price: 1300,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765781240/products/t9cvndkn4rt9j9zbfgji.webp'
+    ],
+    __v: 0,
+    createdAt: 2025-12-15T06:47:20.207Z,
+    updatedAt: 2025-12-15T06:47:20.207Z
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-04T03:16:32.054Z,
+  updatedAt: 2026-01-04T03:16:32.054Z,
+  __v: 0
+},{
+  _id: new ObjectId('695a5fef1b1d8437dc3df3bd'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('693fc66c6ecc42bce6fc754a'),
+    productId: {
+      _id: new ObjectId('693fc66c6ecc42bce6fc7548'),
+      name: 'Ashley Dining Chair',
+      brand: 'Ashley',
+      tags: [],
+      Baseprice: 1000,
+      description: '',
+      categoryId: new ObjectId('692d607f31e01e9d9ba8dcb4'),
+      createdAt: 2025-12-15T08:27:24.893Z,
+      updatedAt: 2026-01-03T16:59:09.265Z,
+      __v: 0,
+      isBlocked: false
+    },
+    color: 'Brown',
+    stock: 25,
+    price: 1000,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp'
+    ],
+    __v: 0,
+    createdAt: 2025-12-15T08:27:24.930Z,
+    updatedAt: 2026-01-03T16:59:09.276Z
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-04T12:41:19.363Z,
+  updatedAt: 2026-01-04T12:41:19.363Z,
+  __v: 0
+},{
+  _id: new ObjectId('69594b1e5c7836c2ea07e910'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('694fa4a7f0a089520a1144da'),
+    productId: {
+      _id: new ObjectId('694fa44cf0a089520a1144ab'),
+      name: 'Herman Dining chair',
+      brand: 'Herman',
+      tags: [],
+      Baseprice: 980,
+      description: '',
+      categoryId: new ObjectId('692d607f31e01e9d9ba8dcb4'),
+      isBlocked: false,
+      createdAt: 2025-12-27T09:18:04.208Z,
+      updatedAt: 2025-12-27T09:19:55.255Z,
+      __v: 0
+    },
+    color: 'Brown',
+    stock: 14,
+    price: 977,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1766827174/products/i4byb0iiurxcmswi4wfl.jpg'
+    ],
+    createdAt: 2025-12-27T09:19:35.678Z,
+    updatedAt: 2025-12-27T09:19:35.678Z,
+    __v: 0
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-03T17:00:14.296Z,
+  updatedAt: 2026-01-03T17:00:27.316Z,
+  __v: 0
+}
+[2026-01-04 20:32:17] INFO: [GET] /css/styles.css
+[2026-01-04 20:32:19] INFO: [GET] /checkout
+[2026-01-04 22:21:20] INFO: [GET] /checkout
+[2026-01-04 22:26:52] INFO: [POST] /checkout
+[2026-01-04 22:26:52] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required.
+[2026-01-04 22:27:03] INFO: [GET] /home
+[2026-01-04 22:27:05] INFO: [GET] /cart
+[2026-01-04 22:27:05] INFO: {
+  _id: new ObjectId('6959db90491a86ef2c3a140f'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('693faef8c1dc3ee2a4a4f87a'),
+    productId: {
+      isBlocked: false,
+      _id: new ObjectId('693faef8c1dc3ee2a4a4f878'),
+      name: 'Wakefit Edge Gaming Chair',
+      brand: 'Wakefit',
+      tags: [],
+      Baseprice: 1300,
+      description: '',
+      categoryId: new ObjectId('6921788030e767c20cdf0ce1'),
+      createdAt: 2025-12-15T06:47:20.203Z,
+      updatedAt: 2025-12-15T06:47:20.203Z,
+      __v: 0
+    },
+    color: 'black ',
+    stock: 28,
+    price: 1300,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765781240/products/t9cvndkn4rt9j9zbfgji.webp'
+    ],
+    __v: 0,
+    createdAt: 2025-12-15T06:47:20.207Z,
+    updatedAt: 2025-12-15T06:47:20.207Z
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-04T03:16:32.054Z,
+  updatedAt: 2026-01-04T03:16:32.054Z,
+  __v: 0
+},{
+  _id: new ObjectId('695a5fef1b1d8437dc3df3bd'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('693fc66c6ecc42bce6fc754a'),
+    productId: {
+      _id: new ObjectId('693fc66c6ecc42bce6fc7548'),
+      name: 'Ashley Dining Chair',
+      brand: 'Ashley',
+      tags: [],
+      Baseprice: 1000,
+      description: '',
+      categoryId: new ObjectId('692d607f31e01e9d9ba8dcb4'),
+      createdAt: 2025-12-15T08:27:24.893Z,
+      updatedAt: 2026-01-03T16:59:09.265Z,
+      __v: 0,
+      isBlocked: false
+    },
+    color: 'Brown',
+    stock: 25,
+    price: 1000,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp'
+    ],
+    __v: 0,
+    createdAt: 2025-12-15T08:27:24.930Z,
+    updatedAt: 2026-01-03T16:59:09.276Z
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-04T12:41:19.363Z,
+  updatedAt: 2026-01-04T12:41:19.363Z,
+  __v: 0
+},{
+  _id: new ObjectId('69594b1e5c7836c2ea07e910'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('694fa4a7f0a089520a1144da'),
+    productId: {
+      _id: new ObjectId('694fa44cf0a089520a1144ab'),
+      name: 'Herman Dining chair',
+      brand: 'Herman',
+      tags: [],
+      Baseprice: 980,
+      description: '',
+      categoryId: new ObjectId('692d607f31e01e9d9ba8dcb4'),
+      isBlocked: false,
+      createdAt: 2025-12-27T09:18:04.208Z,
+      updatedAt: 2025-12-27T09:19:55.255Z,
+      __v: 0
+    },
+    color: 'Brown',
+    stock: 14,
+    price: 977,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1766827174/products/i4byb0iiurxcmswi4wfl.jpg'
+    ],
+    createdAt: 2025-12-27T09:19:35.678Z,
+    updatedAt: 2025-12-27T09:19:35.678Z,
+    __v: 0
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-03T17:00:14.296Z,
+  updatedAt: 2026-01-03T17:00:27.316Z,
+  __v: 0
+}
+[2026-01-04 22:27:05] INFO: [GET] /css/styles.css
+[2026-01-04 22:27:09] INFO: [GET] /checkout
+[2026-01-04 22:27:21] INFO: [POST] /checkout
+[2026-01-04 22:27:21] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required.
+[2026-01-04 22:55:59] INFO: [GET] /home
+[2026-01-04 22:56:02] INFO: [GET] /cart
+[2026-01-04 22:56:02] INFO: {
+  _id: new ObjectId('6959db90491a86ef2c3a140f'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('693faef8c1dc3ee2a4a4f87a'),
+    productId: {
+      isBlocked: false,
+      _id: new ObjectId('693faef8c1dc3ee2a4a4f878'),
+      name: 'Wakefit Edge Gaming Chair',
+      brand: 'Wakefit',
+      tags: [],
+      Baseprice: 1300,
+      description: '',
+      categoryId: new ObjectId('6921788030e767c20cdf0ce1'),
+      createdAt: 2025-12-15T06:47:20.203Z,
+      updatedAt: 2025-12-15T06:47:20.203Z,
+      __v: 0
+    },
+    color: 'black ',
+    stock: 28,
+    price: 1300,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765781240/products/t9cvndkn4rt9j9zbfgji.webp'
+    ],
+    __v: 0,
+    createdAt: 2025-12-15T06:47:20.207Z,
+    updatedAt: 2025-12-15T06:47:20.207Z
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-04T03:16:32.054Z,
+  updatedAt: 2026-01-04T03:16:32.054Z,
+  __v: 0
+},{
+  _id: new ObjectId('695a5fef1b1d8437dc3df3bd'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('693fc66c6ecc42bce6fc754a'),
+    productId: {
+      _id: new ObjectId('693fc66c6ecc42bce6fc7548'),
+      name: 'Ashley Dining Chair',
+      brand: 'Ashley',
+      tags: [],
+      Baseprice: 1000,
+      description: '',
+      categoryId: new ObjectId('692d607f31e01e9d9ba8dcb4'),
+      createdAt: 2025-12-15T08:27:24.893Z,
+      updatedAt: 2026-01-03T16:59:09.265Z,
+      __v: 0,
+      isBlocked: false
+    },
+    color: 'Brown',
+    stock: 25,
+    price: 1000,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp'
+    ],
+    __v: 0,
+    createdAt: 2025-12-15T08:27:24.930Z,
+    updatedAt: 2026-01-03T16:59:09.276Z
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-04T12:41:19.363Z,
+  updatedAt: 2026-01-04T12:41:19.363Z,
+  __v: 0
+},{
+  _id: new ObjectId('69594b1e5c7836c2ea07e910'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('694fa4a7f0a089520a1144da'),
+    productId: {
+      _id: new ObjectId('694fa44cf0a089520a1144ab'),
+      name: 'Herman Dining chair',
+      brand: 'Herman',
+      tags: [],
+      Baseprice: 980,
+      description: '',
+      categoryId: new ObjectId('692d607f31e01e9d9ba8dcb4'),
+      isBlocked: false,
+      createdAt: 2025-12-27T09:18:04.208Z,
+      updatedAt: 2025-12-27T09:19:55.255Z,
+      __v: 0
+    },
+    color: 'Brown',
+    stock: 14,
+    price: 977,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1766827174/products/i4byb0iiurxcmswi4wfl.jpg'
+    ],
+    createdAt: 2025-12-27T09:19:35.678Z,
+    updatedAt: 2025-12-27T09:19:35.678Z,
+    __v: 0
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-03T17:00:14.296Z,
+  updatedAt: 2026-01-03T17:00:27.316Z,
+  __v: 0
+}
+[2026-01-04 22:56:02] INFO: [GET] /css/styles.css
+[2026-01-04 22:56:05] INFO: [GET] /checkout
+[2026-01-04 22:56:10] INFO: [POST] /checkout/address
+[2026-01-04 22:56:10] INFO: [GET] /checkout/payment-options
+[2026-01-04 22:56:13] INFO: [GET] /checkout
+[2026-01-04 22:57:01] INFO: [POST] /checkout/address
+[2026-01-04 22:57:10] INFO: [POST] /checkout/address
+[2026-01-04 22:57:10] INFO: [GET] /checkout/payment-options
+[2026-01-04 22:57:16] INFO: [POST] /checkout/place-order
+[2026-01-04 22:57:16] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required.
+[2026-01-04 22:57:16] INFO: [GET] /checkout/payment-options
+[2026-01-04 22:57:27] INFO: [POST] /checkout/place-order
+[2026-01-04 22:57:27] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required.
+[2026-01-04 22:57:27] INFO: [GET] /checkout/payment-options
+[2026-01-04 22:57:31] INFO: [GET] /checkout
+[2026-01-04 22:59:43] INFO: [GET] /home
+[2026-01-04 22:59:45] INFO: [GET] /cart
+[2026-01-04 22:59:45] INFO: {
+  _id: new ObjectId('6959db90491a86ef2c3a140f'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('693faef8c1dc3ee2a4a4f87a'),
+    productId: {
+      isBlocked: false,
+      _id: new ObjectId('693faef8c1dc3ee2a4a4f878'),
+      name: 'Wakefit Edge Gaming Chair',
+      brand: 'Wakefit',
+      tags: [],
+      Baseprice: 1300,
+      description: '',
+      categoryId: new ObjectId('6921788030e767c20cdf0ce1'),
+      createdAt: 2025-12-15T06:47:20.203Z,
+      updatedAt: 2025-12-15T06:47:20.203Z,
+      __v: 0
+    },
+    color: 'black ',
+    stock: 28,
+    price: 1300,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765781240/products/t9cvndkn4rt9j9zbfgji.webp'
+    ],
+    __v: 0,
+    createdAt: 2025-12-15T06:47:20.207Z,
+    updatedAt: 2025-12-15T06:47:20.207Z
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-04T03:16:32.054Z,
+  updatedAt: 2026-01-04T03:16:32.054Z,
+  __v: 0
+},{
+  _id: new ObjectId('695a5fef1b1d8437dc3df3bd'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('693fc66c6ecc42bce6fc754a'),
+    productId: {
+      _id: new ObjectId('693fc66c6ecc42bce6fc7548'),
+      name: 'Ashley Dining Chair',
+      brand: 'Ashley',
+      tags: [],
+      Baseprice: 1000,
+      description: '',
+      categoryId: new ObjectId('692d607f31e01e9d9ba8dcb4'),
+      createdAt: 2025-12-15T08:27:24.893Z,
+      updatedAt: 2026-01-03T16:59:09.265Z,
+      __v: 0,
+      isBlocked: false
+    },
+    color: 'Brown',
+    stock: 25,
+    price: 1000,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp'
+    ],
+    __v: 0,
+    createdAt: 2025-12-15T08:27:24.930Z,
+    updatedAt: 2026-01-03T16:59:09.276Z
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-04T12:41:19.363Z,
+  updatedAt: 2026-01-04T12:41:19.363Z,
+  __v: 0
+},{
+  _id: new ObjectId('69594b1e5c7836c2ea07e910'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('694fa4a7f0a089520a1144da'),
+    productId: {
+      _id: new ObjectId('694fa44cf0a089520a1144ab'),
+      name: 'Herman Dining chair',
+      brand: 'Herman',
+      tags: [],
+      Baseprice: 980,
+      description: '',
+      categoryId: new ObjectId('692d607f31e01e9d9ba8dcb4'),
+      isBlocked: false,
+      createdAt: 2025-12-27T09:18:04.208Z,
+      updatedAt: 2025-12-27T09:19:55.255Z,
+      __v: 0
+    },
+    color: 'Brown',
+    stock: 14,
+    price: 977,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1766827174/products/i4byb0iiurxcmswi4wfl.jpg'
+    ],
+    createdAt: 2025-12-27T09:19:35.678Z,
+    updatedAt: 2025-12-27T09:19:35.678Z,
+    __v: 0
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-03T17:00:14.296Z,
+  updatedAt: 2026-01-03T17:00:27.316Z,
+  __v: 0
+}
+[2026-01-04 22:59:45] INFO: [GET] /css/styles.css
+[2026-01-04 22:59:50] INFO: [GET] /home
+[2026-01-04 23:01:37] INFO: [GET] /cart
+[2026-01-04 23:01:37] INFO: {
+  _id: new ObjectId('6959db90491a86ef2c3a140f'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('693faef8c1dc3ee2a4a4f87a'),
+    productId: {
+      isBlocked: false,
+      _id: new ObjectId('693faef8c1dc3ee2a4a4f878'),
+      name: 'Wakefit Edge Gaming Chair',
+      brand: 'Wakefit',
+      tags: [],
+      Baseprice: 1300,
+      description: '',
+      categoryId: new ObjectId('6921788030e767c20cdf0ce1'),
+      createdAt: 2025-12-15T06:47:20.203Z,
+      updatedAt: 2025-12-15T06:47:20.203Z,
+      __v: 0
+    },
+    color: 'black ',
+    stock: 28,
+    price: 1300,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765781240/products/t9cvndkn4rt9j9zbfgji.webp'
+    ],
+    __v: 0,
+    createdAt: 2025-12-15T06:47:20.207Z,
+    updatedAt: 2025-12-15T06:47:20.207Z
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-04T03:16:32.054Z,
+  updatedAt: 2026-01-04T03:16:32.054Z,
+  __v: 0
+},{
+  _id: new ObjectId('695a5fef1b1d8437dc3df3bd'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('693fc66c6ecc42bce6fc754a'),
+    productId: {
+      _id: new ObjectId('693fc66c6ecc42bce6fc7548'),
+      name: 'Ashley Dining Chair',
+      brand: 'Ashley',
+      tags: [],
+      Baseprice: 1000,
+      description: '',
+      categoryId: new ObjectId('692d607f31e01e9d9ba8dcb4'),
+      createdAt: 2025-12-15T08:27:24.893Z,
+      updatedAt: 2026-01-03T16:59:09.265Z,
+      __v: 0,
+      isBlocked: false
+    },
+    color: 'Brown',
+    stock: 25,
+    price: 1000,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp'
+    ],
+    __v: 0,
+    createdAt: 2025-12-15T08:27:24.930Z,
+    updatedAt: 2026-01-03T16:59:09.276Z
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-04T12:41:19.363Z,
+  updatedAt: 2026-01-04T12:41:19.363Z,
+  __v: 0
+},{
+  _id: new ObjectId('69594b1e5c7836c2ea07e910'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('694fa4a7f0a089520a1144da'),
+    productId: {
+      _id: new ObjectId('694fa44cf0a089520a1144ab'),
+      name: 'Herman Dining chair',
+      brand: 'Herman',
+      tags: [],
+      Baseprice: 980,
+      description: '',
+      categoryId: new ObjectId('692d607f31e01e9d9ba8dcb4'),
+      isBlocked: false,
+      createdAt: 2025-12-27T09:18:04.208Z,
+      updatedAt: 2025-12-27T09:19:55.255Z,
+      __v: 0
+    },
+    color: 'Brown',
+    stock: 14,
+    price: 977,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1766827174/products/i4byb0iiurxcmswi4wfl.jpg'
+    ],
+    createdAt: 2025-12-27T09:19:35.678Z,
+    updatedAt: 2025-12-27T09:19:35.678Z,
+    __v: 0
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-03T17:00:14.296Z,
+  updatedAt: 2026-01-03T17:00:27.316Z,
+  __v: 0
+}
+[2026-01-04 23:01:37] INFO: [GET] /css/styles.css
+[2026-01-04 23:01:38] INFO: [GET] /checkout
+[2026-01-04 23:08:33] INFO: [GET] /checkout
+[2026-01-04 23:09:00] INFO: [POST] /checkout/address
+[2026-01-04 23:09:00] INFO: [GET] /checkout/payment-options
+[2026-01-05 09:16:35] INFO: [GET] /
+[2026-01-05 09:16:35] INFO: [GET] /home
+[2026-01-05 09:16:35] INFO: [GET] /favicon.ico
+[2026-01-05 09:16:50] INFO: [GET] /products
+[2026-01-05 09:16:57] INFO: [GET] /cart
+[2026-01-05 09:16:58] INFO: {
+  _id: new ObjectId('6959db90491a86ef2c3a140f'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('693faef8c1dc3ee2a4a4f87a'),
+    productId: {
+      isBlocked: false,
+      _id: new ObjectId('693faef8c1dc3ee2a4a4f878'),
+      name: 'Wakefit Edge Gaming Chair',
+      brand: 'Wakefit',
+      tags: [],
+      Baseprice: 1300,
+      description: '',
+      categoryId: new ObjectId('6921788030e767c20cdf0ce1'),
+      createdAt: 2025-12-15T06:47:20.203Z,
+      updatedAt: 2025-12-15T06:47:20.203Z,
+      __v: 0
+    },
+    color: 'black ',
+    stock: 28,
+    price: 1300,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765781240/products/t9cvndkn4rt9j9zbfgji.webp'
+    ],
+    __v: 0,
+    createdAt: 2025-12-15T06:47:20.207Z,
+    updatedAt: 2025-12-15T06:47:20.207Z
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-04T03:16:32.054Z,
+  updatedAt: 2026-01-04T03:16:32.054Z,
+  __v: 0
+},{
+  _id: new ObjectId('695a5fef1b1d8437dc3df3bd'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('693fc66c6ecc42bce6fc754a'),
+    productId: {
+      _id: new ObjectId('693fc66c6ecc42bce6fc7548'),
+      name: 'Ashley Dining Chair',
+      brand: 'Ashley',
+      tags: [],
+      Baseprice: 1000,
+      description: '',
+      categoryId: new ObjectId('692d607f31e01e9d9ba8dcb4'),
+      createdAt: 2025-12-15T08:27:24.893Z,
+      updatedAt: 2026-01-03T16:59:09.265Z,
+      __v: 0,
+      isBlocked: false
+    },
+    color: 'Brown',
+    stock: 25,
+    price: 1000,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp'
+    ],
+    __v: 0,
+    createdAt: 2025-12-15T08:27:24.930Z,
+    updatedAt: 2026-01-03T16:59:09.276Z
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-04T12:41:19.363Z,
+  updatedAt: 2026-01-04T12:41:19.363Z,
+  __v: 0
+},{
+  _id: new ObjectId('69594b1e5c7836c2ea07e910'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('694fa4a7f0a089520a1144da'),
+    productId: {
+      _id: new ObjectId('694fa44cf0a089520a1144ab'),
+      name: 'Herman Dining chair',
+      brand: 'Herman',
+      tags: [],
+      Baseprice: 980,
+      description: '',
+      categoryId: new ObjectId('692d607f31e01e9d9ba8dcb4'),
+      isBlocked: false,
+      createdAt: 2025-12-27T09:18:04.208Z,
+      updatedAt: 2025-12-27T09:19:55.255Z,
+      __v: 0
+    },
+    color: 'Brown',
+    stock: 14,
+    price: 977,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1766827174/products/i4byb0iiurxcmswi4wfl.jpg'
+    ],
+    createdAt: 2025-12-27T09:19:35.678Z,
+    updatedAt: 2025-12-27T09:19:35.678Z,
+    __v: 0
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-03T17:00:14.296Z,
+  updatedAt: 2026-01-03T17:00:27.316Z,
+  __v: 0
+}
+[2026-01-05 09:16:58] INFO: [GET] /css/styles.css
+[2026-01-05 09:17:05] INFO: [GET] /checkout
+[2026-01-05 09:17:05] INFO: [object Object]
+[2026-01-05 09:19:23] INFO: [GET] /cart
+[2026-01-05 09:19:23] INFO: {
+  _id: new ObjectId('6959db90491a86ef2c3a140f'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('693faef8c1dc3ee2a4a4f87a'),
+    productId: {
+      isBlocked: false,
+      _id: new ObjectId('693faef8c1dc3ee2a4a4f878'),
+      name: 'Wakefit Edge Gaming Chair',
+      brand: 'Wakefit',
+      tags: [],
+      Baseprice: 1300,
+      description: '',
+      categoryId: new ObjectId('6921788030e767c20cdf0ce1'),
+      createdAt: 2025-12-15T06:47:20.203Z,
+      updatedAt: 2025-12-15T06:47:20.203Z,
+      __v: 0
+    },
+    color: 'black ',
+    stock: 28,
+    price: 1300,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765781240/products/t9cvndkn4rt9j9zbfgji.webp'
+    ],
+    __v: 0,
+    createdAt: 2025-12-15T06:47:20.207Z,
+    updatedAt: 2025-12-15T06:47:20.207Z
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-04T03:16:32.054Z,
+  updatedAt: 2026-01-04T03:16:32.054Z,
+  __v: 0
+},{
+  _id: new ObjectId('695a5fef1b1d8437dc3df3bd'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('693fc66c6ecc42bce6fc754a'),
+    productId: {
+      _id: new ObjectId('693fc66c6ecc42bce6fc7548'),
+      name: 'Ashley Dining Chair',
+      brand: 'Ashley',
+      tags: [],
+      Baseprice: 1000,
+      description: '',
+      categoryId: new ObjectId('692d607f31e01e9d9ba8dcb4'),
+      createdAt: 2025-12-15T08:27:24.893Z,
+      updatedAt: 2026-01-03T16:59:09.265Z,
+      __v: 0,
+      isBlocked: false
+    },
+    color: 'Brown',
+    stock: 25,
+    price: 1000,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp'
+    ],
+    __v: 0,
+    createdAt: 2025-12-15T08:27:24.930Z,
+    updatedAt: 2026-01-03T16:59:09.276Z
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-04T12:41:19.363Z,
+  updatedAt: 2026-01-04T12:41:19.363Z,
+  __v: 0
+},{
+  _id: new ObjectId('69594b1e5c7836c2ea07e910'),
+  userId: new ObjectId('694a2c0f8280db76d4012aee'),
+  variantId: {
+    _id: new ObjectId('694fa4a7f0a089520a1144da'),
+    productId: {
+      _id: new ObjectId('694fa44cf0a089520a1144ab'),
+      name: 'Herman Dining chair',
+      brand: 'Herman',
+      tags: [],
+      Baseprice: 980,
+      description: '',
+      categoryId: new ObjectId('692d607f31e01e9d9ba8dcb4'),
+      isBlocked: false,
+      createdAt: 2025-12-27T09:18:04.208Z,
+      updatedAt: 2025-12-27T09:19:55.255Z,
+      __v: 0
+    },
+    color: 'Brown',
+    stock: 14,
+    price: 977,
+    status: 'Active',
+    images: [
+      'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1766827174/products/i4byb0iiurxcmswi4wfl.jpg'
+    ],
+    createdAt: 2025-12-27T09:19:35.678Z,
+    updatedAt: 2025-12-27T09:19:35.678Z,
+    __v: 0
+  },
+  productQuantity: 1,
+  deliveryFee: 0,
+  createdAt: 2026-01-03T17:00:14.296Z,
+  updatedAt: 2026-01-03T17:00:27.316Z,
+  __v: 0
+}
+[2026-01-05 09:19:23] INFO: [GET] /css/styles.css
+[2026-01-05 09:19:28] INFO: [PATCH] /cart/update-quantity
+[2026-01-05 09:19:30] INFO: [PATCH] /cart/update-quantity
+[2026-01-05 10:09:27] INFO: [GET] /home
+[2026-01-05 10:09:27] INFO: [GET] /login
+[2026-01-05 10:09:40] INFO: [GET] /auth/google
+[2026-01-05 10:09:40] INFO: [GET] /auth/google/callback?code=4%2F0ATX87lMiyKvlMDaCwR9FlrVZM0U74V6V8iFIlRPLU6-4I1DiQHZbmFvhX5wkZm_sWnCrxg&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=0&prompt=none
+[2026-01-05 10:09:41] INFO: [GET] /home
+[2026-01-05 10:09:44] INFO: [GET] /products
+[2026-01-05 10:09:52] INFO: [GET] /cart
+[2026-01-05 10:09:53] INFO: [GET] /css/styles.css
+[2026-01-05 10:09:55] INFO: [GET] /checkout
+[2026-01-05 10:09:55] INFO: [object Object]
+[2026-01-05 10:15:48] INFO: [GET] /products
+[2026-01-05 10:15:51] INFO: [GET] /cart
+[2026-01-05 10:15:51] INFO: [GET] /css/styles.css
+[2026-01-05 10:15:53] INFO: [GET] /checkout
+[2026-01-05 10:15:54] INFO: [object Object]
+[2026-01-05 10:16:03] INFO: [GET] /home
+[2026-01-05 10:16:05] INFO: [GET] /profile
+[2026-01-05 10:16:06] INFO: [GET] /address
+[2026-01-05 10:16:11] INFO: [GET] /cart
+[2026-01-05 10:16:11] INFO: [GET] /css/styles.css
+[2026-01-05 10:16:13] INFO: [GET] /checkout
+[2026-01-05 10:16:14] INFO: [object Object]
+[2026-01-05 10:17:39] INFO: [GET] /profile
+[2026-01-05 10:17:41] INFO: [GET] /address
+[2026-01-05 10:17:43] INFO: [POST] /address/set-default/6951fd2cc6298d9de0988cc3
+[2026-01-05 10:17:45] INFO: [GET] /address
+[2026-01-05 10:17:47] INFO: [GET] /profile
+[2026-01-05 10:17:50] INFO: [GET] /cart
+[2026-01-05 10:17:50] INFO: [GET] /css/styles.css
+[2026-01-05 10:17:53] INFO: [GET] /checkout
+[2026-01-05 10:17:53] INFO: [object Object]
+[2026-01-05 10:22:19] INFO: [POST] /checkout/address
+[2026-01-05 10:22:19] INFO: [GET] /checkout/payment-options
+[2026-01-05 10:42:33] INFO: [GET] /cart
+[2026-01-05 10:42:34] INFO: [GET] /css/styles.css
+[2026-01-05 10:42:36] INFO: [GET] /home
+[2026-01-05 10:42:41] INFO: [GET] /products
+[2026-01-05 10:42:45] INFO: [GET] /cart
+[2026-01-05 10:42:45] INFO: [GET] /css/styles.css
+[2026-01-05 10:42:47] INFO: [GET] /products
+[2026-01-05 11:12:21] INFO: [GET] /
+[2026-01-05 11:12:21] INFO: [GET] /home
+[2026-01-05 11:12:21] INFO: [GET] /admin/login
+[2026-01-05 11:12:29] INFO: [POST] /admin/login
+[2026-01-05 11:12:29] INFO: [GET] /admin/dashboard
+[2026-01-05 11:12:31] INFO: [GET] /admin/products
+[2026-01-05 11:12:36] INFO: [GET] /admin/edit-product/694fa44cf0a089520a1144ab
+[2026-01-05 11:12:40] INFO: [POST] /admin/edit-product/694fa44cf0a089520a1144ab
+[2026-01-05 11:12:40] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-05 11:12:40] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-05 11:12:40] INFO: [postEditProduct] Request received for Product ID: 694fa44cf0a089520a1144ab
+[2026-01-05 11:12:40] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock
+[2026-01-05 11:12:40] INFO: [postEditProduct] Colors count: 1, VariantIndices count: 1
+[2026-01-05 11:12:40] INFO: [postEditProduct] Processing variant index 0
+[2026-01-05 11:12:40] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-05 11:12:40] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-05 11:12:40] INFO: [postEditProduct] Success.
+[2026-01-05 11:12:42] INFO: [GET] /admin/products
+[2026-01-05 11:12:45] INFO: [GET] /admin/edit-product/695797358049643367cd3501
+[2026-01-05 11:12:50] INFO: [POST] /admin/edit-product/695797358049643367cd3501
+[2026-01-05 11:12:50] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-05 11:12:50] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-05 11:12:50] INFO: [postEditProduct] Request received for Product ID: 695797358049643367cd3501
+[2026-01-05 11:12:50] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock
+[2026-01-05 11:12:50] INFO: [postEditProduct] Colors count: 1, VariantIndices count: 1
+[2026-01-05 11:12:50] INFO: [postEditProduct] Processing variant index 0
+[2026-01-05 11:12:50] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-05 11:12:50] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-05 11:12:50] INFO: [postEditProduct] Success.
+[2026-01-05 11:12:52] INFO: [GET] /admin/products
+[2026-01-05 11:12:56] INFO: [GET] /admin/products?limit=6
+[2026-01-05 11:13:02] INFO: [GET] /admin/dashboard
+[2026-01-05 11:13:05] INFO: [GET] /admin/users
+[2026-01-05 11:13:14] INFO: [GET] /admin/users?limit=4
+[2026-01-05 11:13:23] INFO: [GET] /admin/users?limit=8
+[2026-01-05 11:13:25] INFO: [GET] /admin/categories
+[2026-01-05 11:13:30] INFO: [GET] /admin/categories?limit=6
+[2026-01-05 11:13:34] INFO: [GET] /admin/categories?limit=8
+[2026-01-05 11:13:38] INFO: [GET] /admin/categories?page=2&limit=8&search=
+[2026-01-05 11:13:40] INFO: [GET] /admin/categories?page=1&limit=8&search=
+[2026-01-05 11:13:50] INFO: [GET] /product/695797358049643367cd3501
+[2026-01-05 11:13:56] INFO: [POST] /cart/add
+[2026-01-05 11:13:58] INFO: [GET] /cart
+[2026-01-05 11:13:58] INFO: [GET] /css/styles.css
+[2026-01-05 11:14:15] INFO: [GET] /admin/products
+[2026-01-05 11:14:17] INFO: [GET] /admin/edit-product/695797358049643367cd3501
+[2026-01-05 11:14:20] INFO: [POST] /admin/edit-product/695797358049643367cd3501
+[2026-01-05 11:14:20] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-05 11:14:20] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-05 11:14:20] INFO: [postEditProduct] Request received for Product ID: 695797358049643367cd3501
+[2026-01-05 11:14:20] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock
+[2026-01-05 11:14:20] INFO: [postEditProduct] Colors count: 1, VariantIndices count: 1
+[2026-01-05 11:14:20] INFO: [postEditProduct] Processing variant index 0
+[2026-01-05 11:14:20] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-05 11:14:20] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-05 11:14:20] INFO: [postEditProduct] Success.
+[2026-01-05 11:14:22] INFO: [GET] /admin/products
+[2026-01-05 11:14:28] INFO: [GET] /checkout
+[2026-01-05 11:14:28] INFO: [object Object]
+[2026-01-05 11:14:33] INFO: [POST] /checkout/address
+[2026-01-05 11:14:33] INFO: [GET] /checkout/payment-options
+[2026-01-05 11:14:46] INFO: [GET] /cart
+[2026-01-05 11:14:46] INFO: [GET] /css/styles.css
+[2026-01-05 11:14:55] INFO: [GET] /admin/edit-product/695797358049643367cd3501
+[2026-01-05 11:15:04] INFO: [POST] /admin/edit-product/695797358049643367cd3501
+[2026-01-05 11:15:04] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-05 11:15:04] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-05 11:15:04] INFO: [postEditProduct] Request received for Product ID: 695797358049643367cd3501
+[2026-01-05 11:15:04] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock
+[2026-01-05 11:15:04] INFO: [postEditProduct] Colors count: 1, VariantIndices count: 1
+[2026-01-05 11:15:04] INFO: [postEditProduct] Processing variant index 0
+[2026-01-05 11:15:04] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-05 11:15:04] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-05 11:15:04] INFO: [postEditProduct] Success.
+[2026-01-05 11:15:05] INFO: [GET] /admin/products
+[2026-01-05 11:15:08] INFO: [GET] /products
+[2026-01-05 11:15:15] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-05 11:15:23] INFO: [GET] /cart
+[2026-01-05 11:15:23] INFO: [GET] /css/styles.css
+[2026-01-05 11:15:25] INFO: [GET] /products
+[2026-01-05 11:15:28] INFO: [GET] /product/692d673590f31c452d819e08
+[2026-01-05 11:15:32] INFO: [POST] /cart/add
+[2026-01-05 11:15:34] INFO: [GET] /cart
+[2026-01-05 11:15:35] INFO: [GET] /css/styles.css
+[2026-01-05 11:15:38] INFO: [GET] /products
+[2026-01-05 11:15:41] INFO: [GET] /product/693fad27c1dc3ee2a4a4f821
+[2026-01-05 11:15:47] INFO: [GET] /home
+[2026-01-05 11:15:50] INFO: [GET] /cart
+[2026-01-05 11:15:51] INFO: [GET] /css/styles.css
+[2026-01-05 11:15:52] INFO: [GET] /profile
+[2026-01-05 11:15:53] INFO: [GET] /address
+[2026-01-05 11:15:56] INFO: [GET] /products
+[2026-01-05 11:16:24] INFO: [GET] /admin/orders
+[2026-01-05 11:56:57] INFO: [GET] /admin/categories
+[2026-01-05 11:57:06] INFO: [GET] /admin/dashboard
+[2026-01-05 11:57:12] INFO: [GET] /admin/sales-report
+[2026-01-05 11:57:15] INFO: [GET] /admin/categories
+[2026-01-05 11:57:20] INFO: [GET] /admin/products
+[2026-01-05 12:05:09] INFO: [GET] /admin/dashboard
+[2026-01-05 12:05:11] INFO: [GET] /admin/products
+[2026-01-05 12:05:14] INFO: [GET] /admin/dashboard
+[2026-01-05 12:05:15] INFO: [GET] /admin/products
+[2026-01-05 12:05:19] INFO: [GET] /admin/users
+[2026-01-05 12:05:21] INFO: [GET] /admin/orders
+[2026-01-05 12:05:25] INFO: [GET] /admin/categories
+[2026-01-05 12:05:30] INFO: [GET] /admin/categories?page=1&search=sam
+[2026-01-05 12:05:33] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-05 12:05:35] INFO: [GET] /admin/categories?page=1&search=sam
+[2026-01-05 12:05:37] INFO: [GET] /admin/categories?page=1&search=samp
+[2026-01-05 12:05:38] INFO: [GET] /admin/categories?page=1&search=sample
+[2026-01-05 12:05:40] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-05 12:05:42] INFO: [GET] /admin/dashboard
+[2026-01-05 12:05:43] INFO: [GET] /admin/categories
+[2026-01-05 12:05:48] INFO: [GET] /admin/categories?page=1&search=sample
+[2026-01-05 12:05:50] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-05 12:05:52] INFO: [GET] /admin/dashboard
+[2026-01-05 12:05:58] INFO: [GET] /admin/products
+[2026-01-05 12:06:00] INFO: [GET] /admin/users
+[2026-01-05 12:06:02] INFO: [GET] /admin/products
+[2026-01-05 12:06:03] INFO: [GET] /admin/dashboard
+[2026-01-05 12:06:08] INFO: [GET] /admin/products
+[2026-01-05 12:06:49] INFO: [GET] /admin/products?page=1&search=c
+[2026-01-05 12:06:53] INFO: [GET] /admin/products?page=1&search=cursor
+[2026-01-05 12:06:56] INFO: [GET] /admin/products?page=1&search=
+[2026-01-05 12:06:58] INFO: [GET] /admin/users
+[2026-01-05 12:07:03] INFO: [GET] /admin/users?page=1&search=akhi
+[2026-01-05 12:07:06] INFO: [GET] /admin/users?page=1&search=
+[2026-01-05 12:07:09] INFO: [GET] /admin/categories
+[2026-01-05 12:07:15] INFO: [GET] /admin/categories?page=1&search=sample
+[2026-01-05 12:07:17] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-05 12:22:54] INFO: [GET] /admin/dashboard
+[2026-01-05 12:22:55] INFO: [GET] /admin/products
+[2026-01-05 12:22:57] INFO: [GET] /admin/users
+[2026-01-05 12:23:00] INFO: [GET] /admin/dashboard
+[2026-01-05 12:23:02] INFO: [GET] /admin/products
+[2026-01-05 12:23:04] INFO: [GET] /admin/dashboard
+[2026-01-05 12:23:33] INFO: [GET] /admin/users
+[2026-01-05 12:37:58] INFO: [GET] /admin/orders
+[2026-01-05 13:02:49] INFO: [GET] /admin/products
+[2026-01-05 13:02:55] INFO: [GET] /admin/products?page=1&search=ashl
+[2026-01-05 13:02:57] INFO: [GET] /admin/products?page=1&search=
+[2026-01-05 13:09:34] INFO: [GET] /admin/dashboard
+[2026-01-05 13:09:35] INFO: [GET] /admin/products
+[2026-01-05 13:09:39] INFO: [GET] /admin/products?page=1&search=cur
+[2026-01-05 13:09:42] INFO: [GET] /admin/products?page=1&search=
+[2026-01-05 13:09:42] INFO: [GET] /admin/products?page=1&search=c
+[2026-01-05 13:09:43] INFO: [GET] /admin/products?page=1&search=cut
+[2026-01-05 13:09:44] INFO: [GET] /admin/products?page=1&search=
+[2026-01-05 13:09:45] INFO: [GET] /admin/products?page=1&search=cur
+[2026-01-05 13:09:47] INFO: [GET] /admin/products?page=1&search=
+[2026-01-05 13:09:49] INFO: [GET] /admin/users
+[2026-01-05 13:09:49] INFO: [GET] /js/utils/debounce
+[2026-01-05 13:10:02] INFO: [GET] /admin/products
+[2026-01-05 13:10:04] INFO: [GET] /admin/products?page=1&search=cur
+[2026-01-05 13:10:06] INFO: [GET] /admin/products?page=1&search=
+[2026-01-05 13:10:08] INFO: [GET] /admin/users
+[2026-01-05 13:10:08] INFO: [GET] /js/utils/debounce
+[2026-01-05 13:10:16] INFO: [GET] /admin/categories
+[2026-01-05 13:15:44] INFO: [GET] /admin/dashboard
+[2026-01-05 13:15:46] INFO: [GET] /admin/users
+[2026-01-05 13:15:51] INFO: [GET] /admin/users?page=1&search=suh
+[2026-01-05 13:15:52] INFO: [GET] /admin/users?page=1&search=
+[2026-01-05 13:15:54] INFO: [GET] /admin/users?page=1&search=john
+[2026-01-05 13:15:56] INFO: [GET] /admin/users?page=1&search=
+[2026-01-05 13:15:58] INFO: [GET] /admin/categories
+[2026-01-05 13:16:20] INFO: [GET] /products
+[2026-01-05 14:10:44] INFO: [GET] /
+[2026-01-05 14:10:44] INFO: [GET] /home
+[2026-01-05 14:10:51] INFO: [GET] /admin/products
+[2026-01-05 14:10:59] INFO: [GET] /admin/products?page=1&search=herma
+[2026-01-05 14:11:00] INFO: [GET] /admin/products?page=1&search=he
+[2026-01-05 14:11:01] INFO: [GET] /admin/products?page=1&search=
+[2026-01-05 14:11:03] INFO: [GET] /admin/users
+[2026-01-05 14:11:06] INFO: [GET] /admin/users?page=1&search=john
+[2026-01-05 14:11:08] INFO: [GET] /admin/users?page=1&search=
+[2026-01-05 14:11:11] INFO: [GET] /admin/categories
+[2026-01-05 14:16:57] INFO: [GET] /admin/users
+[2026-01-05 14:16:59] INFO: [GET] /admin/categories
+[2026-01-05 14:17:04] INFO: [GET] /admin/categories?page=1&search=d
+[2026-01-05 14:17:05] INFO: [GET] /admin/categories?page=1&search=din
+[2026-01-05 14:17:07] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-05 14:17:10] INFO: [GET] /admin/categories?page=2&limit=8&search=
+[2026-01-05 14:17:13] INFO: [GET] /admin/categories?page=1&limit=8&search=
+[2026-01-05 14:17:18] INFO: [GET] /admin/categories?page=1&search=sa
+[2026-01-05 14:17:19] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-05 14:36:00] INFO: [GET] /admin/categories?page=1&search=s
+[2026-01-05 14:36:00] INFO: [GET] /admin/categories?page=1&search=sam
+[2026-01-05 14:36:02] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-05 14:36:05] INFO: [GET] /admin/categories?page=1&search=simple
+[2026-01-05 14:36:06] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-05 14:36:08] INFO: [GET] /admin/categories?page=1&search=fa
+[2026-01-05 14:36:09] INFO: [GET] /admin/categories?page=1&search=fabri
+[2026-01-05 14:36:10] INFO: [GET] /admin/categories?page=1&search=fabr
+[2026-01-05 14:36:11] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-05 14:49:45] INFO: [GET] /admin/products
+[2026-01-05 14:49:48] INFO: [GET] /admin/users
+[2026-01-05 14:49:52] INFO: [GET] /admin/users?page=1&search=john
+[2026-01-05 14:49:54] INFO: [GET] /admin/users?page=1&search=
+[2026-01-05 14:49:56] INFO: [GET] /admin/users?page=1&search=john
+[2026-01-05 14:49:58] INFO: [GET] /admin/users?page=1&search=
+[2026-01-05 14:50:00] INFO: [GET] /admin/categories
+[2026-01-05 14:51:53] INFO: [GET] /admin/categories?page=1&search=sample
+[2026-01-05 14:51:55] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-05 14:53:17] INFO: [GET] /admin/categories?page=1&search=isn
+[2026-01-05 14:53:18] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-05 14:59:53] INFO: [GET] /admin/users
+[2026-01-05 14:59:57] INFO: [GET] /admin/users?page=1&search=john
+[2026-01-05 14:59:58] INFO: [GET] /admin/users?page=1&search=
+[2026-01-05 15:00:00] INFO: [GET] /admin/categories
+[2026-01-05 15:00:03] INFO: [GET] /admin/categories?page=1&search=din
+[2026-01-05 15:00:05] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-05 15:00:10] INFO: [GET] /admin/categories?page=1&search=simple
+[2026-01-05 15:00:12] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-05 15:02:30] INFO: [GET] /admin/categories?page=1&search=sample
+[2026-01-05 15:02:31] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-05 15:08:02] INFO: [GET] /admin/categories?page=1&search=cat
+[2026-01-05 15:08:07] INFO: [POST] /admin/block-category/6953bd0220897bab717b4b2a
+[2026-01-05 15:08:11] INFO: [GET] /admin/categories?page=2&limit=8&search=
+[2026-01-05 15:08:12] INFO: [GET] /admin/categories?page=1&limit=8&search=
+[2026-01-05 15:13:42] INFO: [GET] /admin/categories?page=1&search=simple
+[2026-01-05 15:13:43] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-05 15:36:26] INFO: [GET] /admin/categories?page=1&search=sam
+[2026-01-05 15:36:28] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-05 15:36:50] INFO: [GET] /admin/dashboard
+[2026-01-05 15:45:31] INFO: [GET] /admin/orders
+[2026-01-05 15:45:32] ERROR: Missing catch or finally after try in E:\Brocamp\SeatWorld\views\admin\orderList.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+[2026-01-05 15:45:35] INFO: [GET] /
+[2026-01-05 15:45:35] INFO: [GET] /home
+[2026-01-05 15:45:51] INFO: [GET] /admin/login
+[2026-01-05 15:45:51] INFO: [GET] /admin/dashboard
+[2026-01-05 15:45:53] INFO: [GET] /admin/orders
+[2026-01-05 15:45:53] ERROR: Missing catch or finally after try in E:\Brocamp\SeatWorld\views\admin\orderList.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+[2026-01-05 15:45:57] INFO: [GET] /admin/products
+[2026-01-05 15:45:59] INFO: [GET] /admin/users
+[2026-01-05 15:46:01] INFO: [GET] /admin/orders
+[2026-01-05 15:46:01] ERROR: Missing catch or finally after try in E:\Brocamp\SeatWorld\views\admin\orderList.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+[2026-01-05 15:46:08] INFO: [GET] /
+[2026-01-05 15:46:08] INFO: [GET] /home
+[2026-01-05 15:56:42] INFO: [GET] /cart
+[2026-01-05 15:56:43] INFO: [GET] /css/styles.css
+[2026-01-05 15:56:44] INFO: [GET] /checkout
+[2026-01-05 15:56:45] INFO: [object Object]
+[2026-01-05 15:56:47] INFO: [POST] /checkout/address
+[2026-01-05 15:56:47] INFO: [GET] /checkout/payment-options
+[2026-01-05 15:56:53] INFO: [POST] /checkout/place-order
+[2026-01-05 15:56:53] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required.
+[2026-01-05 15:56:53] INFO: [GET] /checkout/payment-options
+[2026-01-05 15:57:11] INFO: [GET] /checkout
+[2026-01-05 15:57:12] INFO: [object Object]
+[2026-01-05 15:58:12] INFO: [POST] /checkout/address
+[2026-01-05 15:58:13] INFO: [GET] /checkout/payment-options

@@ -1,6 +1,8 @@
 import { Product, ProductVariant } from "../models/productModel.js";
 import { Category } from "../models/categoryModel.js";
+import Cart from "../models/cartModel.js";
 import { buildBreadcrumb } from "../utils/breadcrumb.js";
+import { paginate } from "../utils/paginationHelper.js";
 
 
 // Helper: Normalize query params into arrays and apply defaults
@@ -191,18 +193,14 @@ export async function getProducts(req, res) {
         await applyVariantFilters(filter, params);
 
         // 5. Pagination and Sorting
-        const skip = (params.page - 1) * params.limit;
         const sortOption = getSortOption(params.sort);
 
-        const [totalProducts, products] = await Promise.all([
-            Product.countDocuments(filter),
-            Product.find(filter)
-                .populate("categoryId")
-                .populate("offerId")
-                .sort(sortOption)
-                .skip(skip)
-                .limit(params.limit)
-        ]);
+        const { items: products, pagination } = await paginate(Product, filter, {
+            page: params.page,
+            limit: params.limit,
+            sort: sortOption,
+            populate: ["categoryId", "offerId"]
+        });
 
         // 6. Enrichment and Additional UI Data
         const productsWithVariants = await enrichProducts(products);
@@ -222,7 +220,6 @@ export async function getProducts(req, res) {
         ];
 
         const logoUrl = process.env.LOGO_URL || process.env.SEATWORLD_LOGO_URL || null;
-        const totalPages = Math.max(1, Math.ceil(totalProducts / params.limit));
 
         // 8. Render
         res.render("users/productList", {
@@ -235,14 +232,7 @@ export async function getProducts(req, res) {
             logoUrl,
             sortOptions,
             appliedFiltersCount,
-            pagination: {
-                currentPage: params.page,
-                totalPages,
-                totalItems: totalProducts,
-                itemsPerPage: params.limit,
-                hasNext: params.page < totalPages,
-                hasPrev: params.page > 1,
-            },
+            pagination,
             filters: {
                 categories: params.selectedCategories,
                 brands: params.selectedBrands,
@@ -362,11 +352,13 @@ export async function getProductdetail(req, res) {
         }));
 
         const logoUrl = process.env.LOGO_URL || process.env.SEATWORLD_LOGO_URL || null;
+        const cartCount = req.session.user ? await Cart.countDocuments({ userId: req.session.user.id }) : 0;
 
         res.render("users/productDetails", {
             product: displayProduct,
             relatedProducts: relatedProductsWithImages,
             logoUrl,
+            cartCount,
             breadcrumbs: buildBreadcrumb([
                 { label: "Products", url: "/products" },
                 { label: displayProduct.name, url: `/product/${displayProduct._id}` }

@@ -15,9 +15,9 @@
   <%- include('../partials/header', { showSearch: false }) %>
     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
 
-      <button id="menuBtn" class="menu-toggle"
+      <button class="menu-btn" onclick="toggleSidebar()"
         style="position: fixed; top: 90px; left: 20px; z-index: 100; background: white; border-radius: 50%; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); border: none;">
-        <i class="fas fa-bars"></i>
+        <i class="fas fa-bars" style="font-size: 20px;"></i>
       </button>
 
       <div class="container">
@@ -71,9 +71,11 @@
         </div>
       </div>
 
-      <div id="overlay"></div>
+      <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       <script type="module" src="/js/users/emailUpdation.js"></script>
+
+      <%- include('../partials/footer') %>
 
 </body>
 

@@ -72,21 +72,12 @@ if (headerSearchInput) {
     }
 }
 
-// Auto-submit on filter change
+// Auto-submit only on sort change (Sorting is an immediate action)
 if (filterForm) {
-    const filters = filterForm.querySelectorAll('input[type="checkbox"], input[type="radio"], select');
-    filters.forEach(filter => {
-        filter.addEventListener('change', () => {
+    const sortSelect = filterForm.querySelector('.sort-select');
+    if (sortSelect) {
+        sortSelect.addEventListener('change', () => {
             filterForm.submit();
         });
-    });
-
-    // Also auto-submit on price change (debounced)
-    const priceInputs = [minRange, maxRange, minInput, maxInput];
-    const debouncedSubmit = debounce(() => filterForm.submit(), 1000);
-    priceInputs.forEach(input => {
-        if (input) {
-            input.addEventListener('change', debouncedSubmit);
-        }
-    });
+    }
 }

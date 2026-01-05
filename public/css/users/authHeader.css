@@ -1,0 +1,48 @@
+/* Standard Auth Header */
+.auth-header {
+    width: 100%;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eaeaea;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.auth-header .brand {
+    margin: 0;
+    font-size: 22px;
+    font-weight: bold;
+    color: #0b64c0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.auth-header .brand img {
+    width: 28px;
+    height: 28px;
+}
+
+.auth-header .back-link {
+    text-decoration: none;
+    font-size: 14px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.auth-header .back-link:hover {
+    color: #0b64c0;
+}
+
+@media (max-width: 480px) {
+    .auth-header .brand {
+        font-size: 18px;
+    }
+}

@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/js/admin/common.js"></script>
+    <script src="/js/common/pagination.js" defer></script>
 </head>
 
 <body class="font-display bg-gray-50 text-gray-800">
@@ -41,271 +42,134 @@
 
     <div class="flex pt-16 min-h-screen">
         <!-- Sidebar -->
-        <aside id="adminSidebar"
-            class="w-64 bg-white flex flex-col fixed inset-y-0 left-0 z-40 transform -translate-x-full transition-transform duration-300 md:translate-x-0 md:static border-r border-gray-100 pt-16 md:pt-0">
+        <%- include('../partials/adminSidebar') %>
 
-            <div class="p-6">
-                <!-- Sidebar Header -->
-                <div class="flex items-center gap-2 text-2xl font-bold text-gray-800 mb-8">
-                    <span class="material-icons-outlined">hexagon</span>
-                    <span>Categories</span>
-                    <span class="text-xs font-normal text-gray-400 mt-1">v.01</span>
-                </div>
+            <!-- Overlay -->
+            <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-30 hidden md:hidden backdrop-blur-sm"></div>
 
-                <!-- Navigation Menu -->
-                <nav class="space-y-2">
-                    <!-- Dashboard -->
-                    <a href="/admin/dashboard"
-                        class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
-                        <span class="material-icons-outlined mr-3 text-xl">dashboard</span>
-                        <span class="font-medium flex-1">Dashboard</span>
-                        <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
-                    </a>
+            <!-- Main Content -->
+            <main class="flex-1 p-8 overflow-y-auto bg-white/50">
+                <div class="max-w-7xl mx-auto">
+                    <!-- Header Section -->
 
-                    <!-- Product -->
-                    <a href="/admin/products"
-                        class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
-                        <span class="material-icons-outlined mr-3 text-xl">inventory_2</span>
-                        <span class="font-medium flex-1">Product</span>
-                        <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
-                    </a>
-
-                    <!-- Categories (Active) -->
-                    <a href="/admin/categories"
-                        class="flex items-center px-4 py-3 bg-indigo-600 text-white rounded-xl transition-all duration-200 shadow-lg shadow-indigo-200">
-                        <span class="material-icons-outlined mr-3 text-xl">category</span>
-                        <span class="font-medium flex-1">Categories</span>
-                        <span class="material-icons-outlined text-sm">chevron_right</span>
-                    </a>
-
-                    <!-- Customers -->
-                    <a href="/admin/users"
-                        class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
-                        <span class="material-icons-outlined mr-3 text-xl">people</span>
-                        <span class="font-medium flex-1">Customers</span>
-                        <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
-                    </a>
-
-                    <!-- Orders -->
-                    <a href="/admin/orders"
-                        class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
-                        <span class="material-icons-outlined mr-3 text-xl">shopping_cart</span>
-                        <span class="font-medium flex-1">Orders</span>
-                        <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
-                    </a>
-
-                    <!-- Discounts -->
-                    <a href="/admin/discounts"
-                        class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
-                        <span class="material-icons-outlined mr-3 text-xl">local_offer</span>
-                        <span class="font-medium flex-1">Discounts</span>
-                        <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
-                    </a>
-
-                    <!-- Coupons -->
-                    <a href="/admin/coupons"
-                        class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
-                        <span class="material-icons-outlined mr-3 text-xl">confirmation_number</span>
-                        <span class="font-medium flex-1">Coupons</span>
-                        <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
-                    </a>
-
-                    <!-- Banner -->
-                    <a href="/admin/banner"
-                        class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
-                        <span class="material-icons-outlined mr-3 text-xl">image</span>
-                        <span class="font-medium flex-1">Banner</span>
-                        <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
-                    </a>
-
-                    <!-- Sales Report -->
-                    <a href="/admin/sales-report"
-                        class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
-                        <span class="material-icons-outlined mr-3 text-xl">bar_chart</span>
-                        <span class="font-medium flex-1">Sales report</span>
-                        <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
-                    </a>
-
-                    <!-- Logout -->
-                    <div class="pt-6 mt-6 border-t border-gray-100">
-                        <a href="/admin/logout"
-                            class="flex items-center justify-center px-4 py-3 text-red-500 hover:bg-red-50 rounded-xl transition-all duration-200 font-medium">
-                            Logout
-                        </a>
-                    </div>
-                </nav>
-            </div>
-        </aside>
-
-        <!-- Overlay -->
-        <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-30 hidden md:hidden backdrop-blur-sm"></div>
-
-        <!-- Main Content -->
-        <main class="flex-1 p-8 overflow-y-auto bg-white/50">
-            <div class="max-w-7xl mx-auto">
-                <!-- Header Section -->
-
-                <!-- Header Section -->
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-                    <div>
-                        <h1 class="text-2xl font-bold text-gray-800">Categories</h1>
-                        <p class="text-gray-500 text-sm mt-1">Manage your product categories</p>
-                    </div>
-                    <div class="flex flex-col sm:flex-row gap-3">
-                        <div class="relative">
-                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <span class="material-icons-outlined text-gray-400">search</span>
-                            </span>
-                            <input type="text" id="searchInput" placeholder="Search categories..."
-                                class="pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full sm:w-64 transition-all">
+                    <!-- Header Section -->
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                        <div>
+                            <h1 class="text-2xl font-bold text-gray-800">Categories</h1>
+                            <p class="text-gray-500 text-sm mt-1">Manage your product categories</p>
                         </div>
-                        <a href="/admin/add-category"
-                            class="inline-flex items-center justify-center px-4 py-2.5 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors shadow-sm gap-2">
-                            <span class="material-icons-outlined text-lg">add</span>
-                            Add Category
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Table Section -->
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-                    <div class="overflow-x-auto">
-                        <table class="w-full">
-                            <thead>
-                                <tr class="bg-gray-50 border-b border-gray-100">
-                                    <th
-                                        class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider w-20">
-                                        Sl.No</th>
-                                    <th
-                                        class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                                        Name</th>
-                                    <th
-                                        class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                                        Added On</th>
-                                    <th
-                                        class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                                        Status</th>
-                                    <th
-                                        class="px-6 py-4 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                                        Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tableBody" class="divide-y divide-gray-100">
-                                <% if (categories && categories.length> 0) { %>
-                                    <% categories.forEach((category, index)=> { %>
-                                        <tr data-category-id="<%= category._id %>"
-                                            class="hover:bg-gray-50 transition-colors">
-                                            <td class="px-6 py-4 text-sm text-gray-500">
-                                                <%= (currentPage - 1) * limit + index + 1 %>
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                <span class="text-sm font-medium text-gray-900">
-                                                    <%= category.categoryName || category.name %>
-                                                </span>
-                                            </td>
-                                            <td class="px-6 py-4 text-sm text-gray-500">
-                                                <%= new Date(category.createdAt).toLocaleDateString('en-GB') %>
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                <span
-                                                    class="status-badge inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <%= category.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' %>">
-                                                    <%= category.isActive ? 'Active' : 'Inactive' %>
-                                                </span>
-                                            </td>
-                                            <td class="px-6 py-4 text-center">
-                                                <div class="flex items-center justify-center gap-2">
-                                                    <a href="/admin/edit-category/<%= category._id %>"
-                                                        class="p-1.5 text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors tooltip"
-                                                        title="Edit">
-                                                        <span class="material-icons-outlined text-lg">edit</span>
-                                                    </a>
-
-                                                    <div class="action-btn-container">
-                                                        <% if (category.isActive) { %>
-                                                            <button
-                                                                onclick="openConfirmModal('/admin/block-category/<%= category._id %>', 'block')"
-                                                                class="action-btn p-1.5 text-red-600 hover:bg-red-50 rounded-lg transition-colors tooltip"
-                                                                title="Block">
-                                                                <span
-                                                                    class="material-icons-outlined text-lg">block</span>
-                                                            </button>
-                                                            <% } else { %>
-                                                                <button
-                                                                    onclick="openConfirmModal('/admin/unblock-category/<%= category._id %>', 'unblock')"
-                                                                    class="action-btn p-1.5 text-yellow-600 hover:bg-yellow-50 rounded-lg transition-colors tooltip"
-                                                                    title="Unblock">
-                                                                    <span
-                                                                        class="material-icons-outlined text-lg">check_circle</span>
-                                                                </button>
-                                                                <% } %>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <% }) %>
-                                            <% } else { %>
-                                                <tr>
-                                                    <td colspan="5" class="px-6 py-8 text-center text-gray-500">
-                                                        <div class="flex flex-col items-center justify-center">
-                                                            <span
-                                                                class="material-icons-outlined text-4xl text-gray-300 mb-2">inbox</span>
-                                                            <p>No categories found</p>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <% } %>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Pagination -->
-                    <% if (totalPages> 0) { %>
-                        <div id="paginationContainer"
-                            class="px-6 py-4 border-t border-gray-100 flex items-center justify-between">
-                            <div class="text-sm text-gray-500 hidden sm:block">
-                                Showing page <span class="font-medium" id="currentPageDisplay">
-                                    <%= currentPage %>
-                                </span> of <span class="font-medium" id="totalPagesDisplay">
-                                    <%= totalPages %>
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span class="material-icons-outlined text-gray-400">search</span>
                                 </span>
+                                <input type="text" id="searchInput" placeholder="Search categories..."
+                                    class="pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full sm:w-64 transition-all">
                             </div>
-                            <div class="flex items-center gap-2 mx-auto sm:mx-0">
-                                <% if (currentPage> 1) { %>
-                                    <a href="?page=<%= currentPage - 1 %>"
-                                        class="p-2 border border-gray-200 rounded-lg hover:bg-gray-50 text-gray-600 transition-colors pagination-link"
-                                        data-page="<%= currentPage - 1 %>">
-                                        <span class="material-icons-outlined text-sm">chevron_left</span>
-                                    </a>
-                                    <% } %>
-                                        <div class="flex items-center gap-2 pagination-numbers">
-                                            <% for(let i=1; i <=totalPages; i++) { %>
-                                                <% if (i===currentPage) { %>
-                                                    <span
-                                                        class="w-8 h-8 flex items-center justify-center bg-indigo-600 text-white rounded-lg text-sm font-medium shadow-sm">
-                                                        <%= i %>
-                                                    </span>
-                                                    <% } else { %>
-                                                        <a href="?page=<%= i %>"
-                                                            class="w-8 h-8 flex items-center justify-center border border-gray-200 rounded-lg hover:bg-gray-50 text-gray-600 text-sm transition-colors pagination-link"
-                                                            data-page="<%= i %>">
-                                                            <%= i %>
-                                                        </a>
-                                                        <% } %>
-                                                            <% } %>
-                                        </div>
-                                        <% if (currentPage < totalPages) { %>
-                                            <a href="?page=<%= currentPage + 1 %>"
-                                                class="p-2 border border-gray-200 rounded-lg hover:bg-gray-50 text-gray-600 transition-colors pagination-link"
-                                                data-page="<%= currentPage + 1 %>">
-                                                <span class="material-icons-outlined text-sm">chevron_right</span>
-                                            </a>
-                                            <% } %>
-                            </div>
+                            <a href="/admin/add-category"
+                                class="inline-flex items-center justify-center px-4 py-2.5 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors shadow-sm gap-2">
+                                <span class="material-icons-outlined text-lg">add</span>
+                                Add Category
+                            </a>
                         </div>
-                        <% } %>
+                    </div>
+
+                    <!-- Table Section -->
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="bg-gray-50 border-b border-gray-100">
+                                        <th
+                                            class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider w-20">
+                                            Sl.No</th>
+                                        <th
+                                            class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                                            Name</th>
+                                        <th
+                                            class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                                            Added On</th>
+                                        <th
+                                            class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                                            Status</th>
+                                        <th
+                                            class="px-6 py-4 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                                            Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableBody" class="divide-y divide-gray-100">
+                                    <% if (categories && categories.length> 0) { %>
+                                        <% categories.forEach((category, index)=> { %>
+                                            <tr data-category-id="<%= category._id %>"
+                                                class="hover:bg-gray-50 transition-colors">
+                                                <td class="px-6 py-4 text-sm text-gray-500">
+                                                    <%= (currentPage - 1) * limit + index + 1 %>
+                                                </td>
+                                                <td class="px-6 py-4">
+                                                    <span class="text-sm font-medium text-gray-900">
+                                                        <%= category.categoryName || category.name %>
+                                                    </span>
+                                                </td>
+                                                <td class="px-6 py-4 text-sm text-gray-500">
+                                                    <%= new Date(category.createdAt).toLocaleDateString('en-GB') %>
+                                                </td>
+                                                <td class="px-6 py-4">
+                                                    <span
+                                                        class="status-badge inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <%= category.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' %>">
+                                                        <%= category.isActive ? 'Active' : 'Inactive' %>
+                                                    </span>
+                                                </td>
+                                                <td class="px-6 py-4 text-center">
+                                                    <div class="flex items-center justify-center gap-2">
+                                                        <a href="/admin/edit-category/<%= category._id %>"
+                                                            class="p-1.5 text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors tooltip"
+                                                            title="Edit">
+                                                            <span class="material-icons-outlined text-lg">edit</span>
+                                                        </a>
+
+                                                        <div class="action-btn-container">
+                                                            <% if (category.isActive) { %>
+                                                                <button
+                                                                    onclick="openConfirmModal('/admin/block-category/<%= category._id %>', 'block')"
+                                                                    class="action-btn p-1.5 text-red-600 hover:bg-red-50 rounded-lg transition-colors tooltip"
+                                                                    title="Block">
+                                                                    <span
+                                                                        class="material-icons-outlined text-lg">block</span>
+                                                                </button>
+                                                                <% } else { %>
+                                                                    <button
+                                                                        onclick="openConfirmModal('/admin/unblock-category/<%= category._id %>', 'unblock')"
+                                                                        class="action-btn p-1.5 text-yellow-600 hover:bg-yellow-50 rounded-lg transition-colors tooltip"
+                                                                        title="Unblock">
+                                                                        <span
+                                                                            class="material-icons-outlined text-lg">check_circle</span>
+                                                                    </button>
+                                                                    <% } %>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <% }) %>
+                                                <% } else { %>
+                                                    <tr>
+                                                        <td colspan="5" class="px-6 py-8 text-center text-gray-500">
+                                                            <div class="flex flex-col items-center justify-center">
+                                                                <span
+                                                                    class="material-icons-outlined text-4xl text-gray-300 mb-2">inbox</span>
+                                                                <p>No categories found</p>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination -->
+                        <%- include('../partials/pagination', { pagination, query: 'search=' + search }) %>
+                    </div>
                 </div>
-            </div>
-        </main>
+            </main>
     </div>
 
     <!-- Confirmation Modal -->

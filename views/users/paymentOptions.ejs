@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Options | SeatWorld</title>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="/css/users/checkout.css">
+    <style>
+        .payment-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 40px;
+        }
+
+        .payment-left {
+            flex: 2;
+        }
+
+        .payment-right {
+            flex: 1;
+        }
+
+        .address-summary {
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .address-summary h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .address-text {
+            color: #555;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .btn-edit-address {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .payment-option {
+            background: #e0e0e0;
+            padding: 15px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .payment-option:hover {
+            background: #d0d0d0;
+        }
+
+        .payment-option.active {
+            background: #d0d0d0;
+            border: 1px solid #999;
+        }
+
+        .payment-option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #000;
+        }
+
+        .payment-option label {
+            font-size: 1rem;
+            color: #333;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .summary-box {
+            border: 1px solid #eee;
+            padding: 30px;
+            border-radius: 4px;
+        }
+
+        .summary-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .coupon-badge {
+            background: #2ecc71;
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .terms-check {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        .btn-place-order {
+            background: #000;
+            color: #fff;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-top: 30px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .btn-place-order:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <%- include('../partials/header', { showSearch: false }) %>
+        <%- include("../partials/breadcrumb", { breadcrumbs: [{label: 'Home' , url: '/' }, {label: 'Checkout' ,
+            url: '/checkout' }, {label: 'Payment' , url: '#' }] }) %>
+
+            <div class="payment-container">
+                <!-- Left Side -->
+                <div class="payment-left">
+                    <h3 style="margin-bottom: 15px; font-weight: 600;">Shipping Address</h3>
+                    <div class="address-summary">
+                        <div class="address-text">
+                            <strong>
+                                <%= address.name %>
+                            </strong><br>
+                            <%= address.houseName %>, <%= address.street %>, <%= address.city %>, <%= address.country %>
+                                            <br>
+                                            Near <%= address.landmark %><br>
+                                                Contact number : <%= address.mobile %>
+                        </div>
+                        <a href="/checkout" class="btn-edit-address">Edit</a>
+                    </div>
+
+                    <h1 class="section-title">PAYMENT</h1>
+
+                    <div class="payment-methods">
+                        <div class="payment-option">
+                            <input type="radio" name="payment" id="online" value="Online">
+                            <label for="online">Online payment</label>
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" name="payment" id="wallet" value="Wallet">
+                            <label for="wallet">Wallet</label>
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" name="payment" id="cod" value="COD" checked>
+                            <label for="cod">Cash On Delivery</label>
+                        </div>
+                    </div>
+
+                    <button class="btn-place-order" onclick="placeOrder()">Place Order</button>
+                </div>
+
+                <!-- Right Side -->
+                <div class="payment-right">
+                    <div class="summary-box">
+                        <h3 class="summary-title">ORDER SUMMARY</h3>
+
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span>₹<%= subtotal %></span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Shipping</span>
+                            <span>
+                                <%= deliveryFee %>
+                            </span>
+                        </div>
+
+                        <!-- Coupon Applied Section -->
+                        <% if (typeof couponApplied !=='undefined' && couponApplied) { %>
+                            <div class="summary-row" style="align-items: center;">
+                                <div>
+                                    <span class="coupon-badge">Coupon Applied</span>
+                                </div>
+                            </div>
+                            <div class="summary-row" style="font-size: 0.85rem; color: #777;">
+                                <span>Discount</span>
+                                <span>₹<%= subtotal %> - <%= discountAmount %> = ₹<%= subtotal - discountAmount %>
+                                </span>
+                                <!-- Note: Simple calculation display logic, adjust based on actual data availability -->
+                            </div>
+                            <% } %>
+
+                                <div class="total-row">
+                                    <span>TOTAL <span style="font-size: 0.8rem; font-weight: 400; color: #777;">(TAX
+                                            INCL.)</span></span>
+                                    <span>₹<%= total %></span>
+                                </div>
+
+                                <div class="terms-check">
+                                    <input type="checkbox" id="terms" checked>
+                                    <label for="terms">I agree to the Terms and Conditions</label>
+                                </div>
+                    </div>
+                </div>
+            </div>
+
+            <%- include('../partials/footer') %>
+
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script src="/js/users/paymentOptions.js"></script>
+</body>
+
+</html>
