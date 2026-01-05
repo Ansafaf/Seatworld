@@ -9,7 +9,6 @@ export const getorders = async(req, res)=>{
 export const getOrderSuccess = async(req,res)=>{
     try{
         const userId = req.session.user.id;
-        
     }
     catch(err){
 
