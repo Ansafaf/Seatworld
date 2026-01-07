@@ -26,6 +26,15 @@
                     class="ml-auto material-icons-outlined <%= path === '/admin/products' ? 'text-white' : 'text-gray-300' %> text-sm">chevron_right</span>
             </a>
 
+            <a href="/admin/inventory"
+                class="flex items-center px-4 py-3 <%= path === '/admin/inventory' ? 'text-white bg-indigo-600 shadow-sm' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900' %> rounded-xl transition-all duration-200 group">
+                <span
+                    class="material-icons-outlined mr-3 text-xl <%= path === '/admin/inventory' ? '' : 'group-hover:text-indigo-600' %>">warehouse</span>
+                <span class="font-medium">Inventory</span>
+                <span
+                    class="ml-auto material-icons-outlined <%= path === '/admin/inventory' ? 'text-white' : 'text-gray-300' %> text-sm">chevron_right</span>
+            </a>
+
             <a href="/admin/users"
                 class="flex items-center px-4 py-3 <%= path === '/admin/users' ? 'text-white bg-indigo-600 shadow-sm' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900' %> rounded-xl transition-all duration-200 group">
                 <span

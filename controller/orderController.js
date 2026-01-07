@@ -1,32 +1,203 @@
-// import Order from "../models/orderModel";
-import {getSelectedPaymentMethod} from "../public/js/users/paymentOptions.js";
+import * as orderService from "../services/orderService.js";
+import * as cartService from "../services/cartService.js";
+import * as inventoryService from "../services/inventoryService.js";
 import logger from "../utils/logger.js";
-export const getorders = async(req, res)=>{
-   const userId = req.session.user.id;
-   const orderlist = await Order.find({userId});
-   res.json({type: "success", orderlist});
+import Order from "../models/orderModel.js";
+import OrderItem from "../models/orderItemModel.js";
+import generateInvoicePDF from "../utils/invoiceGenerator.js";
+
+export const getorders = async (req, res) => {
+  try {
+    const userId = req.session.user.id;
+    const page = parseInt(req.query.page) || 1;
+    const search = req.query.search || "";
+    const { orders, pagination } = await orderService.getUserOrders(userId, page, 8, search);
+
+    res.render("users/orderList", {
+      orders,
+      user: req.session.user,
+      breadcrumbs: [{ label: "Home", url: "/" }, { label: "My Orders", url: "/orders" }],
+      pagination,
+      search,
+      limit: 8
+    });
+  } catch (error) {
+    console.error("Get Orders Controller Error:", error);
+    logger.error("Get Orders Error:", error);
+    res.status(500).render("500", { error: error.message });
+  }
 }
 
-export const getOrderSuccess = async(req,res)=>{
-    try{
-        const userId = req.session.user.id;
+export const placeOrder = async (req, res) => {
+  try {
+    const userId = req.session.user.id;
+    const { paymentMethod } = req.body;
 
-       const paymentMethod = getSelectedPaymentMethod();
-        if(paymentMethod == "COD"){
-         order.paymentStatus = "Pending";
-         order.orderStatus = "Placed";
-        }
-        logger.info(`${req.session.order}`);
+    if (!paymentMethod) {
+      return res.status(400).json({ success: false, message: "Payment method is required" });
     }
-    catch(err){
-      logger.error("page cant be displayed Error:", error);
+
+    if (!req.session.checkout || !req.session.checkout.address) {
+      logger.error("Session missing checkout or address");
+      return res.status(400).json({ success: false, message: "Session expired or address missing" });
     }
+
+    const cartTotals = await cartService.calculateCartTotals(userId);
+    if (!cartTotals.items || cartTotals.items.length === 0) {
+      logger.error("Cart is empty");
+      return res.status(400).json({ success: false, message: "Cart is empty" });
+    }
+
+    // Final stock check before placement
+    const stockCheck = await inventoryService.checkStockAvailability(cartTotals.items);
+    if (!stockCheck.available) {
+      return res.status(400).json({
+        success: false,
+        message: `Insufficient stock for ${stockCheck.item}. Only ${stockCheck.availableStock} left.`
+      });
+    }
+
+    let newOrder;
+    if (paymentMethod === "COD") {
+      newOrder = await orderService.createOrder({
+        userId,
+        paymentMethod,
+        checkoutSession: req.session.checkout,
+        cartTotals
+      });
+    } else {
+      return res.status(400).json({
+        success: false,
+        message: `${paymentMethod} payment method is not supported yet.`
+      });
+    }
+
+    req.session.checkout = null;
+    const redirectUrl = `/order-success?orderId=${newOrder._id}`;
+
+    if (req.xhr || req.headers.accept?.includes("json")) {
+      return res.status(200).json({
+        success: true,
+        orderId: newOrder._id,
+        redirectUrl
+      });
+    }
+
+    res.redirect(redirectUrl);
+
+  } catch (error) {
+    logger.error("Place Order Error:", error);
+    if (req.xhr || req.headers.accept?.includes("json")) {
+      return res.status(500).json({ success: false, message: "Failed to place order" });
+    }
+    res.redirect("/checkout/payment-options");
+  }
+};
+
+export const getOrderSuccess = async (req, res) => {
+  try {
+    const orderId = req.query.orderId;
+    const userId = req.session.user.id;
+    const order = await orderService.getOrderById(orderId, userId);
+
+    if (!order) {
+      return res.redirect("/checkout");
+    }
+    res.render("users/orderSuccess", { order });
+  } catch (err) {
+    logger.error("Get Order Success Page Error:", err);
+    res.status(500).render("500");
+  }
 }
 
-export const cancelOrders = async(req,res)=> {
-    
-}
+export const getOrderDetails = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const userId = req.session.user.id;
+    const order = await orderService.getOrderById(orderId, userId);
 
-export const invoiceOrder = async(req,res)=>{
-    
-}
+    if (!order) {
+      return res.status(404).render("500", { message: "Order not found" });
+    }
+
+    const breadcrumbs = [
+      { label: "Home", url: "/" },
+      { label: "My Orders", url: "/orders" },
+      { label: `Order Detail`, url: `/orders/${orderId}` }
+    ];
+
+    res.render("users/orderDetails", {
+      order,
+      user: req.session.user,
+      breadcrumbs
+    });
+  } catch (error) {
+    logger.error("Get Order Details Error:", error);
+    res.status(500).render("500");
+  }
+};
+
+export const handleItemAction = async (req, res) => {
+  try {
+    const { orderId, itemId } = req.params;
+    const { action, returnReason, returnComment } = req.body;
+    const userId = req.session.user.id;
+
+    const { order, item } = await orderService.handleItemAction({
+      orderId,
+      userId,
+      itemId,
+      action,
+      returnReason,
+      returnComment
+    });
+
+    res.status(200).json({
+      success: true,
+      message: `${action === 'cancel' ? 'Cancellation' : 'Return'} request submitted successfully`,
+      orderStatus: order.orderStatus,
+      itemStatus: item.status
+    });
+  } catch (error) {
+    logger.error("Handle Item Action Error:", error);
+    res.status(400).json({
+      success: false,
+      message: error.message || "Failed to process item action"
+    });
+  }
+};
+
+
+
+
+export const downloadInvoice = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const userId = req.session.user.id;
+
+    const order = await Order.findOne({ _id: orderId, userId });
+    if (!order) {
+      return res.status(404).send("Invoice not found");
+    }
+
+    const items = await OrderItem.find({ orderId })
+      .populate({
+        path: 'variantId',
+        populate: { path: 'productId' }
+      })
+      .lean();
+
+    const pdfBuffer = await generateInvoicePDF(order, items);
+
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename=invoice-${orderId}.pdf`
+    );
+
+    res.send(pdfBuffer);
+  } catch (err) {
+    console.error("Invoice download error:", err);
+    res.status(500).send("Failed to generate invoice");
+  }
+};

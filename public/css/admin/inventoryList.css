@@ -1,0 +1,8 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f3f4f6;
+}
+
+.stock-row:hover {
+    background-color: #f9fafb;
+}

@@ -26,8 +26,10 @@ import adminOrderRouter from "./routes/adminOrderRoutes.js";
 import productRouter from "./routes/userProductRoute.js";
 import cartRouter from "./routes/cartRoute.js";
 import checkoutRouter from "./routes/checkoutRoute.js";
+import orderRouter from "./routes/orderRoute.js";
+import adminInventoryRouter from "./routes/adminInventoryRoutes.js";
 
-// Middleware
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(nocache());
@@ -39,7 +41,7 @@ app.use((req, res, next) => {
   next();
 });
 
-//Global session middleware
+
 app.use(session({
   secret: process.env.SESSION_SECRET || "default_secret",
   resave: false,
@@ -54,7 +56,7 @@ app.use(session({
   }
 }));
 
-// Flash message middleware
+
 app.use((req, res, next) => {
   res.locals.message = req.session.message;
   delete req.session.message;
@@ -62,7 +64,6 @@ app.use((req, res, next) => {
 });
 
 
-//  Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -70,7 +71,6 @@ app.use(passport.session());
 app.set("view engine", "ejs");
 app.set("views", "./views");
 
-// DB
 connectDB();
 
 // Routes
@@ -85,6 +85,8 @@ app.use("/admin", adminProductRouter);
 app.use("/cart", cartRouter);
 app.use("/", checkoutRouter);
 app.use("/admin/orders", adminOrderRouter);
+app.use("/admin/inventory", adminInventoryRouter);
+app.use("/", orderRouter);
 
 app.use((req, res, next) => {
   res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, private");
@@ -115,9 +117,12 @@ app.use((err, req, res, next) => {
     });
   }
 
+  const homeLink = req.originalUrl.startsWith('/admin') ? '/admin/dashboard' : '/';
+
   res.status(statusCode).render("500", {
     message: "Internal Server Error",
-    error: process.env.NODE_ENV === 'development' ? err : {}
+    error: process.env.NODE_ENV === 'development' ? err : {},
+    homeLink
   });
 });
 

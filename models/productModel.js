@@ -37,7 +37,7 @@ const productSchema = new mongoose.Schema({
 
 export const Product = mongoose.model("Product", productSchema);
 
-// Product variant schema structure
+
 const productVariantSchema = new mongoose.Schema({
     productId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -51,7 +51,12 @@ const productVariantSchema = new mongoose.Schema({
     },
     stock: {
         type: Number,
-        default: 0
+        default: 0,
+        min: 0 
+    },
+    lowStockThreshold: {
+        type: Number,
+        default: 5
     },
     price: {
         type: Number,

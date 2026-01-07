@@ -18,22 +18,29 @@ const addressSchema = new mongoose.Schema({
         type:String
     },
     street:{
-        type:String
+        type:String,
+        required:true
+
     },
     city:{
-        type:String
+        type:String,
+        required:true
     },
     state:{
-        type:String
+        type:String,
+        required:true
     },
     country:{
-        type:String
+        type:String,
+        required:true
     },
     pincode:{
-        type:String
+        type:String,
+        required:true
     },
     mobile:{
-        type:String
+        type:String,
+        required:true
     }
 },{timestamps:true});
 

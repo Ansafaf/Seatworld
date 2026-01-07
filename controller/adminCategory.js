@@ -19,8 +19,7 @@ export const getCategoryList = async (req, res, next) => {
             limit,
             sort: { createdAt: -1 }
         });
-
-        // AJAX Support
+        
         if (req.xhr || req.headers.accept?.includes("application/json")) {
             return res.status(200).json({
                 success: true,

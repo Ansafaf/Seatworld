@@ -1,62 +1,50 @@
 import mongoose from "mongoose";
 
-const orderSchema = new mongoose.Schema({
+const orderSchema = new mongoose.Schema(
+  {
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: true
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true
     },
-    items: [{
-        productId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Product",
-            required: true
-        },
-        variantId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "ProductVariant",
-            required: true
-        },
-        name: { type: String, required: true },
-        image: { type: String, required: true },
-        price: { type: Number, required: true },
-        quantity: { type: Number, required: true },
-        total: { type: Number, required: true }
-    }],
+
+    couponId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Coupon",
+      default: null
+    },
+
     totalAmount: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true
     },
-    shippingAddress: {
-        name: { type: String, required: true },
-        houseName: { type: String, required: true },
-        street: { type: String, required: true },
-        landmark: { type: String, required: true },
-        city: { type: String, required: true },
-        pincode: { type: String, required: true },
-        country: { type: String, required: true },
-        mobile: { type: String, required: true },
-    },
-    paymentMethod: {
-        type: String,
-        enum: ['COD', 'Online', 'Wallet'],
-        required: true
-    },
+
     paymentStatus: {
-        type: String,
-        enum: ['Pending', 'Completed', 'Failed', 'Refunded'],
-        default: 'Pending'
+      type: String,
+      enum: ["pending", "paid", "failed"],
+      default: "pending"
     },
-    orderStatus: {
-        type: String,
-        enum: ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled', 'Returned'],
-        default: 'Pending'
+
+    paymentMethod: {
+      type: String,
+      required: true
     },
-    placedAt: {
-        type: Date,
-        default: Date.now
+
+    shippingAddress: {
+      name: { type: String, required: true },
+      housename: { type: String, required: true },
+      street: { type: String, required: true },
+      city: { type: String, required: true },
+      state: { type: String, required: true },
+      country: { type: String, required: true },
+      pincode: { type: String, required: true },
+      mobile: { type: String, required: true }
     }
-}, { timestamps: true });
+  },
+  {
+    timestamps: true
+  }
+);
 
 const Order = mongoose.model("Order", orderSchema);
 export default Order;

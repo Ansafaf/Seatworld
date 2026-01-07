@@ -2,9 +2,80 @@
 function toggleCoupon() {
     const content = document.getElementById('couponContent');
     const arrow = document.getElementById('couponArrow');
-    if (content) content.classList.toggle('active');
-    if (arrow) arrow.style.transform = content.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0)';
+
+    if (content) {
+        if (content.style.display === 'none') {
+            content.style.display = 'block';
+            content.classList.add('active');
+            if (arrow) arrow.style.transform = 'rotate(180deg)';
+        } else {
+            content.style.display = 'none';
+            content.classList.remove('active');
+            if (arrow) arrow.style.transform = 'rotate(0)';
+        }
+    }
 }
+
+async function applyCoupon(code) {
+    try {
+        const response = await fetch('/checkout/apply-coupon', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ couponCode: code })
+        });
+        const result = await response.json();
+
+        if (result.success) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Coupon Applied',
+                text: result.message,
+                timer: 1500,
+                showConfirmButton: false
+            }).then(() => {
+                location.reload(); // Reload to update UI state easily (showing "Applied" section)
+                // Alternatively, we could update DOM elements manually:
+                // document.getElementById('summaryTotal').innerText = '₹' + result.newTotal.toLocaleString('en-IN');
+                // But reloading is safer to ensure all server-side rendering logic for "Applied" state kicks in.
+            });
+        } else {
+            Swal.fire('Error', result.message, 'error');
+        }
+    } catch (error) {
+        console.error(error);
+        Swal.fire('Error', 'Failed to apply coupon', 'error');
+    }
+}
+
+async function removeCoupon() {
+    try {
+        const response = await fetch('/checkout/remove-coupon', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        const result = await response.json();
+
+        if (result.success) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Coupon Removed',
+                text: result.message,
+                timer: 1500,
+                showConfirmButton: false
+            }).then(() => {
+                location.reload();
+            });
+        } else {
+            Swal.fire('Error', result.message, 'error');
+        }
+    } catch (error) {
+        console.error(error);
+        Swal.fire('Error', 'Failed to remove coupon', 'error');
+    }
+}
+
+window.applyCoupon = applyCoupon;
+window.removeCoupon = removeCoupon;
 
 let selectedAddressId = null;
 let savedCustomAddress = null;
@@ -28,14 +99,14 @@ function selectAddress(card) {
 }
 
 function fillAddressForm(data) {
-    document.getElementById('addressName').value = data.name || '';
-    document.getElementById('houseName').value = data.housename || '';
-    document.getElementById('street').value = data.street || '';
-    document.getElementById('landmark').value = data.landmark || '';
-    document.getElementById('city').value = data.city || '';
-    document.getElementById('pincode').value = data.pincode || '';
-    document.getElementById('mobile').value = data.mobile || '';
-    document.getElementById('country').value = data.country || 'India';
+    if (document.getElementById('addressName')) document.getElementById('addressName').value = data.name || '';
+    if (document.getElementById('houseName')) document.getElementById('houseName').value = data.housename || '';
+    if (document.getElementById('street')) document.getElementById('street').value = data.street || '';
+    // Landmark removed
+    if (document.getElementById('city')) document.getElementById('city').value = data.city || '';
+    if (document.getElementById('pincode')) document.getElementById('pincode').value = data.pincode || '';
+    if (document.getElementById('mobile')) document.getElementById('mobile').value = data.mobile || '';
+    if (document.getElementById('country')) document.getElementById('country').value = data.country || 'India';
 }
 
 function clearAddressForm() {
@@ -87,7 +158,7 @@ function saveAddressForOrder() {
     // Add success style if you have one, or just alert
     Swal.fire({
         icon: 'success',
-        title: 'Address Saved',
+        title: 'Address Saved for this order',
         text: 'This address will be used for your order.',
         timer: 1500,
         showConfirmButton: false

@@ -305,7 +305,7 @@ export async function getProductdetail(req, res) {
             .populate('categoryId')
             .lean();
 
-        //when product is not found
+        
         if (!product || (product.categoryId && product.categoryId.isActive === false)) {
             return res.status(404).render("404");
         }
@@ -316,7 +316,7 @@ export async function getProductdetail(req, res) {
         if (variantId) {
             selectedVariant = variants.find(v => v._id.toString() === variantId);
         }
-        // Default to first variant if no specific variant selected or found
+       
         if (!selectedVariant && variants.length > 0) {
             selectedVariant = variants[0];
         }
@@ -333,13 +333,12 @@ export async function getProductdetail(req, res) {
             variants: variants
         };
 
-        // Fetch related products 
+      
         const relatedProducts = await Product.aggregate([
             { $match: { categoryId: product.categoryId?._id || product.categoryId, _id: { $ne: product._id } } },
-            { $sample: { size: 4 } } // Random 4 related products
+            { $sample: { size: 4 } } 
         ]);
 
-        // Populate images for related products (need to fetch their variants)
         const relatedProductsWithImages = await Promise.all(relatedProducts.map(async (rp) => {
             const v = await ProductVariant.findOne({ productId: rp._id, status: "Active" });
             console.log("rp", rp);

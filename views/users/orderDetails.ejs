@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details - SeatWorld</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/users/addressList.css">
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+
+    <%- include('../partials/header', { showSearch: false }) %>
+        <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+
+            <main class="container mx-auto px-4 lg:px-8 py-10">
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+
+                    <!-- Sidebar -->
+                    <%- include('../partials/profileSidebar', { active: 'orders' }) %>
+
+                        <!-- Main Content -->
+                        <section class="lg:col-span-3">
+                            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+
+                                <!-- Order Header -->
+                                <div
+                                    class="px-6 py-4 bg-gray-50 border-b flex flex-wrap justify-between items-center gap-4">
+                                    <div>
+                                        <h1 class="text-xl font-bold">Order #<%=
+                                                order._id.toString().slice(-6).toUpperCase() %>
+                                        </h1>
+                                        <p class="text-sm text-gray-500">Placed on <%= new
+                                                Date(order.createdAt).toLocaleDateString('en-GB', { day: '2-digit' ,
+                                                month: 'long' , year: 'numeric' }) %>
+                                        </p>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <a href="/orders/<%= order._id %>/invoice"
+                                            class="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 text-gray-700 font-bold text-xs rounded-lg hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 transition-all shadow-sm">
+                                            <i class="fas fa-file-invoice text-indigo-500"></i>
+                                            <span>DOWNLOAD INVOICE</span>
+                                        </a>
+                                        <span
+                                            class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-bold uppercase tracking-wider">
+                                            <%= order.orderStatus %>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="p-6">
+                                    <div class="grid md:grid-cols-2 gap-8 mb-8">
+                                        <!-- Shipping Address -->
+                                        <div>
+                                            <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">
+                                                Shipping Address</h3>
+                                            <div class="text-gray-900 font-medium">
+                                                <p class="text-lg font-bold mb-1">
+                                                    <%= order.shippingAddress.name %>
+                                                </p>
+                                                <p>
+                                                    <%= order.shippingAddress.housename %>, <%=
+                                                            order.shippingAddress.street %>
+                                                </p>
+                                                <p>
+                                                    <%= order.shippingAddress.city %>, <%= order.shippingAddress.state
+                                                            %>
+                                                </p>
+                                                <p>
+                                                    <%= order.shippingAddress.country %> - <%=
+                                                            order.shippingAddress.pincode %>
+                                                </p>
+                                                <p class="mt-2 text-sm text-gray-600"><span
+                                                        class="font-bold">Phone:</span>
+                                                    <%= order.shippingAddress.mobile %>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Payment Info -->
+                                        <div>
+                                            <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">
+                                                Payment Information</h3>
+                                            <div class="space-y-2">
+                                                <div class="flex justify-between items-center">
+                                                    <span class="text-gray-500">Payment Method</span>
+                                                    <span class="font-bold text-gray-900 uppercase">
+                                                        <%= order.paymentMethod %>
+                                                    </span>
+                                                </div>
+                                                <div class="flex justify-between items-center">
+                                                    <span class="text-gray-500">Payment Status</span>
+                                                    <span
+                                                        class="font-bold uppercase <%= ['paid', 'completed'].includes(order.paymentStatus) ? 'text-green-600' : 'text-orange-500' %>">
+                                                        <%= order.paymentStatus %>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Items Table -->
+                                    <div class="border rounded-lg overflow-hidden mb-8">
+                                        <table class="w-full text-left">
+                                            <thead>
+                                                <tr
+                                                    class="bg-gray-50 border-b text-xs font-bold text-gray-500 uppercase">
+                                                    <th class="px-6 py-4">Product</th>
+                                                    <th class="px-6 py-4 text-center">Qty</th>
+                                                    <th class="px-6 py-4 text-center">Unit Price</th>
+                                                    <th class="px-6 py-4 text-center">Total</th>
+                                                    <th class="px-6 py-4 text-center">Status</th>
+                                                    <th class="px-6 py-4 text-right">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="divide-y divide-gray-100">
+                                                <% order.items.forEach(item=> { %>
+                                                    <tr class="item-row" data-item-status="<%= item.status %>">
+                                                        <td class="px-6 py-4">
+                                                            <div class="flex items-center gap-4">
+                                                                <div
+                                                                    class="w-16 h-16 rounded border bg-gray-50 flex-shrink-0">
+                                                                    <img src="<%= item.image %>" alt="<%= item.name %>"
+                                                                        class="w-full h-full object-cover">
+                                                                </div>
+                                                                <div>
+                                                                    <p class="font-bold text-gray-900">
+                                                                        <%= item.name %>
+                                                                    </p>
+                                                                    <% if (item.label) { %>
+                                                                        <p
+                                                                            class="text-[10px] text-indigo-500 font-bold uppercase tracking-tight">
+                                                                            Variant: <%= item.label %>
+                                                                        </p>
+                                                                        <% } %>
+                                                                            <p
+                                                                                class="text-xs text-gray-500 uppercase tracking-tighter">
+                                                                                #<%= item._id.toString().slice(-6).toUpperCase()
+                                                                                    %>
+                                                                            </p>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="px-6 py-4 text-center font-medium">x<%=
+                                                                item.productQuantity %>
+                                                        </td>
+                                                        <td class="px-6 py-4 text-center font-medium">₹<%=
+                                                                item.purchasedPrice %>
+                                                        </td>
+                                                        <td class="px-6 py-4 text-center font-bold">₹<%= item.total %>
+                                                        </td>
+                                                        <td class="px-6 py-4 text-center">
+                                                            <span
+                                                                class="text-xs font-bold px-2 py-1 rounded-full uppercase
+                                                                <%= ['cancelled', 'returned'].includes(item.status) ? 'bg-red-50 text-red-600' : 
+                                                                    ['cancel_requested', 'return_requested'].includes(item.status) ? 'bg-orange-50 text-orange-600' :
+                                                                    item.status === 'delivered' ? 'bg-green-50 text-green-600' : 'bg-gray-100 text-gray-600' %>">
+                                                                <%= item.status.replace('_', ' ' ) %>
+                                                            </span>
+                                                        </td>
+                                                        <td class="px-6 py-4 text-right">
+                                                            <% if (['pending', 'confirmed' ].includes(item.status)) { %>
+                                                                <button
+                                                                    onclick="handleItemAction('<%= order._id %>', '<%= item._id %>', 'cancel')"
+                                                                    class="px-4 py-2 border border-red-200 text-red-600 text-xs font-bold rounded-lg hover:bg-red-50 transition-colors">
+                                                                    Request Cancel
+                                                                </button>
+                                                                <% } else if (item.status==='delivered' ) { %>
+                                                                    <button
+                                                                        onclick="handleItemAction('<%= order._id %>', '<%= item._id %>', 'return')"
+                                                                        class="px-4 py-2 border border-indigo-200 text-indigo-600 text-xs font-bold rounded-lg hover:bg-indigo-50 transition-colors">
+                                                                        Request Return
+                                                                    </button>
+                                                                    <% } else if
+                                                                        (['cancel_requested', 'return_requested'
+                                                                        ].includes(item.status)) { %>
+                                                                        <span
+                                                                            class="text-xs text-orange-500 font-bold uppercase italic">Request
+                                                                            Pending</span>
+                                                                        <% } else { %>
+                                                                            <span
+                                                                                class="text-xs text-gray-400 font-medium italic">No
+                                                                                actions</span>
+                                                                            <% } %>
+                                                        </td>
+                                                    </tr>
+                                                    <% }) %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <!-- Order Summary Footer -->
+                                    <div
+                                        class="bg-gray-50 rounded-xl p-6 flex flex-col md:flex-row justify-between gap-6">
+                                        <div class="flex-1">
+                                            <!-- Additional help or notes could go here -->
+                                        </div>
+                                        <div class="w-full md:w-64 space-y-3">
+                                            <div class="flex justify-between text-sm">
+                                                <span class="text-gray-500">Subtotal</span>
+                                                <span class="font-bold">₹<%= order.totalAmount + (order.discountAmount
+                                                        || 0) %></span>
+                                            </div>
+                                            <div class="flex justify-between text-sm">
+                                                <span class="text-gray-500">Discount</span>
+                                                <span class="font-bold text-green-600">-₹<%= order.discountAmount || 0
+                                                        %></span>
+                                            </div>
+                                            <div class="flex justify-between items-center pt-3 border-t">
+                                                <span class="text-lg font-bold">Grand Total</span>
+                                                <span class="text-2xl font-black text-gray-900">₹<%= order.totalAmount
+                                                        %></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                </div>
+            </main>
+
+            <%- include('../partials/footer') %>
+
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script src="/js/users/orderDetails.js"></script>
+</body>
+
+</html>

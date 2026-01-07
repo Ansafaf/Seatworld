@@ -1,0 +1,34 @@
+<aside class="lg:col-span-1" id="sidebarWrapper">
+    <div class="bg-white rounded-lg border shadow-sm sidebar" id="sidebar">
+        <h2 class="text-lg font-semibold p-4 border-b">My Account</h2>
+        <nav>
+            <a href="/profile"
+                class="flex px-4 py-3 hover:bg-gray-100 items-center gap-2 <%= typeof active !== 'undefined' && active === 'profile' ? 'bg-gray-100 font-medium' : '' %>">
+                <span class="text-xl">👤</span> Personal Information
+            </a>
+            <a href="/address"
+                class="flex px-4 py-3 hover:bg-gray-100 items-center gap-2 <%= typeof active !== 'undefined' && active === 'address' ? 'bg-gray-100 font-medium' : '' %>">
+                <span class="text-xl">📍</span> Address
+            </a>
+            <a href="/orders"
+                class="flex px-4 py-3 hover:bg-gray-100 items-center gap-2 <%= typeof active !== 'undefined' && active === 'orders' ? 'bg-gray-100 font-medium' : '' %>">
+                <span class="text-xl">📦</span> Orders
+            </a>
+            <a href="/wallet"
+                class="flex px-4 py-3 hover:bg-gray-100 items-center gap-2 <%= typeof active !== 'undefined' && active === 'wallet' ? 'bg-gray-100 font-medium' : '' %>">
+                <span class="text-xl">💳</span> Wallet
+            </a>
+            <a href="/coupons"
+                class="flex px-4 py-3 hover:bg-gray-100 items-center gap-2 <%= typeof active !== 'undefined' && active === 'coupons' ? 'bg-gray-100 font-medium' : '' %>">
+                <span class="text-xl">🎟️</span> Coupon
+            </a>
+            <a href="/password-change"
+                class="flex px-4 py-3 hover:bg-gray-100 items-center gap-2 <%= typeof active !== 'undefined' && active === 'password' ? 'bg-gray-100 font-medium' : '' %>">
+                <span class="text-xl">🔒</span> Password Change
+            </a>
+            <a href="/logout" class="flex px-4 py-3 hover:bg-gray-100 items-center gap-2">
+                <span class="text-xl">🚪</span> Logout
+            </a>
+        </nav>
+    </div>
+</aside>

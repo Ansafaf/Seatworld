@@ -5,14 +5,15 @@ import {
     getCheckoutAddress,
     postAddress,
     getPaymentOptions,
-    placeOrder,
+    applyCoupon,
+    removeCoupon
 } from "../controller/checkoutController.js";
-import {getOrderSuccess} from "../controller/orderController.js";
+
 
 checkoutRouter.get("/checkout", authMiddleware, getCheckoutAddress);
 checkoutRouter.post("/checkout/address", authMiddleware, postAddress);
 checkoutRouter.get("/checkout/payment-options", authMiddleware, getPaymentOptions);
-checkoutRouter.post("/place-order", authMiddleware, placeOrder);
-checkoutRouter.get("/order-success", authMiddleware, getOrderSuccess);
+checkoutRouter.post("/checkout/apply-coupon", authMiddleware, applyCoupon);
+checkoutRouter.post("/checkout/remove-coupon", authMiddleware, removeCoupon);
 
 export default checkoutRouter;

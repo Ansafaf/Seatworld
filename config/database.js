@@ -10,6 +10,7 @@ const connectDB = async () => {
             useUnifiedTopology: true,
             serverSelectionTimeoutMS: 5000, // Timeout after 5s
             socketTimeoutMS: 45000, // Close sockets after 45s of inactivity
+
         });
 
         console.log(`MongoDB Connected: ${conn.connection.host}`);

@@ -230,3 +230,218 @@ Or, if you meant to create an async function, pass `async: true` as an option.
 If the above error is not helpful, you may want to try EJS-Lint:
 https://github.com/RyanZim/EJS-Lint
 Or, if you meant to create an async function, pass `async: true` as an option.
+[2026-01-06 12:56:36] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 12:56:40] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 12:56:44] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required., paymentStatus: `Initiated` is not a valid enum value for path `paymentStatus`., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 12:56:47] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 12:56:51] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required., paymentStatus: `Initiated` is not a valid enum value for path `paymentStatus`., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 12:56:55] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 12:58:30] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 13:00:03] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 13:00:09] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 13:00:34] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 14:02:23] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 14:10:06] ERROR: Place Order Error: Order validation failed: shippingAddress.state: Path `shippingAddress.state` is required., shippingAddress.housename: Path `shippingAddress.housename` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 14:10:10] ERROR: Place Order Error: Order validation failed: shippingAddress.state: Path `shippingAddress.state` is required., shippingAddress.housename: Path `shippingAddress.housename` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 14:10:13] ERROR: Place Order Error: Order validation failed: shippingAddress.state: Path `shippingAddress.state` is required., shippingAddress.housename: Path `shippingAddress.housename` is required., paymentStatus: `Initiated` is not a valid enum value for path `paymentStatus`., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 14:10:16] ERROR: Place Order Error: Order validation failed: shippingAddress.state: Path `shippingAddress.state` is required., shippingAddress.housename: Path `shippingAddress.housename` is required., paymentStatus: `Initiated` is not a valid enum value for path `paymentStatus`., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 14:10:22] ERROR: Place Order Error: Order validation failed: shippingAddress.state: Path `shippingAddress.state` is required., shippingAddress.housename: Path `shippingAddress.housename` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 14:11:57] ERROR: Place Order Error: Order validation failed: shippingAddress.state: Path `shippingAddress.state` is required., shippingAddress.housename: Path `shippingAddress.housename` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 14:15:39] ERROR: Place Order Error: Order validation failed: shippingAddress.state: Path `shippingAddress.state` is required., shippingAddress.housename: Path `shippingAddress.housename` is required.
+[2026-01-06 14:15:42] ERROR: Place Order Error: Order validation failed: shippingAddress.state: Path `shippingAddress.state` is required., shippingAddress.housename: Path `shippingAddress.housename` is required.
+[2026-01-06 15:10:21] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:111
+    109|                                             <tr class="hover:bg-gray-50 transition-colors duration-150">
+    110|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+ >> 111|                                                     <%= (currentPage - 1) * limit + index + 1 %>
+    112|                                                 </td>
+    113|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+    114|                                                     <%= order.items[0]?.name || 'Unknown Product' %>
+
+currentPage is not defined
+[2026-01-06 15:15:43] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:111
+    109|                                             <tr class="hover:bg-gray-50 transition-colors duration-150">
+    110|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+ >> 111|                                                     <%= (currentPage - 1) * limit + index + 1 %>
+    112|                                                 </td>
+    113|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+    114|                                                     <%= order.items[0]?.name || 'Unknown Product' %>
+
+currentPage is not defined
+[2026-01-06 15:17:28] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:111
+    109|                                             <tr class="hover:bg-gray-50 transition-colors duration-150">
+    110|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+ >> 111|                                                     <%= (currentPage - 1) * limit + index + 1 %>
+    112|                                                 </td>
+    113|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+    114|                                                     <%= order.items[0]?.name || 'Unknown Product' %>
+
+currentPage is not defined
+[2026-01-06 15:17:32] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:111
+    109|                                             <tr class="hover:bg-gray-50 transition-colors duration-150">
+    110|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+ >> 111|                                                     <%= (currentPage - 1) * limit + index + 1 %>
+    112|                                                 </td>
+    113|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+    114|                                                     <%= order.items[0]?.name || 'Unknown Product' %>
+
+currentPage is not defined
+[2026-01-06 15:17:38] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:111
+    109|                                             <tr class="hover:bg-gray-50 transition-colors duration-150">
+    110|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+ >> 111|                                                     <%= (currentPage - 1) * limit + index + 1 %>
+    112|                                                 </td>
+    113|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+    114|                                                     <%= order.items[0]?.name || 'Unknown Product' %>
+
+currentPage is not defined
+[2026-01-06 15:18:44] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:111
+    109|                                             <tr class="hover:bg-gray-50 transition-colors duration-150">
+    110|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+ >> 111|                                                     <%= (currentPage - 1) * limit + index + 1 %>
+    112|                                                 </td>
+    113|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+    114|                                                     <%= order.items[0]?.name || 'Unknown Product' %>
+
+currentPage is not defined
+[2026-01-06 15:22:16] ERROR: Place Order Error: Order validation failed: paymentStatus: `Initiated` is not a valid enum value for path `paymentStatus`.
+[2026-01-06 15:22:19] ERROR: Place Order Error: Order validation failed: paymentStatus: `Initiated` is not a valid enum value for path `paymentStatus`.
+[2026-01-06 15:22:45] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:111
+    109|                                             <tr class="hover:bg-gray-50 transition-colors duration-150">
+    110|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+ >> 111|                                                     <%= (currentPage - 1) * limit + index + 1 %>
+    112|                                                 </td>
+    113|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+    114|                                                     <%= order.items[0]?.name || 'Unknown Product' %>
+
+currentPage is not defined
+[2026-01-06 15:32:44] ERROR: Place Order Error: Order validation failed: shippingAddress.housename: Path `shippingAddress.housename` is required.
+[2026-01-06 15:32:47] ERROR: Place Order Error: Order validation failed: shippingAddress.housename: Path `shippingAddress.housename` is required.
+[2026-01-06 15:33:01] ERROR: Place Order Error: Order validation failed: paymentStatus: `Initiated` is not a valid enum value for path `paymentStatus`.
+[2026-01-06 15:58:47] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-01.uuxwmkk.mongodb.net
+[2026-01-06 15:59:09] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-01.uuxwmkk.mongodb.net
+[2026-01-06 15:59:12] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-01.uuxwmkk.mongodb.net
+[2026-01-06 15:59:20] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-01.uuxwmkk.mongodb.net
+[2026-01-06 16:57:21] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:111
+    109|                                             <tr class="hover:bg-gray-50 transition-colors duration-150">
+    110|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+ >> 111|                                                     <%= (currentPage - 1) * limit + index + 1 %>
+    112|                                                 </td>
+    113|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+    114|                                                     <%= order.items[0]?.name || 'Unknown Product' %>
+
+currentPage is not defined
+[2026-01-06 16:59:51] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:111
+    109|                                             <tr class="hover:bg-gray-50 transition-colors duration-150">
+    110|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+ >> 111|                                                     <%= (pagination.currentPage - 1) * limit + index + 1 %>
+    112|                                                 </td>
+    113|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+    114|                                                     <%= order.items[0]?.name || 'Unknown Product' %>
+
+limit is not defined
+[2026-01-06 17:00:51] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:157
+    155|                         <!-- Pagination -->
+    156|                         <div class="mt-4 flex justify-end">
+ >> 157|                             <%- include('../../partials/pagination', { pagination, query: search ? 'search=' + search
+    158|                                 : '' }) %>
+    159|                         </div>
+    160|                     </div>
+
+Could not find the include file "../../partials/pagination"
+[2026-01-06 19:08:51] ERROR: E:\Brocamp\SeatWorld\views\admin\orderDetails.ejs:63
+    61|                                     </thead>
+    62|                                     <tbody class="divide-y divide-gray-100">
+ >> 63|                                         <% order.items.forEach(item=> { %>
+    64|                                             <tr>
+    65|                                                 <td class="px-6 py-4">
+    66|                                                     <div class="flex items-center gap-4">
+
+Cannot read properties of undefined (reading 'forEach')
+[2026-01-06 19:08:54] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:153
+    151|                                                 </td>
+    152|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+ >> 153|                                                     <%= order.items[0]?.name || 'Unknown Product' %>
+    154|                                                         <% if(order.items.length> 1) { %>
+    155|                                                             <span class="text-xs text-gray-500 font-normal ml-1">(+<%=
+    156|                                                                     order.items.length - 1 %> more)</span>
+
+Cannot read properties of undefined (reading '0')
+[2026-01-06 19:08:56] ERROR: E:\Brocamp\SeatWorld\views\admin\orderDetails.ejs:63
+    61|                                     </thead>
+    62|                                     <tbody class="divide-y divide-gray-100">
+ >> 63|                                         <% order.items.forEach(item=> { %>
+    64|                                             <tr>
+    65|                                                 <td class="px-6 py-4">
+    66|                                                     <div class="flex items-center gap-4">
+
+Cannot read properties of undefined (reading 'forEach')
+[2026-01-06 19:08:59] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:153
+    151|                                                 </td>
+    152|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+ >> 153|                                                     <%= order.items[0]?.name || 'Unknown Product' %>
+    154|                                                         <% if(order.items.length> 1) { %>
+    155|                                                             <span class="text-xs text-gray-500 font-normal ml-1">(+<%=
+    156|                                                                     order.items.length - 1 %> more)</span>
+
+Cannot read properties of undefined (reading '0')
+[2026-01-06 19:09:15] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:153
+    151|                                                 </td>
+    152|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+ >> 153|                                                     <%= order.items[0]?.name || 'Unknown Product' %>
+    154|                                                         <% if(order.items.length> 1) { %>
+    155|                                                             <span class="text-xs text-gray-500 font-normal ml-1">(+<%=
+    156|                                                                     order.items.length - 1 %> more)</span>
+
+Cannot read properties of undefined (reading '0')
+[2026-01-06 19:20:00] ERROR: Get Orders Error: Cannot read properties of undefined (reading 'status')
+[2026-01-06 19:20:08] ERROR: Get Orders Error: Cannot read properties of undefined (reading 'status')
+[2026-01-06 19:20:12] ERROR: Get Orders Error: Cannot read properties of undefined (reading 'status')
+[2026-01-06 19:20:22] ERROR: Get Orders Error: Cannot read properties of undefined (reading 'status')
+[2026-01-06 19:25:19] ERROR: Get Orders Error: Cannot read properties of undefined (reading 'status')
+[2026-01-06 19:26:04] ERROR: Get Orders Error: Cannot read properties of undefined (reading 'status')
+[2026-01-06 19:39:46] ERROR: Get Orders Error: Cannot read properties of undefined (reading 'status')
+[2026-01-06 19:40:20] ERROR: Get Orders Error: Cannot read properties of undefined (reading 'status')
+[2026-01-06 22:10:25] ERROR: Order creation failed: Transaction numbers are only allowed on a replica set member or mongos
+[2026-01-06 22:10:25] ERROR: Place Order Error: Transaction numbers are only allowed on a replica set member or mongos
+[2026-01-06 22:10:29] ERROR: Order creation failed: Transaction numbers are only allowed on a replica set member or mongos
+[2026-01-06 22:10:29] ERROR: Place Order Error: Transaction numbers are only allowed on a replica set member or mongos
+[2026-01-06 22:10:33] ERROR: Order creation failed: Transaction numbers are only allowed on a replica set member or mongos
+[2026-01-06 22:10:33] ERROR: Place Order Error: Transaction numbers are only allowed on a replica set member or mongos
+[2026-01-06 22:10:37] ERROR: Order creation failed: Transaction numbers are only allowed on a replica set member or mongos
+[2026-01-06 22:10:37] ERROR: Place Order Error: Transaction numbers are only allowed on a replica set member or mongos
+[2026-01-06 22:10:40] ERROR: Order creation failed: Transaction numbers are only allowed on a replica set member or mongos
+[2026-01-06 22:10:40] ERROR: Place Order Error: Transaction numbers are only allowed on a replica set member or mongos
+[2026-01-06 22:11:19] ERROR: Order creation failed: Transaction numbers are only allowed on a replica set member or mongos
+[2026-01-06 22:11:19] ERROR: Place Order Error: Transaction numbers are only allowed on a replica set member or mongos
+[2026-01-07 07:40:52] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-07 07:41:35] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-07 07:41:37] ERROR: connection <monitor> to 159.41.183.8:27017 closed
+[2026-01-07 07:42:06] ERROR: Place Order Error: newOrder is not defined
+[2026-01-07 07:42:12] ERROR: Session missing checkout or address
+[2026-01-07 07:42:17] ERROR: Session missing checkout or address
+[2026-01-07 07:42:22] ERROR: Session missing checkout or address
+[2026-01-07 07:42:27] ERROR: Session missing checkout or address
+[2026-01-07 07:43:11] ERROR: Place Order Error: newOrder is not defined
+[2026-01-07 07:43:16] ERROR: Session missing checkout or address
+[2026-01-07 07:43:20] ERROR: Session missing checkout or address
+[2026-01-07 07:43:23] ERROR: Session missing checkout or address
+[2026-01-07 07:45:30] ERROR: Session missing checkout or address
+[2026-01-07 12:22:32] ERROR: Get Orders Error: limit is not defined
+[2026-01-07 12:22:36] ERROR: Get Orders Error: limit is not defined
+[2026-01-07 12:22:39] ERROR: Get Orders Error: limit is not defined

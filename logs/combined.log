@@ -3258,3 +3258,1537 @@ Or, if you meant to create an async function, pass `async: true` as an option.
 [2026-01-05 19:55:17] INFO: [GET] /admin/products
 [2026-01-05 19:55:22] INFO: [GET] /admin/orders
 [2026-01-05 19:55:25] INFO: [GET] /admin/dashboard
+[2026-01-06 09:17:39] INFO: [GET] /
+[2026-01-06 09:17:39] INFO: [GET] /home
+[2026-01-06 09:17:41] INFO: [GET] /favicon.ico
+[2026-01-06 09:17:54] INFO: [GET] /products
+[2026-01-06 09:18:02] INFO: [GET] /cart
+[2026-01-06 09:18:02] INFO: [GET] /css/styles.css
+[2026-01-06 09:18:06] INFO: [DELETE] /cart/remove/692d673590f31c452d819e0a
+[2026-01-06 09:18:09] INFO: [DELETE] /cart/remove/693fc66c6ecc42bce6fc754a
+[2026-01-06 09:18:10] INFO: [GET] /cart
+[2026-01-06 09:18:10] INFO: [GET] /css/styles.css
+[2026-01-06 09:18:12] INFO: [GET] /products
+[2026-01-06 09:18:14] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-06 09:18:16] INFO: [POST] /cart/add
+[2026-01-06 09:18:18] INFO: [GET] /cart
+[2026-01-06 09:18:18] INFO: [GET] /css/styles.css
+[2026-01-06 09:18:22] INFO: [GET] /products
+[2026-01-06 09:18:24] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-06 09:18:26] INFO: [POST] /cart/add
+[2026-01-06 09:18:28] INFO: [GET] /cart
+[2026-01-06 09:18:29] INFO: [GET] /css/styles.css
+[2026-01-06 09:18:35] INFO: [GET] /checkout
+[2026-01-06 09:18:35] INFO: [object Object]
+[2026-01-06 09:18:40] INFO: [POST] /checkout/address
+[2026-01-06 09:18:40] INFO: [GET] /checkout/payment-options
+[2026-01-06 09:28:31] INFO: [GET] /checkout
+[2026-01-06 09:28:31] INFO: [object Object]
+[2026-01-06 09:48:38] INFO: [GET] /home
+[2026-01-06 09:49:04] INFO: [GET] /products
+[2026-01-06 09:49:09] INFO: [GET] /product/695797358049643367cd3501
+[2026-01-06 09:49:12] INFO: [POST] /cart/add
+[2026-01-06 09:49:14] INFO: [GET] /cart
+[2026-01-06 09:49:15] INFO: [GET] /css/styles.css
+[2026-01-06 09:49:18] INFO: [GET] /checkout
+[2026-01-06 09:49:19] INFO: [object Object]
+[2026-01-06 09:49:23] INFO: [POST] /checkout/address
+[2026-01-06 09:49:24] INFO: [GET] /checkout/payment-options
+[2026-01-06 09:53:16] INFO: [GET] /checkout
+[2026-01-06 09:53:17] INFO: [object Object]
+[2026-01-06 09:53:27] INFO: [GET] /home
+[2026-01-06 09:53:35] INFO: [GET] /cart
+[2026-01-06 09:53:36] INFO: [GET] /css/styles.css
+[2026-01-06 09:53:42] INFO: [GET] /checkout
+[2026-01-06 09:53:43] INFO: [object Object]
+[2026-01-06 10:01:27] INFO: [GET] /products
+[2026-01-06 10:01:30] INFO: [GET] /cart
+[2026-01-06 10:01:31] INFO: [GET] /css/styles.css
+[2026-01-06 10:01:32] INFO: [GET] /checkout
+[2026-01-06 10:01:33] INFO: [object Object]
+[2026-01-06 10:02:27] INFO: [POST] /checkout/address
+[2026-01-06 10:02:27] INFO: [GET] /checkout/payment-options
+[2026-01-06 10:02:34] INFO: [GET] /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-06 10:02:58] INFO: [GET] /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-06 10:03:27] INFO: [GET] /checkout/payment-options
+[2026-01-06 10:54:13] INFO: [GET] /checkout
+[2026-01-06 10:54:14] INFO: [object Object]
+[2026-01-06 10:54:16] INFO: [GET] /home
+[2026-01-06 10:54:31] INFO: [GET] /cart
+[2026-01-06 10:54:31] INFO: [GET] /css/styles.css
+[2026-01-06 10:54:34] INFO: [GET] /checkout
+[2026-01-06 10:54:34] INFO: [object Object]
+[2026-01-06 10:54:37] INFO: [POST] /checkout/address
+[2026-01-06 10:54:37] INFO: [GET] /checkout/payment-options
+[2026-01-06 11:08:16] INFO: [GET] /home
+[2026-01-06 11:08:17] INFO: [GET] /cart
+[2026-01-06 11:08:17] INFO: [GET] /css/styles.css
+[2026-01-06 11:08:19] INFO: [GET] /checkout
+[2026-01-06 11:08:19] INFO: [object Object]
+[2026-01-06 11:08:22] INFO: [POST] /checkout/address
+[2026-01-06 11:08:23] INFO: [GET] /checkout/payment-options
+[2026-01-06 11:12:37] INFO: [GET] /products
+[2026-01-06 11:12:40] INFO: [GET] /cart
+[2026-01-06 11:12:40] INFO: [GET] /css/styles.css
+[2026-01-06 11:12:43] INFO: [GET] /checkout
+[2026-01-06 11:12:43] INFO: [object Object]
+[2026-01-06 11:12:48] INFO: [POST] /checkout/address
+[2026-01-06 11:12:48] INFO: [GET] /checkout/payment-options
+[2026-01-06 11:45:45] INFO: [GET] /
+[2026-01-06 11:45:46] INFO: [GET] /login
+[2026-01-06 11:45:47] INFO: [GET] /auth/google
+[2026-01-06 11:45:48] INFO: [GET] /auth/google/callback?code=4%2F0ATX87lNsCwgKSLeUA53ZbtZCiwkJS6Q6cC2IaBaJqm7YGkSbiyEqOYbfcq_qICcxKOry3Q&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=0&prompt=none
+[2026-01-06 11:45:48] INFO: [GET] /home
+[2026-01-06 11:45:51] INFO: [GET] /cart
+[2026-01-06 11:45:51] INFO: [GET] /css/styles.css
+[2026-01-06 11:45:52] INFO: [GET] /checkout
+[2026-01-06 11:45:52] INFO: [object Object]
+[2026-01-06 11:45:56] INFO: [POST] /checkout/address
+[2026-01-06 11:45:56] INFO: [GET] /checkout/payment-options
+[2026-01-06 11:46:08] INFO: [GET] /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-06 11:57:54] INFO: [GET] /products
+[2026-01-06 11:57:57] INFO: [GET] /cart
+[2026-01-06 11:57:58] INFO: [GET] /css/styles.css
+[2026-01-06 11:57:59] INFO: [GET] /checkout
+[2026-01-06 11:58:00] INFO: [object Object]
+[2026-01-06 11:58:03] INFO: [POST] /checkout/address
+[2026-01-06 11:58:03] INFO: [GET] /checkout/payment-options
+[2026-01-06 12:00:33] INFO: [GET] /products
+[2026-01-06 12:00:34] INFO: [GET] /cart
+[2026-01-06 12:00:35] INFO: [GET] /css/styles.css
+[2026-01-06 12:00:36] INFO: [GET] /checkout
+[2026-01-06 12:00:36] INFO: [object Object]
+[2026-01-06 12:00:38] INFO: [POST] /checkout/address
+[2026-01-06 12:00:38] INFO: [GET] /checkout/payment-options
+[2026-01-06 12:00:39] INFO: [GET] /public/js/users/paymentOptions.js
+[2026-01-06 12:54:57] INFO: [GET] /products
+[2026-01-06 12:55:22] INFO: [GET] /
+[2026-01-06 12:56:19] INFO: [GET] /
+[2026-01-06 12:56:20] INFO: [GET] /home
+[2026-01-06 12:56:29] INFO: [GET] /cart
+[2026-01-06 12:56:30] INFO: [GET] /css/styles.css
+[2026-01-06 12:56:31] INFO: [GET] /checkout
+[2026-01-06 12:56:31] INFO: [object Object]
+[2026-01-06 12:56:33] INFO: [POST] /checkout/address
+[2026-01-06 12:56:33] INFO: [GET] /checkout/payment-options
+[2026-01-06 12:56:35] INFO: [POST] /place-order
+[2026-01-06 12:56:36] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 12:56:36] INFO: [GET] /checkout/payment-options
+[2026-01-06 12:56:40] INFO: [POST] /place-order
+[2026-01-06 12:56:40] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 12:56:40] INFO: [GET] /checkout/payment-options
+[2026-01-06 12:56:43] INFO: [POST] /place-order
+[2026-01-06 12:56:44] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required., paymentStatus: `Initiated` is not a valid enum value for path `paymentStatus`., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 12:56:44] INFO: [GET] /checkout/payment-options
+[2026-01-06 12:56:47] INFO: [POST] /place-order
+[2026-01-06 12:56:47] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 12:56:47] INFO: [GET] /checkout/payment-options
+[2026-01-06 12:56:51] INFO: [POST] /place-order
+[2026-01-06 12:56:51] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required., paymentStatus: `Initiated` is not a valid enum value for path `paymentStatus`., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 12:56:51] INFO: [GET] /checkout/payment-options
+[2026-01-06 12:56:55] INFO: [POST] /place-order
+[2026-01-06 12:56:55] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 12:56:55] INFO: [GET] /checkout/payment-options
+[2026-01-06 12:58:21] INFO: [GET] /
+[2026-01-06 12:58:22] INFO: [GET] /home
+[2026-01-06 12:58:23] INFO: [GET] /cart
+[2026-01-06 12:58:24] INFO: [GET] /css/styles.css
+[2026-01-06 12:58:25] INFO: [GET] /checkout
+[2026-01-06 12:58:25] INFO: [object Object]
+[2026-01-06 12:58:27] INFO: [POST] /checkout/address
+[2026-01-06 12:58:28] INFO: [GET] /checkout/payment-options
+[2026-01-06 12:58:30] INFO: [POST] /place-order
+[2026-01-06 12:58:30] INFO: Placing Order: Payment=COD, Session={"address":{"_id":"6951fd2cc6298d9de0988cc3","userId":"692aafda50bbd504425b12d4","isDefault":true,"name":"aaron","city":"Trivandrum","state":"Kerala","country":"India","pincode":"695008","mobile":"8078966589","createdAt":"2025-12-29T04:01:48.869Z","updatedAt":"2026-01-05T04:47:43.582Z","__v":0,"housename":"VALLAKKADAVU","street":"puthen roadjn near money transfer"},"step":"payment"}
+[2026-01-06 12:58:30] INFO: Cart Totals: {"items":[{"productName":"Ashley Dining Chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp","quantity":2,"price":760,"salePrice":0,"regularPrice":760,"total":1520,"color":"Brown","productId":"693fc66c6ecc42bce6fc7548","variantId":"693fc66c6ecc42bce6fc754a"},{"productName":"cursor gaming chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1767348023/products/f1rdwi1akhgwn5vhwj6c.jpg","quantity":1,"price":2000,"salePrice":0,"regularPrice":2000,"total":2000,"color":"black","productId":"695797358049643367cd3501","variantId":"695797378049643367cd3503"}],"subtotal":3520,"deliveryFee":"Free","total":3520,"cartCount":2}
+[2026-01-06 12:58:30] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 12:58:30] INFO: [GET] /checkout/payment-options
+[2026-01-06 13:00:03] INFO: [POST] /place-order
+[2026-01-06 13:00:03] INFO: Placing Order: Payment=COD, Session={"address":{"_id":"6951fd2cc6298d9de0988cc3","userId":"692aafda50bbd504425b12d4","isDefault":true,"name":"aaron","city":"Trivandrum","state":"Kerala","country":"India","pincode":"695008","mobile":"8078966589","createdAt":"2025-12-29T04:01:48.869Z","updatedAt":"2026-01-05T04:47:43.582Z","__v":0,"housename":"VALLAKKADAVU","street":"puthen roadjn near money transfer"},"step":"payment"}
+[2026-01-06 13:00:03] INFO: Cart Totals: {"items":[{"productName":"Ashley Dining Chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp","quantity":2,"price":760,"salePrice":0,"regularPrice":760,"total":1520,"color":"Brown","productId":"693fc66c6ecc42bce6fc7548","variantId":"693fc66c6ecc42bce6fc754a"},{"productName":"cursor gaming chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1767348023/products/f1rdwi1akhgwn5vhwj6c.jpg","quantity":1,"price":2000,"salePrice":0,"regularPrice":2000,"total":2000,"color":"black","productId":"695797358049643367cd3501","variantId":"695797378049643367cd3503"}],"subtotal":3520,"deliveryFee":"Free","total":3520,"cartCount":2}
+[2026-01-06 13:00:03] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 13:00:03] INFO: [GET] /checkout/payment-options
+[2026-01-06 13:00:06] INFO: [GET] /checkout
+[2026-01-06 13:00:06] INFO: [object Object]
+[2026-01-06 13:00:07] INFO: [POST] /checkout/address
+[2026-01-06 13:00:07] INFO: [GET] /checkout/payment-options
+[2026-01-06 13:00:09] INFO: [POST] /place-order
+[2026-01-06 13:00:09] INFO: Placing Order: Payment=COD, Session={"address":{"_id":"6951fd2cc6298d9de0988cc3","userId":"692aafda50bbd504425b12d4","isDefault":true,"name":"aaron","city":"Trivandrum","state":"Kerala","country":"India","pincode":"695008","mobile":"8078966589","createdAt":"2025-12-29T04:01:48.869Z","updatedAt":"2026-01-05T04:47:43.582Z","__v":0,"housename":"VALLAKKADAVU","street":"puthen roadjn near money transfer"},"step":"payment"}
+[2026-01-06 13:00:09] INFO: Cart Totals: {"items":[{"productName":"Ashley Dining Chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp","quantity":2,"price":760,"salePrice":0,"regularPrice":760,"total":1520,"color":"Brown","productId":"693fc66c6ecc42bce6fc7548","variantId":"693fc66c6ecc42bce6fc754a"},{"productName":"cursor gaming chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1767348023/products/f1rdwi1akhgwn5vhwj6c.jpg","quantity":1,"price":2000,"salePrice":0,"regularPrice":2000,"total":2000,"color":"black","productId":"695797358049643367cd3501","variantId":"695797378049643367cd3503"}],"subtotal":3520,"deliveryFee":"Free","total":3520,"cartCount":2}
+[2026-01-06 13:00:09] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 13:00:09] INFO: [GET] /checkout/payment-options
+[2026-01-06 13:00:12] INFO: [GET] /checkout
+[2026-01-06 13:00:13] INFO: [object Object]
+[2026-01-06 13:00:23] INFO: [GET] /cart
+[2026-01-06 13:00:23] INFO: [GET] /css/styles.css
+[2026-01-06 13:00:29] INFO: [GET] /checkout
+[2026-01-06 13:00:29] INFO: [object Object]
+[2026-01-06 13:00:32] INFO: [POST] /checkout/address
+[2026-01-06 13:00:32] INFO: [GET] /checkout/payment-options
+[2026-01-06 13:00:33] INFO: [POST] /place-order
+[2026-01-06 13:00:34] INFO: Placing Order: Payment=COD, Session={"address":{"_id":"6951fd2cc6298d9de0988cc3","userId":"692aafda50bbd504425b12d4","isDefault":true,"name":"aaron","city":"Trivandrum","state":"Kerala","country":"India","pincode":"695008","mobile":"8078966589","createdAt":"2025-12-29T04:01:48.869Z","updatedAt":"2026-01-05T04:47:43.582Z","__v":0,"housename":"VALLAKKADAVU","street":"puthen roadjn near money transfer"},"step":"payment"}
+[2026-01-06 13:00:34] INFO: Cart Totals: {"items":[{"productName":"Ashley Dining Chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp","quantity":2,"price":760,"salePrice":0,"regularPrice":760,"total":1520,"color":"Brown","productId":"693fc66c6ecc42bce6fc7548","variantId":"693fc66c6ecc42bce6fc754a"},{"productName":"cursor gaming chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1767348023/products/f1rdwi1akhgwn5vhwj6c.jpg","quantity":1,"price":2000,"salePrice":0,"regularPrice":2000,"total":2000,"color":"black","productId":"695797358049643367cd3501","variantId":"695797378049643367cd3503"}],"subtotal":3520,"deliveryFee":"Free","total":3520,"cartCount":2}
+[2026-01-06 13:00:34] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 13:00:34] INFO: [GET] /checkout/payment-options
+[2026-01-06 14:02:11] INFO: [GET] /
+[2026-01-06 14:02:11] INFO: [GET] /home
+[2026-01-06 14:02:16] INFO: [GET] /cart
+[2026-01-06 14:02:16] INFO: [GET] /css/styles.css
+[2026-01-06 14:02:18] INFO: [GET] /checkout
+[2026-01-06 14:02:18] INFO: [object Object]
+[2026-01-06 14:02:21] INFO: [POST] /checkout/address
+[2026-01-06 14:02:21] INFO: [GET] /checkout/payment-options
+[2026-01-06 14:02:23] INFO: [POST] /place-order
+[2026-01-06 14:02:23] INFO: Placing Order: Payment=COD, Session={"address":{"_id":"6951fd2cc6298d9de0988cc3","userId":"692aafda50bbd504425b12d4","isDefault":true,"name":"aaron","city":"Trivandrum","state":"Kerala","country":"India","pincode":"695008","mobile":"8078966589","createdAt":"2025-12-29T04:01:48.869Z","updatedAt":"2026-01-05T04:47:43.582Z","__v":0,"housename":"VALLAKKADAVU","street":"puthen roadjn near money transfer"},"step":"payment"}
+[2026-01-06 14:02:23] INFO: Cart Totals: {"items":[{"productName":"Ashley Dining Chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp","quantity":2,"price":760,"salePrice":0,"regularPrice":760,"total":1520,"color":"Brown","productId":"693fc66c6ecc42bce6fc7548","variantId":"693fc66c6ecc42bce6fc754a"},{"productName":"cursor gaming chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1767348023/products/f1rdwi1akhgwn5vhwj6c.jpg","quantity":1,"price":2000,"salePrice":0,"regularPrice":2000,"total":2000,"color":"black","productId":"695797358049643367cd3501","variantId":"695797378049643367cd3503"}],"subtotal":3520,"deliveryFee":"Free","total":3520,"cartCount":2}
+[2026-01-06 14:02:23] ERROR: Place Order Error: Order validation failed: shippingAddress.landmark: Path `shippingAddress.landmark` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 14:02:23] INFO: [GET] /checkout/payment-options
+[2026-01-06 14:09:53] INFO: [GET] /products
+[2026-01-06 14:09:55] INFO: [GET] /cart
+[2026-01-06 14:09:56] INFO: [GET] /css/styles.css
+[2026-01-06 14:09:57] INFO: [GET] /checkout
+[2026-01-06 14:09:58] INFO: [object Object]
+[2026-01-06 14:10:00] INFO: [POST] /checkout/address
+[2026-01-06 14:10:01] INFO: [GET] /checkout/payment-options
+[2026-01-06 14:10:05] INFO: [POST] /place-order
+[2026-01-06 14:10:05] INFO: Placing Order: Payment=COD, Session={"address":{"_id":"6951fd2cc6298d9de0988cc3","userId":"692aafda50bbd504425b12d4","isDefault":true,"name":"aaron","city":"Trivandrum","state":"Kerala","country":"India","pincode":"695008","mobile":"8078966589","createdAt":"2025-12-29T04:01:48.869Z","updatedAt":"2026-01-05T04:47:43.582Z","__v":0,"housename":"VALLAKKADAVU","street":"puthen roadjn near money transfer"},"step":"payment"}
+[2026-01-06 14:10:06] INFO: Cart Totals: {"items":[{"productName":"Ashley Dining Chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp","quantity":2,"price":760,"salePrice":0,"regularPrice":760,"total":1520,"color":"Brown","productId":"693fc66c6ecc42bce6fc7548","variantId":"693fc66c6ecc42bce6fc754a"},{"productName":"cursor gaming chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1767348023/products/f1rdwi1akhgwn5vhwj6c.jpg","quantity":1,"price":2000,"salePrice":0,"regularPrice":2000,"total":2000,"color":"black","productId":"695797358049643367cd3501","variantId":"695797378049643367cd3503"}],"subtotal":3520,"deliveryFee":"Free","total":3520,"cartCount":2}
+[2026-01-06 14:10:06] ERROR: Place Order Error: Order validation failed: shippingAddress.state: Path `shippingAddress.state` is required., shippingAddress.housename: Path `shippingAddress.housename` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 14:10:06] INFO: [GET] /checkout/payment-options
+[2026-01-06 14:10:09] INFO: [POST] /place-order
+[2026-01-06 14:10:09] INFO: Placing Order: Payment=COD, Session={"address":{"_id":"6951fd2cc6298d9de0988cc3","userId":"692aafda50bbd504425b12d4","isDefault":true,"name":"aaron","city":"Trivandrum","state":"Kerala","country":"India","pincode":"695008","mobile":"8078966589","createdAt":"2025-12-29T04:01:48.869Z","updatedAt":"2026-01-05T04:47:43.582Z","__v":0,"housename":"VALLAKKADAVU","street":"puthen roadjn near money transfer"},"step":"payment"}
+[2026-01-06 14:10:10] INFO: Cart Totals: {"items":[{"productName":"Ashley Dining Chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp","quantity":2,"price":760,"salePrice":0,"regularPrice":760,"total":1520,"color":"Brown","productId":"693fc66c6ecc42bce6fc7548","variantId":"693fc66c6ecc42bce6fc754a"},{"productName":"cursor gaming chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1767348023/products/f1rdwi1akhgwn5vhwj6c.jpg","quantity":1,"price":2000,"salePrice":0,"regularPrice":2000,"total":2000,"color":"black","productId":"695797358049643367cd3501","variantId":"695797378049643367cd3503"}],"subtotal":3520,"deliveryFee":"Free","total":3520,"cartCount":2}
+[2026-01-06 14:10:10] ERROR: Place Order Error: Order validation failed: shippingAddress.state: Path `shippingAddress.state` is required., shippingAddress.housename: Path `shippingAddress.housename` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 14:10:10] INFO: [GET] /checkout/payment-options
+[2026-01-06 14:10:12] INFO: [POST] /place-order
+[2026-01-06 14:10:13] INFO: Placing Order: Payment=Wallet, Session={"address":{"_id":"6951fd2cc6298d9de0988cc3","userId":"692aafda50bbd504425b12d4","isDefault":true,"name":"aaron","city":"Trivandrum","state":"Kerala","country":"India","pincode":"695008","mobile":"8078966589","createdAt":"2025-12-29T04:01:48.869Z","updatedAt":"2026-01-05T04:47:43.582Z","__v":0,"housename":"VALLAKKADAVU","street":"puthen roadjn near money transfer"},"step":"payment"}
+[2026-01-06 14:10:13] INFO: Cart Totals: {"items":[{"productName":"Ashley Dining Chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp","quantity":2,"price":760,"salePrice":0,"regularPrice":760,"total":1520,"color":"Brown","productId":"693fc66c6ecc42bce6fc7548","variantId":"693fc66c6ecc42bce6fc754a"},{"productName":"cursor gaming chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1767348023/products/f1rdwi1akhgwn5vhwj6c.jpg","quantity":1,"price":2000,"salePrice":0,"regularPrice":2000,"total":2000,"color":"black","productId":"695797358049643367cd3501","variantId":"695797378049643367cd3503"}],"subtotal":3520,"deliveryFee":"Free","total":3520,"cartCount":2}
+[2026-01-06 14:10:13] ERROR: Place Order Error: Order validation failed: shippingAddress.state: Path `shippingAddress.state` is required., shippingAddress.housename: Path `shippingAddress.housename` is required., paymentStatus: `Initiated` is not a valid enum value for path `paymentStatus`., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 14:10:13] INFO: [GET] /checkout/payment-options
+[2026-01-06 14:10:16] INFO: [POST] /place-order
+[2026-01-06 14:10:16] INFO: Placing Order: Payment=Online, Session={"address":{"_id":"6951fd2cc6298d9de0988cc3","userId":"692aafda50bbd504425b12d4","isDefault":true,"name":"aaron","city":"Trivandrum","state":"Kerala","country":"India","pincode":"695008","mobile":"8078966589","createdAt":"2025-12-29T04:01:48.869Z","updatedAt":"2026-01-05T04:47:43.582Z","__v":0,"housename":"VALLAKKADAVU","street":"puthen roadjn near money transfer"},"step":"payment"}
+[2026-01-06 14:10:16] INFO: Cart Totals: {"items":[{"productName":"Ashley Dining Chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp","quantity":2,"price":760,"salePrice":0,"regularPrice":760,"total":1520,"color":"Brown","productId":"693fc66c6ecc42bce6fc7548","variantId":"693fc66c6ecc42bce6fc754a"},{"productName":"cursor gaming chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1767348023/products/f1rdwi1akhgwn5vhwj6c.jpg","quantity":1,"price":2000,"salePrice":0,"regularPrice":2000,"total":2000,"color":"black","productId":"695797358049643367cd3501","variantId":"695797378049643367cd3503"}],"subtotal":3520,"deliveryFee":"Free","total":3520,"cartCount":2}
+[2026-01-06 14:10:16] ERROR: Place Order Error: Order validation failed: shippingAddress.state: Path `shippingAddress.state` is required., shippingAddress.housename: Path `shippingAddress.housename` is required., paymentStatus: `Initiated` is not a valid enum value for path `paymentStatus`., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 14:10:16] INFO: [GET] /checkout/payment-options
+[2026-01-06 14:10:21] INFO: [POST] /place-order
+[2026-01-06 14:10:21] INFO: Placing Order: Payment=COD, Session={"address":{"_id":"6951fd2cc6298d9de0988cc3","userId":"692aafda50bbd504425b12d4","isDefault":true,"name":"aaron","city":"Trivandrum","state":"Kerala","country":"India","pincode":"695008","mobile":"8078966589","createdAt":"2025-12-29T04:01:48.869Z","updatedAt":"2026-01-05T04:47:43.582Z","__v":0,"housename":"VALLAKKADAVU","street":"puthen roadjn near money transfer"},"step":"payment"}
+[2026-01-06 14:10:22] INFO: Cart Totals: {"items":[{"productName":"Ashley Dining Chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp","quantity":2,"price":760,"salePrice":0,"regularPrice":760,"total":1520,"color":"Brown","productId":"693fc66c6ecc42bce6fc7548","variantId":"693fc66c6ecc42bce6fc754a"},{"productName":"cursor gaming chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1767348023/products/f1rdwi1akhgwn5vhwj6c.jpg","quantity":1,"price":2000,"salePrice":0,"regularPrice":2000,"total":2000,"color":"black","productId":"695797358049643367cd3501","variantId":"695797378049643367cd3503"}],"subtotal":3520,"deliveryFee":"Free","total":3520,"cartCount":2}
+[2026-01-06 14:10:22] ERROR: Place Order Error: Order validation failed: shippingAddress.state: Path `shippingAddress.state` is required., shippingAddress.housename: Path `shippingAddress.housename` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 14:10:22] INFO: [GET] /checkout/payment-options
+[2026-01-06 14:11:56] INFO: [POST] /place-order
+[2026-01-06 14:11:56] INFO: Placing Order: Payment=COD, Session={"address":{"_id":"6951fd2cc6298d9de0988cc3","userId":"692aafda50bbd504425b12d4","isDefault":true,"name":"aaron","city":"Trivandrum","state":"Kerala","country":"India","pincode":"695008","mobile":"8078966589","createdAt":"2025-12-29T04:01:48.869Z","updatedAt":"2026-01-05T04:47:43.582Z","__v":0,"housename":"VALLAKKADAVU","street":"puthen roadjn near money transfer"},"step":"payment"}
+[2026-01-06 14:11:57] INFO: Cart Totals: {"items":[{"productName":"Ashley Dining Chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp","quantity":2,"price":760,"salePrice":0,"regularPrice":760,"total":1520,"color":"Brown","productId":"693fc66c6ecc42bce6fc7548","variantId":"693fc66c6ecc42bce6fc754a"},{"productName":"cursor gaming chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1767348023/products/f1rdwi1akhgwn5vhwj6c.jpg","quantity":1,"price":2000,"salePrice":0,"regularPrice":2000,"total":2000,"color":"black","productId":"695797358049643367cd3501","variantId":"695797378049643367cd3503"}],"subtotal":3520,"deliveryFee":"Free","total":3520,"cartCount":2}
+[2026-01-06 14:11:57] ERROR: Place Order Error: Order validation failed: shippingAddress.state: Path `shippingAddress.state` is required., shippingAddress.housename: Path `shippingAddress.housename` is required., orderStatus: `Placed` is not a valid enum value for path `orderStatus`.
+[2026-01-06 14:11:57] INFO: [GET] /checkout/payment-options
+[2026-01-06 14:15:28] INFO: [GET] /
+[2026-01-06 14:15:28] INFO: [GET] /home
+[2026-01-06 14:15:30] INFO: [GET] /cart
+[2026-01-06 14:15:31] INFO: [GET] /css/styles.css
+[2026-01-06 14:15:32] INFO: [GET] /checkout
+[2026-01-06 14:15:33] INFO: [object Object]
+[2026-01-06 14:15:35] INFO: [POST] /checkout/address
+[2026-01-06 14:15:36] INFO: [GET] /checkout/payment-options
+[2026-01-06 14:15:39] INFO: [POST] /place-order
+[2026-01-06 14:15:39] INFO: Placing Order: Payment=COD, Session={"address":{"_id":"6951fd2cc6298d9de0988cc3","userId":"692aafda50bbd504425b12d4","isDefault":true,"name":"aaron","city":"Trivandrum","state":"Kerala","country":"India","pincode":"695008","mobile":"8078966589","createdAt":"2025-12-29T04:01:48.869Z","updatedAt":"2026-01-05T04:47:43.582Z","__v":0,"housename":"VALLAKKADAVU","street":"puthen roadjn near money transfer"},"step":"payment"}
+[2026-01-06 14:15:39] INFO: Cart Totals: {"items":[{"productName":"Ashley Dining Chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp","quantity":2,"price":760,"salePrice":0,"regularPrice":760,"total":1520,"color":"Brown","productId":"693fc66c6ecc42bce6fc7548","variantId":"693fc66c6ecc42bce6fc754a"},{"productName":"cursor gaming chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1767348023/products/f1rdwi1akhgwn5vhwj6c.jpg","quantity":1,"price":2000,"salePrice":0,"regularPrice":2000,"total":2000,"color":"black","productId":"695797358049643367cd3501","variantId":"695797378049643367cd3503"}],"subtotal":3520,"deliveryFee":"Free","total":3520,"cartCount":2}
+[2026-01-06 14:15:39] ERROR: Place Order Error: Order validation failed: shippingAddress.state: Path `shippingAddress.state` is required., shippingAddress.housename: Path `shippingAddress.housename` is required.
+[2026-01-06 14:15:39] INFO: [GET] /checkout/payment-options
+[2026-01-06 14:15:42] INFO: [POST] /place-order
+[2026-01-06 14:15:42] INFO: Placing Order: Payment=COD, Session={"address":{"_id":"6951fd2cc6298d9de0988cc3","userId":"692aafda50bbd504425b12d4","isDefault":true,"name":"aaron","city":"Trivandrum","state":"Kerala","country":"India","pincode":"695008","mobile":"8078966589","createdAt":"2025-12-29T04:01:48.869Z","updatedAt":"2026-01-05T04:47:43.582Z","__v":0,"housename":"VALLAKKADAVU","street":"puthen roadjn near money transfer"},"step":"payment"}
+[2026-01-06 14:15:42] INFO: Cart Totals: {"items":[{"productName":"Ashley Dining Chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp","quantity":2,"price":760,"salePrice":0,"regularPrice":760,"total":1520,"color":"Brown","productId":"693fc66c6ecc42bce6fc7548","variantId":"693fc66c6ecc42bce6fc754a"},{"productName":"cursor gaming chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1767348023/products/f1rdwi1akhgwn5vhwj6c.jpg","quantity":1,"price":2000,"salePrice":0,"regularPrice":2000,"total":2000,"color":"black","productId":"695797358049643367cd3501","variantId":"695797378049643367cd3503"}],"subtotal":3520,"deliveryFee":"Free","total":3520,"cartCount":2}
+[2026-01-06 14:15:42] ERROR: Place Order Error: Order validation failed: shippingAddress.state: Path `shippingAddress.state` is required., shippingAddress.housename: Path `shippingAddress.housename` is required.
+[2026-01-06 14:15:42] INFO: [GET] /checkout/payment-options
+[2026-01-06 14:19:30] INFO: [GET] /cart
+[2026-01-06 14:19:31] INFO: [GET] /css/styles.css
+[2026-01-06 14:19:32] INFO: [GET] /checkout
+[2026-01-06 14:19:33] INFO: [object Object]
+[2026-01-06 14:19:35] INFO: [POST] /checkout/address
+[2026-01-06 14:19:35] INFO: [GET] /checkout/payment-options
+[2026-01-06 14:19:38] INFO: [POST] /place-order
+[2026-01-06 14:19:38] INFO: Placing Order: Payment=COD, Session={"address":{"_id":"6951fd2cc6298d9de0988cc3","userId":"692aafda50bbd504425b12d4","isDefault":true,"name":"aaron","city":"Trivandrum","state":"Kerala","country":"India","pincode":"695008","mobile":"8078966589","createdAt":"2025-12-29T04:01:48.869Z","updatedAt":"2026-01-05T04:47:43.582Z","__v":0,"housename":"VALLAKKADAVU","street":"puthen roadjn near money transfer"},"step":"payment"}
+[2026-01-06 14:19:38] INFO: Cart Totals: {"items":[{"productName":"Ashley Dining Chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp","quantity":2,"price":760,"salePrice":0,"regularPrice":760,"total":1520,"color":"Brown","productId":"693fc66c6ecc42bce6fc7548","variantId":"693fc66c6ecc42bce6fc754a"},{"productName":"cursor gaming chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1767348023/products/f1rdwi1akhgwn5vhwj6c.jpg","quantity":1,"price":2000,"salePrice":0,"regularPrice":2000,"total":2000,"color":"black","productId":"695797358049643367cd3501","variantId":"695797378049643367cd3503"}],"subtotal":3520,"deliveryFee":"Free","total":3520,"cartCount":2}
+[2026-01-06 14:19:38] INFO: [GET] /order-success?orderId=695ccca2c4ac105f53e23c12
+[2026-01-06 14:21:22] INFO: [GET] /products
+[2026-01-06 14:21:25] INFO: [GET] /cart
+[2026-01-06 14:21:25] INFO: [GET] /css/styles.css
+[2026-01-06 14:21:28] INFO: [GET] /products
+[2026-01-06 14:21:34] INFO: [GET] /product/695797358049643367cd3501
+[2026-01-06 14:21:36] INFO: [POST] /cart/add
+[2026-01-06 14:21:37] INFO: [GET] /cart
+[2026-01-06 14:21:38] INFO: [GET] /css/styles.css
+[2026-01-06 14:21:40] INFO: [GET] /checkout
+[2026-01-06 14:21:40] INFO: [object Object]
+[2026-01-06 14:21:42] INFO: [POST] /checkout/address
+[2026-01-06 14:21:43] INFO: [GET] /checkout/payment-options
+[2026-01-06 14:21:45] INFO: [POST] /place-order
+[2026-01-06 14:21:45] INFO: Cart Totals: {"items":[{"productName":"cursor gaming chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1767348023/products/f1rdwi1akhgwn5vhwj6c.jpg","quantity":1,"price":2000,"salePrice":0,"regularPrice":2000,"total":2000,"color":"black","productId":"695797358049643367cd3501","variantId":"695797378049643367cd3503"}],"subtotal":2000,"deliveryFee":"Free","total":2000,"cartCount":1}
+[2026-01-06 14:21:45] INFO: [GET] /order-success?orderId=695ccd218172a0d95cfe9c04
+[2026-01-06 14:27:29] INFO: [GET] /checkout
+[2026-01-06 14:27:30] INFO: [GET] /cart
+[2026-01-06 14:27:30] INFO: [GET] /css/styles.css
+[2026-01-06 14:27:35] INFO: [GET] /products
+[2026-01-06 14:27:38] INFO: [GET] /cart
+[2026-01-06 14:27:38] INFO: [GET] /css/styles.css
+[2026-01-06 14:27:41] INFO: [GET] /products
+[2026-01-06 14:38:28] INFO: [GET] /profile
+[2026-01-06 14:38:30] INFO: [GET] /profile/edit
+[2026-01-06 14:38:32] INFO: [POST] /profile/edit
+[2026-01-06 14:38:36] INFO: [POST] /profile/edit
+[2026-01-06 14:38:37] INFO: [GET] /profile
+[2026-01-06 14:38:40] INFO: [GET] /address
+[2026-01-06 14:38:42] INFO: [POST] /address/set-default/69550d4b525d3650ff32964d
+[2026-01-06 14:38:44] INFO: [GET] /address
+[2026-01-06 14:38:47] INFO: [POST] /address/set-default/6951fd2cc6298d9de0988cc3
+[2026-01-06 14:38:49] INFO: [GET] /address
+[2026-01-06 14:38:51] INFO: [GET] /address/edit/6951fd2cc6298d9de0988cc3
+[2026-01-06 14:39:09] INFO: [POST] /address/edit/6951fd2cc6298d9de0988cc3
+[2026-01-06 14:39:11] INFO: [GET] /address
+[2026-01-06 14:39:13] INFO: [GET] /address/edit/69550d4b525d3650ff32964d
+[2026-01-06 14:39:16] INFO: [POST] /address/edit/69550d4b525d3650ff32964d
+[2026-01-06 14:39:18] INFO: [GET] /address
+[2026-01-06 14:39:20] INFO: [GET] /address/edit/6951fd2cc6298d9de0988cc3
+[2026-01-06 14:40:20] INFO: [POST] /address/edit/6951fd2cc6298d9de0988cc3
+[2026-01-06 14:40:22] INFO: [GET] /address
+[2026-01-06 14:40:25] INFO: [GET] /address/add
+[2026-01-06 14:41:39] INFO: [GET] /address
+[2026-01-06 14:41:43] INFO: [GET] /address/add
+[2026-01-06 14:42:13] INFO: [POST] /address/add
+[2026-01-06 14:42:42] INFO: [POST] /address/add
+[2026-01-06 14:43:20] INFO: [GET] /home
+[2026-01-06 14:43:28] INFO: [GET] /profile
+[2026-01-06 14:43:30] INFO: [GET] /address
+[2026-01-06 14:43:32] INFO: [GET] /address/add
+[2026-01-06 14:43:54] INFO: [POST] /address/add
+[2026-01-06 14:43:56] INFO: [GET] /address
+[2026-01-06 14:44:03] INFO: [POST] /address/delete/6951fd2cc6298d9de0988cc3
+[2026-01-06 14:44:11] INFO: [GET] /profile
+[2026-01-06 14:44:21] INFO: [GET] /address
+[2026-01-06 14:44:22] INFO: [GET] /address/add
+[2026-01-06 14:44:35] INFO: [GET] /profile
+[2026-01-06 14:44:37] INFO: [GET] /password-change
+[2026-01-06 14:44:37] INFO: [GET] /profile
+[2026-01-06 14:44:46] INFO: [GET] /home
+[2026-01-06 14:44:47] INFO: [GET] /cart
+[2026-01-06 14:44:48] INFO: [GET] /css/styles.css
+[2026-01-06 14:44:49] INFO: [GET] /products
+[2026-01-06 14:44:50] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-06 14:44:52] INFO: [POST] /cart/add
+[2026-01-06 14:44:53] INFO: [GET] /cart
+[2026-01-06 14:44:54] INFO: [GET] /css/styles.css
+[2026-01-06 14:44:56] INFO: [GET] /products
+[2026-01-06 14:44:58] INFO: [GET] /cart
+[2026-01-06 14:44:58] INFO: [GET] /css/styles.css
+[2026-01-06 14:45:00] INFO: [GET] /checkout
+[2026-01-06 14:45:05] INFO: [POST] /checkout/address
+[2026-01-06 14:45:05] INFO: [GET] /checkout/payment-options
+[2026-01-06 14:45:08] INFO: [POST] /place-order
+[2026-01-06 14:45:08] INFO: Cart Totals: {"items":[{"productName":"Herman Dining chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1766827174/products/i4byb0iiurxcmswi4wfl.jpg","quantity":1,"price":977,"salePrice":0,"regularPrice":977,"total":977,"color":"Brown","productId":"694fa44cf0a089520a1144ab","variantId":"694fa4a7f0a089520a1144da"}],"subtotal":977,"deliveryFee":"₹50","total":1027,"cartCount":1}
+[2026-01-06 14:45:08] INFO: [GET] /order-success?orderId=695cd29ce7d709e4d54793a9
+[2026-01-06 14:45:13] INFO: [GET] /home
+[2026-01-06 14:45:16] INFO: [GET] /cart
+[2026-01-06 14:45:16] INFO: [GET] /css/styles.css
+[2026-01-06 14:45:18] INFO: [GET] /products
+[2026-01-06 14:45:19] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-06 14:45:21] INFO: [POST] /cart/add
+[2026-01-06 14:45:22] INFO: [GET] /cart
+[2026-01-06 14:45:23] INFO: [GET] /css/styles.css
+[2026-01-06 14:45:24] INFO: [GET] /checkout
+[2026-01-06 14:45:32] INFO: [GET] /address/edit/6951fd2cc6298d9de0988cc3?returnTo=checkout
+[2026-01-06 14:45:37] INFO: [POST] /address/edit/6951fd2cc6298d9de0988cc3
+[2026-01-06 14:45:39] INFO: [GET] /checkout
+[2026-01-06 14:49:05] INFO: [GET] /profile
+[2026-01-06 14:49:06] INFO: [GET] /orders
+[2026-01-06 15:03:32] INFO: [GET] /orders
+[2026-01-06 15:03:47] INFO: [GET] /orders/695cd29ce7d709e4d54793a9
+[2026-01-06 15:04:04] INFO: [GET] /orders?page=1
+[2026-01-06 15:09:05] INFO: [GET] /orders
+[2026-01-06 15:09:10] INFO: [GET] /orders/695cd29ce7d709e4d54793a9
+[2026-01-06 15:10:02] INFO: [GET] /profile
+[2026-01-06 15:10:04] INFO: [GET] /products
+[2026-01-06 15:10:06] INFO: [GET] /cart
+[2026-01-06 15:10:07] INFO: [GET] /css/styles.css
+[2026-01-06 15:10:11] INFO: [GET] /admin/login
+[2026-01-06 15:10:19] INFO: [POST] /admin/login
+[2026-01-06 15:10:19] INFO: [GET] /admin/dashboard
+[2026-01-06 15:10:21] INFO: [GET] /admin/orders
+[2026-01-06 15:10:21] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:111
+    109|                                             <tr class="hover:bg-gray-50 transition-colors duration-150">
+    110|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+ >> 111|                                                     <%= (currentPage - 1) * limit + index + 1 %>
+    112|                                                 </td>
+    113|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+    114|                                                     <%= order.items[0]?.name || 'Unknown Product' %>
+
+currentPage is not defined
+[2026-01-06 15:10:25] INFO: [GET] /
+[2026-01-06 15:10:25] INFO: [GET] /home
+[2026-01-06 15:11:31] INFO: [GET] /checkout
+[2026-01-06 15:15:02] INFO: [GET] /home
+[2026-01-06 15:15:04] INFO: [GET] /cart
+[2026-01-06 15:15:04] INFO: [GET] /css/styles.css
+[2026-01-06 15:15:06] INFO: [GET] /checkout
+[2026-01-06 15:15:10] INFO: [POST] /checkout/address
+[2026-01-06 15:15:10] INFO: [GET] /checkout/payment-options
+[2026-01-06 15:15:12] INFO: [POST] /place-order
+[2026-01-06 15:15:12] INFO: Cart Totals: {"items":[{"productName":"Herman Dining chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1766827174/products/i4byb0iiurxcmswi4wfl.jpg","quantity":1,"price":977,"salePrice":0,"regularPrice":977,"total":977,"color":"Brown","productId":"694fa44cf0a089520a1144ab","variantId":"694fa4a7f0a089520a1144da"}],"subtotal":977,"deliveryFee":"₹50","total":1027,"cartCount":1}
+[2026-01-06 15:15:13] INFO: Order placed successfully: 695cd9a8883e33fe0a7a22d1. Deleting cart for user 692aafda50bbd504425b12d4
+[2026-01-06 15:15:13] INFO: Cart deleted for user 692aafda50bbd504425b12d4
+[2026-01-06 15:15:13] INFO: [GET] /order-success?orderId=695cd9a8883e33fe0a7a22d1
+[2026-01-06 15:15:20] INFO: [GET] /profile/orders
+[2026-01-06 15:15:23] INFO: [GET] /
+[2026-01-06 15:15:23] INFO: [GET] /home
+[2026-01-06 15:15:34] INFO: [GET] /admin/login
+[2026-01-06 15:15:34] INFO: [GET] /admin/dashboard
+[2026-01-06 15:15:43] INFO: [GET] /admin/orders
+[2026-01-06 15:15:43] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:111
+    109|                                             <tr class="hover:bg-gray-50 transition-colors duration-150">
+    110|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+ >> 111|                                                     <%= (currentPage - 1) * limit + index + 1 %>
+    112|                                                 </td>
+    113|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+    114|                                                     <%= order.items[0]?.name || 'Unknown Product' %>
+
+currentPage is not defined
+[2026-01-06 15:15:45] INFO: [GET] /admin/dashboard
+[2026-01-06 15:16:26] INFO: [GET] /profile
+[2026-01-06 15:16:27] INFO: [GET] /orders
+[2026-01-06 15:16:39] INFO: [GET] /password-change
+[2026-01-06 15:16:39] INFO: [GET] /profile
+[2026-01-06 15:16:44] INFO: [GET] /orders
+[2026-01-06 15:17:26] INFO: [GET] /admin/products
+[2026-01-06 15:17:28] INFO: [GET] /admin/orders
+[2026-01-06 15:17:28] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:111
+    109|                                             <tr class="hover:bg-gray-50 transition-colors duration-150">
+    110|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+ >> 111|                                                     <%= (currentPage - 1) * limit + index + 1 %>
+    112|                                                 </td>
+    113|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+    114|                                                     <%= order.items[0]?.name || 'Unknown Product' %>
+
+currentPage is not defined
+[2026-01-06 15:17:32] INFO: [GET] /admin/orders
+[2026-01-06 15:17:32] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:111
+    109|                                             <tr class="hover:bg-gray-50 transition-colors duration-150">
+    110|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+ >> 111|                                                     <%= (currentPage - 1) * limit + index + 1 %>
+    112|                                                 </td>
+    113|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+    114|                                                     <%= order.items[0]?.name || 'Unknown Product' %>
+
+currentPage is not defined
+[2026-01-06 15:17:36] INFO: [GET] /admin/users
+[2026-01-06 15:17:37] INFO: [GET] /admin/orders
+[2026-01-06 15:17:38] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:111
+    109|                                             <tr class="hover:bg-gray-50 transition-colors duration-150">
+    110|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+ >> 111|                                                     <%= (currentPage - 1) * limit + index + 1 %>
+    112|                                                 </td>
+    113|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+    114|                                                     <%= order.items[0]?.name || 'Unknown Product' %>
+
+currentPage is not defined
+[2026-01-06 15:17:39] INFO: [GET] /
+[2026-01-06 15:17:39] INFO: [GET] /home
+[2026-01-06 15:18:42] INFO: [GET] /admin/login
+[2026-01-06 15:18:42] INFO: [GET] /admin/dashboard
+[2026-01-06 15:18:44] INFO: [GET] /admin/orders
+[2026-01-06 15:18:44] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:111
+    109|                                             <tr class="hover:bg-gray-50 transition-colors duration-150">
+    110|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+ >> 111|                                                     <%= (currentPage - 1) * limit + index + 1 %>
+    112|                                                 </td>
+    113|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+    114|                                                     <%= order.items[0]?.name || 'Unknown Product' %>
+
+currentPage is not defined
+[2026-01-06 15:18:47] INFO: [GET] /admin/dashboard
+[2026-01-06 15:19:01] INFO: [GET] /profile
+[2026-01-06 15:19:04] INFO: [GET] /logout
+[2026-01-06 15:19:04] INFO: [GET] /login
+[2026-01-06 15:19:09] INFO: [POST] /login
+[2026-01-06 15:19:15] INFO: [POST] /login
+[2026-01-06 15:19:24] INFO: [POST] /login
+[2026-01-06 15:19:29] INFO: [POST] /login
+[2026-01-06 15:19:37] INFO: [POST] /login
+[2026-01-06 15:19:39] INFO: [GET] /home
+[2026-01-06 15:19:47] INFO: [GET] /profile
+[2026-01-06 15:19:56] INFO: [POST] /profile/avatar
+[2026-01-06 15:20:05] INFO: [GET] /home
+[2026-01-06 15:20:06] INFO: [GET] /profile
+[2026-01-06 15:20:16] INFO: [POST] /profile/avatar
+[2026-01-06 15:20:28] INFO: [GET] /address
+[2026-01-06 15:20:32] INFO: [GET] /orders
+[2026-01-06 15:20:34] INFO: [GET] /
+[2026-01-06 15:20:35] INFO: [GET] /home
+[2026-01-06 15:20:37] INFO: [GET] /profile
+[2026-01-06 15:20:40] INFO: [GET] /cart
+[2026-01-06 15:20:41] INFO: [GET] /css/styles.css
+[2026-01-06 15:20:42] INFO: [GET] /products
+[2026-01-06 15:20:44] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-06 15:20:45] INFO: [POST] /cart/add
+[2026-01-06 15:20:47] INFO: [GET] /cart
+[2026-01-06 15:20:47] INFO: [GET] /css/styles.css
+[2026-01-06 15:20:49] INFO: [GET] /checkout
+[2026-01-06 15:20:54] INFO: [POST] /checkout/address
+[2026-01-06 15:20:54] INFO: [GET] /checkout/payment-options
+[2026-01-06 15:20:57] INFO: [POST] /place-order
+[2026-01-06 15:20:58] INFO: Cart Totals: {"items":[{"productName":"Herman Dining chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1766827174/products/i4byb0iiurxcmswi4wfl.jpg","quantity":1,"price":977,"salePrice":0,"regularPrice":977,"total":977,"color":"Brown","productId":"694fa44cf0a089520a1144ab","variantId":"694fa4a7f0a089520a1144da"}],"subtotal":977,"deliveryFee":"₹50","total":1027,"cartCount":1}
+[2026-01-06 15:20:58] INFO: Order placed successfully: 695cdb02f62e529b681f92bd. Deleting cart for user 695923181b57f2ec8579171d
+[2026-01-06 15:20:58] INFO: Cart deleted for user 695923181b57f2ec8579171d
+[2026-01-06 15:20:58] INFO: [GET] /order-success?orderId=695cdb02f62e529b681f92bd
+[2026-01-06 15:21:04] INFO: [GET] /profile/orders
+[2026-01-06 15:21:10] INFO: [GET] /profile/orders
+[2026-01-06 15:21:11] INFO: [GET] /
+[2026-01-06 15:21:12] INFO: [GET] /home
+[2026-01-06 15:21:14] INFO: [GET] /profile
+[2026-01-06 15:21:15] INFO: [GET] /orders
+[2026-01-06 15:21:48] INFO: [GET] /cart
+[2026-01-06 15:21:48] INFO: [GET] /css/styles.css
+[2026-01-06 15:21:50] INFO: [GET] /products
+[2026-01-06 15:21:53] INFO: [GET] /product/693fadb9c1dc3ee2a4a4f85d
+[2026-01-06 15:21:55] INFO: [POST] /cart/add
+[2026-01-06 15:21:59] INFO: [GET] /cart
+[2026-01-06 15:22:00] INFO: [GET] /css/styles.css
+[2026-01-06 15:22:01] INFO: [GET] /checkout
+[2026-01-06 15:22:03] INFO: [POST] /checkout/address
+[2026-01-06 15:22:03] INFO: [GET] /checkout/payment-options
+[2026-01-06 15:22:06] INFO: [GET] /home
+[2026-01-06 15:22:07] INFO: [GET] /cart
+[2026-01-06 15:22:08] INFO: [GET] /css/styles.css
+[2026-01-06 15:22:09] INFO: [GET] /checkout
+[2026-01-06 15:22:12] INFO: [POST] /checkout/address
+[2026-01-06 15:22:12] INFO: [GET] /checkout/payment-options
+[2026-01-06 15:22:16] INFO: [POST] /place-order
+[2026-01-06 15:22:16] INFO: Cart Totals: {"items":[{"productName":"Haworth Office chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765780921/products/fldhlhdyjy1erk74joyc.webp","quantity":1,"price":777,"salePrice":0,"regularPrice":777,"total":777,"color":"Red","productId":"693fadb9c1dc3ee2a4a4f85d","variantId":"693fadb9c1dc3ee2a4a4f85f"}],"subtotal":777,"deliveryFee":"₹50","total":827,"cartCount":1}
+[2026-01-06 15:22:16] ERROR: Place Order Error: Order validation failed: paymentStatus: `Initiated` is not a valid enum value for path `paymentStatus`.
+[2026-01-06 15:22:19] INFO: [POST] /place-order
+[2026-01-06 15:22:19] INFO: Cart Totals: {"items":[{"productName":"Haworth Office chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765780921/products/fldhlhdyjy1erk74joyc.webp","quantity":1,"price":777,"salePrice":0,"regularPrice":777,"total":777,"color":"Red","productId":"693fadb9c1dc3ee2a4a4f85d","variantId":"693fadb9c1dc3ee2a4a4f85f"}],"subtotal":777,"deliveryFee":"₹50","total":827,"cartCount":1}
+[2026-01-06 15:22:19] ERROR: Place Order Error: Order validation failed: paymentStatus: `Initiated` is not a valid enum value for path `paymentStatus`.
+[2026-01-06 15:22:22] INFO: [POST] /place-order
+[2026-01-06 15:22:22] INFO: Cart Totals: {"items":[{"productName":"Haworth Office chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765780921/products/fldhlhdyjy1erk74joyc.webp","quantity":1,"price":777,"salePrice":0,"regularPrice":777,"total":777,"color":"Red","productId":"693fadb9c1dc3ee2a4a4f85d","variantId":"693fadb9c1dc3ee2a4a4f85f"}],"subtotal":777,"deliveryFee":"₹50","total":827,"cartCount":1}
+[2026-01-06 15:22:22] INFO: Order placed successfully: 695cdb56f62e529b681f932f. Deleting cart for user 695923181b57f2ec8579171d
+[2026-01-06 15:22:22] INFO: Cart deleted for user 695923181b57f2ec8579171d
+[2026-01-06 15:22:22] INFO: [GET] /order-success?orderId=695cdb56f62e529b681f932f
+[2026-01-06 15:22:25] INFO: [GET] /orders
+[2026-01-06 15:22:37] INFO: [GET] /admin/orders
+[2026-01-06 15:22:37] INFO: [GET] /admin/login
+[2026-01-06 15:22:44] INFO: [POST] /admin/login
+[2026-01-06 15:22:44] INFO: [GET] /admin/dashboard
+[2026-01-06 15:22:45] INFO: [GET] /admin/orders
+[2026-01-06 15:22:45] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:111
+    109|                                             <tr class="hover:bg-gray-50 transition-colors duration-150">
+    110|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+ >> 111|                                                     <%= (currentPage - 1) * limit + index + 1 %>
+    112|                                                 </td>
+    113|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+    114|                                                     <%= order.items[0]?.name || 'Unknown Product' %>
+
+currentPage is not defined
+[2026-01-06 15:22:50] INFO: [GET] /admin/dashboard
+[2026-01-06 15:22:52] INFO: [GET] /admin/users
+[2026-01-06 15:22:57] INFO: [GET] /admin/users?page=1&search=akhil
+[2026-01-06 15:22:58] INFO: [GET] /admin/users?page=1&search=
+[2026-01-06 15:23:02] INFO: [GET] /admin/categories
+[2026-01-06 15:23:06] INFO: [GET] /admin/categories?page=1&search=sim
+[2026-01-06 15:23:06] INFO: [GET] /admin/categories?page=1&search=simp
+[2026-01-06 15:23:08] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-06 15:23:17] INFO: [GET] /profile
+[2026-01-06 15:23:18] INFO: [GET] /logout
+[2026-01-06 15:23:18] INFO: [GET] /login
+[2026-01-06 15:23:19] INFO: [GET] /auth/google
+[2026-01-06 15:23:20] INFO: [GET] /auth/google/callback?code=4%2F0ATX87lNdo3Zvx_JjBW71plSx8BJM4pRCb8OKncjn8JiPpNO5vlts6jFjGHC1gdz_Ce_7fQ&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=none
+[2026-01-06 15:23:21] INFO: [GET] /home
+[2026-01-06 15:23:24] INFO: [GET] /profile
+[2026-01-06 15:23:25] INFO: [GET] /orders
+[2026-01-06 15:31:35] INFO: [GET] /orders
+[2026-01-06 15:32:04] INFO: [GET] /
+[2026-01-06 15:32:04] INFO: [GET] /home
+[2026-01-06 15:32:09] INFO: [GET] /profile
+[2026-01-06 15:32:11] INFO: [GET] /orders
+[2026-01-06 15:32:27] INFO: [GET] /products
+[2026-01-06 15:32:29] INFO: [GET] /cart
+[2026-01-06 15:32:29] INFO: [GET] /css/styles.css
+[2026-01-06 15:32:31] INFO: [GET] /products
+[2026-01-06 15:32:33] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-06 15:32:34] INFO: [POST] /cart/add
+[2026-01-06 15:32:36] INFO: [GET] /cart
+[2026-01-06 15:32:36] INFO: [GET] /css/styles.css
+[2026-01-06 15:32:38] INFO: [GET] /checkout
+[2026-01-06 15:32:42] INFO: [POST] /checkout/address
+[2026-01-06 15:32:42] INFO: [GET] /checkout/payment-options
+[2026-01-06 15:32:44] INFO: [POST] /place-order
+[2026-01-06 15:32:44] INFO: Cart Totals: {"items":[{"productName":"Ashley Dining Chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp","quantity":1,"price":760,"salePrice":0,"regularPrice":760,"total":760,"color":"Brown","productId":"693fc66c6ecc42bce6fc7548","variantId":"693fc66c6ecc42bce6fc754a"}],"subtotal":760,"deliveryFee":"₹50","total":810,"cartCount":1}
+[2026-01-06 15:32:44] ERROR: Place Order Error: Order validation failed: shippingAddress.housename: Path `shippingAddress.housename` is required.
+[2026-01-06 15:32:47] INFO: [POST] /place-order
+[2026-01-06 15:32:47] INFO: Cart Totals: {"items":[{"productName":"Ashley Dining Chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp","quantity":1,"price":760,"salePrice":0,"regularPrice":760,"total":760,"color":"Brown","productId":"693fc66c6ecc42bce6fc7548","variantId":"693fc66c6ecc42bce6fc754a"}],"subtotal":760,"deliveryFee":"₹50","total":810,"cartCount":1}
+[2026-01-06 15:32:47] ERROR: Place Order Error: Order validation failed: shippingAddress.housename: Path `shippingAddress.housename` is required.
+[2026-01-06 15:32:53] INFO: [GET] /checkout
+[2026-01-06 15:32:57] INFO: [POST] /checkout/address
+[2026-01-06 15:32:57] INFO: [GET] /checkout/payment-options
+[2026-01-06 15:33:01] INFO: [POST] /place-order
+[2026-01-06 15:33:01] INFO: Cart Totals: {"items":[{"productName":"Ashley Dining Chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp","quantity":1,"price":760,"salePrice":0,"regularPrice":760,"total":760,"color":"Brown","productId":"693fc66c6ecc42bce6fc7548","variantId":"693fc66c6ecc42bce6fc754a"}],"subtotal":760,"deliveryFee":"₹50","total":810,"cartCount":1}
+[2026-01-06 15:33:01] ERROR: Place Order Error: Order validation failed: paymentStatus: `Initiated` is not a valid enum value for path `paymentStatus`.
+[2026-01-06 15:33:03] INFO: [POST] /place-order
+[2026-01-06 15:33:04] INFO: Cart Totals: {"items":[{"productName":"Ashley Dining Chair","image":"https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp","quantity":1,"price":760,"salePrice":0,"regularPrice":760,"total":760,"color":"Brown","productId":"693fc66c6ecc42bce6fc7548","variantId":"693fc66c6ecc42bce6fc754a"}],"subtotal":760,"deliveryFee":"₹50","total":810,"cartCount":1}
+[2026-01-06 15:33:04] INFO: Order placed successfully: 695cddd8ab93b6e3194eac41. Deleting cart for user 692aafda50bbd504425b12d4
+[2026-01-06 15:33:04] INFO: Cart deleted for user 692aafda50bbd504425b12d4
+[2026-01-06 15:33:04] INFO: [GET] /order-success?orderId=695cddd8ab93b6e3194eac41
+[2026-01-06 15:33:11] INFO: [GET] /
+[2026-01-06 15:33:11] INFO: [GET] /home
+[2026-01-06 15:33:13] INFO: [GET] /profile
+[2026-01-06 15:34:16] INFO: [GET] /orders
+[2026-01-06 15:34:38] INFO: [GET] /profile
+[2026-01-06 15:58:16] INFO: [GET] /admin/orders
+[2026-01-06 15:58:39] INFO: [GET] /admin/dashboard
+[2026-01-06 15:58:42] INFO: [GET] /admin/dashboard
+[2026-01-06 15:58:47] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-01.uuxwmkk.mongodb.net
+[2026-01-06 15:58:50] INFO: [GET] /admin/login
+[2026-01-06 15:59:09] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-01.uuxwmkk.mongodb.net
+[2026-01-06 15:59:12] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-01.uuxwmkk.mongodb.net
+[2026-01-06 15:59:20] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-01.uuxwmkk.mongodb.net
+[2026-01-06 16:52:53] INFO: [GET] /profile
+[2026-01-06 16:52:57] INFO: [GET] /orders
+[2026-01-06 16:53:22] INFO: [GET] /orders/695cddd8ab93b6e3194eac41
+[2026-01-06 16:53:48] INFO: [GET] /orders
+[2026-01-06 16:53:51] INFO: [GET] /orders/695cddd8ab93b6e3194eac41
+[2026-01-06 16:53:58] INFO: [GET] /orders
+[2026-01-06 16:54:01] INFO: [GET] /orders/695ccd218172a0d95cfe9c04
+[2026-01-06 16:54:07] INFO: [GET] /orders
+[2026-01-06 16:54:09] INFO: [GET] /orders/695ccca2c4ac105f53e23c12
+[2026-01-06 16:55:25] INFO: [PATCH] /orders/695ccca2c4ac105f53e23c12/items/695ccca2c4ac105f53e23c13/action
+[2026-01-06 16:55:28] INFO: [GET] /orders/695ccca2c4ac105f53e23c12
+[2026-01-06 16:56:17] INFO: [GET] /orders
+[2026-01-06 16:56:20] INFO: [GET] /orders/695ccca2c4ac105f53e23c12
+[2026-01-06 16:57:10] INFO: [GET] /admin/login
+[2026-01-06 16:57:17] INFO: [POST] /admin/login
+[2026-01-06 16:57:18] INFO: [GET] /admin/dashboard
+[2026-01-06 16:57:21] INFO: [GET] /admin/orders
+[2026-01-06 16:57:21] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:111
+    109|                                             <tr class="hover:bg-gray-50 transition-colors duration-150">
+    110|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+ >> 111|                                                     <%= (currentPage - 1) * limit + index + 1 %>
+    112|                                                 </td>
+    113|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+    114|                                                     <%= order.items[0]?.name || 'Unknown Product' %>
+
+currentPage is not defined
+[2026-01-06 16:59:46] INFO: [GET] /admin/products
+[2026-01-06 16:59:50] INFO: [GET] /admin/orders
+[2026-01-06 16:59:51] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:111
+    109|                                             <tr class="hover:bg-gray-50 transition-colors duration-150">
+    110|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+ >> 111|                                                     <%= (pagination.currentPage - 1) * limit + index + 1 %>
+    112|                                                 </td>
+    113|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+    114|                                                     <%= order.items[0]?.name || 'Unknown Product' %>
+
+limit is not defined
+[2026-01-06 17:00:49] INFO: [GET] /admin/users
+[2026-01-06 17:00:50] INFO: [GET] /admin/orders
+[2026-01-06 17:00:51] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:157
+    155|                         <!-- Pagination -->
+    156|                         <div class="mt-4 flex justify-end">
+ >> 157|                             <%- include('../../partials/pagination', { pagination, query: search ? 'search=' + search
+    158|                                 : '' }) %>
+    159|                         </div>
+    160|                     </div>
+
+Could not find the include file "../../partials/pagination"
+[2026-01-06 17:02:09] INFO: [GET] /admin/orders
+[2026-01-06 17:03:27] INFO: [GET] /admin/orders/695cddd8ab93b6e3194eac41
+[2026-01-06 17:03:29] INFO: [GET] /admin/orders
+[2026-01-06 17:08:14] INFO: [GET] /admin/orders/695cddd8ab93b6e3194eac41
+[2026-01-06 17:08:15] INFO: [GET] /admin/orders
+[2026-01-06 17:09:03] INFO: [GET] /admin/users
+[2026-01-06 17:09:17] INFO: [GET] /admin/products
+[2026-01-06 17:11:10] INFO: [GET] /admin/orders
+[2026-01-06 17:11:48] INFO: [GET] /orders
+[2026-01-06 17:24:08] INFO: [GET] /orders/695cddd8ab93b6e3194eac41
+[2026-01-06 17:24:44] INFO: [GET] /admin/orders
+[2026-01-06 17:25:00] INFO: [GET] /admin/orders/695cddd8ab93b6e3194eac41
+[2026-01-06 17:32:32] INFO: [GET] /admin/products
+[2026-01-06 17:32:35] INFO: [GET] /admin/orders
+[2026-01-06 17:32:36] INFO: [GET] /admin/orders/695cddd8ab93b6e3194eac41
+[2026-01-06 17:32:57] INFO: [POST] /admin/orders/update-status
+[2026-01-06 17:32:59] INFO: [GET] /admin/orders/695cddd8ab93b6e3194eac41
+[2026-01-06 17:33:02] INFO: [GET] /admin/orders
+[2026-01-06 17:36:50] INFO: [GET] /orders
+[2026-01-06 17:36:53] INFO: [GET] /orders/695cddd8ab93b6e3194eac41
+[2026-01-06 17:37:00] INFO: [GET] /admin/orders/695cddd8ab93b6e3194eac41
+[2026-01-06 17:37:04] INFO: [POST] /admin/orders/update-status
+[2026-01-06 17:37:06] INFO: [GET] /admin/orders/695cddd8ab93b6e3194eac41
+[2026-01-06 17:37:08] INFO: [GET] /admin/orders
+[2026-01-06 17:37:13] INFO: [GET] /orders
+[2026-01-06 17:37:16] INFO: [GET] /orders/695cddd8ab93b6e3194eac41
+[2026-01-06 17:37:24] INFO: [GET] /orders/695cddd8ab93b6e3194eac41
+[2026-01-06 17:38:05] INFO: [GET] /admin/orders/695cddd8ab93b6e3194eac41
+[2026-01-06 17:44:04] INFO: [GET] /admin/orders
+[2026-01-06 17:44:12] INFO: [GET] /admin/orders/695ccd218172a0d95cfe9c04
+[2026-01-06 17:44:17] INFO: [GET] /admin/users
+[2026-01-06 17:44:18] INFO: [GET] /admin/orders
+[2026-01-06 17:44:22] INFO: [GET] /admin/orders/695ccca2c4ac105f53e23c12
+[2026-01-06 17:47:08] INFO: [GET] /products
+[2026-01-06 17:47:14] INFO: [GET] /product/695797358049643367cd3501
+[2026-01-06 17:47:20] INFO: [POST] /cart/add
+[2026-01-06 17:47:29] INFO: [GET] /product/693fad27c1dc3ee2a4a4f821
+[2026-01-06 17:47:33] INFO: [POST] /cart/add
+[2026-01-06 17:47:38] INFO: [GET] /cart
+[2026-01-06 17:47:39] INFO: [GET] /css/styles.css
+[2026-01-06 17:47:44] INFO: [GET] /checkout
+[2026-01-06 17:47:50] INFO: [POST] /checkout/address
+[2026-01-06 17:47:50] INFO: [GET] /checkout/payment-options
+[2026-01-06 17:47:57] INFO: [POST] /place-order
+[2026-01-06 17:47:58] INFO: Order created: 695cfd7537ed6c02ec1cc9e6 for user: 692aafda50bbd504425b12d4
+[2026-01-06 17:47:58] INFO: Cart cleared for user: 692aafda50bbd504425b12d4
+[2026-01-06 17:47:58] INFO: [GET] /order-success?orderId=695cfd7537ed6c02ec1cc9e6
+[2026-01-06 17:48:01] INFO: [GET] /orders
+[2026-01-06 17:48:05] INFO: [GET] /orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:02:09] INFO: [GET] /admin/dashboard
+[2026-01-06 18:02:12] INFO: [GET] /admin/orders
+[2026-01-06 18:02:14] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:03:47] INFO: [POST] /admin/orders/update-item-status
+[2026-01-06 18:03:49] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:03:53] INFO: [GET] /admin/users
+[2026-01-06 18:03:55] INFO: [GET] /admin/orders
+[2026-01-06 18:04:08] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:04:20] INFO: [POST] /admin/orders/update-item-status
+[2026-01-06 18:04:22] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:04:23] INFO: [GET] /admin/orders
+[2026-01-06 18:04:25] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:04:39] INFO: [GET] /orders
+[2026-01-06 18:04:41] INFO: [GET] /orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:04:58] INFO: [POST] /admin/orders/update-item-status
+[2026-01-06 18:05:00] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:05:01] INFO: [GET] /admin/orders
+[2026-01-06 18:05:04] INFO: [GET] /orders
+[2026-01-06 18:05:07] INFO: [GET] /orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:05:20] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:05:25] INFO: [POST] /admin/orders/update-item-status
+[2026-01-06 18:05:26] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:05:30] INFO: [GET] /orders
+[2026-01-06 18:05:32] INFO: [GET] /orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:05:38] INFO: [POST] /admin/orders/update-item-status
+[2026-01-06 18:05:40] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:05:44] INFO: [GET] /orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:05:49] INFO: [POST] /admin/orders/update-item-status
+[2026-01-06 18:05:51] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:05:54] INFO: [GET] /orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:06:43] INFO: [POST] /admin/orders/update-item-status
+[2026-01-06 18:06:45] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:06:49] INFO: [GET] /orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:06:55] INFO: [PATCH] /orders/695cfd7537ed6c02ec1cc9e6/items/695cfd7537ed6c02ec1cc9e7/action
+[2026-01-06 18:06:57] INFO: [GET] /orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:08:14] INFO: [POST] /admin/orders/update-item-status
+[2026-01-06 18:08:15] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:08:22] INFO: [GET] /admin/users
+[2026-01-06 18:12:31] INFO: [GET] /admin/orders
+[2026-01-06 18:12:31] INFO: [GET] /admin/orders
+[2026-01-06 18:12:34] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:16:24] INFO: [GET] /admin/orders
+[2026-01-06 18:16:26] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:16:35] INFO: [GET] /orders
+[2026-01-06 18:16:39] INFO: [GET] /orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:16:42] INFO: [GET] /orders
+[2026-01-06 18:16:43] INFO: [GET] /orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:20:55] INFO: [GET] /admin/orders
+[2026-01-06 18:24:07] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:24:16] INFO: [POST] /admin/orders/update-item-status
+[2026-01-06 18:24:18] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:24:20] INFO: [GET] /admin/users
+[2026-01-06 18:24:21] INFO: [GET] /admin/orders
+[2026-01-06 18:24:26] INFO: [GET] /admin/products
+[2026-01-06 18:24:29] INFO: [PATCH] /admin/block-product/695797358049643367cd3501
+[2026-01-06 18:24:35] INFO: [PATCH] /admin/unblock-product/695797358049643367cd3501
+[2026-01-06 18:24:39] INFO: [GET] /admin/orders
+[2026-01-06 18:24:41] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:24:43] INFO: [POST] /admin/orders/update-item-status
+[2026-01-06 18:24:45] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:31:08] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:32:22] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:35:45] INFO: [GET] /admin/orders
+[2026-01-06 18:35:46] INFO: [GET] /admin/orders/695cddd8ab93b6e3194eac41
+[2026-01-06 18:42:17] INFO: [GET] /
+[2026-01-06 18:42:17] INFO: [GET] /home
+[2026-01-06 18:42:26] INFO: [GET] /admin/orders
+[2026-01-06 18:42:35] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:42:55] INFO: [GET] /admin/orders
+[2026-01-06 18:43:01] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:43:08] INFO: [GET] /orders
+[2026-01-06 18:43:12] INFO: [GET] /orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:44:01] INFO: [GET] /orders
+[2026-01-06 18:44:25] INFO: [GET] /orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:45:10] INFO: [GET] /orders
+[2026-01-06 18:45:12] INFO: [GET] /orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:49:27] INFO: [GET] /orders
+[2026-01-06 18:49:29] INFO: [GET] /orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:49:45] INFO: [GET] /admin/orders
+[2026-01-06 18:49:47] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:49:57] INFO: [POST] /admin/orders/update-item-status
+[2026-01-06 18:49:59] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:50:07] INFO: [GET] /admin/orders
+[2026-01-06 18:50:16] INFO: [GET] /orders
+[2026-01-06 18:50:18] INFO: [GET] /orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 18:50:28] INFO: [GET] /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-06 19:08:50] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 19:08:51] ERROR: E:\Brocamp\SeatWorld\views\admin\orderDetails.ejs:63
+    61|                                     </thead>
+    62|                                     <tbody class="divide-y divide-gray-100">
+ >> 63|                                         <% order.items.forEach(item=> { %>
+    64|                                             <tr>
+    65|                                                 <td class="px-6 py-4">
+    66|                                                     <div class="flex items-center gap-4">
+
+Cannot read properties of undefined (reading 'forEach')
+[2026-01-06 19:08:53] INFO: [GET] /admin/orders
+[2026-01-06 19:08:54] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:153
+    151|                                                 </td>
+    152|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+ >> 153|                                                     <%= order.items[0]?.name || 'Unknown Product' %>
+    154|                                                         <% if(order.items.length> 1) { %>
+    155|                                                             <span class="text-xs text-gray-500 font-normal ml-1">(+<%=
+    156|                                                                     order.items.length - 1 %> more)</span>
+
+Cannot read properties of undefined (reading '0')
+[2026-01-06 19:08:56] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 19:08:56] ERROR: E:\Brocamp\SeatWorld\views\admin\orderDetails.ejs:63
+    61|                                     </thead>
+    62|                                     <tbody class="divide-y divide-gray-100">
+ >> 63|                                         <% order.items.forEach(item=> { %>
+    64|                                             <tr>
+    65|                                                 <td class="px-6 py-4">
+    66|                                                     <div class="flex items-center gap-4">
+
+Cannot read properties of undefined (reading 'forEach')
+[2026-01-06 19:08:59] INFO: [GET] /admin/orders
+[2026-01-06 19:08:59] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:153
+    151|                                                 </td>
+    152|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+ >> 153|                                                     <%= order.items[0]?.name || 'Unknown Product' %>
+    154|                                                         <% if(order.items.length> 1) { %>
+    155|                                                             <span class="text-xs text-gray-500 font-normal ml-1">(+<%=
+    156|                                                                     order.items.length - 1 %> more)</span>
+
+Cannot read properties of undefined (reading '0')
+[2026-01-06 19:09:01] INFO: [GET] /admin/dashboard
+[2026-01-06 19:09:12] INFO: [GET] /admin/products
+[2026-01-06 19:09:14] INFO: [GET] /admin/users
+[2026-01-06 19:09:15] INFO: [GET] /admin/orders
+[2026-01-06 19:09:15] ERROR: E:\Brocamp\SeatWorld\views\admin\orderList.ejs:153
+    151|                                                 </td>
+    152|                                                 <td class="px-6 py-6 text-sm font-bold text-gray-900">
+ >> 153|                                                     <%= order.items[0]?.name || 'Unknown Product' %>
+    154|                                                         <% if(order.items.length> 1) { %>
+    155|                                                             <span class="text-xs text-gray-500 font-normal ml-1">(+<%=
+    156|                                                                     order.items.length - 1 %> more)</span>
+
+Cannot read properties of undefined (reading '0')
+[2026-01-06 19:09:19] INFO: [GET] /admin/users
+[2026-01-06 19:19:13] INFO: [GET] /admin/orders
+[2026-01-06 19:19:24] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 19:20:00] INFO: [GET] /orders
+[2026-01-06 19:20:00] ERROR: Get Orders Error: Cannot read properties of undefined (reading 'status')
+[2026-01-06 19:20:02] INFO: [GET] /orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 19:20:05] INFO: [GET] /profile
+[2026-01-06 19:20:07] INFO: [GET] /orders
+[2026-01-06 19:20:08] ERROR: Get Orders Error: Cannot read properties of undefined (reading 'status')
+[2026-01-06 19:20:10] INFO: [GET] /profile
+[2026-01-06 19:20:11] INFO: [GET] /orders
+[2026-01-06 19:20:12] ERROR: Get Orders Error: Cannot read properties of undefined (reading 'status')
+[2026-01-06 19:20:13] INFO: [GET] /
+[2026-01-06 19:20:13] INFO: [GET] /home
+[2026-01-06 19:20:15] INFO: [GET] /profile
+[2026-01-06 19:20:17] INFO: [GET] /address
+[2026-01-06 19:20:21] INFO: [GET] /orders
+[2026-01-06 19:20:22] ERROR: Get Orders Error: Cannot read properties of undefined (reading 'status')
+[2026-01-06 19:20:24] INFO: [GET] /address
+[2026-01-06 19:25:17] INFO: [GET] /address
+[2026-01-06 19:25:19] INFO: [GET] /orders
+[2026-01-06 19:25:19] ERROR: Get Orders Error: Cannot read properties of undefined (reading 'status')
+[2026-01-06 19:25:23] INFO: [GET] /profile
+[2026-01-06 19:25:25] INFO: [GET] /home
+[2026-01-06 19:26:02] INFO: [GET] /profile
+[2026-01-06 19:26:04] INFO: [GET] /orders
+[2026-01-06 19:26:04] ERROR: Get Orders Error: Cannot read properties of undefined (reading 'status')
+[2026-01-06 19:26:06] INFO: [GET] /profile
+[2026-01-06 19:26:13] INFO: [GET] /admin/orders
+[2026-01-06 19:26:18] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 19:26:22] INFO: [GET] /admin/dashboard
+[2026-01-06 19:28:22] INFO: [GET] /admin/users
+[2026-01-06 19:28:25] INFO: [GET] /admin/orders
+[2026-01-06 19:28:27] INFO: [GET] /admin/dashboard
+[2026-01-06 19:39:39] INFO: [GET] /admin/users
+[2026-01-06 19:39:40] INFO: [GET] /admin/orders
+[2026-01-06 19:39:41] INFO: [GET] /admin/orders
+[2026-01-06 19:39:46] INFO: [GET] /orders
+[2026-01-06 19:39:46] ERROR: Get Orders Error: Cannot read properties of undefined (reading 'status')
+[2026-01-06 19:39:48] INFO: [GET] /
+[2026-01-06 19:39:48] INFO: [GET] /home
+[2026-01-06 19:40:15] INFO: [GET] /products
+[2026-01-06 19:40:18] INFO: [GET] /profile
+[2026-01-06 19:40:20] INFO: [GET] /orders
+[2026-01-06 19:40:20] ERROR: Get Orders Error: Cannot read properties of undefined (reading 'status')
+[2026-01-06 19:40:22] INFO: [GET] /profile
+[2026-01-06 19:40:25] INFO: [GET] /admin/orders
+[2026-01-06 19:40:30] INFO: [GET] /admin/orders?search=&status=&sort=oldest&page=1
+[2026-01-06 19:40:33] INFO: [GET] /admin/orders?search=&status=&sort=newest&page=1
+[2026-01-06 19:40:41] INFO: [GET] /admin/orders?search=&status=pending&sort=newest&page=1
+[2026-01-06 19:40:43] INFO: [GET] /admin/orders?search=&status=&sort=newest&page=1
+[2026-01-06 19:40:45] INFO: [GET] /admin/orders?search=&status=confirmed&sort=newest&page=1
+[2026-01-06 19:40:49] INFO: [GET] /admin/orders?search=&status=shipped&sort=newest&page=1
+[2026-01-06 19:40:51] INFO: [GET] /admin/orders?search=&status=delivered&sort=newest&page=1
+[2026-01-06 19:40:52] INFO: [GET] /admin/orders?search=&status=cancelled&sort=newest&page=1
+[2026-01-06 19:40:55] INFO: [GET] /admin/orders?search=&status=returned&sort=newest&page=1
+[2026-01-06 19:40:56] INFO: [GET] /admin/orders?search=&status=&sort=newest&page=1
+[2026-01-06 20:06:54] INFO: [GET] /admin/orders
+[2026-01-06 20:07:00] INFO: [GET] /admin/orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 20:07:15] INFO: [GET] /admin/dashboard
+[2026-01-06 20:14:45] INFO: [GET] /admin/orders
+[2026-01-06 20:14:49] INFO: [GET] /admin/dashboard
+[2026-01-06 20:14:51] INFO: [GET] /orders
+[2026-01-06 20:15:00] INFO: [GET] /orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 20:15:08] INFO: [GET] /orders/695cfd7537ed6c02ec1cc9e6/invoice
+[2026-01-06 20:15:45] INFO: [GET] /orders
+[2026-01-06 20:16:01] INFO: [GET] /orders/695cfd7537ed6c02ec1cc9e6
+[2026-01-06 20:16:11] INFO: [GET] /orders
+[2026-01-06 20:18:57] INFO: [GET] /
+[2026-01-06 20:18:57] INFO: [GET] /home
+[2026-01-06 20:19:01] INFO: [GET] /admin/login
+[2026-01-06 20:19:01] INFO: [GET] /admin/dashboard
+[2026-01-06 20:19:04] INFO: [GET] /admin/inventory
+[2026-01-06 20:19:18] INFO: [GET] /admin/inventory
+[2026-01-06 20:19:21] INFO: [GET] /admin/dashboard
+[2026-01-06 20:19:31] INFO: [GET] /admin/products
+[2026-01-06 20:19:35] INFO: [GET] /admin/users
+[2026-01-06 20:19:36] INFO: [GET] /admin/inventory
+[2026-01-06 20:19:38] INFO: [GET] /admin/products
+[2026-01-06 20:19:41] INFO: [GET] /admin/orders
+[2026-01-06 20:27:56] INFO: [GET] /admin/dashboard
+[2026-01-06 20:27:58] INFO: [GET] /admin/users
+[2026-01-06 20:27:59] INFO: [GET] /admin/orders
+[2026-01-06 20:28:04] INFO: [GET] /admin/inventory
+[2026-01-06 20:28:08] INFO: [GET] /admin/users
+[2026-01-06 20:28:11] INFO: [GET] /admin/orders
+[2026-01-06 21:52:20] INFO: [GET] /
+[2026-01-06 21:52:23] INFO: [GET] /login
+[2026-01-06 21:52:32] INFO: [POST] /login
+[2026-01-06 21:52:39] INFO: [POST] /login
+[2026-01-06 21:52:41] INFO: [GET] /home
+[2026-01-06 21:52:45] INFO: [GET] /products
+[2026-01-06 21:52:50] INFO: [GET] /cart
+[2026-01-06 21:52:50] INFO: [GET] /css/styles.css
+[2026-01-06 21:52:52] INFO: [GET] /products
+[2026-01-06 21:52:53] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-06 21:52:55] INFO: [POST] /cart/add
+[2026-01-06 21:52:55] INFO: [GET] /cart
+[2026-01-06 21:52:56] INFO: [GET] /css/styles.css
+[2026-01-06 21:52:57] INFO: [GET] /checkout
+[2026-01-06 21:53:02] INFO: [POST] /checkout/address
+[2026-01-06 21:53:14] INFO: [POST] /checkout/address
+[2026-01-06 21:53:19] INFO: [POST] /checkout/address
+[2026-01-06 21:53:21] INFO: [POST] /checkout/address
+[2026-01-06 21:53:23] INFO: [POST] /checkout/address
+[2026-01-06 21:53:35] INFO: [POST] /checkout/address
+[2026-01-06 21:53:37] INFO: [POST] /checkout/address
+[2026-01-06 21:53:39] INFO: [GET] /address/edit/69498e44d94a4b0a1772fb01?returnTo=checkout
+[2026-01-06 21:53:43] INFO: [POST] /address/edit/69498e44d94a4b0a1772fb01
+[2026-01-06 21:53:45] INFO: [GET] /checkout
+[2026-01-06 21:53:47] INFO: [POST] /checkout/address
+[2026-01-06 21:53:49] INFO: [POST] /checkout/address
+[2026-01-06 21:53:49] INFO: [GET] /checkout/payment-options
+[2026-01-06 21:53:53] INFO: [POST] /place-order
+[2026-01-06 21:53:54] INFO: Order created: 695d371a255818dcddae891d for user: 694277e33e5136b65755f8d8
+[2026-01-06 21:53:54] INFO: Stock decrementd for variant 693fc66c6ecc42bce6fc754a: -1. New stock: 24. Reason: order_placed
+[2026-01-06 21:53:54] INFO: Cart cleared for user: 694277e33e5136b65755f8d8
+[2026-01-06 21:53:54] INFO: [GET] /order-success?orderId=695d371a255818dcddae891d
+[2026-01-06 21:53:56] INFO: [GET] /orders
+[2026-01-06 21:54:07] INFO: [GET] /orders?search=i&page=1
+[2026-01-06 21:54:09] INFO: [GET] /orders?search=&page=1
+[2026-01-06 21:54:16] INFO: [GET] /orders/695d371a255818dcddae891d
+[2026-01-06 21:54:29] INFO: [GET] /orders/695d371a255818dcddae891d/invoice
+[2026-01-06 21:54:46] INFO: [GET] /password-change
+[2026-01-06 21:54:47] INFO: [GET] /profile
+[2026-01-06 21:54:56] INFO: [GET] /admin/login
+[2026-01-06 21:55:05] INFO: [POST] /admin/login
+[2026-01-06 21:55:05] INFO: [GET] /admin/dashboard
+[2026-01-06 21:55:06] INFO: [GET] /admin/products
+[2026-01-06 21:55:09] INFO: [GET] /admin/inventory
+[2026-01-06 21:55:25] INFO: [POST] /admin/inventory/update
+[2026-01-06 21:55:25] INFO: Stock incrementd for variant 694fa4a7f0a089520a1144da: 1. New stock: 15. Reason: restock
+[2026-01-06 21:55:26] INFO: [GET] /admin/inventory
+[2026-01-06 21:55:32] INFO: [GET] /admin/users
+[2026-01-06 21:55:35] INFO: [GET] /admin/orders
+[2026-01-06 21:55:38] INFO: [GET] /admin/orders/695d371a255818dcddae891d
+[2026-01-06 21:56:20] INFO: [PATCH] /admin/orders/items/695d371a255818dcddae8923/status
+[2026-01-06 21:56:23] INFO: [PATCH] /admin/orders/items/695d371a255818dcddae8923/status
+[2026-01-06 21:56:27] INFO: [GET] /admin/products
+[2026-01-06 21:56:29] INFO: [GET] /admin/edit-product/693fc66c6ecc42bce6fc7548
+[2026-01-06 21:56:32] INFO: [POST] /admin/edit-product/693fc66c6ecc42bce6fc7548
+[2026-01-06 21:56:32] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-06 21:56:32] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-06 21:56:32] INFO: [postEditProduct] Request received for Product ID: 693fc66c6ecc42bce6fc7548
+[2026-01-06 21:56:32] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock
+[2026-01-06 21:56:32] INFO: [postEditProduct] Colors count: 1, VariantIndices count: 1
+[2026-01-06 21:56:32] INFO: [postEditProduct] Processing variant index 0
+[2026-01-06 21:56:32] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-06 21:56:32] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-06 21:56:32] INFO: [postEditProduct] Success.
+[2026-01-06 21:56:34] INFO: [GET] /admin/products
+[2026-01-06 21:56:37] INFO: [GET] /cart
+[2026-01-06 21:56:37] INFO: [GET] /css/styles.css
+[2026-01-06 21:56:39] INFO: [GET] /products
+[2026-01-06 21:56:40] INFO: [GET] /product/693faef8c1dc3ee2a4a4f878
+[2026-01-06 21:56:42] INFO: [POST] /cart/add
+[2026-01-06 21:56:43] INFO: [GET] /cart
+[2026-01-06 21:56:43] INFO: [GET] /css/styles.css
+[2026-01-06 21:56:45] INFO: [GET] /checkout
+[2026-01-06 21:56:47] INFO: [POST] /checkout/address
+[2026-01-06 21:56:49] INFO: [POST] /checkout/address
+[2026-01-06 21:56:49] INFO: [GET] /checkout/payment-options
+[2026-01-06 21:57:00] INFO: [GET] /home
+[2026-01-06 21:57:00] INFO: [GET] /cart
+[2026-01-06 21:57:01] INFO: [GET] /css/styles.css
+[2026-01-06 21:57:02] INFO: [GET] /checkout
+[2026-01-06 21:57:05] INFO: [POST] /checkout/address
+[2026-01-06 21:57:05] INFO: [GET] /checkout/payment-options
+[2026-01-06 21:57:08] INFO: [POST] /place-order
+[2026-01-06 21:57:08] INFO: Order created: 695d37dc255818dcddae89e4 for user: 694277e33e5136b65755f8d8
+[2026-01-06 21:57:08] INFO: Stock decrementd for variant 693faef8c1dc3ee2a4a4f87a: -1. New stock: 27. Reason: order_placed
+[2026-01-06 21:57:08] INFO: Cart cleared for user: 694277e33e5136b65755f8d8
+[2026-01-06 21:57:08] INFO: [GET] /order-success?orderId=695d37dc255818dcddae89e4
+[2026-01-06 21:57:10] INFO: [GET] /orders
+[2026-01-06 21:57:15] INFO: [GET] /orders/695d37dc255818dcddae89e4
+[2026-01-06 21:57:21] INFO: [GET] /orders
+[2026-01-06 21:57:36] INFO: [GET] /orders?search=%23&page=1
+[2026-01-06 21:57:39] INFO: [GET] /orders?search=%23A&page=1
+[2026-01-06 21:57:42] INFO: [GET] /orders?search=%23AE&page=1
+[2026-01-06 21:57:44] INFO: [GET] /orders?search=%23AE89&page=1
+[2026-01-06 21:57:46] INFO: [GET] /orders?search=%23AE89E&page=1
+[2026-01-06 21:57:51] INFO: [GET] /orders?search=%23AE89E4&page=1
+[2026-01-06 21:57:54] INFO: [GET] /orders?search=&page=1
+[2026-01-06 21:57:58] INFO: [GET] /orders?search=1300&page=1
+[2026-01-06 21:58:00] INFO: [GET] /orders?search=&page=1
+[2026-01-06 21:58:04] INFO: [GET] /orders?search=ashl&page=1
+[2026-01-06 21:58:08] INFO: [GET] /orders?search=&page=1
+[2026-01-06 21:58:10] INFO: [GET] /orders/695d37dc255818dcddae89e4
+[2026-01-06 21:58:17] INFO: [GET] /admin/orders
+[2026-01-06 21:58:19] INFO: [GET] /admin/orders/695d37dc255818dcddae89e4
+[2026-01-06 21:58:29] INFO: [PATCH] /admin/orders/update-status
+[2026-01-06 21:58:31] INFO: [GET] /admin/orders/695d37dc255818dcddae89e4
+[2026-01-06 21:58:46] INFO: [GET] /admin/orders
+[2026-01-06 21:58:48] INFO: [GET] /admin/orders/695d37dc255818dcddae89e4
+[2026-01-06 21:58:55] INFO: [GET] /orders/695d37dc255818dcddae89e4
+[2026-01-06 21:59:03] INFO: [PATCH] /admin/orders/items/695d37dc255818dcddae89ea/status
+[2026-01-06 21:59:08] INFO: [PATCH] /admin/orders/update-status
+[2026-01-06 21:59:09] INFO: [GET] /admin/orders/695d37dc255818dcddae89e4
+[2026-01-06 22:02:20] INFO: [PATCH] /admin/orders/items/695d37dc255818dcddae89ea/status
+[2026-01-06 22:03:11] INFO: [GET] /orders/695d37dc255818dcddae89e4
+[2026-01-06 22:03:18] INFO: [PATCH] /admin/orders/items/695d37dc255818dcddae89ea/status
+[2026-01-06 22:03:20] INFO: [PATCH] /admin/orders/update-status
+[2026-01-06 22:03:22] INFO: [GET] /admin/orders/695d37dc255818dcddae89e4
+[2026-01-06 22:03:28] INFO: [PATCH] /admin/orders/update-status
+[2026-01-06 22:03:30] INFO: [GET] /admin/orders/695d37dc255818dcddae89e4
+[2026-01-06 22:03:33] INFO: [GET] /admin/users
+[2026-01-06 22:03:34] INFO: [GET] /admin/orders
+[2026-01-06 22:03:36] INFO: [GET] /admin/orders/695d37dc255818dcddae89e4
+[2026-01-06 22:03:39] INFO: [GET] /admin/users
+[2026-01-06 22:03:40] INFO: [GET] /admin/orders
+[2026-01-06 22:03:46] INFO: [GET] /home
+[2026-01-06 22:03:51] INFO: [GET] /orders/695d37dc255818dcddae89e4
+[2026-01-06 22:09:34] INFO: [GET] /address
+[2026-01-06 22:09:37] INFO: [GET] /address/edit/69499ea3b3a07befc41e316b
+[2026-01-06 22:09:46] INFO: [POST] /address/edit/69499ea3b3a07befc41e316b
+[2026-01-06 22:09:48] INFO: [GET] /address
+[2026-01-06 22:09:49] INFO: [GET] /address/edit/69498e44d94a4b0a1772fb01
+[2026-01-06 22:09:51] INFO: [POST] /address/edit/69498e44d94a4b0a1772fb01
+[2026-01-06 22:09:53] INFO: [GET] /address
+[2026-01-06 22:09:55] INFO: [GET] /profile
+[2026-01-06 22:09:56] INFO: [GET] /profile
+[2026-01-06 22:10:00] INFO: [GET] /profile
+[2026-01-06 22:10:01] INFO: [GET] /cart
+[2026-01-06 22:10:01] INFO: [GET] /css/styles.css
+[2026-01-06 22:10:02] INFO: [GET] /products
+[2026-01-06 22:10:05] INFO: [GET] /product/692d42af31e01e9d9ba8dc04
+[2026-01-06 22:10:08] INFO: [POST] /cart/add
+[2026-01-06 22:10:10] INFO: [GET] /cart
+[2026-01-06 22:10:10] INFO: [GET] /css/styles.css
+[2026-01-06 22:10:12] INFO: [GET] /checkout
+[2026-01-06 22:10:15] INFO: [POST] /checkout/address
+[2026-01-06 22:10:15] INFO: [GET] /checkout/payment-options
+[2026-01-06 22:10:20] INFO: [GET] /checkout
+[2026-01-06 22:10:22] INFO: [POST] /checkout/address
+[2026-01-06 22:10:22] INFO: [GET] /checkout/payment-options
+[2026-01-06 22:10:25] INFO: [POST] /place-order
+[2026-01-06 22:10:25] ERROR: Order creation failed: Transaction numbers are only allowed on a replica set member or mongos
+[2026-01-06 22:10:25] ERROR: Place Order Error: Transaction numbers are only allowed on a replica set member or mongos
+[2026-01-06 22:10:29] INFO: [POST] /place-order
+[2026-01-06 22:10:29] ERROR: Order creation failed: Transaction numbers are only allowed on a replica set member or mongos
+[2026-01-06 22:10:29] ERROR: Place Order Error: Transaction numbers are only allowed on a replica set member or mongos
+[2026-01-06 22:10:33] INFO: [POST] /place-order
+[2026-01-06 22:10:33] ERROR: Order creation failed: Transaction numbers are only allowed on a replica set member or mongos
+[2026-01-06 22:10:33] ERROR: Place Order Error: Transaction numbers are only allowed on a replica set member or mongos
+[2026-01-06 22:10:37] INFO: [POST] /place-order
+[2026-01-06 22:10:37] ERROR: Order creation failed: Transaction numbers are only allowed on a replica set member or mongos
+[2026-01-06 22:10:37] ERROR: Place Order Error: Transaction numbers are only allowed on a replica set member or mongos
+[2026-01-06 22:10:40] INFO: [POST] /place-order
+[2026-01-06 22:10:40] ERROR: Order creation failed: Transaction numbers are only allowed on a replica set member or mongos
+[2026-01-06 22:10:40] ERROR: Place Order Error: Transaction numbers are only allowed on a replica set member or mongos
+[2026-01-06 22:10:52] INFO: [GET] /profile
+[2026-01-06 22:10:54] INFO: [GET] /orders
+[2026-01-06 22:10:57] INFO: [GET] /orders
+[2026-01-06 22:11:00] INFO: [GET] /orders/695d37dc255818dcddae89e4
+[2026-01-06 22:11:03] INFO: [GET] /
+[2026-01-06 22:11:03] INFO: [GET] /home
+[2026-01-06 22:11:06] INFO: [GET] /products
+[2026-01-06 22:11:07] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-06 22:11:09] INFO: [POST] /cart/add
+[2026-01-06 22:11:12] INFO: [POST] /cart/add
+[2026-01-06 22:11:13] INFO: [GET] /cart
+[2026-01-06 22:11:13] INFO: [GET] /css/styles.css
+[2026-01-06 22:11:15] INFO: [GET] /checkout
+[2026-01-06 22:11:18] INFO: [POST] /checkout/address
+[2026-01-06 22:11:18] INFO: [GET] /checkout/payment-options
+[2026-01-06 22:11:19] INFO: [POST] /place-order
+[2026-01-06 22:11:19] ERROR: Order creation failed: Transaction numbers are only allowed on a replica set member or mongos
+[2026-01-06 22:11:19] ERROR: Place Order Error: Transaction numbers are only allowed on a replica set member or mongos
+[2026-01-06 22:15:28] INFO: [GET] /products
+[2026-01-06 22:15:30] INFO: [GET] /cart
+[2026-01-06 22:15:30] INFO: [GET] /css/styles.css
+[2026-01-06 22:15:32] INFO: [GET] /checkout
+[2026-01-06 22:15:34] INFO: [POST] /checkout/address
+[2026-01-06 22:15:34] INFO: [GET] /checkout/payment-options
+[2026-01-06 22:15:37] INFO: [POST] /place-order
+[2026-01-06 22:15:37] INFO: Order created: 695d3c312ef92e28b4bd7821 for user: 694277e33e5136b65755f8d8
+[2026-01-06 22:15:37] INFO: Stock decrementd for variant 692d42af31e01e9d9ba8dc06: -1. New stock: 15. Reason: order_placed
+[2026-01-06 22:15:37] INFO: Stock decrementd for variant 693fc66c6ecc42bce6fc754a: -2. New stock: 22. Reason: order_placed
+[2026-01-06 22:15:37] INFO: Cart cleared for user: 694277e33e5136b65755f8d8
+[2026-01-06 22:15:40] INFO: [GET] /order-success?orderId=695d3c312ef92e28b4bd7821
+[2026-01-06 22:15:42] INFO: [GET] /orders
+[2026-01-06 22:15:47] INFO: [GET] /orders/695d3c312ef92e28b4bd7821
+[2026-01-06 22:16:02] INFO: [GET] /cart
+[2026-01-06 22:16:02] INFO: [GET] /css/styles.css
+[2026-01-06 22:16:05] INFO: [GET] /products
+[2026-01-06 22:16:10] INFO: [GET] /admin/orders
+[2026-01-06 22:16:12] INFO: [GET] /admin/orders/695d3c312ef92e28b4bd7821
+[2026-01-06 22:16:43] INFO: [PATCH] /admin/orders/items/695d3c312ef92e28b4bd7827/status
+[2026-01-06 22:16:52] INFO: [PATCH] /admin/orders/update-status
+[2026-01-06 22:16:53] INFO: [GET] /admin/orders/695d3c312ef92e28b4bd7821
+[2026-01-06 22:17:06] INFO: [GET] /profile
+[2026-01-06 22:17:07] INFO: [GET] /orders
+[2026-01-06 22:17:11] INFO: [GET] /orders/695d3c312ef92e28b4bd7821
+[2026-01-06 22:17:23] INFO: [PATCH] /admin/orders/update-status
+[2026-01-06 22:17:25] INFO: [GET] /admin/orders/695d3c312ef92e28b4bd7821
+[2026-01-06 22:17:29] INFO: [GET] /orders/695d3c312ef92e28b4bd7821
+[2026-01-06 22:17:53] INFO: [GET] /admin/products
+[2026-01-06 22:18:00] INFO: [GET] /admin/products
+[2026-01-06 22:18:10] INFO: [GET] /admin/edit-product/693fc66c6ecc42bce6fc7548
+[2026-01-06 22:18:12] INFO: [POST] /admin/edit-product/693fc66c6ecc42bce6fc7548
+[2026-01-06 22:18:12] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-06 22:18:12] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-06 22:18:12] INFO: [postEditProduct] Request received for Product ID: 693fc66c6ecc42bce6fc7548
+[2026-01-06 22:18:12] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock
+[2026-01-06 22:18:12] INFO: [postEditProduct] Colors count: 1, VariantIndices count: 1
+[2026-01-06 22:18:12] INFO: [postEditProduct] Processing variant index 0
+[2026-01-06 22:18:12] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-06 22:18:12] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-06 22:18:12] INFO: [postEditProduct] Success.
+[2026-01-06 22:18:14] INFO: [GET] /admin/products
+[2026-01-06 22:18:22] INFO: [GET] /profile
+[2026-01-06 22:18:25] INFO: [GET] /products
+[2026-01-06 22:18:27] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-06 22:18:28] INFO: [POST] /cart/add
+[2026-01-06 22:18:30] INFO: [GET] /cart
+[2026-01-06 22:18:30] INFO: [GET] /css/styles.css
+[2026-01-06 22:18:34] INFO: [GET] /checkout
+[2026-01-06 22:18:37] INFO: [POST] /checkout/address
+[2026-01-06 22:18:37] INFO: [GET] /checkout/payment-options
+[2026-01-06 22:18:42] INFO: [POST] /place-order
+[2026-01-06 22:18:42] INFO: Order created: 695d3cea2ef92e28b4bd78f4 for user: 694277e33e5136b65755f8d8
+[2026-01-06 22:18:42] INFO: Stock decrementd for variant 694fa4a7f0a089520a1144da: -1. New stock: 14. Reason: order_placed
+[2026-01-06 22:18:42] INFO: Cart cleared for user: 694277e33e5136b65755f8d8
+[2026-01-06 22:18:43] INFO: [GET] /order-success?orderId=695d3cea2ef92e28b4bd78f4
+[2026-01-06 22:18:45] INFO: [GET] /orders
+[2026-01-06 22:18:48] INFO: [GET] /orders/695d3cea2ef92e28b4bd78f4
+[2026-01-06 22:18:57] INFO: [GET] /profile
+[2026-01-06 22:19:01] INFO: [GET] /admin/products
+[2026-01-06 22:19:03] INFO: [GET] /admin/products
+[2026-01-06 22:19:12] INFO: [GET] /cart
+[2026-01-06 22:19:12] INFO: [GET] /css/styles.css
+[2026-01-06 22:19:16] INFO: [GET] /products
+[2026-01-06 22:19:21] INFO: [GET] /admin/orders
+[2026-01-06 22:19:22] INFO: [GET] /admin/orders/695d3cea2ef92e28b4bd78f4
+[2026-01-06 22:19:46] INFO: [PATCH] /admin/orders/items/695d3cea2ef92e28b4bd78fa/status
+[2026-01-07 07:25:41] INFO: [GET] /
+[2026-01-07 07:25:41] INFO: [GET] /home
+[2026-01-07 07:25:42] INFO: [GET] /favicon.ico
+[2026-01-07 07:25:47] INFO: [GET] /admin/login
+[2026-01-07 07:25:47] INFO: [GET] /admin/dashboard
+[2026-01-07 07:25:53] INFO: [GET] /admin/products
+[2026-01-07 07:26:04] INFO: [GET] /admin/inventory
+[2026-01-07 07:26:13] INFO: [GET] /admin/users
+[2026-01-07 07:26:39] INFO: [GET] /products
+[2026-01-07 07:28:08] INFO: [GET] /product/693faef8c1dc3ee2a4a4f878
+[2026-01-07 07:28:45] INFO: [POST] /cart/add
+[2026-01-07 07:28:46] INFO: [GET] /cart
+[2026-01-07 07:28:47] INFO: [GET] /css/styles.css
+[2026-01-07 07:28:49] INFO: [GET] /checkout
+[2026-01-07 07:28:52] INFO: [GET] /profile
+[2026-01-07 07:28:54] INFO: [GET] /orders
+[2026-01-07 07:28:58] INFO: [GET] /orders/695d3cea2ef92e28b4bd78f4
+[2026-01-07 07:29:12] INFO: [GET] /home
+[2026-01-07 07:32:10] INFO: [GET] /products
+[2026-01-07 07:33:10] INFO: [GET] /home
+[2026-01-07 07:34:39] INFO: [GET] /
+[2026-01-07 07:34:42] INFO: [GET] /login
+[2026-01-07 07:34:45] INFO: [GET] /auth/google
+[2026-01-07 07:34:45] INFO: [GET] /auth/google/callback?code=4%2F0ATX87lOEYE-tn1a_7rlHmHcggRlDnoZazGKywr6hFYUjDARunaiAquhiWx27cNa097rwiw&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=0&prompt=none
+[2026-01-07 07:34:47] INFO: [GET] /home
+[2026-01-07 07:34:50] INFO: [GET] /profile
+[2026-01-07 07:34:55] INFO: [GET] /orders
+[2026-01-07 07:35:00] INFO: [GET] /
+[2026-01-07 07:35:00] INFO: [GET] /home
+[2026-01-07 07:35:04] INFO: [GET] /products
+[2026-01-07 07:35:40] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-07 07:35:43] INFO: [POST] /cart/add
+[2026-01-07 07:35:49] INFO: [GET] /products
+[2026-01-07 07:35:56] INFO: [GET] /product/693faef8c1dc3ee2a4a4f878
+[2026-01-07 07:35:59] INFO: [POST] /cart/add
+[2026-01-07 07:36:01] INFO: [GET] /cart
+[2026-01-07 07:36:03] INFO: [GET] /css/styles.css
+[2026-01-07 07:36:08] INFO: [PATCH] /cart/update-quantity
+[2026-01-07 07:36:11] INFO: [GET] /checkout
+[2026-01-07 07:36:17] INFO: [POST] /checkout/address
+[2026-01-07 07:36:17] INFO: [GET] /checkout/payment-options
+[2026-01-07 07:36:24] INFO: [POST] /place-order
+[2026-01-07 07:36:24] INFO: Order created: 695dbfa09f52eb8aeab71fce for user: 692aafda50bbd504425b12d4
+[2026-01-07 07:36:25] INFO: Stock decrementd for variant 693faef8c1dc3ee2a4a4f87a: -1. New stock: 27. Reason: order_placed
+[2026-01-07 07:36:25] INFO: Stock decrementd for variant 693fc66c6ecc42bce6fc754a: -2. New stock: 23. Reason: order_placed
+[2026-01-07 07:36:25] INFO: Cart cleared for user: 692aafda50bbd504425b12d4
+[2026-01-07 07:36:28] INFO: [GET] /order-success?orderId=695dbfa09f52eb8aeab71fce
+[2026-01-07 07:36:31] INFO: [GET] /orders
+[2026-01-07 07:40:07] INFO: [GET] /products
+[2026-01-07 07:40:34] INFO: [GET] /cart
+[2026-01-07 07:40:36] INFO: [GET] /css/styles.css
+[2026-01-07 07:40:39] INFO: [GET] /products
+[2026-01-07 07:40:44] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-07 07:40:50] INFO: [GET] /products
+[2026-01-07 07:40:52] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-07 07:41:07] INFO: [GET] /products
+[2026-01-07 07:41:20] INFO: [GET] /home
+[2026-01-07 07:41:23] INFO: [GET] /products
+[2026-01-07 07:41:28] INFO: [GET] /product/693fadb9c1dc3ee2a4a4f85d
+[2026-01-07 07:41:32] INFO: [POST] /cart/add
+[2026-01-07 07:41:35] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-07 07:41:37] ERROR: connection <monitor> to 159.41.183.8:27017 closed
+[2026-01-07 07:41:41] INFO: [POST] /cart/add
+[2026-01-07 07:41:50] INFO: [GET] /cart
+[2026-01-07 07:41:51] INFO: [GET] /css/styles.css
+[2026-01-07 07:41:53] INFO: [GET] /checkout
+[2026-01-07 07:41:58] INFO: [POST] /checkout/address
+[2026-01-07 07:41:58] INFO: [GET] /checkout/payment-options
+[2026-01-07 07:42:06] INFO: [POST] /place-order
+[2026-01-07 07:42:06] ERROR: Place Order Error: newOrder is not defined
+[2026-01-07 07:42:12] INFO: [POST] /place-order
+[2026-01-07 07:42:12] ERROR: Session missing checkout or address
+[2026-01-07 07:42:17] INFO: [POST] /place-order
+[2026-01-07 07:42:17] ERROR: Session missing checkout or address
+[2026-01-07 07:42:22] INFO: [POST] /place-order
+[2026-01-07 07:42:22] ERROR: Session missing checkout or address
+[2026-01-07 07:42:27] INFO: [POST] /place-order
+[2026-01-07 07:42:27] ERROR: Session missing checkout or address
+[2026-01-07 07:42:35] INFO: [GET] /home
+[2026-01-07 07:42:38] INFO: [GET] /products
+[2026-01-07 07:42:45] INFO: [GET] /product/692d42af31e01e9d9ba8dc04
+[2026-01-07 07:42:49] INFO: [POST] /cart/add
+[2026-01-07 07:42:52] INFO: [GET] /cart
+[2026-01-07 07:42:53] INFO: [GET] /css/styles.css
+[2026-01-07 07:42:56] INFO: [GET] /checkout
+[2026-01-07 07:43:02] INFO: [POST] /checkout/address
+[2026-01-07 07:43:03] INFO: [GET] /checkout/payment-options
+[2026-01-07 07:43:03] INFO: [POST] /checkout/address
+[2026-01-07 07:43:04] INFO: [GET] /checkout/payment-options
+[2026-01-07 07:43:10] INFO: [POST] /place-order
+[2026-01-07 07:43:11] ERROR: Place Order Error: newOrder is not defined
+[2026-01-07 07:43:15] INFO: [POST] /place-order
+[2026-01-07 07:43:16] ERROR: Session missing checkout or address
+[2026-01-07 07:43:19] INFO: [POST] /place-order
+[2026-01-07 07:43:20] ERROR: Session missing checkout or address
+[2026-01-07 07:43:22] INFO: [POST] /place-order
+[2026-01-07 07:43:23] ERROR: Session missing checkout or address
+[2026-01-07 07:45:29] INFO: [POST] /place-order
+[2026-01-07 07:45:30] ERROR: Session missing checkout or address
+[2026-01-07 07:49:00] INFO: [GET] /admin/login
+[2026-01-07 07:49:11] INFO: [POST] /admin/login
+[2026-01-07 07:49:12] INFO: [GET] /admin/dashboard
+[2026-01-07 07:49:19] INFO: [GET] /admin/orders
+[2026-01-07 07:49:24] INFO: [GET] /admin/orders/695dbfa09f52eb8aeab71fce
+[2026-01-07 07:49:32] INFO: [PATCH] /admin/orders/items/695dbfa19f52eb8aeab71fd4/status
+[2026-01-07 07:49:43] INFO: [PATCH] /admin/orders/update-status
+[2026-01-07 07:49:46] INFO: [GET] /admin/orders/695dbfa09f52eb8aeab71fce
+[2026-01-07 07:50:10] INFO: [PATCH] /admin/orders/update-status
+[2026-01-07 07:50:13] INFO: [GET] /admin/orders/695dbfa09f52eb8aeab71fce
+[2026-01-07 07:52:20] INFO: [GET] /home
+[2026-01-07 07:52:25] INFO: [GET] /cart
+[2026-01-07 07:52:26] INFO: [GET] /css/styles.css
+[2026-01-07 07:52:30] INFO: [GET] /checkout
+[2026-01-07 07:52:36] INFO: [POST] /checkout/address
+[2026-01-07 07:52:36] INFO: [GET] /checkout/payment-options
+[2026-01-07 07:52:41] INFO: [POST] /place-order
+[2026-01-07 07:52:48] INFO: [POST] /place-order
+[2026-01-07 07:52:54] INFO: [POST] /place-order
+[2026-01-07 07:52:55] INFO: Order created: 695dc37fa52ccb2627a8ba39 for user: 692aafda50bbd504425b12d4
+[2026-01-07 07:52:56] INFO: Stock decrementd for variant 692d42af31e01e9d9ba8dc06: -1. New stock: 15. Reason: order_placed
+[2026-01-07 07:52:56] INFO: Stock decrementd for variant 693fadb9c1dc3ee2a4a4f85f: -1. New stock: 23. Reason: order_placed
+[2026-01-07 07:52:56] INFO: Cart cleared for user: 692aafda50bbd504425b12d4
+[2026-01-07 07:52:56] INFO: [GET] /order-success?orderId=695dc37fa52ccb2627a8ba39
+[2026-01-07 07:53:00] INFO: [GET] /orders
+[2026-01-07 07:53:05] INFO: [GET] /orders/695dc37fa52ccb2627a8ba39
+[2026-01-07 07:53:15] INFO: [GET] /orders
+[2026-01-07 07:53:19] INFO: [GET] /orders/695dbfa09f52eb8aeab71fce
+[2026-01-07 07:53:27] INFO: [GET] /orders
+[2026-01-07 07:53:43] INFO: [GET] /admin/users
+[2026-01-07 07:53:45] INFO: [GET] /admin/inventory
+[2026-01-07 07:54:16] INFO: [POST] /admin/inventory/update
+[2026-01-07 07:54:17] INFO: Stock incrementd for variant 694fa4a7f0a089520a1144da: 1. New stock: 15. Reason: restock
+[2026-01-07 07:54:18] INFO: [GET] /admin/inventory
+[2026-01-07 08:13:23] INFO: [GET] /admin/dashboard
+[2026-01-07 08:15:23] INFO: [GET] /admin/orders
+[2026-01-07 08:15:27] INFO: [GET] /admin/orders/695dc37fa52ccb2627a8ba39
+[2026-01-07 08:15:34] INFO: [PATCH] /admin/orders/update-status
+[2026-01-07 08:15:40] INFO: [GET] /admin/orders
+[2026-01-07 08:16:28] INFO: [GET] /admin/orders/695dc37fa52ccb2627a8ba39
+[2026-01-07 08:16:33] INFO: [PATCH] /admin/orders/items/695dc380a52ccb2627a8ba3f/status
+[2026-01-07 09:31:44] INFO: [GET] /
+[2026-01-07 09:31:45] INFO: [GET] /home
+[2026-01-07 09:31:47] INFO: [GET] /favicon.ico
+[2026-01-07 09:31:51] INFO: [GET] /admin/login
+[2026-01-07 09:31:51] INFO: [GET] /admin/dashboard
+[2026-01-07 09:31:53] INFO: [GET] /admin/products
+[2026-01-07 09:31:55] INFO: [GET] /admin/inventory
+[2026-01-07 09:32:10] INFO: [GET] /admin/inventory
+[2026-01-07 09:32:26] INFO: [GET] /admin/orders
+[2026-01-07 09:32:34] INFO: [GET] /admin/orders/695dbfa09f52eb8aeab71fce
+[2026-01-07 09:32:49] INFO: [GET] /admin/orders?search=wallet&status=&sort=newest&page=1
+[2026-01-07 09:32:52] INFO: [GET] /admin/orders?search=&status=&sort=newest&page=1
+[2026-01-07 09:33:03] INFO: [GET] /admin/orders?search=noble&status=&sort=newest&page=1
+[2026-01-07 09:33:07] INFO: [GET] /admin/orders?search=&status=&sort=newest&page=1
+[2026-01-07 09:33:12] INFO: [GET] /admin/orders?search=wake&status=&sort=newest&page=1
+[2026-01-07 09:33:13] INFO: [GET] /admin/orders?search=wakefit&status=&sort=newest&page=1
+[2026-01-07 09:33:16] INFO: [GET] /admin/orders?search=&status=&sort=newest&page=1
+[2026-01-07 09:33:25] INFO: [GET] /admin/orders?search=&status=&sort=oldest&page=1
+[2026-01-07 09:33:29] INFO: [GET] /admin/orders?search=&status=&sort=priceHighToLow&page=1
+[2026-01-07 09:33:32] INFO: [GET] /admin/orders?search=&status=&sort=priceLowToHigh&page=1
+[2026-01-07 09:33:34] INFO: [GET] /admin/orders?search=&status=&sort=newest&page=1
+[2026-01-07 09:33:38] INFO: [GET] /admin/orders?search=&status=pending&sort=newest&page=1
+[2026-01-07 09:33:40] INFO: [GET] /admin/orders?search=&status=confirmed&sort=newest&page=1
+[2026-01-07 09:33:43] INFO: [GET] /admin/orders?search=&status=shipped&sort=newest&page=1
+[2026-01-07 09:33:46] INFO: [GET] /admin/orders?search=&status=delivered&sort=newest&page=1
+[2026-01-07 09:33:49] INFO: [GET] /admin/orders?search=&status=returned&sort=newest&page=1
+[2026-01-07 09:33:51] INFO: [GET] /admin/orders?search=&status=cancel_requested&sort=newest&page=1
+[2026-01-07 09:33:53] INFO: [GET] /admin/orders?search=&status=return_requested&sort=newest&page=1
+[2026-01-07 09:33:55] INFO: [GET] /admin/orders?search=&status=pending&sort=newest&page=1
+[2026-01-07 09:33:57] INFO: [GET] /admin/orders?search=&status=&sort=newest&page=1
+[2026-01-07 09:34:01] INFO: [GET] /admin/orders/695dbfa09f52eb8aeab71fce
+[2026-01-07 09:34:28] INFO: [GET] /admin/orders
+[2026-01-07 09:34:31] INFO: [GET] /admin/orders/695dbfa09f52eb8aeab71fce
+[2026-01-07 09:34:46] INFO: [GET] /profile
+[2026-01-07 09:34:48] INFO: [GET] /orders
+[2026-01-07 09:34:52] INFO: [GET] /orders/695dc37fa52ccb2627a8ba39
+[2026-01-07 09:34:59] INFO: [GET] /orders
+[2026-01-07 09:35:02] INFO: [GET] /orders/695dbfa09f52eb8aeab71fce
+[2026-01-07 09:35:18] INFO: [GET] /admin/orders
+[2026-01-07 09:35:29] INFO: [PATCH] /orders/695dbfa09f52eb8aeab71fce/items/695dbfa19f52eb8aeab71fd4/request
+[2026-01-07 09:35:31] INFO: [GET] /orders/695dbfa09f52eb8aeab71fce
+[2026-01-07 09:35:41] INFO: [GET] /admin/orders
+[2026-01-07 09:35:47] INFO: [GET] /admin/orders/695dbfa09f52eb8aeab71fce
+[2026-01-07 09:35:59] INFO: [PATCH] /admin/orders/items/695dbfa19f52eb8aeab71fd4/status
+[2026-01-07 09:36:00] INFO: Stock incrementd for variant 693faef8c1dc3ee2a4a4f87a: 1. New stock: 28. Reason: order_returned
+[2026-01-07 09:36:05] INFO: [GET] /admin/orders
+[2026-01-07 09:36:13] INFO: [GET] /orders
+[2026-01-07 09:36:16] INFO: [GET] /orders/695dbfa09f52eb8aeab71fce
+[2026-01-07 09:39:23] INFO: [GET] /admin/orders/695dbfa09f52eb8aeab71fce
+[2026-01-07 09:40:14] INFO: [PATCH] /orders/695dbfa09f52eb8aeab71fce/items/695dbfa19f52eb8aeab71fda/request
+[2026-01-07 09:40:16] INFO: [GET] /orders/695dbfa09f52eb8aeab71fce
+[2026-01-07 09:40:22] INFO: [GET] /admin/orders/695dbfa09f52eb8aeab71fce
+[2026-01-07 10:51:24] INFO: [GET] /orders
+[2026-01-07 10:51:27] INFO: [GET] /orders/695dc37fa52ccb2627a8ba39
+[2026-01-07 10:51:34] INFO: [GET] /orders
+[2026-01-07 10:51:36] INFO: [GET] /orders/695dbfa09f52eb8aeab71fce
+[2026-01-07 10:51:48] INFO: [GET] /admin/orders
+[2026-01-07 10:51:51] INFO: [GET] /admin/orders/695dbfa09f52eb8aeab71fce
+[2026-01-07 10:51:55] INFO: [PATCH] /admin/orders/items/695dbfa19f52eb8aeab71fda/status
+[2026-01-07 10:51:56] INFO: Stock incrementd for variant 693fc66c6ecc42bce6fc754a: 2. New stock: 25. Reason: order_returned
+[2026-01-07 10:52:00] INFO: [GET] /admin/orders
+[2026-01-07 10:52:07] INFO: [GET] /orders/695dbfa09f52eb8aeab71fce
+[2026-01-07 10:52:12] INFO: [GET] /orders
+[2026-01-07 10:52:18] INFO: [GET] /orders/695dbfa09f52eb8aeab71fce
+[2026-01-07 10:52:21] INFO: [GET] /orders
+[2026-01-07 10:52:24] INFO: [GET] /orders/695dc37fa52ccb2627a8ba39
+[2026-01-07 10:52:30] INFO: [GET] /orders
+[2026-01-07 10:52:32] INFO: [GET] /password-change
+[2026-01-07 10:52:32] INFO: [GET] /profile
+[2026-01-07 10:52:35] INFO: [GET] /address
+[2026-01-07 10:52:50] INFO: [GET] /orders
+[2026-01-07 10:52:57] INFO: [GET] /admin/orders
+[2026-01-07 10:52:59] INFO: [GET] /admin/users
+[2026-01-07 10:53:00] INFO: [GET] /admin/orders
+[2026-01-07 10:53:01] INFO: [GET] /admin/users
+[2026-01-07 10:53:05] INFO: [GET] /admin/products
+[2026-01-07 10:53:15] INFO: [GET] /admin/users
+[2026-01-07 10:53:17] INFO: [GET] /admin/orders
+[2026-01-07 10:53:18] INFO: [GET] /admin/categories
+[2026-01-07 10:53:20] INFO: [GET] /admin/categories?page=2&limit=8&search=
+[2026-01-07 10:53:22] INFO: [GET] /admin/categories?page=1&limit=8&search=
+[2026-01-07 10:55:39] INFO: [GET] /admin/users
+[2026-01-07 10:55:41] INFO: [GET] /admin/inventory
+[2026-01-07 10:57:44] INFO: [GET] /admin/inventory
+[2026-01-07 10:58:02] INFO: [GET] /admin/inventory
+[2026-01-07 11:04:11] INFO: [GET] /
+[2026-01-07 11:04:11] INFO: [GET] /home
+[2026-01-07 11:04:15] INFO: [GET] /admin/orders
+[2026-01-07 11:04:20] INFO: [GET] /profile
+[2026-01-07 11:04:21] INFO: [GET] /orders
+[2026-01-07 11:04:25] INFO: [GET] /orders/695dc37fa52ccb2627a8ba39
+[2026-01-07 11:04:30] INFO: [GET] /admin/orders/695dc37fa52ccb2627a8ba39
+[2026-01-07 11:04:39] INFO: [PATCH] /admin/orders/items/695dc380a52ccb2627a8ba3f/status
+[2026-01-07 11:04:42] INFO: [GET] /admin/orders
+[2026-01-07 11:04:46] INFO: [GET] /orders/695dc37fa52ccb2627a8ba39
+[2026-01-07 11:05:20] INFO: [PATCH] /orders/695dc37fa52ccb2627a8ba39/items/695dc380a52ccb2627a8ba3f/request
+[2026-01-07 11:05:21] INFO: Item return requested for item 695dc380a52ccb2627a8ba3f
+[2026-01-07 11:05:23] INFO: [GET] /orders/695dc37fa52ccb2627a8ba39
+[2026-01-07 11:05:37] INFO: [GET] /admin/orders/695dc37fa52ccb2627a8ba39
+[2026-01-07 11:05:44] INFO: [PATCH] /admin/orders/items/695dc380a52ccb2627a8ba3f/status
+[2026-01-07 11:05:44] INFO: Stock incrementd for variant 692d42af31e01e9d9ba8dc06: 1. New stock: 16. Reason: order_returned
+[2026-01-07 11:05:47] INFO: [GET] /admin/orders
+[2026-01-07 11:05:51] INFO: [GET] /orders/695dc37fa52ccb2627a8ba39
+[2026-01-07 11:06:01] INFO: [GET] /profile
+[2026-01-07 11:06:04] INFO: [GET] /admin/orders/695dc37fa52ccb2627a8ba39
+[2026-01-07 11:25:39] INFO: [GET] /orders
+[2026-01-07 11:25:43] INFO: [GET] /orders/695dc37fa52ccb2627a8ba39
+[2026-01-07 11:25:54] INFO: [PATCH] /admin/orders/items/695dc380a52ccb2627a8ba45/status
+[2026-01-07 11:25:59] INFO: [GET] /admin/orders
+[2026-01-07 11:26:02] INFO: [GET] /orders/695dc37fa52ccb2627a8ba39
+[2026-01-07 11:26:27] INFO: [PATCH] /orders/695dc37fa52ccb2627a8ba39/items/695dc380a52ccb2627a8ba45/request
+[2026-01-07 11:26:27] INFO: Item return requested for item 695dc380a52ccb2627a8ba45
+[2026-01-07 11:26:29] INFO: [GET] /orders/695dc37fa52ccb2627a8ba39
+[2026-01-07 11:27:42] INFO: [GET] /admin/orders/695dc37fa52ccb2627a8ba39
+[2026-01-07 11:27:57] INFO: [PATCH] /admin/orders/items/695dc380a52ccb2627a8ba45/approve
+[2026-01-07 11:27:58] INFO: Stock incrementd for variant 693fadb9c1dc3ee2a4a4f85f: 1. New stock: 24. Reason: order_returned
+[2026-01-07 11:28:00] INFO: [GET] /admin/orders/695dc37fa52ccb2627a8ba39
+[2026-01-07 11:28:04] INFO: [GET] /admin/dashboard
+[2026-01-07 11:28:06] INFO: [GET] /orders/695dc37fa52ccb2627a8ba39
+[2026-01-07 11:28:13] INFO: [GET] /orders
+[2026-01-07 11:28:21] INFO: [GET] /products
+[2026-01-07 11:28:26] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-07 11:28:28] INFO: [POST] /cart/add
+[2026-01-07 11:28:29] INFO: [GET] /cart
+[2026-01-07 11:28:30] INFO: [GET] /css/styles.css
+[2026-01-07 11:28:31] INFO: [GET] /checkout
+[2026-01-07 11:28:35] INFO: [POST] /checkout/address
+[2026-01-07 11:28:35] INFO: [GET] /checkout/payment-options
+[2026-01-07 11:28:38] INFO: [POST] /place-order
+[2026-01-07 11:28:40] INFO: [POST] /place-order
+[2026-01-07 11:28:44] INFO: [POST] /place-order
+[2026-01-07 11:28:44] INFO: Order created: 695df614a87e3d1b7218f271 for user: 692aafda50bbd504425b12d4
+[2026-01-07 11:28:45] INFO: Stock decrementd for variant 694fa4a7f0a089520a1144da: -1. New stock: 14. Reason: order_placed
+[2026-01-07 11:28:45] INFO: Cart cleared for user: 692aafda50bbd504425b12d4
+[2026-01-07 11:28:45] INFO: [GET] /order-success?orderId=695df614a87e3d1b7218f271
+[2026-01-07 11:28:47] INFO: [GET] /orders
+[2026-01-07 11:28:49] INFO: [GET] /orders/695df614a87e3d1b7218f271
+[2026-01-07 11:28:57] INFO: [GET] /admin/orders
+[2026-01-07 11:29:00] INFO: [GET] /admin/orders/695df614a87e3d1b7218f271
+[2026-01-07 11:29:10] INFO: [PATCH] /admin/orders/items/695df615a87e3d1b7218f277/status
+[2026-01-07 11:29:14] INFO: [GET] /admin/orders
+[2026-01-07 11:29:25] INFO: [GET] /admin/orders/695df614a87e3d1b7218f271
+[2026-01-07 11:29:28] INFO: [GET] /admin/orders
+[2026-01-07 11:29:32] INFO: [GET] /orders/695df614a87e3d1b7218f271
+[2026-01-07 11:50:33] INFO: [GET] /home
+[2026-01-07 11:50:35] INFO: [GET] /profile
+[2026-01-07 11:50:37] INFO: [GET] /address
+[2026-01-07 11:50:40] INFO: [GET] /orders
+[2026-01-07 11:50:47] INFO: [GET] /password-change
+[2026-01-07 11:50:48] INFO: [GET] /profile
+[2026-01-07 11:50:50] INFO: [GET] /orders
+[2026-01-07 11:51:19] INFO: [GET] /admin/dashboard
+[2026-01-07 11:51:22] INFO: [GET] /admin/orders
+[2026-01-07 11:51:23] INFO: [GET] /admin/products
+[2026-01-07 11:51:25] INFO: [GET] /admin/inventory
+[2026-01-07 11:52:26] INFO: [GET] /orders/695df614a87e3d1b7218f271
+[2026-01-07 11:52:38] INFO: [PATCH] /orders/695df614a87e3d1b7218f271/items/695df615a87e3d1b7218f277/request
+[2026-01-07 11:52:39] INFO: Item return requested for item 695df615a87e3d1b7218f277
+[2026-01-07 11:52:41] INFO: [GET] /orders/695df614a87e3d1b7218f271
+[2026-01-07 11:52:57] INFO: [GET] /admin/orders
+[2026-01-07 11:53:05] INFO: [GET] /admin/orders/695df614a87e3d1b7218f271
+[2026-01-07 11:53:16] INFO: [PATCH] /admin/orders/items/695df615a87e3d1b7218f277/approve
+[2026-01-07 11:53:18] INFO: [GET] /admin/orders/695df614a87e3d1b7218f271
+[2026-01-07 11:53:24] INFO: [GET] /orders/695df614a87e3d1b7218f271
+[2026-01-07 11:53:29] INFO: [GET] /orders
+[2026-01-07 11:53:45] INFO: [GET] /orders?search=ha&page=1
+[2026-01-07 11:53:47] INFO: [GET] /orders?search=&page=1
+[2026-01-07 11:53:51] INFO: [GET] /orders?search=%23&page=1
+[2026-01-07 11:53:53] INFO: [GET] /orders?search=%231&page=1
+[2026-01-07 11:53:55] INFO: [GET] /orders?search=%2318&page=1
+[2026-01-07 11:53:56] INFO: [GET] /orders?search=%2318F&page=1
+[2026-01-07 11:53:58] INFO: [GET] /orders?search=%2318F71&page=1
+[2026-01-07 11:54:00] INFO: [GET] /orders?search=&page=1
+[2026-01-07 11:54:02] INFO: [GET] /orders/695df614a87e3d1b7218f271
+[2026-01-07 11:54:12] INFO: [GET] /orders
+[2026-01-07 11:54:15] INFO: [GET] /orders?search=herman&page=1
+[2026-01-07 11:54:19] INFO: [GET] /orders?search=herman+dining&page=1
+[2026-01-07 11:54:23] INFO: [GET] /orders?search=herman+dining+chair&page=1
+[2026-01-07 11:54:25] INFO: [GET] /orders?search=&page=1
+[2026-01-07 11:56:45] INFO: [GET] /orders/695df614a87e3d1b7218f271
+[2026-01-07 11:56:50] INFO: [GET] /orders
+[2026-01-07 12:01:48] INFO: [GET] /admin/orders
+[2026-01-07 12:07:05] INFO: [GET] /address
+[2026-01-07 12:07:10] INFO: [GET] /products
+[2026-01-07 12:22:27] INFO: [GET] /profile
+[2026-01-07 12:22:32] INFO: [GET] /orders
+[2026-01-07 12:22:32] ERROR: Get Orders Error: limit is not defined
+[2026-01-07 12:22:36] INFO: [GET] /orders
+[2026-01-07 12:22:36] ERROR: Get Orders Error: limit is not defined
+[2026-01-07 12:22:37] INFO: [GET] /profile
+[2026-01-07 12:22:39] INFO: [GET] /orders
+[2026-01-07 12:22:39] ERROR: Get Orders Error: limit is not defined
+[2026-01-07 12:22:40] INFO: [GET] /
+[2026-01-07 12:22:40] INFO: [GET] /home
+[2026-01-07 12:28:44] INFO: [GET] /admin/orders
+[2026-01-07 12:28:46] INFO: [GET] /admin/orders/695df614a87e3d1b7218f271
+[2026-01-07 12:28:53] INFO: [GET] /admin/dashboard
+[2026-01-07 12:28:54] INFO: [GET] /admin/products
+[2026-01-07 12:28:56] INFO: [GET] /admin/inventory
+[2026-01-07 12:29:04] INFO: [GET] /admin/categories
+[2026-01-07 12:33:16] INFO: [GET] /admin/categories
+[2026-01-07 12:37:56] INFO: [GET] /admin/categories
+[2026-01-07 12:37:58] INFO: [GET] /admin/products
+[2026-01-07 12:38:00] INFO: [GET] /admin/orders
+[2026-01-07 12:38:02] INFO: [GET] /admin/orders/695df614a87e3d1b7218f271
+[2026-01-07 12:38:07] INFO: [GET] /admin/categories
+[2026-01-07 12:38:12] INFO: [GET] /admin/orders
+[2026-01-07 12:38:16] INFO: [GET] /admin/orders?search=noble&status=&sort=newest&page=1
+[2026-01-07 12:38:18] INFO: [GET] /admin/orders?search=&status=&sort=newest&page=1
+[2026-01-07 12:38:25] INFO: [GET] /admin/orders?search=1&status=&sort=newest&page=1
+[2026-01-07 12:38:27] INFO: [GET] /admin/orders?search=&status=&sort=newest&page=1
+[2026-01-07 12:38:30] INFO: [GET] /admin/orders/695df614a87e3d1b7218f271
+[2026-01-07 12:38:35] INFO: [GET] /admin/orders
+[2026-01-07 12:38:38] INFO: [GET] /admin/orders?search=%2318F271&status=&sort=newest&page=1
+[2026-01-07 12:38:40] INFO: [GET] /admin/orders?search=&status=&sort=newest&page=1
+[2026-01-07 12:39:05] INFO: [GET] /profile
+[2026-01-07 12:39:06] INFO: [GET] /orders
+[2026-01-07 12:39:09] INFO: [GET] /orders/695df614a87e3d1b7218f271
+[2026-01-07 12:39:23] INFO: [GET] /profile
+[2026-01-07 12:39:24] INFO: [GET] /home

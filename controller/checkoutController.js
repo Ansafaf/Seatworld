@@ -5,8 +5,8 @@ import { Address } from "../models/addressModel.js";
 import Order from "../models/orderModel.js";
 import Cart from "../models/cartModel.js";
 import * as cartService from "../services/cartService.js";
-import { getSelectedPaymentMethod } from "../public/js/users/paymentOptions.js";
-import Coupon  from "../models/couponModel.js";
+import * as inventoryService from "../services/inventoryService.js";
+import Coupon from "../models/couponModel.js";
 
 export const getCheckoutAddress = async (req, res) => {
     try {
@@ -17,15 +17,26 @@ export const getCheckoutAddress = async (req, res) => {
             req.session.message = { type: 'error', message: "Your cart is empty" };
             return res.redirect("/cart");
         }
-      
+
+        // Stock check
+        const stockCheck = await inventoryService.checkStockAvailability(cartTotals.items);
+        if (!stockCheck.available) {
+            req.session.message = {
+                type: 'error',
+                message: `Insufficient stock for ${stockCheck.item}. Only ${stockCheck.availableStock} left.`
+            };
+            return res.redirect("/cart");
+        }
+
         const addresses = await Address.find({ userId }).sort({ isDefault: -1, createdAt: -1 });
         const availableCoupons = await Coupon.find({});
-        logger.info(`${cartTotals}`);
+        // logger.info(`${cartTotals}`);
         res.render("users/checkout", {
             user: req.session.user,
             addresses,
             ...cartTotals,
-            coupons:availableCoupons,
+            coupons: availableCoupons,
+            appliedCoupon: req.session.checkout?.coupon || null,
             breadcrumbs: buildBreadcrumb([
                 { label: "Cart", url: "/cart" },
                 { label: "Checkout", url: "/checkout" }
@@ -45,7 +56,7 @@ export const postAddress = async (req, res) => {
         if (!addressData) {
             return res.status(400).json({ success: false, message: "Valid address is required" });
         }
-        const requiredFields = ['name', 'street', 'city', 'pincode', 'mobile'];
+        const requiredFields = ['name', 'street', 'city', 'state', 'country', 'pincode', 'mobile'];
         for (const field of requiredFields) {
             if (!addressData[field]) {
                 return res.status(400).json({ success: false, message: `Missing required field: ${field}` });
@@ -79,12 +90,22 @@ export const getPaymentOptions = async (req, res) => {
 
         if (cartTotals.cartCount === 0) return res.redirect("/cart");
 
+        // Stock check
+        const stockCheck = await inventoryService.checkStockAvailability(cartTotals.items);
+        if (!stockCheck.available) {
+            req.session.message = {
+                type: 'error',
+                message: `Insufficient stock for ${stockCheck.item}. Only ${stockCheck.availableStock} left.`
+            };
+            return res.redirect("/cart");
+        }
+
         res.render("users/paymentOptions", {
             user: req.session.user,
             address: req.session.checkout.address,
             ...cartTotals,
-            couponApplied: false, 
-            discountAmount: 0     
+            couponApplied: !!req.session.checkout.coupon,
+            discountAmount: req.session.checkout.coupon ? req.session.checkout.coupon.discountAmount : 0
         });
 
     } catch (error) {
@@ -93,71 +114,97 @@ export const getPaymentOptions = async (req, res) => {
     }
 }
 
-export const placeOrder = async (req, res) => {
+export const applyCoupon = async (req, res) => {
     try {
+        const { couponCode } = req.body;
         const userId = req.session.user.id;
-        const paymentMethod = getSelectedPaymentMethod();
 
-        if (!req.session.checkout || !req.session.checkout.address) {
-            return res.status(400).json({ success: false, message: "Session expired or address missing" });
+        // Fetch coupon
+        const coupon = await Coupon.findOne({ code: couponCode, isActive: true });
+        if (!coupon) {
+            return res.status(404).json({ success: false, message: "Coupon not found or inactive" });
         }
 
-        const addressData = req.session.checkout.address;
+        // Validate expiry
+        if (new Date() > coupon.expireDate) {
+            return res.status(400).json({ success: false, message: "Coupon has expired" });
+        }
+
+        // Validate usage limit
+        // Check if user has already used this coupon
+        // This assumes you might have a way to track usage, possibly in the Order model or a separate Usage model.
+        // For now, let's keep it simple or check against previous orders if needed. 
+        // But based on the request, simple application is the first step.
 
         const cartTotals = await cartService.calculateCartTotals(userId);
 
-        if (cartTotals.items.length === 0) {
-            return res.status(400).json({ success: false, message: "Cart is empty" });
+        // Validate minimum purchase amount
+        if (cartTotals.total < coupon.minimumPurchaseAmount) {
+            return res.status(400).json({
+                success: false,
+                message: `Minimum purchase amount of ₹${coupon.minimumPurchaseAmount} required`
+            });
         }
 
-        const orderItems = cartTotals.items.map(item => ({
-            productId: item.productId,
-            variantId: item.variantId,
-            name: item.productName,
-            image: item.image,
-            price: item.price,
-            quantity: item.quantity,
-            total: item.total
-        }));
+        // Calculate discount
+        let discountAmount = 0;
+        if (coupon.offerType === 'percentage') {
+            discountAmount = (cartTotals.total * coupon.offerValue) / 100;
+        } else if (coupon.offerType === 'fixed') {
+            discountAmount = coupon.offerValue;
+        }
 
-        const newOrder = new Order({
-            userId,
-            items: orderItems,
-            totalAmount: cartTotals.total,
-            shippingAddress: {
-                name: addressData.name,
-                houseName: addressData.houseName || addressData.housename || '',
-                street: addressData.street,
-                landmark: addressData.landmark || '',
-                city: addressData.city,
-                pincode: addressData.pincode,
-                country: addressData.country || 'India',
-                mobile: addressData.mobile
-            },
-            paymentMethod: paymentMethod, // Default
-            orderStatus: 'Pending',
-            paymentStatus: 'Pending'
+        // Ensure discount doesn't exceed total
+        if (discountAmount > cartTotals.total) {
+            discountAmount = cartTotals.total;
+        }
+
+        // Store in session
+        req.session.checkout = {
+            ...req.session.checkout,
+            coupon: {
+                code: coupon.code,
+                discountAmount: discountAmount,
+                _id: coupon._id
+            }
+        };
+
+        const newTotal = cartTotals.total - discountAmount;
+
+        return res.json({
+            success: true,
+            message: "Coupon applied successfully",
+            discountAmount: discountAmount,
+            newTotal: newTotal,
+            subtotal: cartTotals.total // Return original total as subtotal
         });
 
-        await newOrder.save();
-        await Cart.deleteMany({ userId });
-        req.session.checkout = null;
-        req.session.order = newOrder;
+    } catch (error) {
+        logger.error("Apply Coupon Error:", error);
+        return res.status(500).json({ success: false, message: "Failed to apply coupon" });
+    }
+}
 
-        if (req.xhr || req.headers.accept.indexOf('json') > -1) {
-            return res.status(200).json({
-                success: true,
-                redirectUrl: `/profile`
-            });
-        } else {
-            res.redirect('/profile');
+export const removeCoupon = async (req, res) => {
+    try {
+        const userId = req.session.user.id;
+
+        if (req.session.checkout && req.session.checkout.coupon) {
+            delete req.session.checkout.coupon;
         }
+
+        const cartTotals = await cartService.calculateCartTotals(userId);
+
+        return res.json({
+            success: true,
+            message: "Coupon removed",
+            newTotal: cartTotals.total,
+            subtotal: cartTotals.total,
+            discountAmount: 0
+        });
 
     } catch (error) {
-        logger.error("Place Order Error:", error);
-        if (req.xhr) {
-            return res.status(500).json({ success: false, message: "Failed to place order" });
-        }
-        res.redirect('/checkout/payment-options');
+        logger.error("Remove Coupon Error:", error);
+        return res.status(500).json({ success: false, message: "Failed to remove coupon" });
     }
 }

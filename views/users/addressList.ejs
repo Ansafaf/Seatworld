@@ -33,99 +33,85 @@
         <main class="container mx-auto px-4 lg:px-8 py-10">
           <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
 
-            <!-- SIDEBAR -->
-            <aside class="lg:col-span-1" id="sidebarWrapper">
-              <div class="bg-white rounded-lg border shadow-sm" id="sidebar">
-                <h2 class="text-lg font-semibold p-4 border-b">My Account</h2>
-                <nav>
-                  <a href="/profile" class="flex px-4 py-3 hover:bg-gray-100">Personal Information</a>
-                  <a href="/address" class="flex px-4 py-3 bg-gray-100 font-medium">Address</a>
-                  <a href="/orders" class="flex px-4 py-3 hover:bg-gray-100">Orders</a>
-                  <a href="/wallet" class="flex px-4 py-3 hover:bg-gray-100">Wallet</a>
-                  <a href="/coupons" class="flex px-4 py-3 hover:bg-gray-100">Coupon</a>
-                  <a href="/password-change" class="flex px-4 py-3 hover:bg-gray-100">Password Change</a>
-                  <a href="/logout" class="flex px-4 py-3 hover:bg-gray-100">Logout</a>
-                </nav>
-              </div>
-            </aside>
+            <!-- Sidebar -->
+            <%- include('../partials/profileSidebar', { active: 'address' }) %>
+              <!-- ADDRESS CONTENT -->
+              <section class="lg:col-span-3">
+                <div class="bg-white rounded-lg border shadow-sm p-6">
 
-            <!-- ADDRESS CONTENT -->
-            <section class="lg:col-span-3">
-              <div class="bg-white rounded-lg border shadow-sm p-6">
-
-                <div class="flex justify-between items-center mb-6">
-                  <h2 class="text-2xl font-semibold">Address</h2>
-                  <a href="/address/add"
-                    class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 flex items-center gap-2">
-                    <span class="material-icons-outlined text-sm">add</span>
-                    Add New
-                  </a>
-                </div>
-
-                <% if (addresses && addresses.length) { %>
-                  <div class="grid md:grid-cols-2 gap-6">
-                    <% addresses.forEach(address=> { %>
-                      <div class="address-card <%= address.isDefault ? 'is-default' : '' %> rounded-lg p-4">
-                        <!-- Default Badge -->
-                        <% if (address.isDefault) { %>
-                          <span class="default-badge">
-                            <span class="material-icons-outlined" style="font-size: 14px;">check_circle</span>
-                            Default Address
-                          </span>
-                          <% } %>
-
-                            <h3 class="font-bold mt-2">
-                              <%= address.name %>
-                            </h3>
-                            <p class="text-sm text-gray-600 mt-1">
-                              <%= address.city %>, <%= address.state %> - <%= address.pincode %>
-                            </p>
-                            <p class="text-sm mt-1">Mobile: <%= address.mobile %>
-                            </p>
-
-                            <!-- Action Buttons -->
-                            <div class="flex gap-2 mt-4">
-                              <a href="/address/edit/<%= address._id %>"
-                                class="flex-1 bg-gray-800 text-white py-2 rounded text-center hover:bg-gray-900 flex items-center justify-center gap-2">
-                                <span class="material-icons-outlined text-sm">edit</span>
-                                Edit
-                              </a>
-                              <button class="delete-btn flex items-center justify-center gap-2"
-                                onclick="openDeleteModal('<%= address._id %>')">
-                                <span class="material-icons-outlined text-sm">delete</span>
-                                Delete
-                              </button>
-                            </div>
-
-                            <!-- Set Default Button -->
-                            <% if (!address.isDefault) { %>
-                              <button class="set-default-btn w-full mt-2"
-                                onclick="setDefaultAddress('<%= address._id %>')">
-                                <span class="material-icons-outlined" style="font-size: 16px;">star_border</span>
-                                Set as Default
-                              </button>
-                              <% } else { %>
-                                <button class="set-default-btn active w-full mt-2" disabled>
-                                  <span class="material-icons-outlined" style="font-size: 16px;">star</span>
-                                  Default Address
-                                </button>
-                                <% } %>
-                      </div>
-                      <% }) %>
+                  <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-semibold">Address</h2>
+                    <a href="/address/add"
+                      class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 flex items-center gap-2">
+                      <span class="material-icons-outlined text-sm">add</span>
+                      Add New
+                    </a>
                   </div>
-                  <% } else { %>
-                    <div class="text-center py-20">
-                      <span class="material-icons-outlined text-gray-300" style="font-size: 80px;">location_off</span>
-                      <p class="text-gray-500 mt-4">No addresses found</p>
-                      <a href="/address/add"
-                        class="inline-block mt-4 bg-gray-700 text-white px-6 py-2 rounded-lg hover:bg-gray-800">
-                        Add Your First Address
-                      </a>
-                    </div>
-                    <% } %>
 
-              </div>
-            </section>
+                  <% if (addresses && addresses.length) { %>
+                    <div class="grid md:grid-cols-2 gap-6">
+                      <% addresses.forEach(address=> { %>
+                        <div class="address-card <%= address.isDefault ? 'is-default' : '' %> rounded-lg p-4">
+                          <!-- Default Badge -->
+                          <% if (address.isDefault) { %>
+                            <span class="default-badge">
+                              <span class="material-icons-outlined" style="font-size: 14px;">check_circle</span>
+                              Default Address
+                            </span>
+                            <% } %>
+
+                              <h3 class="font-bold mt-2">
+                                <%= address.name %>
+                              </h3>
+                              <p class="text-sm text-gray-600 mt-1">
+                                <%= address.city %>, <%= address.state %> - <%= address.pincode %>
+                              </p>
+                              <p class="text-sm mt-1">Mobile: <%= address.mobile %>
+                              </p>
+
+                              <!-- Action Buttons -->
+                              <div class="flex gap-2 mt-4">
+                                <a href="/address/edit/<%= address._id %>"
+                                  class="flex-1 bg-gray-800 text-white py-2 rounded text-center hover:bg-gray-900 flex items-center justify-center gap-2">
+                                  <span class="material-icons-outlined text-sm">edit</span>
+                                  Edit
+                                </a>
+                                <button class="delete-btn flex items-center justify-center gap-2"
+                                  onclick="openDeleteModal('<%= address._id %>')">
+                                  <span class="material-icons-outlined text-sm">delete</span>
+                                  Delete
+                                </button>
+                              </div>
+
+                              <!-- Set Default Button -->
+                              <% if (!address.isDefault) { %>
+                                <button class="set-default-btn w-full mt-2"
+                                  onclick="setDefaultAddress('<%= address._id %>')">
+                                  <span class="material-icons-outlined" style="font-size: 16px;">star_border</span>
+                                  Set as Default
+                                </button>
+                                <% } else { %>
+                                  <button class="set-default-btn active w-full mt-2" disabled>
+                                    <span class="material-icons-outlined" style="font-size: 16px;">star</span>
+                                    Default Address
+                                  </button>
+                                  <% } %>
+                        </div>
+                        <% }) %>
+                    </div>
+                    <% } else { %>
+                      <div class="text-center py-20">
+                        <span class="material-icons-outlined text-gray-300" style="font-size: 80px;">location_off</span>
+                        <p class="text-gray-500 mt-4">No addresses found</p>
+                        <a href="/address/add"
+                          class="inline-block mt-4 bg-gray-700 text-white px-6 py-2 rounded-lg hover:bg-gray-800">
+                          Add Your First Address
+                        </a>
+                      </div>
+                      <% } %>
+
+                </div>
+              </section>
 
           </div>
         </main>
