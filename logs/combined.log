@@ -5682,3 +5682,13 @@ Use mongoose.model(name, schema)
 [2026-01-08 16:10:30] INFO: [POST] /wishlist/add
 [2026-01-08 16:10:31] INFO: [GET] /product/693fad27c1dc3ee2a4a4f821
 [2026-01-08 16:10:34] INFO: [GET] /wishlist
+[2026-01-08 16:48:27] INFO: [GET] /products
+[2026-01-08 16:48:34] INFO: [POST] /wishlist/add
+[2026-01-08 16:48:37] INFO: [POST] /wishlist/add
+[2026-01-08 16:48:38] INFO: [POST] /wishlist/add
+[2026-01-08 16:48:42] INFO: [POST] /wishlist/add
+[2026-01-08 16:48:43] INFO: [POST] /wishlist/add
+[2026-01-08 16:48:48] INFO: [GET] /wishlist
+[2026-01-08 16:48:53] INFO: [GET] /cart
+[2026-01-08 16:48:54] INFO: [GET] /css/styles.css
+[2026-01-08 16:48:56] INFO: [GET] /wishlist
