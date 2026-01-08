@@ -4792,3 +4792,576 @@ breadcrumbs is not defined
 [2026-01-07 12:39:09] INFO: [GET] /orders/695df614a87e3d1b7218f271
 [2026-01-07 12:39:23] INFO: [GET] /profile
 [2026-01-07 12:39:24] INFO: [GET] /home
+[2026-01-07 13:13:16] INFO: [GET] /favicon.ico
+[2026-01-07 13:13:17] INFO: [GET] /
+[2026-01-07 13:15:37] INFO: [GET] /admin/login
+[2026-01-07 13:15:37] INFO: [GET] /admin/dashboard
+[2026-01-07 13:15:39] INFO: [GET] /
+[2026-01-07 13:15:39] INFO: [GET] /home
+[2026-01-07 13:15:49] INFO: [GET] /products
+[2026-01-07 13:15:57] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-07 13:16:18] INFO: [POST] /cart/add
+[2026-01-07 13:16:27] INFO: [POST] /cart/add
+[2026-01-07 13:16:34] INFO: [GET] /cart
+[2026-01-07 13:16:35] INFO: [GET] /css/styles.css
+[2026-01-07 13:16:45] INFO: [GET] /products
+[2026-01-07 13:16:57] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-07 13:17:02] INFO: [POST] /cart/add
+[2026-01-07 13:17:07] INFO: [POST] /cart/add
+[2026-01-07 13:17:42] INFO: [GET] /cart
+[2026-01-07 13:17:43] INFO: [GET] /css/styles.css
+[2026-01-07 13:17:46] INFO: [GET] /products
+[2026-01-07 13:17:48] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-07 13:17:52] INFO: [POST] /cart/add
+[2026-01-07 13:17:54] INFO: [POST] /cart/add
+[2026-01-07 13:17:56] INFO: [POST] /cart/add
+[2026-01-07 13:17:58] INFO: [POST] /cart/add
+[2026-01-07 13:18:00] INFO: [POST] /cart/add
+[2026-01-07 13:18:02] INFO: [POST] /cart/add
+[2026-01-07 13:18:06] INFO: [POST] /cart/add
+[2026-01-07 13:18:09] INFO: [POST] /cart/add
+[2026-01-07 13:18:13] INFO: [GET] /cart
+[2026-01-07 13:18:13] INFO: [GET] /css/styles.css
+[2026-01-07 13:18:36] INFO: [PATCH] /cart/update-quantity
+[2026-01-07 13:18:36] ERROR: Update quantity error: Quantity must be less than or equal to 10
+[2026-01-07 13:22:59] INFO: [DELETE] /cart/remove/693fc66c6ecc42bce6fc754a
+[2026-01-07 13:23:00] INFO: [GET] /cart
+[2026-01-07 13:23:00] INFO: [GET] /css/styles.css
+[2026-01-07 13:23:01] INFO: [GET] /products
+[2026-01-07 13:23:04] INFO: [GET] /product/693faef8c1dc3ee2a4a4f878
+[2026-01-07 13:23:06] INFO: [POST] /cart/add
+[2026-01-07 13:23:10] INFO: [GET] /products
+[2026-01-07 13:23:12] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-07 13:23:14] INFO: [POST] /cart/add
+[2026-01-07 13:23:16] INFO: [GET] /cart
+[2026-01-07 13:23:16] INFO: [GET] /css/styles.css
+[2026-01-07 13:23:22] INFO: [GET] /checkout
+[2026-01-07 13:25:49] INFO: [POST] /checkout/address
+[2026-01-07 13:25:49] INFO: [GET] /checkout/payment-options
+[2026-01-07 13:26:15] INFO: [POST] /place-order
+[2026-01-07 13:26:19] INFO: [POST] /place-order
+[2026-01-07 13:26:20] INFO: Order created: 695e11a45d1da806bbb177d7 for user: 692aafda50bbd504425b12d4
+[2026-01-07 13:26:20] INFO: Stock decrementd for variant 693faef8c1dc3ee2a4a4f87a: -1. New stock: 27. Reason: order_placed
+[2026-01-07 13:26:20] INFO: Stock decrementd for variant 694fa4a7f0a089520a1144da: -1. New stock: 13. Reason: order_placed
+[2026-01-07 13:26:20] INFO: Cart cleared for user: 692aafda50bbd504425b12d4
+[2026-01-07 13:26:20] INFO: [GET] /order-success?orderId=695e11a45d1da806bbb177d7
+[2026-01-07 13:26:26] INFO: [GET] /orders
+[2026-01-07 13:26:35] INFO: [GET] /orders/695e11a45d1da806bbb177d7
+[2026-01-07 13:27:00] INFO: [GET] /
+[2026-01-07 13:27:01] INFO: [GET] /home
+[2026-01-07 13:27:02] INFO: [GET] /admin/login
+[2026-01-07 13:27:02] INFO: [GET] /admin/dashboard
+[2026-01-07 13:27:05] INFO: [GET] /admin/users
+[2026-01-07 13:27:08] INFO: [GET] /admin/orders
+[2026-01-07 13:27:16] INFO: [GET] /admin/orders/695e11a45d1da806bbb177d7
+[2026-01-07 13:28:03] INFO: [PATCH] /admin/orders/items/695e11a45d1da806bbb177dd/status
+[2026-01-07 13:28:30] INFO: [PATCH] /admin/orders/items/695e11a45d1da806bbb177dd/status
+[2026-01-07 13:28:38] INFO: [GET] /orders/695e11a45d1da806bbb177d7
+[2026-01-07 13:28:59] INFO: [PATCH] /admin/orders/items/695e11a45d1da806bbb177dd/status
+[2026-01-07 13:29:07] INFO: [GET] /orders/695e11a45d1da806bbb177d7
+[2026-01-07 13:29:33] INFO: [PATCH] /orders/695e11a45d1da806bbb177d7/items/695e11a45d1da806bbb177dd/request
+[2026-01-07 13:29:34] INFO: Item return requested for item 695e11a45d1da806bbb177dd
+[2026-01-07 13:29:36] INFO: [GET] /orders/695e11a45d1da806bbb177d7
+[2026-01-07 13:29:53] INFO: [GET] /admin/orders
+[2026-01-07 13:29:55] INFO: [GET] /admin/orders/695e11a45d1da806bbb177d7
+[2026-01-07 13:30:29] INFO: [GET] /admin/products
+[2026-01-07 13:30:34] INFO: [GET] /admin/orders
+[2026-01-07 13:30:47] INFO: [GET] /admin/orders/695e11a45d1da806bbb177d7
+[2026-01-07 13:30:52] INFO: [GET] /admin/orders
+[2026-01-07 13:31:55] INFO: [GET] /admin/orders/695e11a45d1da806bbb177d7
+[2026-01-07 13:32:10] INFO: [GET] /admin/orders
+[2026-01-07 13:35:32] INFO: [GET] /admin/orders/695e11a45d1da806bbb177d7
+[2026-01-07 13:36:07] INFO: [PATCH] /admin/orders/items/695e11a45d1da806bbb177dd/approve
+[2026-01-07 13:36:07] INFO: Stock incrementd for variant 693faef8c1dc3ee2a4a4f87a: 1. New stock: 28. Reason: order_returned
+[2026-01-07 13:36:09] INFO: [GET] /admin/orders/695e11a45d1da806bbb177d7
+[2026-01-07 13:36:15] INFO: [GET] /orders
+[2026-01-07 13:36:20] INFO: [GET] /orders/695e11a45d1da806bbb177d7
+[2026-01-07 13:36:42] INFO: [GET] /admin/inventory
+[2026-01-07 13:36:53] INFO: [GET] /
+[2026-01-07 13:36:59] INFO: [GET] /login
+[2026-01-07 13:37:02] INFO: [GET] /
+[2026-01-07 13:37:04] INFO: [GET] /
+[2026-01-07 13:37:06] INFO: [GET] /signup
+[2026-01-07 13:37:07] INFO: [GET] /
+[2026-01-07 13:37:10] INFO: [GET] /
+[2026-01-07 13:37:31] INFO: [GET] /admin/users
+[2026-01-07 13:37:46] INFO: [GET] /orders/695e11a45d1da806bbb177d7/invoice
+[2026-01-07 13:39:08] INFO: [GET] /products
+[2026-01-07 13:39:12] INFO: [GET] /product/693fad27c1dc3ee2a4a4f821
+[2026-01-07 13:39:13] INFO: [POST] /cart/add
+[2026-01-07 13:39:17] INFO: [GET] /cart
+[2026-01-07 13:39:18] INFO: [GET] /css/styles.css
+[2026-01-07 13:39:22] INFO: [PATCH] /cart/update-quantity
+[2026-01-07 13:39:29] INFO: [GET] /admin/products
+[2026-01-07 13:39:33] INFO: [GET] /admin/products?page=1&search=fic
+[2026-01-07 13:39:39] INFO: [GET] /admin/edit-product/693fad27c1dc3ee2a4a4f821
+[2026-01-07 13:39:47] INFO: [POST] /admin/edit-product/693fad27c1dc3ee2a4a4f821
+[2026-01-07 13:39:47] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-07 13:39:47] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-07 13:39:47] INFO: [postEditProduct] Request received for Product ID: 693fad27c1dc3ee2a4a4f821
+[2026-01-07 13:39:47] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock
+[2026-01-07 13:39:47] INFO: [postEditProduct] Colors count: 1, VariantIndices count: 1
+[2026-01-07 13:39:47] INFO: [postEditProduct] Processing variant index 0
+[2026-01-07 13:39:47] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-07 13:39:47] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-07 13:39:47] INFO: [postEditProduct] Success.
+[2026-01-07 13:39:49] INFO: [GET] /admin/products
+[2026-01-07 13:39:53] INFO: [GET] /admin/products?page=1&search=fic
+[2026-01-07 13:40:00] INFO: [GET] /checkout
+[2026-01-07 13:40:01] INFO: [GET] /cart
+[2026-01-07 13:40:01] INFO: [GET] /css/styles.css
+[2026-01-07 13:40:07] INFO: [GET] /checkout
+[2026-01-07 13:40:07] INFO: [GET] /cart
+[2026-01-07 13:40:08] INFO: [GET] /css/styles.css
+[2026-01-07 13:45:38] INFO: [GET] /home
+[2026-01-07 13:45:42] INFO: [GET] /admin/dashboard
+[2026-01-07 15:16:16] INFO: [GET] /products
+[2026-01-07 15:16:23] INFO: [GET] /cart
+[2026-01-07 15:16:24] INFO: [GET] /css/styles.css
+[2026-01-07 15:16:27] INFO: [GET] /checkout
+[2026-01-07 15:16:27] INFO: [GET] /cart
+[2026-01-07 15:16:28] INFO: [GET] /css/styles.css
+[2026-01-07 15:16:30] INFO: [GET] /checkout
+[2026-01-07 15:16:30] INFO: [GET] /cart
+[2026-01-07 15:16:31] INFO: [GET] /css/styles.css
+[2026-01-07 15:16:33] INFO: [GET] /checkout
+[2026-01-07 15:16:34] INFO: [GET] /cart
+[2026-01-07 15:16:34] INFO: [GET] /css/styles.css
+[2026-01-07 15:16:37] INFO: [GET] /checkout
+[2026-01-07 15:16:37] INFO: [GET] /cart
+[2026-01-07 15:16:38] INFO: [GET] /css/styles.css
+[2026-01-07 15:16:43] INFO: [DELETE] /cart/remove/693fad27c1dc3ee2a4a4f823
+[2026-01-07 15:16:44] INFO: [GET] /cart
+[2026-01-07 15:16:44] INFO: [GET] /css/styles.css
+[2026-01-07 15:16:47] INFO: [GET] /admin/products
+[2026-01-07 15:16:51] INFO: [GET] /admin/edit-product/693fad27c1dc3ee2a4a4f821
+[2026-01-07 15:16:55] INFO: [POST] /admin/edit-product/693fad27c1dc3ee2a4a4f821
+[2026-01-07 15:16:55] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-07 15:16:55] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-07 15:16:55] INFO: [postEditProduct] Request received for Product ID: 693fad27c1dc3ee2a4a4f821
+[2026-01-07 15:16:55] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock
+[2026-01-07 15:16:55] INFO: [postEditProduct] Colors count: 1, VariantIndices count: 1
+[2026-01-07 15:16:55] INFO: [postEditProduct] Processing variant index 0
+[2026-01-07 15:16:55] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-07 15:16:55] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-07 15:16:55] INFO: [postEditProduct] Success.
+[2026-01-07 15:16:56] INFO: [GET] /admin/products
+[2026-01-07 15:17:16] INFO: [GET] /products
+[2026-01-07 15:17:25] INFO: [GET] /about
+[2026-01-07 15:17:28] INFO: [GET] /products
+[2026-01-07 15:17:30] INFO: [GET] /home
+[2026-01-07 15:17:32] INFO: [GET] /profile
+[2026-01-07 15:17:35] INFO: [GET] /profile/edit
+[2026-01-07 15:17:36] INFO: [POST] /profile/edit
+[2026-01-07 15:17:39] INFO: [GET] /address
+[2026-01-07 15:17:43] INFO: [GET] /orders
+[2026-01-07 15:17:46] INFO: [GET] /orders/695e11a45d1da806bbb177d7
+[2026-01-07 15:18:05] INFO: [GET] /profile
+[2026-01-07 15:27:15] INFO: [GET] /admin/orders
+[2026-01-07 15:29:19] INFO: [GET] /admin/dashboard
+[2026-01-07 15:29:23] INFO: [GET] /admin/inventory
+[2026-01-07 15:29:38] INFO: [GET] /admin/products
+[2026-01-07 15:29:44] INFO: [GET] /admin/users
+[2026-01-07 15:29:47] INFO: [GET] /admin/orders
+[2026-01-07 15:30:07] INFO: [GET] /admin/categories
+[2026-01-07 15:30:10] INFO: [GET] /admin/categories?page=1&search=dinin
+[2026-01-07 15:30:12] INFO: [GET] /admin/categories?page=1&search=din
+[2026-01-07 15:30:14] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-07 15:30:15] INFO: [GET] /admin/categories?page=1&search=sof
+[2026-01-07 15:30:17] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-07 15:30:20] INFO: [GET] /admin/categories?page=1&search=office
+[2026-01-07 15:30:22] INFO: [GET] /admin/categories?page=1&search=
+[2026-01-07 15:31:47] INFO: [GET] /
+[2026-01-07 15:32:04] INFO: [GET] /login
+[2026-01-07 15:32:06] INFO: [GET] /favicon.ico
+[2026-01-07 15:32:07] INFO: [GET] /auth/google
+[2026-01-07 15:32:08] INFO: [GET] /auth/google/callback?code=4%2F0ATX87lNxlmtAGvDIo_dnnIyRm0kpIYd15cO53UoetS_XCwaM7RwDwCmZ5BVFKaqmsH7xnQ&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=0&prompt=none
+[2026-01-07 15:32:09] INFO: [GET] /home
+[2026-01-07 15:32:13] INFO: [GET] /profile
+[2026-01-07 15:32:15] INFO: [GET] /profile/edit
+[2026-01-07 15:32:17] INFO: [POST] /profile/edit
+[2026-01-07 15:33:20] INFO: [GET] /admin/orders
+[2026-01-07 15:33:20] INFO: [GET] /admin/login
+[2026-01-07 15:33:29] INFO: [POST] /admin/login
+[2026-01-07 15:33:29] INFO: [GET] /admin/dashboard
+[2026-01-07 15:33:30] INFO: [GET] /admin/orders
+[2026-01-07 21:05:54] INFO: [GET] /
+[2026-01-07 21:05:57] INFO: [GET] /
+[2026-01-07 21:06:06] INFO: [GET] /login
+[2026-01-07 21:06:07] INFO: [GET] /favicon.ico
+[2026-01-07 21:06:09] INFO: [GET] /signup
+[2026-01-07 21:08:40] INFO: [GET] /
+[2026-01-07 21:08:53] INFO: [GET] /admin/login
+[2026-01-07 21:09:08] INFO: [POST] /admin/login
+[2026-01-07 21:09:08] INFO: [GET] /admin/dashboard
+[2026-01-07 21:09:18] INFO: [GET] /admin/products
+[2026-01-07 21:09:23] INFO: [GET] /admin/products?limit=4
+[2026-01-07 21:09:27] INFO: [GET] /admin/add-product
+[2026-01-07 21:09:41] INFO: [GET] /admin/add-product
+[2026-01-07 21:09:49] INFO: [GET] /admin/inventory
+[2026-01-07 21:10:00] INFO: [GET] /admin/users
+[2026-01-07 21:10:07] INFO: [GET] /admin/users?limit=4
+[2026-01-07 21:10:08] INFO: [GET] /admin/users?page=2&limit=4&search=
+[2026-01-07 21:10:10] INFO: [GET] /admin/users?page=1&limit=4&search=
+[2026-01-07 21:10:13] INFO: [GET] /admin/users?page=1&search=Inda
+[2026-01-07 21:10:14] INFO: [GET] /admin/users?page=1&search=In
+[2026-01-07 21:10:15] INFO: [GET] /admin/users?page=1&search=Insa
+[2026-01-07 21:10:16] INFO: [GET] /admin/users?page=1&search=Insaf
+[2026-01-07 21:10:18] INFO: [GET] /admin/users?page=1&search=
+[2026-01-07 21:10:18] INFO: [GET] /admin/users?limit=4
+[2026-01-07 21:10:47] INFO: [GET] /
+[2026-01-07 21:10:49] INFO: [GET] /login
+[2026-01-07 21:11:01] INFO: [POST] /login
+[2026-01-07 21:11:03] INFO: [GET] /home
+[2026-01-07 21:11:06] INFO: [GET] /cart
+[2026-01-07 21:11:06] INFO: [GET] /css/styles.css
+[2026-01-07 21:11:10] INFO: [GET] /profile
+[2026-01-07 21:11:20] INFO: [GET] /profile
+[2026-01-07 21:11:22] INFO: [GET] /profile/edit
+[2026-01-07 21:11:26] INFO: [GET] /orders
+[2026-01-07 21:11:32] INFO: [GET] /orders/695d3cea2ef92e28b4bd78f4
+[2026-01-07 21:11:40] INFO: [GET] /orders/695d3cea2ef92e28b4bd78f4/invoice
+[2026-01-07 21:14:00] INFO: [GET] /orders
+[2026-01-07 21:15:37] INFO: [GET] /orders/695d3c312ef92e28b4bd7821
+[2026-01-07 21:15:56] INFO: [GET] /
+[2026-01-07 21:15:56] INFO: [GET] /home
+[2026-01-07 21:16:12] INFO: [GET] /wishlist
+[2026-01-07 21:16:15] INFO: [GET] /profile
+[2026-01-07 21:16:21] INFO: [GET] /logout
+[2026-01-07 21:16:21] INFO: [GET] /login
+[2026-01-07 21:16:22] INFO: [GET] /profile
+[2026-01-07 21:16:22] INFO: [GET] /login
+[2026-01-07 21:16:24] INFO: [GET] /home
+[2026-01-07 21:16:24] INFO: [GET] /login
+[2026-01-07 21:16:25] INFO: [GET] /orders/695d3c312ef92e28b4bd7821
+[2026-01-07 21:16:25] INFO: [GET] /login
+[2026-01-07 21:16:26] INFO: [GET] /orders
+[2026-01-07 21:16:26] INFO: [GET] /login
+[2026-01-07 21:16:26] INFO: [GET] /orders/695d3cea2ef92e28b4bd78f4
+[2026-01-07 21:16:26] INFO: [GET] /login
+[2026-01-07 21:16:27] INFO: [GET] /orders
+[2026-01-07 21:16:27] INFO: [GET] /login
+[2026-01-07 21:16:27] INFO: [GET] /profile/edit
+[2026-01-07 21:16:27] INFO: [GET] /login
+[2026-01-07 21:16:27] INFO: [GET] /profile
+[2026-01-07 21:16:27] INFO: [GET] /login
+[2026-01-07 21:16:27] INFO: [GET] /cart
+[2026-01-07 21:16:27] INFO: [GET] /login
+[2026-01-07 21:16:27] INFO: [GET] /home
+[2026-01-07 21:16:27] INFO: [GET] /login
+[2026-01-07 21:16:27] INFO: [GET] /login
+[2026-01-07 21:16:27] INFO: [GET] /
+[2026-01-07 22:10:01] INFO: [GET] /
+[2026-01-07 22:10:05] INFO: [GET] /admin/login
+[2026-01-07 22:10:12] INFO: [POST] /admin/login
+[2026-01-07 22:10:13] INFO: [GET] /admin/dashboard
+[2026-01-07 22:10:18] INFO: [GET] /admin/products
+[2026-01-07 22:10:23] INFO: [GET] /admin/products
+[2026-01-07 22:14:48] INFO: [GET] /admin/products?limit=8
+[2026-01-07 22:15:53] INFO: [GET] /admin/products?limit=4
+[2026-01-07 22:15:56] INFO: [GET] /admin/orders
+[2026-01-07 23:00:08] INFO: [GET] /admin/orders
+[2026-01-07 23:14:01] INFO: [GET] /admin/dashboard
+[2026-01-07 23:14:03] INFO: [GET] /admin/orders
+[2026-01-07 23:14:10] INFO: [GET] /admin/orders/695d3cea2ef92e28b4bd78f4
+[2026-01-07 23:14:13] INFO: [GET] /admin/orders
+[2026-01-07 23:14:16] INFO: [GET] /admin/orders/695d371a255818dcddae891d
+[2026-01-07 23:14:21] INFO: [GET] /admin/orders
+[2026-01-07 23:14:23] INFO: [GET] /admin/orders/695d37dc255818dcddae89e4
+[2026-01-07 23:14:25] INFO: [GET] /admin/orders
+[2026-01-07 23:14:27] INFO: [GET] /admin/orders/695d3c312ef92e28b4bd7821
+[2026-01-07 23:14:37] INFO: [PATCH] /admin/orders/items/695d3c312ef92e28b4bd782d/status
+[2026-01-07 23:14:37] INFO: Stock incrementd for variant 693fc66c6ecc42bce6fc754a: 2. New stock: 24. Reason: order_returned
+[2026-01-07 23:14:40] INFO: [GET] /admin/orders
+[2026-01-07 23:14:45] INFO: [GET] /admin/orders/695d3cea2ef92e28b4bd78f4
+[2026-01-07 23:14:48] INFO: [GET] /admin/orders
+[2026-01-07 23:14:49] INFO: [GET] /admin/orders/695d37dc255818dcddae89e4
+[2026-01-07 23:14:50] INFO: [GET] /admin/orders
+[2026-01-07 23:14:52] INFO: [GET] /admin/orders/695d371a255818dcddae891d
+[2026-01-07 23:14:54] INFO: [GET] /admin/orders
+[2026-01-07 23:50:04] INFO: [GET] /
+[2026-01-07 23:50:06] INFO: [GET] /login
+[2026-01-07 23:50:07] INFO: [GET] /favicon.ico
+[2026-01-07 23:50:15] INFO: [POST] /login
+[2026-01-07 23:50:17] INFO: [GET] /home
+[2026-01-07 23:50:19] INFO: [GET] /profile
+[2026-01-07 23:50:20] INFO: [GET] /address
+[2026-01-07 23:50:28] INFO: [GET] /products
+[2026-01-07 23:50:31] INFO: [GET] /cart
+[2026-01-07 23:50:31] INFO: [GET] /css/styles.css
+[2026-01-07 23:50:33] INFO: [GET] /checkout
+[2026-01-07 23:51:32] INFO: [POST] /checkout/address
+[2026-01-07 23:51:40] INFO: [POST] /checkout/address
+[2026-01-07 23:51:42] INFO: [POST] /checkout/address
+[2026-01-07 23:51:44] INFO: [POST] /checkout/address
+[2026-01-07 23:51:44] INFO: [GET] /checkout/payment-options
+[2026-01-07 23:51:48] INFO: [GET] /checkout
+[2026-01-07 23:57:19] INFO: [GET] /home
+[2026-01-07 23:57:24] INFO: [GET] /cart
+[2026-01-07 23:57:24] INFO: [GET] /css/styles.css
+[2026-01-07 23:57:27] INFO: [DELETE] /cart/remove/693faef8c1dc3ee2a4a4f87a
+[2026-01-07 23:57:27] INFO: [GET] /cart
+[2026-01-07 23:57:27] INFO: [GET] /css/styles.css
+[2026-01-07 23:57:29] INFO: [GET] /products
+[2026-01-07 23:57:33] INFO: [GET] /product/692d673590f31c452d819e08
+[2026-01-07 23:57:35] INFO: [POST] /cart/add
+[2026-01-07 23:57:36] INFO: [GET] /cart
+[2026-01-07 23:57:36] INFO: [GET] /css/styles.css
+[2026-01-07 23:57:38] INFO: [GET] /checkout
+[2026-01-07 23:57:48] INFO: [POST] /checkout/address
+[2026-01-07 23:57:48] INFO: [GET] /checkout/payment-options
+[2026-01-07 23:57:49] INFO: [GET] /checkout
+[2026-01-07 23:58:34] INFO: [POST] /checkout/address
+[2026-01-07 23:58:42] INFO: [POST] /checkout/address
+[2026-01-07 23:58:46] INFO: [GET] /cart
+[2026-01-07 23:58:46] INFO: [GET] /css/styles.css
+[2026-01-07 23:58:48] INFO: [GET] /checkout
+[2026-01-07 23:59:40] INFO: [POST] /checkout/address
+[2026-01-07 23:59:52] INFO: [POST] /checkout/address
+[2026-01-08 00:02:12] INFO: [GET] /home
+[2026-01-08 00:02:13] INFO: [GET] /cart
+[2026-01-08 00:02:13] INFO: [GET] /css/styles.css
+[2026-01-08 00:02:15] INFO: [GET] /checkout
+[2026-01-08 00:02:24] INFO: [GET] /address/edit/69499ea3b3a07befc41e316b?returnTo=checkout
+[2026-01-08 00:02:26] INFO: [POST] /address/edit/69499ea3b3a07befc41e316b
+[2026-01-08 00:02:28] INFO: [GET] /checkout
+[2026-01-08 00:03:24] INFO: [POST] /checkout/address
+[2026-01-08 00:03:25] INFO: [GET] /checkout/payment-options
+[2026-01-08 00:03:29] INFO: [GET] /checkout
+[2026-01-08 00:03:40] INFO: [GET] /cart
+[2026-01-08 00:03:40] INFO: [GET] /css/styles.css
+[2026-01-08 00:03:41] INFO: [GET] /checkout
+[2026-01-08 00:03:47] INFO: [GET] /profile
+[2026-01-08 00:03:48] INFO: [GET] /address
+[2026-01-08 00:05:06] INFO: [GET] /cart
+[2026-01-08 00:05:06] INFO: [GET] /css/styles.css
+[2026-01-08 00:05:07] INFO: [GET] /checkout
+[2026-01-08 00:05:28] INFO: [POST] /checkout/address
+[2026-01-08 00:05:28] INFO: [GET] /checkout/payment-options
+[2026-01-08 00:05:30] INFO: [POST] /place-order
+[2026-01-08 00:05:30] INFO: Order created: 695ea77206da726e4e537d15 for user: 694277e33e5136b65755f8d8
+[2026-01-08 00:05:30] INFO: Stock decrementd for variant 692d673590f31c452d819e0a: -1. New stock: 19. Reason: order_placed
+[2026-01-08 00:05:30] INFO: Cart cleared for user: 694277e33e5136b65755f8d8
+[2026-01-08 00:05:30] INFO: [GET] /order-success?orderId=695ea77206da726e4e537d15
+[2026-01-08 00:05:31] INFO: [GET] /orders
+[2026-01-08 00:05:39] INFO: [GET] /orders/695ea77206da726e4e537d15
+[2026-01-08 00:06:05] INFO: [GET] /address
+[2026-01-08 00:06:09] INFO: [GET] /orders
+[2026-01-08 00:06:11] INFO: [GET] /orders/695ea77206da726e4e537d15
+[2026-01-08 00:06:41] INFO: [GET] /profile
+[2026-01-08 00:06:43] INFO: [GET] /cart
+[2026-01-08 00:06:43] INFO: [GET] /css/styles.css
+[2026-01-08 00:06:44] INFO: [GET] /products
+[2026-01-08 00:06:47] INFO: [GET] /product/692d42af31e01e9d9ba8dc04
+[2026-01-08 00:06:49] INFO: [POST] /cart/add
+[2026-01-08 00:06:50] INFO: [GET] /cart
+[2026-01-08 00:06:50] INFO: [GET] /css/styles.css
+[2026-01-08 00:06:51] INFO: [GET] /checkout
+[2026-01-08 00:07:35] INFO: [POST] /checkout/address
+[2026-01-08 00:07:35] INFO: New address saved for user 694277e33e5136b65755f8d8: 695ea7ef9159aa00d5fe4ba8
+[2026-01-08 00:07:35] INFO: [GET] /checkout/payment-options
+[2026-01-08 00:07:37] INFO: [POST] /place-order
+[2026-01-08 00:07:37] INFO: Order created: 695ea7f19159aa00d5fe4bb4 for user: 694277e33e5136b65755f8d8
+[2026-01-08 00:07:37] INFO: Stock decrementd for variant 692d42af31e01e9d9ba8dc06: -1. New stock: 14. Reason: order_placed
+[2026-01-08 00:07:37] INFO: Cart cleared for user: 694277e33e5136b65755f8d8
+[2026-01-08 00:07:37] INFO: [GET] /order-success?orderId=695ea7f19159aa00d5fe4bb4
+[2026-01-08 00:07:39] INFO: [GET] /orders
+[2026-01-08 00:07:43] INFO: [GET] /orders/695ea7f19159aa00d5fe4bb4
+[2026-01-08 00:07:49] INFO: [GET] /address
+[2026-01-08 00:07:56] INFO: [GET] /profile
+[2026-01-08 00:21:27] INFO: [GET] /
+[2026-01-08 00:21:29] INFO: [GET] /login
+[2026-01-08 00:21:29] INFO: [GET] /favicon.ico
+[2026-01-08 00:21:31] INFO: [GET] /auth/google
+[2026-01-08 00:21:35] INFO: [GET] /login
+[2026-01-08 00:21:36] INFO: [GET] /
+[2026-01-08 00:21:40] INFO: [GET] /login
+[2026-01-08 00:21:48] INFO: [POST] /login
+[2026-01-08 00:21:50] INFO: [GET] /home
+[2026-01-08 00:21:52] INFO: [GET] /products
+[2026-01-08 00:21:56] INFO: [GET] /product/693fad27c1dc3ee2a4a4f821
+[2026-01-08 00:22:13] INFO: [POST] /cart/add
+[2026-01-08 00:22:14] INFO: [GET] /cart
+[2026-01-08 00:22:14] INFO: [GET] /css/styles.css
+[2026-01-08 00:22:15] INFO: [GET] /cart?limit=4
+[2026-01-08 00:22:15] INFO: [GET] /css/styles.css
+[2026-01-08 00:22:17] INFO: [GET] /checkout
+[2026-01-08 00:22:23] INFO: [GET] /home
+[2026-01-08 00:22:24] INFO: [GET] /profile
+[2026-01-08 00:22:26] INFO: [GET] /logout
+[2026-01-08 00:22:26] INFO: [GET] /login
+[2026-01-08 00:22:28] INFO: [GET] /
+[2026-01-08 00:22:29] INFO: [GET] /login
+[2026-01-08 00:22:36] INFO: [POST] /login
+[2026-01-08 00:22:38] INFO: [GET] /home
+[2026-01-08 00:22:40] INFO: [GET] /profile
+[2026-01-08 00:22:42] INFO: [GET] /profile/edit
+[2026-01-08 00:22:42] INFO: [POST] /profile/edit
+[2026-01-08 00:22:44] INFO: [GET] /profile/change-email
+[2026-01-08 00:22:49] INFO: [GET] /address
+[2026-01-08 00:22:54] INFO: [POST] /address/set-default/69498e44d94a4b0a1772fb01
+[2026-01-08 00:22:54] INFO: [GET] /address?limit=4
+[2026-01-08 00:22:58] INFO: [POST] /address/set-default/695ea7ef9159aa00d5fe4ba8
+[2026-01-08 00:22:59] INFO: [GET] /address?limit=4
+[2026-01-08 00:23:05] INFO: [POST] /address/set-default/69499ea3b3a07befc41e316b
+[2026-01-08 00:23:06] INFO: [GET] /address?limit=4
+[2026-01-08 00:23:17] INFO: [GET] /address?limit=4
+[2026-01-08 00:23:26] INFO: [GET] /profile
+[2026-01-08 00:23:29] INFO: [GET] /password-change
+[2026-01-08 00:23:37] INFO: [GET] /coupon
+[2026-01-08 00:23:40] INFO: [GET] /orders
+[2026-01-08 00:23:43] INFO: [GET] /orders/695ea7f19159aa00d5fe4bb4
+[2026-01-08 00:23:55] INFO: [GET] /profile
+[2026-01-08 09:46:48] INFO: [GET] /
+[2026-01-08 09:46:51] INFO: [GET] /login
+[2026-01-08 09:46:51] INFO: [GET] /favicon.ico
+[2026-01-08 09:46:52] INFO: [GET] /auth/google
+[2026-01-08 09:46:53] INFO: [GET] /auth/google/callback?code=4%2F0ATX87lOuFdvqJBHppGOCPK9Y5g9l5OU3uMTYhnzm-t6CC-a5Gxx53T11mgZlHpm4IprgvA&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=0&prompt=none
+[2026-01-08 09:46:53] INFO: [GET] /home
+[2026-01-08 09:46:56] INFO: [GET] /cart
+[2026-01-08 09:46:56] INFO: [GET] /css/styles.css
+[2026-01-08 09:46:57] INFO: [GET] /products
+[2026-01-08 09:46:59] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-08 09:47:01] INFO: [POST] /cart/add
+[2026-01-08 09:47:03] INFO: [GET] /cart
+[2026-01-08 09:47:03] INFO: [GET] /css/styles.css
+[2026-01-08 09:47:04] INFO: [PATCH] /cart/update-quantity
+[2026-01-08 09:47:05] INFO: [PATCH] /cart/update-quantity
+[2026-01-08 09:47:06] INFO: [PATCH] /cart/update-quantity
+[2026-01-08 09:47:07] INFO: [PATCH] /cart/update-quantity
+[2026-01-08 09:47:08] INFO: [PATCH] /cart/update-quantity
+[2026-01-08 09:47:09] INFO: [PATCH] /cart/update-quantity
+[2026-01-08 09:47:09] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-08 09:47:13] INFO: [PATCH] /cart/update-quantity
+[2026-01-08 09:47:13] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-08 09:47:19] INFO: [DELETE] /cart/remove/693fc66c6ecc42bce6fc754a
+[2026-01-08 09:47:21] INFO: [GET] /cart
+[2026-01-08 09:47:21] INFO: [GET] /css/styles.css
+[2026-01-08 09:47:23] INFO: [GET] /products
+[2026-01-08 09:47:25] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-08 09:47:27] INFO: [POST] /cart/add
+[2026-01-08 09:47:30] INFO: [POST] /cart/add
+[2026-01-08 09:47:32] INFO: [POST] /cart/add
+[2026-01-08 09:47:33] INFO: [POST] /cart/add
+[2026-01-08 09:47:35] INFO: [POST] /cart/add
+[2026-01-08 09:47:37] INFO: [POST] /cart/add
+[2026-01-08 09:47:38] INFO: [POST] /cart/add
+[2026-01-08 09:47:40] INFO: [POST] /cart/add
+[2026-01-08 09:47:42] INFO: [POST] /cart/add
+[2026-01-08 09:47:44] INFO: [POST] /cart/add
+[2026-01-08 09:47:44] INFO: [GET] /cart
+[2026-01-08 09:47:45] INFO: [GET] /css/styles.css
+[2026-01-08 09:47:47] INFO: [PATCH] /cart/update-quantity
+[2026-01-08 09:47:47] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-08 09:47:51] INFO: [DELETE] /cart/remove/694fa4a7f0a089520a1144da
+[2026-01-08 09:47:51] INFO: [GET] /cart
+[2026-01-08 09:47:52] INFO: [GET] /css/styles.css
+[2026-01-08 09:47:53] INFO: [GET] /products
+[2026-01-08 09:47:55] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-08 09:57:07] INFO: [GET] /home
+[2026-01-08 09:57:09] INFO: [GET] /cart
+[2026-01-08 09:57:09] INFO: [GET] /css/styles.css
+[2026-01-08 09:57:10] INFO: [GET] /products
+[2026-01-08 09:57:13] INFO: [GET] /product/693faef8c1dc3ee2a4a4f878
+[2026-01-08 09:57:15] INFO: [POST] /cart/add
+[2026-01-08 09:57:18] INFO: [POST] /cart/add
+[2026-01-08 09:57:20] INFO: [POST] /cart/add
+[2026-01-08 09:57:23] INFO: [POST] /cart/add
+[2026-01-08 09:57:24] INFO: [POST] /cart/add
+[2026-01-08 09:57:27] INFO: [POST] /cart/add
+[2026-01-08 09:57:29] INFO: [POST] /cart/add
+[2026-01-08 09:57:29] ERROR: Add to cart error: Cannot add more than 6
+[2026-01-08 09:57:32] INFO: [POST] /cart/add
+[2026-01-08 09:57:33] ERROR: Add to cart error: Cannot add more than 6
+[2026-01-08 09:57:35] INFO: [POST] /cart/add
+[2026-01-08 09:57:35] ERROR: Add to cart error: Cannot add more than 6
+[2026-01-08 09:57:37] INFO: [POST] /cart/add
+[2026-01-08 09:57:37] ERROR: Add to cart error: Cannot add more than 6
+[2026-01-08 09:57:40] INFO: [GET] /products
+[2026-01-08 09:57:41] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-08 09:57:43] INFO: [POST] /cart/add
+[2026-01-08 09:57:46] INFO: [POST] /cart/add
+[2026-01-08 09:57:48] INFO: [POST] /cart/add
+[2026-01-08 09:57:50] INFO: [POST] /cart/add
+[2026-01-08 09:57:51] INFO: [POST] /cart/add
+[2026-01-08 09:57:53] INFO: [POST] /cart/add
+[2026-01-08 09:57:55] INFO: [POST] /cart/add
+[2026-01-08 09:57:55] ERROR: Add to cart error: Cannot add more than 6
+[2026-01-08 09:57:57] INFO: [GET] /cart
+[2026-01-08 09:57:57] INFO: [GET] /css/styles.css
+[2026-01-08 09:58:02] INFO: [DELETE] /cart/remove/693faef8c1dc3ee2a4a4f87a
+[2026-01-08 09:58:04] INFO: [DELETE] /cart/remove/693fc66c6ecc42bce6fc754a
+[2026-01-08 09:58:05] INFO: [GET] /cart
+[2026-01-08 09:58:05] INFO: [GET] /css/styles.css
+[2026-01-08 09:58:06] INFO: [GET] /products
+[2026-01-08 10:00:37] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-08 10:00:40] INFO: [POST] /cart/add
+[2026-01-08 10:00:41] INFO: [GET] /cart
+[2026-01-08 10:00:42] INFO: [GET] /css/styles.css
+[2026-01-08 10:00:45] INFO: [GET] /checkout
+[2026-01-08 10:00:48] INFO: [GET] /home
+[2026-01-08 10:00:49] INFO: [GET] /profile
+[2026-01-08 10:00:51] INFO: [GET] /orders
+[2026-01-08 10:00:53] INFO: [GET] /orders/695e11a45d1da806bbb177d7
+[2026-01-08 10:00:55] INFO: [GET] /orders/695e11a45d1da806bbb177d7/invoice
+[2026-01-08 10:04:15] INFO: [GET] /orders
+[2026-01-08 10:04:16] INFO: [GET] /profile
+[2026-01-08 10:11:09] INFO: [GET] /products
+[2026-01-08 10:11:11] INFO: [GET] /wishlist
+[2026-01-08 10:15:17] INFO: [GET] /cart
+[2026-01-08 10:15:18] INFO: [GET] /css/styles.css
+[2026-01-08 10:15:20] INFO: [GET] /wishlist
+[2026-01-08 10:43:53] INFO: [GET] /home
+[2026-01-08 10:43:55] INFO: [GET] /cart
+[2026-01-08 10:43:56] INFO: [GET] /css/styles.css
+[2026-01-08 10:43:58] INFO: [GET] /wishlist
+[2026-01-08 10:44:03] INFO: [GET] /wishlist
+[2026-01-08 10:49:52] INFO: [GET] /products
+[2026-01-08 10:49:54] INFO: [GET] /wishlist
+[2026-01-08 10:49:54] ERROR: res is not defined
+[2026-01-08 10:49:58] INFO: [GET] /
+[2026-01-08 10:49:58] INFO: [GET] /home
+[2026-01-08 10:50:22] INFO: [GET] /wishlist
+[2026-01-08 10:50:23] ERROR: E:\Brocamp\SeatWorld\views\users\wishlist.ejs:12
+    10| 
+    11| <body>
+ >> 12|   <%- include('../partials/header', { user: user || {}, cartCount: cartCount || 0, showSearch: false }) %>
+    13| 
+    14|     <%- include('../partials/flash') %>
+    15| 
+
+cartCount is not defined
+[2026-01-08 10:50:25] INFO: [GET] /home
+[2026-01-08 10:55:20] INFO: [GET] /wishlist
+[2026-01-08 10:55:20] ERROR: logger is not defined
+[2026-01-08 10:55:21] INFO: [GET] /home
+[2026-01-08 10:55:37] INFO: [GET] /wishlist
+[2026-01-08 10:55:38] INFO: Cart.countDocuments({ userId: '692aafda50bbd504425b12d4' })
+[2026-01-08 10:55:38] ERROR: E:\Brocamp\SeatWorld\views\users\wishlist.ejs:12
+    10| 
+    11| <body>
+ >> 12|   <%- include('../partials/header', { user: user || {}, cartCount: cartCount || 0, showSearch: false }) %>
+    13| 
+    14|     <%- include('../partials/flash') %>
+    15| 
+
+cartCount is not defined
+[2026-01-08 10:55:39] INFO: [GET] /home
+[2026-01-08 10:56:35] INFO: [GET] /wishlist
+[2026-01-08 10:56:35] INFO: Cart.countDocuments({ userId: '692aafda50bbd504425b12d4' })
+[2026-01-08 10:56:35] ERROR: E:\Brocamp\SeatWorld\views\users\wishlist.ejs:14
+    12|   <%- include('../partials/header', { user: user || {}, cartCount: cartCount || 0, showSearch: false }) %>
+    13| 
+ >> 14|     <%- include('../partials/flash') %>
+    15| 
+    16|       <!-- WISHLIST -->
+    17|       <div class="wishlist">
+
+E:\Brocamp\SeatWorld\views\partials\flash.ejs:1
+ >> 1| <% if (messageData || message) { %>
+    2|     <% let finalMessage=messageData || message; let msgType=(typeof finalMessage==='object' && finalMessage &&
+    3|         finalMessage.type) ? finalMessage.type : 'info' ; let msgText=(typeof finalMessage==='object' && finalMessage &&
+    4|         finalMessage.message) ? finalMessage.message : (typeof finalMessage==='string' ? finalMessage : '' ); if
+
+messageData is not defined
+[2026-01-08 10:56:37] INFO: [GET] /home

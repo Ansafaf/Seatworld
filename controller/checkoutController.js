@@ -52,6 +52,7 @@ export const getCheckoutAddress = async (req, res) => {
 export const postAddress = async (req, res) => {
     try {
         const { addressData } = req.body;
+        const userId = req.session.user.id;
 
         if (!addressData) {
             return res.status(400).json({ success: false, message: "Valid address is required" });
@@ -63,6 +64,24 @@ export const postAddress = async (req, res) => {
             }
         }
 
+        // Save the new address to the Address collection
+        const newAddress = new Address({
+            userId,
+            name: addressData.name,
+            housename: addressData.houseName || addressData.housename || '',
+            street: addressData.street,
+            city: addressData.city,
+            state: addressData.state,
+            country: addressData.country,
+            pincode: addressData.pincode,
+            mobile: addressData.mobile,
+            isDefault: false
+        });
+
+        await newAddress.save();
+        logger.info(`New address saved for user ${userId}: ${newAddress._id}`);
+
+        // Store in session for the order
         req.session.checkout = {
             address: addressData,
             step: 'payment'

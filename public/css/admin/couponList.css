@@ -1,10 +1,229 @@
-/* Custom styles for table rounding if not using Tailwind fully for table */
-thead tr th:first-child {
-    border-top-left-radius: 0.5rem;
-    border-bottom-left-radius: 0.5rem;
+/* ==================== HEADER SECTION ==================== */
+.coupon-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    gap: 1rem;
+    flex-wrap: wrap;
 }
 
-thead tr th:last-child {
-    border-top-right-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
+.page-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #f3f4f6;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    min-width: 280px;
+    max-width: 400px;
+}
+
+.search-icon {
+    width: 18px;
+    height: 18px;
+    color: #9ca3af;
+    margin-right: 0.5rem;
+}
+
+.search-box input {
+    border: none;
+    background: transparent;
+    outline: none;
+    flex: 1;
+    font-size: 0.875rem;
+    color: #1f2937;
+}
+
+.search-box input::placeholder {
+    color: #9ca3af;
+}
+
+.btn-add {
+    background: #ff9933;
+    color: white;
+    padding: 0.625rem 1.5rem;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-add:hover {
+    background: #e68a2e;
+}
+
+/* ==================== TABLE SECTION ==================== */
+.coupons-table-container {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.coupons-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+}
+
+.coupons-table thead {
+    background: #d3d3d3;
+}
+
+.coupons-table thead tr th {
+    padding: 1rem 0.75rem;
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1f2937;
+    text-transform: capitalize;
+}
+
+.coupons-table thead tr th:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.coupons-table thead tr th:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.coupons-table tbody tr {
+    border-bottom: 1px solid #f3f4f6;
+    transition: background-color 0.2s ease;
+}
+
+.coupons-table tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+.coupons-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.coupons-table tbody td {
+    padding: 1.25rem 0.75rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: #374151;
+}
+
+.amount-red {
+    color: #dc2626;
+    font-weight: 500;
+}
+
+/* ==================== ACTION BUTTONS ==================== */
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-edit,
+.btn-block {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.btn-edit {
+    background: #22c55e;
+}
+
+.btn-edit:hover {
+    background: #16a34a;
+}
+
+.btn-block {
+    background: #ef4444;
+}
+
+.btn-block:hover {
+    background: #dc2626;
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 1024px) {
+    .coupon-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header-actions {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-box {
+        max-width: 100%;
+    }
+
+    .btn-add {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .coupons-table-container {
+        padding: 1rem;
+        overflow-x: auto;
+    }
+
+    .coupons-table {
+        min-width: 800px;
+    }
+
+    .coupons-table thead tr th,
+    .coupons-table tbody tr td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.75rem;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .btn-edit,
+    .btn-block {
+        width: 100%;
+        padding: 0.4rem 0.75rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .page-title {
+        font-size: 1.25rem;
+    }
+
+    .search-box {
+        min-width: 100%;
+    }
 }

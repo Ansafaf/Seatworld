@@ -28,6 +28,8 @@ import cartRouter from "./routes/cartRoute.js";
 import checkoutRouter from "./routes/checkoutRoute.js";
 import orderRouter from "./routes/orderRoute.js";
 import adminInventoryRouter from "./routes/adminInventoryRoutes.js";
+import wishlistRouter from "./routes/wishlistRoute.js";
+
 
 
 app.use(express.json());
@@ -87,6 +89,7 @@ app.use("/", checkoutRouter);
 app.use("/admin/orders", adminOrderRouter);
 app.use("/admin/inventory", adminInventoryRouter);
 app.use("/", orderRouter);
+app.use("/wishlist",wishlistRouter);
 
 app.use((req, res, next) => {
   res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, private");

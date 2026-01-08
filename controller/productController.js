@@ -320,8 +320,7 @@ export async function getProductdetail(req, res) {
         if (!selectedVariant && variants.length > 0) {
             selectedVariant = variants[0];
         }
-
-        // Prepare display data
+        
         const displayProduct = {
             ...product,
             price: selectedVariant ? selectedVariant.price : product.Baseprice,

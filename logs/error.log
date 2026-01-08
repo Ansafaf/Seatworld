@@ -445,3 +445,47 @@ breadcrumbs is not defined
 [2026-01-07 12:22:32] ERROR: Get Orders Error: limit is not defined
 [2026-01-07 12:22:36] ERROR: Get Orders Error: limit is not defined
 [2026-01-07 12:22:39] ERROR: Get Orders Error: limit is not defined
+[2026-01-07 13:18:36] ERROR: Update quantity error: Quantity must be less than or equal to 10
+[2026-01-08 09:47:09] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-08 09:47:13] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-08 09:47:47] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-08 09:57:29] ERROR: Add to cart error: Cannot add more than 6
+[2026-01-08 09:57:33] ERROR: Add to cart error: Cannot add more than 6
+[2026-01-08 09:57:35] ERROR: Add to cart error: Cannot add more than 6
+[2026-01-08 09:57:37] ERROR: Add to cart error: Cannot add more than 6
+[2026-01-08 09:57:55] ERROR: Add to cart error: Cannot add more than 6
+[2026-01-08 10:49:54] ERROR: res is not defined
+[2026-01-08 10:50:23] ERROR: E:\Brocamp\SeatWorld\views\users\wishlist.ejs:12
+    10| 
+    11| <body>
+ >> 12|   <%- include('../partials/header', { user: user || {}, cartCount: cartCount || 0, showSearch: false }) %>
+    13| 
+    14|     <%- include('../partials/flash') %>
+    15| 
+
+cartCount is not defined
+[2026-01-08 10:55:20] ERROR: logger is not defined
+[2026-01-08 10:55:38] ERROR: E:\Brocamp\SeatWorld\views\users\wishlist.ejs:12
+    10| 
+    11| <body>
+ >> 12|   <%- include('../partials/header', { user: user || {}, cartCount: cartCount || 0, showSearch: false }) %>
+    13| 
+    14|     <%- include('../partials/flash') %>
+    15| 
+
+cartCount is not defined
+[2026-01-08 10:56:35] ERROR: E:\Brocamp\SeatWorld\views\users\wishlist.ejs:14
+    12|   <%- include('../partials/header', { user: user || {}, cartCount: cartCount || 0, showSearch: false }) %>
+    13| 
+ >> 14|     <%- include('../partials/flash') %>
+    15| 
+    16|       <!-- WISHLIST -->
+    17|       <div class="wishlist">
+
+E:\Brocamp\SeatWorld\views\partials\flash.ejs:1
+ >> 1| <% if (messageData || message) { %>
+    2|     <% let finalMessage=messageData || message; let msgType=(typeof finalMessage==='object' && finalMessage &&
+    3|         finalMessage.type) ? finalMessage.type : 'info' ; let msgText=(typeof finalMessage==='object' && finalMessage &&
+    4|         finalMessage.message) ? finalMessage.message : (typeof finalMessage==='string' ? finalMessage : '' ); if
+
+messageData is not defined

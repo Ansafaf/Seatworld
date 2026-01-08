@@ -51,16 +51,26 @@
 
                 <!-- Main Content -->
                 <main class="flex-1 p-8 overflow-y-auto bg-white/50">
-                    <div class="header">
-                        <h1>Coupons</h1>
-                        <div class="search-box">
-                            <i>🔍</i>
-                            <input type="text" id="searchInput" placeholder="Search for Coupons">
+                    <!-- Header Section -->
+                    <div class="coupon-header">
+                        <h1 class="page-title">Coupons</h1>
+                        <div class="header-actions">
+                            <div class="search-box">
+                                <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                                <input type="text" id="searchInput" placeholder="Search for Coupons">
+                            </div>
+                            <button class="btn-add" onclick="window.location.href='/admin/coupons/add'">
+                                Add new Coupon
+                            </button>
                         </div>
                     </div>
 
-                    <div class="coupons-table">
-                        <table>
+                    <!-- Coupons Table -->
+                    <div class="coupons-table-container">
+                        <table class="coupons-table">
                             <thead>
                                 <tr>
                                     <th>Coupon Code</th>
@@ -76,15 +86,15 @@
                                 <% if (coupons && coupons.length> 0) { %>
                                     <% coupons.forEach(coupon=> { %>
                                         <tr>
-                                            <td>
+                                            <td class="font-semibold">
                                                 <%= coupon.code %>
                                             </td>
                                             <td>
                                                 <% if (coupon.discountType==='percentage' ) { %>
-                                                    <span class="discount-percentage">🏷️ <%= coupon.discount %>%</span>
-                                                    <% } else { %>
-                                                        <span class="discount-amount">💰 ₹<%= coupon.discount %></span>
-                                                        <% } %>
+                                                    <%= coupon.discount %>%
+                                                        <% } else { %>
+                                                            <%= coupon.discount %>
+                                                                <% } %>
                                             </td>
                                             <td>
                                                 <%= new Date(coupon.createdDate).toLocaleDateString('en-GB') %>
@@ -93,45 +103,36 @@
                                                 <%= new Date(coupon.expiryDate).toLocaleDateString('en-GB') %>
                                             </td>
                                             <td class="amount-red">
-                                                <%= coupon.maxAmount ? '₹' + coupon.maxAmount : '—' %>
+                                                <%= coupon.maxAmount ? '₹' + coupon.maxAmount : '-----' %>
                                             </td>
                                             <td class="amount-red">₹<%= coupon.minAmount %>
                                             </td>
                                             <td>
                                                 <div class="action-buttons">
-                                                    <button class="btn btn-edit"
-                                                        onclick="editCoupon('<%= coupon._id %>')">Edit</button>
-                                                    <button class="btn btn-delete"
-                                                        onclick="deleteCoupon('<%= coupon._id %>')">Delete</button>
+                                                    <button class="btn-edit" onclick="editCoupon('<%= coupon._id %>')">
+                                                        Edit
+                                                    </button>
+                                                    <button class="btn-block"
+                                                        onclick="blockCoupon('<%= coupon._id %>')">
+                                                        Block
+                                                    </button>
                                                 </div>
                                             </td>
                                         </tr>
                                         <% }); %>
                                             <% } else { %>
                                                 <tr>
-                                                    <td colspan="7" style="text-align: center; padding: 40px;">No
-                                                        coupons
-                                                        found
+                                                    <td colspan="7" style="text-align: center; padding: 40px;">
+                                                        No coupons found
                                                     </td>
                                                 </tr>
                                                 <% } %>
                             </tbody>
                         </table>
 
-                        <button class="btn-add" onclick="window.location.href='/admin/coupons/add'">Add new
-                            Coupon</button>
-
                         <!-- Pagination -->
-                        <div class="pagination">
-                            <button>‹ Previous</button>
-                            <button class="active">1</button>
-                            <button>2</button>
-                            <button>3</button>
-                            <button>...</button>
-                            <button>67</button>
-                            <button>68</button>
-                            <button>Next ›</button>
-                        </div>
+                        <%- include('../partials/pagination', { pagination: pagination || {}, query: typeof search
+                            !=='undefined' && search ? 'search=' + search : '' }) %>
                     </div>
                 </main>
         </div>
