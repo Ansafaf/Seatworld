@@ -4,9 +4,6 @@ bannerRoute.js
 
 bannerController.js
 .env
-
-wishlistController.js
-wishlistModel.js
-wishlistRoute.js
-
+adminCoupon.js
+adminCouponRoutes.js
 

@@ -489,3 +489,26 @@ E:\Brocamp\SeatWorld\views\partials\flash.ejs:1
     4|         finalMessage.message) ? finalMessage.message : (typeof finalMessage==='string' ? finalMessage : '' ); if
 
 messageData is not defined
+[2026-01-08 12:36:10] ERROR: Cast to ObjectId failed for value "{ userId: '692aafda50bbd504425b12d4' }" (type Object) at path "userId" for model "Wishlist"
+[2026-01-08 12:38:29] ERROR: Cast to ObjectId failed for value "{ userId: '692aafda50bbd504425b12d4' }" (type Object) at path "userId" for model "Wishlist"
+[2026-01-08 12:58:10] ERROR: E:\Brocamp\SeatWorld\views\users\wishlist.ejs:14
+    12|   <%- include('../partials/header', { user: user || {}, cartCount: cartCount || 0, showSearch: false }) %>
+    13| 
+ >> 14|     <%- include('../partials/flash') %>
+    15| 
+    16|       <!-- WISHLIST -->
+    17|       <div class="wishlist">
+
+E:\Brocamp\SeatWorld\views\partials\flash.ejs:1
+ >> 1| <% if (messageData || message) { %>
+    2|     <% let finalMessage=messageData || message; let msgType=(typeof finalMessage==='object' && finalMessage &&
+    3|         finalMessage.type) ? finalMessage.type : 'info' ; let msgText=(typeof finalMessage==='object' && finalMessage &&
+    4|         finalMessage.message) ? finalMessage.message : (typeof finalMessage==='string' ? finalMessage : '' ); if
+
+messageData is not defined
+[2026-01-08 13:54:04] ERROR: Get Wishlist Error: Schema hasn't been registered for model "Variant".
+Use mongoose.model(name, schema)
+[2026-01-08 13:54:42] ERROR: Get Wishlist Error: Schema hasn't been registered for model "Variant".
+Use mongoose.model(name, schema)
+[2026-01-08 14:03:17] ERROR: Get Wishlist Error: Schema hasn't been registered for model "Variant".
+Use mongoose.model(name, schema)

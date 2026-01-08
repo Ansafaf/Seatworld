@@ -1,3 +1,7 @@
+
+
+let wishlistBtn = document.getElementById("wishlist-btn");
+
 // Image Switcher
 function changeImage(src, el) {
     document.getElementById('main-image').src = src;
