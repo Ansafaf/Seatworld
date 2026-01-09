@@ -216,7 +216,7 @@
 
 /* Coupon Section */
 .coupon-section {
-    margin: 30px 0;
+    margin: 25px 0;
     border-top: 1px solid var(--border-color);
     padding-top: 20px;
 }
@@ -227,30 +227,126 @@
     justify-content: space-between;
     cursor: pointer;
     font-weight: 600;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.coupon-toggle:hover {
+    background: rgba(0, 0, 0, 0.03);
 }
 
 .coupon-icon {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+}
+
+.coupon-icon i {
+    color: var(--primary-black);
 }
 
 .coupon-content {
     margin-top: 15px;
     display: none;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .coupon-content.active {
     display: flex;
+}
+
+.available-coupons-list {
+    display: flex;
+    flex-direction: column;
     gap: 10px;
 }
 
-.coupon-input {
-    flex: 1;
-    padding: 10px 14px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
+.coupon-item {
+    background: white;
+    border: 1px dashed #d1d5db;
+    border-radius: 10px;
+    padding: 12px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s;
+}
+
+.coupon-item:hover {
+    border-color: var(--primary-black);
+    background: #fafafa;
+}
+
+.coupon-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.coupon-code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-weight: 700;
+    color: var(--primary-black);
     font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+.coupon-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.btn-apply-coupon {
+    background: var(--primary-black);
+    color: white;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.btn-apply-coupon:active {
+    transform: scale(0.95);
+}
+
+.applied-coupon-info {
+    background: #ecfdf5;
+    border: 1px solid #10b981;
+    border-radius: 8px;
+    padding: 12px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #065f46;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.btn-remove-coupon {
+    background: transparent;
+    border: none;
+    color: #ef4444;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+.btn-remove-coupon:hover {
+    text-decoration: underline;
+}
+
+.no-coupons {
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-muted);
+    padding: 20px 0;
 }
 
 .btn-checkout {

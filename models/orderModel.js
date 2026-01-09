@@ -7,7 +7,7 @@ const orderSchema = new mongoose.Schema(
       ref: "User",
       required: true
     },
-
+    
     couponId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Coupon",

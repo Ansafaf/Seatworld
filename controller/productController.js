@@ -1,6 +1,7 @@
 import { Product, ProductVariant } from "../models/productModel.js";
 import { Category } from "../models/categoryModel.js";
 import Cart from "../models/cartModel.js";
+import Wishlist from "../models/wishlistModel.js";
 import { buildBreadcrumb } from "../utils/breadcrumb.js";
 import { paginate } from "../utils/paginationHelper.js";
 
@@ -204,6 +205,20 @@ export async function getProducts(req, res) {
 
         // 6. Enrichment and Additional UI Data
         const productsWithVariants = await enrichProducts(products);
+
+        // Fetch user's wishlist if logged in
+        let wishlistVariantIds = [];
+        if (req.session.user && req.session.user.id) {
+            const userWishlist = await Wishlist.find({ userId: req.session.user.id }).select("variantId");
+            wishlistVariantIds = userWishlist.map(item => item.variantId?.toString()).filter(Boolean);
+        }
+
+        // Mark products that are in wishlist
+        const productsWithWishlist = productsWithVariants.map(product => ({
+            ...product,
+            isInWishlist: product.variant && wishlistVariantIds.includes(product.variant._id.toString())
+        }));
+
         const availableColors = (await ProductVariant.distinct("color", { status: "Active" })).filter(Boolean).sort();
         const brands = brandsDistinct.filter(Boolean).sort();
         const tags = tagsDistinct.filter(Boolean).flat().filter((v, i, a) => a.indexOf(v) === i).sort();
@@ -223,7 +238,7 @@ export async function getProducts(req, res) {
 
         // 8. Render
         res.render("users/productList", {
-            products: productsWithVariants,
+            products: productsWithWishlist,
             categories,
             brands,
             colors: availableColors,
@@ -305,7 +320,7 @@ export async function getProductdetail(req, res) {
             .populate('categoryId')
             .lean();
 
-        
+
         if (!product || (product.categoryId && product.categoryId.isActive === false)) {
             return res.status(404).render("404");
         }
@@ -316,12 +331,11 @@ export async function getProductdetail(req, res) {
         if (variantId) {
             selectedVariant = variants.find(v => v._id.toString() === variantId);
         }
-       
+
         if (!selectedVariant && variants.length > 0) {
             selectedVariant = variants[0];
         }
 
-        // Prepare display data
         const displayProduct = {
             ...product,
             price: selectedVariant ? selectedVariant.price : product.Baseprice,
@@ -333,10 +347,10 @@ export async function getProductdetail(req, res) {
             variants: variants
         };
 
-      
+
         const relatedProducts = await Product.aggregate([
             { $match: { categoryId: product.categoryId?._id || product.categoryId, _id: { $ne: product._id } } },
-            { $sample: { size: 4 } } 
+            { $sample: { size: 4 } }
         ]);
 
         const relatedProductsWithImages = await Promise.all(relatedProducts.map(async (rp) => {
@@ -353,11 +367,17 @@ export async function getProductdetail(req, res) {
         const logoUrl = process.env.LOGO_URL || process.env.SEATWORLD_LOGO_URL || null;
         const cartCount = req.session.user ? await Cart.countDocuments({ userId: req.session.user.id }) : 0;
 
+        // Check if product (variant) is in wishlist
+        const isInWishlist = req.session.user && selectedVariant
+            ? await Wishlist.exists({ userId: req.session.user.id, variantId: selectedVariant._id })
+            : false;
+
         res.render("users/productDetails", {
             product: displayProduct,
             relatedProducts: relatedProductsWithImages,
             logoUrl,
             cartCount,
+            isInWishlist: !!isInWishlist,
             breadcrumbs: buildBreadcrumb([
                 { label: "Products", url: "/products" },
                 { label: displayProduct.name, url: `/product/${displayProduct._id}` }

@@ -18,7 +18,6 @@ export const getCheckoutAddress = async (req, res) => {
             return res.redirect("/cart");
         }
 
-        // Stock check
         const stockCheck = await inventoryService.checkStockAvailability(cartTotals.items);
         if (!stockCheck.available) {
             req.session.message = {
@@ -29,14 +28,27 @@ export const getCheckoutAddress = async (req, res) => {
         }
 
         const addresses = await Address.find({ userId }).sort({ isDefault: -1, createdAt: -1 });
-        const availableCoupons = await Coupon.find({});
+        const availableCoupons = await Coupon.find({ couponStatus: 'active', expiryDate: { $gt: new Date() } });
+        logger.info(`Found ${availableCoupons.length} available coupons for checkout`);
+
+
+        // CLEAR persistent coupon on checkout entry (User request: Manual apply only)
+        // This ensures the user must explicitly click "Apply" every time they enter checkout.
+        await Cart.updateOne({ userId }, { couponId: null });
+        if (req.session.checkout) {
+            delete req.session.checkout.coupon;
+        }
+
+        let appliedCoupon = null;
+        let discountAmount = 0;
+
         // logger.info(`${cartTotals}`);
         res.render("users/checkout", {
             user: req.session.user,
             addresses,
             ...cartTotals,
             coupons: availableCoupons,
-            appliedCoupon: req.session.checkout?.coupon || null,
+            appliedCoupon: appliedCoupon,
             breadcrumbs: buildBreadcrumb([
                 { label: "Cart", url: "/cart" },
                 { label: "Checkout", url: "/checkout" }
@@ -52,6 +64,7 @@ export const getCheckoutAddress = async (req, res) => {
 export const postAddress = async (req, res) => {
     try {
         const { addressData } = req.body;
+        const userId = req.session.user.id;
 
         if (!addressData) {
             return res.status(400).json({ success: false, message: "Valid address is required" });
@@ -63,6 +76,24 @@ export const postAddress = async (req, res) => {
             }
         }
 
+        // Save the new address to the Address collection
+        const newAddress = new Address({
+            userId,
+            name: addressData.name,
+            housename: addressData.houseName || addressData.housename || '',
+            street: addressData.street,
+            city: addressData.city,
+            state: addressData.state,
+            country: addressData.country,
+            pincode: addressData.pincode,
+            mobile: addressData.mobile,
+            isDefault: false
+        });
+
+        await newAddress.save();
+        logger.info(`New address saved for user ${userId}: ${newAddress._id}`);
+
+        // Store in session for the order
         req.session.checkout = {
             address: addressData,
             step: 'payment'
@@ -100,12 +131,31 @@ export const getPaymentOptions = async (req, res) => {
             return res.redirect("/cart");
         }
 
+        // Re-validate coupon from DB
+        let discountAmount = 0;
+        let couponApplied = false;
+        const userCart = await Cart.findOne({ userId, couponId: { $ne: null } }).populate('couponId');
+
+        if (userCart && userCart.couponId) {
+            const coupon = userCart.couponId;
+            if (coupon.couponStatus === 'active' && new Date() < coupon.expiryDate && cartTotals.total >= coupon.minAmount) {
+                if (coupon.discountType === 'percentage') {
+                    discountAmount = (cartTotals.total * coupon.discountValue) / 100;
+                } else if (coupon.discountType === 'flat') {
+                    discountAmount = coupon.discountValue;
+                }
+
+                if (discountAmount > cartTotals.total) discountAmount = cartTotals.total;
+                couponApplied = true;
+            }
+        }
+
         res.render("users/paymentOptions", {
             user: req.session.user,
             address: req.session.checkout.address,
             ...cartTotals,
-            couponApplied: !!req.session.checkout.coupon,
-            discountAmount: req.session.checkout.coupon ? req.session.checkout.coupon.discountAmount : 0
+            couponApplied,
+            discountAmount
         });
 
     } catch (error) {
@@ -116,42 +166,41 @@ export const getPaymentOptions = async (req, res) => {
 
 export const applyCoupon = async (req, res) => {
     try {
-        const { couponCode } = req.body;
+        const { couponId } = req.body;
         const userId = req.session.user.id;
 
         // Fetch coupon
-        const coupon = await Coupon.findOne({ code: couponCode, isActive: true });
+        const coupon = await Coupon.findOne({ _id: couponId, couponStatus: 'active' });
         if (!coupon) {
             return res.status(404).json({ success: false, message: "Coupon not found or inactive" });
         }
-
         // Validate expiry
-        if (new Date() > coupon.expireDate) {
+        if (new Date() > coupon.expiryDate) {
             return res.status(400).json({ success: false, message: "Coupon has expired" });
         }
 
         // Validate usage limit
-        // Check if user has already used this coupon
-        // This assumes you might have a way to track usage, possibly in the Order model or a separate Usage model.
-        // For now, let's keep it simple or check against previous orders if needed. 
-        // But based on the request, simple application is the first step.
-
+        const alreadyUsed = await Order.exists({ userId, couponId: coupon._id });
+        if (alreadyUsed) {
+            return res.status(400).json({ success: false, message: "Coupon already used" });
+        }
         const cartTotals = await cartService.calculateCartTotals(userId);
 
         // Validate minimum purchase amount
-        if (cartTotals.total < coupon.minimumPurchaseAmount) {
+        if (cartTotals.total < coupon.minAmount) {
             return res.status(400).json({
                 success: false,
-                message: `Minimum purchase amount of ₹${coupon.minimumPurchaseAmount} required`
+                message: `Minimum purchase amount of ₹${coupon.minAmount} required`
             });
         }
 
         // Calculate discount
         let discountAmount = 0;
-        if (coupon.offerType === 'percentage') {
-            discountAmount = (cartTotals.total * coupon.offerValue) / 100;
-        } else if (coupon.offerType === 'fixed') {
-            discountAmount = coupon.offerValue;
+        if (coupon.discountType === 'percentage') {
+            discountAmount = (cartTotals.total * coupon.discountValue) / 100;
+        } else {
+            // Assumes 'flat' since enum is restricted to 'flat' or 'percentage'
+            discountAmount = coupon.discountValue;
         }
 
         // Ensure discount doesn't exceed total
@@ -159,11 +208,14 @@ export const applyCoupon = async (req, res) => {
             discountAmount = cartTotals.total;
         }
 
-        // Store in session
+        // Store in DB (Cart)
+        await Cart.updateOne({ userId }, { couponId: coupon._id });
+
+        // Store in session (keep for immediate response consistency)
         req.session.checkout = {
             ...req.session.checkout,
             coupon: {
-                code: coupon.code,
+                code: coupon.couponCode,
                 discountAmount: discountAmount,
                 _id: coupon._id
             }
@@ -175,8 +227,8 @@ export const applyCoupon = async (req, res) => {
             success: true,
             message: "Coupon applied successfully",
             discountAmount: discountAmount,
-            newTotal: newTotal,
-            subtotal: cartTotals.total // Return original total as subtotal
+            subtotal: cartTotals.total, // Return original total as subtotal
+            newTotal: newTotal
         });
 
     } catch (error) {
@@ -192,6 +244,9 @@ export const removeCoupon = async (req, res) => {
         if (req.session.checkout && req.session.checkout.coupon) {
             delete req.session.checkout.coupon;
         }
+
+        // Remove from DB
+        await Cart.updateMany({ userId }, { couponId: null });
 
         const cartTotals = await cartService.calculateCartTotals(userId);
 

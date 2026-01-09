@@ -7,6 +7,7 @@ import otpGenerator from "otp-generator";
 import nodemailer from "nodemailer";
 import validator from "validator";
 import { buildBreadcrumb } from "../utils/breadcrumb.js";
+import Coupon from "../models/couponModel.js";
 
 
 export async function getProfile(req, res) {
@@ -719,5 +720,41 @@ export async function postupdatePass(req, res) {
       success: false,
       message: "Something went wrong. Please try again"
     });
+  }
+}
+
+export async function getCoupons(req, res) {
+  try {
+    const userId = req.session.user.id;
+    const page = parseInt(req.query.page) || 1;
+    const limit = 6; // Matching the 6 slots in the design image
+
+    // Optional: Only show active coupons that haven't expired
+    const query = {
+      couponStatus: "active",
+      expiryDate: { $gt: new Date() }
+    };
+
+    const { items: coupons, pagination } = await paginate(Coupon, query, {
+      page,
+      limit,
+      sort: { createdAt: -1 }
+    });
+
+    const customer = await User.findById(userId);
+
+    res.render("users/couponList", {
+      user: customer,
+      coupons,
+      pagination,
+      active: 'coupons',
+      breadcrumbs: buildBreadcrumb([
+        { label: "Profile", url: "/profile" },
+        { label: "My Coupons", url: "/coupons" }
+      ])
+    });
+  } catch (error) {
+    console.error("Error fetching user coupons:", error);
+    res.redirect("/profile");
   }
 }

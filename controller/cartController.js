@@ -40,7 +40,7 @@ export async function addToCart(req, res) {
         const userId = req.session.user.id;
 
         const cartCount = await cartService.addItemToCart(userId, variantId);
-
+        
         res.json({
             success: true,
             message: "Added to cart successfully",

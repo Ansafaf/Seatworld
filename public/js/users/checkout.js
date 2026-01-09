@@ -1,4 +1,5 @@
 
+
 function toggleCoupon() {
     const content = document.getElementById('couponContent');
     const arrow = document.getElementById('couponArrow');
@@ -16,15 +17,15 @@ function toggleCoupon() {
     }
 }
 
-async function applyCoupon(code) {
+async function applyCoupon(id) {
     try {
         const response = await fetch('/checkout/apply-coupon', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ couponCode: code })
+            body: JSON.stringify({ couponId: id })
         });
-        const result = await response.json();
-
+        const result = await response.json({});
+        console.log(`${result}`);
         if (result.success) {
             Swal.fire({
                 icon: 'success',
@@ -252,4 +253,23 @@ document.addEventListener('DOMContentLoaded', () => {
     if (activeCard) {
         selectAddress(activeCard);
     }
+
+    // Add input listeners to detect form edits
+    const formInputs = document.querySelectorAll('#shippingForm .form-input');
+    formInputs.forEach(input => {
+        input.addEventListener('input', () => {
+            // User is editing the form, so clear any selected address
+            selectedAddressId = null;
+            savedCustomAddress = null;
+
+            // Remove active class from all address cards
+            document.querySelectorAll('.address-card').forEach(c => c.classList.remove('active'));
+
+            // Reset save button text
+            const saveBtn = document.querySelector('.btn-save-address');
+            if (saveBtn && saveBtn.textContent === "Address Saved") {
+                saveBtn.textContent = "Save Address";
+            }
+        });
+    });
 });

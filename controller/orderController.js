@@ -48,7 +48,6 @@ export const placeOrder = async (req, res) => {
       return res.status(400).json({ success: false, message: "Cart is empty" });
     }
 
-    // Final stock check before placement
     const stockCheck = await inventoryService.checkStockAvailability(cartTotals.items);
     if (!stockCheck.available) {
       return res.status(400).json({

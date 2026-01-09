@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
 import { upload } from "../config/cloudinary.js";
-import { getProfile, getprofileEdit, postprofileEdit, updateProfile, getAddresslist, getAddaddress, postAddaddress, getEmailchange, postEmailchange, getupdatePass, postupdatePass, getEditAddress, postEditAddress, deleteAddress, getEmailOtp, postEmailOtp, postDefaultAddres } from "../controller/userProfileController.js";
+import { getProfile, getprofileEdit, postprofileEdit, updateProfile, getAddresslist, getAddaddress, postAddaddress, getEmailchange, postEmailchange, getupdatePass, postupdatePass, getEditAddress, postEditAddress, deleteAddress, getEmailOtp, postEmailOtp, postDefaultAddres, getCoupons } from "../controller/userProfileController.js";
 import { uploadToCloudinary } from "../config/cloudinary.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
 
@@ -30,5 +30,7 @@ router.post("/address/delete/:id", authMiddleware, deleteAddress); //delete requ
 //pass
 router.get("/password-change", authMiddleware, getupdatePass);
 router.post("/password-change", authMiddleware, postupdatePass);
+
+router.get("/coupons", authMiddleware, getCoupons);
 
 export default router;

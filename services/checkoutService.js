@@ -1,4 +1,4 @@
-import {getCartByUserId, calculateCartTotals} from "../services/cartService.js";
+import {getCartByUserId} from "../services/cartService.js";
 
 
 export async function verifyCheckoutCart(userId){

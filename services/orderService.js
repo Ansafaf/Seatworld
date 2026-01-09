@@ -86,7 +86,6 @@ export const createOrder = async ({ userId, paymentMethod, checkoutSession, cart
         await newOrder.save();
         logger.info(`Order created: ${newOrder._id} for user: ${userId}`);
 
-        // Deduct stock and create individual OrderItem documents
         for (const item of cartTotals.items) {
 
             await inventoryService.updateStock({

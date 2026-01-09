@@ -139,6 +139,7 @@ export async function getCartByUserId(userId, page = 1, limit = 8) {
 
 
 export async function addItemToCart(userId, variantId) {
+    const cartLimit = 6;
     const variant = await ProductVariant.findById(variantId).populate('productId');
     if (!variant) {
         throw new Error("Product variant not found");
@@ -154,6 +155,9 @@ export async function addItemToCart(userId, variantId) {
         const newQuantity = (cartItem.productQuantity || 1) + 1;
         if (variant.stock < newQuantity) {
             throw new Error(`Cannot add more. Only ${variant.stock} in stock.`);
+        }
+        if(cartLimit < newQuantity){
+            throw new Error(`Cannot add more than ${cartLimit}`);
         }
         cartItem.productQuantity = newQuantity;
         await cartItem.save();
@@ -171,12 +175,12 @@ export async function addItemToCart(userId, variantId) {
 
 
 export async function updateItemQuantity(userId, variantId, quantity) {
-    let quantityLimit = 10;
+    let quantityLimit = 6;
     if (quantity < 1) {
         throw new Error("Quantity must be at least 1");
     }
     if (quantity > quantityLimit) {
-        throw new Error("Quantity must be less than or equal to 10");
+        throw new Error("Quantity must be less than or equal to 6");
     }
 
     const variant = await ProductVariant.findById(variantId).populate('productId');

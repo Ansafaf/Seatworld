@@ -22,35 +22,61 @@ export const getOrderlist = async (req, res) => {
             orderIds = items.map(item => item.orderId);
         }
 
-    
-        if (search) {
-            const isObjectId = mongoose.Types.ObjectId.isValid(search);
-            let searchOrderIds = [];
 
-            if (isObjectId) {
-                searchOrderIds.push(new mongoose.Types.ObjectId(search));
-            }
+        if (search) {
+            let searchOrderIds = [];
+            const orderMatches = await Order.find({
+                $or: [
+                    { paymentStatus: { $regex: search, $options: "i" } },
+                    { orderStatus: { $regex: search, $options: "i" } }
+                ]
+            }).select("_id");
+
+            const orderFieldIds = orderMatches.map(o => o._id);
+
+            const userMatches = await User.find({
+                email: { $regex: search, $options: "i" }
+            }).select("_id");
+
+            const userIds = userMatches.map(u => u._id);
+
+            const userOrderMatches = await Order.find({
+                userId: { $in: userIds }
+            }).select("_id");
+
+            const userOrderIds = userOrderMatches.map(o => o._id);
 
             const matchingItems = await OrderItem.find()
                 .populate({
-                    path: 'variantId',
-                    populate: { path: 'productId', match: { name: { $regex: search, $options: "i" } } }
+                    path: "variantId",
+                    populate: {
+                        path: "productId",
+                        match: { name: { $regex: search, $options: "i" } }
+                    }
                 })
                 .lean();
 
-            const itemOrderIds = matchingItems
-                .filter(item => item.variantId?.productId) 
+            const productOrderIds = matchingItems
+                .filter(item => item.variantId?.productId)
                 .map(item => item.orderId);
 
-            searchOrderIds = [...new Set([...searchOrderIds, ...itemOrderIds])];
+            searchOrderIds = [
+                ...new Set([
+                    ...orderFieldIds,
+                    ...userOrderIds,
+                    ...productOrderIds
+                ])
+            ];
 
             if (orderIds === null) {
                 orderIds = searchOrderIds;
             } else {
-                // Intersect if both status and search are present
-                orderIds = orderIds.filter(id => searchOrderIds.some(sid => sid.equals(id)));
+                orderIds = orderIds.filter(id =>
+                    searchOrderIds.some(sid => sid.equals(id))
+                );
             }
         }
+
 
         let query = {};
         if (orderIds !== null) {
@@ -80,14 +106,9 @@ export const getOrderlist = async (req, res) => {
                 .lean();
 
             const itemStatuses = items.map(i => i.status);
-            let summaryStatus = "Multiple";
-            if (itemStatuses.length === 0) {
-                summaryStatus = "pending";
-            } else if (new Set(itemStatuses).size === 1) {
-                summaryStatus = itemStatuses[0];
-            } else if (itemStatuses.includes('pending')) {
-                summaryStatus = 'pending';
-            }
+
+            // Derived Status Logic
+            const summaryStatus = calculateDerivedStatus(items);
 
             return {
                 ...order.toObject(),
@@ -256,13 +277,7 @@ export const updateItemStatus = async (req, res) => {
 
         // Recalculate summary status for the response
         const allItems = await OrderItem.find({ orderId });
-        const allStatuses = allItems.map(i => i.status);
-        let summaryStatus = "Multiple";
-        if (allStatuses.length === 0) {
-            summaryStatus = "pending";
-        } else if (new Set(allStatuses).size === 1) {
-            summaryStatus = allStatuses[0];
-        }
+        const summaryStatus = calculateDerivedStatus(allItems);
 
         res.json({
             success: true,
@@ -335,4 +350,29 @@ export const approveItemAction = async (req, res) => {
         logger.error("Error approving item action:", error);
         res.status(500).json({ success: false, message: "Internal Server Error" });
     }
+};
+
+const calculateDerivedStatus = (items) => {
+    const itemStatuses = items.map(i => i.status);
+    const totalItems = items.length;
+    const deliveredCount = items.filter(i => i.status === 'delivered').length;
+    const returnedCount = items.filter(i => i.status === 'returned').length;
+    const cancelledCount = items.filter(i => i.status === 'cancelled').length;
+
+    if (totalItems === 0) return "Pending";
+    if (returnedCount === totalItems) return "Returned";
+    if (returnedCount > 0) return "Partially Returned";
+    if (deliveredCount === totalItems) return "Delivered";
+    if (deliveredCount > 0) return "Partially Delivered";
+    if (cancelledCount === totalItems) return "Cancelled";
+
+    if (new Set(itemStatuses).size === 1) {
+        return itemStatuses[0];
+    }
+
+    if (items.some(i => i.status === 'shipped')) {
+        return "Shipped";
+    }
+
+    return items[0]?.status || "Pending";
 };

@@ -46,3 +46,28 @@
         font-size: 18px;
     }
 }
+
+.auth-header nav {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+.auth-header nav a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.auth-header nav a:hover {
+    color: #0b64c0;
+}
+
+@media (max-width: 768px) {
+    .auth-header nav {
+        display: none;
+        /* For now hiding on mobile as per original "hidden md:flex" intent, or can be adjusted */
+    }
+}
