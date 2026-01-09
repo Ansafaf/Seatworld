@@ -144,52 +144,64 @@
                                 </span>
                             </div>
 
-                            <div class="summary-row total">
-                                <span>Total</span>
-                                <span id="summaryTotal">₹<%= typeof total !=='undefined' ? total.toLocaleString('en-IN')
-                                        : '0' %></span>
-                            </div>
+                            <% if (typeof appliedCoupon !=='undefined' && appliedCoupon) { %>
+                                <div class="summary-row discount" style="color: #2e7d32;">
+                                    <span>Discount (<%= appliedCoupon.code %>)</span>
+                                    <span>-₹<%= appliedCoupon.discountAmount.toLocaleString('en-IN') %></span>
+                                </div>
+                                <% } %>
 
-                            <div class="coupon-section">
-                                <div class="coupon-toggle" onclick="toggleCoupon()">
-                                    <div class="coupon-icon">
-                                        <i class="fa-solid fa-tag"></i>
-                                        <span>Have a coupon?</span>
+                                    <div class="summary-row total">
+                                        <span>Total</span>
+                                        <span>Total</span>
+                                        <span id="summaryTotal">₹<%= (typeof total !=='undefined' ? (total - (typeof
+                                                appliedCoupon !=='undefined' && appliedCoupon ?
+                                                appliedCoupon.discountAmount : 0)) : 0).toLocaleString('en-IN') %>
+                                                </span>
                                     </div>
-                                    <i class="fa-solid fa-chevron-down" id="couponArrow"></i>
-                                </div>
-                                <div class="coupon-content" id="couponContent" style="display: none;">
-                                    <% if (typeof appliedCoupon !=='undefined' && appliedCoupon) { %>
-                                        <div class="applied-coupon-info">
-                                            <span>Applied: <strong>
-                                                    <%= appliedCoupon.code %>
-                                                </strong></span>
-                                            <button class="btn-remove-coupon" onclick="removeCoupon()">Remove</button>
-                                        </div>
-                                        <% } else if (typeof coupons !=='undefined' && coupons.length> 0) { %>
-                                            <div class="available-coupons-list">
-                                                <% coupons.forEach(coupon=> { %>
-                                                    <div class="coupon-item">
-                                                        <div class="coupon-details">
-                                                            <span class="coupon-code">
-                                                                <%= coupon.code %>
-                                                            </span>
-                                                            <span class="coupon-desc">
-                                                                <%= coupon.offerType==='percentage' ? coupon.offerValue
-                                                                    + '% Off' : '₹' + coupon.offerValue + ' Off' %>
-                                                                    (Min purchase: ₹<%= coupon.minimumPurchaseAmount %>)
-                                                            </span>
-                                                        </div>
-                                                        <button class="btn-apply-coupon"
-                                                            onclick="applyCoupon('<%= coupon.code %>')">Apply</button>
-                                                    </div>
-                                                    <% }) %>
+
+                                    <div class="coupon-section">
+                                        <div class="coupon-toggle" onclick="toggleCoupon()">
+                                            <div class="coupon-icon">
+                                                <i class="fa-solid fa-tag"></i>
+                                                <span>Have a coupon?</span>
                                             </div>
-                                            <% } else { %>
-                                                <p class="no-coupons">No coupons available at the moment.</p>
-                                                <% } %>
-                                </div>
-                            </div>
+                                            <i class="fa-solid fa-chevron-down" id="couponArrow"></i>
+                                        </div>
+                                        <div class="coupon-content" id="couponContent" style="display: none;">
+                                            <% if (typeof appliedCoupon !=='undefined' && appliedCoupon) { %>
+                                                <div class="applied-coupon-info">
+                                                    <span>Applied: <strong>
+                                                            <%= appliedCoupon.code %>
+                                                        </strong></span>
+                                                    <button class="btn-remove-coupon"
+                                                        onclick="removeCoupon()">Remove</button>
+                                                </div>
+                                                <% } else if (typeof coupons !=='undefined' && coupons.length> 0) { %>
+                                                    <div class="available-coupons-list">
+                                                        <% coupons.forEach(coupon=> { %>
+                                                            <div class="coupon-item">
+                                                                <div class="coupon-details">
+                                                                    <span class="coupon-code">
+                                                                        <%= coupon.couponCode %>
+                                                                    </span>
+                                                                    <span class="coupon-desc">
+                                                                        <%= coupon.discountType==='percentage' ?
+                                                                            coupon.discountValue + '% Off' : '₹' +
+                                                                            coupon.discountValue + ' Off' %>
+                                                                            (Min purchase: ₹<%= coupon.minAmount %>)
+                                                                    </span>
+                                                                </div>
+                                                                <button class="btn-apply-coupon"
+                                                                    onclick="applyCoupon('<%= coupon._id %>')">Apply</button>
+                                                            </div>
+                                                            <% }) %>
+                                                    </div>
+                                                    <% } else { %>
+                                                        <p class="no-coupons">No coupons available at the moment.</p>
+                                                        <% } %>
+                                        </div>
+                                    </div>
                         </div>
                     </aside>
                 </div>

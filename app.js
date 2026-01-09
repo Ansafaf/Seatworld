@@ -29,6 +29,7 @@ import checkoutRouter from "./routes/checkoutRoute.js";
 import orderRouter from "./routes/orderRoute.js";
 import adminInventoryRouter from "./routes/adminInventoryRoutes.js";
 import wishlistRouter from "./routes/wishlistRoute.js";
+import adminCouponRouter from "./routes/adminCouponRoutes.js";
 
 
 
@@ -88,8 +89,9 @@ app.use("/cart", cartRouter);
 app.use("/", checkoutRouter);
 app.use("/admin/orders", adminOrderRouter);
 app.use("/admin/inventory", adminInventoryRouter);
+app.use("/admin/coupons", adminCouponRouter);
 app.use("/", orderRouter);
-app.use("/wishlist",wishlistRouter);
+app.use("/wishlist", wishlistRouter);
 
 app.use((req, res, next) => {
   res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, private");
@@ -128,6 +130,7 @@ app.use((err, req, res, next) => {
     homeLink
   });
 });
+import "./cron/couponExpiry.job.js";
 
 
 app.listen(PORT, '0.0.0.0', () => {

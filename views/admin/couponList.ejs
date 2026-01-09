@@ -14,131 +14,148 @@
 </head>
 
 <body class="font-display bg-gray-50 text-gray-800">
-    <%- include('../partials/flash') %>
-        <!-- Top Header -->
-        <header class="bg-white shadow-sm fixed w-full z-50 h-16 flex items-center justify-between px-6">
-            <div class="flex items-center gap-4">
-                <button id="mobileMenuBtn" class="md:hidden text-gray-500 hover:text-gray-700">
-                    <span class="material-icons-outlined">menu</span>
-                </button>
-                <h1 class="text-xl font-bold text-gray-800 flex items-center gap-2">
-                    <span class="w-3 h-3 bg-gray-800 rounded-sm"></span>
-                    Admin Panel
-                </h1>
-            </div>
-            <div class="flex items-center gap-8">
-                <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
-                    <a href="/admin/dashboard" class="hover:text-indigo-600 transition-colors">Dashboard</a>
-                    <a href="/admin/products" class="hover:text-indigo-600 transition-colors">Products</a>
-                    <a href="/admin/orders" class="hover:text-indigo-600 transition-colors">Orders</a>
-                    <a href="/admin/users" class="hover:text-indigo-600 transition-colors">Customers</a>
-                </nav>
-                <div class="flex items-center gap-3 pl-6 border-l border-gray-200">
-                    <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
-                        <img src="https://ui-avatars.com/api/?name=Admin&background=random" alt="Admin"
-                            class="w-full h-full object-cover">
-                    </div>
+    <!-- Top Header -->
+    <header class="bg-white shadow-sm fixed w-full z-50 h-16 flex items-center justify-between px-6">
+        <div class="flex items-center gap-4">
+            <button id="mobileMenuBtn" class="md:hidden text-gray-500 hover:text-gray-700">
+                <span class="material-icons-outlined">menu</span>
+            </button>
+            <h1 class="text-xl font-bold text-gray-800 flex items-center gap-2">
+                <span class="w-3 h-3 bg-gray-800 rounded-sm"></span>
+                Admin Panel
+            </h1>
+        </div>
+        <div class="flex items-center gap-8">
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
+                <a href="/admin/dashboard" class="hover:text-indigo-600 transition-colors">Dashboard</a>
+                <a href="/admin/products" class="hover:text-indigo-600 transition-colors">Products</a>
+                <a href="/admin/orders" class="hover:text-indigo-600 transition-colors">Orders</a>
+                <a href="/admin/users" class="hover:text-indigo-600 transition-colors">Customers</a>
+            </nav>
+            <div class="flex items-center gap-3 pl-6 border-l border-gray-200">
+                <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
+                    <img src="https://ui-avatars.com/api/?name=Admin&background=random" alt="Admin"
+                        class="w-full h-full object-cover">
                 </div>
             </div>
-        </header>
-
-        <div class="flex pt-16 min-h-screen">
-            <!-- Sidebar -->
-            <%- include('../partials/adminSidebar') %>
-
-                <!-- Overlay -->
-                <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-30 hidden md:hidden backdrop-blur-sm"></div>
-
-                <!-- Main Content -->
-                <main class="flex-1 p-8 overflow-y-auto bg-white/50">
-                    <!-- Header Section -->
-                    <div class="coupon-header">
-                        <h1 class="page-title">Coupons</h1>
-                        <div class="header-actions">
-                            <div class="search-box">
-                                <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                </svg>
-                                <input type="text" id="searchInput" placeholder="Search for Coupons">
-                            </div>
-                            <button class="btn-add" onclick="window.location.href='/admin/coupons/add'">
-                                Add new Coupon
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Coupons Table -->
-                    <div class="coupons-table-container">
-                        <table class="coupons-table">
-                            <thead>
-                                <tr>
-                                    <th>Coupon Code</th>
-                                    <th>Discount</th>
-                                    <th>Created Date</th>
-                                    <th>Expiry Date</th>
-                                    <th>Max Amount</th>
-                                    <th>Min Amount</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% if (coupons && coupons.length> 0) { %>
-                                    <% coupons.forEach(coupon=> { %>
-                                        <tr>
-                                            <td class="font-semibold">
-                                                <%= coupon.code %>
-                                            </td>
-                                            <td>
-                                                <% if (coupon.discountType==='percentage' ) { %>
-                                                    <%= coupon.discount %>%
-                                                        <% } else { %>
-                                                            <%= coupon.discount %>
-                                                                <% } %>
-                                            </td>
-                                            <td>
-                                                <%= new Date(coupon.createdDate).toLocaleDateString('en-GB') %>
-                                            </td>
-                                            <td>
-                                                <%= new Date(coupon.expiryDate).toLocaleDateString('en-GB') %>
-                                            </td>
-                                            <td class="amount-red">
-                                                <%= coupon.maxAmount ? '₹' + coupon.maxAmount : '-----' %>
-                                            </td>
-                                            <td class="amount-red">₹<%= coupon.minAmount %>
-                                            </td>
-                                            <td>
-                                                <div class="action-buttons">
-                                                    <button class="btn-edit" onclick="editCoupon('<%= coupon._id %>')">
-                                                        Edit
-                                                    </button>
-                                                    <button class="btn-block"
-                                                        onclick="blockCoupon('<%= coupon._id %>')">
-                                                        Block
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <% }); %>
-                                            <% } else { %>
-                                                <tr>
-                                                    <td colspan="7" style="text-align: center; padding: 40px;">
-                                                        No coupons found
-                                                    </td>
-                                                </tr>
-                                                <% } %>
-                            </tbody>
-                        </table>
-
-                        <!-- Pagination -->
-                        <%- include('../partials/pagination', { pagination: pagination || {}, query: typeof search
-                            !=='undefined' && search ? 'search=' + search : '' }) %>
-                    </div>
-                </main>
         </div>
+    </header>
 
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script type="module" src="/js/admin/couponList.js"></script>
+    <div class="flex pt-16 min-h-screen">
+        <!-- Sidebar -->
+        <%- include('../partials/adminSidebar') %>
+
+            <!-- Overlay -->
+            <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-30 hidden md:hidden backdrop-blur-sm"></div>
+
+            <!-- Main Content -->
+            <main class="flex-1 p-8 overflow-y-auto bg-white/50">
+                <!-- Header Section -->
+                <div class="coupon-header">
+                    <h1 class="page-title">Coupons</h1>
+                    <div class="header-actions">
+                        <div class="search-box">
+                            <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                            <input type="text" id="searchInput" placeholder="Search for Coupons">
+                        </div>
+                        <button class="btn-add" onclick="window.location.href='/admin/coupons/add'">
+                            Add new Coupon
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Coupons Table -->
+                <div class="coupons-table-container">
+                    <table class="coupons-table">
+                        <thead>
+                            <tr>
+                                <th>Coupon Code</th>
+                                <th>Discount</th>
+                                <th>Created Date</th>
+                                <th>Expiry Date</th>
+                                <th>Max Amount</th>
+                                <th>Min Amount</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (coupons && coupons.length> 0) { %>
+                                <% coupons.forEach(coupon=> { %>
+                                    <tr>
+                                        <td class="font-semibold">
+                                            <%= coupon.couponCode %>
+                                        </td>
+                                        <td>
+                                            <% if (coupon.discountType==='percentage' ) { %>
+                                                <%= coupon.discountValue %>%
+                                                    <% } else { %>
+                                                        ₹<%= coupon.discountValue %>
+                                                            <% } %>
+                                        </td>
+                                        <td>
+                                            <%= new Date(coupon.createdAt).toLocaleDateString('en-GB') %>
+                                        </td>
+                                        <td>
+                                            <%= new Date(coupon.expiryDate).toLocaleDateString('en-GB') %>
+                                        </td>
+                                        <td class="amount-red">
+                                            <%= coupon.maxAmount ? '₹' + coupon.maxAmount : '-----' %>
+                                        </td>
+                                        <td class="amount-red">₹<%= coupon.minAmount %>
+                                        </td>
+                                        <td>
+                                            <% let statusColor, statusLabel; if (coupon.couponStatus==='active' ) {
+                                                statusColor='bg-green-100 text-green-800' ; statusLabel='Active' ; }
+                                                else if (coupon.couponStatus==='blocked' ) {
+                                                statusColor='bg-red-100 text-red-800' ; statusLabel='Blocked' ; } else
+                                                if (coupon.couponStatus==='expired' ) {
+                                                statusColor='bg-orange-100 text-orange-800' ; statusLabel='Expired' ; }
+                                                else { statusColor='bg-gray-100 text-gray-800' ;
+                                                statusLabel=coupon.couponStatus; } %>
+                                                <span
+                                                    class="px-2 py-1 rounded-full text-xs font-semibold <%= statusColor %>">
+                                                    <%= statusLabel %>
+                                                </span>
+                                        </td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn-edit" onclick="editCoupon('<%= coupon._id %>')">
+                                                    Edit
+                                                </button>
+                                                <% if (coupon.couponStatus !=='expired' ) { %>
+                                                    <button
+                                                        class="btn-block <%= coupon.couponStatus === 'active' ? 'bg-red-600' : 'bg-green-600' %>"
+                                                        onclick="toggleStatus('<%= coupon._id %>', '<%= coupon.couponStatus %>')">
+                                                        <%= coupon.couponStatus==='active' ? 'Block' : 'Unblock' %>
+                                                    </button>
+                                                    <% } %>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <% }); %>
+                                        <% } else { %>
+                                            <tr>
+                                                <td colspan="7" style="text-align: center; padding: 40px;">
+                                                    No coupons found
+                                                </td>
+                                            </tr>
+                                            <% } %>
+                        </tbody>
+                    </table>
+
+                    <!-- Pagination -->
+                    <%- include('../partials/pagination', { pagination: pagination || {}, query: typeof search
+                        !=='undefined' && search ? 'search=' + search : '' }) %>
+                </div>
+            </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="/js/admin/couponList.js"></script>
 </body>
 
 </html>

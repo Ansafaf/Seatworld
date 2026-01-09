@@ -27,7 +27,7 @@ export const productList = async (req, res, next) => {
       const variants = await ProductVariant.find({ productId: p._id });
       const totalStock = variants.reduce((acc, curr) => acc + curr.stock, 0);
       return {
-        ...p.toObject(),
+        ...p,
         totalStock
       };
     }));
@@ -42,7 +42,7 @@ export const productList = async (req, res, next) => {
       });
     }
 
-    res.render("admin/adminProductList", {
+    res.render("admin/adminProductlist", {
       products,
       pagination,
       search: searchQuery,

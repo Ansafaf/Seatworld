@@ -79,16 +79,15 @@
                             </div>
                             <div class="summary-row" style="font-size: 0.85rem; color: #777;">
                                 <span>Discount</span>
-                                <span>₹<%= subtotal %> - <%= discountAmount %> = ₹<%= subtotal - discountAmount %>
-                                </span>
-                                <!-- Note: Simple calculation display logic, adjust based on actual data availability -->
+                                <span>-₹<%= discountAmount.toLocaleString('en-IN') %></span>
                             </div>
                             <% } %>
 
                                 <div class="total-row">
                                     <span>TOTAL <span style="font-size: 0.8rem; font-weight: 400; color: #777;">(TAX
                                             INCL.)</span></span>
-                                    <span>₹<%= total %></span>
+                                    <span>₹<%= (total - (typeof discountAmount !=='undefined' ? discountAmount :
+                                            0)).toLocaleString('en-IN') %></span>
                                 </div>
 
                                 <div class="terms-check">

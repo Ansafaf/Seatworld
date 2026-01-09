@@ -1,4 +1,5 @@
 
+
 function toggleCoupon() {
     const content = document.getElementById('couponContent');
     const arrow = document.getElementById('couponArrow');
@@ -16,15 +17,15 @@ function toggleCoupon() {
     }
 }
 
-async function applyCoupon(code) {
+async function applyCoupon(id) {
     try {
         const response = await fetch('/checkout/apply-coupon', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ couponCode: code })
+            body: JSON.stringify({ couponId: id })
         });
-        const result = await response.json();
-
+        const result = await response.json({});
+        console.log(`${result}`);
         if (result.success) {
             Swal.fire({
                 icon: 'success',

@@ -5692,3 +5692,713 @@ Use mongoose.model(name, schema)
 [2026-01-08 16:48:53] INFO: [GET] /cart
 [2026-01-08 16:48:54] INFO: [GET] /css/styles.css
 [2026-01-08 16:48:56] INFO: [GET] /wishlist
+[2026-01-08 17:24:31] INFO: [GET] /
+[2026-01-08 17:24:31] INFO: [GET] /home
+[2026-01-08 17:24:40] INFO: [GET] /admin/login
+[2026-01-08 17:24:41] INFO: [GET] /admin/dashboard
+[2026-01-08 17:24:44] INFO: [GET] /admin/orders
+[2026-01-08 17:24:47] INFO: [GET] /admin/coupons
+[2026-01-08 17:25:43] INFO: [GET] /
+[2026-01-08 17:25:43] INFO: [GET] /home
+[2026-01-08 17:25:47] INFO: [GET] /admin/orders
+[2026-01-08 17:25:50] INFO: [GET] /admin/coupons
+[2026-01-08 17:26:52] INFO: [GET] /admin/orders/695e11a45d1da806bbb177d7
+[2026-01-08 17:29:47] INFO: [GET] /admin/orders
+[2026-01-08 17:33:32] INFO: [GET] /admin/coupons
+[2026-01-08 17:33:33] INFO: [GET] /admin/orders
+[2026-01-08 17:33:58] INFO: [GET] /admin/coupons
+[2026-01-08 17:37:44] INFO: [GET] /admin/coupons
+[2026-01-08 17:37:45] ERROR: E:\Brocamp\SeatWorld\views\admin\couponList.ejs:17
+    15| 
+    16| <body class="font-display bg-gray-50 text-gray-800">
+ >> 17|     <%- include('../partials/flash') %>
+    18|         <!-- Top Header -->
+    19|         <header class="bg-white shadow-sm fixed w-full z-50 h-16 flex items-center justify-between px-6">
+    20|             <div class="flex items-center gap-4">
+
+E:\Brocamp\SeatWorld\views\partials\flash.ejs:1
+ >> 1| <% if (messageData || message) { %>
+    2|     <% let finalMessage=messageData || message; let msgType=(typeof finalMessage==='object' && finalMessage &&
+    3|         finalMessage.type) ? finalMessage.type : 'info' ; let msgText=(typeof finalMessage==='object' && finalMessage &&
+    4|         finalMessage.message) ? finalMessage.message : (typeof finalMessage==='string' ? finalMessage : '' ); if
+
+messageData is not defined
+[2026-01-08 17:37:46] INFO: [GET] /admin/dashboard
+[2026-01-08 17:37:49] INFO: [GET] /admin/discounts
+[2026-01-08 17:37:51] INFO: [GET] /admin/coupons
+[2026-01-08 17:37:51] ERROR: E:\Brocamp\SeatWorld\views\admin\couponList.ejs:17
+    15| 
+    16| <body class="font-display bg-gray-50 text-gray-800">
+ >> 17|     <%- include('../partials/flash') %>
+    18|         <!-- Top Header -->
+    19|         <header class="bg-white shadow-sm fixed w-full z-50 h-16 flex items-center justify-between px-6">
+    20|             <div class="flex items-center gap-4">
+
+E:\Brocamp\SeatWorld\views\partials\flash.ejs:1
+ >> 1| <% if (messageData || message) { %>
+    2|     <% let finalMessage=messageData || message; let msgType=(typeof finalMessage==='object' && finalMessage &&
+    3|         finalMessage.type) ? finalMessage.type : 'info' ; let msgText=(typeof finalMessage==='object' && finalMessage &&
+    4|         finalMessage.message) ? finalMessage.message : (typeof finalMessage==='string' ? finalMessage : '' ); if
+
+messageData is not defined
+[2026-01-08 17:37:53] INFO: [GET] /admin/dashboard
+[2026-01-08 17:46:14] INFO: [GET] /admin/orders
+[2026-01-08 17:46:21] INFO: [GET] /admin/users
+[2026-01-08 17:46:25] INFO: [GET] /admin/orders
+[2026-01-08 17:46:27] INFO: [GET] /admin/coupons
+[2026-01-08 17:46:27] ERROR: E:\Brocamp\SeatWorld\views\admin\couponList.ejs:17
+    15| 
+    16| <body class="font-display bg-gray-50 text-gray-800">
+ >> 17|     <%- include('../partials/flash') %>
+    18|         <!-- Top Header -->
+    19|         <header class="bg-white shadow-sm fixed w-full z-50 h-16 flex items-center justify-between px-6">
+    20|             <div class="flex items-center gap-4">
+
+E:\Brocamp\SeatWorld\views\partials\flash.ejs:1
+ >> 1| <% if (messageData || message) { %>
+    2|     <% let finalMessage=messageData || message; let msgType=(typeof finalMessage==='object' && finalMessage &&
+    3|         finalMessage.type) ? finalMessage.type : 'info' ; let msgText=(typeof finalMessage==='object' && finalMessage &&
+    4|         finalMessage.message) ? finalMessage.message : (typeof finalMessage==='string' ? finalMessage : '' ); if
+
+messageData is not defined
+[2026-01-08 17:46:29] INFO: [GET] /admin/orders
+[2026-01-08 17:46:31] INFO: [GET] /admin/coupons
+[2026-01-08 17:46:31] ERROR: E:\Brocamp\SeatWorld\views\admin\couponList.ejs:17
+    15| 
+    16| <body class="font-display bg-gray-50 text-gray-800">
+ >> 17|     <%- include('../partials/flash') %>
+    18|         <!-- Top Header -->
+    19|         <header class="bg-white shadow-sm fixed w-full z-50 h-16 flex items-center justify-between px-6">
+    20|             <div class="flex items-center gap-4">
+
+E:\Brocamp\SeatWorld\views\partials\flash.ejs:1
+ >> 1| <% if (messageData || message) { %>
+    2|     <% let finalMessage=messageData || message; let msgType=(typeof finalMessage==='object' && finalMessage &&
+    3|         finalMessage.type) ? finalMessage.type : 'info' ; let msgText=(typeof finalMessage==='object' && finalMessage &&
+    4|         finalMessage.message) ? finalMessage.message : (typeof finalMessage==='string' ? finalMessage : '' ); if
+
+messageData is not defined
+[2026-01-08 17:46:33] INFO: [GET] /admin/dashboard
+[2026-01-08 17:47:51] INFO: [GET] /admin/coupons
+[2026-01-08 17:47:51] ERROR: E:\Brocamp\SeatWorld\views\admin\couponList.ejs:17
+    15| 
+    16| <body class="font-display bg-gray-50 text-gray-800">
+ >> 17|     <%- include('../partials/flash') %>
+    18|         <!-- Top Header -->
+    19|         <header class="bg-white shadow-sm fixed w-full z-50 h-16 flex items-center justify-between px-6">
+    20|             <div class="flex items-center gap-4">
+
+E:\Brocamp\SeatWorld\views\partials\flash.ejs:1
+ >> 1| <% if (messageData || message) { %>
+    2|     <% let finalMessage=messageData || message; let msgType=(typeof finalMessage==='object' && finalMessage &&
+    3|         finalMessage.type) ? finalMessage.type : 'info' ; let msgText=(typeof finalMessage==='object' && finalMessage &&
+    4|         finalMessage.message) ? finalMessage.message : (typeof finalMessage==='string' ? finalMessage : '' ); if
+
+messageData is not defined
+[2026-01-08 17:47:54] INFO: [GET] /admin/dashboard
+[2026-01-08 17:49:47] INFO: [GET] /profile
+[2026-01-08 17:49:50] INFO: [GET] /coupons
+[2026-01-08 17:50:33] INFO: [GET] /coupons
+[2026-01-08 17:50:34] INFO: [GET] /profile
+[2026-01-08 17:51:59] INFO: [GET] /admin/orders
+[2026-01-08 17:52:01] INFO: [GET] /admin/coupons
+[2026-01-08 17:52:01] ERROR: E:\Brocamp\SeatWorld\views\admin\couponList.ejs:17
+    15| 
+    16| <body class="font-display bg-gray-50 text-gray-800">
+ >> 17|     <%- include('../partials/flash') %>
+    18|         <!-- Top Header -->
+    19|         <header class="bg-white shadow-sm fixed w-full z-50 h-16 flex items-center justify-between px-6">
+    20|             <div class="flex items-center gap-4">
+
+E:\Brocamp\SeatWorld\views\partials\flash.ejs:1
+ >> 1| <% if (messageData || message) { %>
+    2|     <% let finalMessage=messageData || message; let msgType=(typeof finalMessage==='object' && finalMessage &&
+    3|         finalMessage.type) ? finalMessage.type : 'info' ; let msgText=(typeof finalMessage==='object' && finalMessage &&
+    4|         finalMessage.message) ? finalMessage.message : (typeof finalMessage==='string' ? finalMessage : '' ); if
+
+messageData is not defined
+[2026-01-08 17:52:03] INFO: [GET] /admin/orders
+[2026-01-08 17:54:06] INFO: [GET] /admin/dashboard
+[2026-01-08 17:54:09] INFO: [GET] /admin/orders
+[2026-01-08 17:54:10] INFO: [GET] /admin/coupons
+[2026-01-08 17:54:29] INFO: [GET] /admin/coupons/add
+[2026-01-08 18:01:02] INFO: [POST] /admin/coupons/add
+[2026-01-08 18:01:06] INFO: [GET] /admin/coupons
+[2026-01-08 18:01:09] INFO: [GET] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-08 18:01:14] INFO: [GET] /admin/orders
+[2026-01-08 18:02:01] INFO: [GET] /admin/coupons
+[2026-01-08 18:02:06] INFO: [GET] /home
+[2026-01-08 18:02:08] INFO: [GET] /profile
+[2026-01-08 18:02:09] INFO: [GET] /coupons
+[2026-01-08 18:06:09] INFO: [GET] /home
+[2026-01-08 18:06:18] INFO: [GET] /profile
+[2026-01-08 18:06:21] INFO: [GET] /coupons
+[2026-01-08 18:08:04] INFO: [GET] /profile
+[2026-01-08 18:08:21] INFO: [GET] /products
+[2026-01-08 18:08:33] INFO: [GET] /profile
+[2026-01-08 18:08:35] INFO: [GET] /coupons
+[2026-01-08 18:08:43] INFO: [GET] /products
+[2026-01-08 18:08:44] INFO: [GET] /cart
+[2026-01-08 18:08:44] INFO: [GET] /css/styles.css
+[2026-01-08 18:08:46] INFO: [GET] /checkout
+[2026-01-08 18:08:55] INFO: [POST] /checkout/apply-coupon
+[2026-01-08 18:09:21] INFO: [POST] /checkout/apply-coupon
+[2026-01-08 18:09:43] INFO: [PATCH] /admin/coupons/toggle-status/695fa38659c024e2a3c93933
+[2026-01-08 18:09:44] INFO: [GET] /admin/coupons
+[2026-01-08 18:09:49] INFO: [PATCH] /admin/coupons/toggle-status/695fa38659c024e2a3c93933
+[2026-01-08 18:09:50] INFO: [GET] /admin/coupons
+[2026-01-08 18:09:53] INFO: [GET] /admin/dashboard
+[2026-01-08 18:32:48] INFO: [GET] /profile
+[2026-01-08 18:32:50] INFO: [GET] /coupons
+[2026-01-08 18:33:17] INFO: [GET] /products
+[2026-01-08 18:33:18] INFO: [GET] /cart
+[2026-01-08 18:33:19] INFO: [GET] /css/styles.css
+[2026-01-08 18:33:20] INFO: [GET] /wishlist
+[2026-01-08 18:33:23] INFO: [DELETE] /wishlist/693fadb9c1dc3ee2a4a4f85f
+[2026-01-08 18:33:26] INFO: [DELETE] /wishlist/692d673590f31c452d819e0a
+[2026-01-08 18:33:30] INFO: [GET] /cart
+[2026-01-08 18:33:31] INFO: [GET] /css/styles.css
+[2026-01-08 18:33:32] INFO: [GET] /checkout
+[2026-01-08 19:08:23] INFO: [GET] /home
+[2026-01-08 19:08:26] INFO: [GET] /cart
+[2026-01-08 19:08:27] INFO: [GET] /css/styles.css
+[2026-01-08 19:08:48] INFO: [GET] /checkout
+[2026-01-08 19:13:56] INFO: [GET] /home
+[2026-01-08 19:13:56] INFO: [GET] /login
+[2026-01-08 19:13:57] INFO: [GET] /auth/google
+[2026-01-08 19:13:58] INFO: [GET] /auth/google/callback?code=4%2F0ATX87lO_kYjiB60LUSs440xmOLHrE188I15WZQGFxVSDXYIXJP_t8yAbftxy1CaBTBiYuA&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=0&prompt=none
+[2026-01-08 19:13:59] INFO: [GET] /home
+[2026-01-08 19:14:00] INFO: [GET] /profile
+[2026-01-08 19:14:04] INFO: [GET] /coupons
+[2026-01-08 19:14:07] INFO: [GET] /profile
+[2026-01-08 19:14:09] INFO: [GET] /password-change
+[2026-01-08 19:14:09] INFO: [GET] /profile
+[2026-01-08 19:14:13] INFO: [GET] /admin/dashboard
+[2026-01-08 19:14:13] INFO: [GET] /admin/login
+[2026-01-08 19:14:20] INFO: [POST] /admin/login
+[2026-01-08 19:14:20] INFO: [GET] /admin/dashboard
+[2026-01-08 19:14:22] INFO: [GET] /admin/inventory
+[2026-01-08 19:14:28] INFO: [GET] /admin/discounts
+[2026-01-08 19:14:31] INFO: [GET] /admin/coupons
+[2026-01-08 19:14:33] INFO: [GET] /admin/coupons/add
+[2026-01-08 19:15:10] INFO: [POST] /admin/coupons/add
+[2026-01-08 19:15:11] INFO: [GET] /admin/coupons
+[2026-01-08 19:15:14] INFO: [GET] /admin/dashboard
+[2026-01-08 19:15:17] INFO: [GET] /coupons
+[2026-01-08 19:15:22] INFO: [GET] /profile
+[2026-01-08 19:15:23] INFO: [GET] /cart
+[2026-01-08 19:15:23] INFO: [GET] /css/styles.css
+[2026-01-08 19:15:24] INFO: [GET] /products
+[2026-01-08 19:15:25] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-08 19:15:28] INFO: [POST] /cart/add
+[2026-01-08 19:15:29] INFO: [GET] /cart
+[2026-01-08 19:15:29] INFO: [GET] /css/styles.css
+[2026-01-08 19:15:35] INFO: [GET] /checkout
+[2026-01-08 19:19:09] INFO: [GET] /cart
+[2026-01-08 19:19:09] INFO: [GET] /css/styles.css
+[2026-01-08 19:19:11] INFO: [PATCH] /cart/update-quantity
+[2026-01-08 19:19:13] INFO: [PATCH] /cart/update-quantity
+[2026-01-08 19:19:14] INFO: [GET] /checkout
+[2026-01-08 19:19:18] INFO: [POST] /checkout/apply-coupon
+[2026-01-08 19:19:25] INFO: [GET] /profile
+[2026-01-08 19:19:28] INFO: [GET] /coupons
+[2026-01-08 19:19:38] INFO: [GET] /admin/coupons
+[2026-01-08 19:19:49] INFO: [GET] /admin/coupons/edit/695fb4e64de7d6a4d6979dd4
+[2026-01-08 19:19:57] INFO: [POST] /admin/coupons/edit/695fb4e64de7d6a4d6979dd4
+[2026-01-08 19:19:58] INFO: [GET] /admin/coupons
+[2026-01-08 19:22:06] INFO: [GET] /checkout
+[2026-01-08 19:45:22] INFO: [GET] /home
+[2026-01-08 19:45:24] INFO: [GET] /cart
+[2026-01-08 19:45:24] INFO: [GET] /css/styles.css
+[2026-01-08 19:45:25] INFO: [GET] /checkout
+[2026-01-08 19:45:30] INFO: [POST] /checkout/apply-coupon
+[2026-01-08 19:45:31] INFO: [GET] /checkout
+[2026-01-08 19:45:44] INFO: [POST] /checkout/address
+[2026-01-08 19:45:47] INFO: [GET] /address/edit/694656dc53dee07824e1ffad?returnTo=checkout
+[2026-01-08 19:45:51] INFO: [POST] /address/edit/694656dc53dee07824e1ffad
+[2026-01-08 19:45:52] INFO: [GET] /checkout
+[2026-01-08 19:45:55] INFO: [POST] /checkout/address
+[2026-01-08 19:45:55] INFO: New address saved for user 692aafda50bbd504425b12d4: 695fbc1b8afe241a1c03183f
+[2026-01-08 19:45:55] INFO: [GET] /checkout/payment-options
+[2026-01-08 19:46:03] INFO: [POST] /place-order
+[2026-01-08 19:46:06] INFO: [POST] /place-order
+[2026-01-08 19:46:06] INFO: Order created: 695fbc268afe241a1c031850 for user: 692aafda50bbd504425b12d4
+[2026-01-08 19:46:07] INFO: Stock decrementd for variant 693fc66c6ecc42bce6fc754a: -3. New stock: 21. Reason: order_placed
+[2026-01-08 19:46:07] INFO: Cart cleared for user: 692aafda50bbd504425b12d4
+[2026-01-08 19:46:07] INFO: [GET] /order-success?orderId=695fbc268afe241a1c031850
+[2026-01-08 19:46:08] INFO: [GET] /orders
+[2026-01-08 19:46:10] INFO: [GET] /orders/695fbc268afe241a1c031850
+[2026-01-08 19:55:06] INFO: [GET] /admin/coupons
+[2026-01-08 19:55:06] INFO: [GET] /admin/login
+[2026-01-08 19:55:18] INFO: [POST] /admin/login
+[2026-01-08 19:55:18] INFO: [GET] /admin/dashboard
+[2026-01-08 19:55:20] INFO: [GET] /admin/coupons
+[2026-01-08 19:55:23] INFO: [PATCH] /admin/coupons/toggle-status/695fa38659c024e2a3c93933
+[2026-01-08 19:55:25] INFO: [GET] /admin/coupons
+[2026-01-08 19:55:34] INFO: [GET] /orders
+[2026-01-08 19:55:34] INFO: [GET] /login
+[2026-01-08 19:55:35] INFO: [GET] /auth/google
+[2026-01-08 19:55:36] INFO: [GET] /auth/google/callback?code=4%2F0ATX87lOq61Fq9taVsKvYBF-aJocWoy53al_iPtlvLvUn3xoyAYnJ3TrDUj7ictOEAL3GBg&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=0&prompt=none
+[2026-01-08 19:55:36] INFO: [GET] /home
+[2026-01-08 19:55:38] INFO: [GET] /profile
+[2026-01-08 19:55:40] INFO: [GET] /coupons
+[2026-01-08 19:55:44] INFO: [GET] /coupons
+[2026-01-08 19:55:46] INFO: [GET] /admin/coupons
+[2026-01-08 19:55:46] INFO: [GET] /admin/login
+[2026-01-08 19:55:52] INFO: [POST] /admin/login
+[2026-01-08 19:55:52] INFO: [GET] /admin/dashboard
+[2026-01-08 19:55:54] INFO: [GET] /admin/orders
+[2026-01-08 19:55:55] INFO: [GET] /admin/coupons
+[2026-01-08 19:56:01] INFO: [GET] /profile
+[2026-01-08 19:56:02] INFO: [GET] /cart
+[2026-01-08 19:56:02] INFO: [GET] /css/styles.css
+[2026-01-08 19:56:03] INFO: [GET] /checkout
+[2026-01-08 19:56:11] INFO: [PATCH] /admin/coupons/toggle-status/695fa38659c024e2a3c93933
+[2026-01-08 19:56:12] INFO: [GET] /admin/coupons
+[2026-01-08 19:56:16] INFO: [GET] /checkout
+[2026-01-08 19:56:22] INFO: [POST] /checkout/apply-coupon
+[2026-01-08 19:56:24] INFO: [GET] /checkout
+[2026-01-08 19:56:30] INFO: [POST] /checkout/address
+[2026-01-08 19:56:30] INFO: New address saved for user 692aafda50bbd504425b12d4: 695fbe96def326bfa68e1d2c
+[2026-01-08 19:56:30] INFO: [GET] /checkout/payment-options
+[2026-01-08 19:56:37] INFO: [GET] /products
+[2026-01-08 19:56:39] INFO: [GET] /cart
+[2026-01-08 19:56:40] INFO: [GET] /css/styles.css
+[2026-01-08 19:56:42] INFO: [GET] /products
+[2026-01-08 19:56:44] INFO: [GET] /profile
+[2026-01-08 19:56:46] INFO: [GET] /orders
+[2026-01-08 19:56:50] INFO: [GET] /orders/695e11a45d1da806bbb177d7
+[2026-01-08 22:14:49] INFO: [GET] /
+[2026-01-08 22:14:52] INFO: [GET] /admin/dashboard
+[2026-01-08 22:14:52] INFO: [GET] /admin/login
+[2026-01-08 22:15:00] INFO: [POST] /admin/login
+[2026-01-08 22:15:00] INFO: [GET] /admin/dashboard
+[2026-01-08 22:15:12] INFO: [GET] /login
+[2026-01-08 22:15:24] INFO: [POST] /login
+[2026-01-08 22:15:26] INFO: [GET] /home
+[2026-01-08 22:15:27] INFO: [GET] /profile
+[2026-01-08 22:15:29] INFO: [GET] /orders
+[2026-01-08 22:15:32] INFO: [GET] /orders/695ea7f19159aa00d5fe4bb4
+[2026-01-08 22:15:36] INFO: [GET] /profile
+[2026-01-08 22:15:39] INFO: [GET] /cart
+[2026-01-08 22:15:39] INFO: [GET] /css/styles.css
+[2026-01-08 22:15:40] INFO: [GET] /checkout
+[2026-01-08 22:32:44] INFO: [GET] /home
+[2026-01-08 22:32:46] INFO: [GET] /cart
+[2026-01-08 22:32:46] INFO: [GET] /css/styles.css
+[2026-01-08 22:32:48] INFO: [GET] /checkout
+[2026-01-08 22:33:00] INFO: [POST] /checkout/apply-coupon
+[2026-01-08 22:33:01] INFO: [GET] /checkout
+[2026-01-08 22:33:13] INFO: [POST] /checkout/address
+[2026-01-08 22:33:13] INFO: New address saved for user 694277e33e5136b65755f8d8: 695fe351d69cba576b25e390
+[2026-01-08 22:33:13] INFO: [GET] /checkout/payment-options
+[2026-01-08 22:33:23] INFO: [GET] /home
+[2026-01-08 22:38:14] INFO: [GET] /profile
+[2026-01-08 22:38:16] INFO: [GET] /orders
+[2026-01-08 22:38:21] INFO: [GET] /cart
+[2026-01-08 22:38:22] INFO: [GET] /css/styles.css
+[2026-01-08 22:38:24] INFO: [GET] /checkout
+[2026-01-08 22:38:24] ERROR: E:\Brocamp\SeatWorld\views\users\checkout.ejs:149
+    147|                             <div class="summary-row total">
+    148|                                 <span>Total</span>
+ >> 149|                                 <% if(newTotal){ %>
+    150|                                      <span id="summaryTotal">₹<%= typeof newTotal !=='undefined' ? newTotal.toLocaleString('en-IN')
+    151|                                         : '0' %></span>
+    152|                                 <% } else { %>
+
+newTotal is not defined
+[2026-01-08 22:38:27] INFO: [GET] /cart
+[2026-01-08 22:38:27] INFO: [GET] /css/styles.css
+[2026-01-08 22:38:30] INFO: [GET] /checkout
+[2026-01-08 22:38:30] ERROR: E:\Brocamp\SeatWorld\views\users\checkout.ejs:149
+    147|                             <div class="summary-row total">
+    148|                                 <span>Total</span>
+ >> 149|                                 <% if(newTotal){ %>
+    150|                                      <span id="summaryTotal">₹<%= typeof newTotal !=='undefined' ? newTotal.toLocaleString('en-IN')
+    151|                                         : '0' %></span>
+    152|                                 <% } else { %>
+
+newTotal is not defined
+[2026-01-08 22:38:32] INFO: [GET] /cart
+[2026-01-08 22:38:32] INFO: [GET] /css/styles.css
+[2026-01-08 22:38:34] INFO: [GET] /checkout
+[2026-01-08 22:38:35] ERROR: E:\Brocamp\SeatWorld\views\users\checkout.ejs:149
+    147|                             <div class="summary-row total">
+    148|                                 <span>Total</span>
+ >> 149|                                 <% if(newTotal){ %>
+    150|                                      <span id="summaryTotal">₹<%= typeof newTotal !=='undefined' ? newTotal.toLocaleString('en-IN')
+    151|                                         : '0' %></span>
+    152|                                 <% } else { %>
+
+newTotal is not defined
+[2026-01-08 22:41:40] INFO: [GET] /cart
+[2026-01-08 22:41:40] INFO: [GET] /css/styles.css
+[2026-01-08 22:41:42] INFO: [GET] /checkout
+[2026-01-08 22:41:57] INFO: [GET] /admin/products
+[2026-01-08 22:42:04] INFO: [GET] /
+[2026-01-08 22:42:04] INFO: [GET] /home
+[2026-01-08 22:42:06] INFO: [GET] /products
+[2026-01-08 22:42:07] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-08 22:42:09] INFO: [POST] /cart/add
+[2026-01-08 22:42:10] INFO: [GET] /cart
+[2026-01-08 22:42:10] INFO: [GET] /css/styles.css
+[2026-01-08 22:42:12] INFO: [GET] /checkout
+[2026-01-08 22:42:31] INFO: [GET] /profile
+[2026-01-08 22:42:33] INFO: [GET] /orders
+[2026-01-08 22:42:36] INFO: [GET] /orders/695ea7f19159aa00d5fe4bb4
+[2026-01-08 22:42:37] INFO: [GET] /profile
+[2026-01-08 22:42:38] INFO: [GET] /cart
+[2026-01-08 22:42:39] INFO: [GET] /css/styles.css
+[2026-01-08 22:42:39] INFO: [GET] /checkout
+[2026-01-08 22:42:45] INFO: [GET] /address/edit/695fe351d69cba576b25e390?returnTo=checkout
+[2026-01-08 22:42:47] INFO: [POST] /address/edit/695fe351d69cba576b25e390
+[2026-01-08 22:42:49] INFO: [GET] /checkout
+[2026-01-08 22:43:09] INFO: [GET] /admin/inventory
+[2026-01-08 22:43:10] INFO: [GET] /admin/users
+[2026-01-08 22:43:11] INFO: [GET] /admin/inventory
+[2026-01-08 22:43:16] INFO: [GET] /admin/users
+[2026-01-08 22:43:17] INFO: [GET] /admin/orders
+[2026-01-08 22:43:21] INFO: [GET] /admin/orders/695fbc268afe241a1c031850
+[2026-01-08 22:43:29] INFO: [GET] /admin/discounts
+[2026-01-08 22:43:32] INFO: [GET] /admin/categories
+[2026-01-08 22:43:34] INFO: [GET] /admin/coupons
+[2026-01-08 22:43:41] INFO: [GET] /admin/orders
+[2026-01-08 22:43:43] INFO: [GET] /admin/coupons
+[2026-01-08 22:43:49] INFO: [GET] /admin/dashboard
+[2026-01-09 09:24:38] INFO: [GET] /
+[2026-01-09 09:24:42] INFO: [GET] /admin/login
+[2026-01-09 09:24:42] INFO: [GET] /favicon.ico
+[2026-01-09 09:24:48] INFO: [POST] /admin/login
+[2026-01-09 09:24:48] INFO: [GET] /admin/dashboard
+[2026-01-09 09:24:51] INFO: [GET] /admin/coupons
+[2026-01-09 09:24:55] INFO: [GET] /admin/dashboard
+[2026-01-09 09:24:58] INFO: [GET] /admin/coupons
+[2026-01-09 09:26:04] INFO: [GET] /login
+[2026-01-09 09:26:05] INFO: [GET] /auth/google
+[2026-01-09 09:26:06] INFO: [GET] /auth/google/callback?code=4%2F0ATX87lNcG83VpSEYsH3NEIXWOPsXrDxAKKE2cnbndr-LMR4QB8X5HcxhuNZz4y_uqDYfMg&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=0&prompt=none
+[2026-01-09 09:26:06] INFO: [GET] /home
+[2026-01-09 10:01:36] INFO: [GET] /
+[2026-01-09 10:01:36] INFO: [GET] /home
+[2026-01-09 10:01:40] INFO: [GET] /admin/products
+[2026-01-09 10:01:40] INFO: [GET] /admin/login
+[2026-01-09 10:01:46] INFO: [GET] /cart
+[2026-01-09 10:01:46] INFO: [GET] /css/styles.css
+[2026-01-09 10:01:48] INFO: [GET] /profile
+[2026-01-09 10:01:49] INFO: [GET] /orders
+[2026-01-09 10:01:53] INFO: [GET] /orders/695dc37fa52ccb2627a8ba39
+[2026-01-09 10:02:01] INFO: [GET] /orders
+[2026-01-09 10:02:34] INFO: [GET] /profile
+[2026-01-09 10:02:37] INFO: [GET] /wishlist
+[2026-01-09 10:02:40] INFO: [GET] /cart
+[2026-01-09 10:02:41] INFO: [GET] /css/styles.css
+[2026-01-09 10:02:42] INFO: [GET] /checkout
+[2026-01-09 10:03:04] INFO: [GET] /profile
+[2026-01-09 10:03:05] INFO: [GET] /logout
+[2026-01-09 10:03:06] INFO: [GET] /login
+[2026-01-09 10:03:07] INFO: [GET] /
+[2026-01-09 10:03:21] INFO: [GET] /login
+[2026-01-09 10:03:22] INFO: [GET] /auth/google
+[2026-01-09 10:03:22] INFO: [GET] /auth/google/callback?code=4%2F0ATX87lPz-_q2crC-USv7O1tjlvR4lhnH4SPqQG4_G6wdGzTCPI1UmbpcABwJGcfDh-DhwQ&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=0&prompt=none
+[2026-01-09 10:03:23] INFO: [GET] /home
+[2026-01-09 10:06:28] INFO: [GET] /cart
+[2026-01-09 10:06:28] INFO: [GET] /css/styles.css
+[2026-01-09 10:06:34] INFO: [GET] /checkout
+[2026-01-09 10:06:44] INFO: [POST] /checkout/address
+[2026-01-09 10:06:44] INFO: New address saved for user 692aafda50bbd504425b12d4: 696085dc8f72609cdf95b4bd
+[2026-01-09 10:06:45] INFO: [GET] /checkout/payment-options
+[2026-01-09 10:06:48] INFO: [POST] /place-order
+[2026-01-09 10:06:53] INFO: [GET] /checkout
+[2026-01-09 10:07:02] INFO: [POST] /admin/login
+[2026-01-09 10:07:03] INFO: [GET] /admin/dashboard
+[2026-01-09 10:07:04] INFO: [GET] /admin/orders
+[2026-01-09 10:07:06] INFO: [GET] /admin/coupons
+[2026-01-09 10:07:10] INFO: [PATCH] /admin/coupons/toggle-status/695fa38659c024e2a3c93933
+[2026-01-09 10:07:12] INFO: [GET] /admin/coupons
+[2026-01-09 10:07:14] INFO: [PATCH] /admin/coupons/toggle-status/695fa38659c024e2a3c93933
+[2026-01-09 10:07:15] INFO: [GET] /admin/coupons
+[2026-01-09 10:07:25] INFO: [GET] /checkout
+[2026-01-09 10:07:30] INFO: [GET] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-09 10:10:00] INFO: [GET] /admin/inventory
+[2026-01-09 10:10:02] INFO: [GET] /admin/coupons
+[2026-01-09 10:10:06] INFO: [GET] /admin/coupons
+[2026-01-09 10:10:25] INFO: [GET] /home
+[2026-01-09 10:10:27] INFO: [GET] /cart
+[2026-01-09 10:10:27] INFO: [GET] /css/styles.css
+[2026-01-09 10:10:31] INFO: [DELETE] /cart/remove/692d673590f31c452d819e0a
+[2026-01-09 10:10:33] INFO: [DELETE] /cart/remove/692d42af31e01e9d9ba8dc06
+[2026-01-09 10:10:34] INFO: [GET] /cart
+[2026-01-09 10:10:34] INFO: [GET] /css/styles.css
+[2026-01-09 10:10:36] INFO: [GET] /products
+[2026-01-09 10:10:39] INFO: [GET] /product/693faef8c1dc3ee2a4a4f878
+[2026-01-09 10:10:41] INFO: [POST] /cart/add
+[2026-01-09 10:10:43] INFO: [GET] /cart
+[2026-01-09 10:10:43] INFO: [GET] /css/styles.css
+[2026-01-09 10:10:45] INFO: [GET] /checkout
+[2026-01-09 10:12:29] INFO: [GET] /admin/users
+[2026-01-09 10:12:37] INFO: [GET] /admin/products
+[2026-01-09 10:13:08] INFO: [GET] /admin/coupons
+[2026-01-09 10:13:53] INFO: [GET] /admin/coupons
+[2026-01-09 10:14:00] INFO: [GET] /home
+[2026-01-09 10:14:02] INFO: [GET] /cart
+[2026-01-09 10:14:02] INFO: [GET] /css/styles.css
+[2026-01-09 10:14:03] INFO: [GET] /checkout
+[2026-01-09 10:14:04] INFO: Found 0 available coupons for checkout
+[2026-01-09 10:14:08] INFO: [POST] /checkout/address
+[2026-01-09 10:14:08] INFO: New address saved for user 692aafda50bbd504425b12d4: 6960879835129546101626a6
+[2026-01-09 10:14:08] INFO: [GET] /checkout/payment-options
+[2026-01-09 10:14:12] INFO: [GET] /checkout
+[2026-01-09 10:14:12] INFO: Found 0 available coupons for checkout
+[2026-01-09 10:14:19] INFO: [GET] /admin/coupons/add
+[2026-01-09 10:15:58] INFO: [POST] /admin/coupons/add
+[2026-01-09 10:15:59] INFO: [GET] /admin/coupons
+[2026-01-09 10:17:16] INFO: [GET] /admin/coupons
+[2026-01-09 10:17:23] INFO: [GET] /home
+[2026-01-09 10:17:25] INFO: [GET] /cart
+[2026-01-09 10:17:26] INFO: [GET] /css/styles.css
+[2026-01-09 10:17:27] INFO: [GET] /checkout
+[2026-01-09 10:17:28] INFO: Found 1 available coupons for checkout
+[2026-01-09 10:17:47] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 10:17:49] INFO: [GET] /checkout
+[2026-01-09 10:17:49] INFO: Found 1 available coupons for checkout
+[2026-01-09 10:17:57] INFO: [POST] /checkout/address
+[2026-01-09 10:17:57] INFO: New address saved for user 692aafda50bbd504425b12d4: 6960887d35129546101626e8
+[2026-01-09 10:17:57] INFO: [GET] /checkout/payment-options
+[2026-01-09 10:19:46] INFO: [GET] /products
+[2026-01-09 10:25:29] INFO: [GET] /admin/products
+[2026-01-09 10:25:32] INFO: [GET] /cart
+[2026-01-09 10:25:33] INFO: [GET] /css/styles.css
+[2026-01-09 10:25:47] INFO: [GET] /checkout
+[2026-01-09 10:25:47] INFO: Found 1 available coupons for checkout
+[2026-01-09 10:25:55] INFO: [POST] /checkout/remove-coupon
+[2026-01-09 10:25:56] INFO: [GET] /checkout
+[2026-01-09 10:25:57] INFO: Found 1 available coupons for checkout
+[2026-01-09 10:26:03] INFO: [GET] /products
+[2026-01-09 10:26:04] INFO: [GET] /cart
+[2026-01-09 10:26:04] INFO: [GET] /css/styles.css
+[2026-01-09 10:26:05] INFO: [GET] /checkout
+[2026-01-09 10:26:06] INFO: Found 1 available coupons for checkout
+[2026-01-09 10:26:09] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 10:26:11] INFO: [GET] /checkout
+[2026-01-09 10:26:12] INFO: Found 1 available coupons for checkout
+[2026-01-09 10:26:16] INFO: [POST] /checkout/address
+[2026-01-09 10:26:17] INFO: New address saved for user 692aafda50bbd504425b12d4: 69608a71351295461016275f
+[2026-01-09 10:26:17] INFO: [GET] /checkout/payment-options
+[2026-01-09 10:26:23] INFO: [POST] /place-order
+[2026-01-09 10:26:26] INFO: [GET] /cart
+[2026-01-09 10:26:27] INFO: [GET] /css/styles.css
+[2026-01-09 10:26:31] INFO: [GET] /checkout
+[2026-01-09 10:26:31] INFO: Found 1 available coupons for checkout
+[2026-01-09 10:26:40] INFO: [GET] /admin/coupons
+[2026-01-09 10:26:50] INFO: [PATCH] /admin/coupons/toggle-status/695fa38659c024e2a3c93933
+[2026-01-09 10:26:52] INFO: [GET] /admin/coupons
+[2026-01-09 10:26:56] INFO: [PATCH] /admin/coupons/toggle-status/695fa38659c024e2a3c93933
+[2026-01-09 10:26:58] INFO: [GET] /admin/coupons
+[2026-01-09 10:29:25] INFO: [GET] /admin/orders
+[2026-01-09 10:29:27] INFO: [GET] /admin/coupons
+[2026-01-09 10:29:27] INFO: {
+  _id: new ObjectId('6960880635129546101626b8'),
+  description: 'New Year coupon',
+  couponCode: 'NEWYEAR08',
+  discountValue: 100,
+  discountType: 'flat',
+  couponStatus: 'active',
+  startDate: 2026-01-09T00:00:00.000Z,
+  minAmount: 1200,
+  maxAmount: 150,
+  expiryDate: 2026-01-10T00:00:00.000Z,
+  createdAt: 2026-01-09T04:45:58.322Z,
+  updatedAt: 2026-01-09T04:45:58.322Z,
+  __v: 0
+},{
+  _id: new ObjectId('695fa38659c024e2a3c93933'),
+  description: 'Christmas coupons',
+  couponCode: 'SUMMER39',
+  discountValue: 100,
+  discountType: 'flat',
+  couponStatus: 'active',
+  startDate: 2026-01-08T00:00:00.000Z,
+  minAmount: 1000,
+  maxAmount: 200,
+  expiryDate: 2026-01-09T00:00:00.000Z,
+  createdAt: 2026-01-08T12:31:02.250Z,
+  updatedAt: 2026-01-09T04:56:56.603Z,
+  __v: 0
+}
+[2026-01-09 10:31:51] INFO: [GET] /admin/orders
+[2026-01-09 10:31:52] INFO: [GET] /admin/coupons
+[2026-01-09 10:31:52] INFO: {
+  _id: new ObjectId('6960880635129546101626b8'),
+  description: 'New Year coupon',
+  couponCode: 'NEWYEAR08',
+  discountValue: 100,
+  discountType: 'flat',
+  couponStatus: 'active',
+  startDate: 2026-01-09T00:00:00.000Z,
+  minAmount: 1200,
+  maxAmount: 150,
+  expiryDate: 2026-01-10T00:00:00.000Z,
+  createdAt: 2026-01-09T04:45:58.322Z,
+  updatedAt: 2026-01-09T04:45:58.322Z,
+  __v: 0
+}
+[2026-01-09 10:31:52] INFO: {
+  _id: new ObjectId('695fa38659c024e2a3c93933'),
+  description: 'Christmas coupons',
+  couponCode: 'SUMMER39',
+  discountValue: 100,
+  discountType: 'flat',
+  couponStatus: 'active',
+  startDate: 2026-01-08T00:00:00.000Z,
+  minAmount: 1000,
+  maxAmount: 200,
+  expiryDate: 2026-01-09T00:00:00.000Z,
+  createdAt: 2026-01-08T12:31:02.250Z,
+  updatedAt: 2026-01-09T04:56:56.603Z,
+  __v: 0
+}
+[2026-01-09 10:35:14] INFO: [GET] /admin/orders
+[2026-01-09 10:35:15] INFO: [GET] /admin/coupons
+[2026-01-09 10:35:15] INFO: object
+[2026-01-09 10:36:15] INFO: [GET] /admin/orders
+[2026-01-09 10:36:17] INFO: [GET] /admin/coupons
+[2026-01-09 10:36:17] INFO: object
+[2026-01-09 10:37:14] INFO: [GET] /admin/coupons
+[2026-01-09 10:37:14] INFO: 0
+[2026-01-09 10:37:14] INFO: 1
+[2026-01-09 10:37:28] INFO: [GET] /admin/users
+[2026-01-09 10:37:29] INFO: [GET] /admin/coupons
+[2026-01-09 10:37:29] INFO: 0
+[2026-01-09 10:37:29] INFO: 1
+[2026-01-09 12:08:59] INFO: [GET] /
+[2026-01-09 12:08:59] INFO: [GET] /home
+[2026-01-09 12:09:03] INFO: [GET] /admin/dashboard
+[2026-01-09 12:09:06] INFO: [GET] /admin/coupons
+[2026-01-09 12:09:12] INFO: [GET] /cart
+[2026-01-09 12:09:12] INFO: [GET] /css/styles.css
+[2026-01-09 12:09:14] INFO: [GET] /profile
+[2026-01-09 12:09:16] INFO: [GET] /coupons
+[2026-01-09 12:09:19] INFO: [GET] /profile
+[2026-01-09 12:09:21] INFO: [GET] /cart
+[2026-01-09 12:09:21] INFO: [GET] /css/styles.css
+[2026-01-09 12:09:22] INFO: [GET] /checkout
+[2026-01-09 12:09:23] INFO: Found 1 available coupons for checkout
+[2026-01-09 12:09:27] INFO: [POST] /checkout/remove-coupon
+[2026-01-09 12:09:30] INFO: [GET] /checkout
+[2026-01-09 12:09:30] INFO: Found 1 available coupons for checkout
+[2026-01-09 12:09:38] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 12:09:40] INFO: [GET] /checkout
+[2026-01-09 12:09:40] INFO: Found 1 available coupons for checkout
+[2026-01-09 12:09:53] INFO: [POST] /checkout/address
+[2026-01-09 12:09:53] INFO: New address saved for user 692aafda50bbd504425b12d4: 6960a2b9a7f456bd5937f9d0
+[2026-01-09 12:09:54] INFO: [GET] /checkout/payment-options
+[2026-01-09 12:14:17] INFO: [GET] /admin/dashboard
+[2026-01-09 12:15:10] INFO: [GET] /admin/coupons
+[2026-01-09 12:15:14] INFO: [PATCH] /admin/coupons/toggle-status/695fa38659c024e2a3c93933
+[2026-01-09 12:15:15] INFO: [GET] /admin/coupons
+[2026-01-09 12:15:22] INFO: [GET] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-09 12:15:30] INFO: [POST] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-09 12:15:32] INFO: [GET] /admin/coupons
+[2026-01-09 12:15:36] INFO: [GET] /admin/dashboard
+[2026-01-09 12:15:38] INFO: [GET] /admin/coupons
+[2026-01-09 12:16:33] INFO: [GET] /admin/inventory
+[2026-01-09 12:16:34] INFO: [GET] /admin/coupons
+[2026-01-09 12:21:15] INFO: [GET] /admin/orders
+[2026-01-09 12:21:16] INFO: [GET] /admin/coupons
+[2026-01-09 12:21:35] INFO: [PATCH] /admin/coupons/toggle-status/6960880635129546101626b8
+[2026-01-09 12:21:37] INFO: [GET] /admin/coupons
+[2026-01-09 12:21:41] INFO: [PATCH] /admin/coupons/toggle-status/6960880635129546101626b8
+[2026-01-09 12:21:42] INFO: [GET] /admin/coupons
+[2026-01-09 12:21:45] INFO: [GET] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-09 12:21:53] INFO: [POST] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-09 12:21:54] INFO: [GET] /admin/coupons
+[2026-01-09 12:21:59] INFO: [GET] /admin/coupons
+[2026-01-09 12:23:35] INFO: [GET] /admin/products
+[2026-01-09 12:23:35] ERROR: p.toObject is not a function
+[2026-01-09 12:23:37] INFO: [GET] /admin/coupons
+[2026-01-09 12:23:42] INFO: [GET] /admin/products
+[2026-01-09 12:23:42] ERROR: p.toObject is not a function
+[2026-01-09 12:23:44] INFO: [GET] /admin/coupons
+[2026-01-09 12:23:47] INFO: [GET] /home
+[2026-01-09 12:23:49] INFO: [GET] /admin/dashboard
+[2026-01-09 12:23:51] INFO: [GET] /admin/inventory
+[2026-01-09 12:23:55] INFO: [GET] /admin/products
+[2026-01-09 12:23:55] ERROR: p.toObject is not a function
+[2026-01-09 12:23:57] INFO: [GET] /admin/inventory
+[2026-01-09 12:23:58] INFO: [GET] /admin/orders
+[2026-01-09 12:24:00] INFO: [GET] /admin/coupons
+[2026-01-09 12:24:02] INFO: [GET] /admin/categories
+[2026-01-09 12:24:03] INFO: [GET] /admin/coupons
+[2026-01-09 12:25:13] INFO: [GET] /admin/products
+[2026-01-09 12:25:13] ERROR: p.toObject is not a function
+[2026-01-09 12:25:14] INFO: [GET] /admin/coupons
+[2026-01-09 12:26:29] INFO: [GET] /admin/products
+[2026-01-09 12:26:29] ERROR: p.toObject is not a function
+[2026-01-09 12:26:30] INFO: [GET] /admin/coupons
+[2026-01-09 12:26:37] INFO: [GET] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-09 12:26:41] INFO: [POST] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-09 12:26:42] INFO: [GET] /admin/coupons
+[2026-01-09 12:28:37] INFO: [GET] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-09 12:28:44] INFO: [POST] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-09 12:28:46] INFO: [GET] /admin/coupons
+[2026-01-09 12:28:52] INFO: [GET] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-09 12:28:59] INFO: [POST] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-09 12:29:01] INFO: [GET] /admin/coupons
+[2026-01-09 12:29:03] INFO: [GET] /admin/dashboard
+[2026-01-09 12:34:16] INFO: [GET] /admin/products
+[2026-01-09 12:34:17] ERROR: p.toObject is not a function
+[2026-01-09 12:36:14] INFO: [GET] /admin/dashboard
+[2026-01-09 12:36:15] INFO: [GET] /admin/products
+[2026-01-09 12:36:16] ERROR: p.toObject is not a function
+[2026-01-09 12:36:17] INFO: [GET] /admin/dashboard
+[2026-01-09 12:37:10] INFO: [GET] /cart
+[2026-01-09 12:37:12] INFO: [GET] /css/styles.css
+[2026-01-09 12:37:15] INFO: [GET] /checkout
+[2026-01-09 12:37:15] INFO: Found 2 available coupons for checkout
+[2026-01-09 12:37:20] INFO: [POST] /checkout/remove-coupon
+[2026-01-09 12:37:22] INFO: [GET] /checkout
+[2026-01-09 12:37:23] INFO: Found 2 available coupons for checkout
+[2026-01-09 12:37:26] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 12:37:28] INFO: [GET] /checkout
+[2026-01-09 12:37:29] INFO: Found 2 available coupons for checkout
+[2026-01-09 12:37:33] INFO: [POST] /checkout/address
+[2026-01-09 12:37:34] INFO: New address saved for user 692aafda50bbd504425b12d4: 6960a9353b3116c95a46dd2c
+[2026-01-09 12:37:34] INFO: [GET] /checkout/payment-options
+[2026-01-09 12:37:49] INFO: [GET] /admin/discounts
+[2026-01-09 12:37:50] INFO: [GET] /admin/dashboard
+[2026-01-09 12:37:53] INFO: [GET] /admin/products
+[2026-01-09 12:40:21] INFO: [GET] /home
+[2026-01-09 12:40:23] INFO: [GET] /profile
+[2026-01-09 12:40:24] INFO: [GET] /address
+[2026-01-09 12:40:29] INFO: [POST] /address/delete/695fbe96def326bfa68e1d2c
+[2026-01-09 12:40:31] INFO: [GET] /address
+[2026-01-09 12:40:33] INFO: [POST] /address/delete/695cd252e7d709e4d5479338
+[2026-01-09 12:40:35] INFO: [GET] /address
+[2026-01-09 12:40:37] INFO: [POST] /address/delete/69550d4b525d3650ff32964d
+[2026-01-09 12:40:39] INFO: [GET] /address
+[2026-01-09 12:40:41] INFO: [GET] /address/edit/696085dc8f72609cdf95b4bd
+[2026-01-09 12:40:44] INFO: [POST] /address/edit/696085dc8f72609cdf95b4bd
+[2026-01-09 12:40:46] INFO: [GET] /address
+[2026-01-09 12:40:48] INFO: [POST] /address/delete/6960a2b9a7f456bd5937f9d0
+[2026-01-09 12:40:50] INFO: [GET] /address
+[2026-01-09 12:40:53] INFO: [POST] /address/delete/69608a71351295461016275f
+[2026-01-09 12:40:55] INFO: [GET] /address
+[2026-01-09 12:40:57] INFO: [POST] /address/delete/6960887d35129546101626e8
+[2026-01-09 12:40:59] INFO: [GET] /address
+[2026-01-09 12:41:01] INFO: [POST] /address/delete/6960a9353b3116c95a46dd2c
+[2026-01-09 12:41:03] INFO: [GET] /address
+[2026-01-09 12:41:06] INFO: [POST] /address/delete/696085dc8f72609cdf95b4bd
+[2026-01-09 12:41:08] INFO: [GET] /address
+[2026-01-09 12:41:10] INFO: [GET] /cart
+[2026-01-09 12:41:10] INFO: [GET] /css/styles.css
+[2026-01-09 12:41:12] INFO: [GET] /checkout
+[2026-01-09 12:41:13] INFO: Found 2 available coupons for checkout
+[2026-01-09 12:41:16] INFO: [POST] /checkout/remove-coupon
+[2026-01-09 12:41:18] INFO: [GET] /checkout
+[2026-01-09 12:41:18] INFO: Found 2 available coupons for checkout
+[2026-01-09 12:41:20] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 12:41:22] INFO: [GET] /checkout
+[2026-01-09 12:41:23] INFO: Found 2 available coupons for checkout
+[2026-01-09 12:41:25] INFO: [POST] /checkout/address
+[2026-01-09 12:41:25] INFO: New address saved for user 692aafda50bbd504425b12d4: 6960aa1dee83315879beab02
+[2026-01-09 12:41:25] INFO: [GET] /checkout/payment-options
+[2026-01-09 12:41:31] INFO: [GET] /home

@@ -40,7 +40,8 @@
     "dev": "nodemon app.js",
     "lint:ejs": "npx ejs-lint views/**/*.ejs",
     "lint": "npm run lint:ejs && npm run lint:frontend",
-    "lint:frontend": "eslint public/**/*.js"
+    "lint:frontend": "eslint public/**/*.js",
+    "lint:backend": "eslint **/*.js --ignore-pattern public/** --ignore-pattern views/**"
   },
   "repository": {
     "type": "git",

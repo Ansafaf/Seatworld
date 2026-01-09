@@ -11,8 +11,9 @@ export const paginate = async (model, query = {}, options = {}) => {
             .skip(skip)
             .limit(limit)
             .populate(options.populate || [])
+            .lean()
     ]);
-
+    
     const totalPages = Math.ceil(totalItems / limit) || 1;
 
     return {
