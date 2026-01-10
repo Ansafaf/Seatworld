@@ -9,7 +9,6 @@ import {
     removeCoupon
 } from "../controller/checkoutController.js";
 
-
 checkoutRouter.get("/checkout", authMiddleware, getCheckoutAddress);
 checkoutRouter.post("/checkout/address", authMiddleware, postAddress);
 checkoutRouter.get("/checkout/payment-options", authMiddleware, getPaymentOptions);

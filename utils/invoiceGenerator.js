@@ -101,20 +101,29 @@ export default function generateInvoicePDF(order, items) {
 
     // Subtotal
     doc.text("Subtotal:", summaryX, currentY, { width: 100, align: "left" });
-    doc.text(subtotal.toFixed(2), valueX, currentY, { width: 90, align: "right" });
+    doc.text((order.subtotal || subtotal).toFixed(2), valueX, currentY, { width: 90, align: "right" });
     currentY += 18;
 
     // Shipping
-    const shipping = parseFloat(order.shippingCharge || 0);
+    const shipping = parseFloat(order.shippingFee || 0);
     doc.text("Shipping:", summaryX, currentY, { width: 100, align: "left" });
     doc.text(shipping.toFixed(2), valueX, currentY, { width: 90, align: "right" });
     currentY += 18;
 
-    // Tax
-    const tax = parseFloat(order.tax || 0);
-    doc.text("Tax:", summaryX, currentY, { width: 100, align: "left" });
-    doc.text(tax.toFixed(2), valueX, currentY, { width: 90, align: "right" });
-    currentY += 25;
+    // Discount
+    if (order.discountAmount > 0) {
+      doc.fillColor("#2e7d32");
+      doc.text("Discount:", summaryX, currentY, { width: 100, align: "left" });
+      doc.text(`-${order.discountAmount.toFixed(2)}`, valueX, currentY, { width: 90, align: "right" });
+      doc.fillColor("black");
+      currentY += 18;
+    }
+
+    // Horizontal line above total
+    doc.moveTo(summaryX, currentY + 5)
+      .lineTo(rightMargin, currentY + 5)
+      .stroke();
+    currentY += 15;
 
     // Payable Amount (Bold)
     doc.fontSize(12).font("Helvetica-Bold");

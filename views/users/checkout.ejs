@@ -94,7 +94,7 @@
                                     <div class="addresses-grid">
                                         <% addresses.forEach((addr, index)=> { %>
                                             <div class="address-card <%= index === 0 ? 'active' : '' %>"
-                                                onclick="selectAddress(this)"
+                                                onclick="selectAddress(this)" data-id="<%= addr._id %>"
                                                 data-address='<%= JSON.stringify(addr) %>'>
                                                 <div class="address-radio"></div>
                                                 <div class="address-details">
@@ -154,10 +154,9 @@
                                     <div class="summary-row total">
                                         <span>Total</span>
                                         <span>Total</span>
-                                        <span id="summaryTotal">₹<%= (typeof total !=='undefined' ? (total - (typeof
-                                                appliedCoupon !=='undefined' && appliedCoupon ?
-                                                appliedCoupon.discountAmount : 0)) : 0).toLocaleString('en-IN') %>
-                                                </span>
+                                        <span id="summaryTotal">₹<%= (typeof total !=='undefined' ? total :
+                                                0).toLocaleString('en-IN') %>
+                                        </span>
                                     </div>
 
                                     <div class="coupon-section">

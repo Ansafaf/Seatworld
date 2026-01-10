@@ -33,4 +33,10 @@ router.post("/password-change", authMiddleware, postupdatePass);
 
 router.get("/coupons", authMiddleware, getCoupons);
 
+// Wallet Routes
+import { getWallet, addMoney, getWalletHistory } from "../controller/walletController.js";
+router.get("/wallet", authMiddleware, getWallet);
+router.get("/wallet/history", authMiddleware, getWalletHistory);
+router.post("/wallet/add-money", authMiddleware, addMoney);
+
 export default router;

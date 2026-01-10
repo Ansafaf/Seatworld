@@ -288,22 +288,19 @@
         }
 
         .btn-cart {
-            background-color: var(--slate-100);
-            color: var(--slate-700);
+            background-color: #111;
+            color: #fff;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
         .btn-cart:hover:not(.btn-disabled) {
-            background-color: var(--slate-200);
+            background-color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
 
-        .btn-buy {
-            background-color: var(--orange);
-            color: #fff;
-        }
-
-        .btn-buy:hover:not(.btn-disabled) {
-            background-color: var(--orange-dark);
-        }
+        /* btn-buy removed */
 
         .btn-disabled {
             opacity: 0.5;

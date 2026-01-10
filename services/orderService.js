@@ -63,12 +63,16 @@ export const getUserOrders = async (userId, page = 1, limit = 8, search = "") =>
 export const createOrder = async ({ userId, paymentMethod, checkoutSession, cartTotals }) => {
     try {
         const addressData = checkoutSession.address;
-        const discountAmount = checkoutSession.coupon ? checkoutSession.coupon.discountAmount : 0;
-        const finalAmount = Math.max(0, cartTotals.total - discountAmount);
+        const discountAmount = cartTotals.discountAmount || 0;
+        const finalAmount = cartTotals.total; // Service already provides the final discounted total
 
         const newOrder = new Order({
             userId,
             totalAmount: finalAmount,
+            subtotal: cartTotals.subtotal, // Now storing items-only subtotal
+            discountAmount: discountAmount,
+            shippingFee: cartTotals.deliveryFee === 'Free' ? 0 : 50, // Inferred for now, but cleaner
+            couponId: cartTotals.appliedCoupon ? cartTotals.appliedCoupon._id : null,
             shippingAddress: {
                 name: addressData.name,
                 housename: addressData.houseName || addressData.housename,

@@ -202,13 +202,13 @@
                                         <div class="w-full md:w-64 space-y-3">
                                             <div class="flex justify-between text-sm">
                                                 <span class="text-gray-500">Subtotal</span>
-                                                <span class="font-bold">₹<%= order.totalAmount + (order.discountAmount
-                                                        || 0) %></span>
+                                                <span class="font-bold">₹<%= (order.subtotal ||
+                                                        order.totalAmount).toLocaleString('en-IN') %></span>
                                             </div>
                                             <div class="flex justify-between text-sm">
                                                 <span class="text-gray-500">Discount</span>
-                                                <span class="font-bold text-green-600">-₹<%= order.discountAmount || 0
-                                                        %></span>
+                                                <span class="font-bold text-green-600">-₹<%= (order.discountAmount ||
+                                                        0).toLocaleString('en-IN') %></span>
                                             </div>
                                             <div class="flex justify-between items-center pt-3 border-t">
                                                 <span class="text-lg font-bold">Grand Total</span>

@@ -15,6 +15,18 @@ export const getCouponlist = async (req, res) => {
             ];
         }
 
+        // Auto-update expired coupons before fetching
+        const now = new Date();
+        await Coupon.updateMany(
+            {
+                couponStatus: "active",
+                expiryDate: { $lt: now }
+            },
+            {
+                $set: { couponStatus: "expired" }
+            }
+        );
+
         const { items: coupons, pagination } = await paginate(Coupon, query, {
             page,
             limit,
@@ -54,7 +66,18 @@ export const createCoupon = async (req, res) => {
         if (existingCoupon) {
             return res.status(400).json({ success: false, message: "Coupon code already exists" });
         }
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
 
+        const start = new Date(startDate);
+        const expiry = new Date(expiryDate);
+
+        if (start < today) {
+            return res.status(400).json({ success: false, message: "Start date cannot be in the past" });
+        }
+        if (expiry <= start) {
+            return res.status(400).json({ success: false, message: "Expiry date must be after start date" });
+        }
         const newCoupon = new Coupon({
             description,
             couponCode: couponCode.toUpperCase(),
@@ -105,6 +128,12 @@ export const updateCoupon = async (req, res) => {
         const existingCoupon = await Coupon.findById(id);
         if (!existingCoupon) {
             return res.status(404).json({ success: false, message: "Coupon not found" });
+        }
+        const start = new Date(startDate);
+        const expiry = new Date(expiryDate);
+
+        if (expiry <= start) {
+            return res.status(400).json({ success: false, message: "Expiry date must be after start date" });
         }
 
         let newStatus = existingCoupon.couponStatus;

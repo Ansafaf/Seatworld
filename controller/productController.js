@@ -110,7 +110,7 @@ const enrichProducts = async (products) => {
                 status: "Active",
             });
             return {
-                ...product.toObject(),
+                ...product,
                 variant: variant ? variant.toObject() : null,
                 image: (variant && variant.images && variant.images.length > 0) ? variant.images[0] : null,
                 stock: variant ? variant.stock : 0,
@@ -161,6 +161,8 @@ const prepareUIHelpers = (params, categories, minPriceValue, maxPriceValue) => {
 
 export async function getProducts(req, res) {
     try {
+        console.log("getProducts controller hit. User:", req.session?.user?.id);
+
         // 1. Normalize Query Parameters
         const params = normalizeQuery(req.query);
 
