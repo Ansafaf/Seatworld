@@ -2,7 +2,6 @@ import express from "express";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import nocache from "nocache";
-import mongoose from "mongoose";
 import dotenv from "dotenv";
 import logger from "./utils/logger.js";
 

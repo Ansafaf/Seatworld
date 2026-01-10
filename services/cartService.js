@@ -4,11 +4,26 @@ import { ProductVariant } from "../models/productModel.js";
 import mongoose from "mongoose";
 
 
+import Coupon from "../models/couponModel.js";
+
 export async function calculateCartTotals(userId) {
     const carts = await Cart.find({ userId }).populate({
         path: 'variantId',
         populate: { path: 'productId' }
     });
+
+    // Check for applied coupon on the first item (couponId is same for all cart items of a user usually, or we find one)
+    // Actually schema has couponId. Let's find one cart item with couponId or better yet, check if any has it.
+    // Note: Mongoose population depends on Schema. The previous checkoutController assumed `userCart` (a single doc?) has couponId.
+    // userCart there was `await Cart.findOne`. 
+    // Since Cart items are individual documents in this design (probably), we check one.
+    const cartWithCoupon = await Cart.findOne({ userId, couponId: { $ne: null } }).populate('couponId');
+    let appliedCoupon = null;
+
+    if (cartWithCoupon && cartWithCoupon.couponId) {
+        appliedCoupon = cartWithCoupon.couponId;
+    }
+
     let subtotal = 0;
     const items = [];
 
@@ -36,13 +51,56 @@ export async function calculateCartTotals(userId) {
     });
 
     const deliveryFeeValue = subtotal > 0 && subtotal < 1000 ? 50 : 0;
-    const total = subtotal + deliveryFeeValue;
+    let total = subtotal + deliveryFeeValue;
+
+    let discountAmount = 0;
+    let finalTotal = total;
+    let couponDetails = null;
+
+    if (appliedCoupon) {
+        // Validate Coupon Validity Again
+        const isValid = appliedCoupon.couponStatus === 'active' &&
+            new Date() < appliedCoupon.expiryDate &&
+            total >= appliedCoupon.minAmount;
+
+        if (isValid) {
+            if (appliedCoupon.discountType === 'percentage') {
+                discountAmount = (total * appliedCoupon.discountValue) / 100;
+            } else {
+                discountAmount = appliedCoupon.discountValue;
+            }
+
+            // Cap discount at maxAmount if specified
+            if (appliedCoupon.maxAmount && appliedCoupon.maxAmount > 0) {
+                if (discountAmount > appliedCoupon.maxAmount) {
+                    discountAmount = appliedCoupon.maxAmount;
+                }
+            }
+
+            // Cap discount at total amount
+            if (discountAmount > total) discountAmount = total;
+
+            finalTotal = total - discountAmount;
+
+            couponDetails = {
+                code: appliedCoupon.couponCode,
+                discountAmount: discountAmount,
+                _id: appliedCoupon._id
+            };
+        } else {
+            // Invalid coupon, maybe should remove it? 
+            // For now, just ignore it in calculation.
+        }
+    }
 
     return {
         items,
         subtotal,
         deliveryFee: deliveryFeeValue === 0 ? "Free" : `₹${deliveryFeeValue}`,
-        total,
+        total: finalTotal, // The MAIN total is now the final payable amount
+        rawTotal: total,   // The total before discount
+        discountAmount,
+        appliedCoupon: couponDetails,
         cartCount: carts.length
     };
 }
@@ -78,7 +136,7 @@ export async function getCartByUserId(userId, page = 1, limit = 8) {
     }
 
     const totalItems = validCartIds.length;
-    const cartsPerPage= await Cart.find({ _id: { $in: validCartIds } })
+    const cartsPerPage = await Cart.find({ _id: { $in: validCartIds } })
         .populate({
             path: 'variantId',
             populate: { path: 'productId' }
@@ -156,7 +214,7 @@ export async function addItemToCart(userId, variantId) {
         if (variant.stock < newQuantity) {
             throw new Error(`Cannot add more. Only ${variant.stock} in stock.`);
         }
-        if(cartLimit < newQuantity){
+        if (cartLimit < newQuantity) {
             throw new Error(`Cannot add more than ${cartLimit}`);
         }
         cartItem.productQuantity = newQuantity;

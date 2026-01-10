@@ -636,3 +636,84 @@ newTotal is not defined
 [2026-01-09 12:26:29] ERROR: p.toObject is not a function
 [2026-01-09 12:34:17] ERROR: p.toObject is not a function
 [2026-01-09 12:36:16] ERROR: p.toObject is not a function
+[2026-01-09 16:38:04] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-09 16:38:09] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-09 16:38:12] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-09 16:58:58] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-09 17:02:24] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-09 17:47:25] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-09 17:48:50] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-09 17:49:17] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-09 18:18:45] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined

@@ -6402,3 +6402,1117 @@ newTotal is not defined
 [2026-01-09 12:41:25] INFO: New address saved for user 692aafda50bbd504425b12d4: 6960aa1dee83315879beab02
 [2026-01-09 12:41:25] INFO: [GET] /checkout/payment-options
 [2026-01-09 12:41:31] INFO: [GET] /home
+[2026-01-09 15:39:29] INFO: [GET] /
+[2026-01-09 15:39:29] INFO: [GET] /home
+[2026-01-09 15:39:31] INFO: [GET] /profile
+[2026-01-09 15:39:33] INFO: [GET] /wallet
+[2026-01-09 15:39:44] INFO: [POST] /wallet/add-money
+[2026-01-09 15:39:45] INFO: [GET] /wallet
+[2026-01-09 15:40:03] INFO: [POST] /wallet/add-money
+[2026-01-09 15:40:05] INFO: [GET] /wallet
+[2026-01-09 15:50:32] INFO: [GET] /profile
+[2026-01-09 15:50:34] INFO: [GET] /wallet
+[2026-01-09 15:50:39] INFO: [POST] /wallet/add-money
+[2026-01-09 15:50:41] INFO: [GET] /wallet
+[2026-01-09 16:37:45] INFO: [GET] /
+[2026-01-09 16:37:45] INFO: [GET] /home
+[2026-01-09 16:38:01] INFO: [GET] /cart
+[2026-01-09 16:38:01] INFO: [GET] /css/styles.css
+[2026-01-09 16:38:04] INFO: [GET] /products
+[2026-01-09 16:38:04] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-09 16:38:06] INFO: [GET] /cart
+[2026-01-09 16:38:06] INFO: [GET] /css/styles.css
+[2026-01-09 16:38:08] INFO: [GET] /products
+[2026-01-09 16:38:09] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-09 16:38:10] INFO: [GET] /
+[2026-01-09 16:38:10] INFO: [GET] /home
+[2026-01-09 16:38:12] INFO: [GET] /products
+[2026-01-09 16:38:12] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-09 16:38:13] INFO: [GET] /home
+[2026-01-09 16:41:29] INFO: [GET] /profile
+[2026-01-09 16:41:31] INFO: [GET] /address
+[2026-01-09 16:41:37] INFO: [POST] /address/delete/6960aa1dee83315879beab02
+[2026-01-09 16:41:39] INFO: [GET] /address
+[2026-01-09 16:41:42] INFO: [POST] /address/delete/6960c6bc91014c4b6c158e5a
+[2026-01-09 16:41:44] INFO: [GET] /address
+[2026-01-09 16:41:47] INFO: [POST] /address/delete/6960c3441b719b6596dfd101
+[2026-01-09 16:41:49] INFO: [GET] /address
+[2026-01-09 16:41:51] INFO: [GET] /profile
+[2026-01-09 16:41:59] INFO: [POST] /profile/avatar
+[2026-01-09 16:42:08] INFO: [POST] /profile/avatar
+[2026-01-09 16:42:21] INFO: [GET] /orders
+[2026-01-09 16:42:25] INFO: [GET] /address
+[2026-01-09 16:42:26] INFO: [GET] /coupons
+[2026-01-09 16:42:28] INFO: [GET] /password-change
+[2026-01-09 16:42:28] INFO: [GET] /profile
+[2026-01-09 16:42:57] INFO: [GET] /wallet
+[2026-01-09 16:44:13] INFO: [GET] /wallet
+[2026-01-09 16:44:37] INFO: [GET] /orders
+[2026-01-09 16:44:39] INFO: [GET] /wallet
+[2026-01-09 16:44:45] INFO: [GET] /wallet/history
+[2026-01-09 16:44:55] INFO: [GET] /wallet
+[2026-01-09 16:44:59] INFO: [GET] /wallet/history
+[2026-01-09 16:57:44] INFO: [GET] /wallet
+[2026-01-09 16:57:47] INFO: [GET] /wallet/history
+[2026-01-09 16:58:12] INFO: [GET] /wallet
+[2026-01-09 16:58:17] INFO: [GET] /wallet/history
+[2026-01-09 16:58:22] INFO: [GET] /wallet
+[2026-01-09 16:58:32] INFO: [GET] /wallet/history
+[2026-01-09 16:58:35] INFO: [GET] /wallet
+[2026-01-09 16:58:40] INFO: [GET] /profile
+[2026-01-09 16:58:41] INFO: [GET] /address
+[2026-01-09 16:58:43] INFO: [GET] /orders
+[2026-01-09 16:58:45] INFO: [GET] /wallet
+[2026-01-09 16:58:46] INFO: [GET] /coupons
+[2026-01-09 16:58:47] INFO: [GET] /password-change
+[2026-01-09 16:58:48] INFO: [GET] /profile
+[2026-01-09 16:58:56] INFO: [GET] /home
+[2026-01-09 16:58:57] INFO: [GET] /products
+[2026-01-09 16:58:58] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-09 16:58:59] INFO: [GET] /home
+[2026-01-09 17:02:23] INFO: [GET] /products
+[2026-01-09 17:02:24] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-09 17:02:25] INFO: [GET] /home
+[2026-01-09 17:47:19] INFO: [GET] /
+[2026-01-09 17:47:20] INFO: [GET] /home
+[2026-01-09 17:47:24] INFO: [GET] /products
+[2026-01-09 17:47:25] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-09 17:47:26] INFO: [GET] /home
+[2026-01-09 17:48:47] INFO: [GET] /home
+[2026-01-09 17:48:49] INFO: [GET] /products
+[2026-01-09 17:48:50] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-09 17:48:51] INFO: [GET] /home
+[2026-01-09 17:48:54] INFO: [GET] /home
+[2026-01-09 17:48:55] INFO: [GET] /profile
+[2026-01-09 17:48:57] INFO: [GET] /logout
+[2026-01-09 17:48:57] INFO: [GET] /login
+[2026-01-09 17:49:03] INFO: [GET] /
+[2026-01-09 17:49:13] INFO: [GET] /product
+[2026-01-09 17:49:16] INFO: [GET] /products
+[2026-01-09 17:49:17] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-09 17:49:18] INFO: [GET] /product
+[2026-01-09 17:49:19] INFO: [GET] /
+[2026-01-09 18:18:36] INFO: [GET] /
+[2026-01-09 18:18:39] INFO: [GET] /login
+[2026-01-09 18:18:41] INFO: [GET] /auth/google
+[2026-01-09 18:18:42] INFO: [GET] /auth/google/callback?code=4%2F0ASc3gC0FEbvCHLw5CN-uoHodH3NozpGjb3_JJc-F5bIDepZ3HHhQ1l_Ux0fEzdzJkX8Jcg&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&authuser=0&prompt=none
+[2026-01-09 18:18:42] INFO: [GET] /home
+[2026-01-09 18:18:44] INFO: [GET] /products
+[2026-01-09 18:18:45] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-09 18:18:47] INFO: [GET] /home
+[2026-01-09 18:23:49] INFO: [GET] /home
+[2026-01-09 18:23:51] INFO: [GET] /products
+[2026-01-09 18:23:55] INFO: [GET] /product/692d42af31e01e9d9ba8dc04
+[2026-01-09 18:23:59] INFO: [POST] /wishlist/add
+[2026-01-09 18:24:05] INFO: [GET] /wishlist
+[2026-01-09 18:24:07] INFO: [POST] /cart/add
+[2026-01-09 18:24:07] INFO: [DELETE] /wishlist/692d42af31e01e9d9ba8dc06
+[2026-01-09 18:24:09] INFO: [GET] /cart
+[2026-01-09 18:24:09] INFO: [GET] /css/styles.css
+[2026-01-09 18:24:12] INFO: [GET] /checkout
+[2026-01-09 18:24:12] INFO: Found 2 available coupons for checkout
+[2026-01-09 18:24:16] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 18:24:18] INFO: [GET] /checkout
+[2026-01-09 18:24:18] INFO: Found 2 available coupons for checkout
+[2026-01-09 18:24:25] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 18:24:27] INFO: [GET] /checkout
+[2026-01-09 18:24:27] INFO: Found 2 available coupons for checkout
+[2026-01-09 18:24:31] INFO: [POST] /checkout/address
+[2026-01-09 18:24:32] INFO: New address saved for user 692aafda50bbd504425b12d4: 6960fa87f7d1599c5141f235
+[2026-01-09 18:24:32] INFO: [GET] /checkout/payment-options
+[2026-01-09 18:24:37] INFO: [GET] /products
+[2026-01-09 18:28:13] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-09 18:28:16] INFO: [POST] /cart/add
+[2026-01-09 18:28:18] INFO: [GET] /cart
+[2026-01-09 18:28:19] INFO: [GET] /css/styles.css
+[2026-01-09 18:28:25] INFO: [DELETE] /cart/remove/693fc66c6ecc42bce6fc754a
+[2026-01-09 18:28:27] INFO: [GET] /checkout
+[2026-01-09 18:28:27] INFO: Found 2 available coupons for checkout
+[2026-01-09 18:28:28] INFO: Cleared persistent coupon on fresh checkout entry
+[2026-01-09 18:28:36] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 18:28:38] INFO: [GET] /checkout
+[2026-01-09 18:28:39] INFO: Found 2 available coupons for checkout
+[2026-01-09 18:28:43] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 18:28:45] INFO: [GET] /checkout
+[2026-01-09 18:28:46] INFO: Found 2 available coupons for checkout
+[2026-01-09 18:30:10] INFO: [GET] /products
+[2026-01-09 18:30:12] INFO: [GET] /cart
+[2026-01-09 18:30:13] INFO: [GET] /css/styles.css
+[2026-01-09 18:30:15] INFO: [GET] /checkout
+[2026-01-09 18:30:15] INFO: Found 2 available coupons for checkout
+[2026-01-09 18:30:15] INFO: Cleared persistent coupon
+[2026-01-09 18:30:20] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 18:30:22] INFO: [GET] /checkout
+[2026-01-09 18:30:22] INFO: Found 2 available coupons for checkout
+[2026-01-09 18:30:22] INFO: Keeping coupon because it was just applied
+[2026-01-09 18:33:17] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 18:33:20] INFO: [GET] /checkout
+[2026-01-09 18:33:20] INFO: Found 2 available coupons for checkout
+[2026-01-09 18:33:20] INFO: Keeping coupon because it was just applied
+[2026-01-09 18:38:20] INFO: [GET] /products
+[2026-01-09 18:38:22] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-09 18:38:24] INFO: [GET] /cart
+[2026-01-09 18:38:24] INFO: [GET] /css/styles.css
+[2026-01-09 18:38:26] INFO: [GET] /checkout
+[2026-01-09 18:38:26] INFO: Found 2 available coupons for checkout
+[2026-01-09 18:38:26] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 18:38:29] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 18:38:39] INFO: [POST] /checkout/remove-coupon
+[2026-01-09 18:38:39] INFO: [GET] /checkout
+[2026-01-09 18:38:39] INFO: Found 2 available coupons for checkout
+[2026-01-09 18:38:39] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 18:38:44] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 18:38:57] INFO: [POST] /checkout/address
+[2026-01-09 18:38:57] INFO: New address saved for user 692aafda50bbd504425b12d4: 6960fde99ee07cba0632fcf5
+[2026-01-09 18:38:57] INFO: [GET] /checkout/payment-options
+[2026-01-09 18:39:06] INFO: [POST] /place-order
+[2026-01-09 18:39:06] INFO: Order created: 6960fdf29ee07cba0632fd05 for user: 692aafda50bbd504425b12d4
+[2026-01-09 18:39:06] INFO: Stock decrementd for variant 692d42af31e01e9d9ba8dc06: -1. New stock: 15. Reason: order_placed
+[2026-01-09 18:39:06] INFO: Stock decrementd for variant 693faef8c1dc3ee2a4a4f87a: -1. New stock: 27. Reason: order_placed
+[2026-01-09 18:39:06] INFO: Cart cleared for user: 692aafda50bbd504425b12d4
+[2026-01-09 18:39:06] INFO: [GET] /order-success?orderId=6960fdf29ee07cba0632fd05
+[2026-01-09 18:39:08] INFO: [GET] /orders
+[2026-01-09 18:39:16] INFO: [GET] /orders
+[2026-01-09 18:39:18] INFO: [GET] /orders/6960fdf29ee07cba0632fd05
+[2026-01-09 18:41:37] INFO: [GET] /profile
+[2026-01-09 18:41:39] INFO: [GET] /cart
+[2026-01-09 18:41:39] INFO: [GET] /css/styles.css
+[2026-01-09 18:41:41] INFO: [GET] /products
+[2026-01-09 18:41:43] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-09 18:41:52] INFO: [POST] /wishlist/add
+[2026-01-09 18:45:06] INFO: [GET] /home
+[2026-01-09 18:45:08] INFO: [GET] /products
+[2026-01-09 18:45:12] INFO: [POST] /wishlist/add
+[2026-01-09 18:45:14] INFO: [GET] /product/693faef8c1dc3ee2a4a4f878
+[2026-01-09 18:50:04] INFO: [GET] /admin/login
+[2026-01-09 18:50:18] INFO: [POST] /admin/login
+[2026-01-09 18:50:18] INFO: [GET] /admin/dashboard
+[2026-01-09 18:50:32] INFO: [GET] /cart
+[2026-01-09 18:50:32] INFO: [GET] /css/styles.css
+[2026-01-09 18:50:34] INFO: [GET] /products
+[2026-01-09 18:50:36] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-09 18:50:38] INFO: [POST] /cart/add
+[2026-01-09 18:50:39] INFO: [GET] /cart
+[2026-01-09 18:50:39] INFO: [GET] /css/styles.css
+[2026-01-09 18:50:41] INFO: [GET] /checkout
+[2026-01-09 18:50:41] INFO: Found 2 available coupons for checkout
+[2026-01-09 18:50:41] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 18:50:45] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 18:51:03] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 18:51:08] INFO: [GET] /home
+[2026-01-09 18:51:11] INFO: [GET] /products
+[2026-01-09 18:51:15] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-09 18:51:17] INFO: [POST] /cart/add
+[2026-01-09 18:51:19] INFO: [GET] /cart
+[2026-01-09 18:51:19] INFO: [GET] /css/styles.css
+[2026-01-09 18:51:20] INFO: [GET] /checkout
+[2026-01-09 18:51:21] INFO: Found 2 available coupons for checkout
+[2026-01-09 18:51:21] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 18:51:26] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 18:51:34] INFO: [POST] /checkout/address
+[2026-01-09 18:51:34] INFO: New address saved for user 692aafda50bbd504425b12d4: 696100de9ee07cba0632fe0d
+[2026-01-09 18:51:34] INFO: [GET] /checkout/payment-options
+[2026-01-09 19:15:33] INFO: [GET] /admin/products
+[2026-01-09 19:15:34] INFO: [GET] /admin/users
+[2026-01-09 19:15:37] INFO: [GET] /admin/orders
+[2026-01-09 19:15:39] INFO: [GET] /admin/coupons
+[2026-01-09 19:15:40] INFO: [GET] /admin/categories
+[2026-01-09 19:15:55] INFO: [GET] /profile
+[2026-01-09 19:19:53] INFO: [GET] /products
+[2026-01-09 19:19:55] INFO: [GET] /cart
+[2026-01-09 19:19:56] INFO: [GET] /css/styles.css
+[2026-01-09 19:19:58] INFO: [GET] /checkout
+[2026-01-09 19:19:59] INFO: Found 2 available coupons for checkout
+[2026-01-09 19:19:59] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 19:20:02] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 19:20:09] INFO: [GET] /home
+[2026-01-09 19:20:11] INFO: [GET] /cart
+[2026-01-09 19:20:11] INFO: [GET] /css/styles.css
+[2026-01-09 19:20:13] INFO: [GET] /checkout
+[2026-01-09 19:20:13] INFO: Found 2 available coupons for checkout
+[2026-01-09 19:20:13] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 19:20:24] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 19:20:28] INFO: [POST] /checkout/remove-coupon
+[2026-01-09 19:20:29] INFO: [GET] /checkout
+[2026-01-09 19:20:29] INFO: Found 2 available coupons for checkout
+[2026-01-09 19:20:29] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 19:20:33] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 19:20:44] INFO: [POST] /checkout/remove-coupon
+[2026-01-09 19:20:45] INFO: [GET] /checkout
+[2026-01-09 19:20:45] INFO: Found 2 available coupons for checkout
+[2026-01-09 19:20:45] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 19:20:54] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 19:23:20] INFO: [POST] /checkout/address
+[2026-01-09 19:23:20] INFO: New address saved for user 692aafda50bbd504425b12d4: 6961085008dde4eeded454f9
+[2026-01-09 19:23:20] INFO: [GET] /checkout/payment-options
+[2026-01-09 19:23:26] INFO: [POST] /place-order
+[2026-01-09 19:23:26] INFO: Order created: 6961085608dde4eeded45509 for user: 692aafda50bbd504425b12d4
+[2026-01-09 19:23:27] INFO: Stock decrementd for variant 693fc66c6ecc42bce6fc754a: -2. New stock: 23. Reason: order_placed
+[2026-01-09 19:23:27] INFO: Cart cleared for user: 692aafda50bbd504425b12d4
+[2026-01-09 19:23:27] INFO: [GET] /order-success?orderId=6961085608dde4eeded45509
+[2026-01-09 19:23:28] INFO: [GET] /orders
+[2026-01-09 19:23:32] INFO: [GET] /orders/6961085608dde4eeded45509
+[2026-01-09 19:23:51] INFO: [GET] /products
+[2026-01-09 19:23:54] INFO: [GET] /wishlist
+[2026-01-09 19:23:56] INFO: [POST] /cart/add
+[2026-01-09 19:23:56] INFO: [DELETE] /wishlist/692d42af31e01e9d9ba8dc06
+[2026-01-09 19:23:57] INFO: [POST] /cart/add
+[2026-01-09 19:23:58] INFO: [DELETE] /wishlist/693fc66c6ecc42bce6fc754a
+[2026-01-09 19:24:00] INFO: [GET] /cart
+[2026-01-09 19:24:01] INFO: [GET] /css/styles.css
+[2026-01-09 19:24:02] INFO: [GET] /checkout
+[2026-01-09 19:24:02] INFO: Found 2 available coupons for checkout
+[2026-01-09 19:24:02] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 19:24:05] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 19:24:16] INFO: [POST] /checkout/address
+[2026-01-09 19:24:16] INFO: New address saved for user 692aafda50bbd504425b12d4: 6961088808dde4eeded4557c
+[2026-01-09 19:24:16] INFO: [GET] /checkout/payment-options
+[2026-01-09 19:24:39] INFO: [GET] /checkout
+[2026-01-09 19:24:40] INFO: Found 2 available coupons for checkout
+[2026-01-09 19:24:40] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 19:24:48] INFO: [GET] /products
+[2026-01-09 19:24:50] INFO: [GET] /cart
+[2026-01-09 19:24:50] INFO: [GET] /css/styles.css
+[2026-01-09 19:24:51] INFO: [GET] /checkout
+[2026-01-09 19:24:52] INFO: Found 2 available coupons for checkout
+[2026-01-09 19:24:52] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 19:25:10] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 19:25:22] INFO: [POST] /checkout/address
+[2026-01-09 19:25:22] INFO: New address saved for user 692aafda50bbd504425b12d4: 696108ca08dde4eeded455c4
+[2026-01-09 19:25:22] INFO: [GET] /checkout/payment-options
+[2026-01-09 19:25:30] INFO: [POST] /place-order
+[2026-01-09 19:25:31] INFO: Order created: 696108d308dde4eeded455d6 for user: 692aafda50bbd504425b12d4
+[2026-01-09 19:25:31] INFO: Stock decrementd for variant 692d42af31e01e9d9ba8dc06: -1. New stock: 14. Reason: order_placed
+[2026-01-09 19:25:31] INFO: Stock decrementd for variant 693fc66c6ecc42bce6fc754a: -1. New stock: 22. Reason: order_placed
+[2026-01-09 19:25:31] INFO: Cart cleared for user: 692aafda50bbd504425b12d4
+[2026-01-09 19:25:31] INFO: [GET] /order-success?orderId=696108d308dde4eeded455d6
+[2026-01-09 19:25:33] INFO: [GET] /orders
+[2026-01-09 19:25:35] INFO: [GET] /orders/696108d308dde4eeded455d6
+[2026-01-09 22:37:19] INFO: [GET] /
+[2026-01-09 22:37:31] INFO: [GET] /login
+[2026-01-09 22:37:39] INFO: [POST] /login
+[2026-01-09 22:37:47] INFO: [POST] /login
+[2026-01-09 22:37:48] INFO: [GET] /home
+[2026-01-09 22:37:51] INFO: [GET] /profile
+[2026-01-09 22:37:54] INFO: [GET] /profile/edit
+[2026-01-09 22:37:55] INFO: [POST] /profile/edit
+[2026-01-09 22:37:59] INFO: [GET] /address
+[2026-01-09 22:38:07] INFO: [POST] /address/delete/695fe351d69cba576b25e390
+[2026-01-09 22:38:09] INFO: [GET] /address
+[2026-01-09 22:38:11] INFO: [GET] /orders
+[2026-01-09 22:38:15] INFO: [GET] /wallet
+[2026-01-09 22:38:19] INFO: [GET] /coupons
+[2026-01-09 22:38:25] INFO: [GET] /password-change
+[2026-01-09 22:38:29] INFO: [GET] /coupon
+[2026-01-09 22:38:32] INFO: [GET] /profile
+[2026-01-09 22:38:33] INFO: [GET] /coupons
+[2026-01-09 22:38:35] INFO: [GET] /wallet
+[2026-01-09 22:38:37] INFO: [GET] /coupons
+[2026-01-09 22:38:39] INFO: [GET] /orders
+[2026-01-09 22:38:42] INFO: [GET] /coupons
+[2026-01-09 22:38:44] INFO: [GET] /address
+[2026-01-09 22:38:45] INFO: [GET] /wallet
+[2026-01-09 22:38:46] INFO: [GET] /address
+[2026-01-09 22:38:48] INFO: [GET] /coupons
+[2026-01-09 22:38:50] INFO: [GET] /orders
+[2026-01-09 22:38:52] INFO: [GET] /profile
+[2026-01-09 22:38:54] INFO: [GET] /coupons
+[2026-01-09 22:38:55] INFO: [GET] /password-change
+[2026-01-09 22:38:57] INFO: [GET] /coupon
+[2026-01-09 22:39:01] INFO: [GET] /address
+[2026-01-09 22:39:04] INFO: [GET] /coupons
+[2026-01-09 22:39:09] INFO: [GET] /password-change
+[2026-01-09 22:39:11] INFO: [GET] /coupon
+[2026-01-09 22:40:02] INFO: [GET] /password-change
+[2026-01-09 22:40:04] INFO: [GET] /coupons
+[2026-01-09 22:40:06] INFO: [GET] /profile
+[2026-01-09 22:40:08] INFO: [GET] /address
+[2026-01-09 22:40:09] INFO: [GET] /orders
+[2026-01-09 22:40:10] INFO: [GET] /wallet
+[2026-01-09 22:40:12] INFO: [GET] /coupons
+[2026-01-09 22:40:13] INFO: [GET] /password-change
+[2026-01-09 22:40:16] INFO: [GET] /profile
+[2026-01-09 22:43:02] INFO: [GET] /cart
+[2026-01-09 22:43:02] INFO: [GET] /css/styles.css
+[2026-01-09 22:43:04] INFO: [GET] /checkout
+[2026-01-09 22:43:04] INFO: Found 0 available coupons for checkout
+[2026-01-09 22:43:04] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 22:43:12] INFO: [GET] /admin/login
+[2026-01-09 22:43:24] INFO: [POST] /admin/login
+[2026-01-09 22:43:24] INFO: [GET] /admin/dashboard
+[2026-01-09 22:43:26] INFO: [GET] /admin/products
+[2026-01-09 22:43:28] INFO: [GET] /admin/inventory
+[2026-01-09 22:43:33] INFO: [GET] /admin/users
+[2026-01-09 22:43:36] INFO: [GET] /admin/orders
+[2026-01-09 22:44:25] INFO: [GET] /admin/coupons
+[2026-01-09 22:44:30] INFO: [GET] /admin/coupons
+[2026-01-09 22:44:34] INFO: [GET] /admin/coupons/edit/695fb4e64de7d6a4d6979dd4
+[2026-01-09 22:44:45] INFO: [GET] /admin/coupons/edit/695fb4e64de7d6a4d6979dd4
+[2026-01-09 22:44:48] INFO: [POST] /admin/coupons/edit/695fb4e64de7d6a4d6979dd4
+[2026-01-09 22:44:49] INFO: [GET] /admin/coupons
+[2026-01-09 22:44:54] INFO: [GET] /admin/coupons/edit/695fb4e64de7d6a4d6979dd4
+[2026-01-09 22:45:00] INFO: [POST] /admin/coupons/edit/695fb4e64de7d6a4d6979dd4
+[2026-01-09 22:45:01] INFO: [GET] /admin/coupons
+[2026-01-09 22:45:04] INFO: [GET] /admin/dashboard
+[2026-01-09 22:45:12] INFO: [GET] /home
+[2026-01-09 22:45:13] INFO: [GET] /cart
+[2026-01-09 22:45:13] INFO: [GET] /css/styles.css
+[2026-01-09 22:45:15] INFO: [GET] /checkout
+[2026-01-09 22:45:15] INFO: Found 1 available coupons for checkout
+[2026-01-09 22:45:15] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 22:45:19] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 22:45:29] INFO: [GET] /admin/coupons
+[2026-01-09 22:45:32] INFO: [GET] /admin/coupons/edit/695fb4e64de7d6a4d6979dd4
+[2026-01-09 22:45:44] INFO: [POST] /admin/coupons/edit/695fb4e64de7d6a4d6979dd4
+[2026-01-09 22:45:46] INFO: [GET] /admin/coupons
+[2026-01-09 22:45:55] INFO: [GET] /admin/coupons/edit/695fb4e64de7d6a4d6979dd4
+[2026-01-09 22:46:02] INFO: [POST] /admin/coupons/edit/695fb4e64de7d6a4d6979dd4
+[2026-01-09 22:46:05] INFO: [GET] /admin/coupons
+[2026-01-09 22:46:17] INFO: [POST] /checkout/remove-coupon
+[2026-01-09 22:46:17] INFO: [GET] /checkout
+[2026-01-09 22:46:17] INFO: Found 1 available coupons for checkout
+[2026-01-09 22:46:17] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 22:46:23] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 22:46:31] INFO: [POST] /checkout/address
+[2026-01-09 22:46:31] INFO: New address saved for user 694277e33e5136b65755f8d8: 696137ef0c46c0f4903c015d
+[2026-01-09 22:46:31] INFO: [GET] /checkout/payment-options
+[2026-01-09 22:46:49] INFO: [GET] /checkout
+[2026-01-09 22:46:49] INFO: Found 1 available coupons for checkout
+[2026-01-09 22:46:49] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 22:46:58] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 22:47:06] INFO: [POST] /checkout/address
+[2026-01-09 22:47:06] INFO: New address saved for user 694277e33e5136b65755f8d8: 696138120c46c0f4903c0180
+[2026-01-09 22:47:06] INFO: [GET] /checkout/payment-options
+[2026-01-09 22:47:09] INFO: [GET] /home
+[2026-01-09 22:47:10] INFO: [GET] /cart
+[2026-01-09 22:47:11] INFO: [GET] /css/styles.css
+[2026-01-09 22:47:12] INFO: [GET] /checkout
+[2026-01-09 22:47:12] INFO: Found 1 available coupons for checkout
+[2026-01-09 22:47:12] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 22:47:18] INFO: [POST] /checkout/address
+[2026-01-09 22:47:18] INFO: New address saved for user 694277e33e5136b65755f8d8: 6961381e0c46c0f4903c01a4
+[2026-01-09 22:47:18] INFO: [GET] /checkout/payment-options
+[2026-01-09 22:47:22] INFO: [GET] /checkout
+[2026-01-09 22:47:22] INFO: Found 1 available coupons for checkout
+[2026-01-09 22:47:22] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 22:47:24] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 22:47:28] INFO: [POST] /checkout/address
+[2026-01-09 22:47:28] INFO: New address saved for user 694277e33e5136b65755f8d8: 696138280c46c0f4903c01c5
+[2026-01-09 22:47:28] INFO: [GET] /checkout/payment-options
+[2026-01-09 22:49:14] INFO: [GET] /home
+[2026-01-09 22:49:58] INFO: [GET] /cart
+[2026-01-09 22:49:58] INFO: [GET] /css/styles.css
+[2026-01-09 22:50:00] INFO: [GET] /checkout
+[2026-01-09 22:50:00] INFO: Found 1 available coupons for checkout
+[2026-01-09 22:50:00] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 22:50:04] INFO: [GET] /home
+[2026-01-09 22:50:06] INFO: [GET] /cart
+[2026-01-09 22:50:06] INFO: [GET] /css/styles.css
+[2026-01-09 22:50:08] INFO: [DELETE] /cart/remove/693fc66c6ecc42bce6fc754a
+[2026-01-09 22:50:11] INFO: [DELETE] /cart/remove/693fad27c1dc3ee2a4a4f823
+[2026-01-09 22:50:11] INFO: [GET] /cart
+[2026-01-09 22:50:11] INFO: [GET] /css/styles.css
+[2026-01-09 22:50:13] INFO: [GET] /products
+[2026-01-09 22:50:14] INFO: [GET] /wishlist
+[2026-01-09 22:50:15] INFO: [GET] /products
+[2026-01-09 22:50:17] INFO: [POST] /wishlist/add
+[2026-01-09 22:50:18] INFO: [POST] /wishlist/add
+[2026-01-09 22:50:19] INFO: [GET] /wishlist
+[2026-01-09 22:50:20] INFO: [POST] /cart/add
+[2026-01-09 22:50:20] INFO: [DELETE] /wishlist/693faef8c1dc3ee2a4a4f87a
+[2026-01-09 22:50:21] INFO: [POST] /cart/add
+[2026-01-09 22:50:21] INFO: [DELETE] /wishlist/693fc66c6ecc42bce6fc754a
+[2026-01-09 22:50:23] INFO: [GET] /cart
+[2026-01-09 22:50:24] INFO: [GET] /css/styles.css
+[2026-01-09 22:50:25] INFO: [GET] /checkout
+[2026-01-09 22:50:25] INFO: Found 1 available coupons for checkout
+[2026-01-09 22:50:25] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 22:50:28] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 22:50:36] INFO: [POST] /checkout/address
+[2026-01-09 22:50:36] INFO: New address saved for user 694277e33e5136b65755f8d8: 696138e40c46c0f4903c026b
+[2026-01-09 22:50:36] INFO: [GET] /checkout/payment-options
+[2026-01-09 22:50:44] INFO: [POST] /place-order
+[2026-01-09 22:50:44] INFO: Order created: 696138ec0c46c0f4903c027d for user: 694277e33e5136b65755f8d8
+[2026-01-09 22:50:44] INFO: Stock decrementd for variant 693faef8c1dc3ee2a4a4f87a: -1. New stock: 26. Reason: order_placed
+[2026-01-09 22:50:44] INFO: Stock decrementd for variant 693fc66c6ecc42bce6fc754a: -1. New stock: 20. Reason: order_placed
+[2026-01-09 22:50:44] INFO: Cart cleared for user: 694277e33e5136b65755f8d8
+[2026-01-09 22:50:44] INFO: [GET] /order-success?orderId=696138ec0c46c0f4903c027d
+[2026-01-09 22:50:46] INFO: [GET] /orders
+[2026-01-09 22:50:49] INFO: [GET] /orders/696138ec0c46c0f4903c027d
+[2026-01-09 22:56:01] INFO: [GET] /orders/696138ec0c46c0f4903c027d
+[2026-01-09 22:56:06] INFO: [GET] /address
+[2026-01-09 22:56:07] INFO: [GET] /orders
+[2026-01-09 22:56:09] INFO: [GET] /orders/696138ec0c46c0f4903c027d
+[2026-01-09 22:56:13] INFO: [GET] /profile
+[2026-01-09 22:56:15] INFO: [GET] /products
+[2026-01-09 22:56:17] INFO: [GET] /cart
+[2026-01-09 22:56:17] INFO: [GET] /css/styles.css
+[2026-01-09 22:56:18] INFO: [GET] /products
+[2026-01-09 22:56:21] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-09 22:56:24] INFO: [POST] /cart/add
+[2026-01-09 22:56:25] INFO: [GET] /cart
+[2026-01-09 22:56:25] INFO: [GET] /css/styles.css
+[2026-01-09 22:56:26] INFO: [GET] /checkout
+[2026-01-09 22:56:26] INFO: Found 1 available coupons for checkout
+[2026-01-09 22:56:26] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 22:56:32] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 22:56:37] INFO: [POST] /checkout/address
+[2026-01-09 22:56:37] INFO: New address saved for user 694277e33e5136b65755f8d8: 69613a4d5da1c2b0ee1a80fa
+[2026-01-09 22:56:37] INFO: [GET] /checkout/payment-options
+[2026-01-09 22:56:39] INFO: [POST] /place-order
+[2026-01-09 22:56:39] INFO: Order created: 69613a4f5da1c2b0ee1a810a for user: 694277e33e5136b65755f8d8
+[2026-01-09 22:56:39] INFO: Stock decrementd for variant 693fc66c6ecc42bce6fc754a: -1. New stock: 19. Reason: order_placed
+[2026-01-09 22:56:39] INFO: Cart cleared for user: 694277e33e5136b65755f8d8
+[2026-01-09 22:56:39] INFO: [GET] /order-success?orderId=69613a4f5da1c2b0ee1a810a
+[2026-01-09 22:56:41] INFO: [GET] /orders
+[2026-01-09 22:56:44] INFO: [GET] /orders/69613a4f5da1c2b0ee1a810a
+[2026-01-09 22:56:51] INFO: [GET] /orders/69613a4f5da1c2b0ee1a810a
+[2026-01-09 22:58:21] INFO: [GET] /orders
+[2026-01-09 22:58:23] INFO: [GET] /orders/69613a4f5da1c2b0ee1a810a
+[2026-01-09 22:58:31] INFO: [GET] /profile
+[2026-01-09 22:58:33] INFO: [GET] /cart
+[2026-01-09 22:58:33] INFO: [GET] /css/styles.css
+[2026-01-09 22:58:34] INFO: [GET] /products
+[2026-01-09 22:58:37] INFO: [GET] /product/693fad27c1dc3ee2a4a4f821
+[2026-01-09 22:58:39] INFO: [POST] /cart/add
+[2026-01-09 22:58:40] INFO: [GET] /cart
+[2026-01-09 22:58:40] INFO: [GET] /css/styles.css
+[2026-01-09 22:58:42] INFO: [GET] /checkout
+[2026-01-09 22:58:42] INFO: Found 1 available coupons for checkout
+[2026-01-09 22:58:42] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 22:58:54] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 22:58:59] INFO: [POST] /checkout/remove-coupon
+[2026-01-09 22:58:59] INFO: [GET] /checkout
+[2026-01-09 22:58:59] INFO: Found 1 available coupons for checkout
+[2026-01-09 22:58:59] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 22:59:01] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 22:59:05] INFO: [POST] /checkout/address
+[2026-01-09 22:59:05] INFO: New address saved for user 694277e33e5136b65755f8d8: 69613ae1f134711174f511cb
+[2026-01-09 22:59:05] INFO: [GET] /checkout/payment-options
+[2026-01-09 22:59:22] INFO: [POST] /place-order
+[2026-01-09 22:59:22] INFO: Order created: 69613af2f134711174f511db for user: 694277e33e5136b65755f8d8
+[2026-01-09 22:59:22] INFO: Stock decrementd for variant 693fad27c1dc3ee2a4a4f823: -1. New stock: 29. Reason: order_placed
+[2026-01-09 22:59:22] INFO: Cart cleared for user: 694277e33e5136b65755f8d8
+[2026-01-09 22:59:22] INFO: [GET] /order-success?orderId=69613af2f134711174f511db
+[2026-01-09 22:59:24] INFO: [GET] /orders
+[2026-01-09 22:59:27] INFO: [GET] /orders/69613af2f134711174f511db
+[2026-01-09 22:59:49] INFO: [GET] /orders
+[2026-01-09 22:59:51] INFO: [GET] /orders/69613a4f5da1c2b0ee1a810a
+[2026-01-09 22:59:55] INFO: [GET] /profile
+[2026-01-09 23:01:05] INFO: [GET] /home
+[2026-01-09 23:01:06] INFO: [GET] /profile
+[2026-01-09 23:01:08] INFO: [GET] /orders
+[2026-01-09 23:01:14] INFO: [GET] /
+[2026-01-09 23:01:14] INFO: [GET] /home
+[2026-01-09 23:01:15] INFO: [GET] /wishlist
+[2026-01-09 23:01:17] INFO: [GET] /products
+[2026-01-09 23:01:19] INFO: [POST] /wishlist/add
+[2026-01-09 23:01:23] INFO: [GET] /wishlist
+[2026-01-09 23:01:24] INFO: [POST] /cart/add
+[2026-01-09 23:01:25] INFO: [DELETE] /wishlist/693faef8c1dc3ee2a4a4f87a
+[2026-01-09 23:01:27] INFO: [GET] /cart
+[2026-01-09 23:01:27] INFO: [GET] /css/styles.css
+[2026-01-09 23:01:28] INFO: [GET] /checkout
+[2026-01-09 23:01:28] INFO: Found 1 available coupons for checkout
+[2026-01-09 23:01:28] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 23:02:07] INFO: [POST] /checkout/address
+[2026-01-09 23:02:07] INFO: New address saved for user 694277e33e5136b65755f8d8: 69613b97f134711174f51275
+[2026-01-09 23:02:07] INFO: [GET] /checkout/payment-options
+[2026-01-09 23:02:16] INFO: [GET] /checkout
+[2026-01-09 23:02:16] INFO: Found 1 available coupons for checkout
+[2026-01-09 23:02:16] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 23:02:18] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 23:02:24] INFO: [POST] /checkout/address
+[2026-01-09 23:02:24] INFO: New address saved for user 694277e33e5136b65755f8d8: 69613ba8f134711174f51294
+[2026-01-09 23:02:24] INFO: [GET] /checkout/payment-options
+[2026-01-09 23:02:29] INFO: [POST] /place-order
+[2026-01-09 23:02:29] INFO: Order created: 69613badf134711174f512a4 for user: 694277e33e5136b65755f8d8
+[2026-01-09 23:02:29] INFO: Stock decrementd for variant 693faef8c1dc3ee2a4a4f87a: -1. New stock: 25. Reason: order_placed
+[2026-01-09 23:02:29] INFO: Cart cleared for user: 694277e33e5136b65755f8d8
+[2026-01-09 23:02:29] INFO: [GET] /order-success?orderId=69613badf134711174f512a4
+[2026-01-09 23:02:31] INFO: [GET] /orders
+[2026-01-09 23:02:33] INFO: [GET] /orders/69613badf134711174f512a4
+[2026-01-09 23:02:46] INFO: [GET] /products
+[2026-01-09 23:02:47] INFO: [GET] /cart
+[2026-01-09 23:02:47] INFO: [GET] /css/styles.css
+[2026-01-09 23:02:49] INFO: [GET] /products
+[2026-01-09 23:02:58] INFO: [GET] /product/693faef8c1dc3ee2a4a4f878
+[2026-01-09 23:03:00] INFO: [POST] /cart/add
+[2026-01-09 23:03:01] INFO: [GET] /cart
+[2026-01-09 23:03:02] INFO: [GET] /css/styles.css
+[2026-01-09 23:03:04] INFO: [GET] /checkout
+[2026-01-09 23:03:04] INFO: Found 1 available coupons for checkout
+[2026-01-09 23:03:04] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 23:03:12] INFO: [GET] /profile
+[2026-01-09 23:03:13] INFO: [GET] /orders
+[2026-01-09 23:03:16] INFO: [GET] /cart
+[2026-01-09 23:03:17] INFO: [GET] /css/styles.css
+[2026-01-09 23:03:23] INFO: [DELETE] /cart/remove/693faef8c1dc3ee2a4a4f87a
+[2026-01-09 23:03:24] INFO: [GET] /cart
+[2026-01-09 23:03:24] INFO: [GET] /css/styles.css
+[2026-01-09 23:03:26] INFO: [GET] /products
+[2026-01-09 23:03:28] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-09 23:03:31] INFO: [POST] /cart/add
+[2026-01-09 23:03:33] INFO: [GET] /cart
+[2026-01-09 23:03:33] INFO: [GET] /css/styles.css
+[2026-01-09 23:03:35] INFO: [GET] /checkout
+[2026-01-09 23:03:35] INFO: Found 1 available coupons for checkout
+[2026-01-09 23:03:35] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 23:03:38] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 23:03:51] INFO: [POST] /checkout/address
+[2026-01-09 23:03:51] INFO: New address saved for user 694277e33e5136b65755f8d8: 69613bfff134711174f5135d
+[2026-01-09 23:03:51] INFO: [GET] /checkout/payment-options
+[2026-01-09 23:04:06] INFO: [POST] /place-order
+[2026-01-09 23:04:06] INFO: Order created: 69613c0ef134711174f5136d for user: 694277e33e5136b65755f8d8
+[2026-01-09 23:04:07] INFO: Stock decrementd for variant 693fc66c6ecc42bce6fc754a: -1. New stock: 18. Reason: order_placed
+[2026-01-09 23:04:07] INFO: Cart cleared for user: 694277e33e5136b65755f8d8
+[2026-01-09 23:04:07] INFO: [GET] /order-success?orderId=69613c0ef134711174f5136d
+[2026-01-09 23:04:08] INFO: [GET] /orders
+[2026-01-09 23:04:10] INFO: [GET] /orders/69613badf134711174f512a4
+[2026-01-09 23:04:14] INFO: [GET] /orders
+[2026-01-09 23:04:16] INFO: [GET] /orders/69613c0ef134711174f5136d
+[2026-01-09 23:04:20] INFO: [GET] /profile
+[2026-01-09 23:10:48] INFO: [GET] /address
+[2026-01-09 23:10:52] INFO: [POST] /address/delete/69613b97f134711174f51275
+[2026-01-09 23:10:53] INFO: [GET] /address
+[2026-01-09 23:10:56] INFO: [POST] /address/delete/69613ba8f134711174f51294
+[2026-01-09 23:10:58] INFO: [GET] /address
+[2026-01-09 23:10:59] INFO: [GET] /profile
+[2026-01-09 23:11:02] INFO: [GET] /cart
+[2026-01-09 23:11:03] INFO: [GET] /css/styles.css
+[2026-01-09 23:11:04] INFO: [GET] /products
+[2026-01-09 23:11:07] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-09 23:11:09] INFO: [POST] /cart/add
+[2026-01-09 23:11:10] INFO: [GET] /cart
+[2026-01-09 23:11:10] INFO: [GET] /css/styles.css
+[2026-01-09 23:11:11] INFO: [GET] /checkout
+[2026-01-09 23:11:11] INFO: Found 1 available coupons for checkout
+[2026-01-09 23:11:11] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 23:11:14] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 23:11:34] INFO: [POST] /checkout/address
+[2026-01-09 23:11:34] INFO: Using existing duplicate address instead of saving new one
+[2026-01-09 23:11:34] INFO: [GET] /checkout/payment-options
+[2026-01-09 23:11:38] INFO: [GET] /checkout
+[2026-01-09 23:11:38] INFO: Found 1 available coupons for checkout
+[2026-01-09 23:11:38] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 23:11:42] INFO: [POST] /checkout/address
+[2026-01-09 23:11:42] INFO: [GET] /checkout/payment-options
+[2026-01-09 23:11:44] INFO: [POST] /place-order
+[2026-01-09 23:11:44] INFO: Order created: 69613dd8e60efdf5f1f349d0 for user: 694277e33e5136b65755f8d8
+[2026-01-09 23:11:44] INFO: Stock decrementd for variant 694fa4a7f0a089520a1144da: -1. New stock: 13. Reason: order_placed
+[2026-01-09 23:11:44] INFO: Cart cleared for user: 694277e33e5136b65755f8d8
+[2026-01-09 23:11:44] INFO: [GET] /order-success?orderId=69613dd8e60efdf5f1f349d0
+[2026-01-09 23:11:47] INFO: [GET] /orders
+[2026-01-09 23:11:51] INFO: [GET] /orders/69613dd8e60efdf5f1f349d0
+[2026-01-09 23:12:01] INFO: [GET] /orders
+[2026-01-09 23:12:04] INFO: [GET] /orders/69613c0ef134711174f5136d
+[2026-01-09 23:12:08] INFO: [GET] /orders
+[2026-01-09 23:12:10] INFO: [GET] /cart
+[2026-01-09 23:12:10] INFO: [GET] /css/styles.css
+[2026-01-09 23:12:16] INFO: [GET] /profile
+[2026-01-09 23:12:17] INFO: [GET] /orders
+[2026-01-09 23:12:19] INFO: [GET] /orders/69613badf134711174f512a4
+[2026-01-09 23:12:23] INFO: [GET] /orders
+[2026-01-09 23:12:28] INFO: [GET] /products
+[2026-01-09 23:12:29] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-09 23:12:30] INFO: [POST] /cart/add
+[2026-01-09 23:12:32] INFO: [GET] /cart
+[2026-01-09 23:12:32] INFO: [GET] /css/styles.css
+[2026-01-09 23:12:33] INFO: [GET] /checkout
+[2026-01-09 23:12:33] INFO: Found 1 available coupons for checkout
+[2026-01-09 23:12:33] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 23:12:39] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 23:12:43] INFO: [POST] /checkout/address
+[2026-01-09 23:12:43] INFO: [GET] /checkout/payment-options
+[2026-01-09 23:12:45] INFO: [POST] /place-order
+[2026-01-09 23:12:45] INFO: Order created: 69613e15e60efdf5f1f34a7e for user: 694277e33e5136b65755f8d8
+[2026-01-09 23:12:45] INFO: Stock decrementd for variant 693fc66c6ecc42bce6fc754a: -1. New stock: 17. Reason: order_placed
+[2026-01-09 23:12:45] INFO: Cart cleared for user: 694277e33e5136b65755f8d8
+[2026-01-09 23:12:45] INFO: [GET] /order-success?orderId=69613e15e60efdf5f1f34a7e
+[2026-01-09 23:12:46] INFO: [GET] /orders
+[2026-01-09 23:12:54] INFO: [GET] /orders/69613e15e60efdf5f1f34a7e
+[2026-01-09 23:12:58] INFO: [GET] /profile
+[2026-01-09 23:13:04] INFO: [GET] /cart
+[2026-01-09 23:13:04] INFO: [GET] /css/styles.css
+[2026-01-09 23:13:05] INFO: [GET] /products
+[2026-01-09 23:13:06] INFO: [GET] /profile
+[2026-01-09 23:13:09] INFO: [GET] /cart
+[2026-01-09 23:13:09] INFO: [GET] /css/styles.css
+[2026-01-09 23:13:12] INFO: [GET] /cart?limit=6
+[2026-01-09 23:13:12] INFO: [GET] /css/styles.css
+[2026-01-09 23:17:52] INFO: [GET] /
+[2026-01-09 23:17:53] INFO: [GET] /home
+[2026-01-09 23:17:54] INFO: [GET] /favicon.ico
+[2026-01-09 23:17:58] INFO: [GET] /cart
+[2026-01-09 23:17:58] INFO: [GET] /css/styles.css
+[2026-01-09 23:18:03] INFO: [GET] /admin/login
+[2026-01-09 23:18:03] INFO: [GET] /admin/dashboard
+[2026-01-09 23:18:06] INFO: [GET] /admin/coupons
+[2026-01-09 23:18:09] INFO: [PATCH] /admin/coupons/toggle-status/695fb4e64de7d6a4d6979dd4
+[2026-01-09 23:18:11] INFO: [GET] /admin/coupons
+[2026-01-09 23:18:18] INFO: [GET] /admin/coupons/add
+[2026-01-09 23:18:53] INFO: [POST] /admin/coupons/add
+[2026-01-09 23:18:55] INFO: [GET] /admin/coupons
+[2026-01-09 23:19:02] INFO: [GET] /products
+[2026-01-09 23:19:05] INFO: [GET] /product/693fad27c1dc3ee2a4a4f821
+[2026-01-09 23:19:07] INFO: [POST] /cart/add
+[2026-01-09 23:19:08] INFO: [GET] /cart
+[2026-01-09 23:19:08] INFO: [GET] /css/styles.css
+[2026-01-09 23:19:10] INFO: [GET] /checkout
+[2026-01-09 23:19:10] INFO: Found 1 available coupons for checkout
+[2026-01-09 23:19:10] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 23:19:17] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 23:19:28] INFO: [POST] /checkout/remove-coupon
+[2026-01-09 23:19:28] INFO: [GET] /checkout
+[2026-01-09 23:19:28] INFO: Found 1 available coupons for checkout
+[2026-01-09 23:19:28] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 23:19:52] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 23:19:59] INFO: [POST] /checkout/address
+[2026-01-09 23:19:59] INFO: [GET] /checkout/payment-options
+[2026-01-09 23:20:05] INFO: [POST] /place-order
+[2026-01-09 23:20:05] INFO: Order created: 69613fcd1b14275c50884efd for user: 694277e33e5136b65755f8d8
+[2026-01-09 23:20:05] INFO: Stock decrementd for variant 693fad27c1dc3ee2a4a4f823: -1. New stock: 28. Reason: order_placed
+[2026-01-09 23:20:05] INFO: Cart cleared for user: 694277e33e5136b65755f8d8
+[2026-01-09 23:20:05] INFO: [GET] /order-success?orderId=69613fcd1b14275c50884efd
+[2026-01-09 23:20:06] INFO: [GET] /orders
+[2026-01-09 23:20:10] INFO: [GET] /orders/69613fcd1b14275c50884efd
+[2026-01-09 23:20:17] INFO: [GET] /orders/69613fcd1b14275c50884efd/invoice
+[2026-01-09 23:23:10] INFO: [GET] /profile
+[2026-01-09 23:23:11] INFO: [GET] /products
+[2026-01-09 23:23:16] INFO: [GET] /cart
+[2026-01-09 23:23:16] INFO: [GET] /css/styles.css
+[2026-01-09 23:23:20] INFO: [GET] /wishlist
+[2026-01-09 23:23:21] INFO: [GET] /products
+[2026-01-09 23:23:23] INFO: [GET] /cart
+[2026-01-09 23:23:23] INFO: [GET] /css/styles.css
+[2026-01-09 23:23:24] INFO: [GET] /products
+[2026-01-09 23:23:25] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-09 23:23:27] INFO: [POST] /cart/add
+[2026-01-09 23:23:28] INFO: [GET] /cart
+[2026-01-09 23:23:28] INFO: [GET] /css/styles.css
+[2026-01-09 23:23:29] INFO: [GET] /checkout
+[2026-01-09 23:23:29] INFO: Found 1 available coupons for checkout
+[2026-01-09 23:23:29] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 23:23:32] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 23:23:35] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 23:23:38] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 23:23:42] INFO: [GET] /home
+[2026-01-09 23:23:46] INFO: [GET] /admin/login
+[2026-01-09 23:23:46] INFO: [GET] /admin/dashboard
+[2026-01-09 23:23:49] INFO: [GET] /
+[2026-01-09 23:23:49] INFO: [GET] /home
+[2026-01-09 23:23:57] INFO: [GET] /login
+[2026-01-09 23:23:57] INFO: [GET] /home
+[2026-01-09 23:24:09] INFO: [GET] /home
+[2026-01-09 23:24:09] INFO: [GET] /login
+[2026-01-09 23:24:19] INFO: [POST] /login
+[2026-01-09 23:24:21] INFO: [GET] /home
+[2026-01-09 23:24:34] INFO: [GET] /cart
+[2026-01-09 23:24:34] INFO: [GET] /css/styles.css
+[2026-01-09 23:24:35] INFO: [GET] /wishlist
+[2026-01-09 23:24:36] INFO: [GET] /cart
+[2026-01-09 23:24:36] INFO: [GET] /css/styles.css
+[2026-01-09 23:24:39] INFO: [GET] /profile
+[2026-01-09 23:24:43] INFO: [GET] /address
+[2026-01-09 23:24:47] INFO: [GET] /orders
+[2026-01-09 23:24:48] INFO: [GET] /address
+[2026-01-09 23:24:51] INFO: [GET] /address/add
+[2026-01-09 23:25:00] INFO: [POST] /address/add
+[2026-01-09 23:25:07] INFO: [POST] /address/add
+[2026-01-09 23:25:11] INFO: [GET] /profile
+[2026-01-09 23:25:14] INFO: [GET] /cart
+[2026-01-09 23:25:14] INFO: [GET] /css/styles.css
+[2026-01-09 23:25:16] INFO: [GET] /checkout
+[2026-01-09 23:25:16] INFO: Found 1 available coupons for checkout
+[2026-01-09 23:25:16] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 23:25:18] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 23:25:27] INFO: [POST] /checkout/remove-coupon
+[2026-01-09 23:25:27] INFO: [GET] /checkout
+[2026-01-09 23:25:27] INFO: Found 1 available coupons for checkout
+[2026-01-09 23:25:27] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 23:25:36] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 23:25:40] INFO: [GET] /cart
+[2026-01-09 23:25:40] INFO: [GET] /css/styles.css
+[2026-01-09 23:25:43] INFO: [GET] /checkout
+[2026-01-09 23:25:43] INFO: Found 1 available coupons for checkout
+[2026-01-09 23:25:43] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 23:25:46] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 23:26:00] INFO: [POST] /checkout/address
+[2026-01-09 23:26:00] INFO: New address saved for user 694a2c0f8280db76d4012aee: 69614130a01aacf03aacc999
+[2026-01-09 23:26:00] INFO: [GET] /checkout/payment-options
+[2026-01-09 23:26:12] INFO: [POST] /place-order
+[2026-01-09 23:26:12] INFO: Order created: 6961413ca01aacf03aacc9ad for user: 694a2c0f8280db76d4012aee
+[2026-01-09 23:26:12] INFO: Stock decrementd for variant 693faef8c1dc3ee2a4a4f87a: -1. New stock: 24. Reason: order_placed
+[2026-01-09 23:26:12] INFO: Stock decrementd for variant 693fc66c6ecc42bce6fc754a: -1. New stock: 16. Reason: order_placed
+[2026-01-09 23:26:12] INFO: Stock decrementd for variant 694fa4a7f0a089520a1144da: -1. New stock: 12. Reason: order_placed
+[2026-01-09 23:26:12] INFO: Cart cleared for user: 694a2c0f8280db76d4012aee
+[2026-01-09 23:26:13] INFO: [GET] /order-success?orderId=6961413ca01aacf03aacc9ad
+[2026-01-09 23:26:15] INFO: [GET] /orders
+[2026-01-09 23:26:17] INFO: [GET] /orders/6961413ca01aacf03aacc9ad
+[2026-01-09 23:26:24] INFO: [GET] /profile
+[2026-01-09 23:26:26] INFO: [GET] /cart
+[2026-01-09 23:26:26] INFO: [GET] /css/styles.css
+[2026-01-09 23:26:27] INFO: [GET] /products
+[2026-01-09 23:26:29] INFO: [GET] /product/693faef8c1dc3ee2a4a4f878
+[2026-01-09 23:26:30] INFO: [POST] /cart/add
+[2026-01-09 23:26:32] INFO: [GET] /cart
+[2026-01-09 23:26:32] INFO: [GET] /css/styles.css
+[2026-01-09 23:26:34] INFO: [GET] /checkout
+[2026-01-09 23:26:34] INFO: Found 1 available coupons for checkout
+[2026-01-09 23:26:34] INFO: Cleared persistent coupon on checkout entry
+[2026-01-09 23:26:36] INFO: [POST] /checkout/apply-coupon
+[2026-01-09 23:26:44] INFO: [GET] /profile
+[2026-01-10 07:36:28] INFO: [GET] /
+[2026-01-10 07:36:29] INFO: [GET] /home
+[2026-01-10 07:36:30] INFO: [GET] /favicon.ico
+[2026-01-10 07:36:32] INFO: [GET] /cart
+[2026-01-10 07:36:32] INFO: [GET] /css/styles.css
+[2026-01-10 07:36:34] INFO: [GET] /profile
+[2026-01-10 07:36:36] INFO: [GET] /orders
+[2026-01-10 07:36:39] INFO: [GET] /orders/69613fcd1b14275c50884efd
+[2026-01-10 07:36:45] INFO: [GET] /orders/69613fcd1b14275c50884efd/invoice
+[2026-01-10 07:37:02] INFO: [GET] /profile
+[2026-01-10 07:37:03] INFO: [GET] /home
+[2026-01-10 07:37:06] INFO: [GET] /cart
+[2026-01-10 07:37:06] INFO: [GET] /css/styles.css
+[2026-01-10 07:37:11] INFO: [GET] /products
+[2026-01-10 07:37:12] INFO: [GET] /home
+[2026-01-10 07:37:14] INFO: [GET] /about
+[2026-01-10 07:37:17] INFO: [GET] /home
+[2026-01-10 09:51:25] INFO: [GET] /
+[2026-01-10 09:51:29] INFO: [GET] /login
+[2026-01-10 09:51:30] INFO: [GET] /auth/google
+[2026-01-10 09:51:30] INFO: [GET] /auth/google/callback?code=4%2F0ATX87lP9ALwWK4h0dhyPqYRxG0TcrYhvsYTW2lv6rwNz-t8YwsWfv_tpgyC6CaA8RNc_Xg&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=0&prompt=none
+[2026-01-10 09:51:31] INFO: [GET] /home
+[2026-01-10 09:51:33] INFO: [GET] /profile
+[2026-01-10 09:51:35] INFO: [GET] /profile/edit
+[2026-01-10 09:51:36] INFO: [POST] /profile/edit
+[2026-01-10 09:51:44] INFO: [POST] /profile/edit
+[2026-01-10 09:51:46] INFO: [GET] /profile
+[2026-01-10 09:51:47] INFO: [GET] /address
+[2026-01-10 09:51:53] INFO: [POST] /address/delete/6960fde99ee07cba0632fcf5
+[2026-01-10 09:51:54] INFO: [GET] /address
+[2026-01-10 09:51:56] INFO: [POST] /address/delete/6960fa87f7d1599c5141f235
+[2026-01-10 09:51:58] INFO: [GET] /address
+[2026-01-10 09:52:00] INFO: [POST] /address/delete/6960879835129546101626a6
+[2026-01-10 09:52:02] INFO: [GET] /address
+[2026-01-10 09:52:05] INFO: [POST] /address/delete/6961085008dde4eeded454f9
+[2026-01-10 09:52:07] INFO: [GET] /address
+[2026-01-10 09:52:10] INFO: [POST] /address/delete/696100de9ee07cba0632fe0d
+[2026-01-10 09:52:12] INFO: [GET] /address
+[2026-01-10 09:52:14] INFO: [GET] /address/edit/6961088808dde4eeded4557c
+[2026-01-10 09:52:15] INFO: [GET] /address
+[2026-01-10 09:52:18] INFO: [POST] /address/delete/6961088808dde4eeded4557c
+[2026-01-10 09:52:20] INFO: [GET] /address
+[2026-01-10 09:52:25] INFO: [GET] /address/edit/696108ca08dde4eeded455c4
+[2026-01-10 09:52:50] INFO: [POST] /address/edit/696108ca08dde4eeded455c4
+[2026-01-10 09:52:52] INFO: [GET] /address
+[2026-01-10 09:52:57] INFO: [GET] /address/edit/696108ca08dde4eeded455c4
+[2026-01-10 09:53:01] INFO: [POST] /address/edit/696108ca08dde4eeded455c4
+[2026-01-10 09:53:03] INFO: [GET] /address
+[2026-01-10 09:53:07] INFO: [POST] /address/set-default/696108ca08dde4eeded455c4
+[2026-01-10 09:53:08] INFO: [GET] /address
+[2026-01-10 09:53:10] INFO: [GET] /orders
+[2026-01-10 09:53:14] INFO: [GET] /profile
+[2026-01-10 09:53:18] INFO: [GET] /products
+[2026-01-10 09:53:52] INFO: [GET] /home
+[2026-01-10 09:53:55] INFO: [GET] /profile
+[2026-01-10 09:53:56] INFO: [GET] /orders
+[2026-01-10 09:53:57] INFO: [GET] /
+[2026-01-10 09:53:58] INFO: [GET] /home
+[2026-01-10 09:53:59] INFO: [GET] /products
+[2026-01-10 09:54:02] INFO: [POST] /wishlist/add
+[2026-01-10 09:54:15] INFO: [GET] /admin/login
+[2026-01-10 09:54:25] INFO: [POST] /admin/login
+[2026-01-10 09:54:25] INFO: [GET] /admin/dashboard
+[2026-01-10 09:54:27] INFO: [GET] /admin/products
+[2026-01-10 09:54:30] INFO: [GET] /admin/edit-product/694fa44cf0a089520a1144ab
+[2026-01-10 09:54:32] INFO: [GET] /admin/products
+[2026-01-10 10:09:45] INFO: [GET] /admin/add-product
+[2026-01-10 10:13:42] INFO: [POST] /admin/add-product
+[2026-01-10 10:13:46] INFO: [GET] /admin/products
+[2026-01-10 10:13:50] INFO: [GET] /admin/dashboard
+[2026-01-10 10:13:53] INFO: [GET] /home
+[2026-01-10 10:13:56] INFO: [GET] /products
+[2026-01-10 10:14:01] INFO: [GET] /product/6961d8fe71896ca1201d455b
+[2026-01-10 10:14:10] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455e
+[2026-01-10 10:14:12] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455f
+[2026-01-10 10:14:14] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455e
+[2026-01-10 10:14:16] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455d
+[2026-01-10 10:14:18] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455f
+[2026-01-10 10:14:19] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455e
+[2026-01-10 10:14:20] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455d
+[2026-01-10 10:14:27] INFO: [GET] /admin/products
+[2026-01-10 10:14:34] INFO: [GET] /admin/edit-product/6961d8fe71896ca1201d455b
+[2026-01-10 10:15:30] INFO: [POST] /admin/edit-product/6961d8fe71896ca1201d455b
+[2026-01-10 10:15:30] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-10 10:15:30] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-10 10:15:30] INFO: [postEditProduct] Request received for Product ID: 6961d8fe71896ca1201d455b
+[2026-01-10 10:15:30] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock, existingImages_1, existingImages_2
+[2026-01-10 10:15:30] INFO: [postEditProduct] Colors count: 3, VariantIndices count: 3
+[2026-01-10 10:15:30] INFO: [postEditProduct] Processing variant index 0
+[2026-01-10 10:15:30] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-10 10:15:30] INFO: [postEditProduct] Processing variant index 1
+[2026-01-10 10:15:30] INFO: [postEditProduct] Variant 1: Existing images: 1, New files: 0
+[2026-01-10 10:15:30] INFO: [postEditProduct] Processing variant index 2
+[2026-01-10 10:15:30] INFO: [postEditProduct] Variant 2: Existing images: 1, New files: 0
+[2026-01-10 10:15:30] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-10 10:15:30] INFO: [postEditProduct] Success.
+[2026-01-10 10:15:32] INFO: [GET] /admin/products
+[2026-01-10 10:15:40] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455e
+[2026-01-10 10:15:42] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455f
+[2026-01-10 10:15:43] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455d
+[2026-01-10 10:15:46] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455e
+[2026-01-10 10:15:47] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455f
+[2026-01-10 10:15:49] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455d
+[2026-01-10 10:16:27] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455e
+[2026-01-10 10:16:28] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455f
+[2026-01-10 10:16:30] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455e
+[2026-01-10 10:16:31] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455d
+[2026-01-10 10:24:22] INFO: [GET] /product/692d673590f31c452d819e08
+[2026-01-10 10:51:15] INFO: [GET] /products
+[2026-01-10 10:51:18] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-10 10:51:20] INFO: [GET] /home
+[2026-01-10 10:51:22] INFO: [GET] /products
+[2026-01-10 10:51:23] INFO: [GET] /product/6961d8fe71896ca1201d455b
+[2026-01-10 10:51:27] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455e
+[2026-01-10 10:51:30] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455f
+[2026-01-10 10:51:35] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455d
+[2026-01-10 10:51:38] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455e
+[2026-01-10 10:51:41] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455f
+[2026-01-10 10:51:43] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455d
+[2026-01-10 10:51:46] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455e
+[2026-01-10 10:51:49] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455f
+[2026-01-10 10:51:51] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455d
+[2026-01-10 10:51:58] INFO: [GET] /home
+[2026-01-10 10:52:02] INFO: [GET] /admin/products
+[2026-01-10 10:52:37] INFO: [GET] /admin/edit-product/6961d8fe71896ca1201d455b
+[2026-01-10 10:52:43] INFO: [POST] /admin/edit-product/6961d8fe71896ca1201d455b
+[2026-01-10 10:52:43] INFO: [adminProductRoutes] Entering Multer middleware
+[2026-01-10 10:52:43] INFO: [adminProductRoutes] Exiting Multer middleware
+[2026-01-10 10:52:43] INFO: [postEditProduct] Request received for Product ID: 6961d8fe71896ca1201d455b
+[2026-01-10 10:52:43] INFO: [postEditProduct] Body keys: productName, Baseprice, category, brandName, description, variantId, variantIndices, existingImages_0, color, variantPrice, variantStock, existingImages_1, existingImages_2
+[2026-01-10 10:52:43] INFO: [postEditProduct] Colors count: 3, VariantIndices count: 3
+[2026-01-10 10:52:43] INFO: [postEditProduct] Processing variant index 0
+[2026-01-10 10:52:43] INFO: [postEditProduct] Variant 0: Existing images: 1, New files: 0
+[2026-01-10 10:52:43] INFO: [postEditProduct] Processing variant index 1
+[2026-01-10 10:52:43] INFO: [postEditProduct] Variant 1: Existing images: 1, New files: 0
+[2026-01-10 10:52:43] INFO: [postEditProduct] Processing variant index 2
+[2026-01-10 10:52:43] INFO: [postEditProduct] Variant 2: Existing images: 1, New files: 0
+[2026-01-10 10:52:43] INFO: [postEditProduct] Updating database. Deleted variants: 0
+[2026-01-10 10:52:43] INFO: [postEditProduct] Success.
+[2026-01-10 10:52:45] INFO: [GET] /admin/products
+[2026-01-10 10:52:47] INFO: [GET] /admin/dashboard
+[2026-01-10 10:54:03] INFO: [GET] /cart
+[2026-01-10 10:54:04] INFO: [GET] /css/styles.css
+[2026-01-10 10:54:09] INFO: [GET] /products
+[2026-01-10 10:54:15] INFO: [GET] /wishlist
+[2026-01-10 10:54:18] INFO: [GET] /products
+[2026-01-10 10:54:21] INFO: [POST] /wishlist/add
+[2026-01-10 10:54:22] INFO: [GET] /wishlist
+[2026-01-10 10:54:28] INFO: [POST] /cart/add
+[2026-01-10 10:54:29] INFO: [DELETE] /wishlist/6961d90071896ca1201d455d
+[2026-01-10 10:54:32] INFO: [GET] /products
+[2026-01-10 10:54:33] INFO: [GET] /product/6961d8fe71896ca1201d455b
+[2026-01-10 10:54:37] INFO: [GET] /product/6961d8fe71896ca1201d455b?variant=6961d90071896ca1201d455e
+[2026-01-10 10:54:39] INFO: [POST] /wishlist/add
+[2026-01-10 10:54:40] INFO: [GET] /wishlist
+[2026-01-10 10:54:43] INFO: [POST] /cart/add
+[2026-01-10 10:54:44] INFO: [DELETE] /wishlist/6961d90071896ca1201d455e
+[2026-01-10 10:54:46] INFO: [GET] /cart
+[2026-01-10 10:54:46] INFO: [GET] /css/styles.css
+[2026-01-10 11:09:58] INFO: [GET] /checkout
+[2026-01-10 11:10:10] INFO: Found 0 available coupons for checkout
+[2026-01-10 11:10:10] INFO: Cleared persistent coupon on checkout entry
+[2026-01-10 11:10:22] INFO: [GET] /admin/products
+[2026-01-10 11:10:25] INFO: [GET] /admin/coupons
+[2026-01-10 11:10:35] INFO: [GET] /
+[2026-01-10 11:10:35] INFO: [GET] /home
+[2026-01-10 11:10:38] INFO: [GET] /cart
+[2026-01-10 11:10:39] INFO: [GET] /css/styles.css
+[2026-01-10 11:10:40] INFO: [GET] /checkout
+[2026-01-10 11:10:40] INFO: Found 0 available coupons for checkout
+[2026-01-10 11:10:41] INFO: Cleared persistent coupon on checkout entry
+[2026-01-10 11:10:52] INFO: [GET] /admin/discounts
+[2026-01-10 11:10:55] INFO: [GET] /admin/dashboard
+[2026-01-10 11:10:56] INFO: [GET] /admin/coupons
+[2026-01-10 11:10:59] INFO: [GET] /admin/coupons/edit/6960880635129546101626b8
+[2026-01-10 11:11:01] INFO: [POST] /admin/coupons/edit/6960880635129546101626b8
+[2026-01-10 11:11:03] INFO: [GET] /admin/coupons
+[2026-01-10 11:11:13] INFO: [GET] /admin/coupons
+[2026-01-10 11:14:03] INFO: [GET] /products
+[2026-01-10 11:14:05] INFO: [GET] /profile
+[2026-01-10 11:14:07] INFO: [GET] /wallet
+[2026-01-10 11:14:18] INFO: [GET] /wallet/history
+[2026-01-10 11:14:34] INFO: [GET] /wallet
+[2026-01-10 11:14:48] INFO: [GET] /profile
+[2026-01-10 11:24:04] INFO: [GET] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-10 11:28:20] INFO: [POST] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-10 11:28:22] INFO: [GET] /admin/coupons
+[2026-01-10 11:28:26] INFO: [GET] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-10 11:28:34] INFO: [POST] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-10 11:28:36] INFO: [GET] /admin/coupons
+[2026-01-10 11:28:37] INFO: [GET] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-10 11:28:49] INFO: [POST] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-10 11:28:53] INFO: [GET] /admin/coupons
+[2026-01-10 11:54:38] INFO: [GET] /home
+[2026-01-10 11:54:41] INFO: [GET] /admin/coupons
+[2026-01-10 11:54:46] INFO: [GET] /admin/dashboard
+[2026-01-10 11:54:47] INFO: [GET] /admin/coupons
+[2026-01-10 11:54:49] INFO: [GET] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-10 11:55:07] INFO: [POST] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-10 11:55:09] INFO: [GET] /admin/coupons
+[2026-01-10 11:55:11] INFO: [GET] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-10 11:55:19] INFO: [POST] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-10 11:55:20] INFO: [GET] /admin/coupons
+[2026-01-10 11:55:25] INFO: [GET] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-10 11:57:56] INFO: [GET] /admin/coupons
+[2026-01-10 11:58:00] INFO: [GET] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-10 11:58:03] INFO: [POST] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-10 11:58:03] INFO: Sat Jan 10 2026 00:00:00 GMT+0530 (India Standard Time)
+[2026-01-10 11:58:12] INFO: [POST] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-10 11:58:12] INFO: Sat Jan 10 2026 00:00:00 GMT+0530 (India Standard Time)
+[2026-01-10 11:58:18] INFO: [POST] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-10 11:58:19] INFO: Sat Jan 10 2026 00:00:00 GMT+0530 (India Standard Time)
+[2026-01-10 11:58:20] INFO: [GET] /admin/coupons
+[2026-01-10 11:58:22] INFO: [GET] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-10 11:58:42] INFO: [POST] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-10 11:58:42] INFO: Sat Jan 10 2026 00:00:00 GMT+0530 (India Standard Time)
+[2026-01-10 11:58:55] INFO: [POST] /admin/coupons/edit/695fa38659c024e2a3c93933
+[2026-01-10 11:58:55] INFO: Sat Jan 10 2026 00:00:00 GMT+0530 (India Standard Time)
+[2026-01-10 11:58:57] INFO: [GET] /admin/coupons
+[2026-01-10 12:00:26] INFO: [GET] /admin/coupons/add
+[2026-01-10 12:01:24] INFO: [POST] /admin/coupons/add
+[2026-01-10 12:01:24] INFO: Sat Jan 10 2026 00:00:00 GMT+0530 (India Standard Time)
+[2026-01-10 12:01:28] INFO: [GET] /admin/coupons
+[2026-01-10 12:01:36] INFO: [GET] /admin/coupons/edit/6961f23cdd3021e7c916c4ac
+[2026-01-10 12:01:43] INFO: [POST] /admin/coupons/edit/6961f23cdd3021e7c916c4ac
+[2026-01-10 12:01:44] INFO: [GET] /admin/coupons
+[2026-01-10 12:01:51] INFO: [GET] /admin/coupons/edit/6961f23cdd3021e7c916c4ac
+[2026-01-10 12:03:08] INFO: [GET] /admin/coupons/edit/6961f23cdd3021e7c916c4ac
+[2026-01-10 12:03:14] INFO: [POST] /admin/coupons/edit/6961f23cdd3021e7c916c4ac
+[2026-01-10 12:03:16] INFO: [GET] /admin/coupons
+[2026-01-10 12:03:20] INFO: [GET] /admin/coupons/edit/6960880635129546101626b8
+[2026-01-10 12:03:24] INFO: [POST] /admin/coupons/edit/6960880635129546101626b8
+[2026-01-10 12:03:25] INFO: [GET] /admin/coupons
+[2026-01-10 12:03:30] INFO: [GET] /admin/coupons/edit/6960880635129546101626b8
+[2026-01-10 12:03:57] INFO: [GET] /admin/coupons/add
+[2026-01-10 12:05:50] INFO: [POST] /admin/coupons/add
+[2026-01-10 12:05:50] INFO: Sat Jan 10 2026 00:00:00 GMT+0530 (India Standard Time)
+[2026-01-10 12:05:52] INFO: [GET] /admin/coupons
+[2026-01-10 12:06:22] INFO: [GET] /admin/coupons/edit/6961f34666fff89295ac00af
+[2026-01-10 12:06:59] INFO: [GET] /admin/dashboard
+[2026-01-10 12:07:01] INFO: [GET] /admin/coupons
+[2026-01-10 12:11:55] INFO: [GET] /admin/coupons/edit/6960880635129546101626b8
+[2026-01-10 12:12:02] INFO: [POST] /admin/coupons/edit/6960880635129546101626b8
+[2026-01-10 12:12:04] INFO: [GET] /admin/coupons
+[2026-01-10 12:12:07] INFO: [GET] /admin/coupons/edit/6960880635129546101626b8
+[2026-01-10 12:12:13] INFO: [POST] /admin/coupons/edit/6960880635129546101626b8
+[2026-01-10 12:12:19] INFO: [POST] /admin/coupons/edit/6960880635129546101626b8
+[2026-01-10 12:12:20] INFO: [GET] /admin/coupons
+[2026-01-10 12:12:23] INFO: [GET] /admin/coupons/add
+[2026-01-10 12:13:06] INFO: [POST] /admin/coupons/add
+[2026-01-10 12:13:12] INFO: [POST] /admin/coupons/add
+[2026-01-10 12:13:22] INFO: [POST] /admin/coupons/add
+[2026-01-10 12:13:25] INFO: [GET] /admin/coupons
+[2026-01-10 12:13:32] INFO: [GET] /cart
+[2026-01-10 12:13:33] INFO: [GET] /css/styles.css
+[2026-01-10 12:13:35] INFO: [GET] /checkout
+[2026-01-10 12:13:35] INFO: Found 2 available coupons for checkout
+[2026-01-10 12:13:35] INFO: Cleared persistent coupon on checkout entry
+[2026-01-10 12:14:26] INFO: [POST] /checkout/apply-coupon
+[2026-01-10 12:14:38] INFO: [POST] /checkout/address
+[2026-01-10 12:14:38] INFO: [GET] /checkout/payment-options
+[2026-01-10 12:14:46] INFO: [GET] /home
+[2026-01-10 12:22:43] INFO: [GET] /admin/coupons
+[2026-01-10 12:22:45] INFO: [GET] /admin/coupons/add
+[2026-01-10 12:23:50] INFO: [POST] /admin/coupons/add
+[2026-01-10 12:23:52] INFO: [GET] /admin/coupons
+[2026-01-10 12:24:02] INFO: [GET] /profile
+[2026-01-10 12:24:04] INFO: [GET] /orders
+[2026-01-10 12:24:07] INFO: [GET] /coupons
+[2026-01-10 12:24:13] INFO: [GET] /orders
+[2026-01-10 12:24:17] INFO: [GET] /cart
+[2026-01-10 12:24:18] INFO: [GET] /css/styles.css
+[2026-01-10 12:24:19] INFO: [GET] /checkout
+[2026-01-10 12:24:20] INFO: Found 1 available coupons for checkout
+[2026-01-10 12:24:20] INFO: Cleared persistent coupon on checkout entry
+[2026-01-10 12:24:32] INFO: [POST] /checkout/apply-coupon
+[2026-01-10 12:26:26] INFO: [POST] /checkout/remove-coupon
+[2026-01-10 12:26:27] INFO: [GET] /checkout
+[2026-01-10 12:26:27] INFO: Found 1 available coupons for checkout
+[2026-01-10 12:26:27] INFO: Cleared persistent coupon on checkout entry
+[2026-01-10 12:26:44] INFO: [POST] /checkout/apply-coupon
+[2026-01-10 12:28:21] INFO: [GET] /home

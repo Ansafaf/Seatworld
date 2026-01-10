@@ -86,8 +86,7 @@
                                 <div class="total-row">
                                     <span>TOTAL <span style="font-size: 0.8rem; font-weight: 400; color: #777;">(TAX
                                             INCL.)</span></span>
-                                    <span>₹<%= (total - (typeof discountAmount !=='undefined' ? discountAmount :
-                                            0)).toLocaleString('en-IN') %></span>
+                                    <span>₹<%= total.toLocaleString('en-IN') %></span>
                                 </div>
 
                                 <div class="terms-check">

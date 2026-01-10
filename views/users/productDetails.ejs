@@ -24,20 +24,19 @@
                             <div id="zoom-result" class="zoom-result"></div>
                         </div>
                         <div class="thumbnails-col">
-                            <!-- Main image as first thumbnail -->
-                            <div class="thumbnail active" onclick="changeImage('<%= product.image %>', this)">
-                                <img src="<%= product.image %>" alt="View 1">
-                            </div>
-                            <!-- Additional variants/images -->
-                            <% if (product.variants && product.variants.length) { %>
-                                <% product.variants.forEach((variant, idx)=> { %>
-                                    <% if (variant.images && variant.images.length) { %>
-                                        <div class="thumbnail" onclick="changeImage('<%= variant.images[0] %>', this)">
-                                            <img src="<%= variant.images[0] %>" alt="View <%= idx + 2 %>">
-                                        </div>
-                                        <% } %>
-                                            <% }) %>
-                                                <% } %>
+                            <% if (product.variant && product.variant.images && product.variant.images.length) { %>
+                                <% product.variant.images.forEach((img, idx)=> { %>
+                                    <div class="thumbnail <%= idx === 0 ? 'active' : '' %>"
+                                        onclick="changeImage('<%= img %>', this)">
+                                        <img src="<%= img %>" alt="View <%= idx + 1 %>">
+                                    </div>
+                                    <% }) %>
+                                        <% } else { %>
+                                            <div class="thumbnail active"
+                                                onclick="changeImage('<%= product.image %>', this)">
+                                                <img src="<%= product.image %>" alt="View 1">
+                                            </div>
+                                            <% } %>
                         </div>
                     </div>
 
@@ -116,9 +115,7 @@
                                                 class="btn-action btn-cart <%= product.stock <= 0 ? 'btn-disabled' : '' %>"
                                                 data-variant-id="<%= product.variant ? product.variant._id : '' %>"
                                                 <%=product.stock <=0 ? 'disabled' : '' %>>Add to Cart</button>
-                                            <button id="buy-button"
-                                                class="btn-action btn-buy <%= product.stock <= 0 ? 'btn-disabled' : '' %>"
-                                                <%=product.stock <=0 ? 'disabled' : '' %>>Buy Now</button>
+
                                         </div>
                     </div>
                 </section>
