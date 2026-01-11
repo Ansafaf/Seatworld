@@ -55,7 +55,18 @@
                           <% } %>
 
                             <div class="info-bottom">
-                              <span class="item-price">₹<%= item.price %></span>
+                              <div class="price-wrapper">
+                                <span class="item-price">₹<%= item.price %></span>
+                                <% if (item.hasOffer) { %>
+                                  <span class="original-price"
+                                    style="text-decoration: line-through; color: #777; font-size: 0.9em; margin-left: 8px;">₹
+                                    <%= item.originalPrice %></span>
+                                  <span class="discount-badge"
+                                    style="color: #2e7d32; font-size: 0.85em; font-weight: 600; margin-left: 8px;">
+                                    <%= item.discountPercentage %>% OFF
+                                  </span>
+                                  <% } %>
+                              </div>
                               <div class="quantity-pill">
                                 <button class="qty-btn minus" onclick="updateQty('<%= item.variantId._id %>', -1)"
                                   <%=item.quantity <=1 ? 'disabled' : '' %>>

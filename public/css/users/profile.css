@@ -11,8 +11,8 @@
 
         /* Custom Profile styles continue below */
 
-        /* Mobile Overlay */
-        .mobile-overlay {
+        /* Sidebar Overlay */
+        .sidebar-overlay {
             display: none;
             position: fixed;
             top: 0;
@@ -23,7 +23,7 @@
             z-index: 998;
         }
 
-        .mobile-overlay.active {
+        .sidebar-overlay.active {
             display: block;
         }
 

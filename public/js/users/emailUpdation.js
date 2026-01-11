@@ -22,7 +22,7 @@ sidebarLinks.forEach(link => {
 });
 
 // Handle email update form submission via AJAX
-const emailForm = document.querySelector('form');
+const emailForm = document.getElementById('emailUpdateForm');
 if (emailForm) {
     emailForm.addEventListener('submit', async (e) => {
         e.preventDefault();

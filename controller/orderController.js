@@ -4,6 +4,7 @@ import * as inventoryService from "../services/inventoryService.js";
 import logger from "../utils/logger.js";
 import Order from "../models/orderModel.js";
 import OrderItem from "../models/orderItemModel.js";
+import Wallet from "../models/walletModel.js";
 import generateInvoicePDF from "../utils/invoiceGenerator.js";
 
 export const getorders = async (req, res) => {
@@ -15,7 +16,7 @@ export const getorders = async (req, res) => {
 
     res.render("users/orderList", {
       orders,
-      user: req.session.user,
+      user: req.user,
       breadcrumbs: [{ label: "Home", url: "/" }, { label: "My Orders", url: "/orders" }],
       pagination,
       search,
@@ -57,12 +58,25 @@ export const placeOrder = async (req, res) => {
     }
 
     let newOrder;
-    if (paymentMethod === "COD") {
+    if (paymentMethod === "COD" || paymentMethod === "Razorpay" || paymentMethod === "Wallet") {
+
+      // Balance check for Wallet
+      if (paymentMethod === "Wallet") {
+        const wallet = await Wallet.findOne({ userId });
+        if (!wallet || wallet.balance < cartTotals.total) {
+          return res.status(400).json({
+            success: false,
+            message: "Insufficient wallet balance. Please add money to your wallet or choose another payment method."
+          });
+        }
+      }
+
       newOrder = await orderService.createOrder({
         userId,
         paymentMethod,
         checkoutSession: req.session.checkout,
-        cartTotals
+        cartTotals,
+        paymentStatus: (paymentMethod === "Razorpay" || paymentMethod === "Wallet") ? "paid" : "pending"
       });
     } else {
       return res.status(400).json({
@@ -109,6 +123,19 @@ export const getOrderSuccess = async (req, res) => {
   }
 }
 
+export const getOrderFailed = async (req, res) => {
+  try {
+    const { orderId, message } = req.query;
+    res.render("users/orderFailed", {
+      orderId: orderId || null,
+      message: message || "Oops! Something went wrong with your payment. Please try again."
+    });
+  } catch (err) {
+    logger.error("Get Order Failed Page Error:", err);
+    res.status(500).render("500");
+  }
+}
+
 export const getOrderDetails = async (req, res) => {
   try {
     const { orderId } = req.params;
@@ -127,7 +154,7 @@ export const getOrderDetails = async (req, res) => {
 
     res.render("users/orderDetails", {
       order,
-      user: req.session.user,
+      user: req.user,
       breadcrumbs
     });
   } catch (error) {

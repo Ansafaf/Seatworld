@@ -2,6 +2,7 @@ import Order from "../models/orderModel.js";
 import OrderItem from "../models/orderItemModel.js";
 import { Product, ProductVariant } from "../models/productModel.js"; // Explicitly import for population
 import * as inventoryService from "../services/inventoryService.js";
+import * as walletService from "../services/walletService.js";
 import logger from "../utils/logger.js";
 import mongoose from "mongoose";
 
@@ -215,6 +216,49 @@ export const updateOrderStatus = async (req, res) => {
 
         await order.save();
 
+        // Handle Wallet Refund for bulk status update
+        if (['cancelled', 'returned'].includes(status) && order.paymentStatus === 'paid') {
+            const items = await OrderItem.find({ orderId });
+            let totalRefund = 0;
+            const newlyRefundedItemIds = [];
+
+            for (const item of items) {
+                // We refund if the item was just changed to cancelled/returned or was already cancelled/returned but not refunded
+                if (item.status === status && item.refundStatus !== 'refunded') {
+                    const refundAmount = walletService.calculateItemRefundAmount(order, item);
+                    totalRefund += refundAmount;
+                    newlyRefundedItemIds.push(item._id);
+                }
+            }
+
+            // If ALL items are now cancelled/returned, we refund everything left in the order (including shipping)
+            const remainingActiveItems = items.filter(i => !['cancelled', 'returned'].includes(i.status));
+            if (remainingActiveItems.length === 0) {
+                // Determine what's already been refunded
+                const alreadyRefundedTotal = items.reduce((sum, i) => sum + (i.refundAmount || 0), 0);
+                totalRefund = Math.max(0, order.subtotal + (order.shippingFee || 0) - order.discountAmount - alreadyRefundedTotal);
+            }
+
+            if (totalRefund > 0) {
+                const transactionId = await walletService.refundToWallet(
+                    order.userId,
+                    totalRefund,
+                    `Bulk refund for ${status} order`,
+                    order._id
+                );
+
+                // Update all newly refunded items
+                await OrderItem.updateMany(
+                    { _id: { $in: newlyRefundedItemIds } },
+                    {
+                        refundStatus: 'refunded',
+                        refundedOn: new Date(),
+                        refundAmount: totalRefund / (newlyRefundedItemIds.length || 1) // Proportional for tracking
+                    }
+                );
+            }
+        }
+
         res.json({ success: true, message: "Order and items updated successfully" });
 
     } catch (error) {
@@ -275,6 +319,32 @@ export const updateItemStatus = async (req, res) => {
         await order.save();
         await item.save();
 
+        // Handle Wallet Refund for single item status change
+        if (isNowInactive && order.paymentStatus === 'paid' && item.refundStatus !== 'refunded') {
+            let refundAmount = walletService.calculateItemRefundAmount(order, item);
+
+            // Check if this is the last active item to include shipping fee
+            const activeItems = await OrderItem.find({
+                orderId,
+                _id: { $ne: item._id },
+                status: { $nin: ['cancelled', 'returned'] }
+            });
+
+            if (activeItems.length === 0) {
+                refundAmount += (order.shippingFee || 0);
+            }
+
+            if (refundAmount > 0) {
+                await walletService.refundToWallet(
+                    order.userId,
+                    refundAmount,
+                    `Refund for ${status} item`,
+                    order._id,
+                    item._id
+                );
+            }
+        }
+
         // Recalculate summary status for the response
         const allItems = await OrderItem.find({ orderId });
         const summaryStatus = calculateDerivedStatus(allItems);
@@ -311,6 +381,7 @@ export const approveItemAction = async (req, res) => {
                 return res.status(400).json({ success: false, message: "Item is not in cancel_requested state" });
             }
             item.status = 'cancelled';
+
         } else if (action === 'approve_return') {
             if (item.status !== 'return_requested') {
                 return res.status(400).json({ success: false, message: "Item is not in return_requested state" });
@@ -343,6 +414,32 @@ export const approveItemAction = async (req, res) => {
 
         await order.save();
         await item.save();
+
+        // Handle Wallet Refund for approved action
+        if (action !== 'reject_return' && order.paymentStatus === 'paid' && item.refundStatus !== 'refunded') {
+            let refundAmount = walletService.calculateItemRefundAmount(order, item);
+
+            // Check if this is the last active item to include shipping fee
+            const activeItems = await OrderItem.find({
+                orderId,
+                _id: { $ne: item._id },
+                status: { $nin: ['cancelled', 'returned'] }
+            });
+
+            if (activeItems.length === 0) {
+                refundAmount += (order.shippingFee || 0);
+            }
+
+            if (refundAmount > 0) {
+                await walletService.refundToWallet(
+                    order.userId,
+                    refundAmount,
+                    `Refund for approved ${item.status}`,
+                    order._id,
+                    item._id
+                );
+            }
+        }
 
         res.json({ success: true, message: `Action ${action} approved successfully` });
 

@@ -7,9 +7,11 @@
   <title>Password Change | SeatWorld</title>
 
   <!-- Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+  <link rel="stylesheet" href="/css/users/profile.css">
   <link rel="stylesheet" href="/css/users/passChange.css">
 </head>
 
@@ -26,64 +28,60 @@
 
       <!-- ================= MAIN ================= -->
       <div class="container">
+        <div class="profile-layout">
 
-        <!-- Sidebar -->
-        <aside class="sidebar" id="sidebar">
-          <h3>MY ACCOUNT</h3>
-          <ul>
-            <li><a href="/profile"><i class="fa-regular fa-user"></i> Personal Information</a></li>
-            <li><a href="/address"><i class="fa-solid fa-location-dot"></i> Address</a></li>
-            <li><a href="/orders"><i class="fa-solid fa-box"></i> Order</a></li>
-            <li><a href="/wallet"><i class="fa-solid fa-wallet"></i> Wallet</a></li>
-            <li><a href="/coupons"><i class="fa-solid fa-ticket"></i> Coupon</a></li>
-            <li><a class="active" href="/password-change"><i class="fa-solid fa-lock"></i> Password Change</a></li>
-            <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
-          </ul>
-        </aside>
+          <!-- Sidebar -->
+          <%- include('../partials/profileSidebar', { active: 'password' }) %>
 
-        <!-- Content -->
-        <section class="content">
-          <h2>PASSWORD CHANGE</h2>
+            <!-- Content -->
+            <main class="main-content">
+              <h1 class="page-title">PASSWORD CHANGE</h1>
 
-          <form action="/password-change" method="POST" id="passwordForm">
-            <div class="form-group">
-              <label>Current Password</label>
-              <div class="password-container">
-                <input type="password" name="currentPass" id="currentPassword" required>
-                <button type="button" class="toggle-password" onclick="togglePasswordVisibility('currentPassword')">
-                  <i class="far fa-eye"></i>
-                </button>
+              <div class="info-card">
+                <form action="/password-change" method="POST" id="passwordForm">
+                  <div class="form-group">
+                    <label>Current Password</label>
+                    <div class="password-container">
+                      <input type="password" name="currentPass" id="currentPassword" required>
+                      <button type="button" class="toggle-password"
+                        onclick="togglePasswordVisibility('currentPassword')">
+                        <i class="far fa-eye"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label>New Password</label>
+                    <div class="password-container">
+                      <input type="password" name="newPass" id="newPassword" required minlength="6">
+                      <button type="button" class="toggle-password" onclick="togglePasswordVisibility('newPassword')">
+                        <i class="far fa-eye"></i>
+                      </button>
+                    </div>
+                    <small style="color: #666; font-size: 12px; margin-top: 4px; display: block;">
+                      Must be at least 6 characters long
+                    </small>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Confirm Password</label>
+                    <div class="password-container">
+                      <input type="password" name="confirmPass" id="confirmPassword" required minlength="6">
+                      <button type="button" class="toggle-password"
+                        onclick="togglePasswordVisibility('confirmPassword')">
+                        <i class="far fa-eye"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <button type="submit" class="submit-btn">Change Password</button>
+                </form>
               </div>
-            </div>
+            </main>
 
-            <div class="form-group">
-              <label>New Password</label>
-              <div class="password-container">
-                <input type="password" name="newPass" id="newPassword" required minlength="6">
-                <button type="button" class="toggle-password" onclick="togglePasswordVisibility('newPassword')">
-                  <i class="far fa-eye"></i>
-                </button>
-              </div>
-              <small style="color: #666; font-size: 12px; margin-top: 4px; display: block;">
-                Must be at least 6 characters long
-              </small>
-            </div>
-
-            <div class="form-group">
-              <label>Confirm Password</label>
-              <div class="password-container">
-                <input type="password" name="confirmPass" id="confirmPassword" required minlength="6">
-                <button type="button" class="toggle-password" onclick="togglePasswordVisibility('confirmPassword')">
-                  <i class="far fa-eye"></i>
-                </button>
-              </div>
-            </div>
-
-            <button type="submit" class="submit-btn">Change Password</button>
-          </form>
-        </section>
-
+        </div>
       </div>
+
 
       <%- include('../partials/footer') %>
 

@@ -22,7 +22,7 @@ sidebarLinks.forEach(link => {
 });
 
 // Form validation feedback
-const form = document.querySelector('form');
+const form = document.getElementById('addressAddForm');
 const inputs = form ? form.querySelectorAll('.form-input') : [];
 
 inputs.forEach(input => {

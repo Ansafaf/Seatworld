@@ -22,7 +22,7 @@ sidebarLinks.forEach(link => {
 });
 
 // Handle address edit form submission via AJAX
-const editForm = document.querySelector('form');
+const editForm = document.getElementById('editAddressForm');
 if (editForm) {
     editForm.addEventListener('submit', async (e) => {
         e.preventDefault();

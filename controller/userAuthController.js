@@ -48,7 +48,8 @@ export async function postLogin(req, res) {
       req.session.user = {
         id: user._id,
         name: user.username || user.name,
-        email: user.email
+        email: user.email,
+        avatar: user.avatar
       };
       return res.status(200).json({
         success: true,
@@ -219,7 +220,8 @@ export async function verifyOtp(req, res) {
     req.session.user = {
       id: newUser._id,
       email: newUser.email,
-      name: newUser.username
+      name: newUser.username,
+      avatar: newUser.avatar
     };
 
     req.session.save(err => {

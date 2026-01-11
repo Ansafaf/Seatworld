@@ -1,0 +1,178 @@
+/* ==================== HEADER SECTION ==================== */
+.offer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #a3a3a3;
+    padding: 1.5rem 2rem;
+    border-radius: 12px 12px 0 0;
+    margin-bottom: 0;
+}
+
+.offer-header h1 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #000;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #d1d1d1;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    width: 300px;
+}
+
+.search-icon {
+    width: 18px;
+    height: 18px;
+    color: #000;
+    margin-right: 0.5rem;
+}
+
+.search-box input {
+    border: none;
+    background: transparent;
+    outline: none;
+    flex: 1;
+    font-size: 0.875rem;
+    color: #000;
+    font-weight: 500;
+}
+
+.search-box input::placeholder {
+    color: #555;
+    font-weight: 500;
+}
+
+.btn-add {
+    background: #fb8c00;
+    color: #000;
+    padding: 0.75rem 2rem;
+    border-radius: 10px;
+    border: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-add:hover {
+    background: #f57c00;
+}
+
+/* ==================== TABLE SECTION ==================== */
+.offers-table-container {
+    background: white;
+    border-radius: 0 0 12px 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.offers-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.offers-table thead tr th {
+    background: #949494;
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #000;
+}
+
+.offers-table thead tr th:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.offers-table thead tr th:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.offers-table tbody tr {
+    border-bottom: 5px solid transparent;
+    /* spacing between rows */
+}
+
+.offers-table tbody td {
+    padding: 1.5rem 1rem;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #000;
+}
+
+.discount-text {
+    color: #2e7d32;
+    font-weight: 700;
+}
+
+/* ==================== ACTION BUTTONS ==================== */
+.action-buttons {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+.btn-edit,
+.btn-block {
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-edit {
+    background: #1b5e20;
+}
+
+.btn-block {
+    background: #b71c1c;
+}
+
+.btn-edit:hover {
+    background: #2e7d32;
+}
+
+.btn-block:hover {
+    background: #d32f2f;
+}
+
+@media (max-width: 1024px) {
+    .offer-header {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: flex-start;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .search-box {
+        width: 100%;
+        max-width: none;
+    }
+}

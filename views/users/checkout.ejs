@@ -185,10 +185,21 @@
                                                                         <%= coupon.couponCode %>
                                                                     </span>
                                                                     <span class="coupon-desc">
-                                                                        <%= coupon.discountType==='percentage' ?
-                                                                            coupon.discountValue + '% Off' : '₹' +
-                                                                            coupon.discountValue + ' Off' %>
-                                                                            (Min purchase: ₹<%= coupon.minAmount %>)
+                                                                        <% let dd="" ; if
+                                                                            (coupon.discountType==='percentage' ) {
+                                                                            const pd=(subtotal * coupon.discountValue) /
+                                                                            100; if (coupon.maxAmount && pd>
+                                                                            coupon.maxAmount) {
+                                                                            dd = "₹" + coupon.maxAmount + " Off";
+                                                                            } else {
+                                                                            dd = coupon.discountValue + "% Off";
+                                                                            }
+                                                                            } else {
+                                                                            dd = "₹" + coupon.discountValue + " Off";
+                                                                            }
+                                                                            %>
+                                                                            <%= dd %> (Min purchase: ₹<%=
+                                                                                    coupon.minAmount %>)
                                                                     </span>
                                                                 </div>
                                                                 <button class="btn-apply-coupon"

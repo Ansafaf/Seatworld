@@ -7516,3 +7516,700 @@ breadcrumbs is not defined
 [2026-01-10 12:26:27] INFO: Cleared persistent coupon on checkout entry
 [2026-01-10 12:26:44] INFO: [POST] /checkout/apply-coupon
 [2026-01-10 12:28:21] INFO: [GET] /home
+[2026-01-10 14:17:40] INFO: [GET] /admin/coupons
+[2026-01-10 15:11:33] INFO: [GET] /home
+[2026-01-10 16:15:27] INFO: [GET] /cart
+[2026-01-10 16:15:29] INFO: [GET] /css/styles.css
+[2026-01-10 16:15:31] INFO: [GET] /checkout
+[2026-01-10 16:15:32] INFO: Found 1 available coupons for checkout
+[2026-01-10 16:15:32] INFO: Cleared persistent coupon on checkout entry
+[2026-01-10 16:15:35] INFO: [POST] /checkout/apply-coupon
+[2026-01-10 16:15:45] INFO: [POST] /checkout/remove-coupon
+[2026-01-10 16:15:46] INFO: [GET] /checkout
+[2026-01-10 16:15:46] INFO: Found 1 available coupons for checkout
+[2026-01-10 16:15:47] INFO: Cleared persistent coupon on checkout entry
+[2026-01-10 16:15:50] INFO: [POST] /checkout/apply-coupon
+[2026-01-10 16:16:00] INFO: [POST] /checkout/address
+[2026-01-10 16:16:00] INFO: [GET] /checkout/payment-options
+[2026-01-10 16:20:15] INFO: [GET] /home
+[2026-01-10 16:20:16] INFO: [GET] /cart
+[2026-01-10 16:20:17] INFO: [GET] /css/styles.css
+[2026-01-10 16:20:22] INFO: [GET] /checkout
+[2026-01-10 16:20:23] INFO: Found 1 available coupons for checkout
+[2026-01-10 16:20:23] INFO: Cleared persistent coupon on checkout entry
+[2026-01-10 16:20:23] ERROR: Invalid or unexpected token in E:\Brocamp\SeatWorld\views\users\checkout.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+[2026-01-10 16:20:25] INFO: [GET] /cart
+[2026-01-10 16:20:26] INFO: [GET] /css/styles.css
+[2026-01-10 16:20:27] INFO: [GET] /checkout
+[2026-01-10 16:20:28] INFO: Found 1 available coupons for checkout
+[2026-01-10 16:20:28] INFO: Cleared persistent coupon on checkout entry
+[2026-01-10 16:20:28] ERROR: Invalid or unexpected token in E:\Brocamp\SeatWorld\views\users\checkout.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+[2026-01-10 16:20:29] INFO: [GET] /cart
+[2026-01-10 16:20:29] INFO: [GET] /css/styles.css
+[2026-01-10 16:22:50] INFO: [GET] /checkout
+[2026-01-10 16:22:50] INFO: Found 1 available coupons for checkout
+[2026-01-10 16:22:51] INFO: Cleared persistent coupon on checkout entry
+[2026-01-10 16:22:56] INFO: [POST] /checkout/apply-coupon
+[2026-01-10 16:23:02] INFO: [POST] /checkout/address
+[2026-01-10 16:23:02] INFO: [GET] /checkout/payment-options
+[2026-01-10 16:23:07] INFO: [POST] /razorpay/create-order
+[2026-01-10 16:24:56] INFO: [POST] /razorpay/verify-payment
+[2026-01-10 16:24:56] INFO: [POST] /place-order
+[2026-01-10 16:24:57] INFO: Order created: 69623001a13a4caee339d0ea for user: 692aafda50bbd504425b12d4
+[2026-01-10 16:24:57] INFO: Stock decrementd for variant 6961d90071896ca1201d455d: -1. New stock: 19. Reason: order_placed
+[2026-01-10 16:24:57] INFO: Stock decrementd for variant 6961d90071896ca1201d455e: -1. New stock: 18. Reason: order_placed
+[2026-01-10 16:24:57] INFO: Cart cleared for user: 692aafda50bbd504425b12d4
+[2026-01-10 16:24:58] INFO: [GET] /order-success?orderId=69623001a13a4caee339d0ea
+[2026-01-10 16:25:05] INFO: [POST] /place-order
+[2026-01-10 16:25:05] ERROR: Session missing checkout or address
+[2026-01-10 16:30:52] INFO: [POST] /razorpay/create-order
+[2026-01-10 16:30:55] INFO: [GET] /home
+[2026-01-10 16:30:57] INFO: [GET] /cart
+[2026-01-10 16:30:57] INFO: [GET] /css/styles.css
+[2026-01-10 16:30:58] INFO: [GET] /products
+[2026-01-10 16:31:02] INFO: [POST] /wishlist/add
+[2026-01-10 16:31:03] INFO: [POST] /wishlist/add
+[2026-01-10 16:31:05] INFO: [GET] /wishlist
+[2026-01-10 16:31:08] INFO: [POST] /cart/add
+[2026-01-10 16:31:08] INFO: [DELETE] /wishlist/693fad27c1dc3ee2a4a4f823
+[2026-01-10 16:31:10] INFO: [POST] /cart/add
+[2026-01-10 16:31:10] INFO: [DELETE] /wishlist/693fc66c6ecc42bce6fc754a
+[2026-01-10 16:31:12] INFO: [GET] /cart
+[2026-01-10 16:31:13] INFO: [GET] /css/styles.css
+[2026-01-10 16:31:15] INFO: [GET] /checkout
+[2026-01-10 16:31:15] INFO: Found 1 available coupons for checkout
+[2026-01-10 16:31:15] INFO: Cleared persistent coupon on checkout entry
+[2026-01-10 16:31:18] INFO: [POST] /checkout/apply-coupon
+[2026-01-10 16:31:22] INFO: [POST] /checkout/apply-coupon
+[2026-01-10 16:31:25] INFO: [POST] /checkout/address
+[2026-01-10 16:31:26] INFO: [GET] /checkout/payment-options
+[2026-01-10 16:31:30] INFO: [POST] /razorpay/create-order
+[2026-01-10 16:32:07] INFO: [POST] /razorpay/verify-payment
+[2026-01-10 16:32:07] INFO: [POST] /place-order
+[2026-01-10 16:32:07] INFO: Order created: 696231af4bd39a1b50d298e4 for user: 692aafda50bbd504425b12d4
+[2026-01-10 16:32:07] INFO: Stock decrementd for variant 693fad27c1dc3ee2a4a4f823: -1. New stock: 9. Reason: order_placed
+[2026-01-10 16:32:08] INFO: Stock decrementd for variant 693fc66c6ecc42bce6fc754a: -1. New stock: 21. Reason: order_placed
+[2026-01-10 16:32:08] INFO: Cart cleared for user: 692aafda50bbd504425b12d4
+[2026-01-10 16:32:10] INFO: [GET] /order-success?orderId=696231af4bd39a1b50d298e4
+[2026-01-10 16:32:12] INFO: [GET] /orders
+[2026-01-10 16:32:15] INFO: [GET] /orders/696231af4bd39a1b50d298e4
+[2026-01-10 16:32:21] INFO: [GET] /profile
+[2026-01-10 17:26:15] INFO: [GET] /products
+[2026-01-10 17:26:17] INFO: [GET] /cart
+[2026-01-10 17:26:17] INFO: [GET] /css/styles.css
+[2026-01-10 17:26:18] INFO: [GET] /products
+[2026-01-10 17:26:21] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-10 17:26:23] INFO: [GET] /products
+[2026-01-10 17:26:26] INFO: [GET] /product/692d42af31e01e9d9ba8dc04
+[2026-01-10 17:26:28] INFO: [POST] /cart/add
+[2026-01-10 17:26:30] INFO: [GET] /cart
+[2026-01-10 17:26:31] INFO: [GET] /css/styles.css
+[2026-01-10 17:26:32] INFO: [GET] /checkout
+[2026-01-10 17:26:32] INFO: Found 1 available coupons for checkout
+[2026-01-10 17:26:32] INFO: Cleared persistent coupon on checkout entry
+[2026-01-10 17:26:37] INFO: [POST] /checkout/address
+[2026-01-10 17:26:38] INFO: [GET] /checkout/payment-options
+[2026-01-10 17:26:42] INFO: [POST] /razorpay/create-order
+[2026-01-10 17:27:25] INFO: [POST] /razorpay/create-order
+[2026-01-10 17:28:29] INFO: [POST] /razorpay/verify-payment
+[2026-01-10 17:28:29] INFO: [POST] /place-order
+[2026-01-10 17:28:30] INFO: Order created: 69623ee61706542e073fcaf0 for user: 692aafda50bbd504425b12d4
+[2026-01-10 17:28:30] INFO: Stock decrementd for variant 692d42af31e01e9d9ba8dc06: -1. New stock: 13. Reason: order_placed
+[2026-01-10 17:28:30] INFO: Cart cleared for user: 692aafda50bbd504425b12d4
+[2026-01-10 17:28:33] INFO: [GET] /order-success?orderId=69623ee61706542e073fcaf0
+[2026-01-10 17:28:41] INFO: [GET] /orders
+[2026-01-10 17:28:49] INFO: [GET] /profile
+[2026-01-10 17:29:49] INFO: [GET] /admin/dashboard
+[2026-01-10 17:29:50] INFO: [GET] /admin/products
+[2026-01-10 17:29:51] INFO: [GET] /admin/inventory
+[2026-01-10 17:29:53] INFO: [GET] /admin/users
+[2026-01-10 17:29:54] INFO: [GET] /admin/orders
+[2026-01-10 17:29:56] INFO: [GET] /admin/coupons
+[2026-01-10 17:29:57] INFO: [GET] /admin/categories
+[2026-01-10 17:30:03] INFO: [GET] /admin/discounts
+[2026-01-10 17:42:50] INFO: [GET] /home
+[2026-01-10 17:42:52] INFO: [GET] /profile
+[2026-01-10 17:42:54] INFO: [GET] /address
+[2026-01-10 17:42:56] INFO: [GET] /orders
+[2026-01-10 17:42:59] INFO: [GET] /wallet
+[2026-01-10 17:43:02] INFO: [GET] /wallet
+[2026-01-10 17:43:07] INFO: [GET] /coupons
+[2026-01-10 17:43:09] INFO: [GET] /password-change
+[2026-01-10 17:43:09] INFO: [GET] /profile
+[2026-01-10 17:43:12] INFO: [GET] /referral
+[2026-01-10 17:43:15] INFO: [GET] /wallet
+[2026-01-10 17:49:07] INFO: [GET] /profile
+[2026-01-10 17:49:09] INFO: [GET] /orders
+[2026-01-10 17:49:10] INFO: [GET] /wallet
+[2026-01-10 17:49:12] INFO: [GET] /wallet
+[2026-01-10 17:56:18] INFO: [GET] /home
+[2026-01-10 17:56:37] INFO: [GET] /admin/categories
+[2026-01-10 18:03:17] INFO: [GET] /profile
+[2026-01-10 18:03:18] INFO: [GET] /address
+[2026-01-10 18:03:20] INFO: [GET] /orders
+[2026-01-10 18:03:22] INFO: [GET] /wallet
+[2026-01-10 18:03:38] INFO: [GET] /wallet/history
+[2026-01-10 18:03:45] INFO: [GET] /wallet
+[2026-01-10 18:06:44] INFO: [GET] /profile
+[2026-01-10 18:06:47] INFO: [GET] /wallet
+[2026-01-10 18:06:50] INFO: [GET] /wallet/history
+[2026-01-10 18:06:52] INFO: [GET] /wallet
+[2026-01-10 18:06:58] INFO: [GET] /profile
+[2026-01-10 18:07:00] INFO: [GET] /wallet
+[2026-01-10 18:10:00] INFO: [GET] /profile
+[2026-01-10 18:10:01] INFO: [GET] /wallet
+[2026-01-10 18:10:08] INFO: [GET] /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-10 18:39:40] INFO: [GET] /profile
+[2026-01-10 18:39:43] INFO: [GET] /address
+[2026-01-10 18:39:45] INFO: [GET] /orders
+[2026-01-10 18:39:51] INFO: [GET] /coupons
+[2026-01-10 18:39:54] INFO: [GET] /wallet
+[2026-01-10 18:40:25] INFO: [GET] /profile
+[2026-01-10 18:40:27] INFO: [GET] /address
+[2026-01-10 18:40:29] INFO: [GET] /orders
+[2026-01-10 18:40:32] INFO: [GET] /wallet
+[2026-01-10 18:40:35] INFO: [GET] /orders
+[2026-01-10 18:40:58] INFO: [GET] /profile
+[2026-01-10 18:41:00] INFO: [GET] /address
+[2026-01-10 18:41:02] INFO: [GET] /orders
+[2026-01-10 18:41:08] INFO: [GET] /home
+[2026-01-10 18:41:10] INFO: [GET] /cart
+[2026-01-10 18:41:10] INFO: [GET] /css/styles.css
+[2026-01-10 18:41:20] INFO: [GET] /admin/categories
+[2026-01-10 18:44:55] INFO: [GET] /profile
+[2026-01-10 18:45:00] INFO: [GET] /coupons
+[2026-01-10 18:45:02] INFO: [GET] /wallet
+[2026-01-10 18:45:37] INFO: [GET] /.well-known/appspecific/com.chrome.devtools.json
+[2026-01-10 18:49:04] INFO: [GET] /products
+[2026-01-10 18:49:07] INFO: [GET] /cart
+[2026-01-10 18:49:08] INFO: [GET] /css/styles.css
+[2026-01-10 18:49:09] INFO: [GET] /products
+[2026-01-10 18:49:18] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-10 18:49:20] INFO: [POST] /cart/add
+[2026-01-10 18:49:21] INFO: [GET] /cart
+[2026-01-10 18:49:22] INFO: [GET] /css/styles.css
+[2026-01-10 18:49:23] INFO: [GET] /checkout
+[2026-01-10 18:49:23] INFO: Found 1 available coupons for checkout
+[2026-01-10 18:49:23] INFO: Cleared persistent coupon on checkout entry
+[2026-01-10 18:49:25] INFO: [POST] /checkout/address
+[2026-01-10 18:49:26] INFO: [GET] /checkout/payment-options
+[2026-01-10 18:49:28] INFO: [POST] /place-order
+[2026-01-10 18:50:57] INFO: [POST] /place-order
+[2026-01-10 18:51:03] INFO: [GET] /products
+[2026-01-10 19:02:01] INFO: [GET] /cart
+[2026-01-10 19:02:02] INFO: [GET] /css/styles.css
+[2026-01-10 19:02:03] INFO: [GET] /checkout
+[2026-01-10 19:02:04] INFO: Found 1 available coupons for checkout
+[2026-01-10 19:02:04] INFO: Cleared persistent coupon on checkout entry
+[2026-01-10 19:02:10] INFO: [POST] /checkout/apply-coupon
+[2026-01-10 19:02:25] INFO: [POST] /checkout/address
+[2026-01-10 19:02:25] INFO: [GET] /checkout/payment-options
+[2026-01-10 19:02:29] INFO: [POST] /place-order
+[2026-01-10 19:02:37] INFO: [GET] /home
+[2026-01-10 19:02:38] INFO: [GET] /profile
+[2026-01-10 19:02:41] INFO: [GET] /wallet
+[2026-01-10 19:02:46] INFO: [POST] /wallet/add-money
+[2026-01-10 19:02:48] INFO: [GET] /wallet
+[2026-01-10 19:02:57] INFO: [POST] /wallet/add-money
+[2026-01-10 19:02:59] INFO: [GET] /wallet
+[2026-01-10 19:03:06] INFO: [POST] /wallet/add-money
+[2026-01-10 19:03:08] INFO: [GET] /wallet
+[2026-01-10 19:03:54] INFO: [GET] /cart
+[2026-01-10 19:03:54] INFO: [GET] /css/styles.css
+[2026-01-10 19:03:56] INFO: [GET] /checkout
+[2026-01-10 19:03:56] INFO: Found 1 available coupons for checkout
+[2026-01-10 19:03:56] INFO: Cleared persistent coupon on checkout entry
+[2026-01-10 19:04:00] INFO: [POST] /checkout/address
+[2026-01-10 19:04:00] INFO: [GET] /checkout/payment-options
+[2026-01-10 19:04:03] INFO: [POST] /place-order
+[2026-01-10 19:04:04] INFO: Order created: 6962554c32291bcb0da92f99 for user: 692aafda50bbd504425b12d4
+[2026-01-10 19:04:04] INFO: Wallet balance deducted for user: 692aafda50bbd504425b12d4, Order: 6962554c32291bcb0da92f99
+[2026-01-10 19:04:04] INFO: Stock decrementd for variant 694fa4a7f0a089520a1144da: -1. New stock: 33. Reason: order_placed
+[2026-01-10 19:04:04] INFO: Cart cleared for user: 692aafda50bbd504425b12d4
+[2026-01-10 19:04:06] INFO: [GET] /order-success?orderId=6962554c32291bcb0da92f99
+[2026-01-10 19:04:08] INFO: [GET] /orders
+[2026-01-10 19:04:13] INFO: [GET] /wallet
+[2026-01-10 19:04:18] INFO: [GET] /profile
+[2026-01-10 19:05:26] INFO: [GET] /cart
+[2026-01-10 19:05:26] INFO: [GET] /css/styles.css
+[2026-01-10 19:05:27] INFO: [GET] /products
+[2026-01-10 19:05:29] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-10 19:05:31] INFO: [POST] /cart/add
+[2026-01-10 19:05:33] INFO: [GET] /cart
+[2026-01-10 19:05:33] INFO: [GET] /css/styles.css
+[2026-01-10 19:05:34] INFO: [GET] /checkout
+[2026-01-10 19:05:35] INFO: Found 1 available coupons for checkout
+[2026-01-10 19:05:35] INFO: Cleared persistent coupon on checkout entry
+[2026-01-10 19:05:38] INFO: [POST] /checkout/address
+[2026-01-10 19:05:38] INFO: [GET] /checkout/payment-options
+[2026-01-10 19:05:42] INFO: [POST] /place-order
+[2026-01-10 19:05:48] INFO: [POST] /razorpay/create-order
+[2026-01-10 19:06:26] INFO: [POST] /razorpay/verify-payment
+[2026-01-10 19:06:26] INFO: [POST] /place-order
+[2026-01-10 19:06:26] INFO: Order created: 696255da32291bcb0da93026 for user: 692aafda50bbd504425b12d4
+[2026-01-10 19:06:26] INFO: Stock decrementd for variant 694fa4a7f0a089520a1144da: -1. New stock: 32. Reason: order_placed
+[2026-01-10 19:06:27] INFO: Cart cleared for user: 692aafda50bbd504425b12d4
+[2026-01-10 19:06:30] INFO: [GET] /order-success?orderId=696255da32291bcb0da93026
+[2026-01-10 19:06:38] INFO: [GET] /
+[2026-01-10 19:06:39] INFO: [GET] /home
+[2026-01-10 19:06:43] INFO: [GET] /cart
+[2026-01-10 19:06:44] INFO: [GET] /css/styles.css
+[2026-01-10 19:06:45] INFO: [GET] /products
+[2026-01-10 19:06:48] INFO: [GET] /wishlist
+[2026-01-10 19:06:50] INFO: [POST] /cart/add
+[2026-01-10 19:06:50] INFO: [DELETE] /wishlist/694fa4a7f0a089520a1144da
+[2026-01-10 19:06:52] INFO: [GET] /products
+[2026-01-10 19:06:53] INFO: [GET] /cart
+[2026-01-10 19:06:54] INFO: [GET] /css/styles.css
+[2026-01-10 19:06:55] INFO: [GET] /checkout
+[2026-01-10 19:06:55] INFO: Found 1 available coupons for checkout
+[2026-01-10 19:06:55] INFO: Cleared persistent coupon on checkout entry
+[2026-01-10 19:06:59] INFO: [POST] /checkout/address
+[2026-01-10 19:06:59] INFO: [GET] /checkout/payment-options
+[2026-01-10 19:07:02] INFO: [POST] /razorpay/create-order
+[2026-01-10 19:09:01] INFO: [GET] /home
+[2026-01-10 19:09:03] INFO: [GET] /products
+[2026-01-10 19:09:05] INFO: [GET] /cart
+[2026-01-10 19:09:06] INFO: [GET] /css/styles.css
+[2026-01-10 19:09:08] INFO: [GET] /checkout
+[2026-01-10 19:09:08] INFO: Found 1 available coupons for checkout
+[2026-01-10 19:09:08] INFO: Cleared persistent coupon on checkout entry
+[2026-01-10 19:09:11] INFO: [POST] /checkout/address
+[2026-01-10 19:09:11] INFO: [GET] /checkout/payment-options
+[2026-01-10 19:09:16] INFO: [GET] /profile
+[2026-01-10 19:09:18] INFO: [GET] /orders
+[2026-01-10 19:09:22] INFO: [GET] /orders/696255da32291bcb0da93026
+[2026-01-10 19:12:53] INFO: [GET] /orders
+[2026-01-10 19:12:56] INFO: [GET] /orders/696255da32291bcb0da93026
+[2026-01-10 19:12:56] ERROR: E:\Brocamp\SeatWorld\views\users\orderDetails.ejs:39
+    37|                                                 <i class="fas fa-file-invoice"></i> Download Invoice
+    38|                                             </a>
+ >> 39|                                             <span class="status-badge status-<%= order.orderStatus.toLowerCase() %>">
+    40|                                                 <%= order.orderStatus %>
+    41|                                             </span>
+    42|                                         </div>
+
+Cannot read properties of undefined (reading 'toLowerCase')
+[2026-01-10 19:12:59] INFO: [GET] /orders
+[2026-01-10 19:13:01] INFO: [GET] /orders/6962554c32291bcb0da92f99
+[2026-01-10 19:13:01] ERROR: E:\Brocamp\SeatWorld\views\users\orderDetails.ejs:39
+    37|                                                 <i class="fas fa-file-invoice"></i> Download Invoice
+    38|                                             </a>
+ >> 39|                                             <span class="status-badge status-<%= order.orderStatus.toLowerCase() %>">
+    40|                                                 <%= order.orderStatus %>
+    41|                                             </span>
+    42|                                         </div>
+
+Cannot read properties of undefined (reading 'toLowerCase')
+[2026-01-10 19:13:02] INFO: [GET] /
+[2026-01-10 19:13:02] INFO: [GET] /home
+[2026-01-10 19:20:38] INFO: [GET] /profile
+[2026-01-10 19:20:39] INFO: [GET] /orders
+[2026-01-10 19:20:44] INFO: [GET] /orders/696255da32291bcb0da93026
+[2026-01-10 19:20:52] INFO: [GET] /orders/696255da32291bcb0da93026/invoice
+[2026-01-10 19:21:14] INFO: [GET] /profile
+[2026-01-10 19:23:20] INFO: [GET] /profile
+[2026-01-10 19:23:23] INFO: [GET] /cart
+[2026-01-10 19:23:24] INFO: [GET] /css/styles.css
+[2026-01-10 19:23:26] INFO: [GET] /checkout
+[2026-01-10 19:23:27] INFO: Found 1 available coupons for checkout
+[2026-01-10 19:23:27] INFO: Cleared persistent coupon on checkout entry
+[2026-01-10 19:23:35] INFO: [POST] /checkout/address
+[2026-01-10 19:23:35] INFO: [GET] /checkout/payment-options
+[2026-01-10 19:23:40] INFO: [POST] /razorpay/create-order
+[2026-01-10 19:24:24] INFO: [GET] /admin/coupons
+[2026-01-10 19:24:29] INFO: [GET] /admin/categories
+[2026-01-10 19:31:49] INFO: [GET] /admin/discounts
+[2026-01-10 19:31:51] INFO: [GET] /admin/categories
+[2026-01-10 19:31:55] INFO: [GET] /admin/offers
+[2026-01-10 19:32:00] INFO: [GET] /admin/offers/add
+[2026-01-10 19:32:24] INFO: [POST] /admin/offers/add
+[2026-01-10 19:32:26] INFO: [GET] /admin/offers
+[2026-01-10 19:32:32] INFO: [GET] /admin/dashboard
+[2026-01-10 19:32:34] INFO: [GET] /products
+[2026-01-10 19:32:41] INFO: [GET] /product/692d42af31e01e9d9ba8dc04
+[2026-01-10 19:40:47] INFO: [GET] /products
+[2026-01-10 19:40:51] INFO: [GET] /admin/offers
+[2026-01-10 19:40:59] INFO: [GET] /product/692d42af31e01e9d9ba8dc04
+[2026-01-10 19:41:05] INFO: [GET] /home
+[2026-01-10 19:41:29] INFO: [GET] /admin/dashboard
+[2026-01-10 19:41:31] INFO: [GET] /admin/products
+[2026-01-10 19:41:32] INFO: [GET] /admin/inventory
+[2026-01-10 19:41:33] INFO: [GET] /admin/users
+[2026-01-10 19:41:34] INFO: [GET] /admin/orders
+[2026-01-10 19:41:35] INFO: [GET] /admin/offers
+[2026-01-10 19:41:36] INFO: [GET] /admin/categories
+[2026-01-10 19:41:38] INFO: [GET] /admin/coupons
+[2026-01-10 19:41:40] INFO: [GET] /admin/categories
+[2026-01-10 19:41:43] INFO: [GET] /admin/banner
+[2026-01-10 19:41:45] INFO: [GET] /admin/sales-report
+[2026-01-10 19:41:49] INFO: [GET] /profile
+[2026-01-10 19:41:51] INFO: [GET] /orders
+[2026-01-10 19:41:53] INFO: [GET] /orders/696255da32291bcb0da93026
+[2026-01-10 19:42:07] INFO: [GET] /wallet
+[2026-01-10 19:42:10] INFO: [GET] /address
+[2026-01-10 19:42:13] INFO: [GET] /profile
+[2026-01-10 19:42:16] INFO: [GET] /coupons
+[2026-01-10 19:42:21] INFO: [GET] /wallet
+[2026-01-10 19:42:29] INFO: [GET] /coupons
+[2026-01-10 19:42:31] INFO: [GET] /wallet
+[2026-01-10 19:42:33] INFO: [GET] /orders
+[2026-01-10 19:42:35] INFO: [GET] /orders/696255da32291bcb0da93026
+[2026-01-10 19:54:35] INFO: [GET] /orders
+[2026-01-10 19:54:44] INFO: [GET] /orders/696255da32291bcb0da93026
+[2026-01-10 19:54:47] INFO: [GET] /wallet
+[2026-01-10 21:56:40] INFO: [GET] /profile
+[2026-01-10 21:56:44] INFO: [GET] /address
+[2026-01-10 21:56:48] INFO: [GET] /orders
+[2026-01-10 21:56:52] INFO: [GET] /wallet
+[2026-01-10 21:56:53] INFO: [GET] /coupons
+[2026-01-10 21:56:56] INFO: [GET] /password-change
+[2026-01-10 21:56:57] INFO: [GET] /profile
+[2026-01-10 21:57:01] INFO: [GET] /coupons
+[2026-01-10 21:57:04] INFO: [GET] /wallet
+[2026-01-10 21:57:05] INFO: [GET] /orders
+[2026-01-10 21:58:14] INFO: [GET] /wallet
+[2026-01-10 21:58:16] INFO: [GET] /coupons
+[2026-01-10 22:04:14] INFO: [GET] /profile
+[2026-01-10 22:04:31] INFO: [GET] /orders
+[2026-01-10 22:04:45] INFO: [GET] /admin/categories
+[2026-01-10 22:06:25] INFO: [GET] /
+[2026-01-10 22:06:28] INFO: [GET] /login
+[2026-01-10 22:06:36] INFO: [POST] /login
+[2026-01-10 22:06:38] INFO: [GET] /home
+[2026-01-10 22:06:40] INFO: [GET] /profile
+[2026-01-10 22:06:42] INFO: [GET] /address
+[2026-01-10 22:06:44] INFO: [GET] /orders
+[2026-01-10 22:06:46] INFO: [GET] /wallet
+[2026-01-10 22:06:49] INFO: [GET] /coupons
+[2026-01-10 22:06:51] INFO: [GET] /password-change
+[2026-01-10 22:06:55] INFO: [GET] /referral
+[2026-01-10 22:06:58] INFO: [GET] /coupons
+[2026-01-10 22:06:59] INFO: [GET] /wallet
+[2026-01-10 22:07:00] INFO: [GET] /orders
+[2026-01-10 22:07:04] INFO: [GET] /password-change
+[2026-01-10 22:16:38] INFO: [GET] /profile
+[2026-01-10 22:16:40] INFO: [GET] /password-change
+[2026-01-10 22:16:56] INFO: [GET] /profile
+[2026-01-10 22:17:07] INFO: [GET] /address
+[2026-01-10 22:17:19] INFO: [POST] /address/set-default/69613bfff134711174f5135d
+[2026-01-10 22:17:20] INFO: [GET] /address
+[2026-01-10 22:17:26] INFO: [GET] /profile
+[2026-01-10 22:17:28] INFO: [GET] /orders
+[2026-01-10 22:17:39] INFO: [GET] /orders/69613fcd1b14275c50884efd
+[2026-01-10 22:17:44] INFO: [PATCH] /orders/69613fcd1b14275c50884efd/items/69613fcd1b14275c50884f03/request
+[2026-01-10 22:17:44] INFO: Item cancel requested for item 69613fcd1b14275c50884f03
+[2026-01-10 22:17:46] INFO: [GET] /orders/69613fcd1b14275c50884efd
+[2026-01-10 22:18:06] INFO: [GET] /
+[2026-01-10 22:18:06] INFO: [GET] /home
+[2026-01-10 22:18:07] INFO: [GET] /admin/login
+[2026-01-10 22:18:16] INFO: [POST] /admin/login
+[2026-01-10 22:18:16] INFO: [GET] /admin/dashboard
+[2026-01-10 22:18:57] INFO: [GET] /admin/orders
+[2026-01-10 22:19:03] INFO: [GET] /admin/orders/69613fcd1b14275c50884efd
+[2026-01-10 22:19:11] INFO: [PATCH] /admin/orders/items/69613fcd1b14275c50884f03/status
+[2026-01-10 22:19:11] INFO: Stock incrementd for variant 693fad27c1dc3ee2a4a4f823: 1. New stock: 29. Reason: order_cancelled
+[2026-01-10 22:19:21] INFO: [GET] /admin/orders
+[2026-01-10 22:19:29] INFO: [GET] /orders
+[2026-01-10 22:19:32] INFO: [GET] /orders/69613fcd1b14275c50884efd
+[2026-01-10 22:19:36] INFO: [GET] /wallet
+[2026-01-10 22:43:19] INFO: [GET] /admin/dashboard
+[2026-01-10 22:43:25] INFO: [GET] /admin/products
+[2026-01-10 22:43:28] INFO: [GET] /admin/inventory
+[2026-01-10 22:43:38] INFO: [GET] /admin/dashboard
+[2026-01-10 22:44:57] INFO: [GET] /profile
+[2026-01-10 22:45:07] INFO: [GET] /wallet
+[2026-01-10 22:45:08] INFO: [GET] /orders
+[2026-01-10 22:45:13] INFO: [GET] /orders/69613fcd1b14275c50884efd
+[2026-01-10 22:45:16] INFO: [GET] /orders/69613fcd1b14275c50884efd/invoice
+[2026-01-10 22:46:02] INFO: [GET] /address
+[2026-01-10 23:24:11] INFO: [GET] /
+[2026-01-10 23:24:12] INFO: [GET] /home
+[2026-01-10 23:24:13] INFO: [GET] /favicon.ico
+[2026-01-10 23:24:16] INFO: [GET] /profile
+[2026-01-10 23:24:17] INFO: [GET] /wallet
+[2026-01-10 23:24:19] INFO: [GET] /orders
+[2026-01-10 23:24:22] INFO: [GET] /orders/69613e15e60efdf5f1f34a7e
+[2026-01-10 23:24:26] INFO: [PATCH] /orders/69613e15e60efdf5f1f34a7e/items/69613e15e60efdf5f1f34a84/request
+[2026-01-10 23:24:26] INFO: Item cancel requested for item 69613e15e60efdf5f1f34a84
+[2026-01-10 23:24:28] INFO: [GET] /orders/69613e15e60efdf5f1f34a7e
+[2026-01-10 23:24:31] INFO: [GET] /profile
+[2026-01-10 23:24:33] INFO: [GET] /wallet
+[2026-01-10 23:24:35] INFO: [GET] /profile
+[2026-01-10 23:24:39] INFO: [GET] /admin/login
+[2026-01-10 23:24:39] INFO: [GET] /admin/dashboard
+[2026-01-10 23:24:41] INFO: [GET] /admin/orders
+[2026-01-10 23:24:43] INFO: [GET] /admin/orders/69613e15e60efdf5f1f34a7e
+[2026-01-10 23:24:46] INFO: [PATCH] /admin/orders/items/69613e15e60efdf5f1f34a84/status
+[2026-01-10 23:24:52] INFO: [PATCH] /admin/orders/items/69613e15e60efdf5f1f34a84/status
+[2026-01-10 23:24:52] INFO: Stock incrementd for variant 693fc66c6ecc42bce6fc754a: 1. New stock: 17. Reason: order_cancelled
+[2026-01-10 23:24:58] INFO: [GET] /admin/orders
+[2026-01-10 23:25:05] INFO: [GET] /orders
+[2026-01-10 23:25:09] INFO: [GET] /wallet
+[2026-01-10 23:25:13] INFO: [GET] /wallet
+[2026-01-10 23:25:31] INFO: [POST] /wallet/add-money
+[2026-01-10 23:25:32] INFO: [GET] /wallet
+[2026-01-10 23:25:42] INFO: [GET] /password-change
+[2026-01-10 23:25:45] INFO: [GET] /profile
+[2026-01-10 23:25:50] INFO: [GET] /wallet
+[2026-01-11 12:43:22] INFO: [GET] /
+[2026-01-11 12:43:22] INFO: [GET] /home
+[2026-01-11 12:43:23] INFO: [GET] /favicon.ico
+[2026-01-11 12:43:24] INFO: [GET] /profile
+[2026-01-11 12:43:26] INFO: [GET] /wallet
+[2026-01-11 12:43:29] INFO: [GET] /orders
+[2026-01-11 12:43:33] INFO: [GET] /profile
+[2026-01-11 12:43:34] INFO: [GET] /address
+[2026-01-11 12:43:40] INFO: [POST] /address/delete/69613bfff134711174f5135d
+[2026-01-11 12:43:43] INFO: [GET] /coupons
+[2026-01-11 12:43:45] INFO: [GET] /password-change
+[2026-01-11 12:43:49] INFO: [GET] /address
+[2026-01-11 12:43:51] INFO: [GET] /profile
+[2026-01-11 12:43:53] INFO: [GET] /orders
+[2026-01-11 12:43:54] INFO: [GET] /wallet
+[2026-01-11 12:43:55] INFO: [GET] /coupons
+[2026-01-11 12:43:56] INFO: [GET] /password-change
+[2026-01-11 12:44:07] INFO: [GET] /
+[2026-01-11 12:44:07] INFO: [GET] /home
+[2026-01-11 12:44:07] INFO: [GET] /admin/login
+[2026-01-11 12:44:07] INFO: [GET] /admin/dashboard
+[2026-01-11 12:46:36] INFO: [GET] /admin/dashboard
+[2026-01-11 12:46:39] INFO: [GET] /admin/products
+[2026-01-11 12:46:40] INFO: [GET] /admin/inventory
+[2026-01-11 12:46:42] INFO: [GET] /admin/users
+[2026-01-11 12:46:44] INFO: [GET] /admin/orders
+[2026-01-11 12:46:45] INFO: [GET] /admin/offers
+[2026-01-11 12:46:48] INFO: [GET] /admin/orders
+[2026-01-11 12:46:52] INFO: [GET] /admin/coupons
+[2026-01-11 12:47:05] INFO: [PATCH] /admin/coupons/toggle-status/695fb4e64de7d6a4d6979dd4
+[2026-01-11 12:47:06] INFO: [GET] /admin/coupons
+[2026-01-11 12:47:10] INFO: [GET] /admin/coupons/edit/69613f851b14275c50884e8e
+[2026-01-11 12:47:16] INFO: [POST] /admin/coupons/edit/69613f851b14275c50884e8e
+[2026-01-11 12:47:12] INFO: [GET] /admin/coupons
+[2026-01-11 12:47:16] INFO: [GET] /admin/coupons/edit/69613f851b14275c50884e8e
+[2026-01-11 12:47:21] INFO: [POST] /admin/coupons/edit/69613f851b14275c50884e8e
+[2026-01-11 12:47:22] INFO: [GET] /admin/coupons
+[2026-01-11 12:47:28] INFO: [GET] /admin/categories
+[2026-01-11 12:47:34] INFO: [GET] /profile
+[2026-01-11 12:47:36] INFO: [GET] /address
+[2026-01-11 12:47:56] INFO: [GET] /orders
+[2026-01-11 12:47:59] INFO: [GET] /orders/69613fcd1b14275c50884efd
+[2026-01-11 12:48:09] INFO: [GET] /wallet
+[2026-01-11 12:48:10] INFO: [GET] /coupons
+[2026-01-11 12:48:13] INFO: [GET] /password-change
+[2026-01-11 12:48:51] INFO: [GET] /profile
+[2026-01-11 12:48:55] INFO: [GET] /profile/edit
+[2026-01-11 12:48:59] INFO: [POST] /profile/edit
+[2026-01-11 12:49:03] INFO: [GET] /profile/edit
+[2026-01-11 12:49:05] INFO: [POST] /profile/edit
+[2026-01-11 12:49:07] INFO: [GET] /profile/edit
+[2026-01-11 12:49:11] INFO: [POST] /profile/edit
+[2026-01-11 12:49:16] INFO: [GET] /profile/edit
+[2026-01-11 12:49:19] INFO: [GET] /profile/change-email
+[2026-01-11 12:49:23] INFO: [GET] /profile
+[2026-01-11 12:49:27] INFO: [GET] /profile/edit
+[2026-01-11 12:49:28] INFO: [POST] /profile/edit
+[2026-01-11 12:49:30] INFO: [GET] /profile/edit
+[2026-01-11 12:49:40] INFO: [POST] /profile/edit
+[2026-01-11 12:49:41] INFO: [GET] /profile/edit
+[2026-01-11 12:49:43] INFO: [GET] /home
+[2026-01-11 12:49:56] INFO: [GET] /products
+[2026-01-11 12:50:01] INFO: [GET] /product/692d42af31e01e9d9ba8dc04
+[2026-01-11 12:50:01] INFO: [GET] /product/692d42af31e01e9d9ba8dc04
+[2026-01-11 12:50:11] INFO: [POST] /cart/add
+[2026-01-11 12:50:13] INFO: [GET] /cart
+[2026-01-11 12:50:13] INFO: [GET] /css/styles.css
+[2026-01-11 12:50:20] INFO: [GET] /checkout
+[2026-01-11 12:50:20] INFO: Found 1 available coupons for checkout
+[2026-01-11 12:50:20] INFO: Cleared persistent coupon on checkout entry
+[2026-01-11 12:50:26] INFO: [POST] /checkout/apply-coupon
+[2026-01-11 12:50:30] INFO: [POST] /checkout/address
+[2026-01-11 12:50:30] INFO: [GET] /checkout/payment-options
+[2026-01-11 12:50:52] INFO: [POST] /razorpay/create-order
+[2026-01-11 12:51:46] INFO: [POST] /razorpay/verify-payment
+[2026-01-11 12:51:46] INFO: [POST] /place-order
+[2026-01-11 12:51:46] INFO: Order created: 69634f8af72c867aca8eaaf9 for user: 694277e33e5136b65755f8d8
+[2026-01-11 12:51:46] INFO: Stock decrementd for variant 692d42af31e01e9d9ba8dc06: -1. New stock: 13. Reason: order_placed
+[2026-01-11 12:51:46] INFO: Stock decrementd for variant 693fc66c6ecc42bce6fc754a: -1. New stock: 16. Reason: order_placed
+[2026-01-11 12:51:46] INFO: Cart cleared for user: 694277e33e5136b65755f8d8
+[2026-01-11 12:51:48] INFO: [GET] /order-success?orderId=69634f8af72c867aca8eaaf9
+[2026-01-11 12:51:51] INFO: [GET] /orders
+[2026-01-11 12:58:56] INFO: [GET] /profile
+[2026-01-11 12:58:59] INFO: [GET] /profile/edit
+[2026-01-11 12:59:00] INFO: [POST] /profile/edit
+[2026-01-11 12:59:05] INFO: [POST] /profile/edit
+[2026-01-11 12:59:07] INFO: [GET] /profile
+[2026-01-11 12:59:13] INFO: [GET] /profile/edit
+[2026-01-11 12:59:15] INFO: [GET] /profile/change-email
+[2026-01-11 12:59:21] INFO: [GET] /orders
+[2026-01-11 14:58:02] INFO: [GET] /orders
+[2026-01-11 15:31:47] INFO: [GET] /admin/dashboard
+[2026-01-11 15:31:50] INFO: [GET] /profile
+[2026-01-11 15:31:52] INFO: [GET] /products
+[2026-01-11 15:31:57] INFO: [GET] /product/692d42af31e01e9d9ba8dc04
+[2026-01-11 15:32:01] INFO: [GET] /admin/offers
+[2026-01-11 15:32:03] INFO: [GET] /admin/offers/add
+[2026-01-11 15:32:46] INFO: [POST] /admin/offers/add
+[2026-01-11 15:32:47] INFO: [GET] /admin/offers
+[2026-01-11 15:32:56] INFO: [GET] /products
+[2026-01-11 15:33:05] INFO: [GET] /product/693faef8c1dc3ee2a4a4f878
+[2026-01-11 15:33:08] INFO: [POST] /cart/add
+[2026-01-11 15:33:09] INFO: [GET] /cart
+[2026-01-11 15:33:09] INFO: [GET] /css/styles.css
+[2026-01-11 15:33:17] INFO: [GET] /products
+[2026-01-11 15:33:20] INFO: [GET] /product/693faef8c1dc3ee2a4a4f878
+[2026-01-11 15:33:24] INFO: [POST] /cart/add
+[2026-01-11 15:33:26] INFO: [GET] /cart
+[2026-01-11 15:33:26] INFO: [GET] /css/styles.css
+[2026-01-11 15:33:31] INFO: [GET] /checkout
+[2026-01-11 15:33:31] INFO: Found 1 available coupons for checkout
+[2026-01-11 15:33:31] INFO: Cleared persistent coupon on checkout entry
+[2026-01-11 15:33:35] INFO: [GET] /product/693faef8c1dc3ee2a4a4f878
+[2026-01-11 15:35:15] INFO: [POST] /wishlist/add
+[2026-01-11 15:35:18] INFO: [GET] /wishlist
+[2026-01-11 15:35:19] INFO: [POST] /cart/add
+[2026-01-11 15:35:19] INFO: [DELETE] /wishlist/693faef8c1dc3ee2a4a4f87a
+[2026-01-11 15:35:21] INFO: [GET] /cart
+[2026-01-11 15:35:21] INFO: [GET] /css/styles.css
+[2026-01-11 15:35:27] INFO: [DELETE] /cart/remove/693faef8c1dc3ee2a4a4f87a
+[2026-01-11 15:35:27] INFO: [GET] /cart
+[2026-01-11 15:35:28] INFO: [GET] /css/styles.css
+[2026-01-11 15:35:28] INFO: [GET] /products
+[2026-01-11 15:37:39] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-11 15:37:42] INFO: [GET] /products
+[2026-01-11 15:37:43] INFO: [GET] /product/693faef8c1dc3ee2a4a4f878
+[2026-01-11 15:37:45] INFO: [POST] /cart/add
+[2026-01-11 15:37:46] INFO: [GET] /cart
+[2026-01-11 15:37:46] INFO: [GET] /css/styles.css
+[2026-01-11 15:37:51] INFO: [GET] /checkout
+[2026-01-11 15:37:51] INFO: Found 1 available coupons for checkout
+[2026-01-11 15:37:51] INFO: Cleared persistent coupon on checkout entry
+[2026-01-11 15:37:55] INFO: [POST] /checkout/apply-coupon
+[2026-01-11 15:38:00] INFO: [POST] /checkout/address
+[2026-01-11 15:38:00] INFO: [GET] /checkout/payment-options
+[2026-01-11 15:38:06] INFO: [POST] /razorpay/create-order
+[2026-01-11 15:45:58] INFO: [GET] /home
+[2026-01-11 15:46:00] INFO: [GET] /cart
+[2026-01-11 15:46:00] INFO: [GET] /css/styles.css
+[2026-01-11 15:46:04] INFO: [GET] /home
+[2026-01-11 15:46:08] INFO: [PATCH] /admin/offers/69637546dc00dee9740b7395/toggle
+[2026-01-11 15:46:10] INFO: [GET] /admin/offers
+[2026-01-11 15:46:15] INFO: [GET] /products
+[2026-01-11 15:46:18] INFO: [GET] /product/693faef8c1dc3ee2a4a4f878
+[2026-01-11 15:46:21] INFO: [POST] /cart/add
+[2026-01-11 15:46:22] INFO: [GET] /cart
+[2026-01-11 15:46:22] INFO: [GET] /css/styles.css
+[2026-01-11 15:46:25] INFO: [PATCH] /cart/update-quantity
+[2026-01-11 15:46:28] INFO: [GET] /home
+[2026-01-11 15:46:31] INFO: [PATCH] /admin/offers/69637546dc00dee9740b7395/toggle
+[2026-01-11 15:46:33] INFO: [GET] /admin/offers
+[2026-01-11 15:46:36] INFO: [GET] /cart
+[2026-01-11 15:46:36] INFO: [GET] /css/styles.css
+[2026-01-11 15:46:41] INFO: [GET] /home
+[2026-01-11 15:49:40] INFO: [GET] /admin/dashboard
+[2026-01-11 15:49:42] INFO: [GET] /admin/products
+[2026-01-11 15:49:44] INFO: [GET] /admin/inventory
+[2026-01-11 15:49:45] INFO: [GET] /admin/users
+[2026-01-11 15:49:45] INFO: [GET] /admin/orders
+[2026-01-11 15:49:46] INFO: [GET] /admin/offers
+[2026-01-11 15:49:47] INFO: [GET] /admin/coupons
+[2026-01-11 15:49:49] INFO: [GET] /admin/categories
+[2026-01-11 15:53:14] INFO: [GET] /products
+[2026-01-11 15:53:16] INFO: [GET] /product/693fc66c6ecc42bce6fc7548
+[2026-01-11 15:53:17] INFO: [POST] /cart/add
+[2026-01-11 15:53:18] INFO: [GET] /cart
+[2026-01-11 15:53:18] INFO: [GET] /css/styles.css
+[2026-01-11 15:53:24] INFO: [DELETE] /cart/remove/693fc66c6ecc42bce6fc754a
+[2026-01-11 15:53:26] INFO: [GET] /checkout
+[2026-01-11 15:53:26] INFO: Found 1 available coupons for checkout
+[2026-01-11 15:53:26] INFO: Cleared persistent coupon on checkout entry
+[2026-01-11 15:53:29] INFO: [POST] /checkout/address
+[2026-01-11 15:53:29] INFO: [GET] /checkout/payment-options
+[2026-01-11 15:53:33] INFO: [POST] /place-order
+[2026-01-11 15:53:33] INFO: [GET] /order-failed?message=Insufficient%20wallet%20balance.%20Please%20add%20money%20to%20your%20wallet%20or%20choose%20another%20payment%20method.
+[2026-01-11 15:53:41] INFO: [GET] /checkout/payment-options
+[2026-01-11 15:53:53] INFO: [POST] /razorpay/create-order
+[2026-01-11 15:55:13] INFO: [POST] /razorpay/create-order
+[2026-01-11 15:55:30] INFO: [GET] /order-failed?message=Payment%20cancelled
+[2026-01-11 15:55:34] INFO: [GET] /checkout/payment-options
+[2026-01-11 15:55:40] INFO: [GET] /home
+[2026-01-11 15:55:42] INFO: [GET] /cart
+[2026-01-11 15:55:42] INFO: [GET] /css/styles.css
+[2026-01-11 15:55:44] INFO: [GET] /home
+[2026-01-11 15:55:53] INFO: [GET] /profile
+[2026-01-11 15:55:55] INFO: [GET] /wallet
+[2026-01-11 15:55:56] INFO: [GET] /orders
+[2026-01-11 15:56:00] INFO: [GET] /orders/69634f8af72c867aca8eaaf9
+[2026-01-11 15:56:03] INFO: [PATCH] /orders/69634f8af72c867aca8eaaf9/items/69634f8af72c867aca8eaaff/request
+[2026-01-11 15:56:03] INFO: Item cancel requested for item 69634f8af72c867aca8eaaff
+[2026-01-11 15:56:05] INFO: [GET] /orders/69634f8af72c867aca8eaaf9
+[2026-01-11 15:56:10] INFO: [GET] /profile
+[2026-01-11 15:56:12] INFO: [GET] /admin/orders
+[2026-01-11 15:56:15] INFO: [GET] /admin/orders/69634f8af72c867aca8eaaf9
+[2026-01-11 15:56:27] INFO: [PATCH] /admin/orders/items/69634f8af72c867aca8eaaff/status
+[2026-01-11 15:56:27] INFO: Stock incrementd for variant 692d42af31e01e9d9ba8dc06: 1. New stock: 14. Reason: order_cancelled
+[2026-01-11 15:56:27] INFO: Refunded ₹550 to wallet for user: 694277e33e5136b65755f8d8. Transaction: REF-C2A2A7E0
+[2026-01-11 15:56:32] INFO: [GET] /admin/orders
+[2026-01-11 15:56:36] INFO: [GET] /admin/orders/69634f8af72c867aca8eaaf9
+[2026-01-11 15:56:39] INFO: [GET] /admin/orders
+[2026-01-11 15:56:49] INFO: [GET] /orders
+[2026-01-11 15:56:52] INFO: [GET] /orders/69634f8af72c867aca8eaaf9
+[2026-01-11 15:56:56] INFO: [GET] /orders
+[2026-01-11 15:56:59] INFO: [GET] /wallet
+[2026-01-11 15:57:09] INFO: [GET] /profile
+[2026-01-11 15:57:13] INFO: [GET] /orders
+[2026-01-11 17:15:54] INFO: [GET] /profile
+[2026-01-11 17:15:56] INFO: [GET] /profile/edit
+[2026-01-11 17:15:58] INFO: [POST] /profile/edit
+[2026-01-11 17:16:00] INFO: [GET] /address
+[2026-01-11 17:16:06] INFO: [GET] /orders
+[2026-01-11 17:16:07] INFO: [GET] /profile
+[2026-01-11 17:16:10] INFO: [GET] /products
+[2026-01-11 17:16:20] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-11 17:16:22] INFO: [POST] /cart/add
+[2026-01-11 17:16:23] INFO: [GET] /cart
+[2026-01-11 17:16:23] INFO: [GET] /css/styles.css
+[2026-01-11 17:16:25] INFO: [GET] /checkout
+[2026-01-11 17:16:25] INFO: Found 1 available coupons for checkout
+[2026-01-11 17:16:25] INFO: Cleared persistent coupon on checkout entry
+[2026-01-11 17:16:28] INFO: [POST] /checkout/address
+[2026-01-11 17:16:28] INFO: [GET] /checkout/payment-options
+[2026-01-11 17:16:31] INFO: [POST] /razorpay/create-order
+[2026-01-11 17:16:31] ERROR: Razorpay Create Order Error: Cannot read properties of undefined (reading 'status')
+[2026-01-11 17:16:31] INFO: [GET] /order-failed?message=Failed%20to%20create%20Razorpay%20order
+[2026-01-11 17:17:10] INFO: [GET] /checkout/payment-options
+[2026-01-11 17:17:28] INFO: [POST] /razorpay/create-order
+[2026-01-11 17:18:18] INFO: [POST] /razorpay/verify-payment
+[2026-01-11 17:18:18] INFO: [POST] /place-order
+[2026-01-11 17:18:18] INFO: Order created: 69638e0286b47949a0999298 for user: 694277e33e5136b65755f8d8
+[2026-01-11 17:18:18] INFO: Stock decrementd for variant 693faef8c1dc3ee2a4a4f87a: -1. New stock: 23. Reason: order_placed
+[2026-01-11 17:18:18] INFO: Stock decrementd for variant 694fa4a7f0a089520a1144da: -1. New stock: 11. Reason: order_placed
+[2026-01-11 17:18:18] INFO: Cart cleared for user: 694277e33e5136b65755f8d8
+[2026-01-11 17:18:20] INFO: [GET] /order-success?orderId=69638e0286b47949a0999298
+[2026-01-11 17:18:22] INFO: [GET] /orders
+[2026-01-11 17:18:30] INFO: [GET] /admin/orders
+[2026-01-11 17:18:42] INFO: [GET] /cart
+[2026-01-11 17:18:42] INFO: [GET] /css/styles.css
+[2026-01-11 17:18:44] INFO: [GET] /home
+[2026-01-11 17:18:47] INFO: [GET] /profile
+[2026-01-11 17:18:48] INFO: [GET] /orders
+[2026-01-11 17:18:50] INFO: [GET] /orders/69638e0286b47949a0999298
+[2026-01-11 17:19:00] INFO: [GET] /address
+[2026-01-11 17:19:02] INFO: [GET] /orders
+[2026-01-11 17:19:04] INFO: [GET] /orders/69638e0286b47949a0999298
+[2026-01-11 17:19:09] INFO: [GET] /wallet
+[2026-01-11 17:19:10] INFO: [GET] /coupons
+[2026-01-11 17:19:13] INFO: [GET] /address
+[2026-01-11 17:19:14] INFO: [GET] /profile
+[2026-01-11 17:19:16] INFO: [GET] /password-change
+[2026-01-11 17:19:18] INFO: [GET] /orders
+[2026-01-11 17:19:19] INFO: [GET] /products
+[2026-01-11 17:49:42] INFO: [GET] /admin/orders

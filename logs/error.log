@@ -717,3 +717,33 @@ breadcrumbs is not defined
     19|       <main class="layout">
 
 breadcrumbs is not defined
+[2026-01-10 16:20:23] ERROR: Invalid or unexpected token in E:\Brocamp\SeatWorld\views\users\checkout.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+[2026-01-10 16:20:28] ERROR: Invalid or unexpected token in E:\Brocamp\SeatWorld\views\users\checkout.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+[2026-01-10 16:25:05] ERROR: Session missing checkout or address
+[2026-01-10 19:12:56] ERROR: E:\Brocamp\SeatWorld\views\users\orderDetails.ejs:39
+    37|                                                 <i class="fas fa-file-invoice"></i> Download Invoice
+    38|                                             </a>
+ >> 39|                                             <span class="status-badge status-<%= order.orderStatus.toLowerCase() %>">
+    40|                                                 <%= order.orderStatus %>
+    41|                                             </span>
+    42|                                         </div>
+
+Cannot read properties of undefined (reading 'toLowerCase')
+[2026-01-10 19:13:01] ERROR: E:\Brocamp\SeatWorld\views\users\orderDetails.ejs:39
+    37|                                                 <i class="fas fa-file-invoice"></i> Download Invoice
+    38|                                             </a>
+ >> 39|                                             <span class="status-badge status-<%= order.orderStatus.toLowerCase() %>">
+    40|                                                 <%= order.orderStatus %>
+    41|                                             </span>
+    42|                                         </div>
+
+Cannot read properties of undefined (reading 'toLowerCase')
+[2026-01-11 17:16:31] ERROR: Razorpay Create Order Error: Cannot read properties of undefined (reading 'status')
