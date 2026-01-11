@@ -8213,3 +8213,39 @@ Cannot read properties of undefined (reading 'toLowerCase')
 [2026-01-11 17:19:18] INFO: [GET] /orders
 [2026-01-11 17:19:19] INFO: [GET] /products
 [2026-01-11 17:49:42] INFO: [GET] /admin/orders
+[2026-01-11 17:52:58] INFO: [GET] /profile
+[2026-01-11 17:53:00] INFO: [GET] /address
+[2026-01-11 17:53:01] INFO: [GET] /orders
+[2026-01-11 17:53:04] INFO: [GET] /wallet
+[2026-01-11 17:53:06] INFO: [GET] /coupons
+[2026-01-11 17:53:08] INFO: [GET] /password-change
+[2026-01-11 18:05:22] INFO: [GET] /profile
+[2026-01-11 18:06:49] INFO: [GET] /home
+[2026-01-11 18:06:51] INFO: [GET] /products
+[2026-01-11 18:06:59] INFO: [GET] /profile
+[2026-01-11 18:07:01] INFO: [GET] /coupons
+[2026-01-11 18:07:04] INFO: [GET] /home
+[2026-01-11 18:15:19] INFO: [GET] /profile
+[2026-01-11 18:15:20] INFO: [GET] /orders
+[2026-01-11 18:15:23] INFO: [GET] /orders/69638e0286b47949a0999298
+[2026-01-11 18:15:35] INFO: [GET] /admin/orders/69638e0286b47949a0999298
+[2026-01-11 18:15:40] INFO: [PATCH] /admin/orders/items/69638e0286b47949a099929e/status
+[2026-01-11 18:15:44] INFO: [GET] /admin/orders
+[2026-01-11 18:15:49] INFO: [GET] /orders
+[2026-01-11 18:15:52] INFO: [GET] /orders/69638e0286b47949a0999298
+[2026-01-11 18:16:00] INFO: [PATCH] /orders/69638e0286b47949a0999298/items/69638e0286b47949a099929e/request
+[2026-01-11 18:16:00] INFO: Item return requested for item 69638e0286b47949a099929e
+[2026-01-11 18:16:02] INFO: [GET] /orders/69638e0286b47949a0999298
+[2026-01-11 18:16:08] INFO: [GET] /profile
+[2026-01-11 18:16:11] INFO: [GET] /wallet
+[2026-01-11 18:16:14] INFO: [GET] /profile
+[2026-01-11 18:16:22] INFO: [GET] /admin/orders
+[2026-01-11 18:16:24] INFO: [GET] /admin/orders/69638e0286b47949a0999298
+[2026-01-11 18:16:30] INFO: [PATCH] /admin/orders/items/69638e0286b47949a099929e/status
+[2026-01-11 18:16:30] INFO: Stock incrementd for variant 693faef8c1dc3ee2a4a4f87a: 1. New stock: 24. Reason: order_returned
+[2026-01-11 18:16:30] INFO: Refunded ₹1040 to wallet for user: 694277e33e5136b65755f8d8. Transaction: REF-FAEDD99A
+[2026-01-11 18:16:33] INFO: [GET] /admin/orders
+[2026-01-11 18:16:37] INFO: [GET] /orders
+[2026-01-11 18:16:38] INFO: [GET] /orders/69638e0286b47949a0999298
+[2026-01-11 18:16:42] INFO: [GET] /wallet
+[2026-01-11 18:16:52] INFO: [GET] /profile
