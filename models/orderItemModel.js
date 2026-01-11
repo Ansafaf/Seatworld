@@ -123,6 +123,30 @@ const orderItemSchema = new mongoose.Schema(
     refundedOn: {
       type: Date,
       default: null
+    },
+
+    refundAmount: {
+      type: Number,
+      default: 0
+    },
+
+    cancelRequest: {
+      requested: { type: Boolean, default: false },
+      approved: { type: Boolean, default: false },
+      approvedAt: { type: Date, default: null }
+    },
+
+    returnRequest: {
+      requested: { type: Boolean, default: false },
+      approved: { type: Boolean, default: false },
+      approvedAt: { type: Date, default: null }
+    },
+
+    refund: {
+      refunded: { type: Boolean, default: false },
+      refundedAt: { type: Date, default: null },
+      refundAmount: { type: Number, default: 0 },
+      refundMethod: { type: String, default: "WALLET" }
     }
   },
   {

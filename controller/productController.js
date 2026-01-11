@@ -4,6 +4,8 @@ import Cart from "../models/cartModel.js";
 import Wishlist from "../models/wishlistModel.js";
 import { buildBreadcrumb } from "../utils/breadcrumb.js";
 import { paginate } from "../utils/paginationHelper.js";
+import { Offer } from "../models/offerModel.js";
+import * as offerHelper from "../utils/offerHelper.js";
 
 
 // Helper: Normalize query params into arrays and apply defaults
@@ -101,20 +103,25 @@ const getSortOption = (sort) => {
     return sortMap[sort] || sortMap.featured;
 };
 
-// Helper: Enrich products with variant details
-const enrichProducts = async (products) => {
+// Helper: Enrich products with variant details AND offers
+const enrichProducts = async (products, activeOffers) => {
     return Promise.all(
         products.map(async (product) => {
             const variant = await ProductVariant.findOne({
                 productId: product._id,
                 status: "Active",
             });
+
+            const basePrice = variant ? variant.price : product.Baseprice;
+            const discountData = offerHelper.calculateDiscount(product, basePrice, activeOffers);
+
             return {
                 ...product,
                 variant: variant ? variant.toObject() : null,
                 image: (variant && variant.images && variant.images.length > 0) ? variant.images[0] : null,
                 stock: variant ? variant.stock : 0,
                 color: variant ? variant.color : null,
+                ...discountData
             };
         })
     );
@@ -206,7 +213,8 @@ export async function getProducts(req, res) {
         });
 
         // 6. Enrichment and Additional UI Data
-        const productsWithVariants = await enrichProducts(products);
+        const activeOffers = await Offer.find({ isActive: true });
+        const productsWithVariants = await enrichProducts(products, activeOffers);
 
         // Fetch user's wishlist if logged in
         let wishlistVariantIds = [];
@@ -338,15 +346,30 @@ export async function getProductdetail(req, res) {
             selectedVariant = variants[0];
         }
 
+        const activeOffers = await Offer.find({ isActive: true });
+        const basePrice = selectedVariant ? selectedVariant.price : product.Baseprice;
+        const discountData = offerHelper.calculateDiscount(product, basePrice, activeOffers);
+
         const displayProduct = {
             ...product,
-            price: selectedVariant ? selectedVariant.price : product.Baseprice,
+            price: discountData.discountedPrice,
+            originalPrice: discountData.originalPrice,
+            hasOffer: discountData.hasOffer,
+            discountPercentage: discountData.discountPercentage,
             image: (selectedVariant && selectedVariant.images && selectedVariant.images.length > 0)
                 ? selectedVariant.images[0]
                 : "https://dummyimage.com/600x600/f3f4f6/94a3b8&text=No+Image",
             stock: selectedVariant ? selectedVariant.stock : 0,
             variant: selectedVariant,
-            variants: variants
+            variants: variants.map(v => {
+                const vDiscount = offerHelper.calculateDiscount(product, v.price, activeOffers);
+                return {
+                    ...v,
+                    discountedPrice: vDiscount.discountedPrice,
+                    hasOffer: vDiscount.hasOffer,
+                    discountPercentage: vDiscount.discountPercentage
+                };
+            })
         };
 
 
@@ -357,12 +380,15 @@ export async function getProductdetail(req, res) {
 
         const relatedProductsWithImages = await Promise.all(relatedProducts.map(async (rp) => {
             const v = await ProductVariant.findOne({ productId: rp._id, status: "Active" });
-            console.log("rp", rp);
-            console.log("v", v);
+            const basePrice = v ? v.price : rp.Baseprice;
+            const discountData = offerHelper.calculateDiscount(rp, basePrice, activeOffers);
+
             return {
                 ...rp,
                 image: (v && v.images && v.images.length > 0) ? v.images[0] : "https://dummyimage.com/300x300/f3f4f6/94a3b8&text=No+Image",
-                price: v ? v.price : rp.Baseprice
+                price: discountData.discountedPrice,
+                originalPrice: discountData.originalPrice,
+                hasOffer: discountData.hasOffer
             };
         }));
 

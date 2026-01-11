@@ -6,8 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SeatWorld - Update Email</title>
 
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+  <link rel="stylesheet" href="/css/users/profile.css">
   <link rel="stylesheet" href="/css/users/emailUpdation.css">
 </head>
 
@@ -21,52 +23,40 @@
       </button>
 
       <div class="container">
-        <div class="layout">
+        <div class="profile-layout">
 
 
           <!-- SIDEBAR -->
-          <aside class="sidebar" id="sidebar">
-            <h3>MY ACCOUNT</h3>
-            <ul>
-              <li><a href="/profile" class="active"><i class="fa-regular fa-user"></i> Personal Information</a></li>
-              <li><a href="/address"><i class="fa-solid fa-location-dot"></i> Address</a></li>
-              <li><a href="/orders"><i class="fa-solid fa-box"></i> Orders</a></li>
-              <li><a href="/wallet"><i class="fa-solid fa-wallet"></i> Wallet</a></li>
-              <li><a href="/coupon"><i class="fa-solid fa-ticket"></i> Coupon</a></li>
-              <li><a href="/profile/referral"><i class="fa-solid fa-user-plus"></i> Generate Referral Code</a></li>
-              <li><a href="/password-change"><i class="fa-solid fa-lock"></i> Password Change</a></li>
-              <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
-            </ul>
-          </aside>
+          <%- include('../partials/profileSidebar', { active: 'profile' }) %>
 
-          <!-- CONTENT -->
-          <main class="content">
-            <div class="email-card">
-              <h2>Email Id updation</h2>
+            <!-- CONTENT -->
+            <main class="main-content">
+              <div class="email-card">
+                <h2>Email Id updation</h2>
 
-              <form action="/profile/change-email" method="POST">
-                <div class="form-group">
-                  <label>Current email</label>
-                  <div class="current-email">
-                    <%= user.email %>
+                <form id="emailUpdateForm" action="/profile/change-email" method="POST">
+                  <div class="form-group">
+                    <label>Current email</label>
+                    <div class="current-email">
+                      <%= user.email %>
+                    </div>
                   </div>
-                </div>
 
-                <div class="form-group">
-                  <label>New email</label>
-                  <input type="email" name="newEmail" required>
-                </div>
+                  <div class="form-group">
+                    <label>New email</label>
+                    <input type="email" name="newEmail" required>
+                  </div>
 
-                <div class="form-group">
-                  <label>Confirm new email</label>
-                  <input type="email" name="confirmEmail" required>
-                </div>
+                  <div class="form-group">
+                    <label>Confirm new email</label>
+                    <input type="email" name="confirmEmail" required>
+                  </div>
 
-                <button class="verify-btn">Verify</button>
+                  <button class="verify-btn">Verify</button>
 
-              </form>
-            </div>
-          </main>
+                </form>
+              </div>
+            </main>
 
         </div>
       </div>

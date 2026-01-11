@@ -4,64 +4,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Details - SeatWorld</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <title>Order Details | SeatWorld</title>
+    <link rel="stylesheet" href="/css/users/profile.css">
+    <link rel="stylesheet" href="/css/users/orderDetails.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
-    <link rel="stylesheet" href="/css/users/addressList.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
-<body class="bg-gray-50 text-gray-800">
-
+<body>
     <%- include('../partials/header', { showSearch: false }) %>
         <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+            <%- include("../partials/flash", { messageData: locals.message }) %>
 
-            <main class="container mx-auto px-4 lg:px-8 py-10">
-                <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <button class="menu-btn" onclick="toggleSidebar()"
+                    style="position: fixed; top: 90px; left: 20px; z-index: 100; background: white; border-radius: 50%; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); border: none;">
+                    <i class="fas fa-bars" style="font-size: 20px;"></i>
+                </button>
 
-                    <!-- Sidebar -->
-                    <%- include('../partials/profileSidebar', { active: 'orders' }) %>
+                <div class="container">
+                    <div class="profile-layout">
+                        <!-- SIDEBAR -->
+                        <%- include('../partials/profileSidebar', { active: 'orders' }) %>
 
-                        <!-- Main Content -->
-                        <section class="lg:col-span-3">
-                            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-
-                                <!-- Order Header -->
-                                <div
-                                    class="px-6 py-4 bg-gray-50 border-b flex flex-wrap justify-between items-center gap-4">
-                                    <div>
-                                        <h1 class="text-xl font-bold">Order #<%=
-                                                order._id.toString().slice(-6).toUpperCase() %>
-                                        </h1>
-                                        <p class="text-sm text-gray-500">Placed on <%= new
-                                                Date(order.createdAt).toLocaleDateString('en-GB', { day: '2-digit' ,
-                                                month: 'long' , year: 'numeric' }) %>
-                                        </p>
+                            <!-- CONTENT -->
+                            <main class="main-content">
+                                <div class="order-details-container">
+                                    <!-- Order Header -->
+                                    <div class="order-header-section">
+                                        <div class="order-info">
+                                            <h1>Order #<%= order._id.toString().slice(-6).toUpperCase() %>
+                                            </h1>
+                                            <p>Placed on <%= new Date(order.createdAt).toLocaleDateString('en-GB', {
+                                                    day: '2-digit' , month: 'long' , year: 'numeric' }) %>
+                                            </p>
+                                        </div>
+                                        <div class="header-actions">
+                                            <a href="/orders/<%= order._id %>/invoice" class="btn-download">
+                                                <i class="fas fa-file-invoice"></i> Download Invoice
+                                            </a>
+                                            <span
+                                                class="status-badge status-<%= (order.orderStatus || 'pending').toLowerCase() %>">
+                                                <%= order.orderStatus || 'Pending' %>
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div class="flex items-center gap-3">
-                                        <a href="/orders/<%= order._id %>/invoice"
-                                            class="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 text-gray-700 font-bold text-xs rounded-lg hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 transition-all shadow-sm">
-                                            <i class="fas fa-file-invoice text-indigo-500"></i>
-                                            <span>DOWNLOAD INVOICE</span>
-                                        </a>
-                                        <span
-                                            class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-bold uppercase tracking-wider">
-                                            <%= order.orderStatus %>
-                                        </span>
-                                    </div>
-                                </div>
 
-                                <div class="p-6">
-                                    <div class="grid md:grid-cols-2 gap-8 mb-8">
-                                        <!-- Shipping Address -->
-                                        <div>
-                                            <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">
-                                                Shipping Address</h3>
-                                            <div class="text-gray-900 font-medium">
-                                                <p class="text-lg font-bold mb-1">
+                                    <!-- Info Grid -->
+                                    <div class="info-grid">
+                                        <!-- Shipping -->
+                                        <div class="info-section">
+                                            <h3>Shipping Address</h3>
+                                            <div class="info-content">
+                                                <strong>
                                                     <%= order.shippingAddress.name %>
-                                                </p>
+                                                </strong>
                                                 <p>
                                                     <%= order.shippingAddress.housename %>, <%=
                                                             order.shippingAddress.street %>
@@ -69,33 +65,30 @@
                                                 <p>
                                                     <%= order.shippingAddress.city %>, <%= order.shippingAddress.state
                                                             %>
+                                                            <%= order.shippingAddress.pincode %>
                                                 </p>
                                                 <p>
-                                                    <%= order.shippingAddress.country %> - <%=
-                                                            order.shippingAddress.pincode %>
+                                                    <%= order.shippingAddress.country %>
                                                 </p>
-                                                <p class="mt-2 text-sm text-gray-600"><span
-                                                        class="font-bold">Phone:</span>
-                                                    <%= order.shippingAddress.mobile %>
+                                                <p style="margin-top: 8px;">Phone: <%= order.shippingAddress.mobile %>
                                                 </p>
                                             </div>
                                         </div>
 
-                                        <!-- Payment Info -->
-                                        <div>
-                                            <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">
-                                                Payment Information</h3>
-                                            <div class="space-y-2">
-                                                <div class="flex justify-between items-center">
-                                                    <span class="text-gray-500">Payment Method</span>
-                                                    <span class="font-bold text-gray-900 uppercase">
+                                        <!-- Payment -->
+                                        <div class="info-section">
+                                            <h3>Payment Details</h3>
+                                            <div class="info-content">
+                                                <div class="payment-item">
+                                                    <span class="payment-label">Method</span>
+                                                    <span class="payment-value">
                                                         <%= order.paymentMethod %>
                                                     </span>
                                                 </div>
-                                                <div class="flex justify-between items-center">
-                                                    <span class="text-gray-500">Payment Status</span>
-                                                    <span
-                                                        class="font-bold uppercase <%= ['paid', 'completed'].includes(order.paymentStatus) ? 'text-green-600' : 'text-orange-500' %>">
+                                                <div class="payment-item">
+                                                    <span class="payment-label">Status</span>
+                                                    <span class="payment-value"
+                                                        style="color: <%= ['paid', 'completed'].includes(order.paymentStatus) ? '#198754' : '#fd7e14' %>">
                                                         <%= order.paymentStatus %>
                                                     </span>
                                                 </div>
@@ -103,130 +96,116 @@
                                         </div>
                                     </div>
 
-                                    <!-- Items Table -->
-                                    <div class="border rounded-lg overflow-hidden mb-8">
-                                        <table class="w-full text-left">
-                                            <thead>
-                                                <tr
-                                                    class="bg-gray-50 border-b text-xs font-bold text-gray-500 uppercase">
-                                                    <th class="px-6 py-4">Product</th>
-                                                    <th class="px-6 py-4 text-center">Qty</th>
-                                                    <th class="px-6 py-4 text-center">Unit Price</th>
-                                                    <th class="px-6 py-4 text-center">Total</th>
-                                                    <th class="px-6 py-4 text-center">Status</th>
-                                                    <th class="px-6 py-4 text-right">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="divide-y divide-gray-100">
-                                                <% order.items.forEach(item=> { %>
-                                                    <tr class="item-row" data-item-status="<%= item.status %>">
-                                                        <td class="px-6 py-4">
-                                                            <div class="flex items-center gap-4">
-                                                                <div
-                                                                    class="w-16 h-16 rounded border bg-gray-50 flex-shrink-0">
-                                                                    <img src="<%= item.image %>" alt="<%= item.name %>"
-                                                                        class="w-full h-full object-cover">
-                                                                </div>
-                                                                <div>
-                                                                    <p class="font-bold text-gray-900">
-                                                                        <%= item.name %>
-                                                                    </p>
-                                                                    <% if (item.label) { %>
-                                                                        <p
-                                                                            class="text-[10px] text-indigo-500 font-bold uppercase tracking-tight">
-                                                                            Variant: <%= item.label %>
-                                                                        </p>
-                                                                        <% } %>
-                                                                            <p
-                                                                                class="text-xs text-gray-500 uppercase tracking-tighter">
-                                                                                #<%= item._id.toString().slice(-6).toUpperCase()
-                                                                                    %>
-                                                                            </p>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td class="px-6 py-4 text-center font-medium">x<%=
-                                                                item.productQuantity %>
-                                                        </td>
-                                                        <td class="px-6 py-4 text-center font-medium">₹<%=
-                                                                item.purchasedPrice %>
-                                                        </td>
-                                                        <td class="px-6 py-4 text-center font-bold">₹<%= item.total %>
-                                                        </td>
-                                                        <td class="px-6 py-4 text-center">
-                                                            <span
-                                                                class="text-xs font-bold px-2 py-1 rounded-full uppercase
-                                                                <%= ['cancelled', 'returned'].includes(item.status) ? 'bg-red-50 text-red-600' : 
-                                                                    ['cancel_requested', 'return_requested'].includes(item.status) ? 'bg-orange-50 text-orange-600' :
-                                                                    item.status === 'delivered' ? 'bg-green-50 text-green-600' : 'bg-gray-100 text-gray-600' %>">
-                                                                <%= item.status.replace('_', ' ' ) %>
-                                                            </span>
-                                                        </td>
-                                                        <td class="px-6 py-4 text-right">
-                                                            <% if (['pending', 'confirmed' ].includes(item.status)) { %>
-                                                                <button
-                                                                    onclick="handleItemAction('<%= order._id %>', '<%= item._id %>', 'cancel')"
-                                                                    class="px-4 py-2 border border-red-200 text-red-600 text-xs font-bold rounded-lg hover:bg-red-50 transition-colors">
-                                                                    Request Cancel
-                                                                </button>
-                                                                <% } else if (item.status==='delivered' ) { %>
-                                                                    <button
-                                                                        onclick="handleItemAction('<%= order._id %>', '<%= item._id %>', 'return')"
-                                                                        class="px-4 py-2 border border-indigo-200 text-indigo-600 text-xs font-bold rounded-lg hover:bg-indigo-50 transition-colors">
-                                                                        Request Return
-                                                                    </button>
-                                                                    <% } else if
-                                                                        (['cancel_requested', 'return_requested'
-                                                                        ].includes(item.status)) { %>
-                                                                        <span
-                                                                            class="text-xs text-orange-500 font-bold uppercase italic">Request
-                                                                            Pending</span>
-                                                                        <% } else { %>
-                                                                            <span
-                                                                                class="text-xs text-gray-400 font-medium italic">No
-                                                                                actions</span>
-                                                                            <% } %>
-                                                        </td>
+                                    <!-- Items -->
+                                    <div class="items-section">
+                                        <div class="table-container">
+                                            <table class="order-items-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Product</th>
+                                                        <th style="text-align: center;">Qty</th>
+                                                        <th style="text-align: center;">Price</th>
+                                                        <th style="text-align: center;">Total</th>
+                                                        <th style="text-align: center;">Status</th>
+                                                        <th style="text-align: right;">Action</th>
                                                     </tr>
-                                                    <% }) %>
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    <% order.items.forEach(item=> { %>
+                                                        <tr>
+                                                            <td data-label="Product">
+                                                                <div class="product-cell">
+                                                                    <img src="<%= item.image %>" alt="<%= item.name %>"
+                                                                        class="product-img">
+                                                                    <div class="product-info">
+                                                                        <p class="product-name">
+                                                                            <%= item.name %>
+                                                                        </p>
+                                                                        <% if (item.label) { %>
+                                                                            <p class="product-variant">Variant: <%=
+                                                                                    item.label %>
+                                                                            </p>
+                                                                            <% } %>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td data-label="Qty" style="text-align: center;">x<%=
+                                                                    item.productQuantity %>
+                                                            </td>
+                                                            <td data-label="Price" style="text-align: center;">₹<%=
+                                                                    item.purchasedPrice.toLocaleString('en-IN') %>
+                                                            </td>
+                                                            <td data-label="Total"
+                                                                style="text-align: center; font-weight: 700;">₹<%=
+                                                                    item.total.toLocaleString('en-IN') %>
+                                                            </td>
+                                                            <td data-label="Status" style="text-align: center;">
+                                                                <span
+                                                                    class="status-badge status-<%= item.status.replace('_', '-') %>">
+                                                                    <%= item.status.replace('_', ' ' ) %>
+                                                                </span>
+                                                            </td>
+                                                            <td data-label="Action" style="text-align: right;">
+                                                                <% if (['pending', 'confirmed' ].includes(item.status))
+                                                                    { %>
+                                                                    <button
+                                                                        onclick="handleItemAction('<%= order._id %>', '<%= item._id %>', 'cancel')"
+                                                                        class="btn-action btn-cancel">
+                                                                        Cancel
+                                                                    </button>
+                                                                    <% } else if (item.status==='delivered' ) { %>
+                                                                        <button
+                                                                            onclick="handleItemAction('<%= order._id %>', '<%= item._id %>', 'return')"
+                                                                            class="btn-action btn-return">
+                                                                            Return
+                                                                        </button>
+                                                                        <% } else if
+                                                                            (['cancel_requested', 'return_requested'
+                                                                            ].includes(item.status)) { %>
+                                                                            <span
+                                                                                style="font-size: 11px; color: #fd7e14; font-weight: 700;">PENDING</span>
+                                                                            <% } else { %>
+                                                                                <span
+                                                                                    style="font-size: 11px; color: #adb5bd;">NONE</span>
+                                                                                <% } %>
+                                                            </td>
+                                                        </tr>
+                                                        <% }) %>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
 
-                                    <!-- Order Summary Footer -->
-                                    <div
-                                        class="bg-gray-50 rounded-xl p-6 flex flex-col md:flex-row justify-between gap-6">
-                                        <div class="flex-1">
-                                            <!-- Additional help or notes could go here -->
-                                        </div>
-                                        <div class="w-full md:w-64 space-y-3">
-                                            <div class="flex justify-between text-sm">
-                                                <span class="text-gray-500">Subtotal</span>
-                                                <span class="font-bold">₹<%= (order.subtotal ||
+                                    <!-- Summary -->
+                                    <div class="summary-footer">
+                                        <div class="summary-box">
+                                            <div class="summary-row">
+                                                <span>Subtotal</span>
+                                                <span style="font-weight: 600;">₹<%= (order.subtotal ||
                                                         order.totalAmount).toLocaleString('en-IN') %></span>
                                             </div>
-                                            <div class="flex justify-between text-sm">
-                                                <span class="text-gray-500">Discount</span>
-                                                <span class="font-bold text-green-600">-₹<%= (order.discountAmount ||
-                                                        0).toLocaleString('en-IN') %></span>
+                                            <div class="summary-row">
+                                                <span>Discount</span>
+                                                <span style="font-weight: 600; color: #198754;">-₹<%=
+                                                        (order.discountAmount || 0).toLocaleString('en-IN') %></span>
                                             </div>
-                                            <div class="flex justify-between items-center pt-3 border-t">
-                                                <span class="text-lg font-bold">Grand Total</span>
-                                                <span class="text-2xl font-black text-gray-900">₹<%= order.totalAmount
+                                            <div class="summary-row total">
+                                                <span>Total</span>
+                                                <span class="grand-total">₹<%= order.totalAmount.toLocaleString('en-IN')
                                                         %></span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </section>
+                            </main>
+                    </div>
                 </div>
-            </main>
 
-            <%- include('../partials/footer') %>
+                <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                 <script src="/js/users/orderDetails.js"></script>
+                <%- include('../partials/footer') %>
 </body>
 
 </html>

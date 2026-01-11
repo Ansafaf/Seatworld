@@ -5,54 +5,71 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wallet Transactions | SeatWorld</title>
+    <link rel="stylesheet" href="/css/users/profile.css">
     <link rel="stylesheet" href="/css/users/walletHistory.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
 </head>
 
 <body>
-    <div class="transaction-container">
-        <!-- Header Section -->
-        <div class="header-section">
-            <a href="/wallet" class="back-link">Go back</a>
-            <h2 class="page-title">wallet transactions</h2>
-            <div style="width: 60px;"></div> <!-- Spacer for centering -->
-        </div>
+    <%- include('../partials/header', { showSearch: false }) %>
+        <%- include("../partials/breadcrumb", { breadcrumbs }) %>
 
-        <!-- Transactions List -->
-        <div class="transaction-list">
-            <!-- Headers -->
-            <div class="list-header">
-                <div>Sl.no</div>
-                <div>Transaction id</div>
-                <div>transaction type</div>
-                <div>Status</div>
-                <div>Amount</div>
-                <div>View</div>
-            </div>
+            <button class="menu-btn" onclick="toggleSidebar()"
+                style="position: fixed; top: 90px; left: 20px; z-index: 100; background: white; border-radius: 50%; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); border: none;">
+                <i class="fas fa-bars" style="font-size: 20px;"></i>
+            </button>
 
-            <% if (transactions && transactions.length> 0) { %>
-                <% transactions.forEach((t, index)=> { %>
-                    <div class="transaction-row">
-                        <div class="cell sl-no">
-                            <%= (pagination.currentPage - 1) * pagination.limit + index + 1 %>.
-                        </div>
-                        <div class="cell trans-id">#<%= t.walletTransactionId.substring(0, 10).toUpperCase() %>
-                        </div>
-                        <div class="cell type">
-                            <span class="badge type-badge <%= t.type %>">
-                                <%= t.type %>
-                            </span>
-                        </div>
-                        <div class="cell status">
-                            <span class="badge status-badge success">Success</span>
-                            <!-- Assuming all stored transactions are success, but ideally should be in model -->
-                        </div>
-                        <div class="cell amount">₹<%= t.amount.toFixed(2) %>
-                        </div>
-                        <div class="cell view">
-                            <!-- View detail modal trigger -->
-                            <i class="fas fa-file-invoice" onclick="openTransactionModal(
+            <div class="container">
+                <div class="profile-layout">
+                    <!-- SIDEBAR -->
+                    <%- include('../partials/profileSidebar', { active: 'wallet' }) %>
+
+                        <!-- CONTENT -->
+                        <main class="main-content">
+                            <div class="transaction-container">
+                                <!-- Header Section -->
+                                <div class="header-section">
+                                    <a href="/wallet" class="back-link">Go back</a>
+                                    <h2 class="page-title">wallet transactions</h2>
+                                    <div style="width: 60px;"></div> <!-- Spacer for centering -->
+                                </div>
+
+                                <!-- Transactions List -->
+                                <div class="transaction-list">
+                                    <!-- Headers -->
+                                    <div class="list-header">
+                                        <div>Sl.no</div>
+                                        <div>Transaction id</div>
+                                        <div>transaction type</div>
+                                        <div>Status</div>
+                                        <div>Amount</div>
+                                        <div>View</div>
+                                    </div>
+
+                                    <% if (transactions && transactions.length> 0) { %>
+                                        <% transactions.forEach((t, index)=> { %>
+                                            <div class="transaction-row">
+                                                <div class="cell sl-no">
+                                                    <%= (pagination.currentPage - 1) * pagination.limit + index + 1 %>.
+                                                </div>
+                                                <div class="cell trans-id">#<%= t.walletTransactionId.substring(0,
+                                                        10).toUpperCase() %>
+                                                </div>
+                                                <div class="cell type">
+                                                    <span class="badge type-badge <%= t.type %>">
+                                                        <%= t.type %>
+                                                    </span>
+                                                </div>
+                                                <div class="cell status">
+                                                    <span class="badge status-badge success">Success</span>
+                                                    <!-- Assuming all stored transactions are success, but ideally should be in model -->
+                                                </div>
+                                                <div class="cell amount">₹<%= t.amount.toFixed(2) %>
+                                                </div>
+                                                <div class="cell view">
+                                                    <!-- View detail modal trigger -->
+                                                    <i class="fas fa-file-invoice" onclick="openTransactionModal(
                                 '<%= t.walletTransactionId %>', 
                                 '<%= t.date %>', 
                                 '<%= t.amount %>', 
@@ -62,108 +79,115 @@
                                 'Completed', 
                                 '<%= t.type === 'credit' ? 'Bank Transfer' : 'Wallet' %>' 
                             )"></i>
-                        </div>
-                    </div>
-                    <% }) %>
-                        <% } else { %>
-                            <div class="no-data">No transactions found</div>
-                            <% } %>
-        </div>
+                                                </div>
+                                            </div>
+                                            <% }) %>
+                                                <% } else { %>
+                                                    <div class="no-data">No transactions found</div>
+                                                    <% } %>
+                                </div>
 
-        <!-- Pagination -->
-        <% if (pagination && pagination.totalPages> 1) { %>
-            <div class="pagination-footer">
-                <% if (pagination.hasPrevPage) { %>
-                    <a href="?page=<%= pagination.currentPage - 1 %>" class="page-btn">Previous</a>
-                    <% } else { %>
-                        <button class="page-btn disabled" disabled>Previous</button>
-                        <% } %>
+                                <!-- Pagination -->
+                                <% if (pagination && pagination.totalPages> 1) { %>
+                                    <div class="pagination-footer">
+                                        <% if (pagination.hasPrevPage) { %>
+                                            <a href="?page=<%= pagination.currentPage - 1 %>"
+                                                class="page-btn">Previous</a>
+                                            <% } else { %>
+                                                <button class="page-btn disabled" disabled>Previous</button>
+                                                <% } %>
 
-                            <% for(let i=1; i <=pagination.totalPages; i++) { %>
-                                <a href="?page=<%= i %>"
-                                    class="page-num <%= pagination.currentPage === i ? 'active' : '' %>">
-                                    <%= i %>
-                                </a>
-                                <% } %>
+                                                    <% for(let i=1; i <=pagination.totalPages; i++) { %>
+                                                        <a href="?page=<%= i %>"
+                                                            class="page-num <%= pagination.currentPage === i ? 'active' : '' %>">
+                                                            <%= i %>
+                                                        </a>
+                                                        <% } %>
 
-                                    <% if (pagination.hasNextPage) { %>
-                                        <a href="?page=<%= pagination.currentPage + 1 %>" class="page-btn">Next</a>
-                                        <% } else { %>
-                                            <button class="page-btn disabled" disabled>Next</button>
-                                            <% } %>
-            </div>
-            <% } %>
-    </div>
+                                                            <% if (pagination.hasNextPage) { %>
+                                                                <a href="?page=<%= pagination.currentPage + 1 %>"
+                                                                    class="page-btn">Next</a>
+                                                                <% } else { %>
+                                                                    <button class="page-btn disabled"
+                                                                        disabled>Next</button>
+                                                                    <% } %>
+                                    </div>
+                                    <% } %>
+                            </div>
 
-    <!-- Transaction View Modal -->
-    <div id="transactionModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeTransactionModal()">&times;</span>
-            <div class="modal-header">
-                <h2>Transaction View</h2>
-            </div>
-            <div class="modal-body">
-                <div class="detail-row">
-                    <div class="detail-group">
-                        <label>Transaction ID</label>
-                        <p id="modalTransId">#TRAC01</p>
-                    </div>
-                    <div class="detail-group">
-                        <label>Payment status</label>
-                        <p id="modalStatus" class="status-text">success</p>
-                    </div>
+                            <!-- Transaction View Modal -->
+                            <div id="transactionModal" class="modal">
+                                <div class="modal-content">
+                                    <span class="close-btn" onclick="closeTransactionModal()">&times;</span>
+                                    <div class="modal-header">
+                                        <h2>Transaction View</h2>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="detail-row">
+                                            <div class="detail-group">
+                                                <label>Transaction ID</label>
+                                                <p id="modalTransId">#TRAC01</p>
+                                            </div>
+                                            <div class="detail-group">
+                                                <label>Payment status</label>
+                                                <p id="modalStatus" class="status-text">success</p>
+                                            </div>
+                                        </div>
+                                        <div class="detail-row">
+                                            <div class="detail-group">
+                                                <label>Date & time</label>
+                                                <p id="modalDate">27/07/2026 - 5:55 AM</p>
+                                            </div>
+                                            <div class="detail-group">
+                                                <label>Order Status</label>
+                                                <p id="modalOrderStatus">Cancelled</p>
+                                            </div>
+                                        </div>
+                                        <div class="detail-row">
+                                            <div class="detail-group">
+                                                <label>Payment Method</label>
+                                                <p id="modalMethod">Debit Card</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
                 </div>
-                <div class="detail-row">
-                    <div class="detail-group">
-                        <label>Date & time</label>
-                        <p id="modalDate">27/07/2026 - 5:55 AM</p>
-                    </div>
-                    <div class="detail-group">
-                        <label>Order Status</label>
-                        <p id="modalOrderStatus">Cancelled</p>
-                    </div>
-                </div>
-                <div class="detail-row">
-                    <div class="detail-group">
-                        <label>Payment Method</label>
-                        <p id="modalMethod">Debit Card</p>
-                    </div>
-                </div>
             </div>
-        </div>
-    </div>
 
-    <script>
-        function openTransactionModal(id, date, amount, type, description, status, orderStatus, method) {
-            const modal = document.getElementById('transactionModal');
 
-            // Format Date
-            const dateObj = new Date(date);
-            const formattedDate = dateObj.toLocaleDateString('en-GB') + ' - ' + dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            <script>
+                function openTransactionModal(id, date, amount, type, description, status, orderStatus, method) {
+                    const modal = document.getElementById('transactionModal');
 
-            document.getElementById('modalTransId').innerText = '#' + id.substring(0, 10).toUpperCase();
-            document.getElementById('modalStatus').innerText = status;
-            document.getElementById('modalDate').innerText = formattedDate;
+                    // Format Date
+                    const dateObj = new Date(date);
+                    const formattedDate = dateObj.toLocaleDateString('en-GB') + ' - ' + dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-            // Logic to show "N/A" if not applicable
-            document.getElementById('modalOrderStatus').innerText = (type === 'credit') ? 'N/A' : (orderStatus || 'Completed');
-            document.getElementById('modalMethod').innerText = method;
+                    document.getElementById('modalTransId').innerText = '#' + id.substring(0, 10).toUpperCase();
+                    document.getElementById('modalStatus').innerText = status;
+                    document.getElementById('modalDate').innerText = formattedDate;
 
-            modal.style.display = 'block';
-        }
+                    // Logic to show "N/A" if not applicable
+                    document.getElementById('modalOrderStatus').innerText = (type === 'credit') ? 'N/A' : (orderStatus || 'Completed');
+                    document.getElementById('modalMethod').innerText = method;
 
-        function closeTransactionModal() {
-            document.getElementById('transactionModal').style.display = 'none';
-        }
+                    modal.style.display = 'block';
+                }
 
-        // Close on outside click
-        window.onclick = function (event) {
-            const modal = document.getElementById('transactionModal');
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
+                function closeTransactionModal() {
+                    document.getElementById('transactionModal').style.display = 'none';
+                }
+
+                // Close on outside click
+                window.onclick = function (event) {
+                    const modal = document.getElementById('transactionModal');
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                }
+            </script>
 </body>
 
 </html>

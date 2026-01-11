@@ -21,7 +21,7 @@ export const getWallet = async (req, res) => {
         const recentTransactions = wallet.transactions.slice(0, 3);
 
         res.render("users/wallet", {
-            user: req.session.user,
+            user: req.user,
             wallet: { ...wallet.toObject(), recentTransactions },
             pagination: null,
             breadcrumbs: buildBreadcrumb([
@@ -64,7 +64,7 @@ export const getWalletHistory = async (req, res) => {
         };
 
         res.render("users/walletHistory", {
-            user: req.session.user,
+            user: req.user,
             transactions: paginatedTransactions,
             pagination,
             breadcrumbs: buildBreadcrumb([

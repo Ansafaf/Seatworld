@@ -5,6 +5,8 @@ import mongoose from "mongoose";
 
 
 import Coupon from "../models/couponModel.js";
+import { Offer } from "../models/offerModel.js";
+import * as offerHelper from "../utils/offerHelper.js";
 
 export async function calculateCartTotals(userId) {
     const carts = await Cart.find({ userId }).populate({
@@ -24,6 +26,8 @@ export async function calculateCartTotals(userId) {
         appliedCoupon = cartWithCoupon.couponId;
     }
 
+    const activeOffers = await Offer.find({ isActive: true });
+
     let subtotal = 0;
     const items = [];
 
@@ -31,7 +35,12 @@ export async function calculateCartTotals(userId) {
         if (item.variantId && item.variantId.stock > 0 && item.variantId.status === "Active" && item.variantId.productId && !item.variantId.productId.isBlocked) {
             const variant = item.variantId;
             const product = variant.productId;
-            const price = variant.salePrice || variant.price;
+            const basePrice = variant.salePrice || variant.price;
+
+            // Apply Database Offers (Product/Category)
+            const offerData = offerHelper.calculateDiscount(product, basePrice, activeOffers);
+            const price = offerData.discountedPrice;
+
             const itemTotal = price * item.productQuantity;
             subtotal += itemTotal;
 
@@ -43,6 +52,9 @@ export async function calculateCartTotals(userId) {
                 salePrice: variant.salePrice || 0,
                 regularPrice: variant.price,
                 total: itemTotal,
+                hasOffer: offerData.hasOffer,
+                discountPercentage: offerData.discountPercentage,
+                originalPrice: offerData.originalPrice,
                 color: variant.color,
                 productId: product._id,
                 variantId: variant._id
@@ -146,12 +158,20 @@ export async function getCartByUserId(userId, page = 1, limit = 8) {
         .lean();//convert to plain js
 
     let subtotal = 0;
+    const activeOffers = await Offer.find({ isActive: true });
 
-    const allValidCarts = await Cart.find({ _id: { $in: validCartIds } }).populate('variantId').lean();
+    const allValidCarts = await Cart.find({ _id: { $in: validCartIds } }).populate({
+        path: 'variantId',
+        populate: { path: 'productId' }
+    }).lean();
+
     allValidCarts.forEach(item => {
         const variant = item.variantId;
-        if (variant) {
-            subtotal += (variant.salePrice || variant.price) * (item.productQuantity || 1);
+        const product = variant?.productId;
+        if (variant && product) {
+            const basePrice = variant.salePrice || variant.price;
+            const offerData = offerHelper.calculateDiscount(product, basePrice, activeOffers);
+            subtotal += offerData.discountedPrice * (item.productQuantity || 1);
         }
     });
 
@@ -161,12 +181,19 @@ export async function getCartByUserId(userId, page = 1, limit = 8) {
         const itemPrice = (variant && variant.salePrice) ? variant.salePrice : (variant ? variant.price : 0);
         const itemQuantity = item.productQuantity || 1;
 
+        const offerData = variant && product
+            ? offerHelper.calculateDiscount(product, itemPrice, activeOffers)
+            : { discountedPrice: itemPrice, hasOffer: false, originalPrice: itemPrice, discountPercentage: 0 };
+
         return {
             ...item,
             name: product ? product.name : "Unavailable Product",
             image: (variant && variant.images && variant.images.length > 0) ? variant.images[0] : "",
             color: variant ? variant.color : "",
-            price: itemPrice,
+            price: offerData.discountedPrice,
+            originalPrice: offerData.originalPrice,
+            hasOffer: offerData.hasOffer,
+            discountPercentage: offerData.discountPercentage,
             quantity: itemQuantity,
             stock: variant ? variant.stock : 0,
             outOfStock: false

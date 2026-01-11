@@ -32,7 +32,7 @@ window.showGoogleEmailWarning = function () {
 }
 
 // Handle profile update form submission via AJAX
-const profileForm = document.querySelector('form');
+const profileForm = document.getElementById('personalInfoForm');
 if (profileForm) {
     profileForm.addEventListener('submit', async (e) => {
         e.preventDefault();

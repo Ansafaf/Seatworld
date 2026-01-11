@@ -76,47 +76,43 @@
                                             %>
                                     </p>
 
-                                    <% const currentPrice=product.variant ? product.variant.price : product.Baseprice;
-                                        const originalPrice=product.Baseprice; const isOnSale=currentPrice <
-                                        originalPrice; const offPercent=isOnSale ? Math.round((1 - currentPrice /
-                                        originalPrice) * 100) : 0; %>
-                                        <div class="price-group">
-                                            <div class="price-tag">₹<%= Number(currentPrice).toLocaleString('en-IN') %>
+                                    <div class="price-group">
+                                        <div class="price-tag">₹<%= Number(product.price).toLocaleString('en-IN') %>
+                                        </div>
+                                        <% if (product.hasOffer) { %>
+                                            <div class="old-price">₹<%=
+                                                    Number(product.originalPrice).toLocaleString('en-IN') %>
                                             </div>
-                                            <% if (isOnSale) { %>
-                                                <div class="old-price">₹<%=
-                                                        Number(originalPrice).toLocaleString('en-IN') %>
-                                                </div>
-                                                <div class="discount-badge">
-                                                    <%= offPercent %>% OFF
-                                                </div>
-                                                <% } %>
-                                        </div>
-                                        <div class="tax-note">MRP incl. of all taxes</div>
-
-                                        <div class="color-section">
-                                            <span class="color-label">FIND YOUR COLOR</span>
-                                            <div class="color-options">
-                                                <% if (product.variants && product.variants.length) { %>
-                                                    <% product.variants.forEach(v=> { %>
-                                                        <div class="color-opt <%= (product.variant && product.variant._id === v._id) ? 'active' : '' %>"
-                                                            onclick="location.href='?variant=<%= v._id %>'">
-                                                            <%= v.color %>
-                                                        </div>
-                                                        <% }) %>
-                                                            <% } else { %>
-                                                                <div class="color-opt active">Std</div>
-                                                                <% } %>
+                                            <div class="discount-badge">
+                                                <%= product.discountPercentage %>% OFF
                                             </div>
-                                        </div>
+                                            <% } %>
+                                    </div>
+                                    <div class="tax-note">MRP incl. of all taxes</div>
 
-                                        <div class="action-buttons">
-                                            <button id="cart-button"
-                                                class="btn-action btn-cart <%= product.stock <= 0 ? 'btn-disabled' : '' %>"
-                                                data-variant-id="<%= product.variant ? product.variant._id : '' %>"
-                                                <%=product.stock <=0 ? 'disabled' : '' %>>Add to Cart</button>
-
+                                    <div class="color-section">
+                                        <span class="color-label">FIND YOUR COLOR</span>
+                                        <div class="color-options">
+                                            <% if (product.variants && product.variants.length) { %>
+                                                <% product.variants.forEach(v=> { %>
+                                                    <div class="color-opt <%= (product.variant && product.variant._id === v._id) ? 'active' : '' %>"
+                                                        onclick="location.href='?variant=<%= v._id %>'">
+                                                        <%= v.color %>
+                                                    </div>
+                                                    <% }) %>
+                                                        <% } else { %>
+                                                            <div class="color-opt active">Std</div>
+                                                            <% } %>
                                         </div>
+                                    </div>
+
+                                    <div class="action-buttons">
+                                        <button id="cart-button"
+                                            class="btn-action btn-cart <%= product.stock <= 0 ? 'btn-disabled' : '' %>"
+                                            data-variant-id="<%= product.variant ? product.variant._id : '' %>"
+                                            <%=product.stock <=0 ? 'disabled' : '' %>>Add to Cart</button>
+
+                                    </div>
                     </div>
                 </section>
 
@@ -174,7 +170,15 @@
                                     <div class="related-name">
                                         <%= rp.name %>
                                     </div>
-                                    <div class="related-price">₹<%= rp.price %>
+                                    <div class="related-price">
+                                        <% if (rp.hasOffer) { %>
+                                            <span class="curr">₹<%= rp.price %></span>
+                                            <span class="old"
+                                                style="text-decoration: line-through; color: #94a3b8; font-size: 0.8rem; margin-left: 5px;">₹
+                                                <%= rp.originalPrice %></span>
+                                            <% } else { %>
+                                                ₹<%= rp.price %>
+                                                    <% } %>
                                     </div>
                                 </a>
                                 <% }) %>

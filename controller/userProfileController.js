@@ -120,6 +120,10 @@ export async function updateProfile(req, res) {
       avatar: imageUrl
     });
 
+    if (req.session.user) {
+      req.session.user.avatar = imageUrl;
+    }
+
     return res.status(200).json({
       success: true,
       message: "Profile picture updated successfully",
@@ -153,6 +157,7 @@ export async function getEmailchange(req, res) {
     }
 
     return res.render("users/emailUpdation", {
+      user: req.user,
       currentEmail: user.email,
       breadcrumbs: buildBreadcrumb([
         { label: "Profile", url: "/profile" },
@@ -395,6 +400,7 @@ export async function getAddresslist(req, res) {
     });
 
     res.render("users/addressList", {
+      user: req.user,
       addresses,
       pagination,
       breadcrumbs: buildBreadcrumb([
@@ -441,6 +447,7 @@ export async function postDefaultAddres(req, res) {
 
 export async function getAddaddress(req, res) {
   res.render("users/addressAdd", {
+    user: req.user,
     breadcrumbs: buildBreadcrumb([
       { label: "Profile", url: "/profile" },
       { label: "Address List", url: "/address" },
@@ -497,6 +504,7 @@ export const getEditAddress = async (req, res) => {
     const returnTo = req.query.returnTo || null;
 
     res.render("users/editAddress", {
+      user: req.user,
       address,
       returnTo,
       breadcrumbs: buildBreadcrumb([
@@ -626,6 +634,7 @@ export async function getupdatePass(req, res) {
   }
 
   res.render("users/passChange", {
+    user: req.user,
     breadcrumbs: buildBreadcrumb([
       { label: "Profile", url: "/profile" },
       { label: "Change Password", url: "/password-change" }

@@ -2,8 +2,10 @@ import Order from "../models/orderModel.js";
 import OrderItem from "../models/orderItemModel.js";
 import Cart from "../models/cartModel.js";
 import { Product, ProductVariant } from "../models/productModel.js";
+import Wallet from "../models/walletModel.js";
 import * as inventoryService from "./inventoryService.js";
 import logger from "../utils/logger.js";
+import crypto from "crypto";
 
 export const getUserOrders = async (userId, page = 1, limit = 8, search = "") => {
     const skip = (page - 1) * limit;
@@ -60,7 +62,7 @@ export const getUserOrders = async (userId, page = 1, limit = 8, search = "") =>
     };
 };
 
-export const createOrder = async ({ userId, paymentMethod, checkoutSession, cartTotals }) => {
+export const createOrder = async ({ userId, paymentMethod, checkoutSession, cartTotals, paymentStatus = "pending" }) => {
     try {
         const addressData = checkoutSession.address;
         const discountAmount = cartTotals.discountAmount || 0;
@@ -84,11 +86,31 @@ export const createOrder = async ({ userId, paymentMethod, checkoutSession, cart
                 mobile: addressData.mobile
             },
             paymentMethod,
-            paymentStatus: paymentMethod === "COD" ? "pending" : "pending"
+            paymentStatus: paymentStatus
         });
 
         await newOrder.save();
         logger.info(`Order created: ${newOrder._id} for user: ${userId}`);
+
+        // Handle Wallet deduction
+        if (paymentMethod === "Wallet") {
+            const wallet = await Wallet.findOne({ userId });
+            if (!wallet || wallet.balance < finalAmount) {
+                // This should ideally be checked earlier in controller, but as a safeguard:
+                throw new Error("Insufficient wallet balance");
+            }
+
+            wallet.balance -= finalAmount;
+            wallet.transactions.push({
+                walletTransactionId: crypto.randomBytes(8).toString("hex"),
+                amount: finalAmount,
+                type: 'debit',
+                description: `Payment for order ${newOrder._id}`,
+                date: new Date()
+            });
+            await wallet.save();
+            logger.info(`Wallet balance deducted for user: ${userId}, Order: ${newOrder._id}`);
+        }
 
         for (const item of cartTotals.items) {
 
@@ -187,6 +209,7 @@ export const getOrderById = async (orderId, userId) => {
             image: item.productImage || item.variantId?.images?.[0] || '',
             label: item.variantLabel || item.variantId?.color || '',
             total: item.purchasedPrice * item.productQuantity
-        }))
+        })),
+        orderStatus: items.length > 0 ? (items.every(i => i.status === items[0].status) ? items[0].status : "Multiple") : "pending"
     };
 };

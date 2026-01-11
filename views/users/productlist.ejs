@@ -158,9 +158,9 @@
                       </button>
                       <img src="<%= product.image || 'https://via.placeholder.com/400?text=SeatWorld' %>"
                         alt="<%= product.name %>">
-                      <% if (isOnSale) { %>
+                      <% if (product.hasOffer) { %>
                         <div class="off-badge">
-                          <%= offPercent %>% off
+                          <%= product.discountPercentage %>% OFF
                         </div>
                         <% } %>
                     </div>
@@ -169,17 +169,17 @@
                         <%= product.name %>
                       </h3>
                       <div class="price-info">
-                        <% if (isOnSale) { %>
-                          <div class="p-current">₹<%= Number(currentPrice).toLocaleString('en-IN') %>
+                        <% if (product.hasOffer) { %>
+                          <div class="p-current">₹<%= Number(product.discountedPrice).toLocaleString('en-IN') %>
                           </div>
                           <div class="p-old-row">
-                            <span class="p-old">₹<%= Number(product.Baseprice).toLocaleString('en-IN') %></span>
+                            <span class="p-old">₹<%= Number(product.originalPrice).toLocaleString('en-IN') %></span>
                             <span class="p-off">
-                              <%= offPercent %>% off
+                              <%= product.discountPercentage %>% OFF
                             </span>
                           </div>
                           <% } else { %>
-                            <div class="p-current">₹<%= Number(product.Baseprice).toLocaleString('en-IN') %>
+                            <div class="p-current">₹<%= Number(product.originalPrice).toLocaleString('en-IN') %>
                             </div>
                             <% } %>
                       </div>

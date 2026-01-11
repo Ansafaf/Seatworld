@@ -26,145 +26,43 @@
                     <i class="fas fa-bars" style="font-size: 20px;"></i>
                 </button>
 
-                <!-- Mobile Sidebar -->
-                <aside class="sidebar mobile-sidebar" id="mobileSidebar">
-                    <div class="mobile-sidebar-header">
-                        <div class="brand">
-                            <img
-                                src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765945540/products/rmsn314w038gnfzmemmi.jpg">
-                            SeatWorld
-                        </div>
-                        <button class="close-sidebar-btn" id="closeSidebarBtn">
-                            <span class="material-icons-outlined">close</span>
-                        </button>
-                    </div>
-
-                    <div class="profile-header">
-                        <form action="/profile/avatar" method="POST" enctype="multipart/form-data">
-                            <div class="avatar-wrapper">
-                                <div class="avatar">
-                                    <% if (user.avatar) { %>
-                                        <img src="<%= user.avatar %>">
-                                        <% } %>
-                                </div>
-                                <label class="avatar-edit-btn" for="avatarInputMobile">✎</label>
-                                <input type="file" id="avatarInputMobile" name="avatar" accept="image/*">
-                            </div>
-                        </form>
-
-
-                        <a href="/password-change" class="menu-item">
-                            <span class="menu-icon material-icons-outlined">lock</span>
-                            Password Change
-                        </a>
-                        <a href="/referral" class="menu-item">
-                            <span class="menu-icon material-icons-outlined">share</span>
-                            generate referralcode
-                        </a>
-                        <a href="/logout" class="menu-item">
-                            <span class="menu-icon material-icons-outlined">logout</span>
-                            Logout
-                        </a>
-                    </div>
-                </aside>
-
-                <!-- Desktop Sidebar (hidden on mobile) -->
                 <div class="container">
                     <div class="profile-layout">
+                        <%- include('../partials/profileSidebar', { active: 'profile' }) %>
 
-                        <!-- Desktop Sidebar -->
-                        <aside class="sidebar desktop-sidebar">
-                            <div class="profile-header">
-                                <form action="/profile/avatar" method="POST" enctype="multipart/form-data">
-                                    <div class="avatar-wrapper">
-                                        <div class="avatar">
-                                            <% if (user.avatar) { %>
-                                                <img src="<%= user.avatar %>">
-                                                <% } %>
+
+                            <!-- MAIN -->
+                            <main class="main-content">
+                                <h1 class="page-title">Account Information</h1>
+
+                                <div class="info-card">
+                                    <div class="info-grid">
+                                        <div>
+                                            <div class="field-label">Name</div>
+                                            <div class="field-value">
+                                                <%= user.name || user.username %>
+                                            </div>
                                         </div>
-                                        <label class="avatar-edit-btn" for="avatarInput">✎</label>
-                                        <input type="file" id="avatarInput" name="avatar" accept="image/*">
-                                    </div>
-                                </form>
-
-
-                                <div class="user-name">
-                                    <%= user.name || user.username %>
-                                </div>
-                                <div class="user-email">
-                                    <%= user.email %>
-                                </div>
-                            </div>
-
-                            <div class="menu-section">
-                                <div class="menu-title">MY ACCOUNT</div>
-                                <a href="/profile" class="menu-item active">
-                                    <span class="menu-icon material-icons-outlined">person</span>
-                                    Personal Information
-                                </a>
-                                <a href="/address" class="menu-item">
-                                    <span class="menu-icon material-icons-outlined">location_on</span>
-                                    Address
-                                </a>
-                                <a href="/orders" class="menu-item">
-                                    <span class="menu-icon material-icons-outlined">shopping_bag</span>
-                                    Orders
-                                </a>
-                                <a href="/wallet" class="menu-item">
-                                    <span class="menu-icon material-icons-outlined">account_balance_wallet</span>
-                                    Wallet
-                                </a>
-                                <a href="/coupons" class="menu-item">
-                                    <span class="menu-icon material-icons-outlined">local_offer</span>
-                                    Coupon
-                                </a>
-                                <a href="/password-change" class="menu-item">
-                                    <span class="menu-icon material-icons-outlined">lock</span>
-                                    Password Change
-                                </a>
-                                <a href="/referral" class="menu-item">
-                                    <span class="menu-icon material-icons-outlined">share</span>
-                                    generate referralcode
-                                </a>
-                                <a href="/logout" class="menu-item">
-                                    <span class="menu-icon material-icons-outlined">logout</span>
-                                    Logout
-                                </a>
-                            </div>
-                        </aside>
-
-                        <!-- MAIN -->
-                        <main class="main-content">
-                            <h1 class="page-title">Account Information</h1>
-
-                            <div class="info-card">
-                                <div class="info-grid">
-                                    <div>
-                                        <div class="field-label">Name</div>
-                                        <div class="field-value">
-                                            <%= user.name || user.username %>
+                                        <div>
+                                            <div class="field-label">Email</div>
+                                            <div class="field-value">
+                                                <%= user.email %>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <div class="field-label">Email</div>
-                                        <div class="field-value">
-                                            <%= user.email %>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="field-label">Mobile</div>
-                                        <div class="field-value">
-                                            <%= user.mobile %>
+                                        <div>
+                                            <div class="field-label">Mobile</div>
+                                            <div class="field-value">
+                                                <%= user.mobile %>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="action-buttons">
-                                <a href="/profile/edit" class="btn btn-primary">Edit info</a>
-                                <a href="/logout" class="btn btn-secondary">Logout</a>
-                            </div>
-                        </main>
+                                <div class="action-buttons">
+                                    <a href="/profile/edit" class="btn btn-primary">Edit info</a>
+                                    <a href="/logout" class="btn btn-secondary">Logout</a>
+                                </div>
+                            </main>
 
                     </div>
                 </div>

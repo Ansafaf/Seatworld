@@ -29,6 +29,9 @@ import orderRouter from "./routes/orderRoute.js";
 import adminInventoryRouter from "./routes/adminInventoryRoutes.js";
 import wishlistRouter from "./routes/wishlistRoute.js";
 import adminCouponRouter from "./routes/adminCouponRoutes.js";
+import adminOfferRouter from "./routes/adminOfferRoutes.js";
+import razorpayRoute from "./routes/razorpayRoutes.js";
+
 
 
 
@@ -89,8 +92,11 @@ app.use("/", checkoutRouter);
 app.use("/admin/orders", adminOrderRouter);
 app.use("/admin/inventory", adminInventoryRouter);
 app.use("/admin/coupons", adminCouponRouter);
+app.use("/admin/offers", adminOfferRouter);
 app.use("/", orderRouter);
 app.use("/wishlist", wishlistRouter);
+app.use("/razorpay", razorpayRoute);
+
 
 app.use((req, res, next) => {
   res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, private");

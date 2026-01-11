@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Failed | SeatWorld</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .failure-container {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .failure-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 60px 80px;
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .failure-icon {
+            width: 80px;
+            height: 80px;
+            background: #dc3545;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+        }
+
+        .failure-icon i {
+            font-size: 40px;
+            color: white;
+        }
+
+        .failure-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .failure-message {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .order-id {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+        }
+
+        .btn-primary {
+            background: #333;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #333;
+            border: 2px solid #333;
+        }
+
+        .btn-secondary:hover {
+            background: #f5f5f5;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .failure-card {
+                padding: 40px 30px;
+            }
+
+            .failure-title {
+                font-size: 1.5rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('../partials/header', { showSearch: false }) %>
+
+        <div class="failure-container">
+            <div class="failure-card">
+                <div class="failure-icon">
+                    <i class="fas fa-times"></i>
+                </div>
+                <h1 class="failure-title">Payment Failed</h1>
+                <p class="failure-message">
+                    <% if (typeof message !=='undefined' ) { %>
+                        <%= message %>
+                            <% } else { %>
+                                Oops! Something went wrong with your payment. Please try again or use a different
+                                payment method.
+                                <% } %>
+                                    <br>
+                                    <% if (typeof orderId !=='undefined' && orderId) { %>
+                                        Order ID: <span class="order-id">
+                                            <%= orderId %>
+                                        </span>
+                                        <% } %>
+                </p>
+                <div class="button-group">
+                    <a href="/checkout/payment-options" class="btn btn-primary">Try Again</a>
+                    <a href="/" class="btn btn-secondary">Go to Homepage</a>
+                </div>
+            </div>
+        </div>
+
+        <%- include('../partials/footer') %>
+</body>
+
+</html>
