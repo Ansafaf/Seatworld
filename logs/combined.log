@@ -8213,3 +8213,58 @@ Cannot read properties of undefined (reading 'toLowerCase')
 [2026-01-11 17:19:18] INFO: [GET] /orders
 [2026-01-11 17:19:19] INFO: [GET] /products
 [2026-01-11 17:49:42] INFO: [GET] /admin/orders
+[2026-01-11 18:26:25] INFO: [GET] /orders
+[2026-01-11 18:58:37] INFO: [GET] /admin/offers
+[2026-01-11 18:58:41] INFO: [GET] /admin/offers/add
+[2026-01-11 19:01:22] INFO: [GET] /admin/orders
+[2026-01-11 19:01:28] INFO: [GET] /admin/orders/69634f8af72c867aca8eaaf9
+[2026-01-11 19:01:32] INFO: [GET] /admin/orders
+[2026-01-11 19:26:53] INFO: [GET] /admin/categories
+[2026-01-11 19:27:00] INFO: [GET] /admin/orders
+[2026-01-11 19:30:38] INFO: [GET] /admin/orders
+[2026-01-11 19:30:46] INFO: [GET] /admin/orders/69634f8af72c867aca8eaaf9
+[2026-01-11 19:30:47] ERROR: E:\Brocamp\SeatWorld\views\admin\orderDetails.ejs:224
+    222|                                     <p
+    223|                                         class="text-lg font-black uppercase
+ >> 224|                                         <%= ['cancelled', 'returned', 'failed'].includes(order.orderStatus.toLowerCase()) ? 'text-red-600' : 
+    225|                                            ['partially cancelled', 'partially returned'].includes(order.orderStatus.toLowerCase()) ? 'text-orange-600' :
+    226|                                            order.orderStatus.toLowerCase() === 'delivered' ? 'text-green-600' : 'text-yellow-600' %>">
+    227|                                         <%= order.orderStatus %>
+
+Cannot read properties of undefined (reading 'toLowerCase')
+[2026-01-11 19:30:49] INFO: [GET] /admin/orders
+[2026-01-11 19:30:50] INFO: [GET] /admin/dashboard
+[2026-01-11 19:30:52] INFO: [GET] /admin/orders
+[2026-01-11 19:30:53] INFO: [GET] /admin/orders/69634f8af72c867aca8eaaf9
+[2026-01-11 19:30:53] ERROR: E:\Brocamp\SeatWorld\views\admin\orderDetails.ejs:224
+    222|                                     <p
+    223|                                         class="text-lg font-black uppercase
+ >> 224|                                         <%= ['cancelled', 'returned', 'failed'].includes(order.orderStatus.toLowerCase()) ? 'text-red-600' : 
+    225|                                            ['partially cancelled', 'partially returned'].includes(order.orderStatus.toLowerCase()) ? 'text-orange-600' :
+    226|                                            order.orderStatus.toLowerCase() === 'delivered' ? 'text-green-600' : 'text-yellow-600' %>">
+    227|                                         <%= order.orderStatus %>
+
+Cannot read properties of undefined (reading 'toLowerCase')
+[2026-01-11 19:30:55] INFO: [GET] /admin/orders
+[2026-01-11 19:30:56] INFO: [GET] /admin/orders/69638e0286b47949a0999298
+[2026-01-11 19:30:56] ERROR: E:\Brocamp\SeatWorld\views\admin\orderDetails.ejs:224
+    222|                                     <p
+    223|                                         class="text-lg font-black uppercase
+ >> 224|                                         <%= ['cancelled', 'returned', 'failed'].includes(order.orderStatus.toLowerCase()) ? 'text-red-600' : 
+    225|                                            ['partially cancelled', 'partially returned'].includes(order.orderStatus.toLowerCase()) ? 'text-orange-600' :
+    226|                                            order.orderStatus.toLowerCase() === 'delivered' ? 'text-green-600' : 'text-yellow-600' %>">
+    227|                                         <%= order.orderStatus %>
+
+Cannot read properties of undefined (reading 'toLowerCase')
+[2026-01-11 19:30:57] INFO: [GET] /admin/orders
+[2026-01-11 19:30:58] INFO: [GET] /admin/orders/6961413ca01aacf03aacc9ad
+[2026-01-11 19:30:58] ERROR: E:\Brocamp\SeatWorld\views\admin\orderDetails.ejs:224
+    222|                                     <p
+    223|                                         class="text-lg font-black uppercase
+ >> 224|                                         <%= ['cancelled', 'returned', 'failed'].includes(order.orderStatus.toLowerCase()) ? 'text-red-600' : 
+    225|                                            ['partially cancelled', 'partially returned'].includes(order.orderStatus.toLowerCase()) ? 'text-orange-600' :
+    226|                                            order.orderStatus.toLowerCase() === 'delivered' ? 'text-green-600' : 'text-yellow-600' %>">
+    227|                                         <%= order.orderStatus %>
+
+Cannot read properties of undefined (reading 'toLowerCase')
+[2026-01-11 19:31:01] INFO: [GET] /admin/orders
