@@ -783,3 +783,5 @@ Cannot read properties of undefined (reading 'toLowerCase')
     227|                                         <%= order.orderStatus %>
 
 Cannot read properties of undefined (reading 'toLowerCase')
+[2026-01-12 10:53:54] ERROR: refferralCode is not defined
+[2026-01-12 10:55:41] ERROR: refferralCode is not defined

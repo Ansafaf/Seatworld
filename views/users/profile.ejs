@@ -66,6 +66,28 @@
 
                     </div>
                 </div>
+                <div id="referralModalOverlay" class="referral-overlay"></div>
+                <div id="referralModal" class="referral-modal">
+                    <div class="modal-header">
+                        <h3>Your Referral Code</h3>
+                        <button class="close-modal-btn" onclick="hideReferralModal()">
+                            <i class="material-icons-outlined">close</i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Share this code with friends to earn rewards!</p>
+                        <div class="referral-box">
+                            <span id="referralCodeText">
+                                <%= user.referralCode || 'N/A' %>
+                            </span>
+                            <button class="copy-btn" onclick="copyReferralCode()">
+                                <i class="material-icons-outlined">content_copy</i>
+                                Copy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                 <script src="/js/users/profile.js"></script>

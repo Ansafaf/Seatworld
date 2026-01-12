@@ -8,6 +8,10 @@ import otpGenerator from "otp-generator";
 import nodemailer from "nodemailer";
 import validator from "validator";
 import { buildBreadcrumb } from "../utils/breadcrumb.js";
+import Wallet from "../models/walletModel.js";
+import { loggers } from "winston";
+import { createReferralForUser } from "../services/referralService.js";
+import { generateReferralCode } from "../utils/generateReferral.js";
 
 
 // Landing Page 
@@ -102,6 +106,14 @@ export async function postSignup(req, res) {
       success: false,
       message: "Password must be at least 6 characters"
     });
+  }
+
+  if (referralCode) {
+    let refferer = await User.findOne({ referralCode });
+    if (!refferer) {
+      return res.status(400).json({ message: "Invalid referral code" });
+    }
+
   }
 
   try {
@@ -204,17 +216,52 @@ export async function verifyOtp(req, res) {
         message: "OTP expired. Please resend."
       });
     }
+    let referrer = await User.findOne({ referralCode: signupInfo.referralCode });
 
     // Save user only now
     const newUser = new User({
       username: signupInfo.username,
       email: signupInfo.email,
       password: signupInfo.password,
-      referralCode: signupInfo.referralCode,
+      referralCode: generateReferralCode(signupInfo.username),
+      refferedBy: referrer ? referrer._id : null,
       isVerified: true,
       authType: "local"
     });
+
     await newUser.save();
+
+    const newWallet = new Wallet({
+      userId: newUser._id,
+      balance: 0,
+      transactions: []
+    });
+
+    if (referrer) {
+      // Credit Referrer
+      let walletReferrer = await Wallet.findOne({ userId: referrer._id });
+      if (walletReferrer) {
+        walletReferrer.balance += 100;
+        walletReferrer.transactions.push({
+          walletTransactionId: otpGenerator.generate(12, { specialChars: false }),
+          amount: 100,
+          type: 'credit',
+          description: 'Referral Bonus'
+        });
+        await walletReferrer.save();
+      }
+
+      // Credit New User
+      newWallet.balance = 50;
+      newWallet.transactions.push({
+        walletTransactionId: otpGenerator.generate(12, { specialChars: false }),
+        amount: 50,
+        type: 'credit',
+        description: 'Referral Bonus'
+      });
+    }
+
+    await newWallet.save();
 
 
     req.session.user = {
@@ -249,7 +296,18 @@ export async function verifyOtp(req, res) {
   }
 }
 
-// Resend OTP 
+export const getReferralCode = async (req, res) => {
+  try {
+    const userId = req.session.user.id;
+    const referralCode = await createReferralForUser(userId);
+
+    return res.status(200).json({ success: true, referralCode });
+  }
+  catch (err) {
+    return res.status(400).json({ success: false, message: err.message });
+  }
+}
+
 // Resend OTP 
 export async function resendOtp(req, res) {
   try {

@@ -8,10 +8,14 @@ import nodemailer from "nodemailer";
 import validator from "validator";
 import { buildBreadcrumb } from "../utils/breadcrumb.js";
 import Coupon from "../models/couponModel.js";
+import { createReferralForUser } from "../services/referralService.js";
 
 
 export async function getProfile(req, res) {
   const customer = await User.findById(req.session.user.id);
+  if (!customer.referralCode) {
+    customer.referralCode = await createReferralForUser(customer._id);
+  }
   res.render("users/profile", {
     user: customer,
     breadcrumbs: buildBreadcrumb([

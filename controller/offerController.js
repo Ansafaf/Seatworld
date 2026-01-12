@@ -49,13 +49,10 @@ export const getOfferList = async (req, res) => {
 
 export const getAddOffer = async (req, res) => {
     try {
-        const [products, categories] = await Promise.all([
-            Product.find({ isBlocked: false }),
-            Category.find({ isActive: true })
-        ]);
+        const categories = await Category.find({ isActive: true });
 
         res.render("admin/offerAdd", {
-            products,
+            products: [], // Products will be searched via AJAX
             categories,
             path: '/admin/offers'
         });
@@ -118,19 +115,16 @@ export const toggleOfferStatus = async (req, res) => {
 export const getEditOffer = async (req, res) => {
     try {
         const { id } = req.params;
-        const offer = await Offer.findById(id);
+        const offer = await Offer.findById(id).populate('productId');
         if (!offer) {
             return res.redirect("/admin/offers");
         }
 
-        const [products, categories] = await Promise.all([
-            Product.find({ isBlocked: false }),
-            Category.find({ isActive: true })
-        ]);
+        const categories = await Category.find({ isActive: true });
 
         res.render("admin/offerEdit", {
             offer,
-            products,
+            products: [], // Products search via AJAX
             categories,
             path: '/admin/offers'
         });
