@@ -785,3 +785,84 @@ Cannot read properties of undefined (reading 'toLowerCase')
 Cannot read properties of undefined (reading 'toLowerCase')
 [2026-01-12 10:53:54] ERROR: refferralCode is not defined
 [2026-01-12 10:55:41] ERROR: refferralCode is not defined
+[2026-01-12 12:39:36] ERROR: E:\Brocamp\SeatWorld\views\admin\salesreport.ejs:15
+    13| 
+    14| <body class="font-display bg-gray-50 text-gray-800">
+ >> 15|     <%- include('../partials/flash') %>
+    16|         <!-- Top Header -->
+    17|         <header class="bg-white shadow-sm fixed w-full z-50 h-16 flex items-center justify-between px-6">
+    18|             <div class="flex items-center gap-4">
+
+E:\Brocamp\SeatWorld\views\partials\flash.ejs:1
+ >> 1| <% if (messageData || message) { %>
+    2|     <% let finalMessage=messageData || message; let msgType=(typeof finalMessage==='object' && finalMessage &&
+    3|         finalMessage.type) ? finalMessage.type : 'info' ; let msgText=(typeof finalMessage==='object' && finalMessage &&
+    4|         finalMessage.message) ? finalMessage.message : (typeof finalMessage==='string' ? finalMessage : '' ); if
+
+messageData is not defined
+[2026-01-12 12:46:22] ERROR: E:\Brocamp\SeatWorld\views\admin\salesreport.ejs:15
+    13| 
+    14| <body class="font-display bg-gray-50 text-gray-800">
+ >> 15|     <%- include('../partials/flash') %>
+    16|         <!-- Top Header -->
+    17|         <header class="bg-white shadow-sm fixed w-full z-50 h-16 flex items-center justify-between px-6">
+    18|             <div class="flex items-center gap-4">
+
+E:\Brocamp\SeatWorld\views\partials\flash.ejs:1
+ >> 1| <% if (messageData || message) { %>
+    2|     <% let finalMessage=messageData || message; let msgType=(typeof finalMessage==='object' && finalMessage &&
+    3|         finalMessage.type) ? finalMessage.type : 'info' ; let msgText=(typeof finalMessage==='object' && finalMessage &&
+    4|         finalMessage.message) ? finalMessage.message : (typeof finalMessage==='string' ? finalMessage : '' ); if
+
+messageData is not defined
+[2026-01-12 12:46:41] ERROR: E:\Brocamp\SeatWorld\views\admin\salesreport.ejs:15
+    13| 
+    14| <body class="font-display bg-gray-50 text-gray-800">
+ >> 15|     <%- include('../partials/flash') %>
+    16|         <!-- Top Header -->
+    17|         <header class="bg-white shadow-sm fixed w-full z-50 h-16 flex items-center justify-between px-6">
+    18|             <div class="flex items-center gap-4">
+
+E:\Brocamp\SeatWorld\views\partials\flash.ejs:1
+ >> 1| <% if (messageData || message) { %>
+    2|     <% let finalMessage=messageData || message; let msgType=(typeof finalMessage==='object' && finalMessage &&
+    3|         finalMessage.type) ? finalMessage.type : 'info' ; let msgText=(typeof finalMessage==='object' && finalMessage &&
+    4|         finalMessage.message) ? finalMessage.message : (typeof finalMessage==='string' ? finalMessage : '' ); if
+
+messageData is not defined
+[2026-01-12 15:52:32] ERROR: E:\Brocamp\SeatWorld\views\admin\salesreport.ejs:129
+    127| 
+    128|                                 <div class="space-y-4">
+ >> 129|                                     <% if (topProducts && topProducts.length> 0) { %>
+    130|                                         <% topProducts.forEach(product=> { %>
+    131|                                             <div class="flex items-center gap-3">
+    132|                                                 <div
+
+topProducts is not defined
+[2026-01-12 15:52:36] ERROR: E:\Brocamp\SeatWorld\views\admin\salesreport.ejs:129
+    127| 
+    128|                                 <div class="space-y-4">
+ >> 129|                                     <% if (topProducts && topProducts.length> 0) { %>
+    130|                                         <% topProducts.forEach(product=> { %>
+    131|                                             <div class="flex items-center gap-3">
+    132|                                                 <div
+
+topProducts is not defined
+[2026-01-12 15:57:24] ERROR: E:\Brocamp\SeatWorld\views\admin\salesreport.ejs:129
+    127| 
+    128|                                 <div class="space-y-4">
+ >> 129|                                     <% if (topProducts && topProducts.length> 0) { %>
+    130|                                         <% topProducts.forEach(product=> { %>
+    131|                                             <div class="flex items-center gap-3">
+    132|                                                 <div
+
+topProducts is not defined
+[2026-01-12 15:58:53] ERROR: E:\Brocamp\SeatWorld\views\admin\salesreport.ejs:129
+    127| 
+    128|                                 <div class="space-y-4">
+ >> 129|                                     <% if (topProducts && topProducts.length> 0) { %>
+    130|                                         <% topProducts.forEach(product=> { %>
+    131|                                             <div class="flex items-center gap-3">
+    132|                                                 <div
+
+topProducts is not defined
