@@ -162,6 +162,8 @@ export const getOrderDetails = async (req, res) => {
             })
             .lean();
 
+        const summaryStatus = calculateDerivedStatus(items);
+
         const formattedOrder = {
             ...order.toObject(),
             items: items.map(item => ({
@@ -170,7 +172,8 @@ export const getOrderDetails = async (req, res) => {
                 image: item.productImage || item.variantId?.images?.[0] || '',
                 label: item.variantLabel || item.variantId?.color || '',
                 total: item.purchasedPrice * item.productQuantity
-            }))
+            })),
+            orderStatus: summaryStatus
         };
 
         res.render("admin/orderDetails", {
@@ -462,6 +465,7 @@ const calculateDerivedStatus = (items) => {
     if (deliveredCount === totalItems) return "Delivered";
     if (deliveredCount > 0) return "Partially Delivered";
     if (cancelledCount === totalItems) return "Cancelled";
+    if (cancelledCount > 0) return "Partially Cancelled";
 
     if (new Set(itemStatuses).size === 1) {
         return itemStatuses[0];

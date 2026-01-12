@@ -1,15 +1,24 @@
+    * {
+        box-sizing: border-box;
+    }
+
     body {
         font-family: 'Inter', sans-serif;
         background: #fff;
         margin: 0;
         padding: 0;
         text-align: center;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow: hidden;
     }
 
     .header {
         display: flex;
         align-items: center;
         padding: 15px 40px;
+        flex-shrink: 0;
     }
 
     .header img {
@@ -27,15 +36,19 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 80vh;
+        flex: 1;
+        width: 100%;
+        padding: 20px;
+        overflow: hidden;
     }
 
     .card {
         background: #f8f9fa;
-        padding: 30px;
+        padding: 40px;
         border-radius: 12px;
-        box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
-        width: 320px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 480px;
         text-align: center;
     }
 

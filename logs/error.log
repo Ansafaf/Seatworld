@@ -747,3 +747,41 @@ Cannot read properties of undefined (reading 'toLowerCase')
 
 Cannot read properties of undefined (reading 'toLowerCase')
 [2026-01-11 17:16:31] ERROR: Razorpay Create Order Error: Cannot read properties of undefined (reading 'status')
+[2026-01-11 19:30:47] ERROR: E:\Brocamp\SeatWorld\views\admin\orderDetails.ejs:224
+    222|                                     <p
+    223|                                         class="text-lg font-black uppercase
+ >> 224|                                         <%= ['cancelled', 'returned', 'failed'].includes(order.orderStatus.toLowerCase()) ? 'text-red-600' : 
+    225|                                            ['partially cancelled', 'partially returned'].includes(order.orderStatus.toLowerCase()) ? 'text-orange-600' :
+    226|                                            order.orderStatus.toLowerCase() === 'delivered' ? 'text-green-600' : 'text-yellow-600' %>">
+    227|                                         <%= order.orderStatus %>
+
+Cannot read properties of undefined (reading 'toLowerCase')
+[2026-01-11 19:30:53] ERROR: E:\Brocamp\SeatWorld\views\admin\orderDetails.ejs:224
+    222|                                     <p
+    223|                                         class="text-lg font-black uppercase
+ >> 224|                                         <%= ['cancelled', 'returned', 'failed'].includes(order.orderStatus.toLowerCase()) ? 'text-red-600' : 
+    225|                                            ['partially cancelled', 'partially returned'].includes(order.orderStatus.toLowerCase()) ? 'text-orange-600' :
+    226|                                            order.orderStatus.toLowerCase() === 'delivered' ? 'text-green-600' : 'text-yellow-600' %>">
+    227|                                         <%= order.orderStatus %>
+
+Cannot read properties of undefined (reading 'toLowerCase')
+[2026-01-11 19:30:56] ERROR: E:\Brocamp\SeatWorld\views\admin\orderDetails.ejs:224
+    222|                                     <p
+    223|                                         class="text-lg font-black uppercase
+ >> 224|                                         <%= ['cancelled', 'returned', 'failed'].includes(order.orderStatus.toLowerCase()) ? 'text-red-600' : 
+    225|                                            ['partially cancelled', 'partially returned'].includes(order.orderStatus.toLowerCase()) ? 'text-orange-600' :
+    226|                                            order.orderStatus.toLowerCase() === 'delivered' ? 'text-green-600' : 'text-yellow-600' %>">
+    227|                                         <%= order.orderStatus %>
+
+Cannot read properties of undefined (reading 'toLowerCase')
+[2026-01-11 19:30:58] ERROR: E:\Brocamp\SeatWorld\views\admin\orderDetails.ejs:224
+    222|                                     <p
+    223|                                         class="text-lg font-black uppercase
+ >> 224|                                         <%= ['cancelled', 'returned', 'failed'].includes(order.orderStatus.toLowerCase()) ? 'text-red-600' : 
+    225|                                            ['partially cancelled', 'partially returned'].includes(order.orderStatus.toLowerCase()) ? 'text-orange-600' :
+    226|                                            order.orderStatus.toLowerCase() === 'delivered' ? 'text-green-600' : 'text-yellow-600' %>">
+    227|                                         <%= order.orderStatus %>
+
+Cannot read properties of undefined (reading 'toLowerCase')
+[2026-01-12 10:53:54] ERROR: refferralCode is not defined
+[2026-01-12 10:55:41] ERROR: refferralCode is not defined

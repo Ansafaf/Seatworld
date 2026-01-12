@@ -143,7 +143,10 @@
                                                     <% let statusColor='text-yellow-500' ; if
                                                         (order.orderStatus==='delivered' ) statusColor='text-green-500'
                                                         ; else if (['cancelled', 'failed' , 'returned'
-                                                        ].includes(order.orderStatus)) statusColor='text-red-500' ; %>
+                                                        ].includes(order.orderStatus)) statusColor='text-red-500' ; else
+                                                        if (['Partially Cancelled', 'Partially Returned'
+                                                        ].includes(order.orderStatus)) statusColor='text-orange-600' ;
+                                                        %>
                                                         <span class="<%= statusColor %> capitalize">
                                                             <%= order.orderStatus %>
                                                         </span>

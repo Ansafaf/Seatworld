@@ -108,3 +108,71 @@ avatarInputs.forEach(input => {
         e.target.value = '';
     });
 });
+
+// Referral Modal Functions
+function showReferralModal() {
+    const modal = document.getElementById('referralModal');
+    const overlay = document.getElementById('referralModalOverlay');
+    if (modal) modal.classList.add('active');
+    if (overlay) overlay.classList.add('active');
+}
+
+function hideReferralModal() {
+    const modal = document.getElementById('referralModal');
+    const overlay = document.getElementById('referralModalOverlay');
+    if (modal) modal.classList.remove('active');
+    if (overlay) overlay.classList.remove('active');
+}
+
+// Close referral modal when clicking overlay
+const referralOverlay = document.getElementById('referralModalOverlay');
+if (referralOverlay) {
+    referralOverlay.addEventListener('click', hideReferralModal);
+}
+
+function copyReferralCode() {
+    const codeText = document.getElementById('referralCodeText').innerText;
+
+    if (!navigator.clipboard) {
+        // Fallback for older browsers
+        const tempInput = document.createElement('input');
+        tempInput.value = codeText;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Copied!',
+            text: 'Referral code copied to clipboard',
+            timer: 1500,
+            showConfirmButton: false
+        });
+        return;
+    }
+
+    navigator.clipboard.writeText(codeText)
+        .then(() => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Copied!',
+                text: 'Referral code copied to clipboard',
+                timer: 1500,
+                showConfirmButton: false
+            });
+        })
+        .catch(err => {
+            console.error('Failed to copy text: ', err);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Failed to copy referral code',
+            });
+        });
+}
+
+// Attach to window object to make them globally accessible
+window.showReferralModal = showReferralModal;
+window.hideReferralModal = hideReferralModal;
+window.copyReferralCode = copyReferralCode;

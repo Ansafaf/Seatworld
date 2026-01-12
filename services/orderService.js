@@ -11,7 +11,7 @@ export const getUserOrders = async (userId, page = 1, limit = 8, search = "") =>
     const skip = (page - 1) * limit;
 
     let query = { userId };
-
+    
     if (search) {
         // Search logic if needed in future
     }

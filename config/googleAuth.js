@@ -2,6 +2,7 @@ import passport from "passport";
 import { User } from "../models/userModel.js"
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import dotenv from "dotenv";
+import { generateReferralCode } from "../utils/generateReferral.js";
 
 dotenv.config();
 
@@ -19,7 +20,8 @@ passport.use(new GoogleStrategy({
           name: profile.displayName,
           email: profile.emails[0].value,
           avatar: profile.photos[0].value,
-          authType: "google"
+          authType: "google",
+          referralCode: generateReferralCode(profile.displayName)
         });
         await user.save();
       }

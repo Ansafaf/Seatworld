@@ -219,7 +219,11 @@
 
                                 <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg">
                                     <h4 class="text-sm font-bold text-gray-700 uppercase">Current State :</h4>
-                                    <p class="text-lg font-black text-green-600 uppercase">
+                                    <p
+                                        class="text-lg font-black uppercase
+                                        <%= ['cancelled', 'returned', 'failed'].includes((order.orderStatus || '').toLowerCase()) ? 'text-red-600' : 
+                                           ['partially cancelled', 'partially returned'].includes((order.orderStatus || '').toLowerCase()) ? 'text-orange-600' :
+                                           (order.orderStatus || '').toLowerCase() === 'delivered' ? 'text-green-600' : 'text-yellow-600' %>">
                                         <%= order.orderStatus %>
                                     </p>
                                 </div>
