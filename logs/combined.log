@@ -8391,3 +8391,448 @@ Cannot read properties of undefined (reading 'toLowerCase')
 [2026-01-12 11:33:56] INFO: [GET] /wallet
 [2026-01-12 11:34:00] INFO: [GET] /profile
 [2026-01-12 11:34:01] INFO: [GET] /home
+[2026-01-12 11:50:53] INFO: [GET] /admin/login
+[2026-01-12 11:50:59] INFO: [POST] /admin/login
+[2026-01-12 11:50:59] INFO: [GET] /admin/dashboard
+[2026-01-12 11:51:03] INFO: [GET] /admin/sales-report
+[2026-01-12 12:22:44] INFO: [GET] /product/6961d8fe71896ca1201d455b
+[2026-01-12 12:22:50] INFO: [GET] /profile
+[2026-01-12 12:22:52] INFO: [GET] /wallet
+[2026-01-12 12:22:53] INFO: [GET] /profile
+[2026-01-12 12:22:54] INFO: [GET] /orders
+[2026-01-12 12:22:56] INFO: [GET] /profile
+[2026-01-12 12:23:02] INFO: [POST] /profile/avatar
+[2026-01-12 12:23:02] INFO: [POST] /profile/avatar
+[2026-01-12 12:23:09] INFO: [GET] /profile
+[2026-01-12 12:23:11] INFO: [GET] /address
+[2026-01-12 12:23:12] INFO: [GET] /profile
+[2026-01-12 12:23:13] INFO: [GET] /orders
+[2026-01-12 12:23:14] INFO: [GET] /wallet
+[2026-01-12 12:23:16] INFO: [GET] /coupons
+[2026-01-12 12:23:19] INFO: [GET] /password-change
+[2026-01-12 12:23:26] INFO: [GET] /profile
+[2026-01-12 12:23:30] INFO: [GET] /password-change
+[2026-01-12 12:23:39] INFO: [GET] /password-change
+[2026-01-12 12:23:41] INFO: [GET] /coupons
+[2026-01-12 12:23:46] INFO: [GET] /wallet
+[2026-01-12 12:23:48] INFO: [GET] /orders
+[2026-01-12 12:23:53] INFO: [GET] /address
+[2026-01-12 12:23:56] INFO: [GET] /profile
+[2026-01-12 12:26:48] INFO: [POST] /profile/avatar
+[2026-01-12 12:26:48] INFO: [POST] /profile/avatar
+[2026-01-12 12:26:54] INFO: [GET] /profile
+[2026-01-12 12:31:40] INFO: [GET] /home
+[2026-01-12 12:31:41] INFO: [GET] /profile
+[2026-01-12 12:31:48] INFO: [POST] /profile/avatar
+[2026-01-12 12:31:59] INFO: [POST] /profile/avatar
+[2026-01-12 12:32:14] INFO: [POST] /profile/avatar
+[2026-01-12 12:32:34] INFO: [POST] /profile/avatar
+[2026-01-12 12:32:49] INFO: [GET] /products
+[2026-01-12 12:33:03] INFO: [GET] /products?search=&minPrice=720&maxPrice=970&sort=featured
+[2026-01-12 12:33:13] INFO: [GET] /products?search=&minPrice=720&maxPrice=1080&sort=featured
+[2026-01-12 12:33:26] INFO: [GET] /products?search=&minPrice=720&maxPrice=1200&sort=featured
+[2026-01-12 12:33:35] INFO: [GET] /products?search=&minPrice=720&maxPrice=1200&sort=featured
+[2026-01-12 12:33:55] INFO: [GET] /admin/products
+[2026-01-12 12:34:16] INFO: [GET] /admin/dashboard
+[2026-01-12 12:39:34] INFO: [GET] /admin/products
+[2026-01-12 12:39:36] INFO: [GET] /admin/sales-report
+[2026-01-12 12:39:36] ERROR: E:\Brocamp\SeatWorld\views\admin\salesreport.ejs:15
+    13| 
+    14| <body class="font-display bg-gray-50 text-gray-800">
+ >> 15|     <%- include('../partials/flash') %>
+    16|         <!-- Top Header -->
+    17|         <header class="bg-white shadow-sm fixed w-full z-50 h-16 flex items-center justify-between px-6">
+    18|             <div class="flex items-center gap-4">
+
+E:\Brocamp\SeatWorld\views\partials\flash.ejs:1
+ >> 1| <% if (messageData || message) { %>
+    2|     <% let finalMessage=messageData || message; let msgType=(typeof finalMessage==='object' && finalMessage &&
+    3|         finalMessage.type) ? finalMessage.type : 'info' ; let msgText=(typeof finalMessage==='object' && finalMessage &&
+    4|         finalMessage.message) ? finalMessage.message : (typeof finalMessage==='string' ? finalMessage : '' ); if
+
+messageData is not defined
+[2026-01-12 12:39:40] INFO: [GET] /admin/products
+[2026-01-12 12:46:22] INFO: [GET] /admin/sales-report
+[2026-01-12 12:46:22] ERROR: E:\Brocamp\SeatWorld\views\admin\salesreport.ejs:15
+    13| 
+    14| <body class="font-display bg-gray-50 text-gray-800">
+ >> 15|     <%- include('../partials/flash') %>
+    16|         <!-- Top Header -->
+    17|         <header class="bg-white shadow-sm fixed w-full z-50 h-16 flex items-center justify-between px-6">
+    18|             <div class="flex items-center gap-4">
+
+E:\Brocamp\SeatWorld\views\partials\flash.ejs:1
+ >> 1| <% if (messageData || message) { %>
+    2|     <% let finalMessage=messageData || message; let msgType=(typeof finalMessage==='object' && finalMessage &&
+    3|         finalMessage.type) ? finalMessage.type : 'info' ; let msgText=(typeof finalMessage==='object' && finalMessage &&
+    4|         finalMessage.message) ? finalMessage.message : (typeof finalMessage==='string' ? finalMessage : '' ); if
+
+messageData is not defined
+[2026-01-12 12:46:23] INFO: [GET] /admin/products
+[2026-01-12 12:46:39] INFO: [GET] /admin/users
+[2026-01-12 12:46:41] INFO: [GET] /admin/sales-report
+[2026-01-12 12:46:41] ERROR: E:\Brocamp\SeatWorld\views\admin\salesreport.ejs:15
+    13| 
+    14| <body class="font-display bg-gray-50 text-gray-800">
+ >> 15|     <%- include('../partials/flash') %>
+    16|         <!-- Top Header -->
+    17|         <header class="bg-white shadow-sm fixed w-full z-50 h-16 flex items-center justify-between px-6">
+    18|             <div class="flex items-center gap-4">
+
+E:\Brocamp\SeatWorld\views\partials\flash.ejs:1
+ >> 1| <% if (messageData || message) { %>
+    2|     <% let finalMessage=messageData || message; let msgType=(typeof finalMessage==='object' && finalMessage &&
+    3|         finalMessage.type) ? finalMessage.type : 'info' ; let msgText=(typeof finalMessage==='object' && finalMessage &&
+    4|         finalMessage.message) ? finalMessage.message : (typeof finalMessage==='string' ? finalMessage : '' ); if
+
+messageData is not defined
+[2026-01-12 12:46:42] INFO: [GET] /admin/users
+[2026-01-12 14:12:41] INFO: [GET] /
+[2026-01-12 14:12:41] INFO: [GET] /home
+[2026-01-12 14:12:47] INFO: [GET] /admin/dashboard
+[2026-01-12 14:12:49] INFO: [GET] /admin/products
+[2026-01-12 14:13:02] INFO: [GET] /admin/offers
+[2026-01-12 14:13:05] INFO: [GET] /admin/coupons
+[2026-01-12 14:13:08] INFO: [GET] /admin/coupons/edit/6961f77e226ddb0fa47836a8
+[2026-01-12 14:13:15] INFO: [POST] /admin/coupons/edit/6961f77e226ddb0fa47836a8
+[2026-01-12 14:13:17] INFO: [GET] /admin/coupons
+[2026-01-12 14:13:21] INFO: [GET] /admin/categories
+[2026-01-12 14:13:25] INFO: [GET] /admin/banner
+[2026-01-12 14:13:26] INFO: [GET] /admin/sales-report
+[2026-01-12 14:13:32] INFO: [GET] /admin/sales-report/download
+[2026-01-12 14:13:55] INFO: [GET] /admin/dashboard
+[2026-01-12 14:13:58] INFO: [GET] /admin/products
+[2026-01-12 14:14:01] INFO: [GET] /admin/inventory
+[2026-01-12 14:14:03] INFO: [GET] /admin/users
+[2026-01-12 14:14:03] INFO: [GET] /admin/orders
+[2026-01-12 14:14:04] INFO: [GET] /admin/offers
+[2026-01-12 14:14:06] INFO: [GET] /admin/categories
+[2026-01-12 14:14:07] INFO: [GET] /admin/coupons
+[2026-01-12 14:14:09] INFO: [GET] /admin/categories
+[2026-01-12 14:14:11] INFO: [GET] /admin/banner
+[2026-01-12 14:14:14] INFO: [GET] /admin/sales-report
+[2026-01-12 14:14:28] INFO: [GET] /admin/dashboard
+[2026-01-12 14:14:30] INFO: [GET] /admin/products
+[2026-01-12 14:14:32] INFO: [GET] /admin/inventory
+[2026-01-12 14:14:35] INFO: [GET] /admin/users
+[2026-01-12 14:14:36] INFO: [GET] /admin/orders
+[2026-01-12 14:14:38] INFO: [GET] /admin/offers
+[2026-01-12 14:14:46] INFO: [GET] /admin/coupons
+[2026-01-12 14:14:48] INFO: [GET] /admin/categories
+[2026-01-12 14:14:49] INFO: [GET] /admin/banner
+[2026-01-12 14:14:54] INFO: [GET] /admin/banner
+[2026-01-12 14:14:57] INFO: [GET] /admin/sales-report
+[2026-01-12 14:16:24] INFO: [GET] /admin/dashboard
+[2026-01-12 14:16:26] INFO: [GET] /admin/products
+[2026-01-12 14:16:27] INFO: [GET] /admin/inventory
+[2026-01-12 14:16:30] INFO: [GET] /admin/users
+[2026-01-12 14:16:31] INFO: [GET] /admin/orders
+[2026-01-12 14:16:34] INFO: [GET] /admin/offers
+[2026-01-12 14:16:35] INFO: [GET] /admin/coupons
+[2026-01-12 14:16:37] INFO: [GET] /admin/categories
+[2026-01-12 14:16:39] INFO: [GET] /admin/sales-report
+[2026-01-12 14:20:40] INFO: [GET] /profile
+[2026-01-12 14:20:43] INFO: [GET] /wallet
+[2026-01-12 14:20:44] INFO: [GET] /wallet/history
+[2026-01-12 14:21:00] INFO: [GET] /wallet
+[2026-01-12 14:21:06] INFO: [GET] /profile
+[2026-01-12 14:21:09] INFO: [GET] /profile/edit
+[2026-01-12 14:21:10] INFO: [POST] /profile/edit
+[2026-01-12 14:21:21] INFO: [POST] /profile/edit
+[2026-01-12 14:21:23] INFO: [GET] /profile
+[2026-01-12 14:21:35] INFO: [GET] /address
+[2026-01-12 14:21:38] INFO: [GET] /profile
+[2026-01-12 14:21:40] INFO: [GET] /products
+[2026-01-12 14:21:42] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-12 14:21:45] INFO: [POST] /wishlist/add
+[2026-01-12 14:21:46] INFO: [GET] /wishlist
+[2026-01-12 14:21:48] INFO: [POST] /cart/add
+[2026-01-12 14:21:48] INFO: [DELETE] /wishlist/694fa4a7f0a089520a1144da
+[2026-01-12 14:21:50] INFO: [GET] /cart
+[2026-01-12 14:21:51] INFO: [GET] /css/styles.css
+[2026-01-12 14:21:52] INFO: [GET] /checkout
+[2026-01-12 14:21:53] INFO: Found 1 available coupons for checkout
+[2026-01-12 14:21:53] INFO: Cleared persistent coupon on checkout entry
+[2026-01-12 14:21:55] INFO: [POST] /checkout/apply-coupon
+[2026-01-12 14:22:45] INFO: [POST] /checkout/address
+[2026-01-12 14:22:45] INFO: New address saved for user 69648eb647dbd2958afcabf2: 6964b65d7ee96c6847ff27f0
+[2026-01-12 14:22:45] INFO: [GET] /checkout/payment-options
+[2026-01-12 14:22:53] INFO: [POST] /place-order
+[2026-01-12 14:22:53] INFO: [GET] /order-failed?message=Insufficient%20wallet%20balance.%20Please%20add%20money%20to%20your%20wallet%20or%20choose%20another%20payment%20method.
+[2026-01-12 14:22:56] INFO: [GET] /checkout/payment-options
+[2026-01-12 14:23:01] INFO: [POST] /razorpay/create-order
+[2026-01-12 14:23:44] INFO: [POST] /razorpay/verify-payment
+[2026-01-12 14:23:44] INFO: [POST] /place-order
+[2026-01-12 14:23:45] INFO: Order created: 6964b6997ee96c6847ff281e for user: 69648eb647dbd2958afcabf2
+[2026-01-12 14:23:45] INFO: Stock decrementd for variant 694fa4a7f0a089520a1144da: -1. New stock: 31. Reason: order_placed
+[2026-01-12 14:23:45] INFO: Cart cleared for user: 69648eb647dbd2958afcabf2
+[2026-01-12 14:23:48] INFO: [GET] /order-success?orderId=6964b6997ee96c6847ff281e
+[2026-01-12 14:23:50] INFO: [GET] /orders
+[2026-01-12 14:23:53] INFO: [GET] /orders/6964b6997ee96c6847ff281e
+[2026-01-12 14:24:01] INFO: [GET] /orders/6964b6997ee96c6847ff281e/invoice
+[2026-01-12 14:26:31] INFO: [GET] /wallet
+[2026-01-12 14:26:41] INFO: [POST] /wallet/add-money
+[2026-01-12 14:26:42] INFO: [GET] /wallet
+[2026-01-12 14:27:31] INFO: [POST] /wallet/add-money
+[2026-01-12 14:27:33] INFO: [GET] /wallet
+[2026-01-12 14:29:50] INFO: [POST] /wallet/add-money
+[2026-01-12 14:29:52] INFO: [GET] /wallet
+[2026-01-12 14:29:59] INFO: [GET] /wallet/history
+[2026-01-12 14:30:12] INFO: [GET] /wallet
+[2026-01-12 14:30:16] INFO: [GET] /password-change
+[2026-01-12 14:30:24] INFO: [GET] /profile
+[2026-01-12 14:30:40] INFO: [GET] /home
+[2026-01-12 14:56:57] INFO: [GET] /admin/sales-report/download
+[2026-01-12 14:56:59] INFO: [GET] /admin/sales-report
+[2026-01-12 14:57:07] INFO: [GET] /admin/sales-report/download
+[2026-01-12 14:57:26] INFO: [GET] /admin/sales-report/download
+[2026-01-12 15:14:47] INFO: [GET] /admin/dashboard
+[2026-01-12 15:14:49] INFO: [GET] /admin/products
+[2026-01-12 15:14:51] INFO: [GET] /admin/inventory
+[2026-01-12 15:14:53] INFO: [GET] /admin/users
+[2026-01-12 15:14:55] INFO: [GET] /admin/orders
+[2026-01-12 15:14:57] INFO: [GET] /admin/offers
+[2026-01-12 15:15:00] INFO: [GET] /admin/coupons
+[2026-01-12 15:15:01] INFO: [GET] /admin/categories
+[2026-01-12 15:15:04] INFO: [GET] /admin/sales-report
+[2026-01-12 15:50:50] INFO: [GET] /admin/dashboard
+[2026-01-12 15:50:53] INFO: [GET] /admin/sales-report
+[2026-01-12 15:50:56] INFO: [GET] /admin/dashboard
+[2026-01-12 15:52:29] INFO: [GET] /admin/products
+[2026-01-12 15:52:32] INFO: [GET] /admin/sales-report
+[2026-01-12 15:52:32] ERROR: E:\Brocamp\SeatWorld\views\admin\salesreport.ejs:129
+    127| 
+    128|                                 <div class="space-y-4">
+ >> 129|                                     <% if (topProducts && topProducts.length> 0) { %>
+    130|                                         <% topProducts.forEach(product=> { %>
+    131|                                             <div class="flex items-center gap-3">
+    132|                                                 <div
+
+topProducts is not defined
+[2026-01-12 15:52:33] INFO: [GET] /admin/products
+[2026-01-12 15:52:35] INFO: [GET] /admin/sales-report
+[2026-01-12 15:52:36] ERROR: E:\Brocamp\SeatWorld\views\admin\salesreport.ejs:129
+    127| 
+    128|                                 <div class="space-y-4">
+ >> 129|                                     <% if (topProducts && topProducts.length> 0) { %>
+    130|                                         <% topProducts.forEach(product=> { %>
+    131|                                             <div class="flex items-center gap-3">
+    132|                                                 <div
+
+topProducts is not defined
+[2026-01-12 15:52:38] INFO: [GET] /admin/dashboard
+[2026-01-12 15:57:23] INFO: [GET] /admin/sales-report
+[2026-01-12 15:57:24] ERROR: E:\Brocamp\SeatWorld\views\admin\salesreport.ejs:129
+    127| 
+    128|                                 <div class="space-y-4">
+ >> 129|                                     <% if (topProducts && topProducts.length> 0) { %>
+    130|                                         <% topProducts.forEach(product=> { %>
+    131|                                             <div class="flex items-center gap-3">
+    132|                                                 <div
+
+topProducts is not defined
+[2026-01-12 15:57:26] INFO: [GET] /admin/dashboard
+[2026-01-12 15:58:51] INFO: [GET] /admin/users
+[2026-01-12 15:58:52] INFO: [GET] /admin/sales-report
+[2026-01-12 15:58:53] ERROR: E:\Brocamp\SeatWorld\views\admin\salesreport.ejs:129
+    127| 
+    128|                                 <div class="space-y-4">
+ >> 129|                                     <% if (topProducts && topProducts.length> 0) { %>
+    130|                                         <% topProducts.forEach(product=> { %>
+    131|                                             <div class="flex items-center gap-3">
+    132|                                                 <div
+
+topProducts is not defined
+[2026-01-12 15:58:55] INFO: [GET] /admin/users
+[2026-01-12 16:04:07] INFO: [GET] /admin/sales-report
+[2026-01-12 16:04:09] INFO: [GET] /admin/sales-report/download
+[2026-01-12 16:04:10] INFO: [GET] /admin/sales-report/download
+[2026-01-12 16:05:32] INFO: [GET] /home
+[2026-01-12 16:53:46] INFO: [GET] /home
+[2026-01-12 16:53:54] INFO: [GET] /profile
+[2026-01-12 16:56:37] INFO: [GET] /
+[2026-01-12 16:56:37] INFO: [GET] /home
+[2026-01-12 16:56:38] INFO: [GET] /admin/login
+[2026-01-12 16:56:38] INFO: [GET] /admin/dashboard
+[2026-01-12 16:56:51] INFO: [GET] /admin/sales-report
+[2026-01-12 16:57:01] INFO: [GET] /admin/sales-report/download
+[2026-01-12 17:00:50] INFO: [GET] /admin/coupons
+[2026-01-12 17:00:52] INFO: [GET] /admin/sales-report
+[2026-01-12 17:02:24] INFO: [GET] /admin/coupons
+[2026-01-12 17:02:26] INFO: [GET] /admin/sales-report
+[2026-01-12 17:03:37] INFO: [GET] /admin/dashboard
+[2026-01-12 17:03:39] INFO: [GET] /admin/sales-report
+[2026-01-12 17:06:43] INFO: [GET] /admin/sales-report
+[2026-01-12 17:06:49] INFO: [GET] /admin/sales-report/download
+[2026-01-12 17:06:51] INFO: [GET] /admin/sales-report/download
+[2026-01-12 17:08:43] INFO: [GET] /admin/sales-report/download
+[2026-01-12 17:08:45] INFO: [GET] /admin/sales-report/download
+[2026-01-12 17:11:07] INFO: [GET] /profile/edit
+[2026-01-12 17:11:09] INFO: [POST] /profile/edit
+[2026-01-12 17:11:12] INFO: [GET] /address
+[2026-01-12 17:11:15] INFO: [GET] /profile
+[2026-01-12 17:14:23] INFO: [GET] /admin/sales-report
+[2026-01-12 17:14:25] INFO: [GET] /admin/dashboard
+[2026-01-12 17:14:28] INFO: [GET] /admin/sales-report
+[2026-01-12 17:14:44] INFO: [GET] /products
+[2026-01-12 17:14:47] INFO: [GET] /product/6961d8fe71896ca1201d455b
+[2026-01-12 17:14:49] INFO: [POST] /cart/add
+[2026-01-12 17:14:51] INFO: [GET] /cart
+[2026-01-12 17:14:52] INFO: [GET] /css/styles.css
+[2026-01-12 17:14:55] INFO: [GET] /checkout
+[2026-01-12 17:14:56] INFO: Found 1 available coupons for checkout
+[2026-01-12 17:14:56] INFO: Cleared persistent coupon on checkout entry
+[2026-01-12 17:15:12] INFO: [GET] /profile
+[2026-01-12 17:15:17] INFO: [GET] /address
+[2026-01-12 17:15:23] INFO: [POST] /checkout/address
+[2026-01-12 17:15:23] INFO: [GET] /checkout/payment-options
+[2026-01-12 17:15:30] INFO: [POST] /razorpay/create-order
+[2026-01-12 17:15:57] INFO: [POST] /razorpay/verify-payment
+[2026-01-12 17:15:57] INFO: [POST] /place-order
+[2026-01-12 17:15:58] INFO: Order created: 6964def62f5a06ea205f4300 for user: 69648eb647dbd2958afcabf2
+[2026-01-12 17:15:58] INFO: Stock decrementd for variant 6961d90071896ca1201d455d: -1. New stock: 18. Reason: order_placed
+[2026-01-12 17:15:58] INFO: Cart cleared for user: 69648eb647dbd2958afcabf2
+[2026-01-12 17:16:00] INFO: [GET] /order-success?orderId=6964def62f5a06ea205f4300
+[2026-01-12 17:16:03] INFO: [GET] /orders
+[2026-01-12 17:16:06] INFO: [GET] /orders/6964def62f5a06ea205f4300
+[2026-01-12 17:16:14] INFO: [GET] /orders/6964def62f5a06ea205f4300/invoice
+[2026-01-12 17:16:26] INFO: [GET] /profile
+[2026-01-12 17:16:33] INFO: [GET] /address
+[2026-01-12 17:16:36] INFO: [POST] /address/delete/6964b65d7ee96c6847ff27f0
+[2026-01-12 17:16:45] INFO: [POST] /address/delete/6964b65d7ee96c6847ff27f0
+[2026-01-12 17:16:50] INFO: [GET] /address/add
+[2026-01-12 17:16:59] INFO: [POST] /address/add
+[2026-01-12 17:17:10] INFO: [POST] /address/add
+[2026-01-12 17:17:17] INFO: [GET] /profile
+[2026-01-12 17:17:18] INFO: [GET] /orders
+[2026-01-12 17:17:20] INFO: [GET] /address
+[2026-01-12 17:17:22] INFO: [GET] /profile
+[2026-01-12 17:17:24] INFO: [GET] /logout
+[2026-01-12 17:17:24] INFO: [GET] /login
+[2026-01-12 17:17:25] INFO: [GET] /auth/google
+[2026-01-12 17:17:26] INFO: [GET] /auth/google/callback?code=4%2F0ASc3gC13U1QnqVXOY2JflNrW0iz8IWKIZH3t5Wp2UB9yCdgMhbbwTgdfThINJQDXVqdqDA&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=0&prompt=none
+[2026-01-12 17:17:26] INFO: [GET] /home
+[2026-01-12 17:17:28] INFO: [GET] /profile
+[2026-01-12 17:17:30] INFO: [GET] /address
+[2026-01-12 17:17:37] INFO: [GET] /products
+[2026-01-12 17:17:40] INFO: [GET] /product/694fa44cf0a089520a1144ab
+[2026-01-12 17:17:42] INFO: [POST] /cart/add
+[2026-01-12 17:17:44] INFO: [GET] /cart
+[2026-01-12 17:17:44] INFO: [GET] /css/styles.css
+[2026-01-12 17:17:46] INFO: [GET] /checkout
+[2026-01-12 17:17:47] INFO: Found 1 available coupons for checkout
+[2026-01-12 17:17:47] INFO: Cleared persistent coupon on checkout entry
+[2026-01-12 17:17:56] INFO: [POST] /checkout/address
+[2026-01-12 17:17:56] INFO: [GET] /checkout/payment-options
+[2026-01-12 17:18:11] INFO: [POST] /place-order
+[2026-01-12 17:18:11] INFO: [GET] /order-failed?message=Insufficient%20wallet%20balance.%20Please%20add%20money%20to%20your%20wallet%20or%20choose%20another%20payment%20method.
+[2026-01-12 17:18:17] INFO: [GET] /
+[2026-01-12 17:18:17] INFO: [GET] /home
+[2026-01-12 17:18:21] INFO: [GET] /profile
+[2026-01-12 17:18:23] INFO: [GET] /orders
+[2026-01-12 17:18:25] INFO: [GET] /orders/696255da32291bcb0da93026
+[2026-01-12 17:18:27] INFO: [GET] /orders/696255da32291bcb0da93026/invoice
+[2026-01-12 17:18:37] INFO: [GET] /address
+[2026-01-12 17:18:41] INFO: [POST] /address/delete/6951fd2cc6298d9de0988cc3
+[2026-01-12 17:18:43] INFO: [GET] /address
+[2026-01-12 17:18:46] INFO: [GET] /orders
+[2026-01-12 17:18:48] INFO: [GET] /orders/696255da32291bcb0da93026
+[2026-01-12 17:18:51] INFO: [GET] /orders/696255da32291bcb0da93026/invoice
+[2026-01-12 17:19:18] INFO: [GET] /wallet
+[2026-01-12 17:19:30] INFO: [GET] /password-change
+[2026-01-12 17:19:30] INFO: [GET] /profile
+[2026-01-12 17:20:10] INFO: [GET] /address
+[2026-01-12 17:20:20] INFO: [GET] /admin/dashboard
+[2026-01-12 17:20:20] INFO: [GET] /admin/login
+[2026-01-12 17:20:33] INFO: [POST] /admin/login
+[2026-01-12 17:20:33] INFO: [GET] /admin/dashboard
+[2026-01-12 17:20:36] INFO: [GET] /admin/sales-report
+[2026-01-12 17:21:42] INFO: [GET] /admin/dashboard
+[2026-01-12 17:22:18] INFO: [GET] /admin/sales-report
+[2026-01-12 17:22:21] INFO: [GET] /admin/sales-report/download
+[2026-01-12 17:32:56] INFO: [GET] /admin/categories
+[2026-01-12 17:32:59] INFO: [GET] /admin/sales-report
+[2026-01-12 17:33:01] INFO: [GET] /admin/sales-report/download
+[2026-01-12 17:33:51] INFO: [GET] /admin/sales-report
+[2026-01-12 17:33:52] INFO: [GET] /admin/sales-report/download
+[2026-01-12 17:36:06] INFO: [GET] /admin/dashboard
+[2026-01-12 17:36:59] INFO: [GET] /admin/sales-report
+[2026-01-12 17:37:01] INFO: [GET] /admin/sales-report/download
+[2026-01-12 17:38:21] INFO: [GET] /admin/dashboard
+[2026-01-12 17:38:35] INFO: [GET] /admin/sales-report
+[2026-01-12 17:38:37] INFO: [GET] /admin/sales-report/download
+[2026-01-12 17:39:10] INFO: [GET] /admin/sales-report/download
+[2026-01-12 17:40:21] INFO: [GET] /admin/dashboard
+[2026-01-12 17:40:22] INFO: [GET] /admin/sales-report
+[2026-01-12 17:40:24] INFO: [GET] /admin/sales-report/download
+[2026-01-12 17:42:31] INFO: [GET] /admin/dashboard
+[2026-01-12 17:42:43] INFO: [GET] /admin/sales-report
+[2026-01-12 17:57:49] INFO: [GET] /admin/products
+[2026-01-12 17:59:39] INFO: [GET] /admin/sales-report
+[2026-01-12 17:59:46] INFO: [GET] /admin/dashboard
+[2026-01-12 18:02:02] INFO: [GET] /admin/sales-report
+[2026-01-12 18:02:17] INFO: [GET] /admin/sales-report?quickFilter=today&startDate=&endDate=
+[2026-01-12 18:02:22] INFO: [GET] /admin/sales-report?quickFilter=thisMonth&startDate=&endDate=
+[2026-01-12 18:02:25] INFO: [GET] /admin/sales-report?quickFilter=thisMonth&startDate=&endDate=
+[2026-01-12 18:02:30] INFO: [GET] /admin/sales-report/excel?startDate=&endDate=&quickFilter=thisMonth
+[2026-01-12 18:02:33] INFO: [GET] /admin/sales-report/download?startDate=&endDate=&quickFilter=thisMonth
+[2026-01-12 18:10:09] INFO: [GET] /admin/sales-report
+[2026-01-12 18:10:13] INFO: [GET] /admin/sales-report/download?startDate=&endDate=&quickFilter=
+[2026-01-12 18:10:30] INFO: [GET] /admin/dashboard
+[2026-01-12 18:10:31] INFO: [GET] /admin/sales-report
+[2026-01-12 18:11:28] INFO: [GET] /admin/sales-report
+[2026-01-12 18:11:30] INFO: [GET] /admin/sales-report/download?startDate=&endDate=&quickFilter=
+[2026-01-12 18:14:05] INFO: [GET] /admin/products
+[2026-01-12 18:14:10] INFO: [GET] /admin/sales-report
+[2026-01-12 18:14:12] INFO: [GET] /admin/sales-report/download?startDate=&endDate=&quickFilter=
+[2026-01-12 18:14:50] INFO: [GET] /admin/sales-report?quickFilter=thisMonth&startDate=&endDate=
+[2026-01-12 18:14:59] INFO: [GET] /admin/sales-report?quickFilter=thisMonth&startDate=2026-01-12&endDate=
+[2026-01-12 18:15:03] INFO: [GET] /admin/sales-report?quickFilter=today&startDate=2026-01-12&endDate=
+[2026-01-12 18:15:24] INFO: [GET] /admin/sales-report?quickFilter=today&startDate=2026-01-12&endDate=2033-02-12
+[2026-01-12 18:17:20] INFO: [GET] /admin/sales-report/download?startDate=2026-01-12&endDate=2033-02-12&quickFilter=today
+[2026-01-12 18:31:17] INFO: [GET] /admin/products
+[2026-01-12 18:31:21] INFO: [GET] /admin/sales-report
+[2026-01-12 18:31:24] INFO: [GET] /admin/sales-report/download?startDate=&endDate=&quickFilter=
+[2026-01-12 18:32:11] INFO: [GET] /admin/dashboard
+[2026-01-12 18:32:19] INFO: [GET] /address
+[2026-01-12 18:34:44] INFO: [GET] /address
+[2026-01-12 18:34:46] INFO: [GET] /address/add
+[2026-01-12 18:34:56] INFO: [POST] /address/add
+[2026-01-12 18:36:38] INFO: [GET] /address
+[2026-01-12 18:36:40] INFO: [GET] /address/add
+[2026-01-12 18:36:50] INFO: [POST] /address/add
+[2026-01-12 18:36:52] INFO: [GET] /address
+[2026-01-12 18:36:56] INFO: [GET] /address/edit/6964f1eb66ab05182ac0f379
+[2026-01-12 18:37:10] INFO: [POST] /address/edit/6964f1eb66ab05182ac0f379
+[2026-01-12 18:37:12] INFO: [GET] /address
+[2026-01-12 18:37:14] INFO: [GET] /address/add
+[2026-01-12 18:37:34] INFO: [POST] /address/add
+[2026-01-12 18:37:36] INFO: [GET] /address
+[2026-01-12 18:37:38] INFO: [GET] /address/edit/6964f21666ab05182ac0f387
+[2026-01-12 18:37:47] INFO: [GET] /address
+[2026-01-12 18:37:51] INFO: [POST] /address/delete/6964f21666ab05182ac0f387
+[2026-01-12 18:37:53] INFO: [GET] /address
+[2026-01-12 18:37:57] INFO: [GET] /profile
+[2026-01-12 18:38:25] INFO: [GET] /admin/offers
+[2026-01-12 18:38:27] INFO: [GET] /admin/coupons
+[2026-01-12 18:38:31] INFO: [GET] /admin/sales-report
+[2026-01-12 18:38:34] INFO: [GET] /admin/sales-report/download?startDate=&endDate=&quickFilter=
+[2026-01-12 18:42:53] INFO: [GET] /admin/dashboard
+[2026-01-12 18:42:56] INFO: [GET] /admin/sales-report
+[2026-01-12 18:49:52] INFO: [GET] /admin/dashboard
+[2026-01-12 18:49:54] INFO: [GET] /admin/sales-report
+[2026-01-12 18:49:56] INFO: [GET] /admin/sales-report/download?startDate=&endDate=&quickFilter=
+[2026-01-12 18:57:51] INFO: [GET] /admin/dashboard
+[2026-01-12 18:57:55] INFO: [GET] /admin/sales-report
+[2026-01-12 18:57:58] INFO: [GET] /admin/sales-report/download?startDate=&endDate=&quickFilter=
+[2026-01-12 19:22:55] INFO: [GET] /admin/dashboard
+[2026-01-12 19:22:57] INFO: [GET] /admin/sales-report
+[2026-01-12 19:23:00] INFO: [GET] /admin/sales-report/download?startDate=&endDate=&quickFilter=
+[2026-01-12 19:23:01] INFO: [GET] /admin/sales-report/download?startDate=&endDate=&quickFilter=
+[2026-01-12 19:23:07] INFO: [GET] /admin/sales-report/download?startDate=&endDate=&quickFilter=
+[2026-01-12 19:23:09] INFO: [GET] /admin/sales-report/download?startDate=&endDate=&quickFilter=
+[2026-01-12 19:24:58] INFO: [GET] /admin/categories
+[2026-01-12 19:25:00] INFO: [GET] /admin/sales-report
+[2026-01-12 19:25:03] INFO: [GET] /admin/sales-report/download?startDate=&endDate=&quickFilter=
+[2026-01-12 19:25:04] INFO: [GET] /admin/sales-report/download?startDate=&endDate=&quickFilter=
+[2026-01-12 19:25:10] INFO: [GET] /admin/sales-report/download?startDate=&endDate=&quickFilter=

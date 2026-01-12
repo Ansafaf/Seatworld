@@ -31,6 +31,7 @@ import wishlistRouter from "./routes/wishlistRoute.js";
 import adminCouponRouter from "./routes/adminCouponRoutes.js";
 import adminOfferRouter from "./routes/adminOfferRoutes.js";
 import razorpayRoute from "./routes/razorpayRoutes.js";
+import salesRoute from "./routes/salesReportRoutes.js";
 
 
 
@@ -96,6 +97,7 @@ app.use("/admin/offers", adminOfferRouter);
 app.use("/", orderRouter);
 app.use("/wishlist", wishlistRouter);
 app.use("/razorpay", razorpayRoute);
+app.use("/admin/sales-report",salesRoute);
 
 
 app.use((req, res, next) => {

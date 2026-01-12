@@ -13,310 +13,310 @@
 </head>
 
 <body class="text-gray-800">
-    <header class="bg-white shadow-sm fixed w-full z-50 h-16 flex items-center justify-between px-6">
-        <div class="flex items-center gap-4">
-            <h1 class="text-xl font-bold text-gray-800 flex items-center gap-2">
-                <span class="w-3 h-3 bg-gray-800 rounded-sm"></span>
-                Admin Panel
-            </h1>
-        </div>
-    </header>
+    <%- include('../partials/adminHeader') %>
 
-    <div class="flex pt-16 min-h-screen">
-        <%- include('../partials/adminSidebar') %>
+        <div class="flex pt-16 min-h-screen">
+            <%- include('../partials/adminSidebar') %>
 
-            <main class="flex-1 p-8 overflow-y-auto bg-[#E5E7EB]">
-                <div class="max-w-6xl mx-auto space-y-6">
-                    <!-- Top Header -->
-                    <div class="bg-white rounded-xl shadow-sm px-8 py-4 flex justify-between items-center">
-                        <h2 class="text-xl font-bold text-orange-500 uppercase">Order Details</h2>
-                        <div class="flex items-center gap-3">
-                            <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Main Order</span>
-                            <span
-                                class="bg-gray-800 text-white px-3 py-1 rounded text-sm font-mono font-bold tracking-tighter uppercase">
-                                #<%= order._id.toString().slice(-6).toUpperCase() %>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
-                        <!-- Left Side: Products and Customer Details -->
-                        <div class="lg:col-span-3 space-y-6">
-                            <!-- Product Table -->
-                            <div class="bg-white rounded-xl shadow-sm overflow-hidden">
-                                <table class="w-full">
-                                    <thead>
-                                        <tr class="bg-[#D1D5DB] border-b text-orange-500">
-                                            <th class="px-6 py-4 text-left font-bold uppercase tracking-wider text-sm">
-                                                Product
-                                            </th>
-                                            <th
-                                                class="px-6 py-4 text-center font-bold uppercase tracking-wider text-sm">
-                                                Quantity</th>
-                                            <th class="px-6 py-4 text-right font-bold uppercase tracking-wider text-sm">
-                                                Price
-                                            </th>
-                                            <th
-                                                class="px-6 py-4 text-center font-bold uppercase tracking-wider text-sm">
-                                                Return Reason</th>
-                                            <th
-                                                class="px-6 py-4 text-center font-bold uppercase tracking-wider text-sm">
-                                                Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="divide-y divide-gray-100">
-                                        <% order.items.forEach(item=> { %>
-                                            <tr>
-                                                <td class="px-6 py-4">
-                                                    <div class="flex items-center gap-4">
-                                                        <div
-                                                            class="w-12 h-12 bg-gray-50 rounded border p-1 border-gray-200">
-                                                            <img src="<%= item.image %>" alt="<%= item.name %>"
-                                                                class="w-full h-full object-contain">
-                                                        </div>
-                                                        <div class="flex flex-col">
-                                                            <span
-                                                                class="text-[9px] bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded font-black uppercase tracking-tighter w-fit mb-1 border border-gray-200">
-                                                                Sub-Order: #<%=
-                                                                    item._id.toString().slice(-6).toUpperCase() %>
-                                                            </span>
-                                                            <span class="font-bold text-gray-800">
-                                                                <%= item.name %>
-                                                            </span>
-                                                            <% if (item.label) { %>
-                                                                <span
-                                                                    class="text-[9px] text-indigo-500 font-bold uppercase">Variant:
-                                                                    <%= item.label %>
-                                                                </span>
-                                                                <% } %>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="px-6 py-4 text-center">
-                                                    <span
-                                                        class="inline-block px-3 py-1 bg-gray-100 rounded font-bold text-gray-700">
-                                                        <%= item.productQuantity %>
-                                                    </span>
-                                                </td>
-                                                <td class="px-6 py-4 text-right">
-                                                    <span class="font-bold text-red-500">₹<%=
-                                                            item.total.toLocaleString('en-IN') %></span>
-                                                </td>
-                                                <td class="px-6 py-4 text-center">
-                                                    <% if (item.status==='return_requested' ) { %>
-                                                        <button onclick="openReturnModal(this)"
-                                                            data-reason="<%= item.returnReason %>"
-                                                            data-comment="<%= item.returnComment %>"
-                                                            data-date="<%= item.returnRequestedOn %>"
-                                                            data-item-id="<%= item._id %>"
-                                                            class="text-[10px] bg-indigo-100 text-indigo-700 px-3 py-1 rounded font-bold uppercase hover:bg-indigo-200 transition-colors">
-                                                            View
-                                                        </button>
-                                                        <% } else { %>
-                                                            <span class="text-gray-400">--</span>
-                                                            <% } %>
-                                                </td>
-                                                <td class="px-6 py-4">
-                                                    <div class="flex flex-col items-center gap-2">
-                                                        <select id="status-<%= item._id %>"
-                                                            class="text-[10px] font-bold p-1 <%= ['cancel_requested', 'return_requested'].includes(item.status) ? 'bg-orange-50 border-orange-300 text-orange-700' : 'bg-gray-50 border-gray-200' %> border rounded focus:ring-0 cursor-pointer capitalize">
-                                                            <option value="pending" <%=item.status==='pending'
-                                                                ? 'selected' : '' %>>Pending</option>
-                                                            <option value="confirmed" <%=item.status==='confirmed'
-                                                                ? 'selected' : '' %>>Confirmed</option>
-                                                            <option value="shipped" <%=item.status==='shipped'
-                                                                ? 'selected' : '' %>>Shipped</option>
-                                                            <option value="delivered" <%=item.status==='delivered'
-                                                                ? 'selected' : '' %>>Delivered</option>
-                                                            <option value="cancel_requested"
-                                                                <%=item.status==='cancel_requested' ? 'selected' : '' %>
-                                                                <%= item.status !=='cancel_requested' ? 'disabled' : ''
-                                                                    %>>Cancel Requested
-                                                            </option>
-                                                            <option value="cancelled" <%=item.status==='cancelled'
-                                                                ? 'selected' : '' %>>Cancelled (Approve)</option>
-                                                            <option value="return_requested"
-                                                                <%=item.status==='return_requested' ? 'selected' : '' %>
-                                                                <%= item.status !=='return_requested' ? 'disabled' : ''
-                                                                    %>>Return Requested
-                                                            </option>
-                                                            <option value="returned" <%=item.status==='returned'
-                                                                ? 'selected' : '' %>>Returned (Approve)</option>
-                                                        </select>
-                                                        <button
-                                                            onclick="updateItemStatus('<%= order._id %>', '<%= item._id %>')"
-                                                            class="text-[9px] bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded font-black uppercase transition-colors">
-                                                            Update
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <% }) %>
-                                    </tbody>
-                                </table>
+                <main class="flex-1 p-8 overflow-y-auto bg-[#E5E7EB]">
+                    <div class="max-w-6xl mx-auto space-y-6">
+                        <!-- Top Header -->
+                        <div class="bg-white rounded-xl shadow-sm px-8 py-4 flex justify-between items-center">
+                            <h2 class="text-xl font-bold text-orange-500 uppercase">Order Details</h2>
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Main
+                                    Order</span>
+                                <span
+                                    class="bg-gray-800 text-white px-3 py-1 rounded text-sm font-mono font-bold tracking-tighter uppercase">
+                                    #<%= order._id.toString().slice(-6).toUpperCase() %>
+                                </span>
                             </div>
+                        </div>
 
-                            <!-- Customer Details -->
-                            <div class="bg-white rounded-xl shadow-sm p-8">
-                                <h3
-                                    class="text-xl font-bold text-orange-500 mb-6 pb-2 border-b-2 border-gray-50 uppercase tracking-widest">
-                                    Customer Details</h3>
-                                <div class="space-y-4">
-                                    <div class="flex items-start py-3 border-b border-gray-50">
-                                        <span class="w-48 text-gray-900 font-bold">Customer Name</span>
-                                        <span class="flex-1 text-gray-700 font-bold">
-                                            <%= order.userId?.name || 'Unknown' %>
-                                        </span>
-                                    </div>
-                                    <div class="flex items-start py-3 border-b border-gray-50">
-                                        <span class="w-48 text-gray-900 font-bold">Mobile Number</span>
-                                        <span class="flex-1 text-gray-700 font-bold">
-                                            <%= order.shippingAddress.mobile %>
-                                        </span>
-                                    </div>
-                                    <div class="flex items-start py-3 border-b border-gray-50">
-                                        <span class="w-48 text-gray-900 font-bold">Type of Payment</span>
-                                        <span class="flex-1 text-gray-700 font-bold text-indigo-600 capitalize">
-                                            <%= order.paymentMethod %>
-                                        </span>
-                                    </div>
-                                    <div class="flex items-start py-3">
-                                        <span class="w-48 text-gray-900 font-bold">Address</span>
-                                        <div class="flex-1 text-gray-700 font-bold">
-                                            <p>
-                                                <%= order.shippingAddress.housename %>, <%= order.shippingAddress.street
-                                                        %>
-                                            </p>
-                                            <p>
-                                                <%= order.shippingAddress.city %>, <%= order.shippingAddress.state %>
-                                            </p>
-                                            <p>
-                                                <%= order.shippingAddress.pincode %>
-                                            </p>
-                                            <p>
-                                                <%= order.shippingAddress.country %>
-                                            </p>
+                        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
+                            <!-- Left Side: Products and Customer Details -->
+                            <div class="lg:col-span-3 space-y-6">
+                                <!-- Product Table -->
+                                <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                                    <table class="w-full">
+                                        <thead>
+                                            <tr class="bg-[#D1D5DB] border-b text-orange-500">
+                                                <th
+                                                    class="px-6 py-4 text-left font-bold uppercase tracking-wider text-sm">
+                                                    Product
+                                                </th>
+                                                <th
+                                                    class="px-6 py-4 text-center font-bold uppercase tracking-wider text-sm">
+                                                    Quantity</th>
+                                                <th
+                                                    class="px-6 py-4 text-right font-bold uppercase tracking-wider text-sm">
+                                                    Price
+                                                </th>
+                                                <th
+                                                    class="px-6 py-4 text-center font-bold uppercase tracking-wider text-sm">
+                                                    Return Reason</th>
+                                                <th
+                                                    class="px-6 py-4 text-center font-bold uppercase tracking-wider text-sm">
+                                                    Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-gray-100">
+                                            <% order.items.forEach(item=> { %>
+                                                <tr>
+                                                    <td class="px-6 py-4">
+                                                        <div class="flex items-center gap-4">
+                                                            <div
+                                                                class="w-12 h-12 bg-gray-50 rounded border p-1 border-gray-200">
+                                                                <img src="<%= item.image %>" alt="<%= item.name %>"
+                                                                    class="w-full h-full object-contain">
+                                                            </div>
+                                                            <div class="flex flex-col">
+                                                                <span
+                                                                    class="text-[9px] bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded font-black uppercase tracking-tighter w-fit mb-1 border border-gray-200">
+                                                                    Sub-Order: #<%=
+                                                                        item._id.toString().slice(-6).toUpperCase() %>
+                                                                </span>
+                                                                <span class="font-bold text-gray-800">
+                                                                    <%= item.name %>
+                                                                </span>
+                                                                <% if (item.label) { %>
+                                                                    <span
+                                                                        class="text-[9px] text-indigo-500 font-bold uppercase">Variant:
+                                                                        <%= item.label %>
+                                                                    </span>
+                                                                    <% } %>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="px-6 py-4 text-center">
+                                                        <span
+                                                            class="inline-block px-3 py-1 bg-gray-100 rounded font-bold text-gray-700">
+                                                            <%= item.productQuantity %>
+                                                        </span>
+                                                    </td>
+                                                    <td class="px-6 py-4 text-right">
+                                                        <span class="font-bold text-red-500">₹<%=
+                                                                item.total.toLocaleString('en-IN') %></span>
+                                                    </td>
+                                                    <td class="px-6 py-4 text-center">
+                                                        <% if (item.status==='return_requested' ) { %>
+                                                            <button onclick="openReturnModal(this)"
+                                                                data-reason="<%= item.returnReason %>"
+                                                                data-comment="<%= item.returnComment %>"
+                                                                data-date="<%= item.returnRequestedOn %>"
+                                                                data-item-id="<%= item._id %>"
+                                                                class="text-[10px] bg-indigo-100 text-indigo-700 px-3 py-1 rounded font-bold uppercase hover:bg-indigo-200 transition-colors">
+                                                                View
+                                                            </button>
+                                                            <% } else { %>
+                                                                <span class="text-gray-400">--</span>
+                                                                <% } %>
+                                                    </td>
+                                                    <td class="px-6 py-4">
+                                                        <div class="flex flex-col items-center gap-2">
+                                                            <select id="status-<%= item._id %>"
+                                                                class="text-[10px] font-bold p-1 <%= ['cancel_requested', 'return_requested'].includes(item.status) ? 'bg-orange-50 border-orange-300 text-orange-700' : 'bg-gray-50 border-gray-200' %> border rounded focus:ring-0 cursor-pointer capitalize">
+                                                                <option value="pending" <%=item.status==='pending'
+                                                                    ? 'selected' : '' %>>Pending</option>
+                                                                <option value="confirmed" <%=item.status==='confirmed'
+                                                                    ? 'selected' : '' %>>Confirmed</option>
+                                                                <option value="shipped" <%=item.status==='shipped'
+                                                                    ? 'selected' : '' %>>Shipped</option>
+                                                                <option value="delivered" <%=item.status==='delivered'
+                                                                    ? 'selected' : '' %>>Delivered</option>
+                                                                <option value="cancel_requested"
+                                                                    <%=item.status==='cancel_requested' ? 'selected'
+                                                                    : '' %>
+                                                                    <%= item.status !=='cancel_requested' ? 'disabled'
+                                                                        : '' %>>Cancel Requested
+                                                                </option>
+                                                                <option value="cancelled" <%=item.status==='cancelled'
+                                                                    ? 'selected' : '' %>>Cancelled (Approve)</option>
+                                                                <option value="return_requested"
+                                                                    <%=item.status==='return_requested' ? 'selected'
+                                                                    : '' %>
+                                                                    <%= item.status !=='return_requested' ? 'disabled'
+                                                                        : '' %>>Return Requested
+                                                                </option>
+                                                                <option value="returned" <%=item.status==='returned'
+                                                                    ? 'selected' : '' %>>Returned (Approve)</option>
+                                                            </select>
+                                                            <button
+                                                                onclick="updateItemStatus('<%= order._id %>', '<%= item._id %>')"
+                                                                class="text-[9px] bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded font-black uppercase transition-colors">
+                                                                Update
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- Customer Details -->
+                                <div class="bg-white rounded-xl shadow-sm p-8">
+                                    <h3
+                                        class="text-xl font-bold text-orange-500 mb-6 pb-2 border-b-2 border-gray-50 uppercase tracking-widest">
+                                        Customer Details</h3>
+                                    <div class="space-y-4">
+                                        <div class="flex items-start py-3 border-b border-gray-50">
+                                            <span class="w-48 text-gray-900 font-bold">Customer Name</span>
+                                            <span class="flex-1 text-gray-700 font-bold">
+                                                <%= order.userId?.name || 'Unknown' %>
+                                            </span>
+                                        </div>
+                                        <div class="flex items-start py-3 border-b border-gray-50">
+                                            <span class="w-48 text-gray-900 font-bold">Mobile Number</span>
+                                            <span class="flex-1 text-gray-700 font-bold">
+                                                <%= order.shippingAddress.mobile %>
+                                            </span>
+                                        </div>
+                                        <div class="flex items-start py-3 border-b border-gray-50">
+                                            <span class="w-48 text-gray-900 font-bold">Type of Payment</span>
+                                            <span class="flex-1 text-gray-700 font-bold text-indigo-600 capitalize">
+                                                <%= order.paymentMethod %>
+                                            </span>
+                                        </div>
+                                        <div class="flex items-start py-3">
+                                            <span class="w-48 text-gray-900 font-bold">Address</span>
+                                            <div class="flex-1 text-gray-700 font-bold">
+                                                <p>
+                                                    <%= order.shippingAddress.housename %>, <%=
+                                                            order.shippingAddress.street %>
+                                                </p>
+                                                <p>
+                                                    <%= order.shippingAddress.city %>, <%= order.shippingAddress.state
+                                                            %>
+                                                </p>
+                                                <p>
+                                                    <%= order.shippingAddress.pincode %>
+                                                </p>
+                                                <p>
+                                                    <%= order.shippingAddress.country %>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Right Side: Order Update (Shifted Down) -->
-                        <div
-                            class="lg:col-span-1 mt-32 lg:mt-64 bg-white rounded-xl shadow-sm p-8 flex flex-col items-center border-t-4 border-orange-500">
-                            <h3
-                                class="text-xl font-bold text-orange-500 mb-8 w-full border-b pb-4 text-center uppercase tracking-widest">
-                                Order Update</h3>
+                            <!-- Right Side: Order Update (Shifted Down) -->
+                            <div
+                                class="lg:col-span-1 mt-32 lg:mt-64 bg-white rounded-xl shadow-sm p-8 flex flex-col items-center border-t-4 border-orange-500">
+                                <h3
+                                    class="text-xl font-bold text-orange-500 mb-8 w-full border-b pb-4 text-center uppercase tracking-widest">
+                                    Order Update</h3>
 
-                            <div class="w-full space-y-10">
-                                <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg">
-                                    <h4 class="text-sm font-bold text-gray-700 uppercase">Ordered On :</h4>
-                                    <p class="text-lg font-black text-gray-900">
-                                        <%= new Date(order.createdAt).toLocaleDateString('en-GB') %>
-                                    </p>
-                                </div>
+                                <div class="w-full space-y-10">
+                                    <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg">
+                                        <h4 class="text-sm font-bold text-gray-700 uppercase">Ordered On :</h4>
+                                        <p class="text-lg font-black text-gray-900">
+                                            <%= new Date(order.createdAt).toLocaleDateString('en-GB') %>
+                                        </p>
+                                    </div>
 
-                                <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg">
-                                    <h4 class="text-sm font-bold text-gray-700 uppercase">Current State :</h4>
-                                    <p
-                                        class="text-lg font-black uppercase
+                                    <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg">
+                                        <h4 class="text-sm font-bold text-gray-700 uppercase">Current State :</h4>
+                                        <p
+                                            class="text-lg font-black uppercase
                                         <%= ['cancelled', 'returned', 'failed'].includes((order.orderStatus || '').toLowerCase()) ? 'text-red-600' : 
                                            ['partially cancelled', 'partially returned'].includes((order.orderStatus || '').toLowerCase()) ? 'text-orange-600' :
                                            (order.orderStatus || '').toLowerCase() === 'delivered' ? 'text-green-600' : 'text-yellow-600' %>">
-                                        <%= order.orderStatus %>
-                                    </p>
-                                </div>
-
-                                <form id="updateStatusForm" class="space-y-6">
-                                    <input type="hidden" name="orderId" value="<%= order._id %>">
-                                    <div class="text-center">
-                                        <h4 class="text-sm font-bold text-gray-700 mb-4 uppercase">Overall Order Status
-                                        </h4>
-                                        <div class="relative">
-                                            <select name="status"
-                                                class="w-full p-4 bg-gray-400 text-white font-black border-none rounded-lg focus:ring-0 appearance-none text-center cursor-pointer uppercase transition-colors hover:bg-gray-500">
-                                                <option value="pending" <%=order.orderStatus==='pending' ? 'selected'
-                                                    : '' %>>Pending</option>
-                                                <option value="confirmed" <%=order.orderStatus==='confirmed'
-                                                    ? 'selected' : '' %>>Confirmed</option>
-                                                <option value="shipped" <%=order.orderStatus==='shipped' ? 'selected'
-                                                    : '' %>>Shipped</option>
-                                                <option value="delivered" <%=order.orderStatus==='delivered'
-                                                    ? 'selected' : '' %>>Delivered</option>
-                                                <option value="cancelled" <%=order.orderStatus==='cancelled'
-                                                    ? 'selected' : '' %>>Cancelled</option>
-                                                <option value="returned" <%=order.orderStatus==='returned' ? 'selected'
-                                                    : '' %>>Returned</option>
-                                            </select>
-                                        </div>
+                                            <%= order.orderStatus %>
+                                        </p>
                                     </div>
 
-                                    <button type="submit"
-                                        class="w-full py-4 bg-orange-500 hover:bg-orange-600 text-white font-black text-xl rounded-xl shadow-lg transition-all duration-200 uppercase tracking-widest transform hover:scale-105 active:scale-95">
-                                        Update Order
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </main>
-    </div>
+                                    <form id="updateStatusForm" class="space-y-6">
+                                        <input type="hidden" name="orderId" value="<%= order._id %>">
+                                        <div class="text-center">
+                                            <h4 class="text-sm font-bold text-gray-700 mb-4 uppercase">Overall Order
+                                                Status
+                                            </h4>
+                                            <div class="relative">
+                                                <select name="status"
+                                                    class="w-full p-4 bg-gray-400 text-white font-black border-none rounded-lg focus:ring-0 appearance-none text-center cursor-pointer uppercase transition-colors hover:bg-gray-500">
+                                                    <option value="pending" <%=order.orderStatus==='pending'
+                                                        ? 'selected' : '' %>>Pending</option>
+                                                    <option value="confirmed" <%=order.orderStatus==='confirmed'
+                                                        ? 'selected' : '' %>>Confirmed</option>
+                                                    <option value="shipped" <%=order.orderStatus==='shipped'
+                                                        ? 'selected' : '' %>>Shipped</option>
+                                                    <option value="delivered" <%=order.orderStatus==='delivered'
+                                                        ? 'selected' : '' %>>Delivered</option>
+                                                    <option value="cancelled" <%=order.orderStatus==='cancelled'
+                                                        ? 'selected' : '' %>>Cancelled</option>
+                                                    <option value="returned" <%=order.orderStatus==='returned'
+                                                        ? 'selected' : '' %>>Returned</option>
+                                                </select>
+                                            </div>
+                                        </div>
 
-    <!-- Return Management Modal -->
-    <div id="returnModal" class="fixed inset-0 z-[100] hidden overflow-y-auto">
-        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
-            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-            </div>
-            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-            <div
-                class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                    <div class="sm:flex sm:items-start">
-                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
-                            <h3 class="text-lg leading-6 font-bold text-gray-900 uppercase border-b pb-2 mb-4"
-                                id="modal-title">
-                                Return Request Details
-                            </h3>
-                            <div class="mt-4 space-y-4">
-                                <div>
-                                    <p class="text-xs font-bold text-gray-400 uppercase">Reason</p>
-                                    <p id="returnReasonText" class="text-sm font-semibold text-gray-900"></p>
-                                </div>
-                                <div>
-                                    <p class="text-xs font-bold text-gray-400 uppercase">User Comment</p>
-                                    <p id="returnCommentText"
-                                        class="text-sm text-gray-700 bg-gray-50 p-3 rounded italic"></p>
-                                </div>
-                                <div>
-                                    <p class="text-xs font-bold text-gray-400 uppercase">Requested Date</p>
-                                    <p id="returnDateText" class="text-sm font-semibold text-gray-900"></p>
+                                        <button type="submit"
+                                            class="w-full py-4 bg-orange-500 hover:bg-orange-600 text-white font-black text-xl rounded-xl shadow-lg transition-all duration-200 uppercase tracking-widest transform hover:scale-105 active:scale-95">
+                                            Update Order
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </main>
+        </div>
+
+        <!-- Return Management Modal -->
+        <div id="returnModal" class="fixed inset-0 z-[100] hidden overflow-y-auto">
+            <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                    <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
                 </div>
-                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse gap-2">
-                    <button type="button" id="approveReturnBtn"
-                        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-bold text-white hover:bg-green-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm uppercase">
-                        Approve Return
-                    </button>
-                    <button type="button" id="rejectReturnBtn"
-                        class="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-bold text-white hover:bg-red-700 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm uppercase">
-                        Reject Return
-                    </button>
-                    <button type="button" onclick="closeReturnModal()"
-                        class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-bold text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm uppercase">
-                        Close
-                    </button>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div
+                    class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                                <h3 class="text-lg leading-6 font-bold text-gray-900 uppercase border-b pb-2 mb-4"
+                                    id="modal-title">
+                                    Return Request Details
+                                </h3>
+                                <div class="mt-4 space-y-4">
+                                    <div>
+                                        <p class="text-xs font-bold text-gray-400 uppercase">Reason</p>
+                                        <p id="returnReasonText" class="text-sm font-semibold text-gray-900"></p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs font-bold text-gray-400 uppercase">User Comment</p>
+                                        <p id="returnCommentText"
+                                            class="text-sm text-gray-700 bg-gray-50 p-3 rounded italic"></p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs font-bold text-gray-400 uppercase">Requested Date</p>
+                                        <p id="returnDateText" class="text-sm font-semibold text-gray-900"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse gap-2">
+                        <button type="button" id="approveReturnBtn"
+                            class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-bold text-white hover:bg-green-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm uppercase">
+                            Approve Return
+                        </button>
+                        <button type="button" id="rejectReturnBtn"
+                            class="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-bold text-white hover:bg-red-700 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm uppercase">
+                            Reject Return
+                        </button>
+                        <button type="button" onclick="closeReturnModal()"
+                            class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-bold text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm uppercase">
+                            Close
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script src="/js/admin/orderDetails.js"></script>
+        <script src="/js/admin/orderDetails.js"></script>
 </body>
 
 </html>
