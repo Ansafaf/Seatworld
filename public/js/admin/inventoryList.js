@@ -159,3 +159,22 @@ async function openAdjustmentModal(variantId, name, currentStock) {
         }
     }
 }
+// Real-time debounced search for inventory
+const searchInput = document.getElementById('inventorySearchInput');
+let timeout = null;
+
+if (searchInput) {
+    // Focus search input and move cursor to end if it has a value
+    if (searchInput.value) {
+        searchInput.focus();
+        const len = searchInput.value.length;
+        searchInput.setSelectionRange(len, len);
+    }
+
+    searchInput.addEventListener('input', function () {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            document.getElementById('inventorySearchForm').submit();
+        }, 500);
+    });
+}

@@ -1,4 +1,5 @@
 import Order from "../models/orderModel.js";
+import { User } from "../models/userModel.js";
 import OrderItem from "../models/orderItemModel.js";
 import { Product, ProductVariant } from "../models/productModel.js"; // Explicitly import for population
 import * as inventoryService from "../services/inventoryService.js";
@@ -26,40 +27,59 @@ export const getOrderlist = async (req, res) => {
 
         if (search) {
             let searchOrderIds = [];
+
+            // 1. Search by Order ID (Exact or Partial)
+            const idQuery = [];
+            if (mongoose.Types.ObjectId.isValid(search)) {
+                idQuery.push({ _id: new mongoose.Types.ObjectId(search) });
+            }
+            // Also try searching for the last 6 characters if it looks like a hex string
+            if (/^[0-9a-fA-F]{1,24}$/.test(search)) {
+                // This is harder in Mongo without $expr, but we can at least check if it matches the string representation
+                // For now, partial ID match is less common, but we can support prefix/suffix if needed.
+                // Redirecting to property match for simplicity.
+            }
+
+            // 2. Search by Payment/Order Status
             const orderMatches = await Order.find({
                 $or: [
+                    ...idQuery,
                     { paymentStatus: { $regex: search, $options: "i" } },
-                    { orderStatus: { $regex: search, $options: "i" } }
+                    { paymentMethod: { $regex: search, $options: "i" } }
                 ]
             }).select("_id");
-
             const orderFieldIds = orderMatches.map(o => o._id);
 
+            // 3. Search by User (Email or Name)
             const userMatches = await User.find({
-                email: { $regex: search, $options: "i" }
+                $or: [
+                    { email: { $regex: search, $options: "i" } },
+                    { name: { $regex: search, $options: "i" } }
+                ]
             }).select("_id");
-
             const userIds = userMatches.map(u => u._id);
-
-            const userOrderMatches = await Order.find({
-                userId: { $in: userIds }
-            }).select("_id");
-
+            const userOrderMatches = await Order.find({ userId: { $in: userIds } }).select("_id");
             const userOrderIds = userOrderMatches.map(o => o._id);
 
-            const matchingItems = await OrderItem.find()
-                .populate({
-                    path: "variantId",
-                    populate: {
-                        path: "productId",
-                        match: { name: { $regex: search, $options: "i" } }
-                    }
-                })
-                .lean();
+            // 4. Search by Product Name (Find matching products -> variants -> items)
+            const productMatches = await Product.find({
+                name: { $regex: search, $options: "i" }
+            }).select("_id");
+            const productIds = productMatches.map(p => p._id);
 
-            const productOrderIds = matchingItems
-                .filter(item => item.variantId?.productId)
-                .map(item => item.orderId);
+            const variantMatches = await ProductVariant.find({
+                productId: { $in: productIds }
+            }).select("_id");
+            const variantIds = variantMatches.map(v => v._id);
+
+            const itemMatches = await OrderItem.find({
+                $or: [
+                    { variantId: { $in: variantIds } },
+                    { productName: { $regex: search, $options: "i" } }, // Also check recorded productName
+                    { status: { $regex: search, $options: "i" } }      // Include item status
+                ]
+            }).select("orderId");
+            const productOrderIds = itemMatches.map(item => item.orderId);
 
             searchOrderIds = [
                 ...new Set([
