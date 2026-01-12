@@ -13,7 +13,36 @@ export const getOfferList = async (req, res) => {
 
         let query = {};
         if (search) {
-            query.name = { $regex: search, $options: 'i' };
+            const escapedSearch = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+            // Find products/categories matching the search to expand offer search
+            const [products, categories] = await Promise.all([
+                Product.find({
+                    $or: [
+                        { name: { $regex: escapedSearch, $options: 'i' } },
+                        { brand: { $regex: escapedSearch, $options: 'i' } }
+                    ]
+                }).select('_id'),
+                Category.find({ categoryName: { $regex: escapedSearch, $options: 'i' } }).select('_id')
+            ]);
+
+            const productIds = products.map(p => p._id);
+            const categoryIds = categories.map(c => c._id);
+
+            const searchConditions = [
+                { name: { $regex: escapedSearch, $options: 'i' } },
+                { offerType: { $regex: escapedSearch, $options: 'i' } },
+                { productId: { $in: productIds } },
+                { categoryId: { $in: categoryIds } }
+            ];
+
+            // Try matching discount if search is a number
+            const searchNum = parseFloat(search);
+            if (!isNaN(searchNum)) {
+                searchConditions.push({ discountPercentage: searchNum });
+            }
+
+            query.$or = searchConditions;
         }
 
         const [offers, totalOffers] = await Promise.all([
@@ -35,6 +64,7 @@ export const getOfferList = async (req, res) => {
             pagination: {
                 currentPage: page,
                 totalPages,
+                limit,
                 hasNextPage: page < totalPages,
                 hasPrevPage: page > 1,
                 totalItems: totalOffers

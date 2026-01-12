@@ -27,9 +27,9 @@
                             <div class="header-actions">
                                 <div class="search-box">
                                     <span class="material-icons-outlined search-icon">search</span>
-                                    <form action="/admin/offers" method="GET" class="flex-1">
-                                        <input type="text" name="search" placeholder="Search for Categories"
-                                            value="<%= search %>">
+                                    <form id="offerSearchForm" action="/admin/offers" method="GET" class="flex-1">
+                                        <input type="text" id="offerSearchInput" name="search"
+                                            placeholder="Search by name, product or type..." value="<%= search %>">
                                     </form>
                                 </div>
                                 <button class="btn-add" onclick="window.location.href='/admin/offers/add'">
@@ -101,6 +101,26 @@
         </div>
 
         <script>
+            // Real-time debounced search for offers
+            const searchInput = document.getElementById('offerSearchInput');
+            let timeout = null;
+
+            if (searchInput) {
+                // Focus and move cursor to end
+                if (searchInput.value) {
+                    searchInput.focus();
+                    const len = searchInput.value.length;
+                    searchInput.setSelectionRange(len, len);
+                }
+
+                searchInput.addEventListener('input', function () {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => {
+                        document.getElementById('offerSearchForm').submit();
+                    }, 500);
+                });
+            }
+
             async function toggleOfferStatus(offerId, statusText) {
                 const result = await Swal.fire({
                     title: 'Are you sure?',
