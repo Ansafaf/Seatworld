@@ -180,7 +180,7 @@ export const handleItemAction = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: `${action === 'cancel' ? 'Cancellation' : 'Return'} request submitted successfully`,
+      message: `${action === 'cancel' ? 'Item cancelled successfully' : 'Return request submitted successfully'}`,
       orderStatus: order.orderStatus,
       itemStatus: item.status
     });

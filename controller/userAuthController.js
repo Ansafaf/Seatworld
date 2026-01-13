@@ -25,7 +25,28 @@ export function getLanding(req, res) {
 // Login 
 export function getLogin(req, res) {
   if (req.session.user) return res.redirect("/home");
-  res.render("users/login");
+
+  // Read message from JSON cookie if present
+  let blockedMessage = null;
+  const cookieHeader = req.headers.cookie;
+  if (cookieHeader) {
+    const cookies = cookieHeader.split(';').reduce((acc, cookie) => {
+      const [key, value] = cookie.trim().split('=');
+      acc[key] = value;
+      return acc;
+    }, {});
+
+    if (cookies.blocked_msg) {
+      try {
+        blockedMessage = JSON.parse(decodeURIComponent(cookies.blocked_msg));
+        res.clearCookie('blocked_msg');
+      } catch (e) {
+        console.error("Error parsing blocked_msg cookie:", e);
+      }
+    }
+  }
+
+  res.render("users/login", { blockedMessage });
 }
 
 export async function postLogin(req, res) {

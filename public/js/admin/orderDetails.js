@@ -37,7 +37,7 @@ async function updateItemStatus(orderId, itemId) {
             }
 
             // Update styling of the select if it's a special status
-            const isSpecial = ['cancel_requested', 'return_requested'].includes(status);
+            const isSpecial = status === 'return_requested';
             select.className = `text-[10px] font-bold p-1 ${isSpecial ? 'bg-orange-50 border-orange-300 text-orange-700' : 'bg-gray-50 border-gray-200'} border rounded focus:ring-0 cursor-pointer capitalize`;
 
         } else {
@@ -79,7 +79,7 @@ document.getElementById('updateStatusForm').addEventListener('submit', async (e)
             // Update UI: All Item Selects
             document.querySelectorAll('select[id^="status-"]').forEach(select => {
                 select.value = status;
-                const isSpecial = ['cancel_requested', 'return_requested'].includes(status);
+                const isSpecial = status === 'return_requested';
                 select.className = `text-[10px] font-bold p-1 ${isSpecial ? 'bg-orange-50 border-orange-300 text-orange-700' : 'bg-gray-50 border-gray-200'} border rounded focus:ring-0 cursor-pointer capitalize`;
             });
 

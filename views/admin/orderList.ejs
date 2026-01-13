@@ -50,9 +50,6 @@
                                         </option>
                                         <option value="returned" <%=status==='returned' ? 'selected' : '' %>>Returned
                                         </option>
-                                        <option value="cancel_requested" <%=status==='cancel_requested' ? 'selected'
-                                            : '' %>
-                                            >Cancel Requested</option>
                                         <option value="return_requested" <%=status==='return_requested' ? 'selected'
                                             : '' %>
                                             >Return Requested</option>
@@ -116,7 +113,8 @@
                                                         <%= order.items[0]?.name || 'Unknown Product' %>
                                                             <% if(order.items.length> 1) { %>
                                                                 <span class="text-xs text-gray-500 font-normal ml-1">(+
-                                                                    <%= order.items.length - 1 %> more)</span>
+                                                                    <%= order.items.length - 1 %> more)
+                                                                </span>
                                                                 <% } %>
                                                     </td>
                                                     <td class="px-6 py-6 text-sm font-bold text-gray-900 capitalize">

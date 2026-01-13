@@ -387,7 +387,7 @@ export const updateItemStatus = async (req, res) => {
 export const approveItemAction = async (req, res) => {
     try {
         const { itemId } = req.params;
-        const { action } = req.body; // 'approve_cancel' or 'approve_return'
+        const { action } = req.body;
 
         const item = await OrderItem.findById(itemId);
         if (!item) {
@@ -399,13 +399,7 @@ export const approveItemAction = async (req, res) => {
             return res.status(404).json({ success: false, message: "Order not found" });
         }
 
-        if (action === 'approve_cancel') {
-            if (item.status !== 'cancel_requested') {
-                return res.status(400).json({ success: false, message: "Item is not in cancel_requested state" });
-            }
-            item.status = 'cancelled';
-
-        } else if (action === 'approve_return') {
+        if (action === 'approve_return') {
             if (item.status !== 'return_requested') {
                 return res.status(400).json({ success: false, message: "Item is not in return_requested state" });
             }
