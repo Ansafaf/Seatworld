@@ -16,196 +16,194 @@
         <%- include("../partials/breadcrumb", { breadcrumbs }) %>
             <%- include("../partials/flash", { messageData: locals.message }) %>
 
-                <button class="menu-btn" onclick="toggleSidebar()"
-                    style="position: fixed; top: 90px; left: 20px; z-index: 100; background: white; border-radius: 50%; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); border: none;">
-                    <i class="fas fa-bars" style="font-size: 20px;"></i>
-                </button>
+                <%- include('../partials/profileMobileToggle') %>
 
-                <div class="container">
-                    <div class="profile-layout">
-                        <!-- SIDEBAR -->
-                        <%- include('../partials/profileSidebar', { active: 'orders' }) %>
+                    <div class="container">
+                        <div class="profile-layout">
+                            <!-- SIDEBAR -->
+                            <%- include('../partials/profileSidebar', { active: 'orders' }) %>
 
-                            <!-- CONTENT -->
-                            <main class="main-content">
-                                <div class="order-details-container">
-                                    <!-- Order Header -->
-                                    <div class="order-header-section">
-                                        <div class="order-info">
-                                            <h1>Order #<%= order._id.toString().slice(-6).toUpperCase() %>
-                                            </h1>
-                                            <p>Placed on <%= new Date(order.createdAt).toLocaleDateString('en-GB', {
-                                                    day: '2-digit' , month: 'long' , year: 'numeric' }) %>
-                                            </p>
-                                        </div>
-                                        <div class="header-actions">
-                                            <a href="/orders/<%= order._id %>/invoice" class="btn-download">
-                                                <i class="fas fa-file-invoice"></i> Download Invoice
-                                            </a>
-                                            <span
-                                                class="status-badge status-<%= (order.orderStatus || 'pending').toLowerCase() %>">
-                                                <%= order.orderStatus || 'Pending' %>
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    <!-- Info Grid -->
-                                    <div class="info-grid">
-                                        <!-- Shipping -->
-                                        <div class="info-section">
-                                            <h3>Shipping Address</h3>
-                                            <div class="info-content">
-                                                <strong>
-                                                    <%= order.shippingAddress.name %>
-                                                </strong>
-                                                <p>
-                                                    <%= order.shippingAddress.housename %>, <%=
-                                                            order.shippingAddress.street %>
+                                <!-- CONTENT -->
+                                <main class="main-content">
+                                    <div class="order-details-container">
+                                        <!-- Order Header -->
+                                        <div class="order-header-section">
+                                            <div class="order-info">
+                                                <h1>Order #<%= order._id.toString().slice(-6).toUpperCase() %>
+                                                </h1>
+                                                <p>Placed on <%= new Date(order.createdAt).toLocaleDateString('en-GB', {
+                                                        day: '2-digit' , month: 'long' , year: 'numeric' }) %>
                                                 </p>
-                                                <p>
-                                                    <%= order.shippingAddress.city %>, <%= order.shippingAddress.state
+                                            </div>
+                                            <div class="header-actions">
+                                                <a href="/orders/<%= order._id %>/invoice" class="btn-download">
+                                                    <i class="fas fa-file-invoice"></i> Download Invoice
+                                                </a>
+                                                <span
+                                                    class="status-badge status-<%= (order.orderStatus || 'pending').toLowerCase() %>">
+                                                    <%= order.orderStatus || 'Pending' %>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Info Grid -->
+                                        <div class="info-grid">
+                                            <!-- Shipping -->
+                                            <div class="info-section">
+                                                <h3>Shipping Address</h3>
+                                                <div class="info-content">
+                                                    <strong>
+                                                        <%= order.shippingAddress.name %>
+                                                    </strong>
+                                                    <p>
+                                                        <%= order.shippingAddress.housename %>, <%=
+                                                                order.shippingAddress.street %>
+                                                    </p>
+                                                    <p>
+                                                        <%= order.shippingAddress.city %>, <%=
+                                                                order.shippingAddress.state %>
+                                                                <%= order.shippingAddress.pincode %>
+                                                    </p>
+                                                    <p>
+                                                        <%= order.shippingAddress.country %>
+                                                    </p>
+                                                    <p style="margin-top: 8px;">Phone: <%= order.shippingAddress.mobile
                                                             %>
-                                                            <%= order.shippingAddress.pincode %>
-                                                </p>
-                                                <p>
-                                                    <%= order.shippingAddress.country %>
-                                                </p>
-                                                <p style="margin-top: 8px;">Phone: <%= order.shippingAddress.mobile %>
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <!-- Payment -->
-                                        <div class="info-section">
-                                            <h3>Payment Details</h3>
-                                            <div class="info-content">
-                                                <div class="payment-item">
-                                                    <span class="payment-label">Method</span>
-                                                    <span class="payment-value">
-                                                        <%= order.paymentMethod %>
-                                                    </span>
+                                                    </p>
                                                 </div>
-                                                <div class="payment-item">
-                                                    <span class="payment-label">Status</span>
-                                                    <span class="payment-value"
-                                                        style="color: <%= ['paid', 'completed'].includes(order.paymentStatus) ? '#198754' : '#fd7e14' %>">
-                                                        <%= order.paymentStatus %>
-                                                    </span>
+                                            </div>
+
+                                            <!-- Payment -->
+                                            <div class="info-section">
+                                                <h3>Payment Details</h3>
+                                                <div class="info-content">
+                                                    <div class="payment-item">
+                                                        <span class="payment-label">Method</span>
+                                                        <span class="payment-value">
+                                                            <%= order.paymentMethod %>
+                                                        </span>
+                                                    </div>
+                                                    <div class="payment-item">
+                                                        <span class="payment-label">Status</span>
+                                                        <span class="payment-value"
+                                                            style="color: <%= ['paid', 'completed'].includes(order.paymentStatus) ? '#198754' : '#fd7e14' %>">
+                                                            <%= order.paymentStatus %>
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <!-- Items -->
-                                    <div class="items-section">
-                                        <div class="table-container">
-                                            <table class="order-items-table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Product</th>
-                                                        <th style="text-align: center;">Qty</th>
-                                                        <th style="text-align: center;">Price</th>
-                                                        <th style="text-align: center;">Total</th>
-                                                        <th style="text-align: center;">Status</th>
-                                                        <th style="text-align: right;">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <% order.items.forEach(item=> { %>
+                                        <!-- Items -->
+                                        <div class="items-section">
+                                            <div class="table-container">
+                                                <table class="order-items-table">
+                                                    <thead>
                                                         <tr>
-                                                            <td data-label="Product">
-                                                                <div class="product-cell">
-                                                                    <img src="<%= item.image %>" alt="<%= item.name %>"
-                                                                        class="product-img">
-                                                                    <div class="product-info">
-                                                                        <p class="product-name">
-                                                                            <%= item.name %>
-                                                                        </p>
-                                                                        <% if (item.label) { %>
-                                                                            <p class="product-variant">Variant: <%=
-                                                                                    item.label %>
-                                                                            </p>
-                                                                            <% } %>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td data-label="Qty" style="text-align: center;">x<%=
-                                                                    item.productQuantity %>
-                                                            </td>
-                                                            <td data-label="Price" style="text-align: center;">₹<%=
-                                                                    item.purchasedPrice.toLocaleString('en-IN') %>
-                                                            </td>
-                                                            <td data-label="Total"
-                                                                style="text-align: center; font-weight: 700;">₹<%=
-                                                                    item.total.toLocaleString('en-IN') %>
-                                                            </td>
-                                                            <td data-label="Status" style="text-align: center;">
-                                                                <span
-                                                                    class="status-badge status-<%= item.status.replace('_', '-') %>">
-                                                                    <%= item.status.replace('_', ' ' ) %>
-                                                                </span>
-                                                            </td>
-                                                            <td data-label="Action" style="text-align: right;">
-                                                                <% if (['pending', 'confirmed' ].includes(item.status))
-                                                                    { %>
-                                                                    <button
-                                                                        onclick="handleItemAction('<%= order._id %>', '<%= item._id %>', 'cancel')"
-                                                                        class="btn-action btn-cancel">
-                                                                        Cancel
-                                                                    </button>
-                                                                    <% } else if (item.status==='delivered' ) { %>
-                                                                        <button
-                                                                            onclick="handleItemAction('<%= order._id %>', '<%= item._id %>', 'return')"
-                                                                            class="btn-action btn-return">
-                                                                            Return
-                                                                        </button>
-                                                                        <% } else if
-                                                                            (['cancel_requested', 'return_requested'
-                                                                            ].includes(item.status)) { %>
-                                                                            <span
-                                                                                style="font-size: 11px; color: #fd7e14; font-weight: 700;">PENDING</span>
-                                                                            <% } else { %>
-                                                                                <span
-                                                                                    style="font-size: 11px; color: #adb5bd;">NONE</span>
-                                                                                <% } %>
-                                                            </td>
+                                                            <th>Product</th>
+                                                            <th style="text-align: center;">Qty</th>
+                                                            <th style="text-align: center;">Price</th>
+                                                            <th style="text-align: center;">Total</th>
+                                                            <th style="text-align: center;">Status</th>
+                                                            <th style="text-align: right;">Action</th>
                                                         </tr>
-                                                        <% }) %>
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+                                                    <tbody>
+                                                        <% order.items.forEach(item=> { %>
+                                                            <tr>
+                                                                <td data-label="Product">
+                                                                    <div class="product-cell">
+                                                                        <img src="<%= item.image %>"
+                                                                            alt="<%= item.name %>" class="product-img">
+                                                                        <div class="product-info">
+                                                                            <p class="product-name">
+                                                                                <%= item.name %>
+                                                                            </p>
+                                                                            <% if (item.label) { %>
+                                                                                <p class="product-variant">Variant: <%=
+                                                                                        item.label %>
+                                                                                </p>
+                                                                                <% } %>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td data-label="Qty" style="text-align: center;">x<%=
+                                                                        item.productQuantity %>
+                                                                </td>
+                                                                <td data-label="Price" style="text-align: center;">₹<%=
+                                                                        item.purchasedPrice.toLocaleString('en-IN') %>
+                                                                </td>
+                                                                <td data-label="Total"
+                                                                    style="text-align: center; font-weight: 700;">₹<%=
+                                                                        item.total.toLocaleString('en-IN') %>
+                                                                </td>
+                                                                <td data-label="Status" style="text-align: center;">
+                                                                    <span
+                                                                        class="status-badge status-<%= item.status.replace('_', '-') %>">
+                                                                        <%= item.status.replace('_', ' ' ) %>
+                                                                    </span>
+                                                                </td>
+                                                                <td data-label="Action" style="text-align: right;">
+                                                                    <% if (['pending', 'confirmed'
+                                                                        ].includes(item.status)) { %>
+                                                                        <button
+                                                                            onclick="handleItemAction('<%= order._id %>', '<%= item._id %>', 'cancel')"
+                                                                            class="btn-action btn-cancel">
+                                                                            Cancel
+                                                                        </button>
+                                                                        <% } else if (item.status==='delivered' ) { %>
+                                                                            <button
+                                                                                onclick="handleItemAction('<%= order._id %>', '<%= item._id %>', 'return')"
+                                                                                class="btn-action btn-return">
+                                                                                Return
+                                                                            </button>
+                                                                            <% } else if
+                                                                                (['cancel_requested', 'return_requested'
+                                                                                ].includes(item.status)) { %>
+                                                                                <span
+                                                                                    style="font-size: 11px; color: #fd7e14; font-weight: 700;">PENDING</span>
+                                                                                <% } else { %>
+                                                                                    <span
+                                                                                        style="font-size: 11px; color: #adb5bd;">NONE</span>
+                                                                                    <% } %>
+                                                                </td>
+                                                            </tr>
+                                                            <% }) %>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <!-- Summary -->
-                                    <div class="summary-footer">
-                                        <div class="summary-box">
-                                            <div class="summary-row">
-                                                <span>Subtotal</span>
-                                                <span style="font-weight: 600;">₹<%= (order.subtotal ||
-                                                        order.totalAmount).toLocaleString('en-IN') %></span>
-                                            </div>
-                                            <div class="summary-row">
-                                                <span>Discount</span>
-                                                <span style="font-weight: 600; color: #198754;">-₹<%=
-                                                        (order.discountAmount || 0).toLocaleString('en-IN') %></span>
-                                            </div>
-                                            <div class="summary-row total">
-                                                <span>Total</span>
-                                                <span class="grand-total">₹<%= order.totalAmount.toLocaleString('en-IN')
-                                                        %></span>
+                                        <!-- Summary -->
+                                        <div class="summary-footer">
+                                            <div class="summary-box">
+                                                <div class="summary-row">
+                                                    <span>Subtotal</span>
+                                                    <span style="font-weight: 600;">₹<%= (order.subtotal ||
+                                                            order.totalAmount).toLocaleString('en-IN') %></span>
+                                                </div>
+                                                <div class="summary-row">
+                                                    <span>Discount</span>
+                                                    <span style="font-weight: 600; color: #198754;">-₹<%=
+                                                            (order.discountAmount || 0).toLocaleString('en-IN') %>
+                                                            </span>
+                                                </div>
+                                                <div class="summary-row total">
+                                                    <span>Total</span>
+                                                    <span class="grand-total">₹<%=
+                                                            order.totalAmount.toLocaleString('en-IN') %></span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </main>
+                                </main>
+                        </div>
                     </div>
-                </div>
 
-                <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
-                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                <script src="/js/users/orderDetails.js"></script>
-                <%- include('../partials/footer') %>
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                    <script src="/js/users/orderDetails.js"></script>
+                    <%- include('../partials/footer') %>
 </body>
 
 </html>

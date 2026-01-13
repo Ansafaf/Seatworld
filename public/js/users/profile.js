@@ -1,23 +1,3 @@
-// Sidebar toggle for mobile
-function toggleSidebar() {
-    const sidebar = document.getElementById('mobileSidebar');
-    const overlay = document.getElementById('sidebarOverlay');
-    if (sidebar) sidebar.classList.toggle('active');
-    if (overlay) overlay.classList.toggle('active');
-}
-
-// Attach to window for HTML event handlers
-window.toggleSidebar = toggleSidebar;
-
-// Close sidebar when clicking menu items
-const mobileMenuItems = document.querySelectorAll('#mobileSidebar .menu-item');
-mobileMenuItems.forEach(item => {
-    item.addEventListener('click', () => {
-        if (window.innerWidth <= 768) {
-            toggleSidebar();
-        }
-    });
-});
 
 // Avatar upload handling
 const avatarInputs = document.querySelectorAll('input[name="avatar"]');

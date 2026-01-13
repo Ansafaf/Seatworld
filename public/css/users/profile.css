@@ -140,7 +140,8 @@
             color: #fff;
         }
 
-        #avatarInput {
+        #avatarInput,
+        #avatarInputMobile {
             display: none;
         }
 
@@ -306,9 +307,6 @@
                 display: none;
             }
 
-            .mobile-menu-btn {
-                display: block;
-            }
 
             /* Adjust topbar for mobile */
             .topbar {
@@ -545,3 +543,9 @@
         .copy-btn i {
             font-size: 16px;
         }
+/* Hide default header mobile menu on profile pages */
+@media (max-width: 768px) {
+    .main-header .mobile-menu-toggle {
+        display: none !important;
+    }
+}

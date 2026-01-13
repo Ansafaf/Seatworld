@@ -80,23 +80,3 @@ window.openDeleteModal = async (addressId) => {
     }
 }
 
-// Sidebar toggle for mobile
-function toggleSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('sidebarOverlay');
-    if (sidebar) sidebar.classList.toggle('active');
-    if (overlay) overlay.classList.toggle('active');
-}
-
-// Attach to window for HTML event handlers
-window.toggleSidebar = toggleSidebar;
-
-// Close sidebar when clicking menu items
-const sidebarLinks = document.querySelectorAll('.sidebar a');
-sidebarLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        if (window.innerWidth <= 1024) {
-            toggleSidebar();
-        }
-    });
-});
