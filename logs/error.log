@@ -866,3 +866,14 @@ topProducts is not defined
     132|                                                 <div
 
 topProducts is not defined
+[2026-01-13 12:01:10] ERROR: E11000 duplicate key error collection: seatworld.users index: username_1 dup key: { username: null }
+[2026-01-13 12:01:21] ERROR: Bad Request
+[2026-01-13 14:03:25] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-13 14:03:25] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-13 14:03:25] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-13 14:03:25] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-13 14:03:26] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-13 14:03:30] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-13 14:03:31] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-13 14:04:00] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-13 14:04:00] ERROR: Update quantity error: Quantity must be less than or equal to 6

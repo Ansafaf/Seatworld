@@ -54,6 +54,17 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      // Show blocked message if passed from controller
+      <% if (typeof blockedMessage !== 'undefined' && blockedMessage) { %>
+        Swal.fire({
+          icon: 'error',
+          title: 'Account Blocked',
+          text: '<%= blockedMessage.message %>',
+          confirmButtonColor: '#3b82f6'
+        });
+      <% } %>
+    </script>
     <script type="module" src="/js/users/login.js"></script>
 
 </body>

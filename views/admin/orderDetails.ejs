@@ -124,14 +124,11 @@
                                                                     ? 'selected' : '' %>>Shipped</option>
                                                                 <option value="delivered" <%=item.status==='delivered'
                                                                     ? 'selected' : '' %>>Delivered</option>
-                                                                <option value="cancel_requested"
-                                                                    <%=item.status==='cancel_requested' ? 'selected'
-                                                                    : '' %>
-                                                                    <%= item.status !=='cancel_requested' ? 'disabled'
-                                                                        : '' %>>Cancel Requested
-                                                                </option>
                                                                 <option value="cancelled" <%=item.status==='cancelled'
-                                                                    ? 'selected' : '' %>>Cancelled (Approve)</option>
+                                                                    ? 'selected' : '' %>
+                                                                    <%=item.status==='cancelled' ? 'disabled' : '' %>
+                                                                        >Cancelled
+                                                                </option>
                                                                 <option value="return_requested"
                                                                     <%=item.status==='return_requested' ? 'selected'
                                                                     : '' %>
@@ -139,7 +136,10 @@
                                                                         : '' %>>Return Requested
                                                                 </option>
                                                                 <option value="returned" <%=item.status==='returned'
-                                                                    ? 'selected' : '' %>>Returned (Approve)</option>
+                                                                    ? 'selected' : '' %>
+                                                                    <%=item.status==='returned' ? 'disabled' : '' %>
+                                                                        >Returned (Approve)
+                                                                </option>
                                                             </select>
                                                             <button
                                                                 onclick="updateItemStatus('<%= order._id %>', '<%= item._id %>')"

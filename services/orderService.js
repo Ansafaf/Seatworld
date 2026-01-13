@@ -6,12 +6,13 @@ import Wallet from "../models/walletModel.js";
 import * as inventoryService from "./inventoryService.js";
 import logger from "../utils/logger.js";
 import crypto from "crypto";
+import * as walletService from "./walletService.js";
 
 export const getUserOrders = async (userId, page = 1, limit = 8, search = "") => {
     const skip = (page - 1) * limit;
 
     let query = { userId };
-    
+
     if (search) {
         // Search logic if needed in future
     }
@@ -158,15 +159,57 @@ export const handleItemAction = async ({ orderId, userId, itemId, action, return
 
         if (action === "cancel") {
             if (!["pending", "confirmed"].includes(currentStatus)) {
-                throw new Error(`Cannot request cancellation for item with status: ${currentStatus}`);
+                throw new Error(`Cannot cancel item with status: ${currentStatus}`);
             }
-            item.status = "cancel_requested";
+
+            // 🛑 Step 1: Update Item Status Directly
+            item.status = "cancelled";
             item.cancelledOn = new Date();
+
+            // 📦 Step 2: Restore Inventory
+            await inventoryService.updateStock({
+                variantId: item.variantId,
+                quantity: item.productQuantity,
+                reason: "order_cancelled",
+                orderId: order._id,
+                notes: "User cancelled item directly"
+            });
+
+            // 💰 Step 3: Handle Wallet Refund if paid
+            if (order.paymentStatus === 'paid' && item.refundStatus !== 'refunded') {
+                let refundAmount = walletService.calculateItemRefundAmount(order, item);
+
+                // Check if this is the last active item to include shipping fee
+                const activeItems = await OrderItem.find({
+                    orderId,
+                    _id: { $ne: item._id },
+                    status: { $nin: ['cancelled', 'returned'] }
+                });
+
+                if (activeItems.length === 0) {
+                    refundAmount += (order.shippingFee || 0);
+                }
+
+                if (refundAmount > 0) {
+                    await walletService.refundToWallet(
+                        order.userId,
+                        refundAmount,
+                        `Refund for user-cancelled item`,
+                        order._id,
+                        item._id
+                    );
+                }
+            }
+
+            // 📊 Step 4: Update Order total
+            const itemTotal = item.purchasedPrice * item.productQuantity;
+            order.totalAmount = Math.max(0, order.totalAmount - itemTotal);
 
         } else if (action === "return") {
             if (currentStatus !== "delivered") {
                 throw new Error(`Cannot request return for item with status: ${currentStatus}`);
             }
+            // Returns still happen via request flow as they usually require inspection
             item.status = "return_requested";
             item.returnRequestedOn = new Date();
             item.returnReason = returnReason;
@@ -177,7 +220,9 @@ export const handleItemAction = async ({ orderId, userId, itemId, action, return
 
         await order.save();
         await item.save();
-        logger.info(`Item ${action} requested for item ${itemId}`);
+
+        logger.info(`Item ${action} processed for item ${itemId} (Status: ${item.status})`);
+
         return {
             order,
             item: {

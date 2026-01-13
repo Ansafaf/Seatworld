@@ -158,13 +158,13 @@
                                                                                 Return
                                                                             </button>
                                                                             <% } else if
-                                                                                (['cancel_requested', 'return_requested'
-                                                                                ].includes(item.status)) { %>
+                                                                                (item.status==='return_requested' ) { %>
                                                                                 <span
-                                                                                    style="font-size: 11px; color: #fd7e14; font-weight: 700;">PENDING</span>
+                                                                                    style="font-size: 11px; color: #fd7e14; font-weight: 700;">RETURN
+                                                                                    REQUESTED</span>
                                                                                 <% } else { %>
                                                                                     <span
-                                                                                        style="font-size: 11px; color: #adb5bd;">NONE</span>
+                                                                                        style="font-size: 11px; color: #adb5bd;">COMPLETED</span>
                                                                                     <% } %>
                                                                 </td>
                                                             </tr>
@@ -186,7 +186,7 @@
                                                     <span>Discount</span>
                                                     <span style="font-weight: 600; color: #198754;">-₹<%=
                                                             (order.discountAmount || 0).toLocaleString('en-IN') %>
-                                                            </span>
+                                                    </span>
                                                 </div>
                                                 <div class="summary-row total">
                                                     <span>Total</span>
