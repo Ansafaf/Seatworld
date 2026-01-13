@@ -16,114 +16,111 @@
         <%- include("../partials/breadcrumb", { breadcrumbs }) %>
             <%- include("../partials/flash", { messageData: locals.message }) %>
 
-                <button class="menu-btn" onclick="toggleSidebar()"
-                    style="position: fixed; top: 90px; left: 20px; z-index: 100; background: white; border-radius: 50%; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); border: none;">
-                    <i class="fas fa-bars" style="font-size: 20px;"></i>
-                </button>
+                <%- include('../partials/profileMobileToggle') %>
 
-                <div class="container">
-                    <div class="profile-layout">
-                        <!-- SIDEBAR -->
-                        <%- include('../partials/profileSidebar', { active: 'wallet' }) %>
+                    <div class="container">
+                        <div class="profile-layout">
+                            <!-- SIDEBAR -->
+                            <%- include('../partials/profileSidebar', { active: 'wallet' }) %>
 
-                            <!-- CONTENT -->
-                            <main class="main-content">
-                                <h1 class="page-title">Wallet Overview</h1>
+                                <!-- CONTENT -->
+                                <main class="main-content">
+                                    <h1 class="page-title">Wallet Overview</h1>
 
-                                <div class="wallet-container">
-                                    <div class="balance-card">
-                                        <span class="label">Available Balance</span>
-                                        <h1 class="amount">₹<%= wallet ? wallet.balance.toFixed(2) : '0.00' %>
-                                        </h1>
-                                    </div>
-
-                                    <div class="actions">
-                                        <button class="btn btn-history"
-                                            onclick="window.location.href='/wallet/history'">
-                                            <i class="fas fa-history"></i> Transaction History
-                                        </button>
-                                        <button class="btn btn-add" onclick="openAddMoneyModal()">
-                                            <i class="fas fa-plus"></i> Add Money
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="transaction-section">
-                                    <div class="section-header">
-                                        <h3>Recent Transactions</h3>
-                                        <% if (wallet && wallet.transactions && wallet.transactions.length> 3) { %>
-                                            <a href="/wallet/history" class="view-all-link">View All →</a>
-                                            <% } %>
-                                    </div>
-
-                                    <% if (wallet && wallet.recentTransactions && wallet.recentTransactions.length> 0) {
-                                        %>
-                                        <div class="table-responsive">
-                                            <table class="transaction-table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Date</th>
-                                                        <th>Description</th>
-                                                        <th>Type</th>
-                                                        <th>Amount</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <% wallet.recentTransactions.forEach(t=> { %>
-                                                        <tr>
-                                                            <td>
-                                                                <%= new Date(t.date).toLocaleDateString() %>
-                                                            </td>
-                                                            <td>
-                                                                <%= t.description %>
-                                                            </td>
-                                                            <td>
-                                                                <span class="badge <%= t.type %>">
-                                                                    <%= t.type.toUpperCase() %>
-                                                                </span>
-                                                            </td>
-                                                            <td
-                                                                class="<%= t.type === 'credit' ? 'text-green' : 'text-red' %>">
-                                                                <%= t.type==='credit' ? '+' : '-' %>₹<%=
-                                                                        t.amount.toFixed(2) %>
-                                                            </td>
-                                                        </tr>
-                                                        <% }) %>
-                                                </tbody>
-                                            </table>
+                                    <div class="wallet-container">
+                                        <div class="balance-card">
+                                            <span class="label">Available Balance</span>
+                                            <h1 class="amount">₹<%= wallet ? wallet.balance.toFixed(2) : '0.00' %>
+                                            </h1>
                                         </div>
-                                        <% } else { %>
-                                            <p class="no-transactions">No transactions found.</p>
-                                            <% } %>
+
+                                        <div class="actions">
+                                            <button class="btn btn-history"
+                                                onclick="window.location.href='/wallet/history'">
+                                                <i class="fas fa-history"></i> Transaction History
+                                            </button>
+                                            <button class="btn btn-add" onclick="openAddMoneyModal()">
+                                                <i class="fas fa-plus"></i> Add Money
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="transaction-section">
+                                        <div class="section-header">
+                                            <h3>Recent Transactions</h3>
+                                            <% if (wallet && wallet.transactions && wallet.transactions.length> 3) { %>
+                                                <a href="/wallet/history" class="view-all-link">View All →</a>
+                                                <% } %>
+                                        </div>
+
+                                        <% if (wallet && wallet.recentTransactions && wallet.recentTransactions.length>
+                                            0) {
+                                            %>
+                                            <div class="table-responsive">
+                                                <table class="transaction-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                            <th>Description</th>
+                                                            <th>Type</th>
+                                                            <th>Amount</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <% wallet.recentTransactions.forEach(t=> { %>
+                                                            <tr>
+                                                                <td>
+                                                                    <%= new Date(t.date).toLocaleDateString() %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= t.description %>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="badge <%= t.type %>">
+                                                                        <%= t.type.toUpperCase() %>
+                                                                    </span>
+                                                                </td>
+                                                                <td
+                                                                    class="<%= t.type === 'credit' ? 'text-green' : 'text-red' %>">
+                                                                    <%= t.type==='credit' ? '+' : '-' %>₹<%=
+                                                                            t.amount.toFixed(2) %>
+                                                                </td>
+                                                            </tr>
+                                                            <% }) %>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <% } else { %>
+                                                <p class="no-transactions">No transactions found.</p>
+                                                <% } %>
+                                    </div>
+                                </main>
+                        </div>
+                    </div>
+
+                    <!-- Add Money Modal -->
+                    <div id="addMoneyModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close" onclick="closeAddMoneyModal()">&times;</span>
+                            <h3>Add Money to Wallet</h3>
+                            <form id="addMoneyForm">
+                                <div class="form-group">
+                                    <label for="amount">Enter Amount (₹)</label>
+                                    <input type="number" id="amount" name="amount" min="1" max="10000" required
+                                        placeholder="e.g. 500">
                                 </div>
-                            </main>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-lock"></i> Proceed to Pay
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Add Money Modal -->
-                <div id="addMoneyModal" class="modal">
-                    <div class="modal-content">
-                        <span class="close" onclick="closeAddMoneyModal()">&times;</span>
-                        <h3>Add Money to Wallet</h3>
-                        <form id="addMoneyForm">
-                            <div class="form-group">
-                                <label for="amount">Enter Amount (₹)</label>
-                                <input type="number" id="amount" name="amount" min="1" max="10000" required
-                                    placeholder="e.g. 500">
-                            </div>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-lock"></i> Proceed to Pay
-                            </button>
-                        </form>
-                    </div>
-                </div>
 
-                <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
-
-                <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                <script src="/js/users/wallet.js"></script>
-                <%- include('../partials/footer') %>
+                    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                    <script src="/js/users/wallet.js"></script>
+                    <%- include('../partials/footer') %>
 </body>
 
 </html>

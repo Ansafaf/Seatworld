@@ -148,106 +148,105 @@
 
 <body class="bg-gray-50">
 
-    <%- include('../partials/header', { showSearch: false }) %>
-        <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    <%- include('../partials/profileMobileToggle') %>
 
-            <button class="menu-btn" onclick="toggleSidebar()"
-                style="position: fixed; top: 90px; left: 20px; z-index: 100; background: white; border-radius: 50%; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); border: none;">
-                <i class="fas fa-bars" style="font-size: 20px;"></i>
-            </button>
+        <%- include('../partials/header', { showSearch: false }) %>
+            <%- include("../partials/breadcrumb", { breadcrumbs }) %>
 
-            <div class="container">
-                <div class="profile-layout">
+                <div class="container">
+                    <div class="profile-layout">
 
-                    <!-- Sidebar -->
-                    <%- include('../partials/profileSidebar', { active: 'coupons' }) %>
+                        <!-- Sidebar -->
+                        <%- include('../partials/profileSidebar', { active: 'coupons' }) %>
 
-                        <!-- Main Content -->
-                        <main class="main-content">
+                            <!-- Main Content -->
+                            <main class="main-content">
 
-                            <div class="coupon-container">
-                                <div class="page-header">
-                                    <h1 class="text-xl font-bold text-gray-900">Available Coupons</h1>
-                                    <p class="text-xs text-gray-500 mt-1">Check out active discounts for your next
-                                        purchase</p>
-                                </div>
+                                <div class="coupon-container">
+                                    <div class="page-header">
+                                        <h1 class="text-xl font-bold text-gray-900">Available Coupons</h1>
+                                        <p class="text-xs text-gray-500 mt-1">Check out active discounts for your next
+                                            purchase</p>
+                                    </div>
 
-                                <div class="coupon-list-card">
-                                    <% if (coupons && coupons.length> 0) { %>
-                                        <% coupons.forEach(coupon=> { %>
-                                            <div
-                                                class="coupon-item flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                                                <div class="flex-1">
-                                                    <div class="coupon-tag">
-                                                        <span class="material-icons-outlined text-sm">local_offer</span>
-                                                        Grab <%= coupon.discountType==='percentage' ?
-                                                            coupon.discountValue + '%' : '₹' + coupon.discountValue %>
-                                                            off
+                                    <div class="coupon-list-card">
+                                        <% if (coupons && coupons.length> 0) { %>
+                                            <% coupons.forEach(coupon=> { %>
+                                                <div
+                                                    class="coupon-item flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                                                    <div class="flex-1">
+                                                        <div class="coupon-tag">
+                                                            <span
+                                                                class="material-icons-outlined text-sm">local_offer</span>
+                                                            Grab <%= coupon.discountType==='percentage' ?
+                                                                coupon.discountValue + '%' : '₹' + coupon.discountValue
+                                                                %>
+                                                                off
+                                                        </div>
+                                                        <div class="coupon-desc mb-2">
+                                                            <%= coupon.description %>
+                                                        </div>
+                                                        <div class="coupon-code-badge">
+                                                            <%= coupon.couponCode %>
+                                                        </div>
                                                     </div>
-                                                    <div class="coupon-desc mb-2">
-                                                        <%= coupon.description %>
-                                                    </div>
-                                                    <div class="coupon-code-badge">
-                                                        <%= coupon.couponCode %>
+                                                    <div class="coupon-validity mt-3 sm:mt-0">
+                                                        <span class="material-icons-outlined text-xs">event</span>
+                                                        Valid till <%= new
+                                                            Date(coupon.expiryDate).toLocaleDateString('en-GB', {
+                                                            day: '2-digit' , month: 'short' , year: 'numeric' }) %>
                                                     </div>
                                                 </div>
-                                                <div class="coupon-validity mt-3 sm:mt-0">
-                                                    <span class="material-icons-outlined text-xs">event</span>
-                                                    Valid till <%= new
-                                                        Date(coupon.expiryDate).toLocaleDateString('en-GB', {
-                                                        day: '2-digit' , month: 'short' , year: 'numeric' }) %>
-                                                </div>
-                                            </div>
-                                            <% }); %>
-                                                <% } else { %>
-                                                    <div class="text-center py-12">
-                                                        <span
-                                                            class="material-icons-outlined text-5xl text-gray-200 mb-4">local_offer</span>
-                                                        <p class="text-sm text-gray-500 font-medium">No coupons
-                                                            available at the moment.</p>
-                                                    </div>
-                                                    <% } %>
-                                </div>
-                            </div>
-
-                            <!-- Pagination -->
-                            <% if (pagination && pagination.totalPages> 1) { %>
-                                <div class="flex justify-center items-center gap-4 mt-8 pb-8">
-                                    <% if (pagination.hasPrevPage) { %>
-                                        <a href="?page=<%= pagination.currentPage - 1 %>"
-                                            class="pagination-btn">Previous</a>
-                                        <% } else { %>
-                                            <button class="pagination-btn opacity-50 cursor-not-allowed"
-                                                disabled>Previous</button>
-                                            <% } %>
-
-                                                <div class="flex gap-1">
-                                                    <% for(let i=1; i <=pagination.totalPages; i++) { %>
-                                                        <a href="?page=<%= i %>"
-                                                            class="page-num <%= i === pagination.currentPage ? 'active' : '' %>">
-                                                            <%= i %>
-                                                        </a>
-                                                        <% } %>
-                                                </div>
-
-                                                <% if (pagination.hasNextPage) { %>
-                                                    <a href="?page=<%= pagination.currentPage + 1 %>"
-                                                        class="pagination-btn">Next</a>
+                                                <% }); %>
                                                     <% } else { %>
-                                                        <button class="pagination-btn opacity-50 cursor-not-allowed"
-                                                            disabled>Next</button>
+                                                        <div class="text-center py-12">
+                                                            <span
+                                                                class="material-icons-outlined text-5xl text-gray-200 mb-4">local_offer</span>
+                                                            <p class="text-sm text-gray-500 font-medium">No coupons
+                                                                available at the moment.</p>
+                                                        </div>
                                                         <% } %>
+                                    </div>
                                 </div>
-                                <% } %>
-                        </main>
+
+                                <!-- Pagination -->
+                                <% if (pagination && pagination.totalPages> 1) { %>
+                                    <div class="flex justify-center items-center gap-4 mt-8 pb-8">
+                                        <% if (pagination.hasPrevPage) { %>
+                                            <a href="?page=<%= pagination.currentPage - 1 %>"
+                                                class="pagination-btn">Previous</a>
+                                            <% } else { %>
+                                                <button class="pagination-btn opacity-50 cursor-not-allowed"
+                                                    disabled>Previous</button>
+                                                <% } %>
+
+                                                    <div class="flex gap-1">
+                                                        <% for(let i=1; i <=pagination.totalPages; i++) { %>
+                                                            <a href="?page=<%= i %>"
+                                                                class="page-num <%= i === pagination.currentPage ? 'active' : '' %>">
+                                                                <%= i %>
+                                                            </a>
+                                                            <% } %>
+                                                    </div>
+
+                                                    <% if (pagination.hasNextPage) { %>
+                                                        <a href="?page=<%= pagination.currentPage + 1 %>"
+                                                            class="pagination-btn">Next</a>
+                                                        <% } else { %>
+                                                            <button class="pagination-btn opacity-50 cursor-not-allowed"
+                                                                disabled>Next</button>
+                                                            <% } %>
+                                    </div>
+                                    <% } %>
+                            </main>
+                    </div>
                 </div>
-            </div>
 
 
-            <%- include('../partials/footer') %>
+                <%- include('../partials/footer') %>
 
-                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                <script src="/js/users/profile.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                    <script src="/js/users/profile.js"></script>
 
 </body>
 

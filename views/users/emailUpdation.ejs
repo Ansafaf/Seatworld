@@ -17,55 +17,51 @@
   <%- include('../partials/header', { showSearch: false }) %>
     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
 
-      <button class="menu-btn" onclick="toggleSidebar()"
-        style="position: fixed; top: 90px; left: 20px; z-index: 100; background: white; border-radius: 50%; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); border: none;">
-        <i class="fas fa-bars" style="font-size: 20px;"></i>
-      </button>
+      <%- include('../partials/profileMobileToggle') %>
 
-      <div class="container">
-        <div class="profile-layout">
+        <div class="container">
+          <div class="profile-layout">
 
 
-          <!-- SIDEBAR -->
-          <%- include('../partials/profileSidebar', { active: 'profile' }) %>
+            <!-- SIDEBAR -->
+            <%- include('../partials/profileSidebar', { active: 'profile' }) %>
 
-            <!-- CONTENT -->
-            <main class="main-content">
-              <div class="email-card">
-                <h2>Email Id updation</h2>
+              <!-- CONTENT -->
+              <main class="main-content">
+                <div class="email-card">
+                  <h2>Email Id updation</h2>
 
-                <form id="emailUpdateForm" action="/profile/change-email" method="POST">
-                  <div class="form-group">
-                    <label>Current email</label>
-                    <div class="current-email">
-                      <%= user.email %>
+                  <form id="emailUpdateForm" action="/profile/change-email" method="POST">
+                    <div class="form-group">
+                      <label>Current email</label>
+                      <div class="current-email">
+                        <%= user.email %>
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="form-group">
-                    <label>New email</label>
-                    <input type="email" name="newEmail" required>
-                  </div>
+                    <div class="form-group">
+                      <label>New email</label>
+                      <input type="email" name="newEmail" required>
+                    </div>
 
-                  <div class="form-group">
-                    <label>Confirm new email</label>
-                    <input type="email" name="confirmEmail" required>
-                  </div>
+                    <div class="form-group">
+                      <label>Confirm new email</label>
+                      <input type="email" name="confirmEmail" required>
+                    </div>
 
-                  <button class="verify-btn">Verify</button>
+                    <button class="verify-btn">Verify</button>
 
-                </form>
-              </div>
-            </main>
+                  </form>
+                </div>
+              </main>
 
+          </div>
         </div>
-      </div>
 
-      <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
-      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-      <script type="module" src="/js/users/emailUpdation.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script type="module" src="/js/users/emailUpdation.js"></script>
 
-      <%- include('../partials/footer') %>
+        <%- include('../partials/footer') %>
 
 </body>
 

@@ -17,104 +17,102 @@
 <body class="bg-gray-100 text-gray-800">
 
     <!-- Overlay -->
-    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
     <!-- Mobile Menu Button -->
-    <button class="menu-btn" onclick="toggleSidebar()"
-        style="position: fixed; top: 90px; left: 20px; z-index: 100; background: white; border-radius: 50%; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); border: none;">
-        <i class="fas fa-bars" style="font-size: 20px;"></i>
-    </button>
+    <%- include('../partials/profileMobileToggle') %>
 
-    <%- include('../partials/header', { showSearch: false }) %>
-        <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+        <%- include('../partials/header', { showSearch: false }) %>
+            <%- include("../partials/breadcrumb", { breadcrumbs }) %>
 
-            <!-- MAIN -->
-            <main class="container">
-                <div class="profile-layout">
+                <!-- MAIN -->
+                <main class="container">
+                    <div class="profile-layout">
 
-                    <!-- Sidebar -->
-                    <%- include('../partials/profileSidebar', { active: 'address' }) %>
+                        <!-- Sidebar -->
+                        <%- include('../partials/profileSidebar', { active: 'address' }) %>
 
-                        <!-- FORM CONTENT -->
-                        <section class="main-content">
-                            <div class="bg-white rounded-lg border shadow-sm p-6">
-                                <h1 class="text-2xl font-bold mb-6 text-gray-800">Add New Address</h1>
+                            <!-- FORM CONTENT -->
+                            <section class="main-content">
+                                <div class="bg-white rounded-lg border shadow-sm p-6">
+                                    <h1 class="text-2xl font-bold mb-6 text-gray-800">Add New Address</h1>
 
-                                <form id="addressAddForm" action="/address/add" method="POST" class="space-y-4">
-                                    <div class="form-group grid gap-1">
-                                        <label class="font-medium text-gray-700" for="name">Name</label>
-                                        <input type="text" id="name" name="name"
-                                            class="form-input w-full rounded border-gray-300 focus:border-gray-900 focus:ring-gray-900"
-                                            placeholder="Enter your full name" required>
-                                    </div>
-
-                                    <div class="form-group grid gap-1">
-                                        <label class="font-medium text-gray-700" for="houseName">House Name/No</label>
-                                        <input type="text" id="houseName" name="houseName"
-                                            class="form-input w-full rounded border-gray-300 focus:border-gray-900 focus:ring-gray-900"
-                                            placeholder="Enter house name or number">
-                                    </div>
-
-                                    <div class="form-group grid gap-1">
-                                        <label class="font-medium text-gray-700" for="locality">Locality/Street</label>
-                                        <input type="text" id="locality" name="street"
-                                            class="form-input w-full rounded border-gray-300 focus:border-gray-900 focus:ring-gray-900"
-                                            placeholder="Enter street or locality" required>
-                                    </div>
-
-                                    <div class="form-group grid gap-1">
-                                        <label class="font-medium text-gray-700" for="city">Town/City</label>
-                                        <input type="text" id="city" name="city"
-                                            class="form-input w-full rounded border-gray-300 focus:border-gray-900 focus:ring-gray-900"
-                                            placeholder="Enter your city" required>
-                                    </div>
-
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <form id="addressAddForm" action="/address/add" method="POST" class="space-y-4">
                                         <div class="form-group grid gap-1">
-                                            <label class="font-medium text-gray-700" for="state">State</label>
-                                            <input type="text" id="state" name="state"
+                                            <label class="font-medium text-gray-700" for="name">Name</label>
+                                            <input type="text" id="name" name="name"
                                                 class="form-input w-full rounded border-gray-300 focus:border-gray-900 focus:ring-gray-900"
-                                                placeholder="Enter state" required>
+                                                placeholder="Enter your full name" required>
                                         </div>
 
                                         <div class="form-group grid gap-1">
-                                            <label class="font-medium text-gray-700" for="country">Country</label>
-                                            <input type="text" id="country" name="country"
-                                                class="form-input w-full rounded border-gray-300 bg-gray-100 focus:border-gray-900 focus:ring-gray-900"
-                                                value="India" required readonly>
+                                            <label class="font-medium text-gray-700" for="houseName">House
+                                                Name/No</label>
+                                            <input type="text" id="houseName" name="houseName"
+                                                class="form-input w-full rounded border-gray-300 focus:border-gray-900 focus:ring-gray-900"
+                                                placeholder="Enter house name or number">
                                         </div>
-                                    </div>
 
-                                    <div class="form-group grid gap-1">
-                                        <label class="font-medium text-gray-700" for="pincode">Pincode</label>
-                                        <input type="text" id="pincode" name="pincode"
-                                            class="form-input w-full rounded border-gray-300 focus:border-gray-900 focus:ring-gray-900"
-                                            placeholder="6-digit pincode" pattern="[0-9]{6}" required>
-                                    </div>
+                                        <div class="form-group grid gap-1">
+                                            <label class="font-medium text-gray-700"
+                                                for="locality">Locality/Street</label>
+                                            <input type="text" id="locality" name="street"
+                                                class="form-input w-full rounded border-gray-300 focus:border-gray-900 focus:ring-gray-900"
+                                                placeholder="Enter street or locality" required>
+                                        </div>
 
-                                    <div class="form-group grid gap-1">
-                                        <label class="font-medium text-gray-700" for="mobile">Mobile Number</label>
-                                        <input type="tel" id="mobile" name="mobile"
-                                            class="form-input w-full rounded border-gray-300 focus:border-gray-900 focus:ring-gray-900"
-                                            placeholder="10-digit mobile number" pattern="[0-9]{10}" required>
-                                    </div>
+                                        <div class="form-group grid gap-1">
+                                            <label class="font-medium text-gray-700" for="city">Town/City</label>
+                                            <input type="text" id="city" name="city"
+                                                class="form-input w-full rounded border-gray-300 focus:border-gray-900 focus:ring-gray-900"
+                                                placeholder="Enter your city" required>
+                                        </div>
 
-                                    <div class="pt-4 flex justify-end">
-                                        <button type="submit"
-                                            class="btn-save bg-gray-900 text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors">Save
-                                            Address</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </section>
-                        </section>
-                </div>
-            </main>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div class="form-group grid gap-1">
+                                                <label class="font-medium text-gray-700" for="state">State</label>
+                                                <input type="text" id="state" name="state"
+                                                    class="form-input w-full rounded border-gray-300 focus:border-gray-900 focus:ring-gray-900"
+                                                    placeholder="Enter state" required>
+                                            </div>
+
+                                            <div class="form-group grid gap-1">
+                                                <label class="font-medium text-gray-700" for="country">Country</label>
+                                                <input type="text" id="country" name="country"
+                                                    class="form-input w-full rounded border-gray-300 bg-gray-100 focus:border-gray-900 focus:ring-gray-900"
+                                                    value="India" required readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group grid gap-1">
+                                            <label class="font-medium text-gray-700" for="pincode">Pincode</label>
+                                            <input type="text" id="pincode" name="pincode"
+                                                class="form-input w-full rounded border-gray-300 focus:border-gray-900 focus:ring-gray-900"
+                                                placeholder="6-digit pincode" pattern="[0-9]{6}" required>
+                                        </div>
+
+                                        <div class="form-group grid gap-1">
+                                            <label class="font-medium text-gray-700" for="mobile">Mobile Number</label>
+                                            <input type="tel" id="mobile" name="mobile"
+                                                class="form-input w-full rounded border-gray-300 focus:border-gray-900 focus:ring-gray-900"
+                                                placeholder="10-digit mobile number" pattern="[0-9]{10}" required>
+                                        </div>
+
+                                        <div class="pt-4 flex justify-end">
+                                            <button type="submit"
+                                                class="btn-save bg-gray-900 text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors">Save
+                                                Address</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </section>
+                            </section>
+                    </div>
+                </main>
 
 
-            <%- include('../partials/footer') %>
+                <%- include('../partials/footer') %>
 
-                <script type="module" src="/js/users/addressAdd.js"></script>
+                    <script type="module" src="/js/users/addressAdd.js"></script>
 </body>
 
 </html>
