@@ -73,13 +73,12 @@ if (headerSearchInput) {
 }
 
 // Auto-submit only on sort change (Sorting is an immediate action)
-if (filterForm) {
-    const sortSelect = filterForm.querySelector('.sort-select');
-    if (sortSelect) {
-        sortSelect.addEventListener('change', () => {
-            filterForm.submit();
-        });
-    }
+// The sort select has form="productFilters" so it's associated with the form even if not inside it
+const sortSelect = document.querySelector('.sort-select');
+if (sortSelect && filterForm) {
+    sortSelect.addEventListener('change', () => {
+        filterForm.submit();
+    });
 }
 // Handle filter removal
 document.addEventListener('click', (e) => {
