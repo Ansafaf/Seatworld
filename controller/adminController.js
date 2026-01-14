@@ -107,8 +107,14 @@ export const blockUser = async (req, res) => {
         }
 
         // Block the user
-        
-        await User.findByIdAndUpdate(userId, { status: "blocked" });
+        if(req.session.user.id){
+            req.session.destroy((err) => {
+            if (err) console.log(err);
+              res.clearCookie("connect.sid");
+            });
+            await User.findByIdAndUpdate(userId, { status: "blocked" });
+        }
+       
 
         res.status(200).json({ success: true, message: "User blocked successfully", redirectUrl: "/admin/users" });
 
