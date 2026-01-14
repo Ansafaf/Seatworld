@@ -123,7 +123,7 @@
 
             <div class="sort-bar">
               <label>Sort By</label>
-              <select class="sort-select" name="sort" form="productFilters" onchange="this.form.submit()">
+              <select class="sort-select" name="sort" form="productFilters">
                 <option value="featured" <%=filters?.sort==='featured' ? 'selected' : '' %>>Featured</option>
                 <option value="newest" <%=filters?.sort==='newest' ? 'selected' : '' %>>Latest Arrivals</option>
                 <option value="name" <%=filters?.sort==='name' ? 'selected' : '' %>>A to Z</option>
