@@ -1,6 +1,7 @@
 
 import OrderItem from "../models/orderItemModel.js";
 import PDFDocument from "pdfkit";
+import ExcelJS from "exceljs";
 import Order from "../models/orderModel.js";
 import { buildBreadcrumb } from "../utils/breadcrumb.js";
 import { generateSalesReportData } from "../services/salesReportService.js";
@@ -66,5 +67,71 @@ export const getDownloadSales = async (req, res) => {
     } catch (err) {
         console.error("PDF Generation Error:", err);
         res.status(500).json({ message: "PDF generation failed" });
+    }
+};
+
+export const getDownloadExcel = async (req, res) => {
+    try {
+        const { startDate, endDate, quickFilter } = req.query;
+        const report = await generateSalesReportData({ startDate, endDate, quickFilter });
+
+        const workbook = new ExcelJS.Workbook();
+        const worksheet = workbook.addWorksheet('Sales Report');
+
+        // Define columns
+        worksheet.columns = [
+            { header: 'Order ID', key: 'orderId', width: 25 },
+            { header: 'Date', key: 'date', width: 20 },
+            { header: 'Total Amount (₹)', key: 'totalAmount', width: 15 },
+            { header: 'Discount (₹)', key: 'discount', width: 15 },
+            { header: 'Payment Method', key: 'paymentMethod', width: 20 },
+            { header: 'Status', key: 'status', width: 15 }
+        ];
+
+        // Format header row
+        worksheet.getRow(1).font = { bold: true };
+        worksheet.getRow(1).fill = {
+            type: 'pattern',
+            pattern: 'solid',
+            fgColor: { argb: 'FFE0E0E0' }
+        };
+
+        // Add data rows
+        report.transactions.forEach(t => {
+            worksheet.addRow({
+                orderId: `#${t.orderId.toString().slice(-6)}`,
+                date: new Date(t.date).toLocaleDateString('en-IN'),
+                totalAmount: t.totalAmount,
+                discount: t.discount,
+                paymentMethod: t.paymentMethod,
+                status: t.status === 'Success' ? 'Paid' : t.status
+            });
+        });
+
+        // Add summary section at the bottom
+        worksheet.addRow([]);
+        worksheet.addRow(['Summary']);
+        worksheet.getRow(worksheet.rowCount).font = { bold: true, size: 12 };
+
+        worksheet.addRow(['Total Orders', report.totalOrders]);
+        worksheet.addRow(['Total Sales', report.totalSales]);
+        worksheet.addRow(['Total Discount', report.totalDiscount]);
+        worksheet.addRow(['Avg Order Value', report.avgOrderValue]);
+
+        res.setHeader(
+            'Content-Type',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        );
+        res.setHeader(
+            'Content-Disposition',
+            'attachment; filename=sales-report.xlsx'
+        );
+
+        await workbook.xlsx.write(res);
+        res.end();
+
+    } catch (err) {
+        console.error("Excel Generation Error:", err);
+        res.status(500).json({ message: "Excel generation failed" });
     }
 };
