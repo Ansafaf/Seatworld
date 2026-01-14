@@ -974,3 +974,12 @@ breadcrumbs is not defined
 
 breadcrumbs is not defined
 [2026-01-13 20:02:32] ERROR: Cannot read properties of undefined (reading 'otpExpires')
+[2026-01-14 15:11:31] ERROR: E:\Brocamp\SeatWorld\views\users\profile.ejs:22
+    20|     <%- include('../partials/header', { showSearch: false }) %>
+    21|         <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+ >> 22|             <%- include("../partissals/flash", { messageData: locals.message }) %>
+    23| 
+    24|                 <%- include('../partials/profileMobileToggle') %>
+    25| 
+
+Could not find the include file "../partissals/flash"

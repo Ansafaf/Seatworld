@@ -5,6 +5,5 @@ const router = express.Router();
 router.get('/products', authMiddleware, getProducts);
 router.get('/product/:id', authMiddleware, getProductdetail);
 
-// router.get("/wishlist",getWishlist);
 
 export default router;

@@ -79,36 +79,6 @@ app.set("views", "./views");
 
 connectDB();
 
-app.use(async (req, res, next) => {
-  try {
-    if (req.session && req.session.user && req.session.user.id) {
-      const user = await User.findById(req.session.user.id);
-      if (user && user.status === "blocked") {
-        return req.session.destroy((err) => {
-          if (err) logger.error("Session destruction error:", err);
-
-          // Pass message via JSON cookie (since session is destroyed)
-          res.cookie('blocked_msg', JSON.stringify({
-            status: 'blocked',
-            message: 'Your account has been blocked by admin.'
-          }), { maxAge: 60000 }); // 1 minute expiry
-
-          res.clearCookie("connect.sid");
-
-          if (req.xhr || req.headers.accept?.includes("application/json")) {
-            return res.status(403).json({ success: false, message: "Your account has been blocked." });
-          }
-          res.redirect("/login");
-        });
-      }
-    }
-    next();
-  } catch (error) {
-    logger.error("Blocked user check error:", error);
-    next();
-  }
-});
-
 // Routes
 app.use("/api", uploadRoutes);
 app.use("/auth", AuthRoute);

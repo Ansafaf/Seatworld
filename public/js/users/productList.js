@@ -1,43 +1,3 @@
-// Price Range Sync
-const minRange = document.getElementById('minRange');
-const maxRange = document.getElementById('maxRange');
-const minInput = document.getElementById('minPriceInput');
-const maxInput = document.getElementById('maxPriceInput');
-const progress = document.getElementById('priceProgress');
-
-function updateSlider() {
-    if (!minRange) return;
-    const min = parseInt(minRange.min);
-    const max = parseInt(minRange.max);
-    const minVal = parseInt(minRange.value);
-    const maxVal = parseInt(maxRange.value);
-
-    if (maxVal - minVal < 100) {
-        if (event && event.target === minRange) minRange.value = maxVal - 100;
-        else if (event && event.target === maxRange) maxRange.value = minVal + 100;
-    }
-
-    const cMin = parseInt(minRange.value);
-    const cMax = parseInt(maxRange.value);
-
-    minInput.value = cMin;
-    maxInput.value = cMax;
-
-    const p1 = ((cMin - min) / (max - min)) * 100;
-    const p2 = ((cMax - min) / (max - min)) * 100;
-
-    progress.style.left = p1 + '%';
-    progress.style.width = (p2 - p1) + '%';
-}
-
-if (minRange) {
-    minRange.addEventListener('input', updateSlider);
-    maxRange.addEventListener('input', updateSlider);
-    minInput.addEventListener('change', () => { minRange.value = minInput.value; updateSlider(); });
-    maxInput.addEventListener('change', () => { maxRange.value = maxInput.value; updateSlider(); });
-    updateSlider();
-}
-
 // Search Debouncing & Auto-submit
 const filterForm = document.getElementById('productFilters');
 const headerSearchInput = document.getElementById('headerSearchInput');
@@ -73,11 +33,39 @@ if (headerSearchInput) {
 }
 
 // Auto-submit only on sort change (Sorting is an immediate action)
-if (filterForm) {
-    const sortSelect = filterForm.querySelector('.sort-select');
-    if (sortSelect) {
-        sortSelect.addEventListener('change', () => {
-            filterForm.submit();
-        });
-    }
+// The sort select has form="productFilters" so it's associated with the form even if not inside it
+const sortSelect = document.querySelector('.sort-select');
+if (sortSelect && filterForm) {
+    sortSelect.addEventListener('change', () => {
+        filterForm.submit();
+    });
 }
+// Handle filter removal
+document.addEventListener('click', (e) => {
+    const removeSearchBtn = e.target.closest('#removeSearchBtn');
+    const removeSortBtn = e.target.closest('#removeSortBtn');
+
+    if (removeSearchBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (headerSearchInput) headerSearchInput.value = '';
+        if (hiddenSearchInput) hiddenSearchInput.value = '';
+        if (filterForm) filterForm.submit();
+    }
+
+    if (removeSortBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Build URL with all current filters except sort
+        const currentUrl = new URL(window.location.href);
+        const params = new URLSearchParams(currentUrl.search);
+
+        // Remove sort parameter
+        params.delete('sort');
+
+        // Navigate to the new URL
+        const newUrl = params.toString() ? `${currentUrl.pathname}?${params.toString()}` : currentUrl.pathname;
+        window.location.href = newUrl;
+    }
+});

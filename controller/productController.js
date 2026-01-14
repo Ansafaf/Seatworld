@@ -38,22 +38,13 @@ const normalizeQuery = (query) => {
 
 // Helper: Build base product filter
 const buildBaseFilter = (params) => {
-    const { selectedCategories, selectedBrands, selectedTags, discount, search, minPrice, maxPrice } = params;
+    const { selectedCategories, selectedBrands, selectedTags, discount, search } = params;
     const filter = { isBlocked: { $ne: true } };
 
     if (selectedCategories.length) filter.categoryId = { $in: selectedCategories };
     if (selectedBrands.length) filter.brand = { $in: selectedBrands };
     if (selectedTags.length) filter.tags = { $in: selectedTags };
     if (discount === 'true') filter.offerId = { $ne: null, $exists: true };
-
-    const hasMinPrice = !Number.isNaN(minPrice) && minPrice > 0;
-    const hasMaxPrice = !Number.isNaN(maxPrice) && maxPrice > 0;
-
-    if (hasMinPrice || hasMaxPrice) {
-        filter.Baseprice = {};
-        if (hasMinPrice) filter.Baseprice.$gte = minPrice;
-        if (hasMaxPrice) filter.Baseprice.$lte = maxPrice;
-    }
 
     if (search) {
         filter.$or = [
@@ -63,32 +54,49 @@ const buildBaseFilter = (params) => {
         ];
     }
 
-    return { filter, hasMinPrice, hasMaxPrice };
+    return { filter };
 };
 
-// Helper: Apply variant-based filtering (color, stock)
+// Helper: Apply variant-based filtering (color, stock, price)
 const applyVariantFilters = async (filter, params) => {
-    const { selectedColors, stock } = params;
-    if (!selectedColors.length && !stock) return filter;
+    const { selectedColors, stock, minPrice, maxPrice } = params;
+
+    const hasMinPrice = !Number.isNaN(minPrice) && minPrice > 0;
+    const hasMaxPrice = !Number.isNaN(maxPrice) && maxPrice > 0;
+
+    // If no variant-based filters are applied, return early
+    if (!selectedColors.length && !stock && !hasMinPrice && !hasMaxPrice) {
+        return { filter, hasMinPrice, hasMaxPrice };
+    }
 
     // First find products matching basic filters to narrow down variant search
     const products = await Product.find(filter).select('_id').lean();
     const productIds = products.map(p => p._id);
 
     const variantFilter = { productId: { $in: productIds }, status: "Active" };
+
+    // Add color filter
     if (selectedColors.length) variantFilter.color = { $in: selectedColors };
 
+    // Add stock filter
     if (stock === 'instock') {
         variantFilter.stock = { $gt: 0 };
     } else if (stock === 'outofstock') {
         variantFilter.stock = { $lte: 0 };
     }
 
+    // Add price filter based on variant prices
+    if (hasMinPrice || hasMaxPrice) {
+        variantFilter.price = {};
+        if (hasMinPrice) variantFilter.price.$gte = minPrice;
+        if (hasMaxPrice) variantFilter.price.$lte = maxPrice;
+    }
+
     const matchingVariants = await ProductVariant.find(variantFilter).select('productId').lean();
     const filteredProductIds = [...new Set(matchingVariants.map(v => v.productId.toString()))];
 
     filter._id = { $in: filteredProductIds };
-    return filter;
+    return { filter, hasMinPrice, hasMaxPrice };
 };
 
 // Helper: Map sort values to MongoDB sort objects
@@ -168,29 +176,31 @@ const prepareUIHelpers = (params, categories, minPriceValue, maxPriceValue) => {
 
 export async function getProducts(req, res) {
     try {
+        if (!req.session.user) return res.redirect("/login");
         console.log("getProducts controller hit. User:", req.session?.user?.id);
 
         // 1. Normalize Query Parameters
         const params = normalizeQuery(req.query);
 
         // 2. Build Base Filter
-        const { filter, hasMinPrice, hasMaxPrice } = buildBaseFilter(params);
-        params.hasMinPrice = hasMinPrice;
-        params.hasMaxPrice = hasMaxPrice;
+        const { filter } = buildBaseFilter(params);
 
         // 3. Fetch Peripheral Data (Categories, Brands, Price Stats, Tags)
         const categories = await Category.find({ isActive: true }).lean();
         const [brandsDistinct, priceStats, tagsDistinct] = await Promise.all([
             Product.distinct("brand"),
-            Product.aggregate([
-                { $match: { isBlocked: { $ne: true } } },
-                { $group: { _id: null, minPrice: { $min: "$Baseprice" }, maxPrice: { $max: "$Baseprice" } } },
+            ProductVariant.aggregate([
+                { $match: { status: "Active" } },
+                { $group: { _id: null, minPrice: { $min: "$price" }, maxPrice: { $max: "$price" } } },
             ]),
             Product.distinct("tags"),
         ]);
 
         const minPriceValue = priceStats[0]?.minPrice ?? 0;
         const maxPriceValue = priceStats[0]?.maxPrice ?? 0;
+
+        // 4. Apply Variant-Specific Filters (Color, Stock, Price)
+        const { filter: finalFilter, hasMinPrice, hasMaxPrice } = await applyVariantFilters(filter, params);
 
         const priceRange = {
             min: minPriceValue,
@@ -199,13 +209,10 @@ export async function getProducts(req, res) {
             selectedMax: hasMaxPrice ? params.maxPrice : maxPriceValue,
         };
 
-        // 4. Apply Variant-Specific Filters (Color, Stock)
-        await applyVariantFilters(filter, params);
-
         // 5. Pagination and Sorting
         const sortOption = getSortOption(params.sort);
 
-        const { items: products, pagination } = await paginate(Product, filter, {
+        const { items: products, pagination } = await paginate(Product, finalFilter, {
             page: params.page,
             limit: params.limit,
             sort: sortOption,
