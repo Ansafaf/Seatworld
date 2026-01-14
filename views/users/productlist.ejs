@@ -38,13 +38,6 @@
                     value="<%= filters?.maxPrice || priceRange?.max || 5000 %>">
                 </div>
               </div>
-              <div class="range-slider">
-                <div class="progress" id="priceProgress"></div>
-                <input type="range" id="minRange" min="<%= priceRange?.min || 0 %>" max="<%= priceRange?.max || 5000 %>"
-                  value="<%= filters?.minPrice || priceRange?.min || 0 %>" step="10">
-                <input type="range" id="maxRange" min="<%= priceRange?.min || 0 %>" max="<%= priceRange?.max || 5000 %>"
-                  value="<%= filters?.maxPrice || priceRange?.max || 5000 %>" step="10">
-              </div>
             </div>
 
             <div class="filter-section">
