@@ -51,6 +51,17 @@ if (profileForm) {
             return;
         }
 
+        const nameRegex = /^[a-zA-Z\s]{3,50}$/;
+        if (!nameRegex.test(data.name)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                text: 'Name must be 3-50 characters and contain only letters and spaces',
+                confirmButtonColor: '#3b82f6'
+            });
+            return;
+        }
+
         // Show loading state
         const submitBtn = profileForm.querySelector('.update-btn');
         const originalText = submitBtn ? submitBtn.textContent : '';
