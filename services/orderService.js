@@ -102,11 +102,12 @@ export const createOrder = async ({ userId, paymentMethod, checkoutSession, cart
             }
 
             wallet.balance -= finalAmount;
+            const shortOrderId = newOrder._id.toString().slice(-6).toUpperCase();
             wallet.transactions.push({
                 walletTransactionId: crypto.randomBytes(8).toString("hex"),
                 amount: finalAmount,
                 type: 'debit',
-                description: `Payment for order ${newOrder._id}`,
+                description: `Payment for Order #${shortOrderId}`,
                 date: new Date()
             });
             await wallet.save();

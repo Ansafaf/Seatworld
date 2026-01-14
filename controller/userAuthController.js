@@ -237,7 +237,10 @@ export async function verifyOtp(req, res) {
         message: "OTP expired. Please resend."
       });
     }
-    let referrer = await User.findOne({ referralCode: signupInfo.referralCode });
+    let referrer = null;
+    if (signupInfo.referralCode) {
+      referrer = await User.findOne({ referralCode: signupInfo.referralCode });
+    }
 
     // Save user only now
     const newUser = new User({

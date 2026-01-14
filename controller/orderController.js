@@ -146,10 +146,11 @@ export const getOrderDetails = async (req, res) => {
       return res.status(404).render("500", { message: "Order not found" });
     }
 
+    const shortOrderId = orderId.toString().slice(-6).toUpperCase();
     const breadcrumbs = [
       { label: "Home", url: "/" },
       { label: "My Orders", url: "/orders" },
-      { label: `Order Detail`, url: `/orders/${orderId}` }
+      { label: `Order #${shortOrderId}`, url: `/orders/${orderId}` }
     ];
 
     res.render("users/orderDetails", {

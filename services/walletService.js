@@ -52,12 +52,13 @@ export const refundToWallet = async (userId, amount, description, orderId, itemI
 
         const transactionId = `REF-${crypto.randomBytes(4).toString("hex").toUpperCase()}`;
 
+        const shortOrderId = orderId.toString().slice(-6).toUpperCase();
         wallet.balance += amount;
         wallet.transactions.push({
             walletTransactionId: transactionId,
             amount: amount,
             type: 'credit',
-            description: `${description} (Order: ${orderId})`,
+            description: `${description} (#Order ${shortOrderId})`,
             date: new Date()
         });
 

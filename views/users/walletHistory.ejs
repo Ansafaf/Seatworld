@@ -150,6 +150,10 @@
                                                     <label>Payment Method</label>
                                                     <p id="modalMethod">Debit Card</p>
                                                 </div>
+                                                <div class="detail-group">
+                                                    <label>Description</label>
+                                                    <p id="modalDescription">N/A</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -175,6 +179,7 @@
                         // Logic to show "N/A" if not applicable
                         document.getElementById('modalOrderStatus').innerText = (type === 'credit') ? 'N/A' : (orderStatus || 'Completed');
                         document.getElementById('modalMethod').innerText = method;
+                        document.getElementById('modalDescription').innerText = description || 'N/A';
 
                         modal.style.display = 'block';
                     }

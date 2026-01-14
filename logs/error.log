@@ -877,3 +877,100 @@ topProducts is not defined
 [2026-01-13 14:03:31] ERROR: Update quantity error: Quantity must be less than or equal to 6
 [2026-01-13 14:04:00] ERROR: Update quantity error: Quantity must be less than or equal to 6
 [2026-01-13 14:04:00] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-13 15:42:41] ERROR: E11000 duplicate key error collection: seatworld.users index: username_1 dup key: { username: null }
+[2026-01-13 16:01:08] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-13 16:01:12] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-13 16:01:17] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-13 16:01:18] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-13 16:01:20] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-13 16:03:14] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-13 16:03:22] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:03:24] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:03:24] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:03:26] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:03:27] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:03:27] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:03:28] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:03:29] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:03:30] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:03:39] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:03:39] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:03:44] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:03:45] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:03:46] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:03:47] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:03:48] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:03:49] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:03:49] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:03:55] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:04:04] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:04:05] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:04:32] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:04:32] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:04:32] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:04:32] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:04:32] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:04:33] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:04:33] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:04:54] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:04:54] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:04:58] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:04:59] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:04:59] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:04:59] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:05:00] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:05:00] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:05:00] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:05:00] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:05:00] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:05:00] ERROR: Update quantity error: Only 4 items in stock
+[2026-01-13 16:41:36] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-13 17:08:26] ERROR: Razorpay Create Order Error:
+[2026-01-13 17:12:58] ERROR: Add to cart error: This product is currently unavailable
+[2026-01-13 18:46:11] ERROR: Handle Item Action Error: Cannot cancel item with status: cancelled
+[2026-01-13 19:03:45] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-13 19:03:47] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-13 19:03:47] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-13 19:03:56] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-13 19:03:57] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-13 20:02:32] ERROR: Cannot read properties of undefined (reading 'otpExpires')

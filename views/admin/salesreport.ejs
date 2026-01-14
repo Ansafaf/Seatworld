@@ -33,6 +33,11 @@
                                 <p class="text-gray-500 text-sm mt-1">Track and export your business performance</p>
                             </div>
                             <div class="flex gap-3">
+                                <a href="/admin/sales-report/download-excel?startDate=<%= filters.startDate %>&endDate=<%= filters.endDate %>&quickFilter=<%= filters.quickFilter %>"
+                                    class="inline-flex items-center justify-center px-4 py-2.5 bg-green-50 text-green-700 rounded-lg text-sm font-medium hover:bg-green-100 transition-colors border border-green-200 gap-2">
+                                    <span class="material-icons-outlined text-lg">description</span>
+                                    Download Excel
+                                </a>
                                 <a href="/admin/sales-report/download?startDate=<%= filters.startDate %>&endDate=<%= filters.endDate %>&quickFilter=<%= filters.quickFilter %>"
                                     class="inline-flex items-center justify-center px-4 py-2.5 bg-red-50 text-red-700 rounded-lg text-sm font-medium hover:bg-red-100 transition-colors border border-red-200 gap-2">
                                     <span class="material-icons-outlined text-lg">picture_as_pdf</span>
@@ -43,14 +48,37 @@
 
                         <!-- Filter Section -->
                         <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-8">
-                            <form action="/admin/sales-report" method="GET"
+                            <div class="flex items-center gap-6 mb-6 pb-6 border-b border-gray-50">
+                                <span class="text-sm font-semibold text-gray-700">Filter By:</span>
+                                <div class="flex items-center gap-4">
+                                    <label class="flex items-center gap-2 cursor-pointer group">
+                                        <input type="radio" name="filterMode" value="quick"
+                                            class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+                                            <%=(!filters.startDate && !filters.endDate) ? 'checked' : '' %>>
+                                        <span
+                                            class="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">Quick
+                                            Presets</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer group">
+                                        <input type="radio" name="filterMode" value="custom"
+                                            class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+                                            <%=(filters.startDate || filters.endDate) ? 'checked' : '' %>>
+                                        <span
+                                            class="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">Custom
+                                            Date Range</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <form id="salesReportForm" action="/admin/sales-report" method="GET"
                                 class="grid grid-cols-1 md:grid-cols-4 gap-6 items-end">
-                                <!-- Quick Filter -->
-                                <div>
+                                <!-- Quick Filter Section -->
+                                <div id="quickFilterSection"
+                                    class="<%= (filters.startDate || filters.endDate) ? 'hidden' : '' %>">
                                     <label
                                         class="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Quick
                                         Filter</label>
-                                    <select name="quickFilter" onchange="this.form.submit()"
+                                    <select name="quickFilter" id="quickFilterSelect" onchange="this.form.submit()"
                                         class="w-full h-11 px-4 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors">
                                         <option value="today" <%=filters.quickFilter==='today' ? 'selected' : '' %>
                                             >Today</option>
@@ -63,30 +91,35 @@
                                     </select>
                                 </div>
 
-                                <!-- Start Date -->
-                                <div>
-                                    <label
-                                        class="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Start
-                                        Date</label>
-                                    <input type="date" name="startDate" value="<%= filters.startDate %>"
-                                        class="w-full h-11 px-4 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors">
-                                </div>
+                                <!-- Custom Date Section -->
+                                <div id="customDateSection"
+                                    class="md:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-6 <%= (!filters.startDate && !filters.endDate) ? 'hidden' : '' %>">
+                                    <!-- Start Date -->
+                                    <div>
+                                        <label
+                                            class="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Start
+                                            Date</label>
+                                        <input type="date" name="startDate" id="startDate"
+                                            value="<%= filters.startDate %>"
+                                            class="w-full h-11 px-4 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors">
+                                    </div>
 
-                                <!-- End Date -->
-                                <div>
-                                    <label
-                                        class="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">End
-                                        Date</label>
-                                    <input type="date" name="endDate" value="<%= filters.endDate %>"
-                                        class="w-full h-11 px-4 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors">
-                                </div>
+                                    <!-- End Date -->
+                                    <div>
+                                        <label
+                                            class="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">End
+                                            Date</label>
+                                        <input type="date" name="endDate" id="endDate" value="<%= filters.endDate %>"
+                                            class="w-full h-11 px-4 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors">
+                                    </div>
 
-                                <!-- Generate Button -->
-                                <div>
-                                    <button type="submit"
-                                        class="w-full h-11 inline-flex items-center justify-center px-4 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors shadow-sm">
-                                        Generate Report
-                                    </button>
+                                    <!-- Generate Button -->
+                                    <div>
+                                        <button type="submit"
+                                            class="w-full h-11 inline-flex items-center justify-center px-4 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors shadow-sm">
+                                            Generate Report
+                                        </button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
