@@ -18,6 +18,18 @@ if (form) {
             return;
         }
 
+        const username = form.querySelector('input[name="username"]');
+        const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+        if (username && !usernameRegex.test(username.value)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                text: 'Username must be 3-20 characters and contain only letters, numbers, and underscores',
+                confirmButtonColor: '#3b82f6'
+            });
+            return;
+        }
+
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
 
