@@ -81,3 +81,24 @@ if (filterForm) {
         });
     }
 }
+// Handle filter removal
+document.addEventListener('click', (e) => {
+    const removeSearchBtn = e.target.closest('#removeSearchBtn');
+    const removeSortBtn = e.target.closest('#removeSortBtn');
+
+    if (removeSearchBtn) {
+        if (headerSearchInput) headerSearchInput.value = '';
+        if (hiddenSearchInput) hiddenSearchInput.value = '';
+        if (filterForm) filterForm.submit();
+    }
+
+    if (removeSortBtn) {
+        if (filterForm) {
+            const sortSelect = filterForm.querySelector('.sort-select');
+            if (sortSelect) {
+                sortSelect.value = 'featured';
+                filterForm.submit();
+            }
+        }
+    }
+});
