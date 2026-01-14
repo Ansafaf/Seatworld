@@ -583,7 +583,7 @@ export async function otpverifyForgot(req, res) {
       });
     }
 
-    // 3️⃣ Fetch user
+
     const user = await User.findById(req.session.resetUserId);
     if (!user) {
       return res.status(404).json({
@@ -592,7 +592,6 @@ export async function otpverifyForgot(req, res) {
       });
     }
 
-    // 4️⃣ Read OTP
     const { otp1, otp2, otp3, otp4 } = req.body;
     const enteredOtp = `${otp1 || ""}${otp2 || ""}${otp3 || ""}${otp4 || ""}`.trim();
 
