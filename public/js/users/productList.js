@@ -87,18 +87,26 @@ document.addEventListener('click', (e) => {
     const removeSortBtn = e.target.closest('#removeSortBtn');
 
     if (removeSearchBtn) {
+        e.preventDefault();
+        e.stopPropagation();
         if (headerSearchInput) headerSearchInput.value = '';
         if (hiddenSearchInput) hiddenSearchInput.value = '';
         if (filterForm) filterForm.submit();
     }
 
     if (removeSortBtn) {
-        if (filterForm) {
-            const sortSelect = filterForm.querySelector('.sort-select');
-            if (sortSelect) {
-                sortSelect.value = 'featured';
-                filterForm.submit();
-            }
-        }
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Build URL with all current filters except sort
+        const currentUrl = new URL(window.location.href);
+        const params = new URLSearchParams(currentUrl.search);
+
+        // Remove sort parameter
+        params.delete('sort');
+
+        // Navigate to the new URL
+        const newUrl = params.toString() ? `${currentUrl.pathname}?${params.toString()}` : currentUrl.pathname;
+        window.location.href = newUrl;
     }
 });
