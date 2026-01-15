@@ -1,13 +1,4 @@
 
-function updateOverallStatusUI(newStatus) {
-    const statusDisplay = document.querySelector('.text-lg.font-black.text-green-600.uppercase');
-    if (statusDisplay) {
-        statusDisplay.textContent = newStatus;
-
-        const select = document.querySelector('select[name="status"]');
-        if (select) select.value = ['cancelled', 'returned'].includes(newStatus) ? newStatus : select.value;
-    }
-}
 
 
 async function updateItemStatus(orderId, itemId) {
@@ -50,52 +41,7 @@ async function updateItemStatus(orderId, itemId) {
 }
 
 
-// Overall Order Status Update - REMOVED
-// The overall order update form has been removed from the UI
-// Only individual item status updates are now available
-/*
-document.getElementById('updateStatusForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const status = formData.get('status');
-    const orderId = formData.get('orderId');
 
-    try {
-        const response = await fetch('/admin/orders/update-status', {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ orderId, status })
-        });
-
-        const data = await response.json();
-        if (data.success) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Order Updated',
-                text: data.message,
-                timer: 1500,
-                showConfirmButton: false
-            });
-
-            // Update UI: Summary Status
-            updateOverallStatusUI(status);
-
-            // Update UI: All Item Selects
-            document.querySelectorAll('select[id^="status-"]').forEach(select => {
-                select.value = status;
-                const isSpecial = status === 'return_requested';
-                select.className = `text-[10px] font-bold p-1 ${isSpecial ? 'bg-orange-50 border-orange-300 text-orange-700' : 'bg-gray-50 border-gray-200'} border rounded focus:ring-0 cursor-pointer capitalize`;
-            });
-
-        } else {
-            Swal.fire({ icon: 'error', title: 'Error', text: data.message });
-        }
-    } catch (error) {
-        console.error('Error updating status:', error);
-        Swal.fire({ icon: 'error', title: 'Error', text: 'An unexpected error occurred' });
-    }
-});
-*/
 
 
 // Return Modal Functions
@@ -181,3 +127,115 @@ async function handleReturnAction(itemId, action) {
         }
     }
 }
+
+// ----- Dynamic Order Status Progression -----
+const statusProgression = {
+    pending: 'confirmed',
+    confirmed: 'delivered',
+    delivered: null,
+    return_requested: 'returned',
+    returned: null,
+    cancelled: null
+};
+
+const statusLabels = {
+    confirmed: 'Mark as Confirmed',
+    delivered: 'Mark as Delivered',
+    returned: 'Process Return',
+    // For delivered final state, we show completion message instead of button
+};
+
+const statusBadgeColors = {
+    pending: 'bg-yellow-500',
+    confirmed: 'bg-blue-500',
+    delivered: 'bg-green-500',
+    returned: 'bg-gray-500',
+    cancelled: 'bg-red-500'
+};
+
+function getNextStatus(current) {
+    return statusProgression[current] || null;
+}
+
+function updateStatusUI(current) {
+    const badge = document.getElementById('order-status-badge');
+    const btn = document.getElementById('next-status-btn');
+    if (!badge) return;
+    // Update badge text and color
+    badge.textContent = current.charAt(0).toUpperCase() + current.slice(1);
+    const colorClass = statusBadgeColors[current] || 'bg-gray-500';
+    badge.className = `px-3 py-1 rounded-full text-sm font-bold text-white ${colorClass} uppercase`;
+
+    const next = getNextStatus(current);
+    if (next) {
+        btn.classList.remove('hidden');
+        btn.textContent = statusLabels[next] || `Mark as ${next.charAt(0).toUpperCase() + next.slice(1)}`;
+    } else {
+        btn.classList.add('hidden');
+        // Show completion toast if delivered
+        if (current === 'delivered') {
+            Swal.fire({
+                icon: 'success',
+                title: 'Order Completed',
+                text: 'All items have been delivered.',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        }
+    }
+}
+
+async function handleNextStatus(orderId) {
+    const current = document.getElementById('order-status-badge').textContent.toLowerCase();
+    const next = getNextStatus(current);
+    if (!next) return;
+
+    const confirmResult = await Swal.fire({
+        title: `Mark as ${next.charAt(0).toUpperCase() + next.slice(1)}?`,
+        text: `Are you sure you want to change the order status to ${next}?`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#059669',
+        cancelButtonColor: '#9CA3AF',
+        confirmButtonText: 'Yes, change it!'
+    });
+
+    if (!confirmResult.isConfirmed) return;
+
+    const btn = document.getElementById('next-status-btn');
+    btn.disabled = true;
+    btn.innerHTML = '<svg class="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>Processing';
+
+    try {
+        const response = await fetch(`/admin/orders/update-status`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ orderId, status: next })
+        });
+        const data = await response.json();
+        if (data.success) {
+            // Update UI
+            updateStatusUI(next);
+            Swal.fire({ icon: 'success', title: 'Status Updated', text: data.message, timer: 1500, showConfirmButton: false });
+        } else {
+            Swal.fire({ icon: 'error', title: 'Error', text: data.message });
+        }
+    } catch (err) {
+        console.error('Error updating status:', err);
+        Swal.fire({ icon: 'error', title: 'Error', text: 'An unexpected error occurred' });
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = statusLabels[next] || `Mark as ${next.charAt(0).toUpperCase() + next.slice(1)}`;
+    }
+}
+
+// Initialize UI on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const badgeElement = document.getElementById('order-status-badge');
+    if (badgeElement) {
+        const initialStatus = badgeElement.textContent.trim().toLowerCase();
+        updateStatusUI(initialStatus);
+    }
+});
+
+// End of dynamic status progression
