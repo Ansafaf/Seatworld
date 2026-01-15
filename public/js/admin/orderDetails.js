@@ -135,7 +135,7 @@ function updateStatusUI(current) {
     // Update badge text and color
     badge.textContent = current.charAt(0).toUpperCase() + current.slice(1);
     const colorClass = statusBadgeColors[current] || 'bg-gray-500';
-    badge.className = `px-3 py-1 rounded-full text-sm font-bold text-white ${colorClass} uppercase`;
+    badge.className = `px-3 py-1 rounded-full text-[10px] font-black text-white ${colorClass} uppercase`;
 
     const next = getNextStatus(current);
     if (next) {
@@ -214,7 +214,7 @@ function updateItemStatusUI(itemId, current) {
 
     // Update badge text and style
     badge.textContent = current;
-    badge.className = `px-2 py-0.5 rounded text-[10px] font-bold uppercase ${current === 'cancelled' ? 'bg-red-100 text-red-600' :
+    badge.className = `px-2 py-0.5 rounded text-[10px] font-black uppercase ${current === 'cancelled' ? 'bg-red-100 text-red-600' :
         current === 'delivered' ? 'bg-green-100 text-green-600' :
             'bg-blue-100 text-blue-600'
         }`;

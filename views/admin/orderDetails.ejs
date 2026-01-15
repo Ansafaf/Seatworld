@@ -21,24 +21,26 @@
                 <main class="flex-1 p-8 overflow-y-auto bg-[#E5E7EB]">
                     <div class="max-w-6xl mx-auto space-y-6">
                         <!-- Top Header -->
-                        <div class="bg-white rounded-xl shadow-sm px-8 py-4 flex justify-between items-center">
-                            <h2 class="text-xl font-bold text-orange-500 uppercase">Order Details</h2>
-                            <div class="flex items-center gap-3">
-                                <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Main
-                                    Order</span>
-                                <span
-                                    class="bg-gray-800 text-white px-3 py-1 rounded text-sm font-mono font-bold tracking-tighter uppercase">
-                                    #<%= order._id.toString().slice(-6).toUpperCase() %>
-                                </span>
-                            </div>
-                            <div class="flex items-center gap-4 mt-4">
-                                <span id="order-status-badge"
-                                    class="px-3 py-1 rounded-full text-sm font-bold text-white bg-gray-500 uppercase">
-                                    <%= order.orderStatus %>
-                                </span>
-                                <button id="next-status-btn"
-                                    class="hidden text-sm font-bold px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
-                                    onclick="handleNextStatus('<%= order._id %>')"></button>
+                        <div class="bg-white rounded-xl shadow-sm px-8 py-6 flex justify-between items-center">
+                            <h2 class="text-xl font-bold text-orange-500 uppercase tracking-wider">Order Details</h2>
+                            <div class="flex items-center gap-6">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Order
+                                        ID</span>
+                                    <span
+                                        class="bg-gray-800 text-white px-3 py-1 rounded text-sm font-mono font-bold tracking-tighter uppercase">
+                                        #<%= order._id.toString().slice(-6).toUpperCase() %>
+                                    </span>
+                                </div>
+                                <div class="flex items-center gap-3 border-l pl-6 border-gray-100">
+                                    <span id="order-status-badge"
+                                        class="px-3 py-1 rounded-full text-[10px] font-black text-white bg-gray-500 uppercase">
+                                        <%= order.orderStatus %>
+                                    </span>
+                                    <button id="next-status-btn"
+                                        class="hidden text-[10px] font-black px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-all uppercase"
+                                        onclick="handleNextStatus('<%= order._id %>')"></button>
+                                </div>
                             </div>
                         </div>
 
@@ -108,7 +110,6 @@
                                                                 item.total.toLocaleString('en-IN') %></span>
                                                     </td>
                                                     <td class="px-6 py-4 text-center">
-                                                    <td class="px-6 py-4 text-center">
                                                         <% if (item.status==='return_requested' || item.returnReason) {
                                                             %>
                                                             <span
@@ -119,8 +120,8 @@
                                                                 <span class="text-gray-400">--</span>
                                                                 <% } %>
                                                     </td>
-                                                    <td class="px-6 py-4">
-                                                        <div class="flex flex-col items-center gap-2">
+                                                    <td class="px-6 py-4 text-center">
+                                                        <div class="flex flex-col items-center justify-center gap-2">
                                                             <span
                                                                 class="px-2 py-0.5 rounded text-[10px] font-bold uppercase <%= item.status === 'cancelled' ? 'bg-red-100 text-red-600' : item.status === 'delivered' ? 'bg-green-100 text-green-600' : 'bg-blue-100 text-blue-600' %>"
                                                                 id="item-status-<%= item._id %>">
