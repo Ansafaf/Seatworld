@@ -1,45 +1,6 @@
 
 
 
-async function updateItemStatus(orderId, itemId) {
-    const select = document.getElementById(`status-${itemId}`);
-    const status = select.value;
-
-    try {
-        const response = await fetch(`/admin/orders/items/${itemId}/status`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ orderId, status })
-        });
-
-        const data = await response.json();
-        if (data.success) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Item Updated',
-                text: data.message,
-                timer: 1500,
-                showConfirmButton: false
-            });
-
-            // Update overall UI summary status if provided
-            if (data.orderStatus) {
-                updateOverallStatusUI(data.orderStatus);
-            }
-
-            // Update styling of the select if it's a special status
-            const isSpecial = status === 'return_requested';
-            select.className = `text-[10px] font-bold p-1 ${isSpecial ? 'bg-orange-50 border-orange-300 text-orange-700' : 'bg-gray-50 border-gray-200'} border rounded focus:ring-0 cursor-pointer capitalize`;
-
-        } else {
-            Swal.fire({ icon: 'error', title: 'Error', text: data.message });
-        }
-    } catch (error) {
-        console.error('Error updating item status:', error);
-        Swal.fire({ icon: 'error', title: 'Error', text: 'An unexpected error occurred' });
-    }
-}
-
 
 
 
@@ -117,7 +78,17 @@ async function handleReturnAction(itemId, action) {
                     timer: 2000,
                     showConfirmButton: false
                 });
-                location.reload();
+
+                closeReturnModal();
+
+                // Update UI live
+                const newStatus = action === 'approve_return' ? 'returned' : 'delivered';
+                updateItemStatusUI(itemId, newStatus);
+
+                // Refresh overall order status if backend could determine it
+                // (Note: approveItemAction doesn't currently return orderStatus in the json,
+                // but we can guess or wait for the next refresh. For now, just update the item badge.)
+
             } else {
                 Swal.fire({ icon: 'error', title: 'Error', text: data.message });
             }
@@ -214,8 +185,15 @@ async function handleNextStatus(orderId) {
         });
         const data = await response.json();
         if (data.success) {
-            // Update UI
+            // Update Overall UI
             updateStatusUI(next);
+
+            // Update All Individual Items UI
+            document.querySelectorAll('.item-next-status-btn').forEach(itemBtn => {
+                const itemId = itemBtn.getAttribute('data-item-id');
+                updateItemStatusUI(itemId, next);
+            });
+
             Swal.fire({ icon: 'success', title: 'Status Updated', text: data.message, timer: 1500, showConfirmButton: false });
         } else {
             Swal.fire({ icon: 'error', title: 'Error', text: data.message });
