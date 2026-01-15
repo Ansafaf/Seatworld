@@ -90,31 +90,9 @@
                                     </div>
 
                                     <!-- Pagination -->
-                                    <% if (pagination && pagination.totalPages> 1) { %>
-                                        <div class="pagination-footer">
-                                            <% if (pagination.hasPrevPage) { %>
-                                                <a href="?page=<%= pagination.currentPage - 1 %>"
-                                                    class="page-btn">Previous</a>
-                                                <% } else { %>
-                                                    <button class="page-btn disabled" disabled>Previous</button>
-                                                    <% } %>
-
-                                                        <% for(let i=1; i <=pagination.totalPages; i++) { %>
-                                                            <a href="?page=<%= i %>"
-                                                                class="page-num <%= pagination.currentPage === i ? 'active' : '' %>">
-                                                                <%= i %>
-                                                            </a>
-                                                            <% } %>
-
-                                                                <% if (pagination.hasNextPage) { %>
-                                                                    <a href="?page=<%= pagination.currentPage + 1 %>"
-                                                                        class="page-btn">Next</a>
-                                                                    <% } else { %>
-                                                                        <button class="page-btn disabled"
-                                                                            disabled>Next</button>
-                                                                        <% } %>
-                                        </div>
-                                        <% } %>
+                                    <div class="mt-8">
+                                        <%- include('../partials/pagination', { pagination, query: '' }) %>
+                                    </div>
                                 </div>
 
                                 <!-- Transaction View Modal -->
