@@ -229,13 +229,103 @@ async function handleNextStatus(orderId) {
     }
 }
 
+function updateItemStatusUI(itemId, current) {
+    const badge = document.getElementById(`item-status-${itemId}`);
+    const btn = document.querySelector(`button[data-item-id="${itemId}"]`);
+    if (!badge) return;
+
+    // Update badge text and style
+    badge.textContent = current;
+    badge.className = `px-2 py-0.5 rounded text-[10px] font-bold uppercase ${current === 'cancelled' ? 'bg-red-100 text-red-600' :
+        current === 'delivered' ? 'bg-green-100 text-green-600' :
+            'bg-blue-100 text-blue-600'
+        }`;
+
+    const next = getNextStatus(current);
+    if (next && btn) {
+        btn.classList.remove('hidden');
+        btn.textContent = statusLabels[next] || `Mark as ${next.charAt(0).toUpperCase() + next.slice(1)}`;
+        btn.setAttribute('data-current-status', current);
+    } else if (btn) {
+        btn.classList.add('hidden');
+    }
+}
+
+async function handleItemNextStatus(orderId, itemId) {
+    const badge = document.getElementById(`item-status-${itemId}`);
+    if (!badge) return;
+    const current = badge.textContent.trim().toLowerCase();
+    const next = getNextStatus(current);
+    if (!next) return;
+
+    const btn = document.querySelector(`button[data-item-id="${itemId}"]`);
+
+    // Special handling for the Return Requested -> Returned transition
+    if (current === 'return_requested' && next === 'returned') {
+        // We reuse the existing return modal logic
+        const el = btn; // btn has all data attributes needed: reason, comment, date
+        openReturnModal({
+            getAttribute: (attr) => el.getAttribute(attr)
+        });
+        return;
+    }
+
+    const confirmResult = await Swal.fire({
+        title: `Mark Item as ${next.charAt(0).toUpperCase() + next.slice(1)}?`,
+        text: `Are you sure you want to change this item's status to ${next}?`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#059669',
+        cancelButtonColor: '#9CA3AF',
+        confirmButtonText: 'Yes, change it!'
+    });
+
+    if (!confirmResult.isConfirmed) return;
+
+    const originalHtml = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="animate-spin inline-block h-3 w-3 mr-1 border-2 border-white border-t-transparent rounded-full"></span>';
+
+    try {
+        const response = await fetch(`/admin/orders/items/${itemId}/status`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ orderId, status: next })
+        });
+        const data = await response.json();
+        if (data.success) {
+            updateItemStatusUI(itemId, next);
+            // Also update order status badge if provided
+            if (data.orderStatus) {
+                updateStatusUI(data.orderStatus.toLowerCase());
+            }
+            Swal.fire({ icon: 'success', title: 'Item Updated', text: data.message, timer: 1500, showConfirmButton: false });
+        } else {
+            Swal.fire({ icon: 'error', title: 'Error', text: data.message });
+        }
+    } catch (err) {
+        console.error('Error updating item status:', err);
+        Swal.fire({ icon: 'error', title: 'Error', text: 'An unexpected error occurred' });
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalHtml;
+    }
+}
+
 // Initialize UI on page load
 document.addEventListener('DOMContentLoaded', () => {
+    // Order level
     const badgeElement = document.getElementById('order-status-badge');
     if (badgeElement) {
         const initialStatus = badgeElement.textContent.trim().toLowerCase();
         updateStatusUI(initialStatus);
     }
+    // Item level
+    document.querySelectorAll('.item-next-status-btn').forEach(btn => {
+        const itemId = btn.getAttribute('data-item-id');
+        const current = btn.getAttribute('data-current-status').toLowerCase();
+        updateItemStatusUI(itemId, current);
+    });
 });
 
 // End of dynamic status progression
