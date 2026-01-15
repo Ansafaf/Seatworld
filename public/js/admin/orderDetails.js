@@ -49,7 +49,11 @@ async function updateItemStatus(orderId, itemId) {
     }
 }
 
-// Update Overall Order Status
+
+// Overall Order Status Update - REMOVED
+// The overall order update form has been removed from the UI
+// Only individual item status updates are now available
+/*
 document.getElementById('updateStatusForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -91,6 +95,8 @@ document.getElementById('updateStatusForm').addEventListener('submit', async (e)
         Swal.fire({ icon: 'error', title: 'Error', text: 'An unexpected error occurred' });
     }
 });
+*/
+
 
 // Return Modal Functions
 function openReturnModal(el) {
