@@ -7,44 +7,30 @@
 
 // Return Modal Functions
 function openReturnModal(el) {
-    const reason = el.getAttribute('data-reason');
-    const comment = el.getAttribute('data-comment');
-    const date = el.getAttribute('data-date');
+    const reason = el.getAttribute('data-reason') || '';
+    const comment = el.getAttribute('data-comment') || '';
+    const date = el.getAttribute('data-date') || '';
     const itemId = el.getAttribute('data-item-id');
+
+    if (!itemId) {
+        console.error("No item ID found for return action");
+        return;
+    }
 
     document.getElementById('returnReasonText').textContent = reason || 'Not specified';
     document.getElementById('returnCommentText').textContent = comment || 'No comments provided';
     document.getElementById('returnDateText').textContent = date ? new Date(date).toLocaleString('en-GB') : 'Unknown';
 
     const modal = document.getElementById('returnModal');
+    // Store current Item ID on the modal for the buttons to use
+    modal.setAttribute('data-target-item-id', itemId);
     modal.classList.remove('hidden');
-
-    // Setup buttons
-    document.getElementById('approveReturnBtn').onclick = () => handleReturnAction(itemId, 'approve_return');
-    document.getElementById('rejectReturnBtn').onclick = () => handleReturnAction(itemId, 'reject_return');
-}
-
-function viewReturnDetails(dataString) {
-    // Legacy support or fallback
-    let data;
-    try {
-        data = typeof dataString === 'string' ? JSON.parse(dataString) : dataString;
-        document.getElementById('returnReasonText').textContent = data.reason || 'Not specified';
-        document.getElementById('returnCommentText').textContent = data.comment || 'No comments provided';
-        document.getElementById('returnDateText').textContent = data.date ? new Date(data.date).toLocaleString('en-GB') : 'Unknown';
-
-        const modal = document.getElementById('returnModal');
-        modal.classList.remove('hidden');
-
-        document.getElementById('approveReturnBtn').onclick = () => handleReturnAction(data.itemId, 'approve_return');
-        document.getElementById('rejectReturnBtn').onclick = () => handleReturnAction(data.itemId, 'reject_return');
-    } catch (e) {
-        console.error("Error parsing return data:", e);
-    }
 }
 
 function closeReturnModal() {
-    document.getElementById('returnModal').classList.add('hidden');
+    const modal = document.getElementById('returnModal');
+    modal.classList.add('hidden');
+    modal.removeAttribute('data-target-item-id');
 }
 
 async function handleReturnAction(itemId, action) {
@@ -240,11 +226,8 @@ async function handleItemNextStatus(orderId, itemId) {
 
     // Special handling for the Return Requested -> Returned transition
     if (current === 'return_requested' && next === 'returned') {
-        // We reuse the existing return modal logic
-        const el = btn; // btn has all data attributes needed: reason, comment, date
-        openReturnModal({
-            getAttribute: (attr) => el.getAttribute(attr)
-        });
+        // Use the button itself to pass data to the modal
+        openReturnModal(btn);
         return;
     }
 
@@ -302,8 +285,28 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.item-next-status-btn').forEach(btn => {
         const itemId = btn.getAttribute('data-item-id');
         const current = btn.getAttribute('data-current-status').toLowerCase();
-        updateItemStatusUI(itemId, current);
+        if (itemId && current) updateItemStatusUI(itemId, current);
     });
+
+    // Return Modal Listeners
+    const approveBtn = document.getElementById('approveReturnBtn');
+    const rejectBtn = document.getElementById('rejectReturnBtn');
+
+    if (approveBtn) {
+        approveBtn.addEventListener('click', () => {
+            const modal = document.getElementById('returnModal');
+            const itemId = modal.getAttribute('data-target-item-id');
+            if (itemId) handleReturnAction(itemId, 'approve_return');
+        });
+    }
+
+    if (rejectBtn) {
+        rejectBtn.addEventListener('click', () => {
+            const modal = document.getElementById('returnModal');
+            const itemId = modal.getAttribute('data-target-item-id');
+            if (itemId) handleReturnAction(itemId, 'reject_return');
+        });
+    }
 });
 
 // End of dynamic status progression
