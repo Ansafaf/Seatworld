@@ -32,8 +32,7 @@ import adminCouponRouter from "./routes/adminCouponRoutes.js";
 import adminOfferRouter from "./routes/adminOfferRoutes.js";
 import razorpayRoute from "./routes/razorpayRoutes.js";
 import salesRoute from "./routes/salesReportRoutes.js";
-
-
+import Walletrouter from "./routes/walletRoutes.js";
 
 
 app.use(express.json());
@@ -85,6 +84,7 @@ app.use("/auth", AuthRoute);
 app.use("/", userRouter);
 app.use("/admin", adminRouter);
 app.use("/", profileRouter);
+app.use("/",Walletrouter);
 app.use("/", productRouter);
 app.use("/admin", adminCategoryRouter);
 app.use("/admin", adminProductRouter);
