@@ -190,6 +190,8 @@ async function handleItemNextStatus(orderId, itemId) {
     btn.disabled = true;
     btn.innerHTML = '<span class="animate-spin inline-block h-3 w-3 mr-1 border-2 border-white border-t-transparent rounded-full"></span>';
 
+    let updateSuccessful = false;
+
     try {
         const response = await fetch(`/admin/orders/items/${itemId}/status`, {
             method: 'PATCH',
@@ -198,6 +200,7 @@ async function handleItemNextStatus(orderId, itemId) {
         });
         const data = await response.json();
         if (data.success) {
+            updateSuccessful = true;
             updateItemStatusUI(itemId, next);
             // Also update order status badge if provided
             if (data.orderStatus) {
@@ -212,7 +215,9 @@ async function handleItemNextStatus(orderId, itemId) {
         Swal.fire({ icon: 'error', title: 'Error', text: 'An unexpected error occurred' });
     } finally {
         btn.disabled = false;
-        btn.innerHTML = originalHtml;
+        if (!updateSuccessful) {
+            btn.innerHTML = originalHtml;
+        }
     }
 }
 
