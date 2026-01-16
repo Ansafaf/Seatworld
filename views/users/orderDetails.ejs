@@ -86,8 +86,11 @@
                                                     <div class="payment-item">
                                                         <span class="payment-label">Status</span>
                                                         <span class="payment-value"
-                                                            style="color: <%= ['paid', 'completed'].includes(order.paymentStatus) ? '#198754' : '#fd7e14' %>">
-                                                            <%= order.paymentStatus %>
+                                                            style="color: <%= (order.paymentStatus === 'paid') ? '#198754' : '#fd7e14' %>">
+                                                            <%= (order.paymentMethod==='COD' &&
+                                                                order.paymentStatus==='paid' && !order.items.every(i=>
+                                                                i.status === 'delivered')) ? 'Unpaid' :
+                                                                order.paymentStatus %>
                                                         </span>
                                                     </div>
                                                 </div>

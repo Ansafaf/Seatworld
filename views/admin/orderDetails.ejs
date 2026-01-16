@@ -21,21 +21,32 @@
                 <main class="flex-1 p-8 overflow-y-auto bg-[#E5E7EB]">
                     <div class="max-w-6xl mx-auto space-y-6">
                         <!-- Top Header -->
-                        <div class="bg-white rounded-xl shadow-sm px-8 py-4 flex justify-between items-center">
-                            <h2 class="text-xl font-bold text-orange-500 uppercase">Order Details</h2>
-                            <div class="flex items-center gap-3">
-                                <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Main
-                                    Order</span>
-                                <span
-                                    class="bg-gray-800 text-white px-3 py-1 rounded text-sm font-mono font-bold tracking-tighter uppercase">
-                                    #<%= order._id.toString().slice(-6).toUpperCase() %>
-                                </span>
+                        <div class="bg-white rounded-xl shadow-sm px-8 py-6 flex justify-between items-center">
+                            <h2 class="text-xl font-bold text-orange-500 uppercase tracking-wider">Order Details</h2>
+                            <div class="flex items-center gap-6">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Order
+                                        ID</span>
+                                    <span
+                                        class="bg-gray-800 text-white px-3 py-1 rounded text-sm font-mono font-bold tracking-tighter uppercase">
+                                        #<%= order._id.toString().slice(-6).toUpperCase() %>
+                                    </span>
+                                </div>
+                                <div class="flex items-center gap-3 border-l pl-6 border-gray-100">
+                                    <span id="order-status-badge"
+                                        class="px-3 py-1 rounded-full text-[10px] font-black text-white bg-gray-500 uppercase">
+                                        <%= order.orderStatus %>
+                                    </span>
+                                    <button id="next-status-btn"
+                                        class="hidden text-[10px] font-black px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-all uppercase"
+                                        onclick="handleNextStatus('<%= order._id %>')"></button>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
-                            <!-- Left Side: Products and Customer Details -->
-                            <div class="lg:col-span-3 space-y-6">
+                        <div class="grid grid-cols-1 gap-6 items-start">
+                            <!-- Products and Customer Details -->
+                            <div class="space-y-6">
                                 <!-- Product Table -->
                                 <div class="bg-white rounded-xl shadow-sm overflow-hidden">
                                     <table class="w-full">
@@ -99,52 +110,30 @@
                                                                 item.total.toLocaleString('en-IN') %></span>
                                                     </td>
                                                     <td class="px-6 py-4 text-center">
-                                                        <% if (item.status==='return_requested' ) { %>
-                                                            <button onclick="openReturnModal(this)"
-                                                                data-reason="<%= item.returnReason %>"
-                                                                data-comment="<%= item.returnComment %>"
-                                                                data-date="<%= item.returnRequestedOn %>"
-                                                                data-item-id="<%= item._id %>"
-                                                                class="text-[10px] bg-indigo-100 text-indigo-700 px-3 py-1 rounded font-bold uppercase hover:bg-indigo-200 transition-colors">
-                                                                View
-                                                            </button>
+                                                        <% if (item.status==='return_requested' || item.returnReason) {
+                                                            %>
+                                                            <span
+                                                                class="text-[10px] text-gray-600 font-semibold italic">
+                                                                <%= item.returnReason || 'See details' %>
+                                                            </span>
                                                             <% } else { %>
                                                                 <span class="text-gray-400">--</span>
                                                                 <% } %>
                                                     </td>
-                                                    <td class="px-6 py-4">
-                                                        <div class="flex flex-col items-center gap-2">
-                                                            <select id="status-<%= item._id %>"
-                                                                class="text-[10px] font-bold p-1 <%= ['cancel_requested', 'return_requested'].includes(item.status) ? 'bg-orange-50 border-orange-300 text-orange-700' : 'bg-gray-50 border-gray-200' %> border rounded focus:ring-0 cursor-pointer capitalize">
-                                                                <option value="pending" <%=item.status==='pending'
-                                                                    ? 'selected' : '' %>>Pending</option>
-                                                                <option value="confirmed" <%=item.status==='confirmed'
-                                                                    ? 'selected' : '' %>>Confirmed</option>
-                                                                <option value="shipped" <%=item.status==='shipped'
-                                                                    ? 'selected' : '' %>>Shipped</option>
-                                                                <option value="delivered" <%=item.status==='delivered'
-                                                                    ? 'selected' : '' %>>Delivered</option>
-                                                                <option value="cancelled" <%=item.status==='cancelled'
-                                                                    ? 'selected' : '' %>
-                                                                    <%=item.status==='cancelled' ? 'disabled' : '' %>
-                                                                        >Cancelled
-                                                                </option>
-                                                                <option value="return_requested"
-                                                                    <%=item.status==='return_requested' ? 'selected'
-                                                                    : '' %>
-                                                                    <%= item.status !=='return_requested' ? 'disabled'
-                                                                        : '' %>>Return Requested
-                                                                </option>
-                                                                <option value="returned" <%=item.status==='returned'
-                                                                    ? 'selected' : '' %>
-                                                                    <%=item.status==='returned' ? 'disabled' : '' %>
-                                                                        >Returned (Approve)
-                                                                </option>
-                                                            </select>
-                                                            <button
-                                                                onclick="updateItemStatus('<%= order._id %>', '<%= item._id %>')"
-                                                                class="text-[9px] bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded font-black uppercase transition-colors">
-                                                                Update
+                                                    <td class="px-6 py-4 text-center">
+                                                        <div class="flex flex-col items-center justify-center gap-2">
+                                                            <span
+                                                                class="px-2 py-0.5 rounded text-[10px] font-bold uppercase <%= item.status === 'cancelled' ? 'bg-red-100 text-red-600' : item.status === 'delivered' ? 'bg-green-100 text-green-600' : 'bg-blue-100 text-blue-600' %>"
+                                                                id="item-status-<%= item._id %>">
+                                                                <%= item.status %>
+                                                            </span>
+                                                            <button data-item-id="<%= item._id %>"
+                                                                data-current-status="<%= item.status %>"
+                                                                data-reason="<%= item.returnReason %>"
+                                                                data-comment="<%= item.returnComment %>"
+                                                                data-date="<%= item.returnRequestedOn %>"
+                                                                class="item-next-status-btn hidden text-[9px] bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded font-black uppercase transition-colors"
+                                                                onclick="handleItemNextStatus('<%= order._id %>', '<%= item._id %>')">
                                                             </button>
                                                         </div>
                                                     </td>
@@ -153,6 +142,7 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <!-- End of product table -->
 
                                 <!-- Customer Details -->
                                 <div class="bg-white rounded-xl shadow-sm p-8">
@@ -198,65 +188,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-
-                            <!-- Right Side: Order Update (Shifted Down) -->
-                            <div
-                                class="lg:col-span-1 mt-32 lg:mt-64 bg-white rounded-xl shadow-sm p-8 flex flex-col items-center border-t-4 border-orange-500">
-                                <h3
-                                    class="text-xl font-bold text-orange-500 mb-8 w-full border-b pb-4 text-center uppercase tracking-widest">
-                                    Order Update</h3>
-
-                                <div class="w-full space-y-10">
-                                    <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg">
-                                        <h4 class="text-sm font-bold text-gray-700 uppercase">Ordered On :</h4>
-                                        <p class="text-lg font-black text-gray-900">
-                                            <%= new Date(order.createdAt).toLocaleDateString('en-GB') %>
-                                        </p>
-                                    </div>
-
-                                    <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg">
-                                        <h4 class="text-sm font-bold text-gray-700 uppercase">Current State :</h4>
-                                        <p
-                                            class="text-lg font-black uppercase
-                                        <%= ['cancelled', 'returned', 'failed'].includes((order.orderStatus || '').toLowerCase()) ? 'text-red-600' : 
-                                           ['partially cancelled', 'partially returned'].includes((order.orderStatus || '').toLowerCase()) ? 'text-orange-600' :
-                                           (order.orderStatus || '').toLowerCase() === 'delivered' ? 'text-green-600' : 'text-yellow-600' %>">
-                                            <%= order.orderStatus %>
-                                        </p>
-                                    </div>
-
-                                    <form id="updateStatusForm" class="space-y-6">
-                                        <input type="hidden" name="orderId" value="<%= order._id %>">
-                                        <div class="text-center">
-                                            <h4 class="text-sm font-bold text-gray-700 mb-4 uppercase">Overall Order
-                                                Status
-                                            </h4>
-                                            <div class="relative">
-                                                <select name="status"
-                                                    class="w-full p-4 bg-gray-400 text-white font-black border-none rounded-lg focus:ring-0 appearance-none text-center cursor-pointer uppercase transition-colors hover:bg-gray-500">
-                                                    <option value="pending" <%=order.orderStatus==='pending'
-                                                        ? 'selected' : '' %>>Pending</option>
-                                                    <option value="confirmed" <%=order.orderStatus==='confirmed'
-                                                        ? 'selected' : '' %>>Confirmed</option>
-                                                    <option value="shipped" <%=order.orderStatus==='shipped'
-                                                        ? 'selected' : '' %>>Shipped</option>
-                                                    <option value="delivered" <%=order.orderStatus==='delivered'
-                                                        ? 'selected' : '' %>>Delivered</option>
-                                                    <option value="cancelled" <%=order.orderStatus==='cancelled'
-                                                        ? 'selected' : '' %>>Cancelled</option>
-                                                    <option value="returned" <%=order.orderStatus==='returned'
-                                                        ? 'selected' : '' %>>Returned</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <button type="submit"
-                                            class="w-full py-4 bg-orange-500 hover:bg-orange-600 text-white font-black text-xl rounded-xl shadow-lg transition-all duration-200 uppercase tracking-widest transform hover:scale-105 active:scale-95">
-                                            Update Order
-                                        </button>
-                                    </form>
                                 </div>
                             </div>
                         </div>

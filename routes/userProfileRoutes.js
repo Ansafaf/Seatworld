@@ -33,11 +33,5 @@ router.post("/password-change", authMiddleware, postupdatePass);
 
 router.get("/coupons", authMiddleware, getCoupons);
 
-// Wallet Routes
-import { getWallet, verifyAndAddMoney, getWalletHistory, createWalletRazorpayOrder } from "../controller/walletController.js";
-router.get("/wallet", authMiddleware, getWallet);
-router.get("/wallet/history", authMiddleware, getWalletHistory);
-router.post("/wallet/add-money/create-order", authMiddleware, createWalletRazorpayOrder);
-router.post("/wallet/add-money", authMiddleware, verifyAndAddMoney);
 
 export default router;

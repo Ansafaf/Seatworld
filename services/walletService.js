@@ -30,14 +30,7 @@ export const calculateItemRefundAmount = (order, item) => {
     return Math.round(refundAmount * 100) / 100; // Round to 2 decimal places
 };
 
-/**
- * Processes a refund to the user's wallet.
- * @param {String} userId - The ID of the user.
- * @param {Number} amount - The amount to refund.
- * @param {String} description - Description for the transaction.
- * @param {String} orderId - Related Order ID.
- * @param {String} itemId - Related Order Item ID (optional).
- */
+
 export const refundToWallet = async (userId, amount, description, orderId, itemId = null) => {
     try {
         if (amount <= 0) {

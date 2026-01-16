@@ -76,6 +76,14 @@ body {
     text-align: center;
     border: 1px solid #ccc;
     border-radius: 6px;
+    appearance: none;
+    -moz-appearance: textfield;
+}
+
+.otp-inputs input::-webkit-outer-spin-button,
+.otp-inputs input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .resend {
