@@ -8,7 +8,6 @@ import { Offer } from "../models/offerModel.js";
 import * as offerHelper from "../utils/offerHelper.js";
 
 
-// Helper: Normalize query params into arrays and apply defaults
 const normalizeQuery = (query) => {
     const normalizeArr = (value) => {
         if (!value) return [];
@@ -36,7 +35,7 @@ const normalizeQuery = (query) => {
     };
 };
 
-// Helper: Build base product filter
+
 const buildBaseFilter = (params) => {
     const { selectedCategories, selectedBrands, selectedTags, discount, search } = params;
     const filter = { isBlocked: { $ne: true } };
@@ -134,6 +133,7 @@ const enrichProducts = async (products, activeOffers) => {
         })
     );
 };
+
 
 // Helper: Prepare UI elements (query string, heading, filter count)
 const prepareUIHelpers = (params, categories, minPriceValue, maxPriceValue) => {
