@@ -314,6 +314,11 @@ export const updateItemStatus = async (req, res) => {
 
         item.status = status;
 
+        // If an item is delivered, mark the whole order as paid (critical for COD logic)
+        if (status === 'delivered') {
+            order.paymentStatus = 'paid';
+        }
+
         const wasInactive = ['cancelled', 'returned'].includes(oldItemStatus);
         const isNowInactive = ['cancelled', 'returned'].includes(status);
 
@@ -344,7 +349,10 @@ export const updateItemStatus = async (req, res) => {
         await item.save();
 
         // Handle Wallet Refund for single item status change
-        if (isNowInactive && order.paymentStatus === 'paid' && item.refundStatus !== 'refunded') {
+        // Safeguard for COD: Only refund if the item is RETURNED (cancellations aren't paid for in COD)
+        const isRefundableStatus = (order.paymentMethod === 'COD') ? (status === 'returned') : isNowInactive;
+
+        if (isRefundableStatus && order.paymentStatus === 'paid' && item.refundStatus !== 'refunded') {
             let refundAmount = walletService.calculateItemRefundAmount(order, item);
 
             // Check if this is the last active item to include shipping fee
@@ -438,7 +446,10 @@ export const approveItemAction = async (req, res) => {
         await item.save();
 
         // Handle Wallet Refund for approved action
-        if (action !== 'reject_return' && order.paymentStatus === 'paid' && item.refundStatus !== 'refunded') {
+        // Safeguard for COD: Only refund if the item is RETURNED (cancellations aren't paid for in COD)
+        const isRefundableStatus = (order.paymentMethod === 'COD') ? (item.status === 'returned') : true;
+
+        if (isRefundableStatus && order.paymentStatus === 'paid' && item.refundStatus !== 'refunded') {
             let refundAmount = walletService.calculateItemRefundAmount(order, item);
 
             // Check if this is the last active item to include shipping fee
