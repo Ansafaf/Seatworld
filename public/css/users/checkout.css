@@ -55,31 +55,39 @@
     margin-bottom: 30px;
 }
 
-.form-group.full-width {
+.full-width {
     grid-column: span 2;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     font-size: 14px;
-    color: var(--text-muted);
+    font-weight: 500;
+    color: #374151;
+    /* gray-700 */
 }
 
 .form-input {
-    width: 100%;
-    padding: 12px 16px;
+    width: 95%;
+    padding: 10px 19px;
     border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background: var(--secondary-grey);
+    border-radius: 6px;
+    background: white;
     font-size: 15px;
-    transition: border-color 0.2s;
+    transition: all 0.2s;
+}
+
+.form-input[readonly] {
+    background: #f3f4f6;
+    /* gray-100 */
+    cursor: not-allowed;
 }
 
 .form-input:focus {
     outline: none;
     border-color: var(--primary-black);
-    background: white;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Existing Addresses */
@@ -358,7 +366,7 @@
 }
 
 /* Responsive */
-@media (max-width: 992px) {
+@media (max-width: 768px) {
     .checkout-layout {
         grid-template-columns: 1fr;
     }
@@ -366,16 +374,24 @@
     .summary-card {
         position: static;
     }
-}
-
-@media (max-width: 600px) {
 
     .address-form,
     .addresses-grid {
         grid-template-columns: 1fr;
     }
 
-    .form-group.full-width {
+    .form-group.full-width,
+    .form-row.full-width {
         grid-column: span 1;
     }
+
+    .form-row {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
