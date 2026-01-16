@@ -49,6 +49,7 @@
                             <thead>
                                 <tr>
                                     <th>Coupon Code</th>
+                                    <th>Coupon Name</th>
                                     <th>Discount</th>
                                     <th>Created Date</th>
                                     <th>Expiry Date</th>
@@ -64,6 +65,9 @@
                                         <tr>
                                             <td class="font-semibold">
                                                 <%= coupon.couponCode %>
+                                            </td>
+                                            <td>
+                                                <%= coupon.couponName %>
                                             </td>
                                             <td>
                                                 <% if (coupon.discountType==='percentage' ) { %>
