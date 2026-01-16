@@ -106,7 +106,7 @@
                                                             <th>Product</th>
                                                             <th style="text-align: center;">Qty</th>
                                                             <th style="text-align: center;">Price</th>
-                                                            <th style="text-align: center;">Total</th>
+                                                            <th style="text-align: center;">Final Amount</th>
                                                             <th style="text-align: center;">Status</th>
                                                             <th style="text-align: right;">Action</th>
                                                         </tr>
@@ -136,9 +136,9 @@
                                                                 <td data-label="Price" style="text-align: center;">₹<%=
                                                                         item.purchasedPrice.toLocaleString('en-IN') %>
                                                                 </td>
-                                                                <td data-label="Total"
+                                                                <td data-label="Final Amount"
                                                                     style="text-align: center; font-weight: 700;">₹<%=
-                                                                        item.total.toLocaleString('en-IN') %>
+                                                                        item.finalAmount.toLocaleString('en-IN') %>
                                                                 </td>
                                                                 <td data-label="Status" style="text-align: center;">
                                                                     <span
@@ -190,6 +190,11 @@
                                                     <span style="font-weight: 600; color: #198754;">-₹<%=
                                                             (order.discountAmount || 0).toLocaleString('en-IN') %>
                                                     </span>
+                                                </div>
+                                                <div class="summary-row">
+                                                    <span>Shipping Fee</span>
+                                                    <span style="font-weight: 600;">₹<%= (order.shippingFee ||
+                                                            0).toLocaleString('en-IN') %></span>
                                                 </div>
                                                 <div class="summary-row total">
                                                     <span>Total</span>

@@ -40,7 +40,8 @@ export const getUserOrders = async (userId, page = 1, limit = 8, search = "") =>
                 name: item.productName || item.variantId?.productId?.name || 'Unknown',
                 image: item.productImage || item.variantId?.images?.[0] || '',
                 label: item.variantLabel || item.variantId?.color || '',
-                total: item.purchasedPrice * item.productQuantity
+                total: item.purchasedPrice * item.productQuantity,
+                finalAmount: walletService.calculateItemRefundAmount(order, item)
             })),
             itemCount: items.length,
             orderStatus: items.length > 0 ? (items.every(i => i.status === items[0].status) ? items[0].status : "Multiple") : "pending",
@@ -203,8 +204,19 @@ export const handleItemAction = async ({ orderId, userId, itemId, action, return
             }
 
             // 📊 Step 4: Update Order total
-            const itemTotal = item.purchasedPrice * item.productQuantity;
-            order.totalAmount = Math.max(0, order.totalAmount - itemTotal);
+            const refundAmountForItem = walletService.calculateItemRefundAmount(order, item);
+            order.totalAmount = Math.max(0, order.totalAmount - refundAmountForItem);
+
+            // Check if this is the last active item to also remove shipping fee from total
+            const activeItemsCount = await OrderItem.countDocuments({
+                orderId,
+                _id: { $ne: item._id },
+                status: { $nin: ['cancelled', 'returned'] }
+            });
+
+            if (activeItemsCount === 0) {
+                order.totalAmount = 0;
+            }
 
         } else if (action === "return") {
             if (currentStatus !== "delivered") {
@@ -228,7 +240,8 @@ export const handleItemAction = async ({ orderId, userId, itemId, action, return
             order,
             item: {
                 ...item.toObject(),
-                total: item.purchasedPrice * item.productQuantity
+                total: item.purchasedPrice * item.productQuantity,
+                finalAmount: walletService.calculateItemRefundAmount(order, item)
             }
         };
     } catch (error) {
@@ -254,7 +267,8 @@ export const getOrderById = async (orderId, userId) => {
             name: item.productName || item.variantId?.productId?.name || 'Unknown',
             image: item.productImage || item.variantId?.images?.[0] || '',
             label: item.variantLabel || item.variantId?.color || '',
-            total: item.purchasedPrice * item.productQuantity
+            total: item.purchasedPrice * item.productQuantity,
+            finalAmount: walletService.calculateItemRefundAmount(order, item)
         })),
         orderStatus: items.length > 0 ? (items.every(i => i.status === items[0].status) ? items[0].status : "Multiple") : "pending"
     };
