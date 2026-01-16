@@ -386,10 +386,10 @@ export const updateItemStatus = async (req, res) => {
 };
 
 export const approveItemAction = async (req, res) => {
-    try {
-        const { itemId } = req.params;
-        const { action } = req.body;
+    const { itemId } = req.params;
+    const { action } = req.body;
 
+    try {
         const item = await OrderItem.findById(itemId);
         if (!item) {
             return res.status(404).json({ success: false, message: "Item not found" });
@@ -400,6 +400,7 @@ export const approveItemAction = async (req, res) => {
             return res.status(404).json({ success: false, message: "Order not found" });
         }
 
+        const orderId = order._id;
         const currentStatus = (item.status || "").toLowerCase().replace(/_/g, " ");
         const isReturnRequested = currentStatus === 'return requested' || item.returnReason;
 
@@ -463,7 +464,7 @@ export const approveItemAction = async (req, res) => {
         }
 
         // Recalculate summary status for the response
-        const allItems = await OrderItem.find({ orderId: order._id });
+        const allItems = await OrderItem.find({ orderId });
         const summaryStatus = calculateDerivedStatus(allItems);
 
         res.json({
@@ -476,7 +477,7 @@ export const approveItemAction = async (req, res) => {
         logger.error("Error approving item action:", error);
         res.status(500).json({
             success: false,
-            message: `Failed to ${action.replace('_', ' ')}: ${error.message}`
+            message: `Failed to ${action ? action.replace('_', ' ') : 'process'}: ${error.message}`
         });
     }
 };
