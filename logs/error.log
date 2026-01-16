@@ -988,3 +988,61 @@ Could not find the include file "../partissals/flash"
 [2026-01-15 13:30:18] ERROR: Error approving item action: orderId is not defined
 [2026-01-15 13:37:25] ERROR: Error approving item action: orderId is not defined
 [2026-01-15 22:25:52] ERROR: Request Timeout
+[2026-01-16 14:11:08] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-16 14:11:22] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-16 14:11:31] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-16 14:14:44] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-16 14:17:05] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-16 14:17:23] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:16
+    14|   <!-- Integrated Header Partial -->
+    15|   <%- include('../partials/header', { showSearch: true }) %>
+ >> 16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+    19|       <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-16 14:45:13] ERROR: Post Add Offer Error: Offer validation failed: productId: Cast to ObjectId failed for value "" (type string) at path "productId" because of "BSONError"
+[2026-01-16 14:53:06] ERROR: Error approving item action: orderId is not defined
+[2026-01-16 15:04:52] ERROR: Error approving item action: orderId is not defined
+[2026-01-16 15:08:20] ERROR: Error approving item action: orderId is not defined
