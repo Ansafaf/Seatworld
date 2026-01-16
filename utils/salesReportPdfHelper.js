@@ -124,10 +124,12 @@ export function generateTransactionTable(doc, transactions, startY) {
 
     const COL = {
         id: 50,
-        date: 140,
-        amount: 260,
-        discount: 350,
-        payment: 440
+        date: 105,
+        customer: 165,
+        items: 310,
+        amount: 345,
+        discount: 415,
+        status: 485
     };
 
     doc.fontSize(12).fillColor("#333")
@@ -136,13 +138,15 @@ export function generateTransactionTable(doc, transactions, startY) {
     y += GAP.medium;
 
     function drawHeader() {
-        doc.font("Helvetica-Bold").fontSize(9).fillColor("#333");
+        doc.font("Helvetica-Bold").fontSize(8).fillColor("#333");
 
         doc.text("Order ID", COL.id, y);
         doc.text("Date", COL.date, y);
-        doc.text("Amount", COL.amount, y, { width: 80, align: "right" });
-        doc.text("Discount", COL.discount, y, { width: 80, align: "right" });
-        doc.text("Payment Info", COL.payment, y, { width: 110, align: "right" });
+        doc.text("Customer", COL.customer, y);
+        doc.text("Qty", COL.items, y, { width: 30, align: "center" });
+        doc.text("Amount", COL.amount, y, { width: 65, align: "right" });
+        doc.text("Discount", COL.discount, y, { width: 65, align: "right" });
+        doc.text("Status", COL.status, y, { width: 65, align: "right" });
 
         y += 12;
         doc.moveTo(PAGE.left, y).lineTo(PAGE.right, y).stroke();
@@ -160,32 +164,27 @@ export function generateTransactionTable(doc, transactions, startY) {
     }
 
     transactions.forEach((t) => {
-        if (y > PAGE.bottom) {
+        if (y > PAGE.bottom - 20) {
             y = addNewPage(doc);
             drawHeader();
         }
 
         const dateStr = t.date
-            ? new Date(t.date).toLocaleDateString()
+            ? new Date(t.date).toLocaleDateString('en-GB')
             : "-";
 
-        let payMethod = (t.paymentMethod || "").toLowerCase();
-        if (payMethod.includes("razorpay") || payMethod.includes("online")) {
-            payMethod = "Credit or Debit";
-        } else if (payMethod.includes("cod")) {
-            payMethod = "COD";
-        } else if (payMethod.includes("wallet")) {
-            payMethod = "Wallet";
-        } else {
-            payMethod = payMethod ? payMethod.toUpperCase() : "N/A";
-        }
-
-        doc.fontSize(9).fillColor("#333");
-        doc.text(String(t.orderId || "").substring(0, 12), COL.id, y);
+        doc.fontSize(7).fillColor("#333");
+        doc.text(`#${String(t.orderId || "").slice(-6).toUpperCase()}`, COL.id, y);
         doc.text(dateStr, COL.date, y);
-        doc.text(`Rs. ${t.totalAmount || 0}`, COL.amount, y, { width: 80, align: "right" });
-        doc.text(`Rs. ${t.discount || 0}`, COL.discount, y, { width: 80, align: "right" });
-        doc.text(payMethod, COL.payment, y, { width: 110, align: "right" });
+
+        // Customer Name & Email (truncate if needed)
+        const customerInfo = `${t.customer?.name || "N/A"}\n${t.customer?.email || ""}`;
+        doc.text(customerInfo, COL.customer, y, { width: 140, height: 16 });
+
+        doc.text(String(t.itemCount || 0), COL.items, y, { width: 30, align: "center" });
+        doc.text(`Rs. ${t.totalAmount || 0}`, COL.amount, y, { width: 65, align: "right" });
+        doc.text(`Rs. ${t.discount || 0}`, COL.discount, y, { width: 65, align: "right" });
+        doc.text(t.status || "Pending", COL.status, y, { width: 65, align: "right" });
 
         y += GAP.row;
     });
