@@ -1,9 +1,13 @@
+<link rel="stylesheet" href="/css/users/header.css">
+<script src="/js/users/header.js"></script>
+
 <header class="main-header">
     <div class="header-container">
         <div class="header-left">
             <a href="/home" class="brand">
                 <img src="<%= typeof logoUrl !== 'undefined' && logoUrl ? logoUrl : 'https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765945540/products/rmsn314w038gnfzmemmi.jpg' %>"
-                    alt="SeatWorld Logo">
+                    alt="SeatWorld Logo" width="36" height="36" loading="eager"
+                    onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=SW&background=2563eb&color=fff';">
                 <span>SeatWorld</span>
             </a>
             <nav class="nav-menu">
@@ -55,7 +59,8 @@
                         </a>
                         <a href="/profile" class="profile-link">
                             <img src="https://ui-avatars.com/api/?name=<%= (typeof user !== 'undefined' && (user.username || user.name)) || 'User' %>&background=random"
-                                alt="Profile">
+                                alt="Profile" width="34" height="34" loading="lazy"
+                                onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=U&background=64748b&color=fff';">
                         </a>
                     </div>
 
@@ -68,7 +73,3 @@
         </div>
     </div>
 </header>
-
-<link rel="stylesheet" href="/css/users/header.css">
-
-<script src="/js/users/header.js"></script>
