@@ -117,7 +117,7 @@ export async function postSignup(req, res) {
   }
 
   // Username validation
-  const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+  const usernameRegex = /^[a-zA-Z0-9_ ]{3,20}$/;
   if (!usernameRegex.test(username)) {
     return res.status(400).json({
       success: false,

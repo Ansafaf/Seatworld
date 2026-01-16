@@ -35,7 +35,7 @@ if (form) {
             return;
         }
 
-        const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+        const usernameRegex = /^[a-zA-Z0-9_ ]{3,20}$/;
         if (!usernameRegex.test(usernameValue)) {
             Swal.fire({
                 icon: 'error',
