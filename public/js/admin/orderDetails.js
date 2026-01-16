@@ -71,9 +71,10 @@ async function handleReturnAction(itemId, action) {
                 const newStatus = action === 'approve_return' ? 'returned' : 'delivered';
                 updateItemStatusUI(itemId, newStatus);
 
-                // Refresh overall order status if backend could determine it
-                // (Note: approveItemAction doesn't currently return orderStatus in the json,
-                // but we can guess or wait for the next refresh. For now, just update the item badge.)
+                // Refresh overall order status if provided by backend
+                if (data.orderStatus) {
+                    updateStatusUI(data.orderStatus.toLowerCase());
+                }
 
             } else {
                 Swal.fire({ icon: 'error', title: 'Error', text: data.message });

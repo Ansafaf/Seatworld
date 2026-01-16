@@ -400,16 +400,19 @@ export const approveItemAction = async (req, res) => {
             return res.status(404).json({ success: false, message: "Order not found" });
         }
 
+        const currentStatus = (item.status || "").toLowerCase().replace(/_/g, " ");
+        const isReturnRequested = currentStatus === 'return requested' || item.returnReason;
+
         if (action === 'approve_return') {
-            if (item.status !== 'return_requested') {
-                return res.status(400).json({ success: false, message: "Item is not in return_requested state" });
+            if (!isReturnRequested) {
+                return res.status(400).json({ success: false, message: `Item is not in return_requested state (current: ${item.status})` });
             }
             item.status = 'returned';
             item.returnedOn = new Date();
             item.refundStatus = 'initiated';
         } else if (action === 'reject_return') {
-            if (item.status !== 'return_requested') {
-                return res.status(400).json({ success: false, message: "Item is not in return_requested state" });
+            if (!isReturnRequested) {
+                return res.status(400).json({ success: false, message: `Item is not in return_requested state (current: ${item.status})` });
             }
             item.status = 'delivered';
             item.rejectedOn = new Date();
@@ -459,11 +462,22 @@ export const approveItemAction = async (req, res) => {
             }
         }
 
-        res.json({ success: true, message: `Action ${action} approved successfully` });
+        // Recalculate summary status for the response
+        const allItems = await OrderItem.find({ orderId: order._id });
+        const summaryStatus = calculateDerivedStatus(allItems);
+
+        res.json({
+            success: true,
+            message: `Action ${action} approved successfully`,
+            orderStatus: summaryStatus
+        });
 
     } catch (error) {
         logger.error("Error approving item action:", error);
-        res.status(500).json({ success: false, message: "Internal Server Error" });
+        res.status(500).json({
+            success: false,
+            message: `Failed to ${action.replace('_', ' ')}: ${error.message}`
+        });
     }
 };
 
