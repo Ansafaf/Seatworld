@@ -33,6 +33,8 @@ import adminOfferRouter from "./routes/adminOfferRoutes.js";
 import razorpayRoute from "./routes/razorpayRoutes.js";
 import salesRoute from "./routes/salesReportRoutes.js";
 import Walletrouter from "./routes/walletRoutes.js";
+import Cart from "./models/cartModel.js";
+import Wishlist from "./models/wishlistModel.js";
 
 
 app.use(express.json());
@@ -72,6 +74,30 @@ app.use((req, res, next) => {
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Global Middleware to provide cart and wishlist counts to all views
+app.use(async (req, res, next) => {
+  try {
+    if (req.session.user) {
+      const userId = req.session.user.id || req.session.user._id;
+      const [cartCount, wishlistCount] = await Promise.all([
+        Cart.countDocuments({ userId }),
+        Wishlist.countDocuments({ userId })
+      ]);
+      res.locals.cartCount = cartCount;
+      res.locals.wishlistCount = wishlistCount;
+      res.locals.user = req.session.user; // Ensure user is globally available
+    } else {
+      res.locals.cartCount = 0;
+      res.locals.wishlistCount = 0;
+      res.locals.user = null;
+    }
+    next();
+  } catch (err) {
+    logger.error("Error in global middleware for counts:", err);
+    next();
+  }
+});
+
 // View engine
 app.set("view engine", "ejs");
 app.set("views", "./views");
@@ -84,7 +110,7 @@ app.use("/auth", AuthRoute);
 app.use("/", userRouter);
 app.use("/admin", adminRouter);
 app.use("/", profileRouter);
-app.use("/",Walletrouter);
+app.use("/", Walletrouter);
 app.use("/", productRouter);
 app.use("/admin", adminCategoryRouter);
 app.use("/admin", adminProductRouter);
