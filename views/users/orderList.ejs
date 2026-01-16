@@ -106,14 +106,18 @@
                                                             </td>
                                                             <td class="px-4 py-4">
                                                                 <div class="flex items-start gap-2">
-                                                                    <% let statusColor='bg-yellow-400' ; if
-                                                                        (order.orderStatus==='delivered' )
+                                                                    <% let statusColor='bg-yellow-400' ; const
+                                                                        lowerStatus=order.orderStatus.toLowerCase(); if
+                                                                        (lowerStatus.includes('delivered'))
                                                                         statusColor='bg-green-500' ; else if
-                                                                        (['cancelled', 'returned'
-                                                                        ].includes(order.orderStatus))
+                                                                        (lowerStatus.includes('cancelled') ||
+                                                                        lowerStatus.includes('returned'))
                                                                         statusColor='bg-red-500' ; else if
-                                                                        (order.orderStatus==='shipped' )
-                                                                        statusColor='bg-blue-500' ; %>
+                                                                        (lowerStatus.includes('shipped'))
+                                                                        statusColor='bg-blue-500' ; else if
+                                                                        (lowerStatus.includes('pending') ||
+                                                                        lowerStatus.includes('confirmed'))
+                                                                        statusColor='bg-yellow-400' ; %>
                                                                         <span
                                                                             class="mt-1.5 w-2 h-2 rounded-full <%= statusColor %>"></span>
                                                                         <div>

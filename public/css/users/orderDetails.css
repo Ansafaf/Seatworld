@@ -145,7 +145,7 @@
     width: 60px;
     height: 60px;
     border-radius: 8px;
-    object-cover: cover;
+    object-fit: cover;
     border: 1px solid #e9ecef;
 }
 
@@ -196,14 +196,32 @@
     color: #0f5132;
 }
 
+.status-partially-delivered {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border: 1px dashed #2e7d32;
+}
+
 .status-cancelled {
     background: #f8d7da;
     color: #842029;
 }
 
+.status-partially-cancelled {
+    background: #fff5f5;
+    color: #c62828;
+    border: 1px dashed #c62828;
+}
+
 .status-returned {
     background: #f8d7da;
     color: #842029;
+}
+
+.status-partially-returned {
+    background: #fff5f5;
+    color: #c62828;
+    border: 1px dashed #c62828;
 }
 
 /* Actions */

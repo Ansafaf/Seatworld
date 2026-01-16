@@ -40,7 +40,7 @@
                                                     <i class="fas fa-file-invoice"></i> Download Invoice
                                                 </a>
                                                 <span
-                                                    class="status-badge status-<%= (order.orderStatus || 'pending').toLowerCase() %>">
+                                                    class="status-badge status-<%= (order.orderStatus || 'pending').toLowerCase().replace(/\s+/g, '-') %>">
                                                     <%= order.orderStatus || 'Pending' %>
                                                 </span>
                                             </div>

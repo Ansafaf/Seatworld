@@ -6,6 +6,7 @@ import * as inventoryService from "../services/inventoryService.js";
 import * as walletService from "../services/walletService.js";
 import logger from "../utils/logger.js";
 import mongoose from "mongoose";
+import { calculateDerivedStatus } from "../utils/orderStatusHelper.js";
 
 export const getOrderlist = async (req, res) => {
     try {
@@ -526,28 +527,4 @@ export const approveItemAction = async (req, res) => {
     }
 };
 
-const calculateDerivedStatus = (items) => {
-    const itemStatuses = items.map(i => i.status);
-    const totalItems = items.length;
-    const deliveredCount = items.filter(i => i.status === 'delivered').length;
-    const returnedCount = items.filter(i => i.status === 'returned').length;
-    const cancelledCount = items.filter(i => i.status === 'cancelled').length;
 
-    if (totalItems === 0) return "Pending";
-    if (returnedCount === totalItems) return "Returned";
-    if (returnedCount > 0) return "Partially Returned";
-    if (deliveredCount === totalItems) return "Delivered";
-    if (deliveredCount > 0) return "Partially Delivered";
-    if (cancelledCount === totalItems) return "Cancelled";
-    if (cancelledCount > 0) return "Partially Cancelled";
-
-    if (new Set(itemStatuses).size === 1) {
-        return itemStatuses[0];
-    }
-
-    if (items.some(i => i.status === 'shipped')) {
-        return "Shipped";
-    }
-
-    return items[0]?.status || "Pending";
-};

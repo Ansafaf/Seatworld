@@ -7,6 +7,7 @@ import * as inventoryService from "./inventoryService.js";
 import logger from "../utils/logger.js";
 import crypto from "crypto";
 import * as walletService from "./walletService.js";
+import { calculateDerivedStatus } from "../utils/orderStatusHelper.js";
 
 export const getUserOrders = async (userId, page = 1, limit = 8, search = "") => {
     const skip = (page - 1) * limit;
@@ -44,7 +45,7 @@ export const getUserOrders = async (userId, page = 1, limit = 8, search = "") =>
                 finalAmount: walletService.calculateItemRefundAmount(order, item)
             })),
             itemCount: items.length,
-            orderStatus: items.length > 0 ? (items.every(i => i.status === items[0].status) ? items[0].status : "Multiple") : "pending",
+            orderStatus: calculateDerivedStatus(items),
             formattedDate: new Date(order.createdAt).toLocaleDateString('en-GB')
         };
     }));
@@ -270,6 +271,6 @@ export const getOrderById = async (orderId, userId) => {
             total: item.purchasedPrice * item.productQuantity,
             finalAmount: walletService.calculateItemRefundAmount(order, item)
         })),
-        orderStatus: items.length > 0 ? (items.every(i => i.status === items[0].status) ? items[0].status : "Multiple") : "pending"
+        orderStatus: calculateDerivedStatus(items)
     };
 };
