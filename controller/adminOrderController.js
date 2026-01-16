@@ -191,7 +191,8 @@ export const getOrderDetails = async (req, res) => {
                 name: item.productName || item.variantId?.productId?.name || 'Unknown',
                 image: item.productImage || item.variantId?.images?.[0] || '',
                 label: item.variantLabel || item.variantId?.color || '',
-                total: item.purchasedPrice * item.productQuantity
+                total: item.purchasedPrice * item.productQuantity,
+                finalAmount: walletService.calculateItemRefundAmount(order, item)
             })),
             orderStatus: summaryStatus
         };

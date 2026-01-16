@@ -59,11 +59,11 @@
                                                     Quantity</th>
                                                 <th
                                                     class="px-6 py-4 text-right font-bold uppercase tracking-wider text-sm">
-                                                    Price
+                                                    Item Price
                                                 </th>
                                                 <th
                                                     class="px-6 py-4 text-center font-bold uppercase tracking-wider text-sm">
-                                                    Return Reason</th>
+                                                    Final Amount</th>
                                                 <th
                                                     class="px-6 py-4 text-center font-bold uppercase tracking-wider text-sm">
                                                     Action</th>
@@ -108,15 +108,8 @@
                                                                 item.total.toLocaleString('en-IN') %></span>
                                                     </td>
                                                     <td class="px-6 py-4 text-center">
-                                                        <% if (item.status==='return_requested' || item.returnReason) {
-                                                            %>
-                                                            <span
-                                                                class="text-[10px] text-gray-600 font-semibold italic">
-                                                                <%= item.returnReason || 'See details' %>
-                                                            </span>
-                                                            <% } else { %>
-                                                                <span class="text-gray-400">--</span>
-                                                                <% } %>
+                                                        <span class="font-bold text-green-600">₹<%=
+                                                                item.finalAmount.toLocaleString('en-IN') %></span>
                                                     </td>
                                                     <td class="px-6 py-4 text-center">
                                                         <div class="flex flex-col items-center justify-center gap-2">
