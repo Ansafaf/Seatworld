@@ -27,7 +27,7 @@ const normalizeQuery = (query) => {
         selectedTags: normalizeValue(query.tag),
         sort: query.sort || "featured",
         page: Math.max(1, parseInt(query.page, 10) || 1),
-        limit: Math.max(1, parseInt(query.limit, 10) || 8),
+        limit: Math.max(1, parseInt(query.limit, 10) || 9),
         stock: query.stock,
         discount: query.discount,
         search: query.search,
@@ -179,13 +179,10 @@ export async function getProducts(req, res) {
         if (!req.session.user) return res.redirect("/login");
         console.log("getProducts controller hit. User:", req.session?.user?.id);
 
-        // 1. Normalize Query Parameters
         const params = normalizeQuery(req.query);
 
-        // 2. Build Base Filter
         const { filter } = buildBaseFilter(params);
 
-        // 3. Fetch Peripheral Data (Categories, Brands, Price Stats, Tags)
         const categories = await Category.find({ isActive: true }).lean();
         const [brandsDistinct, priceStats, tagsDistinct] = await Promise.all([
             Product.distinct("brand"),
