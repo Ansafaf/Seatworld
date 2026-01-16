@@ -184,7 +184,8 @@
                             </svg>
                           </button>
                           <img src="<%= product.image || 'https://via.placeholder.com/400?text=SeatWorld' %>"
-                            alt="<%= product.name %>">
+                            alt="<%= product.name %>" loading="lazy" decoding="async"
+                            onerror="this.onerror=null;this.src='https://via.placeholder.com/400?text=SeatWorld';this.parentElement.classList.add('image-error');">
                           <% if (product.hasOffer) { %>
                             <div class="off-badge">
                               <%= product.discountPercentage %>% OFF
