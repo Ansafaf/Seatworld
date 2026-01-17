@@ -152,6 +152,9 @@ export async function getCartByUserId(userId, page = 1, limit = 8) {
         .limit(limit)
         .lean();//convert to plain js
 
+    let subtotal = 0;
+    const activeOffers = await Offer.find({ isActive: true });
+
     const allCarts = await Cart.find({ userId }).populate({
         path: 'variantId',
         populate: { path: 'productId' }
