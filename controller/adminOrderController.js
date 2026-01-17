@@ -97,7 +97,6 @@ export const getOrderlist = async (req, res) => {
             }
         }
 
-
         let query = {};
         if (orderIds !== null) {
             query._id = { $in: orderIds };
@@ -124,7 +123,7 @@ export const getOrderlist = async (req, res) => {
                     populate: { path: 'productId' }
                 })
                 .lean();
-
+                
             const itemStatuses = items.map(i => i.status);
 
             // Derived Status Logic
