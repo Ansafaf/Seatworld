@@ -17,7 +17,7 @@ export const getOrderlist = async (req, res) => {
         const search = req.query.search || "";
         const status = req.query.status || ""; //item status
         const sort = req.query.sort || "newest";
-        const filerByMethod = {};
+        const paymentMethod = req.query.paymentMethod || "";
 
         let orderIds = null;
 
@@ -34,7 +34,7 @@ export const getOrderlist = async (req, res) => {
             if (mongoose.Types.ObjectId.isValid(search)) {
                 idQuery.push({ _id: new mongoose.Types.ObjectId(search) });
             }
-           
+
             if (/^[0-9a-fA-F]{1,24}$/.test(search)) {
                 // This is harder in Mongo without $expr, but we can at least check if it matches the string representation
                 // For now, partial ID match is less common, but we can support prefix/suffix if needed.
@@ -103,11 +103,15 @@ export const getOrderlist = async (req, res) => {
             query._id = { $in: orderIds };
         }
 
+        if (paymentMethod && paymentMethod !== "ALL") {
+            query.paymentMethod = paymentMethod;
+        }
+
         let sortQuery = { createdAt: -1 };
         if (sort === "oldest") sortQuery = { createdAt: 1 };
         else if (sort === "priceHighToLow") sortQuery = { totalAmount: -1 };
         else if (sort === "priceLowToHigh") sortQuery = { totalAmount: 1 };
-        
+
 
 
 
@@ -126,7 +130,7 @@ export const getOrderlist = async (req, res) => {
                     path: 'variantId',
                     populate: { path: 'productId' }
                 })
-                .lean();       
+                .lean();
             const itemStatuses = items.map(i => i.status);
 
             // Derived Status Logic
@@ -143,7 +147,7 @@ export const getOrderlist = async (req, res) => {
                 orderStatus: summaryStatus,
                 itemCount: items.length
             };
-        }));        
+        }));
 
         res.render("admin/orderList", {
             orders: ordersWithItems,
@@ -157,7 +161,8 @@ export const getOrderlist = async (req, res) => {
             },
             search,
             status,
-            sort
+            sort,
+            paymentMethod
         });
 
     } catch (error) {
@@ -166,26 +171,6 @@ export const getOrderlist = async (req, res) => {
     }
 }
 
-export const filterOrders  = async (req,res)=>{
-    try{
-        const {paymentMethod} = req.body;
-        const filter= {};
-
-        if(paymentMethod && paymentMethod !== "ALL"){
-            filter.paymentMethod = paymentMethod;
-        }
-        const ordersWithItems = await Order.find(filter)
-        .populate("user")
-        .sort({createdAt: -1})
-        logger.info(`filter: ${filter}`);
-
-        res.render("admin/partials/orderTable",{ordersWithItems});
-    }
-    catch(err){
-        logger.error(err);
-        res.status(500).json({success:false, message:"Server error"});
-       }
-}
 export const getOrderDetails = async (req, res) => {
     try {
 

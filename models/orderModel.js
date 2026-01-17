@@ -43,7 +43,7 @@ const orderSchema = new mongoose.Schema(
 
     paymentMethod: {
       type: String,
-      enum: ["COD","online","wallet"],
+      enum: ["COD","ONLINE","wallet"],
       required: true
     },
 

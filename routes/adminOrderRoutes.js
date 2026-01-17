@@ -1,10 +1,9 @@
 import express from "express";
 const adminRouter = express.Router();
 import { adminAuthMiddleware } from "../middleware/adminAuthMiddleware.js";
-import { getOrderlist, getOrderDetails, updateOrderStatus, updateItemStatus, approveItemAction, filterOrders } from "../controller/adminOrderController.js";
+import { getOrderlist, getOrderDetails, updateOrderStatus, updateItemStatus, approveItemAction } from "../controller/adminOrderController.js";
 
 adminRouter.get("/", adminAuthMiddleware, getOrderlist);
-adminRouter.post("/filter", adminAuthMiddleware, filterOrders);
 adminRouter.get("/:id", adminAuthMiddleware, getOrderDetails);
 adminRouter.patch("/update-status", adminAuthMiddleware, updateOrderStatus);
 adminRouter.patch("/items/:itemId/status", adminAuthMiddleware, updateItemStatus);
