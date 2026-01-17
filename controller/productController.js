@@ -63,16 +63,18 @@ const applyVariantFilters = async (filter, params) => {
     const hasMinPrice = !Number.isNaN(minPrice) && minPrice > 0;
     const hasMaxPrice = !Number.isNaN(maxPrice) && maxPrice > 0;
 
-    // If no variant-based filters are applied, return early
-    if (!selectedColors.length && !stock && !hasMinPrice && !hasMaxPrice) {
-        return { filter, hasMinPrice, hasMaxPrice };
-    }
+    // We no longer return early here because we ALWAYS want to filter out products that have NO active/in-stock variants
+    // even if no specific filters are applied.
 
     // First find products matching basic filters to narrow down variant search
     const products = await Product.find(filter).select('_id').lean();
     const productIds = products.map(p => p._id);
 
-    const variantFilter = { productId: { $in: productIds }, status: { $in: ["Active", "OutofStock"] } };
+    const variantFilter = {
+        productId: { $in: productIds },
+        status: "Active",
+        stock: { $gt: 0 } // Only show items with actual stock in the list
+    };
 
     // Add color filter
     if (selectedColors.length) variantFilter.color = { $in: selectedColors };
@@ -116,8 +118,9 @@ const enrichProducts = async (products, activeOffers) => {
         products.map(async (product) => {
             const variant = await ProductVariant.findOne({
                 productId: product._id,
-                status: { $in: ["Active", "OutofStock"] },
-            }).sort({ status: 1 }); // Prioritize 'Active' over 'OutofStock'
+                status: "Active",
+                stock: { $gt: 0 }
+            });
 
             const basePrice = variant ? variant.price : product.Baseprice;
             const discountData = offerHelper.calculateDiscount(product, basePrice, activeOffers);
@@ -202,7 +205,7 @@ export async function getProducts(req, res) {
             ]),
             Product.distinct("tags"),
         ]);
-        
+
         const minPriceValue = priceStats[0]?.minPrice ?? 0;
         const maxPriceValue = priceStats[0]?.maxPrice ?? 0;
 
