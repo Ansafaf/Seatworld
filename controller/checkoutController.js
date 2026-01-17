@@ -9,6 +9,7 @@ import * as inventoryService from "../services/inventoryService.js";
 import Coupon from "../models/couponModel.js";
 
 export const getCheckoutAddress = async (req, res) => {
+      if (!req.session.user) return res.redirect("/login");
     try {
         const userId = req.session.user.id;
 

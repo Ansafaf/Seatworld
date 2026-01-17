@@ -5,6 +5,7 @@ import logger from "../utils/logger.js";
 import { paginate } from "../utils/paginationHelper.js";
 
 export const getWishlist = async (req, res) => {
+      if (!req.session.user) return res.redirect("/login");
     try {
         const userId = req.session.user.id;
         const page = parseInt(req.query.page) || 1;

@@ -12,6 +12,7 @@ import { createReferralForUser } from "../services/referralService.js";
 
 
 export async function getProfile(req, res) {
+    if (!req.session.user) return res.redirect("/login");
   const customer = await User.findById(req.session.user.id);
   if (!customer.referralCode) {
     customer.referralCode = await createReferralForUser(customer._id);

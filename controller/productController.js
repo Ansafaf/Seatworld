@@ -202,7 +202,7 @@ export async function getProducts(req, res) {
             ]),
             Product.distinct("tags"),
         ]);
-
+        
         const minPriceValue = priceStats[0]?.minPrice ?? 0;
         const maxPriceValue = priceStats[0]?.maxPrice ?? 0;
 
