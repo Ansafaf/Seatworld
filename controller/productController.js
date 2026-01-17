@@ -264,6 +264,7 @@ export async function getProducts(req, res) {
 
         // 8. Render
         res.render("users/productList", {
+            user: req.session.user,
             products: productsWithWishlist,
             categories,
             brands,

@@ -12,7 +12,29 @@
 
 <body>
   <!-- Integrated Header Partial -->
-  <%- include('../partials/header', { showSearch: true }) %>
+  <% if(user){ %>
+    <%- include('../partials/header', { showSearch: true }) %>
+    <% } %>
+    <% else { %>
+      <header class="auth-header">
+    <a href="/" class="brand">
+      <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765945540/products/rmsn314w038gnfzmemmi.jpg"
+        alt="Logo">
+      SeatWorld
+    </a>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav id="mainNav">
+      <a href="/">Home</a>
+      <a href="/login">Login</a>
+      <a href="/signup">Register</a>
+      <a href="/">Contact</a>
+    </nav>
+  </header>
+  <% } %>
     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
 
 
