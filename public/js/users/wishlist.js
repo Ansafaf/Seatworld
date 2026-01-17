@@ -4,7 +4,8 @@ async function toggleWishlist(variantId, button) {
     const response = await fetch('/wishlist/add', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       },
       body: JSON.stringify({ variantId })
     });
