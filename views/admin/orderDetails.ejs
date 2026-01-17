@@ -57,16 +57,15 @@
                                                 <th
                                                     class="px-6 py-4 text-center font-bold uppercase tracking-wider text-sm">
                                                     Quantity</th>
-                                                <th
-                                                    class="px-6 py-4 text-right font-bold uppercase tracking-wider text-sm">
-                                                    Item Price
-                                                </th>
+                                                <th <th
+                                                    class="px-6 py-4 text-center font-bold uppercase tracking-wider text-sm">
+                                                    Item Price</th>
                                                 <th
                                                     class="px-6 py-4 text-center font-bold uppercase tracking-wider text-sm">
-                                                    Final Amount</th>
+                                                    Item Total</th>
                                                 <th
                                                     class="px-6 py-4 text-center font-bold uppercase tracking-wider text-sm">
-                                                    Action</th>
+                                                    Action Status</th>
                                             </tr>
                                         </thead>
                                         <tbody class="divide-y divide-gray-100">
@@ -103,13 +102,14 @@
                                                             <%= item.productQuantity %>
                                                         </span>
                                                     </td>
-                                                    <td class="px-6 py-4 text-right">
+                                                    <td class="px-6 py-4 text-center">
                                                         <span class="font-bold text-red-500">₹<%=
-                                                                item.total.toLocaleString('en-IN') %></span>
+                                                                item.purchasedPrice.toLocaleString('en-IN') %></span>
                                                     </td>
                                                     <td class="px-6 py-4 text-center">
-                                                        <span class="font-bold text-green-600">₹<%=
-                                                                item.finalAmount.toLocaleString('en-IN') %></span>
+                                                        <span class="font-bold text-green-600">₹<%= (item.purchasedPrice
+                                                                * item.productQuantity).toLocaleString('en-IN') %>
+                                                                </span>
                                                     </td>
                                                     <td class="px-6 py-4 text-center">
                                                         <div class="flex flex-col items-center justify-center gap-2">
@@ -136,54 +136,41 @@
                                 <!-- End of product table -->
 
                                 <!-- Customer Details -->
-                                <div class="bg-white rounded-xl shadow-sm p-8">
-                                    <h3
-                                        class="text-xl font-bold text-orange-500 mb-6 pb-2 border-b-2 border-gray-50 uppercase tracking-widest">
-                                        Customer Details</h3>
-                                    <div class="space-y-4">
-                                        <div class="flex items-start py-3 border-b border-gray-50">
-                                            <span class="w-48 text-gray-900 font-bold">Customer Name</span>
-                                            <span class="flex-1 text-gray-700 font-bold">
-                                                <%= order.userId?.name || 'Unknown' %>
-                                            </span>
-                                        </div>
-                                        <div class="flex items-start py-3 border-b border-gray-50">
-                                            <span class="w-48 text-gray-900 font-bold">Mobile Number</span>
-                                            <span class="flex-1 text-gray-700 font-bold">
-                                                <%= order.shippingAddress.mobile %>
-                                            </span>
-                                        </div>
-                                        <div class="flex items-start py-3 border-b border-gray-50">
-                                            <span class="w-48 text-gray-900 font-bold">Type of Payment</span>
-                                            <span class="flex-1 text-gray-700 font-bold text-indigo-600 capitalize">
-                                                <%= order.paymentMethod %>
-                                            </span>
-                                        </div>
-                                        <div class="flex items-start py-3">
-                                            <span class="w-48 text-gray-900 font-bold">Address</span>
-                                            <div class="flex-1 text-gray-700 font-bold">
-                                                <p>
-                                                    <%= order.shippingAddress.housename %>, <%=
-                                                            order.shippingAddress.street %>
-                                                </p>
-                                                <p>
-                                                    <%= order.shippingAddress.city %>, <%= order.shippingAddress.state
-                                                            %>
-                                                </p>
-                                                <p>
-                                                    <%= order.shippingAddress.pincode %>
-                                                </p>
-                                                <p>
-                                                    <%= order.shippingAddress.country %>
-                                                </p>
-                                            </div>
-                                        </div>
+                            </div>
+
+                            <!-- Order Summary -->
+                            <div class="bg-white rounded-xl shadow-sm p-8">
+                                <h3
+                                    class="text-xl font-bold text-orange-500 mb-6 pb-2 border-b-2 border-gray-50 uppercase tracking-widest">
+                                    Order Summary
+                                </h3>
+                                <div class="space-y-4 max-w-md ml-auto">
+                                    <div class="flex justify-between py-2 border-b border-gray-50">
+                                        <span class="text-gray-500 font-bold">Subtotal</span>
+                                        <span class="text-gray-900 font-bold">₹<%=
+                                                order.subtotal.toLocaleString('en-IN') %></span>
+                                    </div>
+                                    <div class="flex justify-between py-2 border-b border-gray-50">
+                                        <span class="text-gray-500 font-bold">Discount</span>
+                                        <span class="text-green-600 font-bold">-₹<%= (order.discountAmount ||
+                                                0).toLocaleString('en-IN') %></span>
+                                    </div>
+                                    <div class="flex justify-between py-2 border-b border-gray-50">
+                                        <span class="text-gray-500 font-bold">Shipping Fee</span>
+                                        <span class="text-gray-900 font-bold">₹<%= (order.shippingFee ||
+                                                0).toLocaleString('en-IN') %></span>
+                                    </div>
+                                    <div class="flex justify-between py-4 border-t-2 border-orange-100">
+                                        <span class="text-lg text-gray-900 font-black uppercase">Grand Total</span>
+                                        <span class="text-2xl text-orange-500 font-black">₹<%=
+                                                order.totalAmount.toLocaleString('en-IN') %></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </main>
+        </div>
+        </main>
         </div>
 
         <!-- Return Management Modal -->

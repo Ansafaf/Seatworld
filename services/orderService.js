@@ -36,6 +36,7 @@ export const getUserOrders = async (userId, page = 1, limit = 8, search = "") =>
 
         return {
             ...order.toObject(),
+            subtotal: order.subtotal || items.reduce((sum, item) => sum + (item.purchasedPrice * item.productQuantity), 0),
             items: items.map(item => ({
                 ...item,
                 name: item.productName || item.variantId?.productId?.name || 'Unknown',
@@ -263,6 +264,7 @@ export const getOrderById = async (orderId, userId) => {
 
     return {
         ...order.toObject(),
+        subtotal: order.subtotal || items.reduce((sum, item) => sum + (item.purchasedPrice * item.productQuantity), 0),
         items: items.map(item => ({
             ...item,
             name: item.productName || item.variantId?.productId?.name || 'Unknown',
