@@ -96,7 +96,7 @@ export const createOrder = async ({ userId, paymentMethod, checkoutSession, cart
         logger.info(`Order created: ${newOrder._id} for user: ${userId}`);
 
         // Handle Wallet deduction
-        if (paymentMethod === "Wallet") {
+        if (paymentMethod === "wallet") {
             const wallet = await Wallet.findOne({ userId });
             if (!wallet || wallet.balance < finalAmount) {
                 // This should ideally be checked earlier in controller, but as a safeguard:
