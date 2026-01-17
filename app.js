@@ -35,6 +35,7 @@ import salesRoute from "./routes/salesReportRoutes.js";
 import Walletrouter from "./routes/walletRoutes.js";
 import Cart from "./models/cartModel.js";
 import Wishlist from "./models/wishlistModel.js";
+import { optionalAuth } from "./middleware/optionalAuth.js";
 
 
 app.use(express.json());
@@ -74,26 +75,28 @@ app.use((req, res, next) => {
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(optionalAuth);
+
 // Global Middleware to provide cart and wishlist counts to all views
 app.use(async (req, res, next) => {
   try {
-    if (req.session.user) {
-      const userId = req.session.user.id || req.session.user._id;
+    if (req.user) {
+      const userId = req.user._id || req.user.id;
       const [cartCount, wishlistCount] = await Promise.all([
         Cart.countDocuments({ userId }),
         Wishlist.countDocuments({ userId })
       ]);
       res.locals.cartCount = cartCount;
       res.locals.wishlistCount = wishlistCount;
-      res.locals.user = req.session.user; // Ensure user is globally available
     } else {
       res.locals.cartCount = 0;
       res.locals.wishlistCount = 0;
-      res.locals.user = null;
     }
     next();
   } catch (err) {
     logger.error("Error in global middleware for counts:", err);
+    res.locals.cartCount = 0;
+    res.locals.wishlistCount = 0;
     next();
   }
 });

@@ -179,7 +179,6 @@ const prepareUIHelpers = (params, categories, minPriceValue, maxPriceValue) => {
 
 export async function getProducts(req, res) {
     try {
-        if (!req.session.user) return res.redirect("/login");
         console.log("getProducts controller hit. User:", req.session?.user?.id);
 
         const params = normalizeQuery(req.query);

@@ -1,6 +1,6 @@
 import express from "express";
 const checkoutRouter = express.Router();
-import { authMiddleware } from "../middleware/authMiddleware.js";
+import { requireAuth } from "../middleware/authMiddleware.js";
 import {
     getCheckoutAddress,
     postAddress,
@@ -9,10 +9,10 @@ import {
     removeCoupon
 } from "../controller/checkoutController.js";
 
-checkoutRouter.get("/checkout", authMiddleware, getCheckoutAddress);
-checkoutRouter.post("/checkout/address", authMiddleware, postAddress);
-checkoutRouter.get("/checkout/payment-options", authMiddleware, getPaymentOptions);
-checkoutRouter.post("/checkout/apply-coupon", authMiddleware, applyCoupon);
-checkoutRouter.post("/checkout/remove-coupon", authMiddleware, removeCoupon);
+checkoutRouter.get("/checkout", requireAuth, getCheckoutAddress);
+checkoutRouter.post("/checkout/address", requireAuth, postAddress);
+checkoutRouter.get("/checkout/payment-options", requireAuth, getPaymentOptions);
+checkoutRouter.post("/checkout/apply-coupon", requireAuth, applyCoupon);
+checkoutRouter.post("/checkout/remove-coupon", requireAuth, removeCoupon);
 
 export default checkoutRouter;

@@ -1,6 +1,6 @@
 import { User } from "../models/userModel.js";
 
-export const authMiddleware = async (req, res, next) => {
+export const requireAuth = async (req, res, next) => {
   try {
     let user = null;
 
@@ -11,23 +11,17 @@ export const authMiddleware = async (req, res, next) => {
     }
 
     if (!user) {
-      // AJAX / fetch request
-      if (req.headers.accept?.includes("application/json")) {
+      // Check if it's an AJAX/fetch request
+      if (req.xhr || req.headers.accept?.includes("application/json") || req.get("X-Requested-With") === "XMLHttpRequest") {
         return res.status(401).json({
           success: false,
-          message: "Login required"
+          message: "Authentication required",
+          redirectUrl: "/login"
         });
       }
 
-      // Normal request
-      if (req.session) {
-        req.session.destroy(() => {
-          res.clearCookie("connect.sid");
-          return res.redirect("/login");
-        });
-      } else {
-        return res.redirect("/login");
-      }
+      // Normal page request
+      return res.redirect("/login");
     }
 
     req.user = user;
@@ -35,7 +29,10 @@ export const authMiddleware = async (req, res, next) => {
     next();
 
   } catch (error) {
-    console.error("Auth middleware error:", error);
+    console.error("requireAuth middleware error:", error);
+    if (req.xhr || req.headers.accept?.includes("application/json")) {
+      return res.status(500).json({ success: false, message: "Internal Server Error" });
+    }
     return res.redirect("/login");
   }
 };

@@ -11,6 +11,28 @@ async function toggleWishlist(variantId, button) {
 
     const data = await response.json();
 
+    // Handle authentication required
+    if (response.status === 401) {
+      if (typeof Swal !== 'undefined') {
+        Swal.fire({
+          icon: 'info',
+          title: 'Login Required',
+          text: 'Please login to add items to your wishlist.',
+          showCancelButton: true,
+          confirmButtonText: 'Login Now',
+          confirmButtonColor: '#2449ff',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = '/login';
+          }
+        });
+      } else {
+        showMessage('Please login to add items to your wishlist', 'error');
+        setTimeout(() => window.location.href = '/login', 2000);
+      }
+      return;
+    }
+
     if (data.success) {
       // Toggle button active state and SVG fill
       if (data.action === 'added') {

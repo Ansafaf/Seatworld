@@ -1,9 +1,10 @@
 import express from 'express';
 const router = express.Router();
 import { getLanding, getLogin, postLogin, getverifyOtp, verifyOtp, resendOtp, getforgotPass, postforgotPass, getHome, getSignup, postSignup, getLogout, postPassCreation, otpverifyForgot, getPassCreation, getotpForgot, getReferralCode } from '../controller/userAuthController.js';
-import { authMiddleware } from "../middleware/authMiddleware.js";
+import { requireAuth } from "../middleware/authMiddleware.js";
+import { optionalAuth } from "../middleware/optionalAuth.js";
 
-router.get('/', getLanding);
+router.get('/', optionalAuth, getLanding);
 router.get('/login', getLogin);
 router.post('/login', postLogin);
 
@@ -20,10 +21,10 @@ router.post("/create-password", postPassCreation);
 
 // router.get('/cart',getCart); 
 
-router.get('/home', authMiddleware, getHome);
+router.get('/home', optionalAuth, getHome);
 router.get('/signup', getSignup);
 router.post('/signup', postSignup);
-router.get("/referral",authMiddleware, getReferralCode);
+router.get("/referral", requireAuth, getReferralCode);
 
 router.get('/logout', getLogout);
 

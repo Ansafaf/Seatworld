@@ -4,12 +4,9 @@ export const optionalAuth = async (req, res, next) => {
   try {
     let user = null;
 
-    // Passport login
     if (req.isAuthenticated?.() && req.user) {
       user = req.user;
-    }
-    // Session login
-    else if (req.session?.user?.id) {
+    } else if (req.session?.user?.id) {
       user = await User.findById(req.session.user.id);
     }
 
@@ -17,12 +14,14 @@ export const optionalAuth = async (req, res, next) => {
       req.user = user;
       res.locals.user = user;
     } else {
-      res.locals.user = null; // important for EJS
+      req.user = null;
+      res.locals.user = null;
     }
 
-    next(); // ALWAYS continue
+    next();
   } catch (error) {
     console.error("Optional auth error:", error);
+    req.user = null;
     res.locals.user = null;
     next();
   }
