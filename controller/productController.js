@@ -26,7 +26,7 @@ const normalizeQuery = (query) => {
         selectedTags: normalizeValue(query.tag),
         sort: query.sort || "featured",
         page: Math.max(1, parseInt(query.page, 10) || 1),
-        limit: Math.max(1, parseInt(query.limit, 10) || 9),
+        limit: Math.max(1, parseInt(query.limit, 9) || 9),
         stock: query.stock,
         discount: query.discount,
         search: query.search,
@@ -72,7 +72,7 @@ const applyVariantFilters = async (filter, params) => {
     const products = await Product.find(filter).select('_id').lean();
     const productIds = products.map(p => p._id);
 
-    const variantFilter = { productId: { $in: productIds }, status: "Active" };
+    const variantFilter = { productId: { $in: productIds }, status: { $in: ["Active", "OutofStock"] } };
 
     // Add color filter
     if (selectedColors.length) variantFilter.color = { $in: selectedColors };
@@ -184,6 +184,16 @@ export async function getProducts(req, res) {
         const { filter } = buildBaseFilter(params);
 
         const categories = await Category.find({ isActive: true }).lean();
+        const activeCategoryIds = categories.map(cat => cat._id.toString());
+
+        // Ensure we only show products from active categories
+        filter.categoryId = { $in: activeCategoryIds };
+
+        if (params.selectedCategories.length) {
+            // Further filter by user selection, but ONLY within active categories
+            const userSelectedActive = params.selectedCategories.filter(id => activeCategoryIds.includes(id));
+            filter.categoryId = { $in: userSelectedActive };
+        }
         const [brandsDistinct, priceStats, tagsDistinct] = await Promise.all([
             Product.distinct("brand"),
             ProductVariant.aggregate([
