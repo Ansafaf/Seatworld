@@ -515,7 +515,7 @@ body {
 }
 
 /* Empty State */
-.products-grid > div[style*="grid-column"] {
+.products-grid>div[style*="grid-column"] {
     grid-column: 1 / -1;
     text-align: center;
     padding: 80px 2rem;
@@ -523,7 +523,7 @@ body {
     border-radius: 16px;
 }
 
-.products-grid > div[style*="grid-column"] p {
+.products-grid>div[style*="grid-column"] p {
     font-size: 1.1rem;
     color: var(--slate-400);
 }
@@ -536,7 +536,7 @@ body {
         grid-template-columns: 280px 1fr;
         gap: 24px;
     }
-    
+
     .products-grid {
         grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     }
@@ -549,19 +549,19 @@ body {
         gap: 20px;
         padding: 30px 16px;
     }
-    
+
     .filters-sidebar {
         padding: 24px 20px;
     }
-    
+
     .results-header {
         padding: 24px;
     }
-    
+
     .heading h1 {
         font-size: 1.75rem;
     }
-    
+
     .products-grid {
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
         gap: 20px;
@@ -575,7 +575,7 @@ body {
         gap: 20px;
         padding: 20px 12px;
     }
-    
+
     .filters-sidebar {
         position: fixed;
         top: 0;
@@ -589,11 +589,11 @@ body {
         border-radius: 0;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     }
-    
+
     .filters-sidebar.active {
         left: 0;
     }
-    
+
     /* Mobile Filter Toggle Button - Add to HTML */
     .mobile-filter-toggle {
         position: fixed;
@@ -613,11 +613,11 @@ body {
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
         transition: all 0.3s ease;
     }
-    
+
     .mobile-filter-toggle:hover {
         transform: scale(1.1);
     }
-    
+
     /* Overlay */
     .filter-overlay {
         position: fixed;
@@ -631,45 +631,45 @@ body {
         visibility: hidden;
         transition: all 0.3s ease;
     }
-    
+
     .filter-overlay.active {
         opacity: 1;
         visibility: visible;
     }
-    
+
     .results-header {
         flex-direction: column;
         align-items: flex-start;
         padding: 20px;
     }
-    
+
     .heading h1 {
         font-size: 1.5rem;
     }
-    
+
     .sort-bar {
         width: 100%;
         justify-content: space-between;
     }
-    
+
     .sort-select {
         flex: 1;
         min-width: auto;
     }
-    
+
     .products-grid {
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: 16px;
     }
-    
+
     .product-info {
         padding: 16px;
     }
-    
+
     .product-info h3 {
         font-size: 0.95rem;
     }
-    
+
     .p-current {
         font-size: 1.2rem;
     }
@@ -680,77 +680,77 @@ body {
     .filters-sidebar {
         width: 90%;
     }
-    
+
     .results-header {
         padding: 16px;
     }
-    
+
     .heading h1 {
         font-size: 1.3rem;
     }
-    
+
     .heading p {
         font-size: 0.85rem;
     }
-    
+
     .sort-bar {
         flex-direction: column;
         align-items: stretch;
         gap: 8px;
     }
-    
+
     .sort-select {
         width: 100%;
     }
-    
+
     .products-grid {
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
         gap: 12px;
     }
-    
+
     .product-media {
         aspect-ratio: 0.85;
     }
-    
+
     .wishlist-btn-abs {
         width: 36px;
         height: 36px;
         top: 8px;
         right: 8px;
     }
-    
+
     .wishlist-icon {
         width: 16px;
         height: 16px;
     }
-    
+
     .off-badge {
         font-size: 0.7rem;
         padding: 4px 8px;
         top: 8px;
         left: 8px;
     }
-    
+
     .product-info {
         padding: 12px;
     }
-    
+
     .product-info h3 {
         font-size: 0.9rem;
     }
-    
+
     .p-current {
         font-size: 1.1rem;
     }
-    
+
     .p-old {
         font-size: 0.85rem;
     }
-    
+
     .active-filters-container {
         gap: 8px;
     }
-    
+
     .filter-chip {
         font-size: 0.8rem;
         padding: 6px 12px;
@@ -762,7 +762,7 @@ body {
     .products-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .product-media {
         aspect-ratio: 1.2;
     }
@@ -789,6 +789,7 @@ body {
 
 /* ===== ACCESSIBILITY ===== */
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
@@ -825,7 +826,104 @@ body {
     0% {
         background-position: 200% 0;
     }
+
     100% {
         background-position: -200% 0;
+    }
+}
+
+/* ===== PAGINATION ===== */
+.pagination-container {
+    margin-top: 4rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.pagination-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+}
+
+.pagination-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: #ffffff;
+    border: 1px solid var(--slate-200);
+    color: var(--slate-600);
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.pagination-item:hover:not(.disabled):not(.bg-black) {
+    border-color: var(--slate-400);
+    background: var(--slate-50);
+    color: var(--slate-900);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.pagination-item.bg-black {
+    background: var(--slate-900) !important;
+    border-color: var(--slate-900) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
+}
+
+.pagination-item.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: var(--slate-50);
+    color: var(--slate-300);
+    box-shadow: none;
+}
+
+.pagination-item svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Responsive Pagination */
+@media (max-width: 576px) {
+    .pagination-container {
+        margin-top: 3rem;
+    }
+
+    .pagination-list {
+        gap: 0.35rem;
+    }
+
+    .pagination-item {
+        width: 36px;
+        height: 36px;
+        font-size: 0.85rem;
+        border-radius: 8px;
+    }
+
+    .pagination-item svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+@media (max-width: 400px) {
+    .pagination-list {
+        gap: 0.25rem;
+    }
+
+    .pagination-item {
+        width: 32px;
+        height: 32px;
     }
 }
