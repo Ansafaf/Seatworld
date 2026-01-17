@@ -4,34 +4,36 @@ export const authMiddleware = async (req, res, next) => {
   try {
     let user = null;
 
-    if (req.isAuthenticated?.() && req.user) { // Passport-managed user
-
+    if (req.isAuthenticated?.() && req.user) {
       user = req.user;
-    } else if (req.session?.user?.id) {            // Manual session user
-
+    } else if (req.session?.user?.id) {
       user = await User.findById(req.session.user.id);
     }
 
     if (!user) {
-      if (req.xhr || req.headers.accept?.includes("application/json")) {
-        return res.status(401).json({ success: false, message: "Login required" });
+      // AJAX / fetch request
+      if (req.headers.accept?.includes("application/json")) {
+        return res.status(401).json({
+          success: false,
+          message: "Login required"
+        });
       }
 
+      // Normal request
       if (req.session) {
-        req.session.destroy((err) => {
-          if (err) console.error("Session destroy error:", err);
+        req.session.destroy(() => {
           res.clearCookie("connect.sid");
           return res.redirect("/login");
         });
       } else {
         return res.redirect("/login");
       }
-    } else {
-
-      req.user = user;
-      res.locals.user = user;
-      return next();
     }
+
+    req.user = user;
+    res.locals.user = user;
+    next();
+
   } catch (error) {
     console.error("Auth middleware error:", error);
     return res.redirect("/login");
