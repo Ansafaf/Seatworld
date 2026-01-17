@@ -17,6 +17,7 @@ export const getOrderlist = async (req, res) => {
         const search = req.query.search || "";
         const status = req.query.status || ""; //item status
         const sort = req.query.sort || "newest";
+        const filerByMethod = {};
 
         let orderIds = null;
 
@@ -40,7 +41,7 @@ export const getOrderlist = async (req, res) => {
                 // Redirecting to property match for simplicity.
             }
 
-            //Search by Payment/Order Status
+            // Search by Payment/Order Status
             const orderMatches = await Order.find({
                 $or: [
                     ...idQuery,
@@ -106,6 +107,9 @@ export const getOrderlist = async (req, res) => {
         if (sort === "oldest") sortQuery = { createdAt: 1 };
         else if (sort === "priceHighToLow") sortQuery = { totalAmount: -1 };
         else if (sort === "priceLowToHigh") sortQuery = { totalAmount: 1 };
+        
+
+
 
         const totalOrders = await Order.countDocuments(query);
         const totalPages = Math.ceil(totalOrders / limit);
@@ -122,8 +126,7 @@ export const getOrderlist = async (req, res) => {
                     path: 'variantId',
                     populate: { path: 'productId' }
                 })
-                .lean();
-                
+                .lean();       
             const itemStatuses = items.map(i => i.status);
 
             // Derived Status Logic
@@ -140,7 +143,7 @@ export const getOrderlist = async (req, res) => {
                 orderStatus: summaryStatus,
                 itemCount: items.length
             };
-        }));
+        }));        
 
         res.render("admin/orderList", {
             orders: ordersWithItems,
@@ -163,6 +166,26 @@ export const getOrderlist = async (req, res) => {
     }
 }
 
+export const filterOrders  = async (req,res)=>{
+    try{
+        const {paymentMethod} = req.body;
+        const filter= {};
+
+        if(paymentMethod && paymentMethod !== "ALL"){
+            filter.paymentMethod = paymentMethod;
+        }
+        const ordersWithItems = await Order.find(filter)
+        .populate("user")
+        .sort({createdAt: -1})
+        logger.info(`filter: ${filter}`);
+
+        res.render("admin/partials/orderTable",{ordersWithItems});
+    }
+    catch(err){
+        logger.error(err);
+        res.status(500).json({success:false, message:"Server error"});
+       }
+}
 export const getOrderDetails = async (req, res) => {
     try {
 

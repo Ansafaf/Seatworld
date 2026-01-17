@@ -37,3 +37,14 @@ if (statusFilter) {
 if (sortOption) {
     sortOption.addEventListener('change', updateFilters);
 }
+
+document.getElementById("paymentFilter").addEventListener("change", ( async ()=>{
+    const paymentMethod = this.value;
+    const response = await fetch("/admin/orders/filter",{
+        method:"POST",
+        body: JSON.stringify({paymentMethod})
+    })
+
+    const ejs = await response.text();
+    document.getElementById("orderTableBody").innerHTML = ejs; 
+}))
