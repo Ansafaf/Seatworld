@@ -1091,3 +1091,5 @@ breadcrumbs is not defined
 [2026-01-16 19:41:19] ERROR: Update quantity error: Quantity must be less than or equal to 6
 [2026-01-16 19:41:20] ERROR: Update quantity error: Quantity must be less than or equal to 6
 [2026-01-16 22:36:47] ERROR: Get Order Success Page Error: Cannot read properties of undefined (reading 'id')
+[2026-01-17 09:00:24] ERROR: E11000 duplicate key error collection: seatworld.users index: email_1 dup key: { email: "plustwolearning@gmail.com" }
+[2026-01-17 09:14:28] ERROR: E11000 duplicate key error collection: seatworld.users index: username_1 dup key: { username: null }
