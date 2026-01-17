@@ -95,7 +95,7 @@ export const getAddOffer = async (req, res) => {
 export const postAddOffer = async (req, res) => {
     try {
         const { name, offerType, productId, categoryId, discountPercentage } = req.body;
-
+        
         const newOffer = new Offer({
             name,
             offerType,
