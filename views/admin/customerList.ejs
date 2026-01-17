@@ -9,295 +9,112 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="/js/admin/common.js"></script>
+  <script src="/js/common/pagination.js" defer></script>
   <link rel="stylesheet" href="/css/admin/customerList.css">
 </head>
 
 <body class="font-display bg-gray-100 text-gray-800">
   <!-- Top Header -->
-  <header class="bg-white shadow-sm fixed w-full z-50 h-16 flex items-center justify-between px-6">
-    <div class="flex items-center gap-4">
-      <button id="mobileMenuBtn" class="md:hidden text-gray-500 hover:text-gray-700">
-        <span class="material-icons-outlined">menu</span>
-      </button>
-      <h1 class="text-xl font-bold text-gray-800 flex items-center gap-2">
-        <span class="w-3 h-3 bg-gray-800 rounded-sm"></span>
-        Admin Panel
-      </h1>
-    </div>
-    <div class="flex items-center gap-8">
-      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
-        <a href="/admin/dashboard" class="hover:text-indigo-600 transition-colors">Dashboard</a>
-        <a href="/admin/products" class="hover:text-indigo-600 transition-colors">Products</a>
-        <a href="/admin/orders" class="hover:text-indigo-600 transition-colors">Orders</a>
-        <a href="/admin/users" class="text-indigo-600 transition-colors">Customers</a>
-      </nav>
-      <div class="flex items-center gap-3 pl-6 border-l border-gray-200">
-        <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
-          <img src="https://ui-avatars.com/api/?name=Admin&background=random" alt="Admin"
-            class="w-full h-full object-cover">
-        </div>
-      </div>
-    </div>
-  </header>
+  <%- include('../partials/adminHeader') %>
 
-  <div class="flex pt-16 min-h-screen">
-    <!-- Sidebar -->
-    <aside id="adminSidebar"
-      class="w-64 bg-white flex flex-col fixed inset-y-0 left-0 z-40 transform -translate-x-full transition-transform duration-300 md:translate-x-0 md:static border-r border-gray-100 pt-16 md:pt-0">
+    <div class="flex pt-16 min-h-screen">
+      <!-- Sidebar -->
+      <%- include('../partials/adminSidebar') %>
 
-      <div class="p-6">
-        <!-- Sidebar Header -->
-        <div class="flex items-center gap-2 text-2xl font-bold text-gray-800 mb-8">
-          <span class="material-icons-outlined">hexagon</span>
-          <span>Customers</span>
-          <span class="text-xs font-normal text-gray-400 mt-1">v.01</span>
-        </div>
+        <!-- Overlay -->
+        <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-30 hidden md:hidden backdrop-blur-sm"></div>
 
-        <!-- Navigation Menu -->
-        <nav class="space-y-2">
-          <!-- Dashboard -->
-          <a href="/admin/dashboard"
-            class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
-            <span class="material-icons-outlined mr-3 text-xl">dashboard</span>
-            <span class="font-medium flex-1">Dashboard</span>
-            <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
-          </a>
+        <!-- Main Content -->
+        <main class="flex-1 p-8 overflow-y-auto">
+          <div class="max-w-7xl mx-auto">
 
-          <!-- Product -->
-          <a href="/admin/products"
-            class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
-            <span class="material-icons-outlined mr-3 text-xl">inventory_2</span>
-            <span class="font-medium flex-1">Product</span>
-            <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
-          </a>
+            <!-- Message Alert -->
+            <!-- Header Actions -->
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+              <div class="hidden md:block"></div>
 
-          <!-- Customers (Active) -->
-          <a href="/admin/users"
-            class="flex items-center px-4 py-3 bg-indigo-600 text-white rounded-xl transition-all duration-200 shadow-lg shadow-indigo-200">
-            <span class="material-icons-outlined mr-3 text-xl">people</span>
-            <span class="font-medium flex-1">Customers</span>
-            <span class="material-icons-outlined text-sm">chevron_right</span>
-          </a>
-
-          <!-- Orders -->
-          <a href="/admin/orders"
-            class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
-            <span class="material-icons-outlined mr-3 text-xl">shopping_cart</span>
-            <span class="font-medium flex-1">Orders</span>
-            <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
-          </a>
-
-          <!-- Categories -->
-          <a href="/admin/categories"
-            class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
-            <span class="material-icons-outlined mr-3 text-xl">category</span>
-            <span class="font-medium flex-1">Categories</span>
-            <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
-          </a>
-
-          <!-- Discounts -->
-          <a href="/admin/discounts"
-            class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
-            <span class="material-icons-outlined mr-3 text-xl">local_offer</span>
-            <span class="font-medium flex-1">Discounts</span>
-            <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
-          </a>
-
-          <!-- Coupons -->
-          <a href="/admin/coupons"
-            class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
-            <span class="material-icons-outlined mr-3 text-xl">confirmation_number</span>
-            <span class="font-medium flex-1">Coupons</span>
-            <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
-          </a>
-
-          <!-- Banner -->
-          <a href="/admin/banner"
-            class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
-            <span class="material-icons-outlined mr-3 text-xl">image</span>
-            <span class="font-medium flex-1">Banner</span>
-            <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
-          </a>
-
-          <!-- Sales Report -->
-          <a href="/admin/sales-report"
-            class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-all duration-200 group">
-            <span class="material-icons-outlined mr-3 text-xl">bar_chart</span>
-            <span class="font-medium flex-1">Sales report</span>
-            <span class="material-icons-outlined text-gray-400 text-sm">chevron_right</span>
-          </a>
-
-          <!-- Logout -->
-          <div class="pt-6 mt-6">
-            <a href="/admin/logout"
-              class="flex items-center justify-center px-4 py-3 text-red-500 hover:bg-red-50 rounded-xl transition-all duration-200 font-medium">
-              Logout
-            </a>
-          </div>
-        </nav>
-      </div>
-    </aside>
-
-    <!-- Overlay -->
-    <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-30 hidden md:hidden backdrop-blur-sm"></div>
-
-    <!-- Main Content -->
-    <main class="flex-1 p-8 overflow-y-auto">
-      <div class="max-w-7xl mx-auto">
-
-        <!-- Message Alert -->
-        <!-- Header Actions -->
-        <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-          <div class="hidden md:block"></div>
-
-          <div class="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto ml-auto">
-            <form action="/admin/users" method="GET" class="relative w-full md:w-80">
-              <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-                <span class="material-icons-outlined text-xl">search</span>
-              </span>
-              <input type="text" id="searchInput" name="search" value="<%= search %>" placeholder="Search for customers"
-                class="w-full py-2.5 pl-10 pr-4 bg-white text-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 shadow-sm">
-            </form>
-          </div>
-        </div>
-
-        <!-- Table Card -->
-        <div class="bg-white rounded-2xl shadow-sm p-8 min-h-[600px] relative">
-          <div class="overflow-x-auto">
-            <table class="w-full whitespace-nowrap border-separate border-spacing-y-4" id="customersTable">
-              <thead>
-                <tr class="bg-[#C4C4C4]">
-                  <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">ID</th>
-                  <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">Name</th>
-                  <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">Email</th>
-                  <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">Status</th>
-                  <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">Action</th>
-                </tr>
-              </thead>
-              <tbody id="customerTableBody" class="">
-                <% if (users && users.length> 0) { %>
-                  <% users.forEach((user, index)=> { %>
-                    <tr data-user-id="<%= user._id %>"
-                      class="hover:bg-gray-50 transition-colors duration-150 customer-row">
-                      <td class="px-6 py-4 text-sm font-bold text-gray-900">
-                        <%= (currentPage - 1) * limit + index + 1 %>
-                      </td>
-                      <td class="px-6 py-4 text-sm font-bold text-gray-900 name-cell">
-                        <%= user.name || user.username || 'N/A' %>
-                      </td>
-                      <td class="px-6 py-4 text-sm text-gray-600 email-cell">
-                        <%= user.email || 'N/A' %>
-                      </td>
-                      <td class="px-6 py-4 text-sm text-gray-600 status-cell">
-                        <span
-                          class="status-badge px-2 inline-flex text-xs leading-5 font-semibold rounded-full capitalize <%= user.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' %>">
-                          <%= user.status %>
-                        </span>
-                      </td>
-                      <td class="px-6 py-4 text-sm action-cell">
-                        <div class="flex items-center gap-2 action-btn-container">
-                          <% if (user.status==='blocked' ) { %>
-                            <button onclick="handleAction('/admin/users/<%= user._id %>/unblock', 'unblock')"
-                              class="action-btn inline-flex items-center justify-center px-4 py-1.5 bg-green-600 hover:bg-green-700 text-white text-xs font-bold rounded transition-colors duration-200">
-                              Unblock
-                            </button>
-                            <% } else { %>
-                              <button onclick="handleAction('/admin/users/<%= user._id %>/block', 'block')"
-                                class="action-btn inline-flex items-center justify-center px-4 py-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded transition-colors duration-200">
-                                Block
-                              </button>
-                              <% } %>
-                        </div>
-                      </td>
-                    </tr>
-                    <% }) %>
-                      <% } else { %>
-                        <tr>
-                          <td colspan="5" class="px-6 py-10 text-center text-gray-500">
-                            No customers found.
-                          </td>
-                        </tr>
-                        <% } %>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Pagination -->
-          <!-- Pagination -->
-          <% if (totalPages> 1) { %>
-            <div id="paginationContainer" class="pagination-container">
-              <div class="pagination-bar">
-                <!-- Previous Button -->
-                <% if (currentPage> 1) { %>
-                  <a href="/admin/users?page=<%= currentPage - 1 %>&search=<%= search %>" class="pagination-nav-link">
-                    <span class="material-icons-outlined">arrow_back</span>
-                    <span>Prev</span>
-                  </a>
-                  <% } else { %>
-                    <span class="pagination-nav-link disabled">
-                      <span class="material-icons-outlined">arrow_back</span>
-                      <span>Prev</span>
-                    </span>
-                    <% } %>
-
-                      <!-- Page Numbers -->
-                      <div class="pagination-numbers">
-                        <% let startPage=Math.max(1, currentPage - 2); let endPage=Math.min(totalPages, currentPage +
-                          2); if (currentPage <=3) { startPage=1; endPage=Math.min(totalPages, 5); } else if
-                          (currentPage>= totalPages - 2) {
-                          startPage = Math.max(1, totalPages - 4);
-                          endPage = totalPages;
-                          }
-                          %>
-
-                          <% if (startPage> 1) { %>
-                            <a href="/admin/users?page=1&search=<%= search %>" class="pagination-number">1</a>
-                            <% if (startPage> 2) { %>
-                              <span class="pagination-dots">...</span>
-                              <% } %>
-                                <% } %>
-
-                                  <% for (let i=startPage; i <=endPage; i++) { %>
-                                    <a href="/admin/users?page=<%= i %>&search=<%= search %>"
-                                      class="pagination-number <%= currentPage === i ? 'active' : '' %>">
-                                      <%= i %>
-                                    </a>
-                                    <% } %>
-
-                                      <% if (endPage < totalPages) { %>
-                                        <% if (endPage < totalPages - 1) { %>
-                                          <span class="pagination-dots">...</span>
-                                          <% } %>
-                                            <a href="/admin/users?page=<%= totalPages %>&search=<%= search %>"
-                                              class="pagination-number">
-                                              <%= totalPages %>
-                                            </a>
-                                            <% } %>
-                      </div>
-
-                      <!-- Next Button -->
-                      <% if (currentPage < totalPages) { %>
-                        <a href="/admin/users?page=<%= currentPage + 1 %>&search=<%= search %>"
-                          class="pagination-nav-link">
-                          <span>Next</span>
-                          <span class="material-icons-outlined">arrow_forward</span>
-                        </a>
-                        <% } else { %>
-                          <span class="pagination-nav-link disabled">
-                            <span>Next</span>
-                            <span class="material-icons-outlined">arrow_forward</span>
-                          </span>
-                          <% } %>
+              <div class="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto ml-auto">
+                <form action="/admin/users" method="GET" class="relative w-full md:w-80">
+                  <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                    <span class="material-icons-outlined text-xl">search</span>
+                  </span>
+                  <input type="text" id="searchInput" name="search" value="<%= search %>"
+                    placeholder="Search for customers"
+                    class="w-full py-2.5 pl-10 pr-4 bg-white text-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500/20 shadow-sm">
+                </form>
               </div>
             </div>
-            <% } %>
-        </div>
-      </div>
-    </main>
-  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script type="module" src="/js/admin/customerList.js"></script>
+            <!-- Table Card -->
+            <div class="bg-white rounded-2xl shadow-sm p-8 min-h-[600px] relative">
+              <div class="overflow-x-auto">
+                <table class="w-full whitespace-nowrap border-separate border-spacing-y-4" id="customersTable">
+                  <thead>
+                    <tr class="bg-[#C4C4C4]">
+                      <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">ID</th>
+                      <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">Name</th>
+                      <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">Email</th>
+                      <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">Status</th>
+                      <th class="px-6 py-4 text-sm font-bold text-gray-900 text-left">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="customerTableBody" class="">
+                    <% if (users && users.length> 0) { %>
+                      <% users.forEach((user, index)=> { %>
+                        <tr data-user-id="<%= user._id %>"
+                          class="hover:bg-gray-50 transition-colors duration-150 customer-row">
+                          <td class="px-6 py-4 text-sm font-bold text-gray-900">
+                            <%= (currentPage - 1) * limit + index + 1 %>
+                          </td>
+                          <td class="px-6 py-4 text-sm font-bold text-gray-900 name-cell">
+                            <%= user.name || user.username || 'N/A' %>
+                          </td>
+                          <td class="px-6 py-4 text-sm text-gray-600 email-cell">
+                            <%= user.email || 'N/A' %>
+                          </td>
+                          <td class="px-6 py-4 text-sm text-gray-600 status-cell">
+                            <span
+                              class="status-badge px-2 inline-flex text-xs leading-5 font-semibold rounded-full capitalize <%= user.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' %>">
+                              <%= user.status %>
+                            </span>
+                          </td>
+                          <td class="px-6 py-4 text-sm action-cell">
+                            <div class="flex items-center gap-2 action-btn-container">
+                              <% if (user.status==='blocked' ) { %>
+                                <button onclick="handleAction('/admin/users/<%= user._id %>/unblock', 'unblock')"
+                                  class="action-btn inline-flex items-center justify-center px-4 py-1.5 bg-green-600 hover:bg-green-700 text-white text-xs font-bold rounded transition-colors duration-200">
+                                  Unblock
+                                </button>
+                                <% } else { %>
+                                  <button onclick="handleAction('/admin/users/<%= user._id %>/block', 'block')"
+                                    class="action-btn inline-flex items-center justify-center px-4 py-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded transition-colors duration-200">
+                                    Block
+                                  </button>
+                                  <% } %>
+                            </div>
+                          </td>
+                        </tr>
+                        <% }) %>
+                          <% } else { %>
+                            <tr>
+                              <td colspan="5" class="px-6 py-10 text-center text-gray-500">
+                                No customers found.
+                              </td>
+                            </tr>
+                            <% } %>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Pagination -->
+              <%- include('../partials/pagination', { pagination, query: 'search=' + search }) %>
+            </div>
+          </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="/js/admin/customerList.js"></script>
 </body>
 
 </html>

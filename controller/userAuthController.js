@@ -8,6 +8,10 @@ import otpGenerator from "otp-generator";
 import nodemailer from "nodemailer";
 import validator from "validator";
 import { buildBreadcrumb } from "../utils/breadcrumb.js";
+import Wallet from "../models/walletModel.js";
+import { loggers } from "winston";
+import { createReferralForUser } from "../services/referralService.js";
+import { generateReferralCode } from "../utils/generateReferral.js";
 
 
 // Landing Page 
@@ -21,7 +25,28 @@ export function getLanding(req, res) {
 // Login 
 export function getLogin(req, res) {
   if (req.session.user) return res.redirect("/home");
-  res.render("users/login");
+
+  // Read message from JSON cookie if present
+  let blockedMessage = null;
+  const cookieHeader = req.headers.cookie;
+  if (cookieHeader) {
+    const cookies = cookieHeader.split(';').reduce((acc, cookie) => {
+      const [key, value] = cookie.trim().split('=');
+      acc[key] = value;
+      return acc;
+    }, {});
+
+    if (cookies.blocked_msg) {
+      try {
+        blockedMessage = JSON.parse(decodeURIComponent(cookies.blocked_msg));
+        res.clearCookie('blocked_msg');
+      } catch (e) {
+        console.error("Error parsing blocked_msg cookie:", e);
+      }
+    }
+  }
+
+  res.render("users/login", { blockedMessage });
 }
 
 export async function postLogin(req, res) {
@@ -48,7 +73,8 @@ export async function postLogin(req, res) {
       req.session.user = {
         id: user._id,
         name: user.username || user.name,
-        email: user.email
+        email: user.email,
+        avatar: user.avatar
       };
       return res.status(200).json({
         success: true,
@@ -77,11 +103,19 @@ export function getSignup(req, res) {
 export async function postSignup(req, res) {
   const { username, email, password, confirmPassword, referralCode } = req.body;
 
-  // Basic input validation
   if (!username || !email || !password || !confirmPassword) {
     return res.status(400).json({
       success: false,
       message: "All fields are required"
+    });
+  }
+
+  // Username validation
+  const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+  if (!usernameRegex.test(username)) {
+    return res.status(400).json({
+      success: false,
+      message: "Username must be 3-20 characters and contain only letters, numbers, and underscores"
     });
   }
   if (password !== confirmPassword) {
@@ -101,6 +135,14 @@ export async function postSignup(req, res) {
       success: false,
       message: "Password must be at least 6 characters"
     });
+  }
+
+  if (referralCode) {
+    let refferer = await User.findOne({ referralCode });
+    if (!refferer) {
+      return res.status(400).json({ message: "Invalid referral code" });
+    }
+
   }
 
   try {
@@ -203,23 +245,62 @@ export async function verifyOtp(req, res) {
         message: "OTP expired. Please resend."
       });
     }
+    let referrer = null;
+    if (signupInfo.referralCode) {
+      referrer = await User.findOne({ referralCode: signupInfo.referralCode });
+    }
 
     // Save user only now
     const newUser = new User({
       username: signupInfo.username,
       email: signupInfo.email,
       password: signupInfo.password,
-      referralCode: signupInfo.referralCode,
+      referralCode: generateReferralCode(signupInfo.username),
+      refferedBy: referrer ? referrer._id : null,
       isVerified: true,
       authType: "local"
     });
+
     await newUser.save();
+
+    const newWallet = new Wallet({
+      userId: newUser._id,
+      balance: 0,
+      transactions: []
+    });
+
+    if (referrer) {
+      // Credit Referrer
+      let walletReferrer = await Wallet.findOne({ userId: referrer._id });
+      if (walletReferrer) {
+        walletReferrer.balance += 100;
+        walletReferrer.transactions.push({
+          walletTransactionId: otpGenerator.generate(12, { specialChars: false }),
+          amount: 100,
+          type: 'credit',
+          description: 'Referral Bonus'
+        });
+        await walletReferrer.save();
+      }
+
+      // Credit New User
+      newWallet.balance = 50;
+      newWallet.transactions.push({
+        walletTransactionId: otpGenerator.generate(12, { specialChars: false }),
+        amount: 50,
+        type: 'credit',
+        description: 'Referral Bonus'
+      });
+    }
+
+    await newWallet.save();
 
 
     req.session.user = {
       id: newUser._id,
       email: newUser.email,
-      name: newUser.username
+      name: newUser.username,
+      avatar: newUser.avatar
     };
 
     req.session.save(err => {
@@ -247,7 +328,18 @@ export async function verifyOtp(req, res) {
   }
 }
 
-// Resend OTP 
+export const getReferralCode = async (req, res) => {
+  try {
+    const userId = req.session.user.id;
+    const referralCode = await createReferralForUser(userId);
+
+    return res.status(200).json({ success: true, referralCode });
+  }
+  catch (err) {
+    return res.status(400).json({ success: false, message: err.message });
+  }
+}
+
 // Resend OTP 
 export async function resendOtp(req, res) {
   try {
@@ -441,7 +533,7 @@ export async function postforgotPass(req, res) {
 
     try {
       await transporter.sendMail({
-        from: process.env.EMAIL_USER || process.env.EMAIL,
+        from: process.env.EMAIL,
         to: user.email,
         subject: "Your Password Reset OTP",
         text: `Your OTP for password reset is ${otp}. It will expire in 5 minutes.`
@@ -491,7 +583,7 @@ export async function otpverifyForgot(req, res) {
       });
     }
 
-    // 3️⃣ Fetch user
+
     const user = await User.findById(req.session.resetUserId);
     if (!user) {
       return res.status(404).json({
@@ -500,7 +592,6 @@ export async function otpverifyForgot(req, res) {
       });
     }
 
-    // 4️⃣ Read OTP
     const { otp1, otp2, otp3, otp4 } = req.body;
     const enteredOtp = `${otp1 || ""}${otp2 || ""}${otp3 || ""}${otp4 || ""}`.trim();
 
@@ -662,61 +753,6 @@ export async function getHome(req, res) {
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error");
-  }
-}
-export async function getCart(req, res) {
-  if (!req.session.user) return res.redirect("/login");
-
-  try {
-    const carts = await Cart.find({ userId: req.session.user.id })
-      .populate({
-        path: 'variantId',
-        populate: { path: 'productId' }
-      })
-      .lean();
-
-    let subtotal = 0;
-    const cartItems = carts.map(item => {
-      const variant = item.variantId;
-      const product = variant ? variant.productId : null;
-      const itemPrice = (variant && variant.salePrice) ? variant.salePrice : (variant ? variant.price : 0);
-      const itemQuantity = item.productQuantity || 1;
-
-      const stockAvailable = variant && variant.stock > 0 && variant.status === "Active";
-      const isProductActive = product && !product.isBlocked;
-
-      if (stockAvailable && isProductActive) {
-        subtotal += itemPrice * itemQuantity;
-      }
-
-      return {
-        ...item,
-        name: product ? product.name : "Unavailable Product",
-        image: (variant && variant.images && variant.images.length > 0) ? variant.images[0] : "",
-        color: variant ? variant.color : "",
-        price: itemPrice,
-        quantity: itemQuantity,
-        outOfStock: !stockAvailable || !isProductActive
-      };
-    });
-
-    const deliveryFee = subtotal > 0 ? 50 : 0; // Dummy delivery fee
-    const total = subtotal + deliveryFee;
-
-    res.render("users/cartList", {
-      cartItems,
-      subtotal,
-      deliveryFee,
-      total,
-      breadcrumbs: buildBreadcrumb([
-        { label: "Cart", url: "/cart" }
-      ])
-    });
-  }
-  catch (err) {
-    console.error("Cart page error:", err);
-    req.session.message = { type: 'error', message: "Unable to load cart page. Please try again." };
-    res.redirect("/home");
   }
 }
 

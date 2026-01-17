@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Coupons - SeatWorld</title>
+
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="/css/users/profile.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .coupon-container {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            border-bottom: 1px solid #f3f4f6;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .coupon-list-card {
+            background: #fff;
+            display: grid;
+            gap: 1.25rem;
+        }
+
+        .coupon-item {
+            padding: 1.25rem;
+            border: 1px dashed #e5e7eb;
+            background: #fafafa;
+            border-radius: 0.75rem;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coupon-item:hover {
+            border-color: #10b981;
+            background: #f0fdf4;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.1);
+        }
+
+        .coupon-tag {
+            color: #059669;
+            font-weight: 700;
+            font-size: 0.95rem;
+            /* Reduced from 1.1rem */
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .coupon-desc {
+            color: #4b5563;
+            font-size: 0.85rem;
+            /* Reduced from 0.95rem */
+            line-height: 1.4;
+        }
+
+        .coupon-code-badge {
+            display: inline-block;
+            background: #000;
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 0.4rem;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .coupon-validity {
+            color: #6b7280;
+            font-weight: 500;
+            font-size: 0.75rem;
+            /* Reduced from 0.9rem */
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .pagination-btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: 0.5rem;
+            border: 1px solid #e5e7eb;
+            background: white;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #374151;
+            transition: all 0.2s;
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background: #f9fafb;
+            border-color: #d1d5db;
+        }
+
+        .page-num {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            background: transparent;
+            color: #374151;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .page-num.active {
+            background: #000;
+            color: white;
+        }
+
+        .page-num:hover:not(.active) {
+            background: #f3f4f6;
+        }
+
+        @media (max-width: 640px) {
+            .coupon-item {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .coupon-validity {
+                justify-content: flex-start;
+                padding-top: 0.75rem;
+                border-top: 1px solid #f3f4f6;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <%- include('../partials/profileMobileToggle') %>
+
+        <%- include('../partials/header', { showSearch: false }) %>
+            <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+
+                <div class="container">
+                    <div class="profile-layout">
+
+                        <!-- Sidebar -->
+                        <%- include('../partials/profileSidebar', { active: 'coupons' }) %>
+
+                            <!-- Main Content -->
+                            <main class="main-content">
+
+                                <div class="coupon-container">
+                                    <div class="page-header">
+                                        <h1 class="text-xl font-bold text-gray-900">Available Coupons</h1>
+                                        <p class="text-xs text-gray-500 mt-1">Check out active discounts for your next
+                                            purchase</p>
+                                    </div>
+
+                                    <div class="coupon-list-card">
+                                        <% if (coupons && coupons.length> 0) { %>
+                                            <% coupons.forEach(coupon=> { %>
+                                                <div
+                                                    class="coupon-item flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                                                    <div class="flex-1">
+                                                        <div class="coupon-tag">
+                                                            <span
+                                                                class="material-icons-outlined text-sm">local_offer</span>
+                                                            Grab <%= coupon.discountType==='percentage' ?
+                                                                coupon.discountValue + '%' : '₹' + coupon.discountValue
+                                                                %>
+                                                                off
+                                                        </div>
+                                                        <div class="coupon-desc mb-2">
+                                                            <%= coupon.description %>
+                                                        </div>
+                                                        <div class="coupon-code-badge">
+                                                            <%= coupon.couponCode %>
+                                                        </div>
+                                                    </div>
+                                                    <div class="coupon-validity mt-3 sm:mt-0">
+                                                        <span class="material-icons-outlined text-xs">event</span>
+                                                        Valid till <%= new
+                                                            Date(coupon.expiryDate).toLocaleDateString('en-GB', {
+                                                            day: '2-digit' , month: 'short' , year: 'numeric' }) %>
+                                                    </div>
+                                                </div>
+                                                <% }); %>
+                                                    <% } else { %>
+                                                        <div class="text-center py-12">
+                                                            <span
+                                                                class="material-icons-outlined text-5xl text-gray-200 mb-4">local_offer</span>
+                                                            <p class="text-sm text-gray-500 font-medium">No coupons
+                                                                available at the moment.</p>
+                                                        </div>
+                                                        <% } %>
+                                    </div>
+                                </div>
+
+                                <!-- Pagination -->
+                                <%- include('../partials/pagination', { pagination, query: '' }) %>
+                            </main>
+                    </div>
+                </div>
+
+
+                <%- include('../partials/footer') %>
+
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                    <script src="/js/users/profile.js"></script>
+
+</body>
+
+</html>

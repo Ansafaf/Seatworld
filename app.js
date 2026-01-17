@@ -2,7 +2,6 @@ import express from "express";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import nocache from "nocache";
-import mongoose from "mongoose";
 import dotenv from "dotenv";
 import logger from "./utils/logger.js";
 
@@ -22,9 +21,20 @@ import AuthRoute from "./routes/gAuthRoute.js";
 import profileRouter from "./routes/userProfileRoutes.js";
 import adminProductRouter from "./routes/adminProductRoutes.js";
 import adminCategoryRouter from "./routes/adminCategoryRoute.js";
+import adminOrderRouter from "./routes/adminOrderRoutes.js";
 import productRouter from "./routes/userProductRoute.js";
+import cartRouter from "./routes/cartRoute.js";
+import checkoutRouter from "./routes/checkoutRoute.js";
+import orderRouter from "./routes/orderRoute.js";
+import adminInventoryRouter from "./routes/adminInventoryRoutes.js";
+import wishlistRouter from "./routes/wishlistRoute.js";
+import adminCouponRouter from "./routes/adminCouponRoutes.js";
+import adminOfferRouter from "./routes/adminOfferRoutes.js";
+import razorpayRoute from "./routes/razorpayRoutes.js";
+import salesRoute from "./routes/salesReportRoutes.js";
+import Walletrouter from "./routes/walletRoutes.js";
 
-// Middleware
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(nocache());
@@ -32,10 +42,11 @@ app.use(express.static("public"));
 
 app.use((req, res, next) => {
   logger.info(`[${req.method}] ${req.url}`);
+  res.locals.path = req.path;
   next();
 });
 
-//Global session middleware
+
 app.use(session({
   secret: process.env.SESSION_SECRET || "default_secret",
   resave: false,
@@ -50,7 +61,7 @@ app.use(session({
   }
 }));
 
-// Flash message middleware
+
 app.use((req, res, next) => {
   res.locals.message = req.session.message;
   delete req.session.message;
@@ -58,7 +69,6 @@ app.use((req, res, next) => {
 });
 
 
-//  Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -66,7 +76,6 @@ app.use(passport.session());
 app.set("view engine", "ejs");
 app.set("views", "./views");
 
-// DB
 connectDB();
 
 // Routes
@@ -75,9 +84,21 @@ app.use("/auth", AuthRoute);
 app.use("/", userRouter);
 app.use("/admin", adminRouter);
 app.use("/", profileRouter);
+app.use("/",Walletrouter);
 app.use("/", productRouter);
 app.use("/admin", adminCategoryRouter);
 app.use("/admin", adminProductRouter);
+app.use("/cart", cartRouter);
+app.use("/", checkoutRouter);
+app.use("/admin/orders", adminOrderRouter);
+app.use("/admin/inventory", adminInventoryRouter);
+app.use("/admin/coupons", adminCouponRouter);
+app.use("/admin/offers", adminOfferRouter);
+app.use("/", orderRouter);
+app.use("/wishlist", wishlistRouter);
+app.use("/razorpay", razorpayRoute);
+app.use("/admin/sales-report", salesRoute);
+
 
 app.use((req, res, next) => {
   res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, private");
@@ -108,11 +129,16 @@ app.use((err, req, res, next) => {
     });
   }
 
+  const homeLink = req.originalUrl.startsWith('/admin') ? '/admin/dashboard' : '/';
+
   res.status(statusCode).render("500", {
     message: "Internal Server Error",
-    error: process.env.NODE_ENV === 'development' ? err : {}
+    error: process.env.NODE_ENV === 'development' ? err : {},
+    homeLink
   });
 });
+import "./cron/couponExpiry.job.js";
+import { User } from "./models/userModel.js";
 
 
 app.listen(PORT, '0.0.0.0', () => {

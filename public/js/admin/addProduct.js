@@ -1,5 +1,4 @@
 let cropper;
-let currentInputId;
 let currentFiles = {}; // Store files for each variant index
 
 window.handleImageSelect = (event, index) => {

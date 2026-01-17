@@ -1,14 +1,38 @@
 import { apiRequest } from '../utils/fetchClient.js';
 
-window.toggleSidebar = function () {
-    const sidebar = document.getElementById("sidebar");
-    if (sidebar) {
-        sidebar.classList.toggle("active");
-    }
+// Sidebar toggle for mobile
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    if (sidebar) sidebar.classList.toggle('active');
+    if (overlay) overlay.classList.toggle('active');
+}
+
+// Attach to window for HTML event handlers
+window.toggleSidebar = toggleSidebar;
+
+// Close sidebar when clicking menu items
+const sidebarLinks = document.querySelectorAll('.sidebar a');
+sidebarLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        if (window.innerWidth <= 900) {
+            toggleSidebar();
+        }
+    });
+});
+
+window.showGoogleEmailWarning = function () {
+    Swal.fire({
+        icon: 'warning',
+        title: 'Access Restricted',
+        text: 'Email address cannot be changed because this account was created using Google Sign-In.',
+        confirmButtonColor: '#000',
+        confirmButtonText: 'Got it'
+    });
 }
 
 // Handle profile update form submission via AJAX
-const profileForm = document.querySelector('form');
+const profileForm = document.getElementById('personalInfoForm');
 if (profileForm) {
     profileForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -22,6 +46,17 @@ if (profileForm) {
                 icon: 'error',
                 title: 'Validation Error',
                 text: 'Name cannot be empty',
+                confirmButtonColor: '#3b82f6'
+            });
+            return;
+        }
+
+        const nameRegex = /^[a-zA-Z\s]{3,50}$/;
+        if (!nameRegex.test(data.name)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                text: 'Name must be 3-50 characters and contain only letters and spaces',
                 confirmButtonColor: '#3b82f6'
             });
             return;

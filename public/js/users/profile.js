@@ -1,47 +1,3 @@
-// Mobile sidebar functionality
-const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-const mobileSidebar = document.getElementById('mobileSidebar');
-const mobileOverlay = document.getElementById('mobileOverlay');
-const closeSidebarBtn = document.getElementById('closeSidebarBtn');
-
-function openMobileSidebar() {
-    if (!mobileSidebar || !mobileOverlay) return;
-    mobileSidebar.classList.add('active');
-    mobileOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeMobileSidebar() {
-    if (!mobileSidebar || !mobileOverlay) return;
-    mobileSidebar.classList.remove('active');
-    mobileOverlay.classList.remove('active');
-    document.body.style.overflow = 'auto';
-}
-
-// Event listeners for mobile menu
-if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMobileSidebar);
-if (closeSidebarBtn) closeSidebarBtn.addEventListener('click', closeMobileSidebar);
-if (mobileOverlay) mobileOverlay.addEventListener('click', closeMobileSidebar);
-
-// Close sidebar when clicking on menu items
-const mobileMenuItems = document.querySelectorAll('#mobileSidebar .menu-item');
-mobileMenuItems.forEach(item => {
-    item.addEventListener('click', closeMobileSidebar);
-});
-
-// Close sidebar on escape key
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && mobileSidebar && mobileSidebar.classList.contains('active')) {
-        closeMobileSidebar();
-    }
-});
-
-// Responsive adjustments on window resize
-window.addEventListener('resize', () => {
-    if (window.innerWidth > 768 && mobileSidebar && mobileSidebar.classList.contains('active')) {
-        closeMobileSidebar();
-    }
-});
 
 // Avatar upload handling
 const avatarInputs = document.querySelectorAll('input[name="avatar"]');
@@ -132,3 +88,71 @@ avatarInputs.forEach(input => {
         e.target.value = '';
     });
 });
+
+// Referral Modal Functions
+function showReferralModal() {
+    const modal = document.getElementById('referralModal');
+    const overlay = document.getElementById('referralModalOverlay');
+    if (modal) modal.classList.add('active');
+    if (overlay) overlay.classList.add('active');
+}
+
+function hideReferralModal() {
+    const modal = document.getElementById('referralModal');
+    const overlay = document.getElementById('referralModalOverlay');
+    if (modal) modal.classList.remove('active');
+    if (overlay) overlay.classList.remove('active');
+}
+
+// Close referral modal when clicking overlay
+const referralOverlay = document.getElementById('referralModalOverlay');
+if (referralOverlay) {
+    referralOverlay.addEventListener('click', hideReferralModal);
+}
+
+function copyReferralCode() {
+    const codeText = document.getElementById('referralCodeText').innerText;
+
+    if (!navigator.clipboard) {
+        // Fallback for older browsers
+        const tempInput = document.createElement('input');
+        tempInput.value = codeText;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Copied!',
+            text: 'Referral code copied to clipboard',
+            timer: 1500,
+            showConfirmButton: false
+        });
+        return;
+    }
+
+    navigator.clipboard.writeText(codeText)
+        .then(() => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Copied!',
+                text: 'Referral code copied to clipboard',
+                timer: 1500,
+                showConfirmButton: false
+            });
+        })
+        .catch(err => {
+            console.error('Failed to copy text: ', err);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Failed to copy referral code',
+            });
+        });
+}
+
+// Attach to window object to make them globally accessible
+window.showReferralModal = showReferralModal;
+window.hideReferralModal = hideReferralModal;
+window.copyReferralCode = copyReferralCode;

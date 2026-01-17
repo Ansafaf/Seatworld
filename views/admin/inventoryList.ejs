@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management - Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="/css/admin/inventoryList.css">
+</head>
+
+<body class="text-gray-800">
+    <%- include('../partials/adminHeader') %>
+
+        <div class="flex pt-16 min-h-screen">
+            <%- include('../partials/adminSidebar') %>
+
+                <main class="flex-1 p-8 overflow-y-auto bg-[#E5E7EB]">
+                    <div class="max-w-6xl mx-auto space-y-6">
+                        <div class="bg-white rounded-xl shadow-sm px-8 py-4 flex justify-between items-center">
+                            <h2 class="text-xl font-bold text-orange-500 uppercase tracking-wider">Inventory Management
+                            </h2>
+                            <div class="flex items-center gap-4">
+                                <form id="inventorySearchForm" action="/admin/inventory" method="GET"
+                                    class="flex items-center gap-2">
+                                    <div class="relative">
+                                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                                            <span class="material-icons-outlined text-sm">search</span>
+                                        </span>
+                                        <input type="text" id="inventorySearchInput" name="search"
+                                            value="<%= filters.search %>" placeholder="Search products..."
+                                            class="pl-9 pr-4 py-2 border rounded-lg text-sm focus:ring-orange-500 outline-none w-64">
+                                    </div>
+                                    <select name="status" onchange="this.form.submit()"
+                                        class="px-4 py-2 border rounded-lg text-sm focus:ring-orange-500 outline-none">
+                                        <option value="">All Status</option>
+                                        <option value="in_stock" <%=filters.status==='in_stock' ? 'selected' : '' %>>In
+                                            Stock</option>
+                                        <option value="low_stock" <%=filters.status==='low_stock' ? 'selected' : '' %>
+                                            >Low
+                                            Stock</option>
+                                        <option value="out_of_stock" <%=filters.status==='out_of_stock' ? 'selected'
+                                            : '' %>
+                                            >Out of Stock</option>
+                                    </select>
+                                    <button type="submit" class="hidden">Filter</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                            <table class="w-full whitespace-nowrap">
+                                <thead>
+                                    <tr class="bg-gray-600 text-white">
+                                        <th class="px-6 py-4 text-left font-bold uppercase text-xs">Product</th>
+                                        <th class="px-6 py-4 text-left font-bold uppercase text-xs">Variant Info</th>
+                                        <th class="px-6 py-4 text-center font-bold uppercase text-xs">Current Stock</th>
+                                        <th class="px-6 py-4 text-center font-bold uppercase text-xs">Status</th>
+                                        <th class="px-6 py-4 text-right font-bold uppercase text-xs">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100">
+                                    <% if (inventory.length===0) { %>
+                                        <tr>
+                                            <td colspan="5" class="px-6 py-12 text-center text-gray-500 font-medium">
+                                                No inventory items found matching your criteria.
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                            <% inventory.forEach(item=> { %>
+                                                <tr class="stock-row transition-colors">
+                                                    <td class="px-6 py-4">
+                                                        <div class="flex flex-col">
+                                                            <span class="font-bold text-gray-800">
+                                                                <%= item.productName || item.productname %>
+                                                            </span>
+                                                            <span
+                                                                class="text-[10px] text-gray-400 font-medium uppercase">
+                                                                <%= item.brand %>
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="px-6 py-4">
+                                                        <div class="flex items-center gap-2">
+                                                            <div class="w-8 h-8 rounded border p-1 bg-gray-50">
+                                                                <img src="<%= item.images[0] %>"
+                                                                    class="w-full h-full object-contain">
+                                                            </div>
+                                                            <span class="text-sm font-medium text-gray-600 capitalize">
+                                                                <%= item.color %>
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="px-6 py-4 text-center">
+                                                        <span
+                                                            class="text-lg font-black <%= item.stock <= item.lowStockThreshold ? 'text-red-600' : 'text-gray-800' %>">
+                                                            <%= item.stock %>
+                                                        </span>
+                                                    </td>
+                                                    <td class="px-6 py-4 text-center">
+                                                        <span
+                                                            class="px-3 py-1 rounded-full text-[10px] font-black uppercase bg-<%= item.stockColor %>-50 text-<%= item.stockColor %>-600 border border-<%= item.stockColor %>-100">
+                                                            <%= item.stockLabel %>
+                                                        </span>
+                                                    </td>
+                                                    <td class="px-6 py-4 text-right space-x-2">
+                                                        <button
+                                                            onclick="viewHistory('<%= item._id %>', '<%= item.productName %> (<%= item.color %>)')"
+                                                            class="text-gray-400 hover:text-orange-500 transition-colors"
+                                                            title="View History">
+                                                            <span class="material-icons-outlined">history</span>
+                                                        </button>
+                                                        <button
+                                                            onclick="openAdjustmentModal('<%= item._id %>', '<%= item.productName %> (<%= item.color %>)', '<%= item.stock %>')"
+                                                            class="bg-orange-500 hover:bg-orange-600 text-white text-[10px] font-black px-4 py-2 rounded-lg transition-all uppercase shadow-sm">
+                                                            Adjust Stock
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <%- include('../partials/pagination', { pagination: pagination, query:
+                            `search=${filters.search}&status=${filters.status}` }) %>
+                    </div>
+                </main>
+        </div>
+
+        <script src="/js/admin/inventoryList.js"></script>
+</body>
+
+</html>

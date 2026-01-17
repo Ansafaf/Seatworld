@@ -6,48 +6,411 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SeatWorld | Home</title>
   <link rel="stylesheet" href="/css/style.css" />
-  <link rel="stylesheet" href="/css/users/home.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f8f9fa;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 5%;
+    }
+
+    /* Hero Section with Welcome */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      padding: 4rem 5%;
+      background: linear-gradient(to right, #f8f9fa 50%, #ffffff 50%);
+      margin-bottom: 4rem;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: auto;
+      max-height: 500px;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+
+    .hero-content {
+      padding: 2rem;
+    }
+
+    /* Welcome Message - Positioned in Hero Content */
+    #welcome {
+      font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+      font-weight: 600;
+      color: #667eea;
+      margin-bottom: 1rem;
+      display: inline-block;
+      padding: 0.5rem 1.25rem;
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+      border-radius: 25px;
+      border-left: 4px solid #667eea;
+    }
+
+    .tag {
+      display: inline-block;
+      background-color: #667eea;
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border-radius: 25px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .hero-content h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: #2d3748;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .desc {
+      font-size: clamp(1rem, 2vw, 1.125rem);
+      color: #718096;
+      margin-bottom: 2rem;
+      line-height: 1.8;
+    }
+
+    .shopnow-button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 1rem 3rem;
+      font-size: 1.125rem;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .shopnow-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+    }
+
+    /* Features Section */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      padding: 3rem 5%;
+      background-color: #ffffff;
+      margin-bottom: 4rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .features > div {
+      text-align: center;
+      padding: 2rem 1rem;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .features > div:hover {
+      transform: translateY(-5px);
+      background-color: #f8f9fa;
+    }
+
+    .features h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: #2d3748;
+    }
+
+    .features p {
+      color: #718096;
+      font-size: 1rem;
+    }
+
+    /* Highlight Section */
+    .highlight {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      padding: 4rem 5%;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      margin-bottom: 4rem;
+      border-radius: 12px;
+    }
+
+    .highlight > div {
+      padding: 2rem;
+    }
+
+    .highlight h2 {
+      font-size: clamp(1.875rem, 4vw, 3rem);
+      color: #2d3748;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+    }
+
+    .highlight p {
+      font-size: clamp(1rem, 2vw, 1.125rem);
+      color: #718096;
+      margin-bottom: 2rem;
+      line-height: 1.8;
+    }
+
+    .highlight button {
+      background-color: transparent;
+      color: #667eea;
+      border: 2px solid #667eea;
+      padding: 0.875rem 2.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .highlight button:hover {
+      background-color: #667eea;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .highlight img {
+      width: 100%;
+      height: auto;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Section Titles */
+    .section-title {
+      font-size: clamp(1.875rem, 4vw, 2.5rem);
+      font-weight: 700;
+      color: #2d3748;
+      text-align: center;
+      margin: 4rem 0 1rem;
+      padding: 0 5%;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #718096;
+      font-size: clamp(1rem, 2vw, 1.125rem);
+      margin-bottom: 3rem;
+      padding: 0 5%;
+    }
+
+    /* Grid Section */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 0 5% 4rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .grid > div {
+      background-color: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .grid > div:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .grid img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .grid > div:hover img {
+      transform: scale(1.05);
+    }
+
+    .grid p {
+      padding: 1.5rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #2d3748;
+      text-align: center;
+      background-color: #ffffff;
+    }
+
+    /* Use Cases Grid */
+    .grid.use-cases {
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    }
+
+    .grid.use-cases img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .grid.use-cases img:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .hero,
+      .highlight {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        background: #f8f9fa;
+      }
+
+      .hero-img {
+        order: -1;
+      }
+
+      .highlight > div {
+        order: 1;
+      }
+
+      .highlight img {
+        order: 2;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero,
+      .highlight {
+        padding: 2rem 5%;
+        gap: 2rem;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+        padding: 2rem 5%;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .grid.use-cases {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        margin: 3rem 0 0.75rem;
+      }
+
+      .section-subtitle {
+        margin-bottom: 2rem;
+      }
+
+      #welcome {
+        font-size: 1rem;
+        padding: 0.4rem 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-content,
+      .highlight > div {
+        padding: 1rem;
+      }
+
+      .shopnow-button {
+        padding: 0.875rem 2rem;
+        font-size: 1rem;
+        width: 100%;
+      }
+
+      .highlight button {
+        width: 100%;
+      }
+
+      .grid img {
+        height: 250px;
+      }
+
+      .grid.use-cases img {
+        height: 250px;
+      }
+
+      #welcome {
+        display: block;
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
 
 <body>
   <%- include('../partials/header', { showSearch: false }) %>
-    <h2 id="welcome">Welcome, <%= user.username || user.name %>
-    </h2>
 
-    <!-- Hero -->
+  <div class="container">
+    <!-- Hero with Welcome Message -->
     <section class="hero">
       <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1755794545/LandingImage_uparu2.png" alt="Chair"
         class="hero-img">
 
       <div class="hero-content">
+        <h2 id="welcome">👋 Welcome, <%= user.username || user.name %></h2>
         <p class="tag">New Arrival</p>
         <h1>Discover Our New Chairs</h1>
         <p class="desc">
-          Pain itself, it is pain that loves, it is the main concern.
-          Let the chosen one be the best, full of comfort and free from distress.
+          Experience unparalleled comfort and style with our carefully curated collection of premium seating solutions designed to elevate your space.
         </p>
         <a href="/products"><button class="shopnow-button">Shop Now</button></a>
       </div>
     </section>
+  </div>
 
-    <!-- Features -->
-    <section class="features">
-      <div>
-        <h3>🚚 Free Delivery</h3>
-        <p>On all orders above $100</p>
-      </div>
-      <div>
-        <h3>💬 Support 24/7</h3>
-        <p>Always here to help</p>
-      </div>
-      <div>
-        <h3>✅ 100% Authentic</h3>
-        <p>Quality assured products</p>
-      </div>
-    </section>
+  <!-- Features -->
+  <section class="features">
+    <div>
+      <h3>🚚 Free Delivery</h3>
+      <p>On all orders above $100</p>
+    </div>
+    <div>
+      <h3>💬 Support 24/7</h3>
+      <p>Always here to help</p>
+    </div>
+    <div>
+      <h3>✅ 100% Authentic</h3>
+      <p>Quality assured products</p>
+    </div>
+  </section>
 
-
-
+  <div class="container">
     <!-- Highlight Section -->
     <section class="highlight">
       <div>
@@ -59,44 +422,41 @@
       <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765781240/products/t9cvndkn4rt9j9zbfgji.webp"
         alt="Highlight Chair" />
     </section>
+  </div>
 
-    <!-- Categories -->
-    <!-- Categories -->
-    <!-- Dynamic Categories -->
-    <h2 class="section-title">Browse The Categories</h2>
-    <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    <div class="grid">
-      <div>
-        <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp"
-          alt="Dining Chairs" />
-        <p>Dining Chairs</p>
-      </div>
-      <div>
-        <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765780860/products/t1z6w3of7dcdlzcvsa1c.webp"
-          alt="Gaming Chairs" />
-        <p>Gaming chairs</p>
-      </div>
-      <div>
-        <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765780921/products/fldhlhdyjy1erk74joyc.webp"
-          alt="Office Chairs" />
-        <p>Office chairs</p>
-      </div>
+  <!-- Categories -->
+  <h2 class="section-title">Browse The Categories</h2>
+  <p class="section-subtitle">Explore our diverse range of seating solutions tailored for every need</p>
+  <div class="grid">
+    <div>
+      <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787244/products/otgnudfgoayfhde5pdav.webp"
+        alt="Dining Chairs" />
+      <p>Dining Chairs</p>
     </div>
-    <!-- Use Cases -->
-    <h2 class="section-title">Common Use Case</h2>
-    <div class="grid">
-      <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787853/products/olwwoizg6ktaw8ry2fjs.png"
-        alt="Office Use" />
-      <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765788018/products/pc6pm8mkmepubyx7fmbz.png"
-        alt="Events" />
-      <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765788112/products/ace1c9vlvbrkqumbwvgr.png"
-        alt="Dining" />
+    <div>
+      <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765780860/products/t1z6w3of7dcdlzcvsa1c.webp"
+        alt="Gaming Chairs" />
+      <p>Gaming Chairs</p>
     </div>
+    <div>
+      <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765780921/products/fldhlhdyjy1erk74joyc.webp"
+        alt="Office Chairs" />
+      <p>Office Chairs</p>
+    </div>
+  </div>
 
-    <!-- Footer -->
-    <footer>
-      <p>&copy; 2025 SeatWorld. All Rights Reserved.</p>
-    </footer>
+  <!-- Use Cases -->
+  <h2 class="section-title">Common Use Cases</h2>
+  <div class="grid use-cases">
+    <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765787853/products/olwwoizg6ktaw8ry2fjs.png"
+      alt="Office Use" />
+    <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765788018/products/pc6pm8mkmepubyx7fmbz.png"
+      alt="Events" />
+    <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765788112/products/ace1c9vlvbrkqumbwvgr.png"
+      alt="Dining" />
+  </div>
+
+  <%- include('../partials/footer') %>
 
 </body>
 

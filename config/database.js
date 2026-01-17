@@ -10,11 +10,11 @@ const connectDB = async () => {
             useUnifiedTopology: true,
             serverSelectionTimeoutMS: 5000, // Timeout after 5s
             socketTimeoutMS: 45000, // Close sockets after 45s of inactivity
+
         });
 
-        console.log(`MongoDB Atlas Connected: ${conn.connection.host}`);
+        console.log(`MongoDB Connected: ${conn.connection.host}`);
 
-        // Handle connection events
         mongoose.connection.on('error', (err) => {
             console.error('MongoDB connection error:', err);
         });

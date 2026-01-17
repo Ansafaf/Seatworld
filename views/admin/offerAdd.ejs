@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeatWorld | Add New Offer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body class="bg-gray-100 font-sans">
+    <%- include('../partials/adminHeader') %>
+        <div class="flex pt-16 min-h-screen">
+            <!-- Sidebar -->
+            <%- include('../partials/adminSidebar') %>
+
+                <!-- Main Content -->
+                <main class="flex-1 p-8">
+                    <div class="max-w-2xl mx-auto">
+                        <div class="bg-white rounded-2xl shadow-sm p-8">
+                            <div class="flex items-center gap-4 mb-8">
+                                <button onclick="window.location.href='/admin/offers'"
+                                    class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                                    <span class="material-icons-outlined">arrow_back</span>
+                                </button>
+                                <h1 class="text-2xl font-bold text-gray-800">Add New Offer</h1>
+                            </div>
+
+                            <form id="addOfferForm" class="space-y-6">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Offer Name</label>
+                                    <input type="text" name="name" required placeholder="Summer Sale 2024"
+                                        class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all">
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Offer Type</label>
+                                    <select id="offerType" name="offerType" required
+                                        class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all">
+                                        <option value="Product">Product</option>
+                                        <option value="Category">Category</option>
+                                    </select>
+                                </div>
+
+                                <div id="productSelect">
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Select Product</label>
+
+                                    <!-- Hidden input to store selected product ID -->
+                                    <input type="hidden" name="productId" id="selectedProductId" required>
+
+                                    <!-- Search Input -->
+                                    <div class="relative">
+                                        <input type="text" id="productSearchInput" placeholder="Search for a product..."
+                                            autocomplete="off"
+                                            class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all">
+
+                                        <!-- Search Results Dropdown -->
+                                        <ul id="productSearchResults"
+                                            class="hidden absolute z-10 w-full bg-white border border-gray-200 rounded-xl shadow-lg max-h-60 overflow-y-auto mt-1">
+                                            <!-- Results will be populated here -->
+                                        </ul>
+                                    </div>
+
+                                    <!-- Selected Product Display -->
+                                    <div id="selectedProductDisplay"
+                                        class="hidden mt-3 p-3 bg-indigo-50 border border-indigo-100 rounded-xl flex items-center justify-between">
+                                        <span id="selectedProductName" class="font-medium text-indigo-700"></span>
+                                        <button type="button" id="removeSelectedProduct"
+                                            class="text-sm text-red-500 hover:text-red-700 font-medium">
+                                            Change
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div id="categorySelect" class="hidden">
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Select
+                                        Category</label>
+                                    <select name="categoryId"
+                                        class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all">
+                                        <% categories.forEach(c=> { %>
+                                            <option value="<%= c._id %>">
+                                                <%= c.categoryName %>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Discount Percentage
+                                        (%)</label>
+                                    <input type="number" name="discountPercentage" required min="1" max="99"
+                                        placeholder="20"
+                                        class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all">
+                                </div>
+
+                                <div class="pt-4">
+                                    <button type="submit"
+                                        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-indigo-200 transition-all transform active:scale-[0.98]">
+                                        Create Offer
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </main>
+        </div>
+
+        <script>
+            const offerTypeSelect = document.getElementById('offerType');
+            const productSelectDiv = document.getElementById('productSelect');
+            const categorySelectDiv = document.getElementById('categorySelect');
+
+
+            const productSearchInput = document.getElementById('productSearchInput');
+            const productSearchResults = document.getElementById('productSearchResults');
+            const selectedProductIdInput = document.getElementById('selectedProductId');
+            const selectedProductDisplay = document.getElementById('selectedProductDisplay');
+            const selectedProductName = document.getElementById('selectedProductName');
+            const removeSelectedProductBtn = document.getElementById('removeSelectedProduct');
+            const selectedProductId = document.getElementById('selectedProductId');
+
+
+            // Function to toggle required attribute based on offer type
+            function toggleRequired() {
+                if (offerTypeSelect.value === 'Product') {
+                    productSelectDiv.classList.remove('hidden');
+                    categorySelectDiv.classList.add('hidden');
+                    selectedProductId.setAttribute('required', 'true');
+                } else {
+                    productSelectDiv.classList.add('hidden');
+                    categorySelectDiv.classList.remove('hidden');
+                    selectedProductId.removeAttribute('required');
+                }
+            }
+
+            offerTypeSelect.addEventListener('change', toggleRequired);
+            // Initial call to set correct state
+            toggleRequired();
+
+            // Search Logic
+            let searchTimeout;
+            productSearchInput.addEventListener('input', (e) => {
+                const query = e.target.value.trim();
+                clearTimeout(searchTimeout);
+
+                if (query.length < 2) {
+                    productSearchResults.classList.add('hidden');
+                    return;
+                }
+
+                searchTimeout = setTimeout(async () => {
+                    try {
+                        const response = await fetch(`/admin/products?search=${encodeURIComponent(query)}&limit=10`, {
+                            headers: { 'Accept': 'application/json' }
+                        });
+                        if (!response.ok) throw new Error('Network response was not ok');
+                        const data = await response.json();
+
+                        productSearchResults.innerHTML = '';
+                        if (data.products && data.products.length > 0) {
+                            data.products.forEach(product => {
+                                const li = document.createElement('li');
+                                li.className = 'px-4 py-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-0 transition-colors';
+                                li.innerHTML = `
+                                <div class="flex items-center gap-3">
+                                    <div class="font-medium text-gray-800">${product.name}</div>
+                                    <div class="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded ml-auto">Stock: ${product.totalStock}</div>
+                                </div>
+                             `;
+                                li.addEventListener('click', () => {
+                                    selectProduct(product._id, product.name);
+                                });
+                                productSearchResults.appendChild(li);
+                            });
+                            productSearchResults.classList.remove('hidden');
+                        } else {
+                            productSearchResults.innerHTML = '<li class="px-4 py-3 text-gray-500 text-sm">No products found</li>';
+                            productSearchResults.classList.remove('hidden');
+                        }
+
+                    } catch (error) {
+                        console.error('Error searching products:', error);
+                    }
+                }, 300); // 300ms debounce
+            });
+
+            function selectProduct(id, name) {
+                selectedProductIdInput.value = id;
+                selectedProductName.textContent = name;
+
+                productSearchInput.value = '';
+                productSearchResults.classList.add('hidden');
+                productSearchInput.parentElement.classList.add('hidden'); // Hide search input
+                selectedProductDisplay.classList.remove('hidden'); // Show selected display
+            }
+
+            removeSelectedProductBtn.addEventListener('click', () => {
+                selectedProductIdInput.value = '';
+                selectedProductDisplay.classList.add('hidden');
+                productSearchInput.parentElement.classList.remove('hidden');
+                productSearchInput.focus();
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!productSearchInput.contains(e.target) && !productSearchResults.contains(e.target)) {
+                    productSearchResults.classList.add('hidden');
+                }
+            });
+
+            document.getElementById('addOfferForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const data = Object.fromEntries(formData.entries());
+
+                try {
+                    const response = await fetch('/admin/offers/add', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+
+                    const result = await response.json();
+                    if (result.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: result.message,
+                            timer: 1500,
+                            showConfirmButton: false
+                        }).then(() => {
+                            window.location.href = '/admin/offers';
+                        });
+                    } else {
+                        Swal.fire('Error', result.message, 'error');
+                    }
+                } catch (error) {
+                    console.error('Error adding offer:', error);
+                    Swal.fire('Error', 'Something went wrong', 'error');
+                }
+            });
+        </script>
+</body>
+
+</html>

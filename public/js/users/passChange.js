@@ -55,7 +55,7 @@ function toggleMenu() {
 
 // Sidebar toggle for mobile
 function toggleSidebar() {
-    const sidebar = document.getElementById('sidebar');
+    const sidebar = document.getElementById('mobileSidebar');
     const overlay = document.getElementById('sidebarOverlay');
     if (sidebar) sidebar.classList.toggle('active');
     if (overlay) overlay.classList.toggle('active');

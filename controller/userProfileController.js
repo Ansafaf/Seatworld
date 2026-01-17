@@ -2,14 +2,20 @@ import bcrypt from "bcrypt";
 import { uploadToCloudinary } from "../config/cloudinary.js";
 import { User } from "../models/userModel.js";
 import { Address } from "../models/addressModel.js";
+import { paginate } from "../utils/paginationHelper.js";
 import otpGenerator from "otp-generator";
 import nodemailer from "nodemailer";
 import validator from "validator";
 import { buildBreadcrumb } from "../utils/breadcrumb.js";
+import Coupon from "../models/couponModel.js";
+import { createReferralForUser } from "../services/referralService.js";
 
 
 export async function getProfile(req, res) {
   const customer = await User.findById(req.session.user.id);
+  if (!customer.referralCode) {
+    customer.referralCode = await createReferralForUser(customer._id);
+  }
   res.render("users/profile", {
     user: customer,
     breadcrumbs: buildBreadcrumb([
@@ -31,14 +37,23 @@ export async function getprofileEdit(req, res) {
 export async function postprofileEdit(req, res) {
   try {
     const { name, mobile } = req.body;
-    const userId = req.session.user.id;
 
-    const customer = await User.findById(userId);
+    // Use req.user which is populated by authMiddleware
+    const customer = req.user;
     if (!customer) {
       return res.status(401).json({
         success: false,
         message: "Unauthorized. Please login again.",
         redirectUrl: "/login"
+      });
+    }
+
+    // Name validation
+    const nameRegex = /^[a-zA-Z\s]{3,50}$/;
+    if (!nameRegex.test(name)) {
+      return res.status(400).json({
+        success: false,
+        message: "Name must be 3-50 characters and contain only letters and spaces"
       });
     }
 
@@ -55,25 +70,38 @@ export async function postprofileEdit(req, res) {
       });
     }
 
-    // Allow mobile update for ALL users (including Google)
-    const updateData = {
-      name,
-      mobile
-    };
+    // Check if mobile already exists for ANOTHER user
+    if (mobile && mobile !== customer.mobile) {
+      const existingMobile = await User.findOne({ mobile, _id: { $ne: customer._id } });
+      if (existingMobile) {
+        return res.status(400).json({
+          success: false,
+          message: "Mobile number already in use by another account"
+        });
+      }
+    }
 
-    await User.findByIdAndUpdate(userId, updateData);
+    // Update the customer object
+    customer.name = name;
+    customer.mobile = mobile;
+    await customer.save();
+
+    // Re-populate session if name changed (since it might be used elsewhere)
+    if (req.session.user) {
+      req.session.user.name = name;
+    }
 
     return res.status(200).json({
       success: true,
       message: "Successfully updated profile info",
-      redirectUrl: "/profile/edit"
+      redirectUrl: "/profile"
     });
 
   } catch (error) {
-    console.error(error);
+    console.error("Profile Edit Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Something went wrong while updating profile"
+      message: error.message || "Something went wrong while updating profile"
     });
   }
 }
@@ -104,6 +132,10 @@ export async function updateProfile(req, res) {
     await User.findByIdAndUpdate(req.session.user.id, {
       avatar: imageUrl
     });
+
+    if (req.session.user) {
+      req.session.user.avatar = imageUrl;
+    }
 
     return res.status(200).json({
       success: true,
@@ -138,6 +170,7 @@ export async function getEmailchange(req, res) {
     }
 
     return res.render("users/emailUpdation", {
+      user: req.user,
       currentEmail: user.email,
       breadcrumbs: buildBreadcrumb([
         { label: "Profile", url: "/profile" },
@@ -369,29 +402,20 @@ export async function postEmailOtp(req, res) {
 
 export async function getAddresslist(req, res) {
   try {
+    const userId = req.session.user.id;
     const page = parseInt(req.query.page) || 1;
-    const limit = 6;
-    const skip = (page - 1) * limit;
+    const limit = parseInt(req.query.limit) || 8;
 
-    // Fetch paginated addresses of logged-in user
-    const addresses = await Address.find({
-      userId: req.session.user.id
-    })
-      .skip(skip)
-      .limit(limit)
-      .sort({ createdAt: -1 });
-
-    // Count total addresses for this user
-    const totalAddresses = await Address.countDocuments({
-      userId: req.session.user.id
+    const { items: addresses, pagination } = await paginate(Address, { userId }, {
+      page,
+      limit,
+      sort: { createdAt: -1 }
     });
 
-    const totalPages = Math.ceil(totalAddresses / limit);
-
     res.render("users/addressList", {
+      user: req.user,
       addresses,
-      currentPage: page,
-      totalPages,
+      pagination,
       breadcrumbs: buildBreadcrumb([
         { label: "Profile", url: "/profile" },
         { label: "Address List", url: "/address" }
@@ -436,6 +460,7 @@ export async function postDefaultAddres(req, res) {
 
 export async function getAddaddress(req, res) {
   res.render("users/addressAdd", {
+    user: req.user,
     breadcrumbs: buildBreadcrumb([
       { label: "Profile", url: "/profile" },
       { label: "Address List", url: "/address" },
@@ -489,8 +514,12 @@ export const getEditAddress = async (req, res) => {
       return res.redirect("/address");
     }
 
+    const returnTo = req.query.returnTo || null;
+
     res.render("users/editAddress", {
+      user: req.user,
       address,
+      returnTo,
       breadcrumbs: buildBreadcrumb([
         { label: "Profile", url: "/profile" },
         { label: "Address List", url: "/address" },
@@ -516,7 +545,8 @@ export async function postEditAddress(req, res) {
       state,
       country,
       pincode,
-      mobile
+      mobile,
+      returnTo
     } = req.body;
 
     const updated = await Address.findOneAndUpdate(
@@ -541,10 +571,15 @@ export async function postEditAddress(req, res) {
       });
     }
 
+    let redirectUrl = "/address";
+    if (returnTo === 'checkout') {
+      redirectUrl = "/checkout";
+    }
+
     return res.status(200).json({
       success: true,
       message: "Address edited successfully",
-      redirectUrl: "/address"
+      redirectUrl: redirectUrl
     });
   } catch (err) {
     console.error(err);
@@ -612,6 +647,7 @@ export async function getupdatePass(req, res) {
   }
 
   res.render("users/passChange", {
+    user: req.user,
     breadcrumbs: buildBreadcrumb([
       { label: "Profile", url: "/profile" },
       { label: "Change Password", url: "/password-change" }
@@ -706,5 +742,41 @@ export async function postupdatePass(req, res) {
       success: false,
       message: "Something went wrong. Please try again"
     });
+  }
+}
+
+export async function getCoupons(req, res) {
+  try {
+    const userId = req.session.user.id;
+    const page = parseInt(req.query.page) || 1;
+    const limit = 6; // Matching the 6 slots in the design image
+
+    // Optional: Only show active coupons that haven't expired
+    const query = {
+      couponStatus: "active",
+      expiryDate: { $gt: new Date() }
+    };
+
+    const { items: coupons, pagination } = await paginate(Coupon, query, {
+      page,
+      limit,
+      sort: { createdAt: -1 }
+    });
+
+    const customer = await User.findById(userId);
+
+    res.render("users/couponList", {
+      user: customer,
+      coupons,
+      pagination,
+      active: 'coupons',
+      breadcrumbs: buildBreadcrumb([
+        { label: "Profile", url: "/profile" },
+        { label: "My Coupons", url: "/coupons" }
+      ])
+    });
+  } catch (error) {
+    console.error("Error fetching user coupons:", error);
+    res.redirect("/profile");
   }
 }

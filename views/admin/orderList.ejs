@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order List - Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/admin/common.js"></script>
+    <link rel="stylesheet" href="/css/admin/orderList.css">
+</head>
+
+<body class="text-gray-800">
+
+    <!-- Top Header -->
+    <%- include('../partials/adminHeader') %>
+
+        <div class="flex pt-16 min-h-screen">
+            <!-- Sidebar -->
+            <%- include('../partials/adminSidebar') %>
+
+                <!-- Overlay -->
+                <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-30 hidden md:hidden backdrop-blur-sm"></div>
+
+                <!-- Main Content -->
+                <main class="flex-1 p-8 overflow-y-auto">
+                    <div class="max-w-7xl mx-auto">
+                        <!-- Header Actions -->
+                        <div
+                            class="bg-gray-200 rounded-t-xl px-8 py-4 flex flex-col lg:flex-row justify-between items-center gap-4">
+                            <h2 class="text-xl font-bold text-orange-500">Orders</h2>
+
+                            <div class="flex flex-col md:flex-row gap-4 w-full lg:w-auto">
+                                <!-- Status Filter -->
+                                <div class="relative w-full md:w-48">
+                                    <select id="statusFilter"
+                                        class="w-full bg-white border-none text-sm font-bold text-gray-700 rounded-lg px-4 py-2 focus:ring-1 focus:ring-orange-500 cursor-pointer appearance-none shadow-sm">
+                                        <option value="">All Statuses</option>
+                                        <option value="pending" <%=status==='pending' ? 'selected' : '' %>>Pending
+                                        </option>
+                                        <option value="confirmed" <%=status==='confirmed' ? 'selected' : '' %>>Confirmed
+                                        </option>
+                                        <option value="shipped" <%=status==='shipped' ? 'selected' : '' %>>Shipped
+                                        </option>
+                                        <option value="delivered" <%=status==='delivered' ? 'selected' : '' %>>Delivered
+                                        </option>
+                                        <option value="cancelled" <%=status==='cancelled' ? 'selected' : '' %>>Cancelled
+                                        </option>
+                                        <option value="returned" <%=status==='returned' ? 'selected' : '' %>>Returned
+                                        </option>
+                                        <option value="return_requested" <%=status==='return_requested' ? 'selected'
+                                            : '' %>
+                                            >Return Requested</option>
+                                    </select>
+                                    <span
+                                        class="material-icons-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 text-sm">expand_more</span>
+                                </div>
+
+                                <!-- Sort -->
+                                <div class="relative w-full md:w-48">
+                                    <select id="sortOption"
+                                        class="w-full bg-white border-none text-sm font-bold text-gray-700 rounded-lg px-4 py-2 focus:ring-1 focus:ring-orange-500 cursor-pointer appearance-none shadow-sm">
+                                        <option value="newest" <%=sort==='newest' ? 'selected' : '' %>>Newest First
+                                        </option>
+                                        <option value="oldest" <%=sort==='oldest' ? 'selected' : '' %>>Oldest First
+                                        </option>
+                                        <option value="priceHighToLow" <%=sort==='priceHighToLow' ? 'selected' : '' %>
+                                            >Price: High to Low</option>
+                                        <option value="priceLowToHigh" <%=sort==='priceLowToHigh' ? 'selected' : '' %>
+                                            >Price: Low to High</option>
+                                    </select>
+                                    <span
+                                        class="material-icons-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 text-sm">sort</span>
+                                </div>
+
+                                <!-- Search -->
+                                <div class="relative w-full md:w-64">
+                                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+                                        <span class="material-icons-outlined text-[20px]">search</span>
+                                    </span>
+                                    <input type="text" id="adminOrderSearch" value="<%= search %>"
+                                        placeholder="Search product or ID..."
+                                        class="w-full py-2 pl-10 pr-4 bg-white border-none text-gray-600 rounded-lg focus:outline-none focus:ring-1 focus:ring-orange-500 placeholder-gray-500 text-sm font-medium shadow-sm">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Table Card -->
+                        <div class="bg-white rounded-b-xl shadow-sm p-8 min-h-[600px]">
+                            <div class="overflow-x-auto">
+                                <table class="w-full whitespace-nowrap">
+                                    <thead>
+                                        <tr class="bg-gray-600 text-white rounded-lg">
+                                            <th class="px-6 py-4 text-sm font-bold text-left rounded-l-lg">Sl</th>
+                                            <th class="px-6 py-4 text-sm font-bold text-left">Main Product</th>
+                                            <th class="px-6 py-4 text-sm font-bold text-left">Payment Method</th>
+                                            <th class="px-6 py-4 text-sm font-bold text-left">Status</th>
+                                            <th class="px-6 py-4 text-sm font-bold text-left">Price</th>
+                                            <th class="px-6 py-4 text-sm font-bold text-left rounded-r-lg">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-100">
+                                        <% if (orders && orders.length> 0) { %>
+                                            <% orders.forEach((order, index)=> { %>
+                                                <tr class="hover:bg-gray-50 transition-colors duration-150">
+                                                    <td class="px-6 py-6 text-sm font-bold text-gray-900">
+                                                        <%= (pagination.currentPage - 1) * pagination.limit + index + 1
+                                                            %>
+                                                    </td>
+                                                    <td class="px-6 py-6 text-sm font-bold text-gray-900">
+                                                        <%= order.items[0]?.name || 'Unknown Product' %>
+                                                            <% if(order.items.length> 1) { %>
+                                                                <span class="text-xs text-gray-500 font-normal ml-1">(+
+                                                                    <%= order.items.length - 1 %> more)
+                                                                </span>
+                                                                <% } %>
+                                                    </td>
+                                                    <td class="px-6 py-6 text-sm font-bold text-gray-900 capitalize">
+                                                        <%= order.paymentMethod %>
+                                                    </td>
+                                                    <td class="px-6 py-6 text-sm font-bold">
+                                                        <% let statusColor='text-yellow-500' ; if
+                                                            (order.orderStatus==='delivered' )
+                                                            statusColor='text-green-500' ; else if
+                                                            (['cancelled', 'failed' , 'returned'
+                                                            ].includes(order.orderStatus)) statusColor='text-red-500' ;
+                                                            else if (['Partially Cancelled', 'Partially Returned'
+                                                            ].includes(order.orderStatus)) statusColor='text-orange-600'
+                                                            ; %>
+                                                            <span class="<%= statusColor %> capitalize">
+                                                                <%= order.orderStatus %>
+                                                            </span>
+                                                    </td>
+                                                    <td class="px-6 py-6 text-sm font-bold text-red-600">
+                                                        ₹<%= order.totalAmount.toLocaleString('en-IN') %>
+                                                    </td>
+                                                    <td class="px-6 py-6 text-sm">
+                                                        <a href="/admin/orders/<%= order._id %>"
+                                                            class="inline-flex items-center justify-center px-6 py-1.5 bg-green-700 hover:bg-green-800 text-white text-sm font-medium rounded transition-colors duration-200">
+                                                            View
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                                    <% } else { %>
+                                                        <tr>
+                                                            <td colspan="6"
+                                                                class="px-6 py-10 text-center text-gray-500">
+                                                                No orders found.
+                                                            </td>
+                                                        </tr>
+                                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="mt-4 flex justify-end">
+                                <%- include('../partials/pagination', { pagination, query:
+                                    `search=${search}&status=${status}&sort=${sort}` }) %>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+        </main>
+        </div>
+
+        <script type="module" src="/js/admin/orderList.js"></script>
+</body>
+
+</html>

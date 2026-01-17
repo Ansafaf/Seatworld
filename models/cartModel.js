@@ -26,6 +26,12 @@ const cartSchema = new Schema(
       type: Number,
       default: 0,
     },
+
+    couponId: {
+      type: Types.ObjectId,
+      ref: "Coupon",
+      default: null
+    }
   },
   {
     timestamps: true, // auto adds createdAt & updatedAt

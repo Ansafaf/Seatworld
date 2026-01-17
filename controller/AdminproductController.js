@@ -1,13 +1,13 @@
 import * as productService from '../services/adminProductService.js';
 import * as categoryService from '../services/adminCategoryService.js';
 import logger from '../utils/logger.js';
-import { Product } from '../models/productModel.js';
+import { Product, ProductVariant } from '../models/productModel.js';
+import { paginate } from '../utils/paginationHelper.js';
 
 export const productList = async (req, res, next) => {
   try {
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 7;
-    const skip = (page - 1) * limit;
+    const limit = parseInt(req.query.limit) || 8;
     const searchQuery = req.query.search || "";
 
     const query = {};
@@ -15,28 +15,39 @@ export const productList = async (req, res, next) => {
       query.name = { $regex: searchQuery, $options: "i" };
     }
 
-    const totalProducts = await productService.getProductsCount(query);
-    const totalPages = Math.ceil(totalProducts / limit);
-    const products = await productService.getAllProducts(query, skip, limit);
+    const { items: rawProducts, pagination } = await paginate(Product, query, {
+      page,
+      limit,
+      sort: { createdAt: -1 },
+      populate: ['categoryId']
+    });
+
+    // Aggregate totalStock for each product from its variants
+    const products = await Promise.all(rawProducts.map(async (p) => {
+      const variants = await ProductVariant.find({ productId: p._id });
+      const totalStock = variants.reduce((acc, curr) => acc + curr.stock, 0);
+      return {
+        ...p,
+        totalStock
+      };
+    }));
 
     // AJAX Support
     if (req.xhr || req.headers.accept?.includes("application/json")) {
       return res.status(200).json({
         success: true,
         products,
-        currentPage: page,
-        totalPages,
-        search: searchQuery,
-        limit
+        pagination,
+        search: searchQuery
       });
     }
 
-    res.render("admin/adminProductList", {
+    res.render("admin/adminProductlist", {
       products,
-      currentPage: page,
-      totalPages,
+      pagination,
       search: searchQuery,
-      limit
+      currentPage: pagination.currentPage,
+      limit: pagination.limit
     });
   } catch (error) {
     next(error);
@@ -54,10 +65,16 @@ export const getAddProduct = async (req, res, next) => {
 
 export const postAddProduct = async (req, res, next) => {
   try {
-    const {
-      productName, Baseprice, category, brandName, description,
-      color, variantPrice, variantStock
-    } = req.body;
+    const productName = req.body.productName;
+    const Baseprice = req.body.Baseprice;
+    const category = req.body.category;
+    const brandName = req.body.brandName;
+    const description = req.body.description;
+
+    // Normalize variant fields
+    const color = req.body.color || req.body['color[]'];
+    const variantPrice = req.body.variantPrice || req.body['variantPrice[]'];
+    const variantStock = req.body.variantStock || req.body['variantStock[]'];
 
     const existingProduct = await Product.findOne({
       name: { $regex: new RegExp(`^${productName}$`, 'i') }
@@ -75,9 +92,9 @@ export const postAddProduct = async (req, res, next) => {
       categoryId: category,
     };
 
-    const colors = Array.isArray(color) ? color : [color];
-    const prices = Array.isArray(variantPrice) ? variantPrice : [variantPrice];
-    const stocks = Array.isArray(variantStock) ? variantStock : [variantStock];
+    const colors = Array.isArray(color) ? color : (color ? [color] : []);
+    const prices = Array.isArray(variantPrice) ? variantPrice : (variantPrice ? [variantPrice] : []);
+    const stocks = Array.isArray(variantStock) ? variantStock : (variantStock ? [variantStock] : []);
     let vIndices = req.body.variantIndices || req.body['variantIndices[]'];
     const variantIndices = Array.isArray(vIndices) ? vIndices : (vIndices ? [vIndices] : []);
 
@@ -116,11 +133,17 @@ export const postEditProduct = async (req, res, next) => {
 
     // Log body keys to debug data
     logger.info(`[postEditProduct] Body keys: ${Object.keys(req.body).join(', ')}`);
+    const productName = req.body.productName;
+    const Baseprice = req.body.Baseprice;
+    const category = req.body.category;
+    const brandName = req.body.brandName;
+    const description = req.body.description;
 
-    const {
-      productName, Baseprice, category, brandName, description,
-      color, variantPrice, variantStock, variantId
-    } = req.body;
+    // Normalize variant fields
+    const color = req.body.color || req.body['color[]'];
+    const variantPrice = req.body.variantPrice || req.body['variantPrice[]'];
+    const variantStock = req.body.variantStock || req.body['variantStock[]'];
+    const variantId = req.body.variantId || req.body['variantId[]'];
 
     const productData = {
       name: productName,

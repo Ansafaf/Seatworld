@@ -5,14 +5,18 @@ export const authMiddleware = async (req, res, next) => {
     let user = null;
 
     if (req.isAuthenticated?.() && req.user) { // Passport-managed user
-     
+
       user = req.user;
     } else if (req.session?.user?.id) {            // Manual session user
-   
+
       user = await User.findById(req.session.user.id);
     }
 
     if (!user) {
+      if (req.xhr || req.headers.accept?.includes("application/json")) {
+        return res.status(401).json({ success: false, message: "Login required" });
+      }
+
       if (req.session) {
         req.session.destroy((err) => {
           if (err) console.error("Session destroy error:", err);

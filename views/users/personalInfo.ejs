@@ -6,70 +6,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Personal Information | SeatWorld</title>
 
+  <link rel="stylesheet" href="/css/users/profile.css">
   <link rel="stylesheet" href="/css/users/personalInfo.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
 </head>
 
 <body>
   <%- include('../partials/header', { showSearch: false }) %>
     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+      <%- include("../partials/flash", { messageData: locals.message }) %>
 
-      <button class="menu-btn" onclick="toggleSidebar()"
-        style="position: fixed; top: 90px; left: 20px; z-index: 100; background: white; border-radius: 50%; padding: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-        <span class="material-icons-outlined" style="font-size: 24px;">menu</span>
-      </button>
+        <%- include('../partials/profileMobileToggle') %>
 
-      <!-- MAIN -->
-      <div class="wrapper">
+          <!-- MAIN -->
+          <div class="container">
+            <div class="profile-layout">
 
-        <!-- SIDEBAR -->
-        <aside class="sidebar" id="sidebar">
-          <h3>MY ACCOUNT</h3>
-          <ul>
-            <li class="active"><a href="/profile">Personal Information</a></li>
-            <li><a href="/address">Address</a></li>
-            <li><a href="/orders">Orders</a></li>
-            <li><a href="/wallet">Wallet</a></li>
-            <li><a href="/coupons">Coupon</a></li>
-            <li><a href="/password-change">Password Change</a></li>
-            <li><a href="/logout">Logout</a></li>
-          </ul>
-        </aside>
+              <!-- SIDEBAR -->
+              <%- include('../partials/profileSidebar', { active: 'profile' }) %>
 
-        <!-- CONTENT -->
-        <section class="content">
-          <h2>PERSONAL INFORMATION</h2>
+                <!-- CONTENT -->
+                <section class="main-content">
+                  <h2>PERSONAL INFORMATION</h2>
 
 
-          <form method="POST" action="/profile/edit">
+                  <form id="personalInfoForm" method="POST" action="/profile/edit">
 
-            <div class="form-group">
-              <label>Name</label>
-              <input type="text" name="name" value="<%= user.name || user.username %>">
+                    <div class="form-group">
+                      <label>Name</label>
+                      <input type="text" name="name" value="<%= user.name || user.username %>">
+                    </div>
+
+                    <div class="form-group">
+                      <label>Mobile number</label>
+                      <input type="text" name="mobile" value="<%= user.mobile %>">
+                    </div>
+
+                    <div class="form-group">
+                      <label>Email</label>
+                      <div class="email-wrapper">
+                        <input type="email" value="<%= user.email %>" readonly>
+                        <% if (user.authType !=='google' ) { %>
+                          <button type="button" onclick="location.href='/profile/change-email'">
+                            Change
+                          </button>
+                          <% } else { %>
+                            <button type="button" onclick="showGoogleEmailWarning()">
+                              Change
+                            </button>
+                            <% } %>
+                      </div>
+                    </div>
+
+                    <button class="update-btn">Update</button>
+                  </form>
+                </section>
+
             </div>
+          </div>
 
-            <div class="form-group">
-              <label>Mobile number</label>
-              <input type="text" name="mobile" value="<%= user.mobile %>">
-            </div>
 
-            <div class="form-group">
-              <label>Email</label>
-              <div class="email-wrapper">
-                <input type="email" value="<%= user.email %>" readonly>
-                <button type="button" onclick="location.href='/profile/change-email'">
-                  Change
-                </button>
-              </div>
-            </div>
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+          <script type="module" src="/js/users/personalInfo.js"></script>
 
-            <button class="update-btn">Update</button>
-          </form>
-        </section>
-
-      </div>
-
-      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-      <script type="module" src="/js/users/personalInfo.js"></script>
+          <%- include('../partials/footer') %>
 
 </body>
 

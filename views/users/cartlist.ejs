@@ -5,8 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your Cart - SeatWorld</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/styles.css">
   <link rel="stylesheet" href="/css/users/cartList.css">
+  <script src="/js/common/pagination.js" defer></script>
 </head>
 
 <body>
@@ -14,96 +16,144 @@
   <%- include('../partials/header', { showSearch: false }) %>
     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
 
-      <!-- Cart -->
-      <section>
-        <h2 style="padding: 20px 40px;">YOUR CART</h2>
-        <div class="cart-container">
+      <main class="page-container">
+        <h1 class="page-title">YOUR CART</h1>
 
-          <!-- Cart Items -->
-          <div class="cart-items">
+        <div class="cart-layout">
+          <!-- Cart Items Section -->
+          <div class="cart-items-column">
             <% if (cartItems && cartItems.length> 0) { %>
-              <% cartItems.forEach(item=> { %>
-                <div class="cart-item <%= item.outOfStock ? 'item-out-of-stock' : '' %>">
-                  <img src="<%= item.image %>" alt="<%= item.name %>">
-                  <div class="cart-item-details">
-                    <h4>
-                      <%= item.name %>
-                    </h4>
-                    <p>Color: <%= item.color %>
-                    </p>
-                    <p>₹<%= item.price %>
-                    </p>
-                    <% if (item.outOfStock) { %>
-                      <div class="stock-warning">Currently Unavailable / Out of Stock</div>
-                      <% } %>
-                  </div>
-                  <div class="quantity-controls">
-                    <button>-</button>
-                    <span>
-                      <%= item.quantity %>
-                    </span>
-                    <button>+</button>
-                  </div>
-                  <span class="remove-btn">🗑</span>
-                </div>
-                <% }) %>
-                  <% } else { %>
-                    <div
-                      style="padding: 20px; text-align: center; background: #fff; border-radius: 10px; border: 1px dashed #ccc;">
-                      Your cart is empty. <a href="/products" style="color: var(--primary); font-weight: 600;">Explore
-                        Products</a>
+              <div class="items-list">
+                <% cartItems.forEach(item=> { %>
+                  <div class="cart-item-card" data-variant-id="<%= item.variantId._id %>">
+                    <div class="item-visual">
+                      <img src="<%= item.image %>" alt="<%= item.name %>">
                     </div>
-                    <% } %>
+                    <div class="item-info">
+                      <div class="info-top">
+                        <h3 class="item-name">
+                          <%= item.name %>
+                        </h3>
+                        <button class="remove-item-btn" onclick="removeItem('<%= item.variantId._id %>')"
+                          aria-label="Remove item">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                            </path>
+                          </svg>
+                        </button>
+                      </div>
+                      <p class="item-meta">Color: <span>
+                          <%= item.color %>
+                        </span></p>
+
+                      <% if (item.outOfStock) { %>
+                        <p class="stock-badge out-of-stock">Out of Stock</p>
+                        <% } else if (item.stock < 5) { %>
+                          <p class="stock-badge low-stock">Only <%= item.stock %> left</p>
+                          <% } %>
+
+                            <div class="info-bottom">
+                              <div class="price-wrapper">
+                                <span class="item-price">₹<%= item.price %></span>
+                                <% if (item.hasOffer) { %>
+                                  <span class="original-price"
+                                    style="text-decoration: line-through; color: #777; font-size: 0.9em; margin-left: 8px;">₹
+                                    <%= item.originalPrice %></span>
+                                  <span class="discount-badge"
+                                    style="color: #2e7d32; font-size: 0.85em; font-weight: 600; margin-left: 8px;">
+                                    <%= item.discountPercentage %>% OFF
+                                  </span>
+                                  <% } %>
+                              </div>
+                              <div class="quantity-pill">
+                                <button class="qty-btn minus" onclick="updateQty('<%= item.variantId._id %>', -1)"
+                                  <%=item.quantity <=1 ? 'disabled' : '' %>>
+                                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                  </svg>
+                                </button>
+                                <span class="qty-value">
+                                  <%= item.quantity %>
+                                </span>
+                                <button class="qty-btn plus" onclick="updateQty('<%= item.variantId._id %>', 1)"
+                                  <%=item.quantity>= item.stock ? 'disabled' : '' %>>
+                                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                  </svg>
+                                </button>
+                              </div>
+                            </div>
+                    </div>
+                  </div>
+                  <% }) %>
+              </div>
+              <% } else { %>
+                <div class="empty-cart-state">
+                  <div class="empty-icon">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="9" cy="21" r="1"></circle>
+                      <circle cx="20" cy="21" r="1"></circle>
+                      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                  </div>
+                  <h2>Your cart is empty</h2>
+                  <p>Looks like you haven't added anything to your cart yet.</p>
+                  <a href="/products" class="shop-now-btn">Start Shopping</a>
+                </div>
+                <% } %>
           </div>
 
-          <!-- Order Summary -->
-          <div class="order-summary">
-            <h3>Order Summary</h3>
-            <div class="summary-row">
-              <span>Subtotal</span>
-              <span>₹<%= subtotal %></span>
+          <!-- Order Summary Sidebar -->
+          <aside class="summary-column">
+            <div class="summary-card">
+              <h2 class="summary-title">Order Summary</h2>
+
+              <div class="summary-details">
+                <div class="summary-row">
+                  <span class="row-label">Subtotal</span>
+                  <span class="row-value" id="subtotal">₹<%= subtotal %></span>
+                </div>
+                <div class="summary-row">
+                  <span class="row-label">Delivery Fee</span>
+                  <span class="row-value <%= deliveryFee === 'Free' ? 'free' : '' %>" id="deliveryFee">
+                    <%= deliveryFee %>
+                  </span>
+                </div>
+                <hr class="summary-divider">
+                <div class="summary-row total-row">
+                  <span class="row-label">Total</span>
+                  <span class="row-value" id="total">₹<%= total %></span>
+                </div>
+              </div>
+
+              <% const hasOutOfStock=cartItems.some(item=> item.outOfStock); %>
+                <button class="checkout-submit-btn" id="checkoutBtn" onclick="location.href='/checkout'"
+                  <%=(hasOutOfStock || cartItems.length===0) ? 'disabled' : '' %>>
+                  <%= (hasOutOfStock && cartItems.length> 0) ? 'Remove Out of Stock items' : 'Go to Checkout' %>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </button>
             </div>
-            <div class="summary-row">
-              <span>Delivery Fee</span>
-              <span>
-                <%= deliveryFee %>
-              </span>
-            </div>
-            <div class="summary-row" style="font-weight: bold;">
-              <span>Total</span>
-              <span>₹<%= total %></span>
-            </div>
-            <div class="promo">
-              <input type="text" placeholder="Add promo code">
-              <button>Apply</button>
-            </div>
-            <% const hasOutOfStock=cartItems.some(item=> item.outOfStock); %>
-              <button class="checkout-btn <%= (hasOutOfStock || cartItems.length === 0) ? 'btn-disabled' : '' %>"
-                <%=(hasOutOfStock || cartItems.length===0) ? 'disabled' : '' %> >
-                <% if (hasOutOfStock && cartItems.length> 0) { %>
-                  Remove Out of Stock Items to Checkout
-                  <% } else { %>
-                    Go to Checkout &rarr;
-                    <% } %>
-              </button>
-          </div>
+          </aside>
         </div>
-      </section>
 
-      <!-- Pagination -->
-      <div class="pagination">
-        <button>Previous</button>
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>Next</button>
-      </div>
+        <!-- Pagination Section -->
+        <%- include('../partials/pagination', { pagination, query: '' }) %>
+      </main>
 
-      <!-- Footer -->
-      <footer>
-        <p>© 2023 SeatWorld. All Rights Reserved</p>
-      </footer>
+      <%- include('../partials/footer') %>
 
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="/js/users/cartList.js"></script>
 </body>
 
 </html>

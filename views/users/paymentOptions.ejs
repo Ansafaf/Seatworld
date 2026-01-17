@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Options | SeatWorld</title>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="/css/users/checkout.css">
+    <link rel="stylesheet" href="/css/users/paymentOptions.css">
+</head>
+
+<body>
+
+    <%- include('../partials/header', { showSearch: false }) %>
+        <%- include("../partials/breadcrumb", { breadcrumbs: [{label: 'Home' , url: '/' }, {label: 'Checkout' ,
+            url: '/checkout' }, {label: 'Payment' , url: '#' }] }) %>
+
+            <div class="payment-container">
+                <!-- Left Side -->
+                <div class="payment-left">
+                    <h3 style="margin-bottom: 15px; font-weight: 600;">Shipping Address</h3>
+                    <div class="address-summary">
+                        <div class="address-text">
+                            <strong>
+                                <%= address.name %>
+                            </strong><br>
+                            <%= address.houseName %>, <%= address.street %>, <%= address.city %>, <%= address.country %>
+                                            <br>
+                                            Near <%= address.landmark %><br>
+                                                Contact number : <%= address.mobile %>
+                        </div>
+                        <a href="/checkout" class="btn-edit-address">Edit</a>
+                    </div>
+
+                    <h1 class="section-title">PAYMENT</h1>
+
+                    <div class="payment-methods">
+                        <div class="payment-option">
+                            <input type="radio" name="payment" id="online" value="Online">
+                            <label for="online">Online payment</label>
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" name="payment" id="wallet" value="Wallet">
+                            <label for="wallet">Wallet</label>
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" name="payment" id="cod" value="COD" checked>
+                            <label for="cod">Cash On Delivery</label>
+                        </div>
+                    </div>
+
+                    <button class="btn-place-order" onclick="placeOrder()">Place Order</button>
+                </div>
+
+                <!-- Right Side -->
+                <div class="payment-right">
+                    <div class="summary-box">
+                        <h3 class="summary-title">ORDER SUMMARY</h3>
+
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span>₹<%= subtotal %></span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Shipping</span>
+                            <span>
+                                <%= deliveryFee %>
+                            </span>
+                        </div>
+
+                        <!-- Coupon Applied Section -->
+                        <% if (typeof couponApplied !=='undefined' && couponApplied) { %>
+                            <div class="summary-row" style="align-items: center;">
+                                <div>
+                                    <span class="coupon-badge">Coupon Applied</span>
+                                </div>
+                            </div>
+                            <div class="summary-row" style="font-size: 0.85rem; color: #777;">
+                                <span>Discount</span>
+                                <span>-₹<%= discountAmount.toLocaleString('en-IN') %></span>
+                            </div>
+                            <% } %>
+
+                                <div class="total-row">
+                                    <span>TOTAL <span style="font-size: 0.8rem; font-weight: 400; color: #777;">(TAX
+                                            INCL.)</span></span>
+                                    <span>₹<%= total.toLocaleString('en-IN') %></span>
+                                </div>
+
+                                <div class="terms-check">
+                                    <input type="checkbox" id="terms" checked>
+                                    <label for="terms">I agree to the Terms and Conditions</label>
+                                </div>
+                    </div>
+                </div>
+            </div>
+
+            <%- include('../partials/footer') %>
+
+                <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+                <script src="/js/users/paymentOptions.js"></script>
+</body>
+
+</html>

@@ -10,74 +10,70 @@
 </head>
 
 <body>
+  <%- include('../partials/authHeader') %>
 
-  <div class="container">
-    <!-- Left Section -->
-    <div class="form-section">
-      <div class="brand-header">
-        <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1755846364/Seatworld_icon_oyekzz.jpg" alt="Logo"
-          width="30">
-        <h1>SeatWorld</h1>
-      </div>
+    <div class="container">
+      <!-- Left Section -->
+      <div class="form-section">
 
-      <h1 class="main-title">Create an Account for Future Products</h1>
+        <h1 class="main-title">Create an Account for Future Products</h1>
 
-      <div class="form-container">
-        <h2>Create your account</h2>
+        <div class="form-container">
+          <h2>Create your account</h2>
 
-        <form id="signupForm" method="POST" action="/signup">
-          <div class="form-group">
-            <label>Name</label>
-            <input type="text" name="username" placeholder="Enter your name" required>
+          <form id="signupForm" method="POST" action="/signup">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" name="username" placeholder="Enter your name" required>
+            </div>
+
+            <div class="form-group">
+              <label>Email address</label>
+              <input type="email" name="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" id="password" name="password" placeholder="Enter your password" required
+                minlength="6">
+            </div>
+
+            <div class="form-group">
+              <label>Confirm Password</label>
+              <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Enter your password"
+                required>
+            </div>
+
+            <div class="form-group">
+              <label>referralCode(optional)</label>
+              <input type="text" name="referralCode" placeholder="Enter your referralcode">
+            </div>
+
+            <button type="submit" class="signup-btn">Sign up</button>
+          </form>
+
+          <a href="/auth/google" class="google-btn">
+            <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google">
+            Sign up with Google
+          </a>
+
+          <div class="signin-link">
+            Already have an account? <a href="/login">Log in</a>
           </div>
-
-          <div class="form-group">
-            <label>Email address</label>
-            <input type="email" name="email" placeholder="Enter your email" required>
-          </div>
-
-          <div class="form-group">
-            <label>Password</label>
-            <input type="password" id="password" name="password" placeholder="Enter your password" required
-              minlength="6">
-          </div>
-
-          <div class="form-group">
-            <label>Confirm Password</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Enter your password"
-              required>
-          </div>
-
-          <div class="form-group">
-            <label>referralCode(optional)</label>
-            <input type="text" name="referralCode" placeholder="Enter your referralcode">
-          </div>
-
-          <button type="submit" class="signup-btn">Sign up</button>
-        </form>
-
-        <a href="/auth/google" class="google-btn">
-          <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google">
-          Sign up with Google
-        </a>
-
-        <div class="signin-link">
-          Already have an account? <a href="/login">Log in</a>
         </div>
       </div>
+
+      <!-- Right Section -->
+      <div class="image-section">
+        <!-- Using a placeholder for now since I can't directly use the local path as a URL in EJS unless served -->
+        <img
+          src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1734932040/C:/Users/MUHAMMED%20ANSAF%20AF/.gemini/antigravity/brain/cf4161eb-ebca-48a9-b1ac-846dd29a6033/uploaded_image_1766467440130.png"
+          alt="Signup Illustration"
+          onerror="this.src='https://res.cloudinary.com/dbdnmlzy6/image/upload/v1755845384/1811f344025539b7b4abb446eb6f910d_k0t4tt.jpg'">
+      </div>
     </div>
 
-    <!-- Right Section -->
-    <div class="image-section">
-      <!-- Using a placeholder for now since I can't directly use the local path as a URL in EJS unless served -->
-      <img
-        src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1734932040/C:/Users/MUHAMMED%20ANSAF%20AF/.gemini/antigravity/brain/cf4161eb-ebca-48a9-b1ac-846dd29a6033/uploaded_image_1766467440130.png"
-        alt="Signup Illustration"
-        onerror="this.src='https://res.cloudinary.com/dbdnmlzy6/image/upload/v1755845384/1811f344025539b7b4abb446eb6f910d_k0t4tt.jpg'">
-    </div>
-  </div>
-
-  <script type="module" src="/js/users/signup.js"></script>
+    <script type="module" src="/js/users/signup.js"></script>
 </body>
 
 </html>

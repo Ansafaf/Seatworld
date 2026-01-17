@@ -1,9 +1,9 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
-
 export const adminAuthMiddleware = (req, res, next) => {
+  const ADMIN_EMAIL = process.env.ADMIN_EMAIL || process.env.AdminMail;
+
   try {
     if (
       req.session?.isAdmin &&
@@ -16,10 +16,17 @@ export const adminAuthMiddleware = (req, res, next) => {
       return next();
     }
 
+    if (req.xhr || req.headers.accept?.includes("application/json")) {
+      return res.status(401).json({ success: false, message: "Session expired. Please login again." });
+    }
+
     return res.redirect("/admin/login");
 
   } catch (error) {
     console.error("Admin auth middleware error:", error);
+    if (req.xhr || req.headers.accept?.includes("application/json")) {
+      return res.status(500).json({ success: false, message: "Authentication error" });
+    }
     return res.redirect("/admin/login");
   }
 };

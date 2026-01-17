@@ -1,0 +1,261 @@
+import Order from "../models/orderModel.js";
+import OrderItem from "../models/orderItemModel.js";
+import Cart from "../models/cartModel.js";
+import { Product, ProductVariant } from "../models/productModel.js";
+import Wallet from "../models/walletModel.js";
+import * as inventoryService from "./inventoryService.js";
+import logger from "../utils/logger.js";
+import crypto from "crypto";
+import * as walletService from "./walletService.js";
+
+export const getUserOrders = async (userId, page = 1, limit = 8, search = "") => {
+    const skip = (page - 1) * limit;
+
+    let query = { userId };
+
+    if (search) {
+        // Search logic if needed in future
+    }
+
+    const [totalOrders, orders] = await Promise.all([
+        Order.countDocuments(query),
+        Order.find(query)
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit)
+    ]);
+
+    const ordersWithItems = await Promise.all(orders.map(async (order) => {
+        const items = await OrderItem.find({ orderId: order._id })
+            .populate({
+                path: 'variantId',
+                populate: { path: 'productId' }
+            })
+            .lean();
+
+        return {
+            ...order.toObject(),
+            items: items.map(item => ({
+                ...item,
+                name: item.productName || item.variantId?.productId?.name || 'Unknown',
+                image: item.productImage || item.variantId?.images?.[0] || '',
+                label: item.variantLabel || item.variantId?.color || '',
+                total: item.purchasedPrice * item.productQuantity
+            })),
+            itemCount: items.length,
+            orderStatus: items.length > 0 ? (items.every(i => i.status === items[0].status) ? items[0].status : "Multiple") : "pending",
+            formattedDate: new Date(order.createdAt).toLocaleDateString('en-GB')
+        };
+    }));
+
+    const totalPages = Math.ceil(totalOrders / limit);
+
+    return {
+        orders: ordersWithItems,
+        pagination: {
+            currentPage: page,
+            totalPages,
+            totalOrders,
+            hasNextPage: page < totalPages,
+            hasPrevPage: page > 1,
+            limit
+        }
+    };
+};
+
+export const createOrder = async ({ userId, paymentMethod, checkoutSession, cartTotals, paymentStatus = "pending" }) => {
+    try {
+        const addressData = checkoutSession.address;
+        const discountAmount = cartTotals.discountAmount || 0;
+        const finalAmount = cartTotals.total; // Service already provides the final discounted total
+
+        const newOrder = new Order({
+            userId,
+            totalAmount: finalAmount,
+            subtotal: cartTotals.subtotal, // Now storing items-only subtotal
+            discountAmount: discountAmount,
+            shippingFee: cartTotals.deliveryFee === 'Free' ? 0 : 50, // Inferred for now, but cleaner
+            couponId: cartTotals.appliedCoupon ? cartTotals.appliedCoupon._id : null,
+            shippingAddress: {
+                name: addressData.name,
+                housename: addressData.houseName || addressData.housename,
+                street: addressData.street,
+                city: addressData.city,
+                state: addressData.state,
+                country: addressData.country || 'India',
+                pincode: addressData.pincode,
+                mobile: addressData.mobile
+            },
+            paymentMethod,
+            paymentStatus: paymentStatus
+        });
+
+        await newOrder.save();
+        logger.info(`Order created: ${newOrder._id} for user: ${userId}`);
+
+        // Handle Wallet deduction
+        if (paymentMethod === "Wallet") {
+            const wallet = await Wallet.findOne({ userId });
+            if (!wallet || wallet.balance < finalAmount) {
+                // This should ideally be checked earlier in controller, but as a safeguard:
+                throw new Error("Insufficient wallet balance");
+            }
+
+            wallet.balance -= finalAmount;
+            const shortOrderId = newOrder._id.toString().slice(-6).toUpperCase();
+            wallet.transactions.push({
+                walletTransactionId: crypto.randomBytes(8).toString("hex"),
+                amount: finalAmount,
+                type: 'debit',
+                description: `Payment for Order #${shortOrderId}`,
+                date: new Date()
+            });
+            await wallet.save();
+            logger.info(`Wallet balance deducted for user: ${userId}, Order: ${newOrder._id}`);
+        }
+
+        for (const item of cartTotals.items) {
+
+            await inventoryService.updateStock({
+                variantId: item.variantId,
+                quantity: -item.quantity,
+                reason: "order_placed",
+                orderId: newOrder._id
+            });
+
+            const orderItem = new OrderItem({
+                orderId: newOrder._id,
+                variantId: item.variantId,
+                productName: item.productName,
+                productImage: item.image,
+                variantLabel: item.color,
+                productQuantity: item.quantity,
+                purchasedPrice: item.price,
+                status: "pending"
+            });
+            await orderItem.save();
+        }
+
+        // Clear user's cart
+        await Cart.deleteMany({ userId });
+        logger.info(`Cart cleared for user: ${userId}`);
+
+        return newOrder;
+    } catch (error) {
+        logger.error(`Order creation failed: ${error.message}`);
+        throw error;
+    }
+};
+
+
+export const handleItemAction = async ({ orderId, userId, itemId, action, returnReason, returnComment }) => {
+    try {
+        const order = await Order.findOne({ _id: orderId, userId });
+        if (!order) throw new Error("Order not found or access denied");
+
+        const item = await OrderItem.findOne({ _id: itemId, orderId });
+        if (!item) throw new Error("Item not found in this order");
+
+        const currentStatus = item.status;
+
+        if (action === "cancel") {
+            if (!["pending", "confirmed"].includes(currentStatus)) {
+                throw new Error(`Cannot cancel item with status: ${currentStatus}`);
+            }
+
+            // 🛑 Step 1: Update Item Status Directly
+            item.status = "cancelled";
+            item.cancelledOn = new Date();
+
+            // 📦 Step 2: Restore Inventory
+            await inventoryService.updateStock({
+                variantId: item.variantId,
+                quantity: item.productQuantity,
+                reason: "order_cancelled",
+                orderId: order._id,
+                notes: "User cancelled item directly"
+            });
+
+            // 💰 Step 3: Handle Wallet Refund if paid
+            if (order.paymentStatus === 'paid' && item.refundStatus !== 'refunded') {
+                let refundAmount = walletService.calculateItemRefundAmount(order, item);
+
+                // Check if this is the last active item to include shipping fee
+                const activeItems = await OrderItem.find({
+                    orderId,
+                    _id: { $ne: item._id },
+                    status: { $nin: ['cancelled', 'returned'] }
+                });
+
+                if (activeItems.length === 0) {
+                    refundAmount += (order.shippingFee || 0);
+                }
+
+                if (refundAmount > 0) {
+                    await walletService.refundToWallet(
+                        order.userId,
+                        refundAmount,
+                        `Refund for user-cancelled item`,
+                        order._id,
+                        item._id
+                    );
+                }
+            }
+
+            // 📊 Step 4: Update Order total
+            const itemTotal = item.purchasedPrice * item.productQuantity;
+            order.totalAmount = Math.max(0, order.totalAmount - itemTotal);
+
+        } else if (action === "return") {
+            if (currentStatus !== "delivered") {
+                throw new Error(`Cannot request return for item with status: ${currentStatus}`);
+            }
+            // Returns still happen via request flow as they usually require inspection
+            item.status = "return_requested";
+            item.returnRequestedOn = new Date();
+            item.returnReason = returnReason;
+            item.returnComment = returnComment;
+        } else {
+            throw new Error("Invalid action provided");
+        }
+
+        await order.save();
+        await item.save();
+
+        logger.info(`Item ${action} processed for item ${itemId} (Status: ${item.status})`);
+
+        return {
+            order,
+            item: {
+                ...item.toObject(),
+                total: item.purchasedPrice * item.productQuantity
+            }
+        };
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getOrderById = async (orderId, userId) => {
+    const order = await Order.findOne({ _id: orderId, userId });
+    if (!order) return null;
+
+    const items = await OrderItem.find({ orderId: order._id })
+        .populate({
+            path: 'variantId',
+            populate: { path: 'productId' }
+        })
+        .lean();
+
+    return {
+        ...order.toObject(),
+        items: items.map(item => ({
+            ...item,
+            name: item.productName || item.variantId?.productId?.name || 'Unknown',
+            image: item.productImage || item.variantId?.images?.[0] || '',
+            label: item.variantLabel || item.variantId?.color || '',
+            total: item.purchasedPrice * item.productQuantity
+        })),
+        orderStatus: items.length > 0 ? (items.every(i => i.status === items[0].status) ? items[0].status : "Multiple") : "pending"
+    };
+};

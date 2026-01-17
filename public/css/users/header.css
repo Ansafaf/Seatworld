@@ -107,6 +107,10 @@
 .icon-link {
     color: #64748b;
     transition: color 0.2s;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .icon-link:hover {
@@ -116,6 +120,23 @@
 .icon-link svg {
     width: 1.5rem;
     height: 1.5rem;
+}
+
+.cart-count-badge {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background-color: #2563eb;
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
 }
 
 .profile-link {

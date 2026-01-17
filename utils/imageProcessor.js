@@ -1,5 +1,5 @@
 import sharp from 'sharp';
-
+import logger from "./logger.js";
 /**
  * Process and optimize image using Sharp
  * @param {Buffer} buffer - Image buffer from multer
@@ -26,7 +26,7 @@ export const processImage = async (buffer, options = {}) => {
 
         return processedBuffer;
     } catch (error) {
-        console.error('Error processing image:', error);
+        logger.error('Error processing image:', error);
         throw new Error('Failed to process image');
     }
 };

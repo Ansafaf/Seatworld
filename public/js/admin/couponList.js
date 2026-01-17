@@ -2,26 +2,26 @@ window.editCoupon = (id) => {
     window.location.href = `/admin/coupons/edit/${id}`;
 }
 
-window.deleteCoupon = (id) => {
+window.toggleStatus = (id, currentStatus) => {
+    const action = currentStatus === 'active' ? 'block' : 'unblock';
     Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: `Are you sure you want to ${action} this coupon?`,
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#d33',
+        confirmButtonColor: action === 'block' ? '#d33' : '#28a745',
         cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: `Yes, ${action} it!`
     }).then((result) => {
         if (result.isConfirmed) {
-            fetch(`/admin/coupons/delete/${id}`, {
-                method: 'DELETE',
+            fetch(`/admin/coupons/toggle-status/${id}`, {
+                method: 'PATCH',
             })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
                         Swal.fire(
-                            'Deleted!',
-                            'Coupon deleted successfully.',
+                            action === 'block' ? 'Blocked!' : 'Unblocked!',
+                            `Coupon ${action === 'block' ? 'blocked' : 'unblocked'} successfully.`,
                             'success'
                         ).then(() => {
                             window.location.reload();
@@ -29,7 +29,7 @@ window.deleteCoupon = (id) => {
                     } else {
                         Swal.fire(
                             'Failed!',
-                            'Failed to delete coupon.',
+                            data.message || 'Failed to update status.',
                             'error'
                         );
                     }
@@ -38,7 +38,7 @@ window.deleteCoupon = (id) => {
                     console.error('Error:', error);
                     Swal.fire(
                         'Error!',
-                        'An error occurred while deleting.',
+                        'An error occurred.',
                         'error'
                     );
                 });

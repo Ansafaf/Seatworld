@@ -1,23 +1,28 @@
 import { apiRequest } from '../utils/fetchClient.js';
 
-const menuBtn = document.getElementById("menuBtn");
-const sidebar = document.getElementById("sidebar");
-const overlay = document.getElementById("overlay");
-
-if (menuBtn && sidebar && overlay) {
-    menuBtn.onclick = () => {
-        sidebar.classList.toggle("active");
-        overlay.style.display = sidebar.classList.contains("active") ? "block" : "none";
-    };
-
-    overlay.onclick = () => {
-        sidebar.classList.remove("active");
-        overlay.style.display = "none";
-    };
+// Sidebar toggle for mobile
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    if (sidebar) sidebar.classList.toggle('active');
+    if (overlay) overlay.classList.toggle('active');
 }
 
+// Attach to window for HTML event handlers
+window.toggleSidebar = toggleSidebar;
+
+// Close sidebar when clicking menu items
+const sidebarLinks = document.querySelectorAll('.sidebar a');
+sidebarLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        if (window.innerWidth <= 900) {
+            toggleSidebar();
+        }
+    });
+});
+
 // Handle address edit form submission via AJAX
-const editForm = document.querySelector('form');
+const editForm = document.getElementById('editAddressForm');
 if (editForm) {
     editForm.addEventListener('submit', async (e) => {
         e.preventDefault();

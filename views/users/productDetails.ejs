@@ -24,26 +24,34 @@
                             <div id="zoom-result" class="zoom-result"></div>
                         </div>
                         <div class="thumbnails-col">
-                            <!-- Main image as first thumbnail -->
-                            <div class="thumbnail active" onclick="changeImage('<%= product.image %>', this)">
-                                <img src="<%= product.image %>" alt="View 1">
-                            </div>
-                            <!-- Additional variants/images -->
-                            <% if (product.variants && product.variants.length) { %>
-                                <% product.variants.forEach((variant, idx)=> { %>
-                                    <% if (variant.images && variant.images.length) { %>
-                                        <div class="thumbnail" onclick="changeImage('<%= variant.images[0] %>', this)">
-                                            <img src="<%= variant.images[0] %>" alt="View <%= idx + 2 %>">
-                                        </div>
-                                        <% } %>
-                                            <% }) %>
-                                                <% } %>
+                            <% if (product.variant && product.variant.images && product.variant.images.length) { %>
+                                <% product.variant.images.forEach((img, idx)=> { %>
+                                    <div class="thumbnail <%= idx === 0 ? 'active' : '' %>"
+                                        onclick="changeImage('<%= img %>', this)">
+                                        <img src="<%= img %>" alt="View <%= idx + 1 %>">
+                                    </div>
+                                    <% }) %>
+                                        <% } else { %>
+                                            <div class="thumbnail active"
+                                                onclick="changeImage('<%= product.image %>', this)">
+                                                <img src="<%= product.image %>" alt="View 1">
+                                            </div>
+                                            <% } %>
                         </div>
                     </div>
 
                     <!-- Info -->
                     <div class="product-info">
-                        <button class="wishlist-btn-abs">♡</button>
+                        <button class="wishlist-btn-abs <%= isInWishlist ? 'active' : '' %>" id="wishlist-btn"
+                            onclick="toggleWishlist('<%= product.variant ? product.variant._id : '' %>', this)">
+                            <svg class="wishlist-icon" viewBox="0 0 24 24"
+                                fill="<%= isInWishlist ? 'currentColor' : 'none' %>" stroke="currentColor"
+                                stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </button>
 
                         <% if (product.stock> 0) { %>
                             <div class="stock-badge in-stock">In Stock</div>
@@ -68,48 +76,43 @@
                                             %>
                                     </p>
 
-                                    <% const currentPrice=product.variant ? product.variant.price : product.Baseprice;
-                                        const originalPrice=product.Baseprice; const isOnSale=currentPrice <
-                                        originalPrice; const offPercent=isOnSale ? Math.round((1 - currentPrice /
-                                        originalPrice) * 100) : 0; %>
-                                        <div class="price-group">
-                                            <div class="price-tag">₹<%= Number(currentPrice).toLocaleString('en-IN') %>
+                                    <div class="price-group">
+                                        <div class="price-tag">₹<%= Number(product.price).toLocaleString('en-IN') %>
+                                        </div>
+                                        <% if (product.hasOffer) { %>
+                                            <div class="old-price">₹<%=
+                                                    Number(product.originalPrice).toLocaleString('en-IN') %>
                                             </div>
-                                            <% if (isOnSale) { %>
-                                                <div class="old-price">₹<%=
-                                                        Number(originalPrice).toLocaleString('en-IN') %>
-                                                </div>
-                                                <div class="discount-badge">
-                                                    <%= offPercent %>% OFF
-                                                </div>
-                                                <% } %>
-                                        </div>
-                                        <div class="tax-note">MRP incl. of all taxes</div>
-
-                                        <div class="color-section">
-                                            <span class="color-label">FIND YOUR COLOR</span>
-                                            <div class="color-options">
-                                                <% if (product.variants && product.variants.length) { %>
-                                                    <% product.variants.forEach(v=> { %>
-                                                        <div class="color-opt <%= (product.variant && product.variant._id === v._id) ? 'active' : '' %>"
-                                                            onclick="location.href='?variant=<%= v._id %>'">
-                                                            <%= v.color %>
-                                                        </div>
-                                                        <% }) %>
-                                                            <% } else { %>
-                                                                <div class="color-opt active">Std</div>
-                                                                <% } %>
+                                            <div class="discount-badge">
+                                                <%= product.discountPercentage %>% OFF
                                             </div>
-                                        </div>
+                                            <% } %>
+                                    </div>
+                                    <div class="tax-note">MRP incl. of all taxes</div>
 
-                                        <div class="action-buttons">
-                                            <button
-                                                class="btn-action btn-cart <%= product.stock <= 0 ? 'btn-disabled' : '' %>"
-                                                <%=product.stock <=0 ? 'disabled' : '' %>>Add to Cart</button>
-                                            <button
-                                                class="btn-action btn-buy <%= product.stock <= 0 ? 'btn-disabled' : '' %>"
-                                                <%=product.stock <=0 ? 'disabled' : '' %>>Buy Now</button>
+                                    <div class="color-section">
+                                        <span class="color-label">FIND YOUR COLOR</span>
+                                        <div class="color-options">
+                                            <% if (product.variants && product.variants.length) { %>
+                                                <% product.variants.forEach(v=> { %>
+                                                    <div class="color-opt <%= (product.variant && product.variant._id === v._id) ? 'active' : '' %>"
+                                                        onclick="location.href='?variant=<%= v._id %>'">
+                                                        <%= v.color %>
+                                                    </div>
+                                                    <% }) %>
+                                                        <% } else { %>
+                                                            <div class="color-opt active">Std</div>
+                                                            <% } %>
                                         </div>
+                                    </div>
+
+                                    <div class="action-buttons">
+                                        <button id="cart-button"
+                                            class="btn-action btn-cart <%= product.stock <= 0 ? 'btn-disabled' : '' %>"
+                                            data-variant-id="<%= product.variant ? product.variant._id : '' %>"
+                                            <%=product.stock <=0 ? 'disabled' : '' %>>Add to Cart</button>
+
+                                    </div>
                     </div>
                 </section>
 
@@ -167,7 +170,15 @@
                                     <div class="related-name">
                                         <%= rp.name %>
                                     </div>
-                                    <div class="related-price">₹<%= rp.price %>
+                                    <div class="related-price">
+                                        <% if (rp.hasOffer) { %>
+                                            <span class="curr">₹<%= rp.price %></span>
+                                            <span class="old"
+                                                style="text-decoration: line-through; color: #94a3b8; font-size: 0.8rem; margin-left: 5px;">₹
+                                                <%= rp.originalPrice %></span>
+                                            <% } else { %>
+                                                ₹<%= rp.price %>
+                                                    <% } %>
                                     </div>
                                 </a>
                                 <% }) %>
@@ -176,16 +187,11 @@
                 </section>
             </main>
 
-            <footer>
-                <div class="links">
-                    <a href="/home">Home</a>
-                    <a href="/products">Products</a>
-                    <a href="/about">About</a>
-                </div>
-                <p>SeatWorld © <%= new Date().getFullYear() %>. All Rights Reserved</p>
-            </footer>
+            <%- include('../partials/footer') %>
 
-            <script src="/js/users/productDetails.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script src="/js/users/wishlist.js"></script>
+                <script src="/js/users/productDetails.js"></script>
 </body>
 
 </html>

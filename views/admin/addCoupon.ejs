@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Coupon - Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/admin/common.js"></script>
+    <link rel="stylesheet" href="/css/admin/addCategory.css"> <!-- Reusing same styling -->
+    <style>
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 640px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body class="font-display bg-gray-50 text-gray-800">
+    <!-- Top Header -->
+    <%- include('../partials/adminHeader') %>
+
+        <div class="flex pt-16 min-h-screen">
+            <!-- Sidebar -->
+            <%- include('../partials/adminSidebar') %>
+
+                <!-- Overlay -->
+                <div id="sidebarOverlay" class="fixed inset-0 bg-black/20 z-30 hidden md:hidden backdrop-blur-sm"></div>
+
+                <!-- Main Content -->
+                <main class="flex-1 p-8 overflow-y-auto bg-white/50">
+                    <div class="max-w-4xl mx-auto">
+                        <div class="form-container" style="max-width: 800px;">
+                            <div class="title">Create New Coupon</div>
+                            <form id="addCouponForm" class="form-grid">
+                                <div class="form-group full-width">
+                                    <label for="description">Description</label>
+                                    <input id="description" name="description" type="text"
+                                        placeholder="Enter coupon description" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="couponCode">Coupon Code</label>
+                                    <input id="couponCode" name="couponCode" type="text" placeholder="E.g. SUMMER50"
+                                        required style="text-transform: uppercase;">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="discountType">Discount Type</label>
+                                    <select id="discountType" name="discountType" required
+                                        class="w-full padding-0.75rem bg-gray-50 border border-gray-200 rounded-lg p-3 text-sm focus:outline-none focus:border-orange-500">
+                                        <option value="flat">Flat Amount (₹)</option>
+                                        <option value="percentage">Percentage (%)</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="discountValue">Discount Value</label>
+                                    <input id="discountValue" name="discountValue" type="number" min="0" step="0.01"
+                                        placeholder="Enter amount/percent" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="minAmount">Minimum Purchase Amount (₹)</label>
+                                    <input id="minAmount" name="minAmount" type="number" min="0" placeholder="0"
+                                        required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="maxAmount">Maximum Discount Amount (₹)</label>
+                                    <input id="maxAmount" name="maxAmount" type="number" min="0" placeholder="0"
+                                        required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="startDate">Start Date</label>
+                                    <input id="startDate" name="startDate" type="date" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="expiryDate">Expiry Date</label>
+                                    <input id="expiryDate" name="expiryDate" type="date" required>
+                                </div>
+
+                                <div class="full-width flex justify-center gap-4 mt-6">
+                                    <button type="button" onclick="history.back()"
+                                        class="px-8 py-3 bg-gray-200 text-gray-700 rounded-full font-bold hover:bg-gray-300 transition-all">
+                                        Cancel
+                                    </button>
+                                    <button type="submit" class="submit-btn font-bold mt-0">Create Coupon</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </main>
+        </div>
+
+        <script>
+            document.getElementById('addCouponForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const data = Object.fromEntries(formData.entries());
+
+                try {
+                    const response = await fetch('/admin/coupons/add', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+                    const result = await response.json();
+
+                    if (result.success) {
+                        Swal.fire('Success', result.message, 'success').then(() => {
+                            window.location.href = '/admin/coupons';
+                        });
+                    } else {
+                        Swal.fire('Error', result.message, 'error');
+                    }
+                } catch (err) {
+                    Swal.fire('Error', 'Something went wrong', 'error');
+                }
+            });
+        </script>
+</body>
+
+</html>

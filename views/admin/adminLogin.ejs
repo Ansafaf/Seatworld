@@ -9,7 +9,13 @@
 </head>
 
 <body>
+  <div id="error-message" class="error-message"
+    style="<%= locals.message ? 'display: block; border-radius: 0; margin-bottom: 0; width: 100%;' : 'display: none;' %>">
+    <%= locals.message ? locals.message.message : '' %>
+  </div>
+
   <div class="header">SeatWorld</div>
+
   <div class="login-box">
     <div class="login-title">ADMIN LOGIN</div>
     <form action="/admin/login" method="POST" id="loginForm">
@@ -23,7 +29,6 @@
       </div>
       <button class="login-btn" type="submit">LOGIN</button>
     </form>
-    <div id="error-message" class="error-message" style="display: none;"></div>
   </div>
 
   <script src="/js/admin/adminLogin.js"></script>

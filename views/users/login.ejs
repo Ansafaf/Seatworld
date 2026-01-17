@@ -11,56 +11,62 @@
 
 <body>
 
-  <header>
-    <h1>
-      <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765945540/products/rmsn314w038gnfzmemmi.jpg" />
-      SeatWorld
-    </h1>
-    <a href="/">← Back</a>
-  </header>
+  <%- include('../partials/authHeader') %>
 
-  <div class="login-container">
-    <div class="login-title">Log in</div>
+    <div class="login-container">
+      <div class="login-title">Log in</div>
 
-    <div class="form-box">
-      <form class="login-form" method="POST" action="/login">
+      <div class="form-box">
+        <form class="login-form" method="POST" action="/login">
 
 
 
 
-        <label>Email address</label>
-        <input type="email" name="email" required>
+          <label>Email address</label>
+          <input type="email" name="email" required>
 
-        <label>Password</label>
-        <input type="password" name="password" required>
+          <label>Password</label>
+          <input type="password" name="password" required>
 
-        <button type="submit">Log in</button>
+          <button type="submit">Log in</button>
 
-        <div class="links">
-          <a href="/forgot-password">Forgot password?</a>
-        </div>
+          <div class="links">
+            <a href="/forgot-password">Forgot password?</a>
+          </div>
 
-        <div class="links">
-          Don’t have an account? <a href="/signup">Register</a>
-        </div>
+          <div class="links">
+            Don’t have an account? <a href="/signup">Register</a>
+          </div>
 
-        <div class="divider">
-          <div class="divider-line"></div>
-          <span style="padding:0 10px;">OR</span>
-          <div class="divider-line"></div>
-        </div>
+          <div class="divider">
+            <div class="divider-line"></div>
+            <span style="padding:0 10px;">OR</span>
+            <div class="divider-line"></div>
+          </div>
 
-        <a href="/auth/google" class="google-btn">
-          <img src="https://www.svgrepo.com/show/355037/google.svg">
-          Continue with Google
-        </a>
+          <a href="/auth/google" class="google-btn">
+            <img src="https://www.svgrepo.com/show/355037/google.svg">
+            Continue with Google
+          </a>
 
-      </form>
+        </form>
+      </div>
     </div>
-  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script type="module" src="/js/users/login.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      // Show blocked message if passed from controller
+      <% if (typeof blockedMessage !== 'undefined' && blockedMessage) { %>
+        Swal.fire({
+          icon: 'error',
+          title: 'Account Blocked',
+          text: '<%= blockedMessage.message %>',
+          confirmButtonColor: '#3b82f6'
+        });
+      <% } %>
+    </script>
+    <script type="module" src="/js/users/login.js"></script>
+
 </body>
 
 </html>

@@ -6,8 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Edit Address | SeatWorld</title>
 
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
+  <link rel="stylesheet" href="/css/users/profile.css">
   <link rel="stylesheet" href="/css/users/editAddress.css">
 </head>
 
@@ -15,87 +17,80 @@
   <%- include('../partials/header', { showSearch: false }) %>
     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
 
-      <button id="menuBtn" class="menu-btn"
-        style="position: fixed; top: 90px; left: 20px; z-index: 100; background: white; border-radius: 50%; padding: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-        <i class="fas fa-bars"></i>
-      </button>
+      <%- include('../partials/profileMobileToggle') %>
 
-      <div class="container">
+        <div class="container">
+          <div class="profile-layout">
 
-        <!-- SIDEBAR -->
-        <aside class="sidebar" id="sidebar">
-          <h3>My Account</h3>
-          <ul>
-            <li><a href="/profile"><i class="fa-regular fa-user"></i> Personal Information</a></li>
-            <li><a href="/address"><i class="fa-solid fa-location-dot"></i> Address</a></li>
-            <li><a href="/orders"><i class="fa-solid fa-box"></i> Order</a></li>
-            <li><a href="/wallet"><i class="fa-solid fa-wallet"></i> Wallet</a></li>
-            <li><a href="/coupon"><i class="fa-solid fa-ticket"></i> Coupon</a></li>
-            <li><a href="/password-change"><i class="fa-solid fa-lock"></i> Password Change</a></li>
-            <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
-          </ul>
-        </aside>
+            <!-- SIDEBAR -->
+            <%- include('../partials/profileSidebar', { active: 'address' }) %>
 
-        <!-- CONTENT -->
-        <main class="content">
-          <div class="card">
-            <h2>Edit Address</h2>
+              <!-- CONTENT -->
+              <main class="main-content">
+                <div class="card">
+                  <h2>Edit Address</h2>
 
-            <!-- Backend-bound form -->
-            <form action="/address/edit/<%= address._id %>" method="POST">
+                  <!-- Backend-bound form -->
+                  <form id="editAddressForm" action="/address/edit/<%= address._id %>" method="POST">
+                    <% if (typeof returnTo !=='undefined' && returnTo) { %>
+                      <input type="hidden" name="returnTo" value="<%= returnTo %>">
+                      <% } %>
 
-              <div class="form-group">
-                <label>Name</label>
-                <input type="text" name="name" value="<%= address.name %>" required>
-              </div>
+                        <div class="form-group">
+                          <label>Name</label>
+                          <input type="text" name="name" value="<%= address.name %>" required>
+                        </div>
 
-              <div class="form-group">
-                <label>House Name</label>
-                <input type="text" name="housename" value="<%= address.housename %>" required>
-              </div>
+                        <div class="form-group">
+                          <label>House Name</label>
+                          <input type="text" name="housename" value="<%= address.housename %>" required>
+                        </div>
 
-              <div class="form-group">
-                <label>Locality / Street</label>
-                <input type="text" name="street" value="<%= address.street %>" required>
-              </div>
+                        <div class="form-group">
+                          <label>Locality / Street</label>
+                          <input type="text" name="street" value="<%= address.street %>" required>
+                        </div>
 
-              <div class="form-group">
-                <label>Town / City</label>
-                <input type="text" name="city" value="<%= address.city %>" required>
-              </div>
+                        <div class="form-group">
+                          <label>Town / City</label>
+                          <input type="text" name="city" value="<%= address.city %>" required>
+                        </div>
 
-              <div class="row">
-                <div class="form-group">
-                  <label>State</label>
-                  <input type="text" name="state" value="<%= address.state %>" required>
+                        <div class="row">
+                          <div class="form-group">
+                            <label>State</label>
+                            <input type="text" name="state" value="<%= address.state %>" required>
+                          </div>
+
+                          <div class="form-group">
+                            <label>Country</label>
+                            <input type="text" name="country" value="<%= address.country %>" required>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label>Pincode</label>
+                          <input type="text" name="pincode" value="<%= address.pincode %>" required>
+                        </div>
+
+                        <div class="form-group">
+                          <label>Mobile No</label>
+                          <input type="text" name="mobile" value="<%= address.mobile %>" required>
+                        </div>
+
+                        <button class="save-btn">Save</button>
+                  </form>
                 </div>
+              </main>
 
-                <div class="form-group">
-                  <label>Country</label>
-                  <input type="text" name="country" value="<%= address.country %>" required>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label>Pincode</label>
-                <input type="text" name="pincode" value="<%= address.pincode %>" required>
-              </div>
-
-              <div class="form-group">
-                <label>Mobile No</label>
-                <input type="text" name="mobile" value="<%= address.mobile %>" required>
-              </div>
-
-              <button class="save-btn">Save</button>
-            </form>
           </div>
-        </main>
+        </div>
 
-      </div>
 
-      <div id="overlay"></div>
-      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-      <script type="module" src="/js/users/editAddress.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script type="module" src="/js/users/editAddress.js"></script>
+
+        <%- include('../partials/footer') %>
 
 </body>
 
