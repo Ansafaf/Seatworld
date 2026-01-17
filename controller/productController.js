@@ -116,8 +116,8 @@ const enrichProducts = async (products, activeOffers) => {
         products.map(async (product) => {
             const variant = await ProductVariant.findOne({
                 productId: product._id,
-                status: "Active",
-            });
+                status: { $in: ["Active", "OutofStock"] },
+            }).sort({ status: 1 }); // Prioritize 'Active' over 'OutofStock'
 
             const basePrice = variant ? variant.price : product.Baseprice;
             const discountData = offerHelper.calculateDiscount(product, basePrice, activeOffers);
