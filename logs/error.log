@@ -1099,3 +1099,6 @@ breadcrumbs is not defined
 [2026-01-17 11:12:30] ERROR: Cart page error: activeOffers is not defined
 [2026-01-17 11:12:58] ERROR: Cart page error: activeOffers is not defined
 [2026-01-17 11:13:02] ERROR: Cart page error: activeOffers is not defined
+[2026-01-17 19:42:47] ERROR: Post Add Offer Error: Offer validation failed: productId: Cast to ObjectId failed for value "" (type string) at path "productId" because of "BSONError"
+[2026-01-17 19:42:51] ERROR: Post Add Offer Error: Offer validation failed: productId: Cast to ObjectId failed for value "" (type string) at path "productId" because of "BSONError"
+[2026-01-17 19:42:55] ERROR: Post Add Offer Error: Offer validation failed: productId: Cast to ObjectId failed for value "" (type string) at path "productId" because of "BSONError"

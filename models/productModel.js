@@ -41,7 +41,6 @@ export const Product = mongoose.model("Product", productSchema);
 const productVariantSchema = new mongoose.Schema({
     productId: {
         type: mongoose.Schema.Types.ObjectId,
-
         ref: "Product",
         required: true
     },
