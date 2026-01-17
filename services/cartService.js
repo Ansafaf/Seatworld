@@ -32,15 +32,19 @@ export async function calculateCartTotals(userId) {
     const items = [];
 
     carts.forEach(item => {
-        if (item.variantId && item.variantId.stock > 0 && item.variantId.status === "Active" && item.variantId.productId && !item.variantId.productId.isBlocked) {
-            const variant = item.variantId;
-            const product = variant.productId;
-            const basePrice = variant.salePrice || variant.price;
+        const variant = item.variantId;
+        const product = variant?.productId;
 
-            // Apply Database Offers (Product/Category)
+        const isAvailable = variant &&
+            variant.stock > 0 &&
+            variant.status === "Active" &&
+            product &&
+            !product.isBlocked;
+
+        if (isAvailable) {
+            const basePrice = variant.salePrice || variant.price;
             const offerData = offerHelper.calculateDiscount(product, basePrice, activeOffers);
             const price = offerData.discountedPrice;
-
             const itemTotal = price * item.productQuantity;
             subtotal += itemTotal;
 
@@ -57,7 +61,19 @@ export async function calculateCartTotals(userId) {
                 originalPrice: offerData.originalPrice,
                 color: variant.color,
                 productId: product._id,
-                variantId: variant._id
+                variantId: variant._id,
+                outOfStock: false
+            });
+        } else {
+            // Item is out of stock or unavailable, still add to list but don't count in subtotal
+            items.push({
+                productName: product ? product.name : "Unavailable Product",
+                image: variant?.images?.[0] || '',
+                quantity: item.productQuantity,
+                price: 0,
+                total: 0,
+                outOfStock: true,
+                variantId: variant?._id || item.variantId
             });
         }
     });
@@ -126,29 +142,8 @@ export async function getCartByUserId(userId, page = 1, limit = 8) {
             path: 'variantId',
             populate: { path: 'productId' }
         });
-    const removedItemNames = [];
-    const validCartIds = [];
-
-    for (const item of allCartsRaw) {
-        const variant = item.variantId;
-        const product = variant ? variant.productId : null;
-
-        const isAvailable = variant &&
-            variant.stock > 0 &&
-            variant.status === "Active" &&
-            product &&
-            !product.isBlocked;
-
-        if (!isAvailable) {
-            removedItemNames.push(product ? product.name : "Unknown Product");
-            await Cart.findByIdAndDelete(item._id);
-        } else {
-            validCartIds.push(item._id);
-        }
-    }
-
-    const totalItems = validCartIds.length;
-    const cartsPerPage = await Cart.find({ _id: { $in: validCartIds } })
+    const totalItems = allCartsRaw.length;
+    const cartsPerPage = await Cart.find({ userId })
         .populate({
             path: 'variantId',
             populate: { path: 'productId' }
@@ -157,18 +152,22 @@ export async function getCartByUserId(userId, page = 1, limit = 8) {
         .limit(limit)
         .lean();//convert to plain js
 
-    let subtotal = 0;
-    const activeOffers = await Offer.find({ isActive: true });
-
-    const allValidCarts = await Cart.find({ _id: { $in: validCartIds } }).populate({
+    const allCarts = await Cart.find({ userId }).populate({
         path: 'variantId',
         populate: { path: 'productId' }
     }).lean();
 
-    allValidCarts.forEach(item => {
+    allCarts.forEach(item => {
         const variant = item.variantId;
         const product = variant?.productId;
-        if (variant && product) {
+
+        const isAvailable = variant &&
+            variant.stock > 0 &&
+            variant.status === "Active" &&
+            product &&
+            !product.isBlocked;
+
+        if (isAvailable) {
             const basePrice = variant.salePrice || variant.price;
             const offerData = offerHelper.calculateDiscount(product, basePrice, activeOffers);
             subtotal += offerData.discountedPrice * (item.productQuantity || 1);
@@ -180,6 +179,12 @@ export async function getCartByUserId(userId, page = 1, limit = 8) {
         const product = variant ? variant.productId : null;
         const itemPrice = (variant && variant.salePrice) ? variant.salePrice : (variant ? variant.price : 0);
         const itemQuantity = item.productQuantity || 1;
+
+        const isAvailable = variant &&
+            variant.stock > 0 &&
+            variant.status === "Active" &&
+            product &&
+            !product.isBlocked;
 
         const offerData = variant && product
             ? offerHelper.calculateDiscount(product, itemPrice, activeOffers)
@@ -196,7 +201,7 @@ export async function getCartByUserId(userId, page = 1, limit = 8) {
             discountPercentage: offerData.discountPercentage,
             quantity: itemQuantity,
             stock: variant ? variant.stock : 0,
-            outOfStock: false
+            outOfStock: !isAvailable
         };
     });
 
@@ -210,7 +215,7 @@ export async function getCartByUserId(userId, page = 1, limit = 8) {
         subtotal,
         deliveryFee: deliveryFeeValue === 0 ? "Free" : `₹${deliveryFeeValue}`,
         total,
-        removedItemNames,
+        removedItemNames: [], // No longer removing items automatically
         pagination: {
             currentPage: page,
             totalPages,
@@ -269,8 +274,13 @@ export async function updateItemQuantity(userId, variantId, quantity) {
     }
 
     const variant = await ProductVariant.findById(variantId).populate('productId');
-    if (!variant || variant.stock <= 0 || variant.status !== "Active" || (variant.productId && variant.productId.isBlocked)) {
-        await Cart.findOneAndDelete({ userId, variantId });
+    const isAvailable = variant &&
+        variant.stock > 0 &&
+        variant.status === "Active" &&
+        variant.productId &&
+        !variant.productId.isBlocked;
+
+    if (!isAvailable) {
         return {
             ...(await calculateCartTotals(userId)),
             outOfStock: true
