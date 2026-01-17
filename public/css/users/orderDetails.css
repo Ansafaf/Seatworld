@@ -58,6 +58,37 @@ body {
     letter-spacing: 0.5px;
 }
 
+/* Order ID Badge */
+.order-id-badge {
+    display: inline-flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 12px 20px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
+}
+
+.id-label {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+}
+
+.id-value {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 1px;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
 .order-info p {
     font-size: 0.95rem;
     color: #d1d5db;
@@ -397,21 +428,21 @@ body {
     .profile-layout {
         grid-template-columns: 1fr;
     }
-    
+
     .profile-container {
         padding: 30px 16px;
     }
-    
+
     .info-grid {
         grid-template-columns: 1fr;
         gap: 20px;
         padding: 24px;
     }
-    
+
     .order-header-section {
         padding: 24px;
     }
-    
+
     .order-info h1 {
         font-size: 1.5rem;
     }
@@ -422,60 +453,60 @@ body {
     .order-details-container {
         border-radius: 12px;
     }
-    
+
     .order-header-section {
         flex-direction: column;
         align-items: flex-start;
         padding: 20px;
     }
-    
+
     .order-info h1 {
         font-size: 1.3rem;
     }
-    
+
     .header-actions {
         width: 100%;
         flex-direction: column;
         align-items: stretch;
     }
-    
+
     .btn-download {
         width: 100%;
         justify-content: center;
         padding: 14px 20px;
     }
-    
+
     .status-badge {
         text-align: center;
         padding: 10px;
     }
-    
+
     .info-grid {
         padding: 20px;
     }
-    
+
     .items-section {
         padding: 20px;
     }
-    
+
     /* Convert table to cards */
     .table-container {
         border: none;
         overflow-x: visible;
     }
-    
+
     .order-items-table {
         display: block;
     }
-    
+
     .order-items-table thead {
         display: none;
     }
-    
+
     .order-items-table tbody {
         display: block;
     }
-    
+
     .order-items-table tbody tr {
         display: block;
         background: #ffffff;
@@ -484,18 +515,18 @@ body {
         margin-bottom: 16px;
         padding: 20px;
     }
-    
+
     .order-items-table tbody tr:hover {
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
-    
+
     .order-items-table td {
         display: block;
         padding: 12px 0;
         border: none;
         text-align: left !important;
     }
-    
+
     .order-items-table td::before {
         content: attr(data-label);
         font-weight: 700;
@@ -506,46 +537,46 @@ body {
         display: block;
         margin-bottom: 8px;
     }
-    
+
     .order-items-table td[data-label="Product"] {
         padding-bottom: 16px;
         border-bottom: 2px solid #f3f4f6;
         margin-bottom: 12px;
     }
-    
+
     .order-items-table td[data-label="Product"]::before {
         display: none;
     }
-    
+
     .order-items-table td[data-label="Action"] {
         padding-top: 16px;
         border-top: 2px solid #f3f4f6;
         margin-top: 12px;
         text-align: left !important;
     }
-    
+
     .product-cell {
         flex-direction: column;
         align-items: flex-start;
         gap: 12px;
     }
-    
+
     .product-img {
         width: 100%;
         height: 200px;
         object-fit: cover;
     }
-    
+
     .btn-action {
         width: 100%;
         padding: 12px;
         font-size: 0.9rem;
     }
-    
+
     .summary-footer {
         padding: 20px;
     }
-    
+
     .summary-box {
         max-width: 100%;
         padding: 20px;
@@ -557,61 +588,61 @@ body {
     .profile-container {
         padding: 20px 12px;
     }
-    
+
     .order-header-section {
         padding: 16px;
     }
-    
+
     .order-info h1 {
         font-size: 1.2rem;
     }
-    
+
     .order-info p {
         font-size: 0.85rem;
     }
-    
+
     .btn-download {
         font-size: 0.85rem;
         padding: 12px 16px;
     }
-    
+
     .info-grid {
         padding: 16px;
         gap: 16px;
     }
-    
+
     .info-section {
         padding: 16px;
     }
-    
+
     .info-section h3 {
         font-size: 1rem;
     }
-    
+
     .items-section {
         padding: 16px;
     }
-    
+
     .order-items-table tbody tr {
         padding: 16px;
     }
-    
+
     .product-img {
         height: 180px;
     }
-    
+
     .summary-footer {
         padding: 16px;
     }
-    
+
     .summary-box {
         padding: 16px;
     }
-    
+
     .summary-row {
         font-size: 0.9rem;
     }
-    
+
     .grand-total {
         font-size: 1.3rem;
     }
@@ -622,11 +653,11 @@ body {
     .order-info h1 {
         font-size: 1.1rem;
     }
-    
+
     .product-img {
         height: 160px;
     }
-    
+
     .btn-action {
         padding: 10px;
         font-size: 0.85rem;
@@ -638,35 +669,35 @@ body {
     body {
         background: #ffffff;
     }
-    
+
     .profile-container {
         padding: 0;
     }
-    
+
     .profile-layout {
         grid-template-columns: 1fr;
     }
-    
+
     .order-details-container {
         box-shadow: none;
         border: 1px solid #e5e7eb;
     }
-    
+
     .order-header-section {
         background: #1f2937;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
     }
-    
+
     .btn-download,
     .btn-action {
         display: none;
     }
-    
+
     .order-items-table tbody tr:hover {
         background: none;
     }
-    
+
     .table-container {
         overflow: visible;
     }
@@ -674,6 +705,7 @@ body {
 
 /* ===== ACCESSIBILITY ===== */
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
@@ -767,23 +799,23 @@ body {
     .order-timeline {
         padding: 20px;
     }
-    
+
     .timeline-container {
         flex-direction: column;
         gap: 20px;
     }
-    
+
     .timeline-step::before {
         display: none;
     }
-    
+
     .timeline-step {
         display: flex;
         align-items: center;
         text-align: left;
         gap: 16px;
     }
-    
+
     .timeline-icon {
         margin: 0;
         flex-shrink: 0;

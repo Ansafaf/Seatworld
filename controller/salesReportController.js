@@ -17,7 +17,6 @@ export const getSalesReport = async (req, res) => {
     try {
         const { startDate, endDate, quickFilter } = req.query;
         const reportData = await generateSalesReportData({ startDate, endDate, quickFilter });
-
         // Render View
         res.render("admin/salesreport", {
             salesData: reportData,

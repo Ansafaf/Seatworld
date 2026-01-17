@@ -29,9 +29,13 @@
                                         <!-- Order Header -->
                                         <div class="order-header-section">
                                             <div class="order-info">
-                                                <h1>Order #<%= order._id.toString().slice(-6).toUpperCase() %>
-                                                </h1>
-                                                <p>Placed on <%= new Date(order.createdAt).toLocaleDateString('en-GB', {
+                                                <div class="order-id-badge">
+                                                    <span class="id-label">Order ID</span>
+                                                    <span class="id-value">#<%=
+                                                            order._id.toString().slice(-6).toUpperCase() %></span>
+                                                </div>
+                                                <p class="order-date">Placed on <%= new
+                                                        Date(order.createdAt).toLocaleDateString('en-GB', {
                                                         day: '2-digit' , month: 'long' , year: 'numeric' }) %>
                                                 </p>
                                             </div>
