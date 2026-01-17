@@ -29,23 +29,21 @@ export const getOrderlist = async (req, res) => {
         if (search) {
             let searchOrderIds = [];
 
-            // 1. Search by Order ID (Exact or Partial)
             const idQuery = [];
             if (mongoose.Types.ObjectId.isValid(search)) {
                 idQuery.push({ _id: new mongoose.Types.ObjectId(search) });
             }
-            // Also try searching for the last 6 characters if it looks like a hex string
+           
             if (/^[0-9a-fA-F]{1,24}$/.test(search)) {
                 // This is harder in Mongo without $expr, but we can at least check if it matches the string representation
                 // For now, partial ID match is less common, but we can support prefix/suffix if needed.
                 // Redirecting to property match for simplicity.
             }
 
-            // 2. Search by Payment/Order Status
+            //Search by Payment/Order Status
             const orderMatches = await Order.find({
                 $or: [
                     ...idQuery,
-                    { paymentStatus: { $regex: search, $options: "i" } },
                     { paymentMethod: { $regex: search, $options: "i" } }
                 ]
             }).select("_id");
@@ -241,7 +239,6 @@ export const updateOrderStatus = async (req, res) => {
 
         await order.save();
 
-        // Handle Wallet Refund for bulk status update
         if (['cancelled', 'returned'].includes(status) && order.paymentStatus === 'paid') {
             const items = await OrderItem.find({ orderId });
             let totalRefund = 0;
