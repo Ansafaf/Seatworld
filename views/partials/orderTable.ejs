@@ -1,0 +1,10 @@
+<% orderWithItems.forEach((order)=>{ %>
+    <tr>
+        <td> <%= order._id %></td>
+        <td> <%= order.user.name %></td>
+        <td> <%= order.paymentMethod  %></td>
+        <td> <%= order.status %> </td>
+        <td> <%= order.totalAmount %>  </td>
+    </tr>
+
+    <% }) %>

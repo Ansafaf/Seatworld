@@ -15,11 +15,11 @@ async function placeOrder() {
     await placeCODOrder();
     return;
   }
-  else if (paymentMethod === "Online") {
+  else if (paymentMethod === "ONLINE") {
     await handleRazorpayPayment();
     return;
   }
-  else if (paymentMethod === "Wallet") {
+  else if (paymentMethod === "wallet") {
     await placeWalletOrder();
     return;
   }
@@ -160,7 +160,7 @@ async function verifyAndPlaceOrder(razorpayResponse) {
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        paymentMethod: "Razorpay",
+        paymentMethod: "ONLINE",
         razorpay_payment_id: razorpayResponse.razorpay_payment_id,
         razorpay_order_id: razorpayResponse.razorpay_order_id,
         razorpay_signature: razorpayResponse.razorpay_signature
@@ -196,7 +196,7 @@ async function placeWalletOrder() {
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        paymentMethod: "Wallet"
+        paymentMethod: "wallet"
       })
     });
 

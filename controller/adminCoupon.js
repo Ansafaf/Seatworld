@@ -10,7 +10,7 @@ export const getCouponlist = async (req, res) => {
         const query = {};
         if (search) {
             query.$or = [
-                { description: { $regex: search, $options: "i" } },
+                { couponName: { $regex: search, $options: "i" } },
                 { couponCode: { $regex: search, $options: "i" } }
             ];
         }
@@ -52,7 +52,7 @@ export const renderAddCoupon = (req, res) => {
 export const createCoupon = async (req, res) => {
     try {
         const {
-            description,
+            couponName,
             couponCode,
             discountValue,
             discountType,
@@ -79,7 +79,7 @@ export const createCoupon = async (req, res) => {
             return res.status(400).json({ success: false, message: "Expiry date must be after start date" });
         }
         const newCoupon = new Coupon({
-            description,
+            couponName,
             couponCode: couponCode.toUpperCase(),
             discountValue,
             discountType,
@@ -115,7 +115,7 @@ export const updateCoupon = async (req, res) => {
     try {
         const { id } = req.params;
         const {
-            description,
+            couponName,
             couponCode,
             discountValue,
             discountType,
@@ -147,7 +147,7 @@ export const updateCoupon = async (req, res) => {
         }
 
         const updatedCoupon = await Coupon.findByIdAndUpdate(id, {
-            description,
+            couponName,
             couponCode: couponCode.toUpperCase(),
             discountValue,
             discountType,

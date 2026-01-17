@@ -6,6 +6,7 @@ import * as inventoryService from "../services/inventoryService.js";
 import * as walletService from "../services/walletService.js";
 import logger from "../utils/logger.js";
 import mongoose from "mongoose";
+import { calculateDerivedStatus } from "../utils/orderStatusHelper.js";
 
 export const getOrderlist = async (req, res) => {
     try {
@@ -16,6 +17,7 @@ export const getOrderlist = async (req, res) => {
         const search = req.query.search || "";
         const status = req.query.status || ""; //item status
         const sort = req.query.sort || "newest";
+        const paymentMethod = req.query.paymentMethod || "";
 
         let orderIds = null;
 
@@ -28,23 +30,21 @@ export const getOrderlist = async (req, res) => {
         if (search) {
             let searchOrderIds = [];
 
-            // 1. Search by Order ID (Exact or Partial)
             const idQuery = [];
             if (mongoose.Types.ObjectId.isValid(search)) {
                 idQuery.push({ _id: new mongoose.Types.ObjectId(search) });
             }
-            // Also try searching for the last 6 characters if it looks like a hex string
+
             if (/^[0-9a-fA-F]{1,24}$/.test(search)) {
                 // This is harder in Mongo without $expr, but we can at least check if it matches the string representation
                 // For now, partial ID match is less common, but we can support prefix/suffix if needed.
                 // Redirecting to property match for simplicity.
             }
 
-            // 2. Search by Payment/Order Status
+            // Search by Payment/Order Status
             const orderMatches = await Order.find({
                 $or: [
                     ...idQuery,
-                    { paymentStatus: { $regex: search, $options: "i" } },
                     { paymentMethod: { $regex: search, $options: "i" } }
                 ]
             }).select("_id");
@@ -98,16 +98,22 @@ export const getOrderlist = async (req, res) => {
             }
         }
 
-
         let query = {};
         if (orderIds !== null) {
             query._id = { $in: orderIds };
+        }
+
+        if (paymentMethod && paymentMethod !== "ALL") {
+            query.paymentMethod = paymentMethod;
         }
 
         let sortQuery = { createdAt: -1 };
         if (sort === "oldest") sortQuery = { createdAt: 1 };
         else if (sort === "priceHighToLow") sortQuery = { totalAmount: -1 };
         else if (sort === "priceLowToHigh") sortQuery = { totalAmount: 1 };
+
+
+
 
         const totalOrders = await Order.countDocuments(query);
         const totalPages = Math.ceil(totalOrders / limit);
@@ -125,7 +131,6 @@ export const getOrderlist = async (req, res) => {
                     populate: { path: 'productId' }
                 })
                 .lean();
-
             const itemStatuses = items.map(i => i.status);
 
             // Derived Status Logic
@@ -156,7 +161,8 @@ export const getOrderlist = async (req, res) => {
             },
             search,
             status,
-            sort
+            sort,
+            paymentMethod
         });
 
     } catch (error) {
@@ -191,7 +197,8 @@ export const getOrderDetails = async (req, res) => {
                 name: item.productName || item.variantId?.productId?.name || 'Unknown',
                 image: item.productImage || item.variantId?.images?.[0] || '',
                 label: item.variantLabel || item.variantId?.color || '',
-                total: item.purchasedPrice * item.productQuantity
+                total: item.purchasedPrice * item.productQuantity,
+                finalAmount: walletService.calculateItemRefundAmount(order, item)
             })),
             orderStatus: summaryStatus
         };
@@ -239,7 +246,6 @@ export const updateOrderStatus = async (req, res) => {
 
         await order.save();
 
-        // Handle Wallet Refund for bulk status update
         if (['cancelled', 'returned'].includes(status) && order.paymentStatus === 'paid') {
             const items = await OrderItem.find({ orderId });
             let totalRefund = 0;
@@ -313,12 +319,28 @@ export const updateItemStatus = async (req, res) => {
 
         item.status = status;
 
+        // If an item is delivered, mark the whole order as paid (critical for COD logic)
+        if (status === 'delivered') {
+            order.paymentStatus = 'paid';
+        }
+
         const wasInactive = ['cancelled', 'returned'].includes(oldItemStatus);
         const isNowInactive = ['cancelled', 'returned'].includes(status);
 
         if (!wasInactive && isNowInactive) {
-            const itemTotal = item.purchasedPrice * item.productQuantity;
-            order.totalAmount = Math.max(0, order.totalAmount - itemTotal);
+            const refundAmountForItem = walletService.calculateItemRefundAmount(order, item);
+            order.totalAmount = Math.max(0, order.totalAmount - refundAmountForItem);
+
+            // Check if this is the last active item to also remove shipping fee from total
+            const activeItemsCount = await OrderItem.countDocuments({
+                orderId,
+                _id: { $ne: item._id },
+                status: { $nin: ['cancelled', 'returned'] }
+            });
+
+            if (activeItemsCount === 0) {
+                order.totalAmount = 0;
+            }
 
             await inventoryService.updateStock({
                 variantId: item.variantId,
@@ -327,8 +349,19 @@ export const updateItemStatus = async (req, res) => {
                 orderId: order._id
             });
         } else if (wasInactive && !isNowInactive) {
-            const itemTotal = item.purchasedPrice * item.productQuantity;
-            order.totalAmount += itemTotal;
+            const refundAmountForItem = walletService.calculateItemRefundAmount(order, item);
+            order.totalAmount += refundAmountForItem;
+
+            // If we are reactivating the first item, add shipping fee back to total
+            const otherActiveItemsCount = await OrderItem.countDocuments({
+                orderId,
+                _id: { $ne: item._id },
+                status: { $nin: ['cancelled', 'returned'] }
+            });
+
+            if (otherActiveItemsCount === 0) {
+                order.totalAmount += (order.shippingFee || 0);
+            }
 
             await inventoryService.updateStock({
                 variantId: item.variantId,
@@ -343,7 +376,10 @@ export const updateItemStatus = async (req, res) => {
         await item.save();
 
         // Handle Wallet Refund for single item status change
-        if (isNowInactive && order.paymentStatus === 'paid' && item.refundStatus !== 'refunded') {
+        // Safeguard for COD: Only refund if the item is RETURNED (cancellations aren't paid for in COD)
+        const isRefundableStatus = (order.paymentMethod === 'COD') ? (status === 'returned') : isNowInactive;
+
+        if (isRefundableStatus && order.paymentStatus === 'paid' && item.refundStatus !== 'refunded') {
             let refundAmount = walletService.calculateItemRefundAmount(order, item);
 
             // Check if this is the last active item to include shipping fee
@@ -385,10 +421,10 @@ export const updateItemStatus = async (req, res) => {
 };
 
 export const approveItemAction = async (req, res) => {
-    try {
-        const { itemId } = req.params;
-        const { action } = req.body;
+    const { itemId } = req.params;
+    const { action } = req.body;
 
+    try {
         const item = await OrderItem.findById(itemId);
         if (!item) {
             return res.status(404).json({ success: false, message: "Item not found" });
@@ -399,16 +435,20 @@ export const approveItemAction = async (req, res) => {
             return res.status(404).json({ success: false, message: "Order not found" });
         }
 
+        const orderId = order._id;
+        const currentStatus = (item.status || "").toLowerCase().replace(/_/g, " ");
+        const isReturnRequested = currentStatus === 'return requested' || item.returnReason;
+
         if (action === 'approve_return') {
-            if (item.status !== 'return_requested') {
-                return res.status(400).json({ success: false, message: "Item is not in return_requested state" });
+            if (!isReturnRequested) {
+                return res.status(400).json({ success: false, message: `Item is not in return_requested state (current: ${item.status})` });
             }
             item.status = 'returned';
             item.returnedOn = new Date();
             item.refundStatus = 'initiated';
         } else if (action === 'reject_return') {
-            if (item.status !== 'return_requested') {
-                return res.status(400).json({ success: false, message: "Item is not in return_requested state" });
+            if (!isReturnRequested) {
+                return res.status(400).json({ success: false, message: `Item is not in return_requested state (current: ${item.status})` });
             }
             item.status = 'delivered';
             item.rejectedOn = new Date();
@@ -418,8 +458,19 @@ export const approveItemAction = async (req, res) => {
 
         if (action !== 'reject_return') {
             // Apply financial and inventory updates
-            const itemTotal = item.purchasedPrice * item.productQuantity;
-            order.totalAmount = Math.max(0, order.totalAmount - itemTotal);
+            const refundAmountForItem = walletService.calculateItemRefundAmount(order, item);
+            order.totalAmount = Math.max(0, order.totalAmount - refundAmountForItem);
+
+            // Check if this is the last active item to also remove shipping fee from total
+            const activeItemsCount = await OrderItem.countDocuments({
+                orderId,
+                _id: { $ne: item._id },
+                status: { $nin: ['cancelled', 'returned'] }
+            });
+
+            if (activeItemsCount === 0) {
+                order.totalAmount = 0;
+            }
 
             await inventoryService.updateStock({
                 variantId: item.variantId,
@@ -433,7 +484,10 @@ export const approveItemAction = async (req, res) => {
         await item.save();
 
         // Handle Wallet Refund for approved action
-        if (action !== 'reject_return' && order.paymentStatus === 'paid' && item.refundStatus !== 'refunded') {
+        // Safeguard for COD: Only refund if the item is RETURNED (cancellations aren't paid for in COD)
+        const isRefundableStatus = (order.paymentMethod === 'COD') ? (item.status === 'returned') : true;
+
+        if (isRefundableStatus && order.paymentStatus === 'paid' && item.refundStatus !== 'refunded') {
             let refundAmount = walletService.calculateItemRefundAmount(order, item);
 
             // Check if this is the last active item to include shipping fee
@@ -458,36 +512,23 @@ export const approveItemAction = async (req, res) => {
             }
         }
 
-        res.json({ success: true, message: `Action ${action} approved successfully` });
+        // Recalculate summary status for the response
+        const allItems = await OrderItem.find({ orderId });
+        const summaryStatus = calculateDerivedStatus(allItems);
+
+        res.json({
+            success: true,
+            message: `Action ${action} approved successfully`,
+            orderStatus: summaryStatus
+        });
 
     } catch (error) {
         logger.error("Error approving item action:", error);
-        res.status(500).json({ success: false, message: "Internal Server Error" });
+        res.status(500).json({
+            success: false,
+            message: `Failed to ${action ? action.replace('_', ' ') : 'process'}: ${error.message}`
+        });
     }
 };
 
-const calculateDerivedStatus = (items) => {
-    const itemStatuses = items.map(i => i.status);
-    const totalItems = items.length;
-    const deliveredCount = items.filter(i => i.status === 'delivered').length;
-    const returnedCount = items.filter(i => i.status === 'returned').length;
-    const cancelledCount = items.filter(i => i.status === 'cancelled').length;
 
-    if (totalItems === 0) return "Pending";
-    if (returnedCount === totalItems) return "Returned";
-    if (returnedCount > 0) return "Partially Returned";
-    if (deliveredCount === totalItems) return "Delivered";
-    if (deliveredCount > 0) return "Partially Delivered";
-    if (cancelledCount === totalItems) return "Cancelled";
-    if (cancelledCount > 0) return "Partially Cancelled";
-
-    if (new Set(itemStatuses).size === 1) {
-        return itemStatuses[0];
-    }
-
-    if (items.some(i => i.status === 'shipped')) {
-        return "Shipped";
-    }
-
-    return items[0]?.status || "Pending";
-};

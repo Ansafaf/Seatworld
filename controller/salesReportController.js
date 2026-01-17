@@ -17,7 +17,6 @@ export const getSalesReport = async (req, res) => {
     try {
         const { startDate, endDate, quickFilter } = req.query;
         const reportData = await generateSalesReportData({ startDate, endDate, quickFilter });
-
         // Render View
         res.render("admin/salesreport", {
             salesData: reportData,
@@ -81,9 +80,13 @@ export const getDownloadExcel = async (req, res) => {
         // Define columns
         worksheet.columns = [
             { header: 'Order ID', key: 'orderId', width: 25 },
-            { header: 'Date', key: 'date', width: 20 },
-            { header: 'Total Amount (₹)', key: 'totalAmount', width: 15 },
+            { header: 'Date', key: 'date', width: 15 },
+            { header: 'Customer', key: 'customer', width: 25 },
+            { header: 'Items', key: 'items', width: 10 },
+            { header: 'Subtotal (₹)', key: 'subtotal', width: 15 },
+            { header: 'Shipping (₹)', key: 'shipping', width: 15 },
             { header: 'Discount (₹)', key: 'discount', width: 15 },
+            { header: 'Total (₹)', key: 'totalAmount', width: 15 },
             { header: 'Payment Method', key: 'paymentMethod', width: 20 },
             { header: 'Status', key: 'status', width: 15 }
         ];
@@ -99,12 +102,16 @@ export const getDownloadExcel = async (req, res) => {
         // Add data rows
         report.transactions.forEach(t => {
             worksheet.addRow({
-                orderId: `#${t.orderId.toString().slice(-6)}`,
+                orderId: `#${t.orderId.toString().slice(-6).toUpperCase()}`,
                 date: new Date(t.date).toLocaleDateString('en-IN'),
-                totalAmount: t.totalAmount,
+                customer: `${t.customer.name} (${t.customer.email})`,
+                items: t.itemCount,
+                subtotal: t.subtotal,
+                shipping: t.shippingFee,
                 discount: t.discount,
+                totalAmount: t.totalAmount,
                 paymentMethod: t.paymentMethod,
-                status: t.status === 'Success' ? 'Paid' : t.status
+                status: t.status
             });
         });
 

@@ -8,7 +8,24 @@ if (form) {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        if (password.value !== confirmPassword.value) {
+        const usernameInput = form.querySelector('input[name="username"]');
+        const emailInput = form.querySelector('input[name="email"]');
+        const usernameValue = usernameInput ? usernameInput.value.trim() : '';
+        const emailValue = emailInput ? emailInput.value.trim() : '';
+        const passwordValue = password.value.trim();
+        const confirmPasswordValue = confirmPassword.value.trim();
+
+        if (!usernameValue || !emailValue || !passwordValue) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                text: 'All fields are required and cannot be just spaces',
+                confirmButtonColor: '#3b82f6'
+            });
+            return;
+        }
+
+        if (passwordValue !== confirmPasswordValue) {
             Swal.fire({
                 icon: 'error',
                 title: 'Validation Error',
@@ -18,9 +35,8 @@ if (form) {
             return;
         }
 
-        const username = form.querySelector('input[name="username"]');
-        const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
-        if (username && !usernameRegex.test(username.value)) {
+        const usernameRegex = /^[a-zA-Z0-9_ ]{3,20}$/;
+        if (!usernameRegex.test(usernameValue)) {
             Swal.fire({
                 icon: 'error',
                 title: 'Validation Error',
@@ -30,8 +46,13 @@ if (form) {
             return;
         }
 
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
+        const data = {
+            username: usernameValue,
+            email: emailValue,
+            password: passwordValue,
+            confirmPassword: confirmPasswordValue,
+            referralCode: form.querySelector('input[name="referralCode"]')?.value.trim() || ''
+        };
 
         // Show loading state
         const submitBtn = form.querySelector('.signup-btn');

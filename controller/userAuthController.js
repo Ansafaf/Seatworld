@@ -101,17 +101,23 @@ export function getSignup(req, res) {
   res.render("users/signup");
 }
 export async function postSignup(req, res) {
-  const { username, email, password, confirmPassword, referralCode } = req.body;
+  let { username, email, password, confirmPassword, referralCode } = req.body;
+
+  username = username?.trim();
+  email = email?.trim();
+  password = password?.trim();
+  confirmPassword = confirmPassword?.trim();
+  referralCode = referralCode?.trim();
 
   if (!username || !email || !password || !confirmPassword) {
     return res.status(400).json({
       success: false,
-      message: "All fields are required"
+      message: "All fields are required and cannot be empty"
     });
   }
 
   // Username validation
-  const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+  const usernameRegex = /^[a-zA-Z0-9_ ]{3,20}$/;
   if (!usernameRegex.test(username)) {
     return res.status(400).json({
       success: false,

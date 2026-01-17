@@ -122,7 +122,8 @@
     height: 1.5rem;
 }
 
-.cart-count-badge {
+.cart-count-badge,
+.wishlist-count-badge {
     position: absolute;
     top: -6px;
     right: -8px;

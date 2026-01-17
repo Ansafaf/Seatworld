@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="/css/users/profile.css">
     <link rel="stylesheet" href="/css/users/addressList.css"> <!-- reusing sidebar styles -->
+    <link rel="stylesheet" href="/css/users/orderList.css">
 </head>
 
 <body class="bg-gray-100 text-gray-800">
@@ -24,7 +25,7 @@
             <%- include("../partials/breadcrumb", { breadcrumbs }) %>
 
                 <!-- MAIN -->
-                <main class="container">
+                <main class="profile-container">
 
                     <div class="profile-layout">
 
@@ -63,69 +64,64 @@
 
                                     <% if (orders && orders.length> 0) { %>
                                         <div class="overflow-x-auto">
-                                            <table class="w-full text-left border-collapse">
+                                            <table>
                                                 <thead>
-                                                    <tr
-                                                        class="border-b bg-gray-50 text-sm font-semibold text-gray-600 uppercase tracking-wider">
-                                                        <th class="px-4 py-3">Order ID</th>
-                                                        <th class="px-4 py-3">Items</th>
-                                                        <th class="px-4 py-3">Date</th>
-                                                        <th class="px-4 py-3">Total Amount</th>
-                                                        <th class="px-4 py-3">Order Status</th>
-                                                        <th class="px-4 py-3">Action</th>
+                                                    <tr>
+                                                        <th>Order ID</th>
+                                                        <th>Items</th>
+                                                        <th>Date</th>
+                                                        <th>Total Amount</th>
+                                                        <th>Order Status</th>
+                                                        <th>Action</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody class="text-sm divide-y divide-gray-100">
+                                                <tbody>
                                                     <% orders.forEach(order=> { %>
-                                                        <tr class="hover:bg-gray-50 transition-colors">
-                                                            <td class="px-4 py-4 font-medium text-gray-900">#<%=
-                                                                    order._id.toString().slice(-6).toUpperCase() %>
+                                                        <tr>
+                                                            <td>#<%= order._id.toString().slice(-6).toUpperCase() %>
                                                             </td>
-                                                            <td class="px-4 py-4">
-                                                                <div class="flex flex-col">
-                                                                    <span class="font-bold text-gray-900">
-                                                                        <%= order.itemCount %> Items
-                                                                    </span>
-                                                                    <div class="flex flex-wrap gap-1 mt-1">
-                                                                        <% order.items.forEach(item=> { %>
-                                                                            <span
-                                                                                class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-400 font-mono tracking-tighter uppercase">
-                                                                                #<%= item._id.toString().slice(-6).toUpperCase()
-                                                                                    %>
-                                                                            </span>
-                                                                            <% }) %>
-                                                                    </div>
+                                                            <td class="items-cell">
+                                                                <span class="item-count">
+                                                                    <%= order.itemCount %> Items
+                                                                </span>
+                                                                <div class="item-ids">
+                                                                    <% order.items.forEach(item=> { %>
+                                                                        <span class="item-id-badge">
+                                                                            #<%= item._id.toString().slice(-6).toUpperCase()
+                                                                                %>
+                                                                        </span>
+                                                                        <% }) %>
                                                                 </div>
                                                             </td>
-                                                            <td class="px-4 py-4">
+                                                            <td class="date-cell">
                                                                 <%= new
                                                                     Date(order.createdAt).toLocaleDateString('en-GB') %>
                                                             </td>
-                                                            <td class="px-4 py-4 font-semibold">₹<%=
+                                                            <td class="amount-cell">₹<%=
                                                                     order.totalAmount.toLocaleString('en-IN') %>
                                                             </td>
-                                                            <td class="px-4 py-4">
-                                                                <div class="flex items-start gap-2">
-                                                                    <% let statusColor='bg-yellow-400' ; if
-                                                                        (order.orderStatus==='delivered' )
-                                                                        statusColor='bg-green-500' ; else if
-                                                                        (['cancelled', 'returned'
-                                                                        ].includes(order.orderStatus))
-                                                                        statusColor='bg-red-500' ; else if
-                                                                        (order.orderStatus==='shipped' )
-                                                                        statusColor='bg-blue-500' ; %>
+                                                            <td>
+                                                                <div class="status-wrapper">
+                                                                    <% let statusClass='pending' ; const
+                                                                        lowerStatus=order.orderStatus.toLowerCase(); if
+                                                                        (lowerStatus.includes('delivered'))
+                                                                        statusClass='delivered' ; else if
+                                                                        (lowerStatus.includes('cancelled') ||
+                                                                        lowerStatus.includes('returned'))
+                                                                        statusClass='cancelled' ; else if
+                                                                        (lowerStatus.includes('shipped'))
+                                                                        statusClass='shipped' ; %>
                                                                         <span
-                                                                            class="mt-1.5 w-2 h-2 rounded-full <%= statusColor %>"></span>
+                                                                            class="status-indicator <%= statusClass %>"></span>
                                                                         <div>
-                                                                            <p
-                                                                                class="font-medium text-gray-900 capitalize">
+                                                                            <p class="status-text">
                                                                                 <%= order.orderStatus %>
                                                                             </p>
                                                                             <% if (['pending', 'confirmed' , 'shipped'
                                                                                 ].includes(order.orderStatus)) { %>
-                                                                                <p class="text-xs text-gray-500">
-                                                                                    Delivery
-                                                                                    expected by <%= new Date(new
+                                                                                <p class="status-subtext">
+                                                                                    Delivery expected by <%= new
+                                                                                        Date(new
                                                                                         Date(order.createdAt).getTime()
                                                                                         +
                                                                                         5*24*60*60*1000).toLocaleDateString('en-GB')
@@ -134,15 +130,16 @@
                                                                                 <% } else if
                                                                                     (order.orderStatus==='cancelled' ) {
                                                                                     %>
-                                                                                    <p class="text-xs text-red-500">Your
-                                                                                        order has been cancelled.</p>
+                                                                                    <p class="status-subtext cancelled">
+                                                                                        Your order has been cancelled.
+                                                                                    </p>
                                                                                     <% } %>
                                                                         </div>
                                                                 </div>
                                                             </td>
-                                                            <td class="px-4 py-4">
+                                                            <td>
                                                                 <a href="/orders/<%= order._id %>"
-                                                                    class="inline-block px-4 py-2 bg-black text-white text-xs font-bold rounded hover:bg-gray-800 transition-colors">
+                                                                    class="view-order-btn">
                                                                     View Order
                                                                 </a>
                                                             </td>
@@ -153,30 +150,28 @@
                                         </div>
 
                                         <!-- Pagination Section -->
-                                        <div class="mt-6 flex flex-col items-center">
-                                            <span class="text-sm text-gray-500 mb-4">
+                                        <div class="pagination-wrapper">
+                                            <div class="pagination-info">
                                                 Showing <span class="font-medium">
                                                     <%= (pagination.currentPage - 1) * pagination.limit + 1 %>
-                                                </span> to <span class="font-medium">
+                                                </span> to
+                                                <span class="font-medium">
                                                     <%= Math.min(pagination.currentPage * pagination.limit,
                                                         pagination.totalOrders) %>
-                                                </span> of <span class="font-medium">
+                                                </span> of
+                                                <span class="font-medium">
                                                     <%= pagination.totalOrders %>
                                                 </span> results
-                                            </span>
+                                            </div>
                                             <%- include('../partials/pagination', { pagination, query: 'search=' +
                                                 (search || '' ) }) %>
                                         </div>
 
                                         <% } else { %>
-                                            <div class="text-center py-20">
-                                                <span class="material-icons-outlined text-gray-300"
-                                                    style="font-size: 60px;">shopping_bag</span>
-                                                <p class="text-gray-500 mt-4 text-lg">You haven't placed any orders yet.
-                                                </p>
-                                                <a href="/"
-                                                    class="inline-block mt-6 px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors font-medium">Start
-                                                    Shopping</a>
+                                            <div class="empty-state">
+                                                <span class="material-icons-outlined">shopping_bag</span>
+                                                <p>You haven't placed any orders yet.</p>
+                                                <a href="/">Start Shopping</a>
                                             </div>
                                             <% } %>
 

@@ -8,7 +8,6 @@ import { Offer } from "../models/offerModel.js";
 import * as offerHelper from "../utils/offerHelper.js";
 
 
-// Helper: Normalize query params into arrays and apply defaults
 const normalizeQuery = (query) => {
     const normalizeArr = (value) => {
         if (!value) return [];
@@ -27,7 +26,7 @@ const normalizeQuery = (query) => {
         selectedTags: normalizeValue(query.tag),
         sort: query.sort || "featured",
         page: Math.max(1, parseInt(query.page, 10) || 1),
-        limit: Math.max(1, parseInt(query.limit, 10) || 8),
+        limit: Math.max(1, parseInt(query.limit, 9) || 9),
         stock: query.stock,
         discount: query.discount,
         search: query.search,
@@ -36,7 +35,7 @@ const normalizeQuery = (query) => {
     };
 };
 
-// Helper: Build base product filter
+
 const buildBaseFilter = (params) => {
     const { selectedCategories, selectedBrands, selectedTags, discount, search } = params;
     const filter = { isBlocked: { $ne: true } };
@@ -64,16 +63,18 @@ const applyVariantFilters = async (filter, params) => {
     const hasMinPrice = !Number.isNaN(minPrice) && minPrice > 0;
     const hasMaxPrice = !Number.isNaN(maxPrice) && maxPrice > 0;
 
-    // If no variant-based filters are applied, return early
-    if (!selectedColors.length && !stock && !hasMinPrice && !hasMaxPrice) {
-        return { filter, hasMinPrice, hasMaxPrice };
-    }
+    // We no longer return early here because we ALWAYS want to filter out products that have NO active/in-stock variants
+    // even if no specific filters are applied.
 
     // First find products matching basic filters to narrow down variant search
     const products = await Product.find(filter).select('_id').lean();
     const productIds = products.map(p => p._id);
 
-    const variantFilter = { productId: { $in: productIds }, status: "Active" };
+    const variantFilter = {
+        productId: { $in: productIds },
+        status: "Active",
+        stock: { $gt: 0 } // Only show items with actual stock in the list
+    };
 
     // Add color filter
     if (selectedColors.length) variantFilter.color = { $in: selectedColors };
@@ -118,6 +119,7 @@ const enrichProducts = async (products, activeOffers) => {
             const variant = await ProductVariant.findOne({
                 productId: product._id,
                 status: "Active",
+                stock: { $gt: 0 }
             });
 
             const basePrice = variant ? variant.price : product.Baseprice;
@@ -134,6 +136,7 @@ const enrichProducts = async (products, activeOffers) => {
         })
     );
 };
+
 
 // Helper: Prepare UI elements (query string, heading, filter count)
 const prepareUIHelpers = (params, categories, minPriceValue, maxPriceValue) => {
@@ -179,14 +182,21 @@ export async function getProducts(req, res) {
         if (!req.session.user) return res.redirect("/login");
         console.log("getProducts controller hit. User:", req.session?.user?.id);
 
-        // 1. Normalize Query Parameters
         const params = normalizeQuery(req.query);
 
-        // 2. Build Base Filter
         const { filter } = buildBaseFilter(params);
 
-        // 3. Fetch Peripheral Data (Categories, Brands, Price Stats, Tags)
         const categories = await Category.find({ isActive: true }).lean();
+        const activeCategoryIds = categories.map(cat => cat._id.toString());
+
+        // Ensure we only show products from active categories
+        filter.categoryId = { $in: activeCategoryIds };
+
+        if (params.selectedCategories.length) {
+            // Further filter by user selection, but ONLY within active categories
+            const userSelectedActive = params.selectedCategories.filter(id => activeCategoryIds.includes(id));
+            filter.categoryId = { $in: userSelectedActive };
+        }
         const [brandsDistinct, priceStats, tagsDistinct] = await Promise.all([
             Product.distinct("brand"),
             ProductVariant.aggregate([
@@ -342,7 +352,7 @@ export async function getProductdetail(req, res) {
             return res.status(404).render("404");
         }
 
-        const variants = await ProductVariant.find({ productId: productId, status: "Active" }).lean();
+        const variants = await ProductVariant.find({ productId: productId, status: { $in: ["Active", "OutofStock"] } }).lean();
 
         let selectedVariant = null;
         if (variantId) {
@@ -386,7 +396,7 @@ export async function getProductdetail(req, res) {
         ]);
 
         const relatedProductsWithImages = await Promise.all(relatedProducts.map(async (rp) => {
-            const v = await ProductVariant.findOne({ productId: rp._id, status: "Active" });
+            const v = await ProductVariant.findOne({ productId: rp._id, status: { $in: ["Active", "OutofStock"] } });
             const basePrice = v ? v.price : rp.Baseprice;
             const discountData = offerHelper.calculateDiscount(rp, basePrice, activeOffers);
 

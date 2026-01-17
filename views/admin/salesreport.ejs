@@ -181,49 +181,65 @@
                                 <table class="w-full text-left text-sm text-gray-600">
                                     <thead class="bg-gray-50 text-xs uppercase font-medium text-gray-500">
                                         <tr>
-                                            <th class="px-6 py-4">Order No</th>
-                                            <th class="px-6 py-4">Date</th>
-                                            <th class="px-6 py-4">Total Amount</th>
-                                            <th class="px-6 py-4">Discount Applied</th>
-                                            <th class="px-6 py-4">Payment Info</th>
+                                            <th class="px-6 py-4">Order ID</th>
+                                            <th class="px-6 py-4 whitespace-nowrap">Date</th>
+                                            <th class="px-6 py-4">Customer</th>
+                                            <th class="px-6 py-4">Items</th>
+                                            <th class="px-6 py-4">Amount</th>
+                                            <th class="px-6 py-4">Discount</th>
+                                            <th class="px-6 py-4">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody class="divide-y divide-gray-100">
                                         <% if (salesData.transactions && salesData.transactions.length> 0) { %>
                                             <% salesData.transactions.forEach(t=> { %>
                                                 <tr class="hover:bg-gray-50 transition-colors">
-                                                    <td class="px-6 py-4 font-medium text-indigo-600">
-                                                        #<%= t.orderId.toString().slice(-6) %>
+                                                    <td class="px-6 py-4">
+                                                        <span class="font-medium text-indigo-600 uppercase">
+                                                            #<%= t.orderId.toString().slice(-6) %>
+                                                        </span>
+                                                    </td>
+                                                    <td class="px-6 py-4 whitespace-nowrap">
+                                                        <%= new Date(t.date).toLocaleDateString('en-IN', {
+                                                            day: '2-digit' , month: 'short' }) %>
                                                     </td>
                                                     <td class="px-6 py-4">
-                                                        <%= new Date(t.date).toLocaleDateString('en-IN', {
-                                                            day: '2-digit' , month: 'short' , year: 'numeric' }) %>
+                                                        <div class="flex flex-col">
+                                                            <span class="text-sm font-semibold text-gray-900">
+                                                                <%= t.customer.name %>
+                                                            </span>
+                                                            <span class="text-xs text-gray-500">
+                                                                <%= t.customer.email %>
+                                                            </span>
+                                                        </div>
                                                     </td>
-                                                    <td class="px-6 py-4 font-medium text-gray-900">
+                                                    <td class="px-6 py-4 text-center">
+                                                        <span
+                                                            class="px-2 py-1 bg-gray-100 rounded text-xs font-semibold text-gray-600">
+                                                            <%= t.itemCount %>
+                                                        </span>
+                                                    </td>
+                                                    <td class="px-6 py-4 font-bold text-gray-900">
                                                         ₹<%= t.totalAmount.toLocaleString('en-IN') %>
                                                     </td>
-                                                    <td class="px-6 py-4 text-red-600">
-                                                        ₹<%= t.discount.toLocaleString('en-IN') %>
+                                                    <td class="px-6 py-4 text-red-600 font-medium">
+                                                        -₹<%= t.discount.toLocaleString('en-IN') %>
                                                     </td>
                                                     <td class="px-6 py-4">
-                                                        <% let payMethod=(t.paymentMethod || "" ).toLowerCase(); let
-                                                            displayLabel="Online" ; let
-                                                            colorClass="bg-indigo-100 text-indigo-800" ; if
-                                                            (payMethod.includes("razorpay") ||
-                                                            payMethod.includes("online")) {
-                                                            displayLabel="Credit or Debit" ;
-                                                            colorClass="bg-blue-100 text-blue-800" ; } else if
-                                                            (payMethod.includes("cod")) { displayLabel="COD" ;
-                                                            colorClass="bg-gray-100 text-gray-800" ; } else if
-                                                            (payMethod.includes("wallet")) { displayLabel="Wallet" ;
-                                                            colorClass="bg-purple-100 text-purple-800" ; } else {
-                                                            displayLabel=(t.status || "Unknown" ).toUpperCase();
-                                                            colorClass=(t.status==='Success' || t.status==='paid' )
-                                                            ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
-                                                            ; } %>
+                                                        <% const status=t.status.toLowerCase(); let
+                                                            badgeClass="bg-gray-100 text-gray-800" ; if
+                                                            (status.includes('delivered'))
+                                                            badgeClass="bg-green-100 text-green-800" ; else if
+                                                            (status.includes('cancelled') ||
+                                                            status.includes('returned'))
+                                                            badgeClass="bg-red-100 text-red-800" ; else if
+                                                            (status.includes('shipped'))
+                                                            badgeClass="bg-blue-100 text-blue-800" ; else if
+                                                            (status.includes('pending') || status.includes('confirmed'))
+                                                            badgeClass="bg-yellow-100 text-yellow-800" ; %>
                                                             <span
-                                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <%= colorClass %>">
-                                                                <%= displayLabel %>
+                                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider <%= badgeClass %>">
+                                                                <%= t.status %>
                                                             </span>
                                                     </td>
                                                 </tr>

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const couponSchema = new mongoose.Schema(
   {
-    description: {
+    couponName: {
       type: String,
       trim: true,
       required: true
@@ -30,7 +30,7 @@ const couponSchema = new mongoose.Schema(
 
     couponStatus: {
       type: String,
-      enum: ["active", "blocked","expired"],
+      enum: ["active", "blocked", "expired"],
       default: "active"
     },
 
