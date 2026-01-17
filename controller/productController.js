@@ -349,7 +349,7 @@ export async function getProductdetail(req, res) {
             return res.status(404).render("404");
         }
 
-        const variants = await ProductVariant.find({ productId: productId, status: "Active" }).lean();
+        const variants = await ProductVariant.find({ productId: productId, status: { $in: ["Active", "OutofStock"] } }).lean();
 
         let selectedVariant = null;
         if (variantId) {
@@ -393,7 +393,7 @@ export async function getProductdetail(req, res) {
         ]);
 
         const relatedProductsWithImages = await Promise.all(relatedProducts.map(async (rp) => {
-            const v = await ProductVariant.findOne({ productId: rp._id, status: "Active" });
+            const v = await ProductVariant.findOne({ productId: rp._id, status: { $in: ["Active", "OutofStock"] } });
             const basePrice = v ? v.price : rp.Baseprice;
             const discountData = offerHelper.calculateDiscount(rp, basePrice, activeOffers);
 
