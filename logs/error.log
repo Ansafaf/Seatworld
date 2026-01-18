@@ -1172,3 +1172,7 @@ Or, if you meant to create an async function, pass `async: true` as an option.
 If the above error is not helpful, you may want to try EJS-Lint:
 https://github.com/RyanZim/EJS-Lint
 Or, if you meant to create an async function, pass `async: true` as an option.
+[2026-01-18 13:01:19] ERROR: User validation failed: name: Name must be 3-50 characters and contain only letters and spaces
+[2026-01-18 13:01:32] ERROR: User validation failed: name: Name must be 3-50 characters and contain only letters and spaces
+[2026-01-18 13:18:34] ERROR: User validation failed: name: Name must be 3-50 characters and contain only letters and spaces
+[2026-01-18 13:19:11] ERROR: User validation failed: name: Name must be 3-50 characters and contain only letters and spaces

@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SeatWorld - Product Gallery</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/users/authHeader.css">
   <link rel="stylesheet" href="/css/users/productList.css">
   <script src="/js/common/pagination.js" defer></script>
 </head>
@@ -226,7 +227,7 @@
                                     </div>
                                     <div class="p-old-row">
                                       <span class="p-old">₹<%= Number(product.originalPrice).toLocaleString('en-IN') %>
-                                          </span>
+                                      </span>
                                       <span class="p-off">
                                         <%= product.discountPercentage %>% OFF
                                       </span>
