@@ -1,5 +1,5 @@
 
-import { addCategory } from "../services/categoryService.js";
+import { apiRequest } from "../utils/fetchClient.js";
 const sidebar = document.getElementById("adminSidebar");
 const mobileMenuBtn = document.getElementById("mobileMenuBtn");
 const sidebarOverlay = document.getElementById("sidebarOverlay");
@@ -42,7 +42,7 @@ if (form) {
         try {
 
 
-            const data = await addCategory(categoryName);
+            const data = await apiRequest("/admin/add-category", "POST", { categoryName });
 
             if (data && data.success) {
                 Swal.fire({

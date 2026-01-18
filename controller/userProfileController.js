@@ -487,7 +487,7 @@ export async function postAddaddress(req, res) {
     const id = req.session.user.id;
     const { name, housename, street, city, state, country, pincode, mobile } = req.body;
     const codeRegex = /^[A-Z0-9]+$/;
-    if(!codeRegex.test(req.body)){
+    if(!codeRegex.test(name)){
       return res.status(400).json({success:false, message:"Address data must only contains numbers or alphabets"})
     }
     const address = new Address({

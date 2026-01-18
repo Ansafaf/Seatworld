@@ -764,13 +764,6 @@ export async function getHome(req, res) {
 }
 
 
-export function getLogout(req, res) {
-  req.session.destroy((err) => {
-    if (err) console.log(err);
-    res.clearCookie("connect.sid");
-    res.redirect("/login");
-  });
-}
 export async function getUserCounts(req, res) {
   try {
     const userId = req.session.user?.id || req.user?.id || req.user?._id;
@@ -788,4 +781,13 @@ export async function getUserCounts(req, res) {
     console.error("Error fetching user counts:", error);
     res.status(500).json({ success: false, message: "Internal server error" });
   }
+}
+
+
+export function getLogout(req, res) {
+  req.session.destroy((err) => {
+    if (err) console.log(err);
+    res.clearCookie("connect.sid");
+    res.redirect("/login");
+  });
 }
