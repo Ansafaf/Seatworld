@@ -63,11 +63,11 @@ export async function postprofileEdit(req, res) {
     }
 
     // Name validation
-    const nameRegex = /^[a-zA-Z\s]{3,50}$/;
+    const nameRegex = /^[a-zA-Z\s.]{3,50}$/;
     if (!nameRegex.test(name)) {
       return res.status(400).json({
         success: false,
-        message: "Name must be 3-50 characters and contain only letters and spaces"
+        message: "Name must be 3-50 characters and contain only letters, spaces, and dots"
       });
     }
 
