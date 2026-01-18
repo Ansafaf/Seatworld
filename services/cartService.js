@@ -98,8 +98,8 @@ export async function calculateCartTotals(userId) {
                 discountAmount = appliedCoupon.discountValue;
             }
 
-            // Cap discount at maxAmount if specified
-            if (appliedCoupon.maxAmount && appliedCoupon.maxAmount > 0) {
+            // Cap discount at maxAmount if specified (ONLY for percentage coupons)
+            if (appliedCoupon.discountType === 'percentage' && appliedCoupon.maxAmount && appliedCoupon.maxAmount > 0) {
                 if (discountAmount > appliedCoupon.maxAmount) {
                     discountAmount = appliedCoupon.maxAmount;
                 }

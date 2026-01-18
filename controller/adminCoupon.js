@@ -97,7 +97,7 @@ export const createCoupon = async (req, res) => {
             startDate,
             expiryDate,
             minAmount,
-            maxAmount
+            maxAmount: discountType === 'flat' ? 0 : (maxAmount || 0)
         });
 
         await newCoupon.save();
@@ -178,7 +178,7 @@ export const updateCoupon = async (req, res) => {
             startDate,
             expiryDate,
             minAmount,
-            maxAmount,
+            maxAmount: discountType === 'flat' ? 0 : (maxAmount || 0),
             couponStatus: newStatus
         }, { new: true });
 
