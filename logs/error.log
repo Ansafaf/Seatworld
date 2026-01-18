@@ -1192,3 +1192,4 @@ Or, if you meant to create an async function, pass `async: true` as an option.
     41|             <main class="layout">
 
 breadcrumbs is not defined
+[2026-01-18 19:08:33] ERROR: Add to cart error: Cannot add more than 6

@@ -81,7 +81,7 @@ const applyVariantFilters = async (filter, params) => {
     // Add color filter
     if (selectedColors.length) {
         variantFilter.color = {
-            $in: selectedColors.map(c => new RegExp(`^${c}$`, 'i'))
+            $in: selectedColors.map(c => new RegExp(`^${escapeRegExp(c)}$`, 'i'))
         };
     }
 
