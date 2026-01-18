@@ -7,6 +7,7 @@ import * as walletService from "../services/walletService.js";
 import logger from "../utils/logger.js";
 import mongoose from "mongoose";
 import { calculateDerivedStatus } from "../utils/orderStatusHelper.js";
+import { escapeRegExp } from "../utils/regexHelper.js";
 
 export const getOrderlist = async (req, res) => {
     try {
@@ -41,11 +42,12 @@ export const getOrderlist = async (req, res) => {
                 // Redirecting to property match for simplicity.
             }
 
+            const escapedSearch = escapeRegExp(search);
             // Search by Payment/Order Status
             const orderMatches = await Order.find({
                 $or: [
                     ...idQuery,
-                    { paymentMethod: { $regex: search, $options: "i" } }
+                    { paymentMethod: { $regex: escapedSearch, $options: "i" } }
                 ]
             }).select("_id");
             const orderFieldIds = orderMatches.map(o => o._id);
@@ -53,8 +55,8 @@ export const getOrderlist = async (req, res) => {
             // 3. Search by User (Email or Name)
             const userMatches = await User.find({
                 $or: [
-                    { email: { $regex: search, $options: "i" } },
-                    { name: { $regex: search, $options: "i" } }
+                    { email: { $regex: escapedSearch, $options: "i" } },
+                    { name: { $regex: escapedSearch, $options: "i" } }
                 ]
             }).select("_id");
             const userIds = userMatches.map(u => u._id);
@@ -63,7 +65,7 @@ export const getOrderlist = async (req, res) => {
 
             // 4. Search by Product Name (Find matching products -> variants -> items)
             const productMatches = await Product.find({
-                name: { $regex: search, $options: "i" }
+                name: { $regex: escapedSearch, $options: "i" }
             }).select("_id");
             const productIds = productMatches.map(p => p._id);
 
@@ -75,8 +77,8 @@ export const getOrderlist = async (req, res) => {
             const itemMatches = await OrderItem.find({
                 $or: [
                     { variantId: { $in: variantIds } },
-                    { productName: { $regex: search, $options: "i" } }, // Also check recorded productName
-                    { status: { $regex: search, $options: "i" } }      // Include item status
+                    { productName: { $regex: escapedSearch, $options: "i" } }, // Also check recorded productName
+                    { status: { $regex: escapedSearch, $options: "i" } }      // Include item status
                 ]
             }).select("orderId");
             const productOrderIds = itemMatches.map(item => item.orderId);

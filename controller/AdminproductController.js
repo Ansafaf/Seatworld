@@ -3,6 +3,7 @@ import * as categoryService from '../services/adminCategoryService.js';
 import logger from '../utils/logger.js';
 import { Product, ProductVariant } from '../models/productModel.js';
 import { paginate } from '../utils/paginationHelper.js';
+import { escapeRegExp } from '../utils/regexHelper.js';
 
 export const productList = async (req, res, next) => {
   try {
@@ -12,7 +13,7 @@ export const productList = async (req, res, next) => {
 
     const query = {};
     if (searchQuery) {
-      query.name = { $regex: searchQuery, $options: "i" };
+      query.name = { $regex: escapeRegExp(searchQuery), $options: "i" };
     }
 
     const { items: rawProducts, pagination } = await paginate(Product, query, {
@@ -77,7 +78,7 @@ export const postAddProduct = async (req, res, next) => {
     const variantStock = req.body.variantStock || req.body['variantStock[]'];
 
     const existingProduct = await Product.findOne({
-      name: { $regex: new RegExp(`^${productName}$`, 'i') }
+      name: { $regex: new RegExp(`^${escapeRegExp(productName)}$`, 'i') }
     });
 
     if (existingProduct) {

@@ -12,17 +12,30 @@ import { createReferralForUser } from "../services/referralService.js";
 
 
 export async function getProfile(req, res) {
+  try {
     if (!req.session.user) return res.redirect("/login");
-  const customer = await User.findById(req.session.user.id);
-  if (!customer.referralCode) {
-    customer.referralCode = await createReferralForUser(customer._id);
+    const customer = await User.findById(req.session.user.id);
+
+    if (!customer) {
+      req.session.message = { type: 'error', message: "User not found" };
+      return res.redirect("/login");
+    }
+
+    if (!customer.referralCode) {
+      customer.referralCode = await createReferralForUser(customer._id);
+    }
+
+    res.render("users/profile", {
+      user: customer,
+      breadcrumbs: buildBreadcrumb([
+        { label: "Profile", url: "/profile" }
+      ])
+    });
+  } catch (error) {
+    console.error("Get Profile Error:", error);
+    logger.error("Get Profile Error:", error);
+    res.status(500).render("500", { message: "Internal Server Error" });
   }
-  res.render("users/profile", {
-    user: customer,
-    breadcrumbs: buildBreadcrumb([
-      { label: "Profile", url: "/profile" }
-    ])
-  });
 }
 
 export async function getprofileEdit(req, res) {
@@ -50,11 +63,11 @@ export async function postprofileEdit(req, res) {
     }
 
     // Name validation
-    const nameRegex = /^[a-zA-Z\s]{3,50}$/;
+    const nameRegex = /^[a-zA-Z\s.]{3,50}$/;
     if (!nameRegex.test(name)) {
       return res.status(400).json({
         success: false,
-        message: "Name must be 3-50 characters and contain only letters and spaces"
+        message: "Name must be 3-50 characters and contain only letters, spaces, and dots"
       });
     }
 

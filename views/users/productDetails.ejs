@@ -7,191 +7,219 @@
     <title>
         <%= product.name %> - SeatWorld
     </title>
+    <link rel="stylesheet" href="/css/users/authHeader.css">
     <link rel="stylesheet" href="/css/users/productDetails.css">
 </head>
 
 <body>
-    <%- include('../partials/header', { showSearch: false }) %>
-        <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    <% if(user){ %>
+        <%- include('../partials/header', { showSearch: false }) %>
+            <% } else { %>
+                <header class="auth-header">
+                    <a href="/" class="brand">
+                        <img src="https://res.cloudinary.com/dbdnmlzy6/image/upload/v1765945540/products/rmsn314w038gnfzmemmi.jpg"
+                            alt="Logo">
+                        SeatWorld
+                    </a>
+                    <div class="menu-toggle" onclick="toggleMenu()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <nav id="mainNav">
+                        <a href="/">Home</a>
+                        <a href="/login">Login</a>
+                        <a href="/signup">Register</a>
+                        <a href="/">Contact</a>
+                    </nav>
+                </header>
+                <% } %>
+                    <%- include("../partials/breadcrumb", { breadcrumbs }) %>
 
-            <main class="container">
-                <section class="product-detail-section">
-                    <!-- Gallery -->
-                    <div class="gallery-container">
-                        <div class="main-image-wrapper" id="img-container">
-                            <img src="<%= product.image %>" alt="<%= product.name %>" class="main-image"
-                                id="main-image">
-                            <div id="zoom-result" class="zoom-result"></div>
-                        </div>
-                        <div class="thumbnails-col">
-                            <% if (product.variant && product.variant.images && product.variant.images.length) { %>
-                                <% product.variant.images.forEach((img, idx)=> { %>
-                                    <div class="thumbnail <%= idx === 0 ? 'active' : '' %>"
-                                        onclick="changeImage('<%= img %>', this)">
-                                        <img src="<%= img %>" alt="View <%= idx + 1 %>">
+                        <main class="container">
+                            <section class="product-detail-section">
+                                <!-- Gallery -->
+                                <div class="gallery-container">
+                                    <div class="main-image-wrapper" id="img-container">
+                                        <img src="<%= product.image %>" alt="<%= product.name %>" class="main-image"
+                                            id="main-image">
+                                        <div id="zoom-result" class="zoom-result"></div>
                                     </div>
-                                    <% }) %>
+                                    <div class="thumbnails-col">
+                                        <% if (product.variant && product.variant.images &&
+                                            product.variant.images.length) { %>
+                                            <% product.variant.images.forEach((img, idx)=> { %>
+                                                <div class="thumbnail <%= idx === 0 ? 'active' : '' %>"
+                                                    onclick="changeImage('<%= img %>', this)">
+                                                    <img src="<%= img %>" alt="View <%= idx + 1 %>">
+                                                </div>
+                                                <% }) %>
+                                                    <% } else { %>
+                                                        <div class="thumbnail active"
+                                                            onclick="changeImage('<%= product.image %>', this)">
+                                                            <img src="<%= product.image %>" alt="View 1">
+                                                        </div>
+                                                        <% } %>
+                                    </div>
+                                </div>
+
+                                <!-- Info -->
+                                <div class="product-info">
+                                    <button class="wishlist-btn-abs <%= isInWishlist ? 'active' : '' %>"
+                                        id="wishlist-btn"
+                                        onclick="toggleWishlist('<%= product.variant ? product.variant._id : '' %>', this)">
+                                        <svg class="wishlist-icon" viewBox="0 0 24 24"
+                                            fill="<%= isInWishlist ? 'currentColor' : 'none' %>" stroke="currentColor"
+                                            stroke-width="2">
+                                            <path
+                                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                            </path>
+                                        </svg>
+                                    </button>
+
+                                    <% if (product.stock> 0) { %>
+                                        <div class="stock-badge in-stock">In Stock</div>
                                         <% } else { %>
-                                            <div class="thumbnail active"
-                                                onclick="changeImage('<%= product.image %>', this)">
-                                                <img src="<%= product.image %>" alt="View 1">
-                                            </div>
+                                            <div class="stock-badge out-of-stock">Out of Stock</div>
                                             <% } %>
-                        </div>
-                    </div>
 
-                    <!-- Info -->
-                    <div class="product-info">
-                        <button class="wishlist-btn-abs <%= isInWishlist ? 'active' : '' %>" id="wishlist-btn"
-                            onclick="toggleWishlist('<%= product.variant ? product.variant._id : '' %>', this)">
-                            <svg class="wishlist-icon" viewBox="0 0 24 24"
-                                fill="<%= isInWishlist ? 'currentColor' : 'none' %>" stroke="currentColor"
-                                stroke-width="2">
-                                <path
-                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                                </path>
-                            </svg>
-                        </button>
+                                                <h1 class="product-title">
+                                                    <%= product.name %>
+                                                </h1>
 
-                        <% if (product.stock> 0) { %>
-                            <div class="stock-badge in-stock">In Stock</div>
-                            <% } else { %>
-                                <div class="stock-badge out-of-stock">Out of Stock</div>
-                                <% } %>
-
-                                    <h1 class="product-title">
-                                        <%= product.name %>
-                                    </h1>
-
-                                    <div class="rating-summary">
-                                        <div class="stars">
-                                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                                        </div>
-                                        <span>4.8 (124 reviews)</span>
-                                    </div>
-
-                                    <p class="product-desc">
-                                        <%= product.description
-                                            || "Ergonomic gaming chair with durable synthetic leather and high-density foam cushions, built for long hours of comfort and support."
-                                            %>
-                                    </p>
-
-                                    <div class="price-group">
-                                        <div class="price-tag">₹<%= Number(product.price).toLocaleString('en-IN') %>
-                                        </div>
-                                        <% if (product.hasOffer) { %>
-                                            <div class="old-price">₹<%=
-                                                    Number(product.originalPrice).toLocaleString('en-IN') %>
-                                            </div>
-                                            <div class="discount-badge">
-                                                <%= product.discountPercentage %>% OFF
-                                            </div>
-                                            <% } %>
-                                    </div>
-                                    <div class="tax-note">MRP incl. of all taxes</div>
-
-                                    <div class="color-section">
-                                        <span class="color-label">FIND YOUR COLOR</span>
-                                        <div class="color-options">
-                                            <% if (product.variants && product.variants.length) { %>
-                                                <% product.variants.forEach(v=> { %>
-                                                    <div class="color-opt <%= (product.variant && product.variant._id === v._id) ? 'active' : '' %>"
-                                                        onclick="location.href='?variant=<%= v._id %>'">
-                                                        <%= v.color %>
+                                                <div class="rating-summary">
+                                                    <div class="stars">
+                                                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                                                     </div>
-                                                    <% }) %>
-                                                        <% } else { %>
-                                                            <div class="color-opt active">Std</div>
-                                                            <% } %>
+                                                    <span>4.8 (124 reviews)</span>
+                                                </div>
+
+                                                <p class="product-desc">
+                                                    <%= product.description
+                                                        || "Ergonomic gaming chair with durable synthetic leather and high-density foam cushions, built for long hours of comfort and support."
+                                                        %>
+                                                </p>
+
+                                                <div class="price-group">
+                                                    <div class="price-tag">₹<%=
+                                                            Number(product.price).toLocaleString('en-IN') %>
+                                                    </div>
+                                                    <% if (product.hasOffer) { %>
+                                                        <div class="old-price">₹<%=
+                                                                Number(product.originalPrice).toLocaleString('en-IN') %>
+                                                        </div>
+                                                        <div class="discount-badge">
+                                                            <%= product.discountPercentage %>% OFF
+                                                        </div>
+                                                        <% } %>
+                                                </div>
+                                                <div class="tax-note">MRP incl. of all taxes</div>
+
+                                                <div class="color-section">
+                                                    <span class="color-label">FIND YOUR COLOR</span>
+                                                    <div class="color-options">
+                                                        <% if (product.variants && product.variants.length) { %>
+                                                            <% product.variants.forEach(v=> { %>
+                                                                <div class="color-opt <%= (product.variant && product.variant._id === v._id) ? 'active' : '' %>"
+                                                                    onclick="location.href='?variant=<%= v._id %>'">
+                                                                    <%= v.color %>
+                                                                </div>
+                                                                <% }) %>
+                                                                    <% } else { %>
+                                                                        <div class="color-opt active">Std</div>
+                                                                        <% } %>
+                                                    </div>
+                                                </div>
+
+                                                <div class="action-buttons">
+                                                    <button id="cart-button"
+                                                        class="btn-action btn-cart <%= product.stock <= 0 ? 'btn-disabled' : '' %>"
+                                                        data-variant-id="<%= product.variant ? product.variant._id : '' %>"
+                                                        <%=product.stock <=0 ? 'disabled' : '' %>>Add to Cart</button>
+
+                                                </div>
+                                </div>
+                            </section>
+
+                            <!-- Dummy Reviews Section -->
+                            <section class="reviews-section">
+                                <div class="reviews-header">
+                                    <h2 class="reviews-title">Customer Reviews</h2>
+                                </div>
+                                <div class="reviews-grid">
+                                    <div class="review-card">
+                                        <div class="review-user">
+                                            <div class="user-avatar">JS</div>
+                                            <div class="user-info">
+                                                <span class="name">Jackson Silva</span>
+                                                <span class="date">Dec 15, 2025</span>
+                                            </div>
+                                            <div class="stars" style="margin-left: auto;">
+                                                ★ ★ ★ ★ ★
+                                            </div>
+                                        </div>
+                                        <div class="review-content">
+                                            "Absolutely love this chair! Extremely comfortable for long gaming sessions
+                                            and the
+                                            lumbar support is exactly what I needed. Build quality is also good."
                                         </div>
                                     </div>
-
-                                    <div class="action-buttons">
-                                        <button id="cart-button"
-                                            class="btn-action btn-cart <%= product.stock <= 0 ? 'btn-disabled' : '' %>"
-                                            data-variant-id="<%= product.variant ? product.variant._id : '' %>"
-                                            <%=product.stock <=0 ? 'disabled' : '' %>>Add to Cart</button>
-
+                                    <div class="review-card">
+                                        <div class="review-user">
+                                            <div class="user-avatar">VK</div>
+                                            <div class="user-info">
+                                                <span class="name">Virat Kohli</span>
+                                                <span class="date">Nov 28, 2023</span>
+                                            </div>
+                                            <div class="stars" style="margin-left: auto;">
+                                                ★ ★ ★ ★ ★
+                                            </div>
+                                        </div>
+                                        <div class="review-content">
+                                            "Great aesthetics and very sturdy. Set up was straightforward. The material
+                                            feels
+                                            premium and it fits perfectly in my home office space."
+                                        </div>
                                     </div>
-                    </div>
-                </section>
-
-                <!-- Dummy Reviews Section -->
-                <section class="reviews-section">
-                    <div class="reviews-header">
-                        <h2 class="reviews-title">Customer Reviews</h2>
-                    </div>
-                    <div class="reviews-grid">
-                        <div class="review-card">
-                            <div class="review-user">
-                                <div class="user-avatar">JS</div>
-                                <div class="user-info">
-                                    <span class="name">Jackson Silva</span>
-                                    <span class="date">Dec 15, 2025</span>
                                 </div>
-                                <div class="stars" style="margin-left: auto;">
-                                    ★ ★ ★ ★ ★
-                                </div>
-                            </div>
-                            <div class="review-content">
-                                "Absolutely love this chair! Extremely comfortable for long gaming sessions and the
-                                lumbar support is exactly what I needed. Build quality is also good."
-                            </div>
-                        </div>
-                        <div class="review-card">
-                            <div class="review-user">
-                                <div class="user-avatar">VK</div>
-                                <div class="user-info">
-                                    <span class="name">Virat Kohli</span>
-                                    <span class="date">Nov 28, 2023</span>
-                                </div>
-                                <div class="stars" style="margin-left: auto;">
-                                    ★ ★ ★ ★ ★
-                                </div>
-                            </div>
-                            <div class="review-content">
-                                "Great aesthetics and very sturdy. Set up was straightforward. The material feels
-                                premium and it fits perfectly in my home office space."
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                            </section>
 
-                <!-- Related Products -->
-                <section class="related-section">
-                    <h2 class="related-title">YOU MIGHT ALSO LIKE</h2>
-                    <div class="related-grid">
-                        <% if (locals.relatedProducts) { %>
-                            <% relatedProducts.forEach(rp=> { %>
-                                <a href="/product/<%= rp._id %>" class="related-card">
-                                    <div class="related-img-box">
-                                        <img src="<%= rp.image %>" alt="<%= rp.name %>">
-                                    </div>
-                                    <div class="related-name">
-                                        <%= rp.name %>
-                                    </div>
-                                    <div class="related-price">
-                                        <% if (rp.hasOffer) { %>
-                                            <span class="curr">₹<%= rp.price %></span>
-                                            <span class="old"
-                                                style="text-decoration: line-through; color: #94a3b8; font-size: 0.8rem; margin-left: 5px;">₹
-                                                <%= rp.originalPrice %></span>
-                                            <% } else { %>
-                                                ₹<%= rp.price %>
-                                                    <% } %>
-                                    </div>
-                                </a>
-                                <% }) %>
-                                    <% } %>
-                    </div>
-                </section>
-            </main>
+                            <!-- Related Products -->
+                            <section class="related-section">
+                                <h2 class="related-title">YOU MIGHT ALSO LIKE</h2>
+                                <div class="related-grid">
+                                    <% if (locals.relatedProducts) { %>
+                                        <% relatedProducts.forEach(rp=> { %>
+                                            <a href="/product/<%= rp._id %>" class="related-card">
+                                                <div class="related-img-box">
+                                                    <img src="<%= rp.image %>" alt="<%= rp.name %>">
+                                                </div>
+                                                <div class="related-name">
+                                                    <%= rp.name %>
+                                                </div>
+                                                <div class="related-price">
+                                                    <% if (rp.hasOffer) { %>
+                                                        <span class="curr">₹<%= rp.price %></span>
+                                                        <span class="old"
+                                                            style="text-decoration: line-through; color: #94a3b8; font-size: 0.8rem; margin-left: 5px;">₹
+                                                            <%= rp.originalPrice %>
+                                                        </span>
+                                                        <% } else { %>
+                                                            ₹<%= rp.price %>
+                                                                <% } %>
+                                                </div>
+                                            </a>
+                                            <% }) %>
+                                                <% } %>
+                                </div>
+                            </section>
+                        </main>
 
-            <%- include('../partials/footer') %>
+                        <%- include('../partials/footer') %>
 
-                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                <script src="/js/users/wishlist.js"></script>
-                <script src="/js/users/productDetails.js"></script>
+                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                            <script src="/js/users/wishlist.js"></script>
+                            <script src="/js/users/productDetails.js"></script>
 </body>
 
 </html>

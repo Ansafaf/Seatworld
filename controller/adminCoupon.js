@@ -1,6 +1,7 @@
 import Coupon from "../models/couponModel.js";
 import { paginate } from "../utils/paginationHelper.js";
 import logger from "../utils/logger.js";
+import { escapeRegExp } from "../utils/regexHelper.js";
 
 export const getCouponlist = async (req, res) => {
     try {
@@ -9,9 +10,10 @@ export const getCouponlist = async (req, res) => {
         const search = req.query.search || "";
         const query = {};
         if (search) {
+            const escapedSearch = escapeRegExp(search);
             query.$or = [
-                { couponName: { $regex: search, $options: "i" } },
-                { couponCode: { $regex: search, $options: "i" } }
+                { couponName: { $regex: escapedSearch, $options: "i" } },
+                { couponCode: { $regex: escapedSearch, $options: "i" } }
             ];
         }
 
@@ -62,9 +64,18 @@ export const createCoupon = async (req, res) => {
             maxAmount
         } = req.body;
 
+        // Alphanumeric validation for coupon code
+        const codeRegex = /^[A-Z0-9]+$/;
+        if (!codeRegex.test(couponCode.toUpperCase())) {
+            return res.status(400).json({ success: false, message: "Coupon code must contain only letters and numbers" });
+        }
+
         const existingCoupon = await Coupon.findOne({ couponCode: couponCode.toUpperCase() });
         if (existingCoupon) {
             return res.status(400).json({ success: false, message: "Coupon code already exists" });
+        }
+        if (discountType == "percentage" && discountValue >= 50) {
+            return res.status(400).json({ success: false, message: "Discount value must be less than 50" })
         }
         const today = new Date();
         today.setHours(0, 0, 0, 0);
@@ -125,10 +136,23 @@ export const updateCoupon = async (req, res) => {
             maxAmount
         } = req.body;
 
+        // Alphanumeric validation for coupon code
+        const codeRegex = /^[A-Z0-9]+$/;
+        if (!codeRegex.test(couponCode.toUpperCase())) {
+            return res.status(400).json({ success: false, message: "Coupon code must contain only letters and numbers" });
+        }
+
         const existingCoupon = await Coupon.findById(id);
         if (!existingCoupon) {
             return res.status(404).json({ success: false, message: "Coupon not found" });
         }
+
+        // Also check if NEW code matches another existing coupon (prevent duplicates on edit)
+        const duplicateCoupon = await Coupon.findOne({ couponCode: couponCode.toUpperCase(), _id: { $ne: id } });
+        if (duplicateCoupon) {
+            return res.status(400).json({ success: false, message: "Coupon code already exists in another coupon" });
+        }
+
         const start = new Date(startDate);
         const expiry = new Date(expiryDate);
 

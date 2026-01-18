@@ -52,12 +52,8 @@
         text-align: center;
     }
 
-    .card img {
-        width: 50px;
-        margin-bottom: 15px;
-    }
-
     .card p {
+        margin-top: 10px;
         font-size: 14px;
         color: #444;
         margin-bottom: 20px;

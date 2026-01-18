@@ -1,39 +1,38 @@
 import { User } from "../models/userModel.js";
 
-export const authMiddleware = async (req, res, next) => {
+export const requireAuth = async (req, res, next) => {
   try {
     let user = null;
 
-    if (req.isAuthenticated?.() && req.user) { // Passport-managed user
-
+    if (req.isAuthenticated?.() && req.user) {
       user = req.user;
-    } else if (req.session?.user?.id) {            // Manual session user
-
+    } else if (req.session?.user?.id) {
       user = await User.findById(req.session.user.id);
     }
 
     if (!user) {
-      if (req.xhr || req.headers.accept?.includes("application/json")) {
-        return res.status(401).json({ success: false, message: "Login required" });
-      }
-
-      if (req.session) {
-        req.session.destroy((err) => {
-          if (err) console.error("Session destroy error:", err);
-          res.clearCookie("connect.sid");
-          return res.redirect("/login");
+      // Check if it's an AJAX/fetch request
+      if (req.xhr || req.headers.accept?.includes("application/json") || req.get("X-Requested-With") === "XMLHttpRequest") {
+        return res.status(401).json({
+          success: false,
+          message: "Authentication required",
+          redirectUrl: "/login"
         });
-      } else {
-        return res.redirect("/login");
       }
-    } else {
 
-      req.user = user;
-      res.locals.user = user;
-      return next();
+      // Normal page request
+      return res.redirect("/login");
     }
+
+    req.user = user;
+    res.locals.user = user;
+    next();
+
   } catch (error) {
-    console.error("Auth middleware error:", error);
+    console.error("requireAuth middleware error:", error);
+    if (req.xhr || req.headers.accept?.includes("application/json")) {
+      return res.status(500).json({ success: false, message: "Internal Server Error" });
+    }
     return res.redirect("/login");
   }
 };

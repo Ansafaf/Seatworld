@@ -32,7 +32,12 @@ export const getorders = async (req, res) => {
 export const placeOrder = async (req, res) => {
   try {
     const userId = req.session.user.id;
-    const { paymentMethod } = req.body;
+    let { paymentMethod } = req.body;
+
+    // Normalize Razorpay to ONLINE for model consistency
+    if (paymentMethod && paymentMethod.toLowerCase() === 'razorpay') {
+      paymentMethod = 'ONLINE';
+    }
 
     if (!paymentMethod) {
       return res.status(400).json({ success: false, message: "Payment method is required" });

@@ -6,6 +6,7 @@ import { buildBreadcrumb } from "../utils/breadcrumb.js";
 import { paginate } from "../utils/paginationHelper.js";
 import { Offer } from "../models/offerModel.js";
 import * as offerHelper from "../utils/offerHelper.js";
+import { escapeRegExp } from "../utils/regexHelper.js";
 
 
 const normalizeQuery = (query) => {
@@ -22,7 +23,7 @@ const normalizeQuery = (query) => {
     return {
         selectedCategories: normalizeValue(query.category),
         selectedBrands: normalizeValue(query.brand),
-        selectedColors: normalizeValue(query.color),
+        selectedColors: normalizeValue(query.color).map(c => c.trim().toLowerCase()),
         selectedTags: normalizeValue(query.tag),
         sort: query.sort || "featured",
         page: Math.max(1, parseInt(query.page, 10) || 1),
@@ -46,10 +47,11 @@ const buildBaseFilter = (params) => {
     if (discount === 'true') filter.offerId = { $ne: null, $exists: true };
 
     if (search) {
+        const escapedSearch = escapeRegExp(search);
         filter.$or = [
-            { name: { $regex: search, $options: "i" } },
-            { brand: { $regex: search, $options: "i" } },
-            { description: { $regex: search, $options: "i" } },
+            { name: { $regex: escapedSearch, $options: "i" } },
+            { brand: { $regex: escapedSearch, $options: "i" } },
+            { description: { $regex: escapedSearch, $options: "i" } },
         ];
     }
 
@@ -77,7 +79,11 @@ const applyVariantFilters = async (filter, params) => {
     };
 
     // Add color filter
-    if (selectedColors.length) variantFilter.color = { $in: selectedColors };
+    if (selectedColors.length) {
+        variantFilter.color = {
+            $in: selectedColors.map(c => new RegExp(`^${escapeRegExp(c)}$`, 'i'))
+        };
+    }
 
     // Add stock filter
     if (stock === 'instock') {
@@ -179,7 +185,6 @@ const prepareUIHelpers = (params, categories, minPriceValue, maxPriceValue) => {
 
 export async function getProducts(req, res) {
     try {
-        if (!req.session.user) return res.redirect("/login");
         console.log("getProducts controller hit. User:", req.session?.user?.id);
 
         const params = normalizeQuery(req.query);
@@ -246,9 +251,15 @@ export async function getProducts(req, res) {
             isInWishlist: product.variant && wishlistVariantIds.includes(product.variant._id.toString())
         }));
 
-        const availableColors = (await ProductVariant.distinct("color", { status: "Active" })).filter(Boolean).sort();
-        const brands = brandsDistinct.filter(Boolean).sort();
-        const tags = tagsDistinct.filter(Boolean).flat().filter((v, i, a) => a.indexOf(v) === i).sort();
+        const rawColors = await ProductVariant.distinct("color", { status: "Active" });
+        const availableColors = [...new Set(rawColors.filter(Boolean).map(c => c.trim().toLowerCase()))]
+            .sort();
+
+        const rawBrands = brandsDistinct.filter(Boolean);
+        const brands = [...new Set(rawBrands.map(b => b.trim()))].sort();
+
+        const rawTags = tagsDistinct.filter(Boolean).flat();
+        const tags = [...new Set(rawTags.map(t => t.trim()))].sort();
 
         // 7. Prepare UI Helpers
         const { queryString, heading, appliedFiltersCount } = prepareUIHelpers(params, categories, minPriceValue, maxPriceValue);
@@ -265,6 +276,7 @@ export async function getProducts(req, res) {
 
         // 8. Render
         res.render("users/productList", {
+            user: req.session.user,
             products: productsWithWishlist,
             categories,
             brands,

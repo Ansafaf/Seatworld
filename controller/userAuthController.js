@@ -770,3 +770,21 @@ export function getLogout(req, res) {
     res.redirect("/login");
   });
 }
+export async function getUserCounts(req, res) {
+  try {
+    const userId = req.session.user?.id || req.user?.id || req.user?._id;
+    if (!userId) {
+      return res.json({ cartCount: 0, wishlistCount: 0 });
+    }
+
+    const [cartCount, wishlistCount] = await Promise.all([
+      Cart.countDocuments({ userId }),
+      Wishlist.countDocuments({ userId })
+    ]);
+
+    res.json({ cartCount, wishlistCount });
+  } catch (error) {
+    console.error("Error fetching user counts:", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+}

@@ -1099,3 +1099,97 @@ breadcrumbs is not defined
 [2026-01-17 11:12:30] ERROR: Cart page error: activeOffers is not defined
 [2026-01-17 11:12:58] ERROR: Cart page error: activeOffers is not defined
 [2026-01-17 11:13:02] ERROR: Cart page error: activeOffers is not defined
+[2026-01-17 19:42:47] ERROR: Post Add Offer Error: Offer validation failed: productId: Cast to ObjectId failed for value "" (type string) at path "productId" because of "BSONError"
+[2026-01-17 19:42:51] ERROR: Post Add Offer Error: Offer validation failed: productId: Cast to ObjectId failed for value "" (type string) at path "productId" because of "BSONError"
+[2026-01-17 19:42:55] ERROR: Post Add Offer Error: Offer validation failed: productId: Cast to ObjectId failed for value "" (type string) at path "productId" because of "BSONError"
+[2026-01-17 20:01:35] ERROR: Cannot read properties of undefined (reading 'user')
+[2026-01-17 20:04:34] ERROR: Post Add Offer Error: mongoose is not defined
+[2026-01-17 20:04:35] ERROR: Post Add Offer Error: mongoose is not defined
+[2026-01-17 20:04:40] ERROR: Post Add Offer Error: mongoose is not defined
+[2026-01-17 20:15:37] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:15
+    13| <body>
+    14|   <!-- Integrated Header Partial -->
+ >> 15|   <%- include('../partials/header', { showSearch: true }) %>
+    16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+
+E:\Brocamp\SeatWorld\views\partials\header.ejs:61
+    59|                         </a>
+    60|                         <a href="/profile" class="profile-link">
+ >> 61|                             <img src="https://ui-avatars.com/api/?name=<%= (typeof user !== 'undefined' && (user.username || user.name)) || 'User' %>&background=random"
+    62|                                 alt="Profile" width="34" height="34" loading="lazy"
+    63|                                 onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=U&background=64748b&color=fff';">
+    64|                         </a>
+
+Cannot read properties of null (reading 'username')
+[2026-01-17 20:42:37] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:15
+    13| <body>
+    14|   <!-- Integrated Header Partial -->
+ >> 15|   <%- include('../partials/header', { showSearch: true }) %>
+    16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+
+E:\Brocamp\SeatWorld\views\partials\header.ejs:61
+    59|                         </a>
+    60|                         <a href="/profile" class="profile-link">
+ >> 61|                             <img src="https://ui-avatars.com/api/?name=<%= (typeof user !== 'undefined' && (user.username || user.name)) || 'User' %>&background=random"
+    62|                                 alt="Profile" width="34" height="34" loading="lazy"
+    63|                                 onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=U&background=64748b&color=fff';">
+    64|                         </a>
+
+Cannot read properties of null (reading 'username')
+[2026-01-17 22:01:21] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:15
+    13| <body>
+    14|   <!-- Integrated Header Partial -->
+ >> 15|   <%- include('../partials/header', { showSearch: true }) %>
+    16|     <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    17| 
+    18| 
+
+E:\Brocamp\SeatWorld\views\partials\header.ejs:61
+    59|                         </a>
+    60|                         <a href="/profile" class="profile-link">
+ >> 61|                             <img src="https://ui-avatars.com/api/?name=<%= (typeof user !== 'undefined' && (user.username || user.name)) || 'User' %>&background=random"
+    62|                                 alt="Profile" width="34" height="34" loading="lazy"
+    63|                                 onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=U&background=64748b&color=fff';">
+    64|                         </a>
+
+Cannot read properties of null (reading 'username')
+[2026-01-17 22:18:38] ERROR: Unexpected token 'else' in E:\Brocamp\SeatWorld\views\users\productList.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+[2026-01-17 22:57:02] ERROR: Unexpected token 'else' in E:\Brocamp\SeatWorld\views\users\productList.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+[2026-01-17 23:09:03] ERROR: Unexpected token 'else' in E:\Brocamp\SeatWorld\views\users\productList.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+[2026-01-18 13:01:19] ERROR: User validation failed: name: Name must be 3-50 characters and contain only letters and spaces
+[2026-01-18 13:01:32] ERROR: User validation failed: name: Name must be 3-50 characters and contain only letters and spaces
+[2026-01-18 13:18:34] ERROR: User validation failed: name: Name must be 3-50 characters and contain only letters and spaces
+[2026-01-18 13:19:11] ERROR: User validation failed: name: Name must be 3-50 characters and contain only letters and spaces
+[2026-01-18 14:46:09] ERROR: User validation failed: name: Name must be 3-50 characters and contain only letters and spaces
+[2026-01-18 14:48:06] ERROR: User validation failed: name: Name must be 3-50 characters and contain only letters and spaces
+[2026-01-18 14:58:08] ERROR: User validation failed: name: Name must be 3-50 characters and contain only letters and spaces
+[2026-01-18 15:19:09] ERROR: User validation failed: name: Name must be 3-50 characters and contain only letters and spaces
+[2026-01-18 15:27:32] ERROR: User validation failed: name: Name must be 3-50 characters and contain only letters and spaces
+[2026-01-18 15:27:37] ERROR: User validation failed: name: Name must be 3-50 characters and contain only letters and spaces
+[2026-01-18 15:27:40] ERROR: User validation failed: name: Name must be 3-50 characters and contain only letters and spaces
+[2026-01-18 16:01:42] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:38
+    36|         </header>
+    37|         <% } %>
+ >> 38|           <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    39| 
+    40| 
+    41|             <main class="layout">
+
+breadcrumbs is not defined
+[2026-01-18 19:08:33] ERROR: Add to cart error: Cannot add more than 6
