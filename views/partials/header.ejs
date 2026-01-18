@@ -58,7 +58,7 @@
                                 <% } %>
                         </a>
                         <a href="/profile" class="profile-link">
-                            <img src="https://ui-avatars.com/api/?name=<%= (typeof user !== 'undefined' && (user.username || user.name)) || 'User' %>&background=random"
+                            <img src="https://ui-avatars.com/api/?name=<%= (typeof user !== 'undefined' && user && (user.username || user.name)) || 'User' %>&background=random"
                                 alt="Profile" width="34" height="34" loading="lazy"
                                 onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=U&background=64748b&color=fff';">
                         </a>
