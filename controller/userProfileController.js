@@ -486,9 +486,25 @@ export async function postAddaddress(req, res) {
   try {
     const id = req.session.user.id;
     const { name, housename, street, city, state, country, pincode, mobile } = req.body;
-    const codeRegex = /^[A-Z0-9]+$/;
-    if(!codeRegex.test(name)){
-      return res.status(400).json({success:false, message:"Address data must only contains numbers or alphabets"})
+    // Validation for text fields (allowing letters, numbers, spaces, and basic punctuation)
+    const textRegex = /^[a-zA-Z0-9\s.,#\-\/]+$/;
+    const fieldsToValidate = { name, housename, street, city, state, country };
+
+    for (const [fieldName, value] of Object.entries(fieldsToValidate)) {
+      if (value && !textRegex.test(value)) {
+        return res.status(400).json({
+          success: false,
+          message: `The ${fieldName} field contains invalid characters. Only letters, numbers, spaces, and . , # - / are allowed.`
+        });
+      }
+    }
+
+    // Pincode and Mobile specific validation
+    if (!/^\d{6}$/.test(pincode)) {
+      return res.status(400).json({ success: false, message: "Pincode must be exactly 6 digits" });
+    }
+    if (!/^\d{10}$/.test(mobile)) {
+      return res.status(400).json({ success: false, message: "Mobile number must be exactly 10 digits" });
     }
     const address = new Address({
       userId: id,
@@ -566,6 +582,27 @@ export async function postEditAddress(req, res) {
       mobile,
       returnTo
     } = req.body;
+
+    // Validation for text fields
+    const textRegex = /^[a-zA-Z0-9\s.,#\-\/]+$/;
+    const fieldsToValidate = { name, housename, street, city, state, country };
+
+    for (const [fieldName, value] of Object.entries(fieldsToValidate)) {
+      if (value && !textRegex.test(value)) {
+        return res.status(400).json({
+          success: false,
+          message: `The ${fieldName} field contains invalid characters. Only letters, numbers, spaces, and . , # - / are allowed.`
+        });
+      }
+    }
+
+    // Pincode and Mobile validation
+    if (!/^\d{6}$/.test(pincode)) {
+      return res.status(400).json({ success: false, message: "Pincode must be exactly 6 digits" });
+    }
+    if (!/^\d{10}$/.test(mobile)) {
+      return res.status(400).json({ success: false, message: "Mobile number must be exactly 10 digits" });
+    }
 
     const updated = await Address.findOneAndUpdate(
       { _id: addressId, userId: userId }, // ownership check
