@@ -3,6 +3,7 @@ import { User } from "../models/userModel.js";
 import { Product, ProductVariant } from "../models/productModel.js";
 import { Category } from "../models/categoryModel.js";
 import Cart from "../models/cartModel.js";
+import wishlistModel from "../models/wishlistModel.js";
 import mongoose from "mongoose";
 import otpGenerator from "otp-generator";
 import nodemailer from "nodemailer";
@@ -779,7 +780,7 @@ export async function getUserCounts(req, res) {
 
     const [cartCount, wishlistCount] = await Promise.all([
       Cart.countDocuments({ userId }),
-      Wishlist.countDocuments({ userId })
+      wishlistModel.countDocuments({ userId })
     ]);
 
     res.json({ cartCount, wishlistCount });
