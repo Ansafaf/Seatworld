@@ -2,6 +2,7 @@ import { Product, ProductVariant } from "../models/productModel.js";
 import StockHistory from "../models/stockHistoryModel.js";
 import * as inventoryService from "../services/inventoryService.js";
 import logger from "../utils/logger.js";
+import { escapeRegExp } from "../utils/regexHelper.js";
 
 export const getInventoryList = async (req, res) => {
     try {
@@ -14,10 +15,11 @@ export const getInventoryList = async (req, res) => {
         let query = {};
 
         if (search) {
+            const escapedSearch = escapeRegExp(search);
             const products = await Product.find({
                 $or: [
-                    { name: { $regex: search, $options: "i" } },
-                    { brand: { $regex: search, $options: "i" } }
+                    { name: { $regex: escapedSearch, $options: "i" } },
+                    { brand: { $regex: escapedSearch, $options: "i" } }
                 ]
             }).select("_id");
             query.productId = { $in: products.map(p => p._id) };
@@ -44,7 +46,7 @@ export const getInventoryList = async (req, res) => {
                 statusCode: status.code // e.g., 'in_stock', 'low_stock', 'out_of_stock'
             };
         });
-    
+
         if (statusFilter) {
             formattedInventory = formattedInventory.filter(item => item.statusCode === statusFilter);
         }
@@ -79,7 +81,7 @@ export const updateStockManually = async (req, res) => {
             quantity: changeAmount,
             reason: reason || "admin_edit",
             notes: notes || "Manual stock adjustment",
-            adminId: req.session.adminId 
+            adminId: req.session.adminId
         });
 
         const updatedVariant = await ProductVariant.findById(variantId).lean();

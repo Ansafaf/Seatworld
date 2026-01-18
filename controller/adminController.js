@@ -3,6 +3,7 @@ import { User } from '../models/userModel.js';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import { paginate } from '../utils/paginationHelper.js';
+import { escapeRegExp } from '../utils/regexHelper.js';
 
 dotenv.config();
 export const getLoginAdmin = (req, res) => {
@@ -54,10 +55,11 @@ export const getCustomerlist = async (req, res, next) => {
 
         const query = {};
         if (searchQuery) {
+            const escapedSearch = escapeRegExp(searchQuery);
             query.$or = [
-                { email: { $regex: searchQuery, $options: "i" } },
-                { name: { $regex: searchQuery, $options: "i" } },
-                { username: { $regex: searchQuery, $options: "i" } }
+                { email: { $regex: escapedSearch, $options: "i" } },
+                { name: { $regex: escapedSearch, $options: "i" } },
+                { username: { $regex: escapedSearch, $options: "i" } }
             ];
         }
 
@@ -107,14 +109,14 @@ export const blockUser = async (req, res) => {
         }
 
         // Block the user
-        if(req.session.user.id){
+        if (req.session.user.id) {
             req.session.destroy((err) => {
-            if (err) console.log(err);
-              res.clearCookie("connect.sid");
+                if (err) console.log(err);
+                res.clearCookie("connect.sid");
             });
             await User.findByIdAndUpdate(userId, { status: "blocked" });
         }
-       
+
 
         res.status(200).json({ success: true, message: "User blocked successfully", redirectUrl: "/admin/users" });
 
@@ -157,12 +159,13 @@ export const searchUsers = async (req, res) => {
     let query = req.query.search;
     try {
         let admin = "Admin";
+        const escapedSearch = escapeRegExp(query);
         const users = await User.find(
             {
                 $or: [
-                    { email: { $regex: query, $options: "i" } },
-                    { name: { $regex: query, $options: "i" } },
-                    { username: { $regex: query, $options: "i" } }
+                    { email: { $regex: escapedSearch, $options: "i" } },
+                    { name: { $regex: escapedSearch, $options: "i" } },
+                    { username: { $regex: escapedSearch, $options: "i" } }
                 ]
             })
 

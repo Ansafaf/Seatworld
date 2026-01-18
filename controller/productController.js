@@ -6,6 +6,7 @@ import { buildBreadcrumb } from "../utils/breadcrumb.js";
 import { paginate } from "../utils/paginationHelper.js";
 import { Offer } from "../models/offerModel.js";
 import * as offerHelper from "../utils/offerHelper.js";
+import { escapeRegExp } from "../utils/regexHelper.js";
 
 
 const normalizeQuery = (query) => {
@@ -46,10 +47,11 @@ const buildBaseFilter = (params) => {
     if (discount === 'true') filter.offerId = { $ne: null, $exists: true };
 
     if (search) {
+        const escapedSearch = escapeRegExp(search);
         filter.$or = [
-            { name: { $regex: search, $options: "i" } },
-            { brand: { $regex: search, $options: "i" } },
-            { description: { $regex: search, $options: "i" } },
+            { name: { $regex: escapedSearch, $options: "i" } },
+            { brand: { $regex: escapedSearch, $options: "i" } },
+            { description: { $regex: escapedSearch, $options: "i" } },
         ];
     }
 

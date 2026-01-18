@@ -2,6 +2,7 @@ import * as categoryService from '../services/adminCategoryService.js';
 import logger from '../utils/logger.js';
 import { Category } from '../models/categoryModel.js';
 import { paginate } from '../utils/paginationHelper.js';
+import { escapeRegExp } from '../utils/regexHelper.js';
 
 export const getCategoryList = async (req, res, next) => {
     try {
@@ -11,15 +12,15 @@ export const getCategoryList = async (req, res, next) => {
 
         const query = {};
         if (searchQuery) {
-            query.categoryName = { $regex: searchQuery, $options: "i" };
+            query.categoryName = { $regex: escapeRegExp(searchQuery), $options: "i" };
         }
-        
+
         const { items: categories, pagination } = await paginate(Category, query, {
             page,
             limit,
             sort: { createdAt: -1 }
         });
-        
+
         if (req.xhr || req.headers.accept?.includes("application/json")) {
             return res.status(200).json({
                 success: true,

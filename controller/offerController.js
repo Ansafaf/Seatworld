@@ -4,6 +4,7 @@ import { Category } from '../models/categoryModel.js';
 import { buildBreadcrumb } from '../utils/breadcrumb.js';
 import logger from '../utils/logger.js';
 import mongoose from "mongoose";
+import { escapeRegExp } from '../utils/regexHelper.js';
 
 export const getOfferList = async (req, res) => {
     try {
@@ -14,7 +15,7 @@ export const getOfferList = async (req, res) => {
 
         let query = {};
         if (search) {
-            const escapedSearch = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const escapedSearch = escapeRegExp(search);
 
             // Find products/categories matching the search to expand offer search
             const [products, categories] = await Promise.all([
@@ -96,17 +97,17 @@ export const getAddOffer = async (req, res) => {
 export const postAddOffer = async (req, res) => {
     try {
         const { name, offerType, productId, categoryId, discountPercentage } = req.body;
-        
-    if (!mongoose.Types.ObjectId.isValid(productId)) {
-       return res.status(400).json({
-        success: false,
-        message: "Invalid product ID"
-      });
-}
 
-       if(discountPercentage >= 50){
-        return res.status(400).json({success: false , message:"discount percentage must be less than 50"})
-       }
+        if (!mongoose.Types.ObjectId.isValid(productId)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid product ID"
+            });
+        }
+
+        if (discountPercentage >= 50) {
+            return res.status(400).json({ success: false, message: "discount percentage must be less than 50" })
+        }
         const newOffer = new Offer({
             name,
             offerType,

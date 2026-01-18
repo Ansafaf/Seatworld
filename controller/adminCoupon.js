@@ -1,6 +1,7 @@
 import Coupon from "../models/couponModel.js";
 import { paginate } from "../utils/paginationHelper.js";
 import logger from "../utils/logger.js";
+import { escapeRegExp } from "../utils/regexHelper.js";
 
 export const getCouponlist = async (req, res) => {
     try {
@@ -9,9 +10,10 @@ export const getCouponlist = async (req, res) => {
         const search = req.query.search || "";
         const query = {};
         if (search) {
+            const escapedSearch = escapeRegExp(search);
             query.$or = [
-                { couponName: { $regex: search, $options: "i" } },
-                { couponCode: { $regex: search, $options: "i" } }
+                { couponName: { $regex: escapedSearch, $options: "i" } },
+                { couponCode: { $regex: escapedSearch, $options: "i" } }
             ];
         }
 

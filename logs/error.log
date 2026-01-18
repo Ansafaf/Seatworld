@@ -1183,3 +1183,12 @@ Or, if you meant to create an async function, pass `async: true` as an option.
 [2026-01-18 15:27:32] ERROR: User validation failed: name: Name must be 3-50 characters and contain only letters and spaces
 [2026-01-18 15:27:37] ERROR: User validation failed: name: Name must be 3-50 characters and contain only letters and spaces
 [2026-01-18 15:27:40] ERROR: User validation failed: name: Name must be 3-50 characters and contain only letters and spaces
+[2026-01-18 16:01:42] ERROR: E:\Brocamp\SeatWorld\views\users\productList.ejs:38
+    36|         </header>
+    37|         <% } %>
+ >> 38|           <%- include("../partials/breadcrumb", { breadcrumbs }) %>
+    39| 
+    40| 
+    41|             <main class="layout">
+
+breadcrumbs is not defined
