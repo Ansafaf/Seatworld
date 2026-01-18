@@ -61,8 +61,6 @@ export const createCoupon = async (req, res) => {
             minAmount,
             maxAmount
         } = req.body;
-        
-    
         const existingCoupon = await Coupon.findOne({ couponCode: couponCode.toUpperCase() });
         if (existingCoupon) {
             return res.status(400).json({ success: false, message: "Coupon code already exists" });
