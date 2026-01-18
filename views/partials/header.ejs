@@ -39,11 +39,10 @@
                                     d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
                                 </path>
                             </svg>
-                            <% if (typeof wishlistCount !=='undefined' && wishlistCount> 0) { %>
-                                <span class="wishlist-count-badge">
-                                    <%= wishlistCount %>
-                                </span>
-                                <% } %>
+                            <span class="wishlist-count-badge"
+                                style="display: <%= (typeof wishlistCount !== 'undefined' && wishlistCount > 0) ? 'flex' : 'none' %>">
+                                <%= typeof wishlistCount !=='undefined' ? wishlistCount : 0 %>
+                            </span>
                         </a>
                         <a href="/cart" class="icon-link" title="Cart" id="header-cart-link">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -51,11 +50,10 @@
                                     1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
                                 </path>
                             </svg>
-                            <% if (typeof cartCount !=='undefined' && cartCount> 0) { %>
-                                <span class="cart-count-badge">
-                                    <%= cartCount %>
-                                </span>
-                                <% } %>
+                            <span class="cart-count-badge"
+                                style="display: <%= (typeof cartCount !== 'undefined' && cartCount > 0) ? 'flex' : 'none' %>">
+                                <%= typeof cartCount !=='undefined' ? cartCount : 0 %>
+                            </span>
                         </a>
                         <a href="/profile" class="profile-link">
                             <img src="https://ui-avatars.com/api/?name=<%= (typeof user !== 'undefined' && user && (user.username || user.name)) || 'User' %>&background=random"

@@ -48,6 +48,11 @@ async function toggleWishlist(variantId, button) {
 
       // Show message
       showMessage(data.message, 'success');
+
+      // Update header counts
+      if (typeof window.updateHeaderCounts === 'function') {
+        window.updateHeaderCounts({ wishlistCount: data.wishlistCount });
+      }
     } else {
       showMessage(data.message || 'Failed to update wishlist', 'error');
     }
@@ -90,10 +95,12 @@ async function addToCartFromWishlist(variantId, button) {
       wishlistItem.remove();
     }
 
-    // 4️⃣ Update cart count (optional)
-    const cartCountElement = document.querySelector(".cart-count");
-    if (cartCountElement && cartData.cartCount !== undefined) {
-      cartCountElement.textContent = cartData.cartCount;
+    // 4️⃣ Update header counts
+    if (typeof window.updateHeaderCounts === 'function') {
+      window.updateHeaderCounts({
+        cartCount: cartData.cartCount,
+        wishlistCount: (await (await fetch('/api/user/counts')).json()).wishlistCount
+      });
     }
 
     showMessage("Moved to cart", "success");
@@ -128,6 +135,11 @@ async function removeDirectly(variantId, element) {
         }, 300);
       }
       showMessage(data.message || "Removed from wishlist", "success");
+
+      // Update header counts
+      if (typeof window.updateHeaderCounts === 'function') {
+        window.updateHeaderCounts({ wishlistCount: data.wishlistCount });
+      }
     } else {
       showMessage(data.message || "Failed to remove item", "error");
     }
