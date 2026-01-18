@@ -207,19 +207,12 @@ export const downloadInvoice = async (req, res) => {
     const { orderId } = req.params;
     const userId = req.session.user.id;
 
-    const order = await Order.findOne({ _id: orderId, userId });
-    if (!order) {
+    const orderData = await orderService.getOrderById(orderId, userId);
+    if (!orderData) {
       return res.status(404).send("Invoice not found");
     }
 
-    const items = await OrderItem.find({ orderId })
-      .populate({
-        path: 'variantId',
-        populate: { path: 'productId' }
-      })
-      .lean();
-
-    const pdfBuffer = await generateInvoicePDF(order, items);
+    const pdfBuffer = await generateInvoicePDF(orderData, orderData.items);
 
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader(

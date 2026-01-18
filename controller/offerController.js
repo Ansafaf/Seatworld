@@ -108,6 +108,7 @@ export const postAddOffer = async (req, res) => {
         if (discountPercentage >= 50) {
             return res.status(400).json({ success: false, message: "discount percentage must be less than 50" })
         }
+        
         const newOffer = new Offer({
             name,
             offerType,
