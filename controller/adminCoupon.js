@@ -67,7 +67,7 @@ export const createCoupon = async (req, res) => {
         if (existingCoupon) {
             return res.status(400).json({ success: false, message: "Coupon code already exists" });
         }
-        if(discountType == "percentage" && discountValue > 50){
+        if(discountType == "percentage" && discountValue >= 50){
             return res.status(400).json({success:false , message:"Discount value must be less than 50"})
         }
         const today = new Date();
