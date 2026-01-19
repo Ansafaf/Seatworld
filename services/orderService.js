@@ -81,7 +81,7 @@ export const createOrder = async ({ userId, paymentMethod, checkoutSession, cart
             couponId: cartTotals.appliedCoupon ? cartTotals.appliedCoupon._id : null,
             shippingAddress: {
                 name: addressData.name,
-                housename: addressData.houseName || addressData.housename,
+                housename: addressData.housename,
                 street: addressData.street,
                 city: addressData.city,
                 state: addressData.state,

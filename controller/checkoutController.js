@@ -9,7 +9,7 @@ import * as inventoryService from "../services/inventoryService.js";
 import Coupon from "../models/couponModel.js";
 
 export const getCheckoutAddress = async (req, res) => {
-      if (!req.session.user) return res.redirect("/login");
+    if (!req.session.user) return res.redirect("/login");
     try {
         const userId = req.session.user.id;
 
@@ -89,18 +89,37 @@ export const postAddress = async (req, res) => {
         if (!addressData) {
             return res.status(400).json({ success: false, message: "Valid address is required" });
         }
-        const requiredFields = ['name', 'street', 'city', 'state', 'country', 'pincode', 'mobile'];
-        for (const field of requiredFields) {
-            if (!addressData[field]) {
+
+        // Text field validation (allowing letters, numbers, spaces, and basic punctuation)
+        const textRegex = /^[a-zA-Z0-9\s.,#\-\/]+$/;
+        const textFields = ['name', 'street', 'city', 'state', 'country'];
+
+        for (const field of textFields) {
+            const value = addressData[field];
+            if (!value) {
                 return res.status(400).json({ success: false, message: `Missing required field: ${field}` });
             }
+            if (!textRegex.test(value)) {
+                return res.status(400).json({
+                    success: false,
+                    message: `The ${field} field contains invalid characters.`
+                });
+            }
+        }
+
+        // Pincode and Mobile validation
+        if (!/^\d{6}$/.test(addressData.pincode)) {
+            return res.status(400).json({ success: false, message: "Pincode must be exactly 6 digits" });
+        }
+        if (!/^\d{10}$/.test(addressData.mobile)) {
+            return res.status(400).json({ success: false, message: "Mobile number must be exactly 10 digits" });
         }
 
         // 3. Check for existing identical address to prevent duplication
         const duplicateAddress = await Address.findOne({
             userId,
             name: addressData.name,
-            housename: addressData.houseName || ' ',
+            housename: addressData.housename || ' ',
             street: addressData.street,
             city: addressData.city,
             pincode: addressData.pincode,
@@ -119,7 +138,7 @@ export const postAddress = async (req, res) => {
             const newAddress = new Address({
                 userId,
                 name: addressData.name,
-                housename: addressData.houseName || addressData.housename || '',
+                housename: addressData.housename || '',
                 street: addressData.street,
                 city: addressData.city,
                 state: addressData.state,

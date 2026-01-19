@@ -1,4 +1,4 @@
-import { editCategory } from "../services/categoryService.js";
+import { apiRequest } from "../utils/fetchClient.js";
 const sidebar = document.getElementById("adminSidebar");
 const mobileMenuBtn = document.getElementById("mobileMenuBtn");
 const sidebarOverlay = document.getElementById("sidebarOverlay");
@@ -41,7 +41,7 @@ if (form) {
         try {
             const action = form.getAttribute('action');
             const id = action.split('/').pop();
-            const data = await editCategory(id, categoryName);
+            const data = await apiRequest(`/admin/edit-category/${id}`, "POST", { categoryName });
 
             if (data && data.success) {
                 Swal.fire({

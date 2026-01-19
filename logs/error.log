@@ -1193,3 +1193,6 @@ Or, if you meant to create an async function, pass `async: true` as an option.
 
 breadcrumbs is not defined
 [2026-01-18 19:08:33] ERROR: Add to cart error: Cannot add more than 6
+[2026-01-18 21:34:12] ERROR: Razorpay Create Order Error: Cannot read properties of undefined (reading 'status')
+[2026-01-19 11:36:21] ERROR: id is not defined
+[2026-01-19 11:36:25] ERROR: id is not defined

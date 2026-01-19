@@ -1,5 +1,5 @@
 import { debounce } from "../utils/debounce.js";
-import { blockCategory, unblockCategory } from "../services/categoryService.js";
+import { apiRequest } from "../utils/fetchClient.js";
 // Sidebar logic
 const sidebar = document.getElementById("adminSidebar");
 const mobileMenuBtn = document.getElementById("mobileMenuBtn");
@@ -202,7 +202,9 @@ confirmForm.addEventListener('submit', async function (e) {
     const actionType = this.dataset.actionType;
 
     try {
-        const data = actionType === 'block' ? await blockCategory(id) : await unblockCategory(id);
+        const data = actionType === 'block'
+            ? await apiRequest(`/admin/block-category/${id}`, "POST")
+            : await apiRequest(`/admin/unblock-category/${id}`, "POST");
 
         if (data && data.success) {
             Swal.fire({ icon: 'success', title: 'Success!', text: data.message, showConfirmButton: false, timer: 1500 });

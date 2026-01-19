@@ -3,6 +3,7 @@ import { User } from "../models/userModel.js";
 import { Product, ProductVariant } from "../models/productModel.js";
 import { Category } from "../models/categoryModel.js";
 import Cart from "../models/cartModel.js";
+import wishlistModel from "../models/wishlistModel.js";
 import mongoose from "mongoose";
 import otpGenerator from "otp-generator";
 import nodemailer from "nodemailer";
@@ -763,13 +764,6 @@ export async function getHome(req, res) {
 }
 
 
-export function getLogout(req, res) {
-  req.session.destroy((err) => {
-    if (err) console.log(err);
-    res.clearCookie("connect.sid");
-    res.redirect("/login");
-  });
-}
 export async function getUserCounts(req, res) {
   try {
     const userId = req.session.user?.id || req.user?.id || req.user?._id;
@@ -779,7 +773,7 @@ export async function getUserCounts(req, res) {
 
     const [cartCount, wishlistCount] = await Promise.all([
       Cart.countDocuments({ userId }),
-      Wishlist.countDocuments({ userId })
+      wishlistModel.countDocuments({ userId })
     ]);
 
     res.json({ cartCount, wishlistCount });
@@ -787,4 +781,13 @@ export async function getUserCounts(req, res) {
     console.error("Error fetching user counts:", error);
     res.status(500).json({ success: false, message: "Internal server error" });
   }
+}
+
+
+export function getLogout(req, res) {
+  req.session.destroy((err) => {
+    if (err) console.log(err);
+    res.clearCookie("connect.sid");
+    res.redirect("/login");
+  });
 }
