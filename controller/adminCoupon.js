@@ -6,7 +6,7 @@ import { escapeRegExp } from "../utils/regexHelper.js";
 export const getCouponlist = async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;
-        const limit = 10;
+        const limit = 7;
         const search = req.query.search || "";
         const query = {};
         if (search) {
