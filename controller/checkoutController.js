@@ -119,7 +119,7 @@ export const postAddress = async (req, res) => {
         const duplicateAddress = await Address.findOne({
             userId,
             name: addressData.name,
-            housename: addressData.houseName || ' ',
+            housename: addressData.housename || ' ',
             street: addressData.street,
             city: addressData.city,
             pincode: addressData.pincode,
@@ -138,7 +138,7 @@ export const postAddress = async (req, res) => {
             const newAddress = new Address({
                 userId,
                 name: addressData.name,
-                housename: addressData.houseName || addressData.housename || '',
+                housename: addressData.housename || '',
                 street: addressData.street,
                 city: addressData.city,
                 state: addressData.state,

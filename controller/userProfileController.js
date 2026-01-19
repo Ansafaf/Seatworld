@@ -488,7 +488,11 @@ export async function postAddaddress(req, res) {
     const { name, housename, street, city, state, country, pincode, mobile } = req.body;
     // Validation for text fields (allowing letters, numbers, spaces, and basic punctuation)
     const textRegex = /^[a-zA-Z\s.-\/]+$/;
-    const fieldsToValidate = { name, housename, street, city, state, country };
+    const fieldsToValidate = { name, street, city, state, country };
+
+    if(!/^[a-zA-Z0-9\s.-]+$/.test(housename)){
+      return res.status(400).json({success:false, message:"House name contains invalid characters, Only letters, spaces, dots, numbers and hyphens"});
+    }
 
     for (const [fieldName, value] of Object.entries(fieldsToValidate)) {
       if (value && !textRegex.test(value)) {
