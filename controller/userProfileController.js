@@ -487,14 +487,14 @@ export async function postAddaddress(req, res) {
     const id = req.session.user.id;
     const { name, housename, street, city, state, country, pincode, mobile } = req.body;
     // Validation for text fields (allowing letters, numbers, spaces, and basic punctuation)
-    const textRegex = /^[a-zA-Z0-9\s.,#\-\/]+$/;
+    const textRegex = /^[a-zA-Z\s.-\/]+$/;
     const fieldsToValidate = { name, housename, street, city, state, country };
 
     for (const [fieldName, value] of Object.entries(fieldsToValidate)) {
       if (value && !textRegex.test(value)) {
         return res.status(400).json({
           success: false,
-          message: `The ${fieldName} field contains invalid characters. Only letters, numbers, spaces, and . , # - / are allowed.`
+          message: `The ${fieldName} field contains invalid characters. Only letters, spaces, dots and slashes are allowed.`
         });
       }
     }
