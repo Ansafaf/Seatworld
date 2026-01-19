@@ -1,5 +1,4 @@
-import {debounce} from "../utils/debounce.js";
-let searchTimeout;
+import { debounce } from "../utils/debounce.js";
 const searchInput = document.getElementById('productSearch');
 const tableBody = document.getElementById('productTableBody');
 const paginationContainer = document.getElementById('paginationContainer');
@@ -113,13 +112,13 @@ const updatePagination = (currentPage, totalPages, search) => {
 };
 
 
-const handleSearch = (e)=>{
+const handleSearch = (e) => {
     const searchTerm = e.target.value;
-    fetchProducts(1,searchTerm);
+    fetchProducts(1, searchTerm);
 }
-const debouncedSearch = debounce(handleSearch,400);
-if(searchInput){
-    searchInput.addEventListener("input",debouncedSearch);
+const debouncedSearch = debounce(handleSearch, 400);
+if (searchInput) {
+    searchInput.addEventListener("input", debouncedSearch);
 }
 
 // Initial Pagination Listeners
