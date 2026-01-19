@@ -473,6 +473,7 @@ export async function postDefaultAddres(req, res) {
 }
 
 export async function getAddaddress(req, res) {
+  
   res.render("users/addressAdd", {
     user: req.user,
     breadcrumbs: buildBreadcrumb([
@@ -482,14 +483,19 @@ export async function getAddaddress(req, res) {
     ])
   });
 }
+
 export async function postAddaddress(req, res) {
   try {
     const id = req.session.user.id;
     const { name, housename, street, city, state, country, pincode, mobile } = req.body;
     // Validation for text fields (allowing letters, numbers, spaces, and basic punctuation)
+    const count = await Address.countDocuments({userId:id});
+    let addressLimit = 5;
+    if(count >= addressLimit){
+      return res.status(400).json({success:false, message:`you cannot add more than ${addressLimit} address`});
+    }
     const textRegex = /^[a-zA-Z\s.-\/]+$/;
     const fieldsToValidate = { name, street, city, state, country };
-
     if(!/^[a-zA-Z0-9\s.-]+$/.test(housename)){
       return res.status(400).json({success:false, message:"House name contains invalid characters, Only letters, spaces, dots, numbers and hyphens"});
     }

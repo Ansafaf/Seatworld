@@ -2,7 +2,6 @@ import mongoose, { isValidObjectId } from 'mongoose';
 
 const userSchema = new mongoose.Schema({
   googleId: { type: String, unique: true, sparse: true },
-
   name: {
     type: String,
     trim: true,
@@ -24,7 +23,6 @@ const userSchema = new mongoose.Schema({
     unique: true,
     sparse: true,
   },
-
   username: {
     type: String,
     required: function () {
