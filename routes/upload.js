@@ -1,5 +1,6 @@
 import express from 'express';
 import { upload, uploadToCloudinary } from '../config/cloudinary.js';
+import logger from '../utils/logger.js';
 
 const router = express.Router();
 
@@ -21,7 +22,7 @@ router.post('/upload', upload.single('image'), async (req, res) => {
       publicId: result.public_id
     });
   } catch (error) {
-    console.error('Upload error:', error);
+    logger.error('Upload error:', error);
     res.status(500).json({ error: 'Upload failed' });
   }
 });

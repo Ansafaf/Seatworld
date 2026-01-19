@@ -167,10 +167,10 @@ app.use((err, req, res, next) => {
   });
 });
 import "./cron/couponExpiry.job.js";
-import { User } from "./models/userModel.js";
+
 
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running on ${process.env.LOCALURL}`);
+  logger.info(`Server running on ${process.env.LOCALURL}`);
 });
 

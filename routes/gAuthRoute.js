@@ -1,5 +1,6 @@
 import express from "express";
 import passport from "../config/googleAuth.js";
+import logger from "../utils/logger.js";
 
 const router = express.Router();
 
@@ -12,7 +13,7 @@ router.get("/google",
 router.get("/google/callback", (req, res, next) => {
   passport.authenticate("google", (err, user, info) => {
     if (err) {
-      console.error("Passport Auth Error:", err);
+      logger.error("Passport Auth Error:", err);
       return next(err);
     }
     if (!user) {
@@ -32,7 +33,7 @@ router.get("/google/callback", (req, res, next) => {
         name: user.name,
         email: user.email
       };
-      console.log("✅ Logged in user:", user);
+      logger.info("✅ Logged in user:", user);
       res.redirect("/home");
     });
   })(req, res, next);

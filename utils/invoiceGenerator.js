@@ -1,4 +1,5 @@
 import PDFDocument from "pdfkit";
+import Buffer from "buffer";
 
 export default function generateInvoicePDF(order, items) {
   return new Promise((resolve) => {
