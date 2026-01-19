@@ -18,7 +18,7 @@
 
                 <%- include('../partials/profileMobileToggle') %>
 
-                    <div class="container">
+                    <div class="profile-container">
                         <div class="profile-layout">
                             <!-- SIDEBAR -->
                             <%- include('../partials/profileSidebar', { active: 'orders' }) %>
@@ -29,9 +29,13 @@
                                         <!-- Order Header -->
                                         <div class="order-header-section">
                                             <div class="order-info">
-                                                <h1>Order #<%= order._id.toString().slice(-6).toUpperCase() %>
-                                                </h1>
-                                                <p>Placed on <%= new Date(order.createdAt).toLocaleDateString('en-GB', {
+                                                <div class="order-id-badge">
+                                                    <span class="id-label">Order ID</span>
+                                                    <span class="id-value">#<%=
+                                                            order._id.toString().slice(-6).toUpperCase() %></span>
+                                                </div>
+                                                <p class="order-date">Placed on <%= new
+                                                        Date(order.createdAt).toLocaleDateString('en-GB', {
                                                         day: '2-digit' , month: 'long' , year: 'numeric' }) %>
                                                 </p>
                                             </div>
@@ -40,7 +44,7 @@
                                                     <i class="fas fa-file-invoice"></i> Download Invoice
                                                 </a>
                                                 <span
-                                                    class="status-badge status-<%= (order.orderStatus || 'pending').toLowerCase() %>">
+                                                    class="status-badge status-<%= (order.orderStatus || 'pending').toLowerCase().replace(/\s+/g, '-') %>">
                                                     <%= order.orderStatus || 'Pending' %>
                                                 </span>
                                             </div>
@@ -106,7 +110,7 @@
                                                             <th>Product</th>
                                                             <th style="text-align: center;">Qty</th>
                                                             <th style="text-align: center;">Price</th>
-                                                            <th style="text-align: center;">Total</th>
+                                                            <th style="text-align: center;">Item Total</th>
                                                             <th style="text-align: center;">Status</th>
                                                             <th style="text-align: right;">Action</th>
                                                         </tr>
@@ -136,9 +140,10 @@
                                                                 <td data-label="Price" style="text-align: center;">₹<%=
                                                                         item.purchasedPrice.toLocaleString('en-IN') %>
                                                                 </td>
-                                                                <td data-label="Total"
+                                                                <td data-label="Item Total"
                                                                     style="text-align: center; font-weight: 700;">₹<%=
-                                                                        item.total.toLocaleString('en-IN') %>
+                                                                        (item.purchasedPrice *
+                                                                        item.productQuantity).toLocaleString('en-IN') %>
                                                                 </td>
                                                                 <td data-label="Status" style="text-align: center;">
                                                                     <span
@@ -182,14 +187,19 @@
                                             <div class="summary-box">
                                                 <div class="summary-row">
                                                     <span>Subtotal</span>
-                                                    <span style="font-weight: 600;">₹<%= (order.subtotal ||
-                                                            order.totalAmount).toLocaleString('en-IN') %></span>
+                                                    <span style="font-weight: 600;">₹<%=
+                                                            order.subtotal.toLocaleString('en-IN') %></span>
                                                 </div>
                                                 <div class="summary-row">
                                                     <span>Discount</span>
                                                     <span style="font-weight: 600; color: #198754;">-₹<%=
                                                             (order.discountAmount || 0).toLocaleString('en-IN') %>
                                                     </span>
+                                                </div>
+                                                <div class="summary-row">
+                                                    <span>Shipping Fee</span>
+                                                    <span style="font-weight: 600;">₹<%= (order.shippingFee ||
+                                                            0).toLocaleString('en-IN') %></span>
                                                 </div>
                                                 <div class="summary-row total">
                                                     <span>Total</span>

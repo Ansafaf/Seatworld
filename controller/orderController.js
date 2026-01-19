@@ -32,7 +32,12 @@ export const getorders = async (req, res) => {
 export const placeOrder = async (req, res) => {
   try {
     const userId = req.session.user.id;
-    const { paymentMethod } = req.body;
+    let { paymentMethod } = req.body;
+
+    // Normalize Razorpay to ONLINE for model consistency
+    if (paymentMethod && paymentMethod.toLowerCase() === 'razorpay') {
+      paymentMethod = 'ONLINE';
+    }
 
     if (!paymentMethod) {
       return res.status(400).json({ success: false, message: "Payment method is required" });
@@ -58,10 +63,10 @@ export const placeOrder = async (req, res) => {
     }
 
     let newOrder;
-    if (paymentMethod === "COD" || paymentMethod === "Razorpay" || paymentMethod === "Wallet") {
+    if (paymentMethod === "COD" || paymentMethod === "ONLINE" || paymentMethod === "wallet") {
 
       // Balance check for Wallet
-      if (paymentMethod === "Wallet") {
+      if (paymentMethod === "wallet") {
         const wallet = await Wallet.findOne({ userId });
         if (!wallet || wallet.balance < cartTotals.total) {
           return res.status(400).json({
@@ -76,7 +81,7 @@ export const placeOrder = async (req, res) => {
         paymentMethod,
         checkoutSession: req.session.checkout,
         cartTotals,
-        paymentStatus: (paymentMethod === "Razorpay" || paymentMethod === "Wallet") ? "paid" : "pending"
+        paymentStatus: (paymentMethod === "ONLINE" || paymentMethod === "wallet") ? "paid" : "pending"
       });
     } else {
       return res.status(400).json({

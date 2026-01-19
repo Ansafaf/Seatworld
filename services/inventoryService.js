@@ -3,21 +3,6 @@ import StockHistory from "../models/stockHistoryModel.js";
 import logger from "../utils/logger.js";
 import mongoose from "mongoose";
 
-/**
- * Service to handle all stock interactions
- */
-
-/**
- * Atomic stock update with history logging
- * @param {Object} params 
- * @param {string} params.variantId
- * @param {number} params.quantity - Number to change (positive for add, negative for remove)
- * @param {string} params.reason - One of the enum reasons in StockHistory
- * @param {string} [params.orderId] - Optional order mapping
- * @param {string} [params.adminId] - Optional admin mapping
- * @param {string} [params.notes] - Optional notes
- * @param {ClientSession} [params.session] - Optional mongoose session for transactions
- */
 export const updateStock = async ({ variantId, quantity, reason, orderId = null, adminId = null, notes = "", session = null }) => {
     try {
         // Use findOneAndUpdate with $inc for true atomic operation at the DB level
@@ -75,9 +60,7 @@ export const updateStock = async ({ variantId, quantity, reason, orderId = null,
     }
 };
 
-/**
- * Simple stock check
- */
+
 export const checkStockAvailability = async (items) => {
     for (const item of items) {
         const variant = await ProductVariant.findById(item.variantId);

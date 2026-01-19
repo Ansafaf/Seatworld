@@ -67,21 +67,9 @@ if (cartButton) {
             const data = await response.json();
 
             if (data.success) {
-                // Update cart count in header if it exists
-                // Update cart count in header
-                const cartLink = document.getElementById('header-cart-link');
-                if (cartLink) {
-                    let cartBadge = cartLink.querySelector('.cart-count-badge');
-                    if (!cartBadge && data.cartCount > 0) {
-                        cartBadge = document.createElement('span');
-                        cartBadge.className = 'cart-count-badge';
-                        cartLink.appendChild(cartBadge);
-                    }
-                    if (cartBadge) {
-                        cartBadge.textContent = data.cartCount;
-                        // Optional: remove if 0 again, though usually we add here.
-                        if (data.cartCount === 0) cartBadge.remove();
-                    }
+                // Update header counts
+                if (typeof window.updateHeaderCounts === 'function') {
+                    window.updateHeaderCounts({ cartCount: data.cartCount });
                 }
 
                 Swal.fire({

@@ -1,109 +1,397 @@
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background: #fff;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+/* ===== ADMIN LOGIN PAGE STYLES ===== */
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Animated background effect */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    animation: backgroundPulse 15s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes backgroundPulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* ===== ERROR MESSAGE ===== */
+.error-message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #ff4757 0%, #e84118 100%);
+    color: #ffffff;
+    padding: 16px 20px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    animation: slideDown 0.4s ease-out;
+    letter-spacing: 0.3px;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ===== HEADER ===== */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 20px 40px;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    text-align: center;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* ===== LOGIN BOX ===== */
+.login-box {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 48px 40px;
+    width: 100%;
+    max-width: 440px;
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    animation: fadeInUp 0.6s ease-out;
+    position: relative;
+    z-index: 1;
+    margin-top: 80px;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    text-align: center;
+    margin-bottom: 36px;
+    letter-spacing: 2px;
+    position: relative;
+    padding-bottom: 16px;
+}
+
+.login-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 2px;
+}
+
+/* ===== FORM STYLES ===== */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+form > div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+    letter-spacing: 0.3px;
+    margin-left: 4px;
+}
+
+.input-box {
+    width: 100%;
+    padding: 14px 18px;
+    font-size: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    background: #fafafa;
+    color: #1a1a1a;
+    font-family: inherit;
+}
+
+.input-box:focus {
+    outline: none;
+    border-color: #667eea;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    transform: translateY(-2px);
+}
+
+.input-box:hover {
+    border-color: #b0b0b0;
+}
+
+/* ===== LOGIN BUTTON ===== */
+.login-btn {
+    margin-top: 12px;
+    padding: 16px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffffff;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.login-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.login-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Loading state for button */
+.login-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ===== DECORATIVE ELEMENTS ===== */
+.login-box::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, #667eea, #764ba2, #667eea);
+    border-radius: 20px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.login-box:hover::before {
+    opacity: 0.3;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Tablets */
+@media (max-width: 768px) {
     .header {
-        width: 100vw;
-        background: #dbdbdb;
-        text-align: center;
-        padding: 18px 0 8px 0;
-        font-size: 2rem;
-        font-weight: bold;
-        letter-spacing: 1px;
+        font-size: 1.5rem;
+        padding: 18px 30px;
     }
-
+    
     .login-box {
-        background-color: #878787;
-        border-radius: 50px;
-        box-shadow: 2px 3px 9px 0px #a1a1a1;
-        width: 420px;
-        max-width: 90vw;
-        padding: 56px 55px 40px 55px;
-        box-sizing: border-box;
-        margin: 48px auto 0 auto;
-        text-align: center;
+        padding: 40px 32px;
+        max-width: 400px;
+        margin-top: 70px;
     }
+    
+    .login-title {
+        font-size: 1.6rem;
+        margin-bottom: 32px;
+    }
+    
+    form {
+        gap: 20px;
+    }
+}
 
+/* Mobile landscape and smaller tablets */
+@media (max-width: 576px) {
+    body {
+        padding: 16px;
+    }
+    
+    .header {
+        font-size: 1.3rem;
+        padding: 16px 20px;
+        letter-spacing: 0.5px;
+    }
+    
+    .login-box {
+        padding: 36px 28px;
+        max-width: 100%;
+        border-radius: 16px;
+        margin-top: 60px;
+    }
+    
     .login-title {
         font-size: 1.4rem;
-        font-family: inherit;
-        font-weight: 600;
-        color: #fff;
-        margin-bottom: 30px;
+        margin-bottom: 28px;
+        letter-spacing: 1.5px;
     }
-
-    .input-label {
-        font-family: inherit;
-        color: #fff;
-        font-size: 1rem;
-        font-weight: 600;
-        display: block;
-        margin-bottom: 6px;
-        text-align: left;
-        margin-left: 28px;
-    }
-
+    
     .input-box {
-        width: 80%;
-        padding: 10px;
-        border: none;
-        border-radius: 22px;
-        background: #b9b9b9;
-        margin-bottom: 25px;
-        font-size: 1rem;
-        box-sizing: border-box;
-        outline: none;
-        color: #323232;
-        text-indent: 8px;
+        padding: 12px 16px;
+        font-size: 16px; /* Prevents zoom on iOS */
     }
-
+    
     .login-btn {
-        width: 44%;
-        background-color: #fff;
-        color: #656565;
-        border: none;
-        padding: 12px 0;
-        font-size: 1.13rem;
-        border-radius: 18px;
-        font-weight: 600;
-        margin-top: 27px;
-        cursor: pointer;
-        transition: box-shadow 0.2s;
-        box-shadow: 0px 2px 7px 1px #86868633;
+        padding: 14px;
+        font-size: 1rem;
+        letter-spacing: 1px;
     }
-
-    .login-btn:hover {
-        background-color: #f4f4f4;
+    
+    form {
+        gap: 18px;
     }
+}
 
+/* Extra small devices */
+@media (max-width: 400px) {
+    .header {
+        font-size: 1.2rem;
+        padding: 14px 16px;
+    }
+    
+    .login-box {
+        padding: 32px 24px;
+    }
+    
+    .login-title {
+        font-size: 1.3rem;
+    }
+    
     .error-message {
-        background-color: #ff4444;
-        color: #fff;
-        padding: 12px 20px;
-        border-radius: 18px;
-        font-size: 0.9rem;
-        font-weight: 500;
-        margin-bottom: 20px;
-        text-align: center;
-        display: block;
-        animation: fadeIn 0.3s ease-in;
+        font-size: 0.85rem;
+        padding: 14px 16px;
     }
+}
 
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
+}
+
+/* Focus visible for keyboard navigation */
+.input-box:focus-visible,
+.login-btn:focus-visible {
+    outline: 3px solid #667eea;
+    outline-offset: 2px;
+}
+
+/* ===== ADDITIONAL ENHANCEMENTS ===== */
+
+/* Floating label effect (optional) */
+form > div {
+    position: relative;
+}
+
+.input-box:focus + .input-label,
+.input-box:not(:placeholder-shown) + .input-label {
+    transform: translateY(-8px);
+    font-size: 0.8rem;
+    color: #667eea;
+}
+
+/* Password visibility toggle area */
+input[type="password"] {
+    letter-spacing: 2px;
+}
+
+/* Auto-fill styling */
+.input-box:-webkit-autofill,
+.input-box:-webkit-autofill:hover,
+.input-box:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px #fafafa inset;
+    -webkit-text-fill-color: #1a1a1a;
+    border-color: #667eea;
+}
+
+/* Success state (for future use) */
+.input-box.success {
+    border-color: #2ecc71;
+    background: #f0fff4;
+}
+
+/* Error state (for future use) */
+.input-box.error {
+    border-color: #e74c3c;
+    background: #fff5f5;
+}
+
+/* Shake animation for errors */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.login-box.shake {
+    animation: shake 0.5s ease-in-out;
+}

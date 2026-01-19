@@ -2,11 +2,10 @@ import mongoose, { isValidObjectId } from 'mongoose';
 
 const userSchema = new mongoose.Schema({
   googleId: { type: String, unique: true, sparse: true },
-
   name: {
     type: String,
     trim: true,
-    match: [/^[a-zA-Z\s]{3,50}$/, 'Name must be 3-50 characters and contain only letters and spaces']
+    match: [/^[a-zA-Z\s.]{3,50}$/, 'Name must be 3-50 characters and contain only letters, spaces, and dots']
   },
 
   email: {
@@ -24,7 +23,6 @@ const userSchema = new mongoose.Schema({
     unique: true,
     sparse: true,
   },
-
   username: {
     type: String,
     required: function () {

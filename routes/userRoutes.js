@@ -1,11 +1,13 @@
 import express from 'express';
 const router = express.Router();
-import { getLanding, getLogin, postLogin, getverifyOtp, verifyOtp, resendOtp, getforgotPass, postforgotPass, getHome, getSignup, postSignup, getLogout, postPassCreation, otpverifyForgot, getPassCreation, getotpForgot, getReferralCode } from '../controller/userAuthController.js';
-import { authMiddleware } from "../middleware/authMiddleware.js";
+import { getLanding, getLogin, postLogin, getverifyOtp, verifyOtp, resendOtp, getforgotPass, postforgotPass, getHome, getSignup, postSignup, getLogout, postPassCreation, otpverifyForgot, getPassCreation, getotpForgot, getReferralCode, getUserCounts } from '../controller/userAuthController.js';
+import { requireAuth } from "../middleware/authMiddleware.js";
 
 router.get('/', getLanding);
 router.get('/login', getLogin);
 router.post('/login', postLogin);
+
+router.get("/api/user/counts", getUserCounts);
 
 router.get("/verify-otp", getverifyOtp);
 router.post("/verify-otp", verifyOtp);
@@ -18,12 +20,12 @@ router.post("/post-otp", otpverifyForgot);
 router.get("/create-password", getPassCreation);
 router.post("/create-password", postPassCreation);
 
-// router.get('/cart',getCart); 
 
-router.get('/home', authMiddleware, getHome);
+
+router.get('/home', getHome);
 router.get('/signup', getSignup);
 router.post('/signup', postSignup);
-router.get("/referral",authMiddleware, getReferralCode);
+router.get("/referral", requireAuth, getReferralCode);
 
 router.get('/logout', getLogout);
 

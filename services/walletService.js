@@ -22,9 +22,8 @@ export const calculateItemRefundAmount = (order, item) => {
 
     // Calculate the discount ratio applied to the whole order
     // Discount ratio = Discount / Items Subtotal
-    const discountRatio = order.discountAmount / order.subtotal;
-
-    // The refund should be the item total minus its proportional share of the discount
+    const discountRatio = order.discountAmount / order.subtotal
+    
     const refundAmount = itemTotal * (1 - discountRatio);
 
     return Math.round(refundAmount * 100) / 100; // Round to 2 decimal places

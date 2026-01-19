@@ -3,6 +3,7 @@ import { User } from "../models/userModel.js";
 import { Product, ProductVariant } from "../models/productModel.js";
 import { Category } from "../models/categoryModel.js";
 import Cart from "../models/cartModel.js";
+import wishlistModel from "../models/wishlistModel.js";
 import mongoose from "mongoose";
 import otpGenerator from "otp-generator";
 import nodemailer from "nodemailer";
@@ -101,17 +102,23 @@ export function getSignup(req, res) {
   res.render("users/signup");
 }
 export async function postSignup(req, res) {
-  const { username, email, password, confirmPassword, referralCode } = req.body;
+  let { username, email, password, confirmPassword, referralCode } = req.body;
+
+  username = username?.trim();
+  email = email?.trim();
+  password = password?.trim();
+  confirmPassword = confirmPassword?.trim();
+  referralCode = referralCode?.trim();
 
   if (!username || !email || !password || !confirmPassword) {
     return res.status(400).json({
       success: false,
-      message: "All fields are required"
+      message: "All fields are required and cannot be empty"
     });
   }
 
   // Username validation
-  const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+  const usernameRegex = /^[a-zA-Z0-9_ ]{3,20}$/;
   if (!usernameRegex.test(username)) {
     return res.status(400).json({
       success: false,
@@ -753,6 +760,26 @@ export async function getHome(req, res) {
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error");
+  }
+}
+
+
+export async function getUserCounts(req, res) {
+  try {
+    const userId = req.session.user?.id || req.user?.id || req.user?._id;
+    if (!userId) {
+      return res.json({ cartCount: 0, wishlistCount: 0 });
+    }
+
+    const [cartCount, wishlistCount] = await Promise.all([
+      Cart.countDocuments({ userId }),
+      wishlistModel.countDocuments({ userId })
+    ]);
+
+    res.json({ cartCount, wishlistCount });
+  } catch (error) {
+    console.error("Error fetching user counts:", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
   }
 }
 

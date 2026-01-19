@@ -1,7 +1,7 @@
 
 export const buildBreadcrumb = (items = []) => {
     return [
-        { label: "Home", url: "/home" },
+        { label: "Home", url: "/" },
         ...items
     ];
 };

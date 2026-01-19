@@ -51,12 +51,12 @@ if (profileForm) {
             return;
         }
 
-        const nameRegex = /^[a-zA-Z\s]{3,50}$/;
+        const nameRegex = /^[a-zA-Z\s.]{3,50}$/;
         if (!nameRegex.test(data.name)) {
             Swal.fire({
                 icon: 'error',
                 title: 'Validation Error',
-                text: 'Name must be 3-50 characters and contain only letters and spaces',
+                text: 'Name must be 3-50 characters and contain only letters, spaces, and dots',
                 confirmButtonColor: '#3b82f6'
             });
             return;

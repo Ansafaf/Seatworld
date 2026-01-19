@@ -12,16 +12,30 @@ import { createReferralForUser } from "../services/referralService.js";
 
 
 export async function getProfile(req, res) {
-  const customer = await User.findById(req.session.user.id);
-  if (!customer.referralCode) {
-    customer.referralCode = await createReferralForUser(customer._id);
+  try {
+    if (!req.session.user) return res.redirect("/login");
+    const customer = await User.findById(req.session.user.id);
+
+    if (!customer) {
+      req.session.message = { type: 'error', message: "User not found" };
+      return res.redirect("/login");
+    }
+
+    if (!customer.referralCode) {
+      customer.referralCode = await createReferralForUser(customer._id);
+    }
+
+    res.render("users/profile", {
+      user: customer,
+      breadcrumbs: buildBreadcrumb([
+        { label: "Profile", url: "/profile" }
+      ])
+    });
+  } catch (error) {
+    console.error("Get Profile Error:", error);
+    logger.error("Get Profile Error:", error);
+    res.status(500).render("500", { message: "Internal Server Error" });
   }
-  res.render("users/profile", {
-    user: customer,
-    breadcrumbs: buildBreadcrumb([
-      { label: "Profile", url: "/profile" }
-    ])
-  });
 }
 
 export async function getprofileEdit(req, res) {
@@ -49,11 +63,11 @@ export async function postprofileEdit(req, res) {
     }
 
     // Name validation
-    const nameRegex = /^[a-zA-Z\s]{3,50}$/;
+    const nameRegex = /^[a-zA-Z\s.]{3,50}$/;
     if (!nameRegex.test(name)) {
       return res.status(400).json({
         success: false,
-        message: "Name must be 3-50 characters and contain only letters and spaces"
+        message: "Name must be 3-50 characters and contain only letters, spaces, and dots"
       });
     }
 
@@ -459,6 +473,7 @@ export async function postDefaultAddres(req, res) {
 }
 
 export async function getAddaddress(req, res) {
+  
   res.render("users/addressAdd", {
     user: req.user,
     breadcrumbs: buildBreadcrumb([
@@ -468,10 +483,39 @@ export async function getAddaddress(req, res) {
     ])
   });
 }
+
 export async function postAddaddress(req, res) {
   try {
     const id = req.session.user.id;
     const { name, housename, street, city, state, country, pincode, mobile } = req.body;
+    // Validation for text fields (allowing letters, numbers, spaces, and basic punctuation)
+    const count = await Address.countDocuments({userId:id});
+    let addressLimit = 5;
+    if(count >= addressLimit){
+      return res.status(400).json({success:false, message:`you cannot add more than ${addressLimit} address`});
+    }
+    const textRegex = /^[a-zA-Z\s.-\/]+$/;
+    const fieldsToValidate = { name, street, city, state, country };
+    if(!/^[a-zA-Z0-9\s.-]+$/.test(housename)){
+      return res.status(400).json({success:false, message:"House name contains invalid characters, Only letters, spaces, dots, numbers and hyphens"});
+    }
+
+    for (const [fieldName, value] of Object.entries(fieldsToValidate)) {
+      if (value && !textRegex.test(value)) {
+        return res.status(400).json({
+          success: false,
+          message: `The ${fieldName} field contains invalid characters. Only letters, spaces, dots and slashes are allowed.`
+        });
+      }
+    }
+
+    // Pincode and Mobile specific validation
+    if (!/^\d{6}$/.test(pincode)) {
+      return res.status(400).json({ success: false, message: "Pincode must be exactly 6 digits" });
+    }
+    if (!/^\d{10}$/.test(mobile)) {
+      return res.status(400).json({ success: false, message: "Mobile number must be exactly 10 digits" });
+    }
     const address = new Address({
       userId: id,
       name,
@@ -548,6 +592,27 @@ export async function postEditAddress(req, res) {
       mobile,
       returnTo
     } = req.body;
+
+    // Validation for text fields
+    const textRegex = /^[a-zA-Z0-9\s.,#\-\/]+$/;
+    const fieldsToValidate = { name, housename, street, city, state, country };
+
+    for (const [fieldName, value] of Object.entries(fieldsToValidate)) {
+      if (value && !textRegex.test(value)) {
+        return res.status(400).json({
+          success: false,
+          message: `The ${fieldName} field contains invalid characters. Only letters, numbers, spaces, and . , # - / are allowed.`
+        });
+      }
+    }
+
+    // Pincode and Mobile validation
+    if (!/^\d{6}$/.test(pincode)) {
+      return res.status(400).json({ success: false, message: "Pincode must be exactly 6 digits" });
+    }
+    if (!/^\d{10}$/.test(mobile)) {
+      return res.status(400).json({ success: false, message: "Mobile number must be exactly 10 digits" });
+    }
 
     const updated = await Address.findOneAndUpdate(
       { _id: addressId, userId: userId }, // ownership check

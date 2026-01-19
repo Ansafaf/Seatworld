@@ -33,6 +33,9 @@ import adminOfferRouter from "./routes/adminOfferRoutes.js";
 import razorpayRoute from "./routes/razorpayRoutes.js";
 import salesRoute from "./routes/salesReportRoutes.js";
 import Walletrouter from "./routes/walletRoutes.js";
+import Cart from "./models/cartModel.js";
+import Wishlist from "./models/wishlistModel.js";
+import { optionalAuth } from "./middleware/optionalAuth.js";
 
 
 app.use(express.json());
@@ -72,6 +75,32 @@ app.use((req, res, next) => {
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(optionalAuth);
+
+// Global Middleware to provide cart and wishlist counts to all views
+app.use(async (req, res, next) => {
+  try {
+    if (req.user) {
+      const userId = req.user._id || req.user.id;
+      const [cartCount, wishlistCount] = await Promise.all([
+        Cart.countDocuments({ userId }),
+        Wishlist.countDocuments({ userId })
+      ]);
+      res.locals.cartCount = cartCount;
+      res.locals.wishlistCount = wishlistCount;
+    } else {
+      res.locals.cartCount = 0;
+      res.locals.wishlistCount = 0;
+    }
+    next();
+  } catch (err) {
+    logger.error("Error in global middleware for counts:", err);
+    res.locals.cartCount = 0;
+    res.locals.wishlistCount = 0;
+    next();
+  }
+});
+
 // View engine
 app.set("view engine", "ejs");
 app.set("views", "./views");
@@ -84,7 +113,7 @@ app.use("/auth", AuthRoute);
 app.use("/", userRouter);
 app.use("/admin", adminRouter);
 app.use("/", profileRouter);
-app.use("/",Walletrouter);
+app.use("/", Walletrouter);
 app.use("/", productRouter);
 app.use("/admin", adminCategoryRouter);
 app.use("/admin", adminProductRouter);
@@ -138,10 +167,10 @@ app.use((err, req, res, next) => {
   });
 });
 import "./cron/couponExpiry.job.js";
-import { User } from "./models/userModel.js";
+
 
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running on ${process.env.LOCALURL}`);
+  logger.info(`Server running on ${process.env.LOCALURL}`);
 });
 

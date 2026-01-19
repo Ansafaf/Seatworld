@@ -4,12 +4,35 @@ async function toggleWishlist(variantId, button) {
     const response = await fetch('/wishlist/add', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       },
       body: JSON.stringify({ variantId })
     });
 
     const data = await response.json();
+
+    // Handle authentication required
+    if (response.status === 401) {
+      if (typeof Swal !== 'undefined') {
+        Swal.fire({
+          icon: 'info',
+          title: 'Login Required',
+          text: 'Please login to add items to your wishlist.',
+          showCancelButton: true,
+          confirmButtonText: 'Login Now',
+          confirmButtonColor: '#2449ff',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = '/login';
+          }
+        });
+      } else {
+        showMessage('Please login to add items to your wishlist', 'error');
+        setTimeout(() => window.location.href = '/login', 2000);
+      }
+      return;
+    }
 
     if (data.success) {
       // Toggle button active state and SVG fill
@@ -25,6 +48,11 @@ async function toggleWishlist(variantId, button) {
 
       // Show message
       showMessage(data.message, 'success');
+
+      // Update header counts
+      if (typeof window.updateHeaderCounts === 'function') {
+        window.updateHeaderCounts({ wishlistCount: data.wishlistCount });
+      }
     } else {
       showMessage(data.message || 'Failed to update wishlist', 'error');
     }
@@ -67,10 +95,12 @@ async function addToCartFromWishlist(variantId, button) {
       wishlistItem.remove();
     }
 
-    // 4️⃣ Update cart count (optional)
-    const cartCountElement = document.querySelector(".cart-count");
-    if (cartCountElement && cartData.cartCount !== undefined) {
-      cartCountElement.textContent = cartData.cartCount;
+    // 4️⃣ Update header counts
+    if (typeof window.updateHeaderCounts === 'function') {
+      window.updateHeaderCounts({
+        cartCount: cartData.cartCount,
+        wishlistCount: (await (await fetch('/api/user/counts')).json()).wishlistCount
+      });
     }
 
     showMessage("Moved to cart", "success");
@@ -105,6 +135,11 @@ async function removeDirectly(variantId, element) {
         }, 300);
       }
       showMessage(data.message || "Removed from wishlist", "success");
+
+      // Update header counts
+      if (typeof window.updateHeaderCounts === 'function') {
+        window.updateHeaderCounts({ wishlistCount: data.wishlistCount });
+      }
     } else {
       showMessage(data.message || "Failed to remove item", "error");
     }

@@ -50,10 +50,9 @@
                                 <input type="hidden" id="couponId" value="<%= coupon._id %>">
 
                                 <div class="form-group full-width">
-                                    <label for="description">Description</label>
-                                    <input id="description" name="description" type="text"
-                                        value="<%= coupon.description %>" placeholder="Enter coupon description"
-                                        required>
+                                    <label for="couponName">Coupon Name</label>
+                                    <input id="couponName" name="couponName" type="text"
+                                        value="<%= coupon.couponName %>" placeholder="Enter coupon name" required>
                                 </div>
 
                                 <div class="form-group">
@@ -86,7 +85,7 @@
                                         value="<%= coupon.minAmount %>" placeholder="0" required>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" id="maxAmountContainer">
                                     <label for="maxAmount">Maximum Discount Amount (₹)</label>
                                     <input id="maxAmount" name="maxAmount" type="number" min="0"
                                         value="<%= coupon.maxAmount %>" placeholder="0" required>
@@ -118,6 +117,24 @@
         </div>
 
         <script>
+            const discountTypeSelect = document.getElementById('discountType');
+            const maxAmountContainer = document.getElementById('maxAmountContainer');
+            const maxAmountInput = document.getElementById('maxAmount');
+
+            function toggleMaxAmount() {
+                if (discountTypeSelect.value === 'flat') {
+                    maxAmountContainer.style.display = 'none';
+                    maxAmountInput.required = false;
+                } else {
+                    maxAmountContainer.style.display = 'block';
+                    maxAmountInput.required = true;
+                }
+            }
+
+            discountTypeSelect.addEventListener('change', toggleMaxAmount);
+            // Initial call
+            toggleMaxAmount();
+
             document.getElementById('editCouponForm').addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const id = document.getElementById('couponId').value;

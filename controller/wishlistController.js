@@ -5,6 +5,7 @@ import logger from "../utils/logger.js";
 import { paginate } from "../utils/paginationHelper.js";
 
 export const getWishlist = async (req, res) => {
+    if (!req.session.user) return res.redirect("/login");
     try {
         const userId = req.session.user.id;
         const page = parseInt(req.query.page) || 1;
@@ -58,11 +59,13 @@ export const addToWishlist = async (req, res) => {
         }
 
         const result = await wishlistService.toggleWishlist(userId, variantId);
+        const wishlistCount = await Wishlist.countDocuments({ userId });
 
         res.status(200).json({
             success: true,
             action: result.action,
-            message: result.action === "added" ? "Added to wishlist" : "Removed from wishlist"
+            message: result.action === "added" ? "Added to wishlist" : "Removed from wishlist",
+            wishlistCount
         });
     } catch (error) {
         logger.error("Add to Wishlist Error:", error);
@@ -76,9 +79,10 @@ export const removeFromWishlist = async (req, res) => {
         const { variantId } = req.params;
 
         await wishlistService.removeFromWishlist(userId, variantId);
+        const wishlistCount = await Wishlist.countDocuments({ userId });
 
         if (req.xhr || req.headers.accept.indexOf('json') > -1 || req.method === 'DELETE') {
-            return res.status(200).json({ success: true, message: "Item removed from wishlist" });
+            return res.status(200).json({ success: true, message: "Item removed from wishlist", wishlistCount });
         }
 
         req.session.message = { type: "success", text: "Item removed from wishlist" };

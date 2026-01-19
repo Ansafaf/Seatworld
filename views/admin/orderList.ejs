@@ -58,6 +58,23 @@
                                         class="material-icons-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 text-sm">expand_more</span>
                                 </div>
 
+                                <!-- Payment Filter -->
+                                <div class="relative w-full md:w-48">
+                                    <select id="paymentFilter"
+                                        class="w-full bg-white border-none text-sm font-bold text-gray-700 rounded-lg px-4 py-2 focus:ring-1 focus:ring-orange-500 cursor-pointer appearance-none shadow-sm">
+                                        <option value="ALL">All Payments</option>
+                                        <option value="COD" <%=paymentMethod==='COD' ? 'selected' : '' %>>Cash on
+                                            Delivery</option>
+                                        <option value="ONLINE" <%=paymentMethod==='ONLINE' ? 'selected' : '' %>>Online
+                                            Payment</option>
+                                        <option value="wallet" <%=paymentMethod==='wallet' ? 'selected' : '' %>>Wallet
+                                        </option>
+                                    </select>
+                                    <span
+                                        class="material-icons-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 text-sm">payments</span>
+                                </div>
+
+
                                 <!-- Sort -->
                                 <div class="relative w-full md:w-48">
                                     <select id="sortOption"
@@ -158,7 +175,8 @@
 
                             <div class="mt-4 flex justify-end">
                                 <%- include('../partials/pagination', { pagination, query:
-                                    `search=${search}&status=${status}&sort=${sort}` }) %>
+                                    `search=${search}&status=${status}&sort=${sort}&paymentMethod=${paymentMethod}` })
+                                    %>
                             </div>
                         </div>
                     </div>

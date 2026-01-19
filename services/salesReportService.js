@@ -1,5 +1,6 @@
 import Order from "../models/orderModel.js";
 import OrderItem from "../models/orderItemModel.js";
+import { calculateDerivedStatus } from "../utils/orderStatusHelper.js";
 
 export const generateSalesReportData = async ({ startDate = null, endDate = null, quickFilter = 'thisMonth' } = {}) => {
     let dateFilter = {};
@@ -49,7 +50,10 @@ export const generateSalesReportData = async ({ startDate = null, endDate = null
     // Simplifying: Count all non-failed orders for stats?
     // Let's use all orders in the period for the Table, but calculate Revenue from valid ones.
 
-    const orders = await Order.find({ ...dateFilter }).sort({ createdAt: -1 });
+    const orders = await Order.find({ ...dateFilter })
+        .populate("userId", "name email")
+        .populate("couponId", "couponName")
+        .sort({ createdAt: -1 });
 
     let totalSales = 0;
     let totalOrdersList = 0;
@@ -85,13 +89,24 @@ export const generateSalesReportData = async ({ startDate = null, endDate = null
     // The table needs: Order ID, Date, Total Amount, Discount, Status.
     // We already fetched `orders`.
 
-    const transactions = orders.map(order => ({
-        orderId: order._id, // Display custom ID if you have one, else _id
-        date: order.createdAt,
-        totalAmount: order.totalAmount,
-        discount: order.discountAmount,
-        status: order.paymentStatus === 'paid' ? 'Success' : order.paymentStatus, // simplified status
-        paymentMethod: order.paymentMethod
+    const transactions = await Promise.all(orders.map(async (order) => {
+        const items = await OrderItem.find({ orderId: order._id });
+        return {
+            orderId: order._id,
+            date: order.createdAt,
+            totalAmount: order.totalAmount,
+            subtotal: order.subtotal || order.totalAmount,
+            shippingFee: order.shippingFee || 0,
+            discount: order.discountAmount,
+            status: calculateDerivedStatus(items),
+            paymentMethod: order.paymentMethod,
+            customer: {
+                name: order.userId?.name || "N/A",
+                email: order.userId?.email || "N/A"
+            },
+            itemCount: items.length,
+            coupon: order.couponId?.couponName || "None"
+        };
     }));
 
 

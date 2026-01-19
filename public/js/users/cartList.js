@@ -56,6 +56,11 @@ async function updateQty(variantId, change) {
 
             // Update Summary regardless (subtotal might have changed)
             updateSummary(data);
+
+            // Update header counts
+            if (typeof window.updateHeaderCounts === 'function') {
+                window.updateHeaderCounts({ cartCount: data.cartCount });
+            }
         } else {
             Toast.fire({
                 icon: 'error',
@@ -106,6 +111,11 @@ async function removeItem(variantId) {
                 }
 
                 updateSummary(data);
+
+                // Update header counts
+                if (typeof window.updateHeaderCounts === 'function') {
+                    window.updateHeaderCounts({ cartCount: data.cartCount });
+                }
 
                 Toast.fire({
                     icon: 'success',

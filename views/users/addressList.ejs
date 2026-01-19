@@ -26,7 +26,7 @@
         <%- include("../partials/flash", { messageData: locals.message }) %>
 
           <!-- MAIN -->
-          <main class="container">
+          <main class="profile-container">
             <div class="profile-layout">
 
               <!-- Sidebar -->
@@ -61,7 +61,8 @@
                                   <%= address.name %>
                                 </h3>
                                 <p class="text-sm text-gray-600 mt-1">
-                                  <%= address.city %>, <%= address.state %> - <%= address.pincode %>
+                                  <%= address.housename %>, <%= address.city %>, <%= address.state %> - <%=
+                                          address.pincode %>
                                 </p>
                                 <p class="text-sm mt-1">Mobile: <%= address.mobile %>
                                 </p>

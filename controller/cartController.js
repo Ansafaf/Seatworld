@@ -5,7 +5,7 @@ import * as cartService from "../services/cartService.js";
 
 export async function getCart(req, res) {
     if (!req.session.user) return res.redirect("/login");
-    
+
     try {
         const userId = req.session.user.id;
         const page = parseInt(req.query.page) || 1;
@@ -40,7 +40,7 @@ export async function addToCart(req, res) {
         const userId = req.session.user.id;
 
         const cartCount = await cartService.addItemToCart(userId, variantId);
-        
+
         res.json({
             success: true,
             message: "Added to cart successfully",
@@ -65,7 +65,8 @@ export async function updateQuantity(req, res) {
         res.json({
             success: true,
             outOfStock,
-            ...totals
+            ...totals,
+            cartCount: totals.cartCount
         });
     } catch (err) {
         logger.error("Update quantity error:", err);
@@ -84,7 +85,8 @@ export async function removeFromCart(req, res) {
         res.json({
             success: true,
             message: "Item removed from cart",
-            ...totals
+            ...totals,
+            cartCount: totals.cartCount
         });
     } catch (err) {
         console.log("variantId:", req.params.variantId);

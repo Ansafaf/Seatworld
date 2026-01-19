@@ -37,6 +37,7 @@ export const createWalletRazorpayOrder = async (req, res) => {
 
 
 export const getWallet = async (req, res) => {
+    if (!req.session.user) return res.redirect("/login");
   try {
     const userId = req.session.user.id;
     let wallet = await Wallet.findOne({ userId });
