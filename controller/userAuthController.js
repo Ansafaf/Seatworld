@@ -536,10 +536,11 @@ export async function postforgotPass(req, res) {
       specialChars: false
     });
 
+    const otpExpires = new Date(Date.now() + 5 * 60 * 1000);
     const resendExpires = new Date(Date.now() + 2 * 60 * 1000);
 
     user.otp = String(otp);
-    user.otpExpires = expiry;
+    user.otpExpires = otpExpires;
     user.resendExpires = resendExpires;
     await user.save();
 
@@ -622,7 +623,6 @@ export async function otpverifyForgot(req, res) {
       });
     }
 
-    // 5️⃣ Expiry check
     const now = Date.now();
     const expiresAt = new Date(user.otpExpires).getTime();
 
@@ -633,7 +633,6 @@ export async function otpverifyForgot(req, res) {
       });
     }
 
-    // 6️⃣ OTP match check
     if (user.otp !== enteredOtp) {
       return res.status(400).json({
         success: false,
@@ -641,15 +640,12 @@ export async function otpverifyForgot(req, res) {
       });
     }
 
-    // 7️⃣ SUCCESS → allow password reset
     req.session.allowPasswordReset = true;
 
-    // Clear OTP from DB (important)
     user.otp = null;
     user.otpExpires = null;
     await user.save();
 
-    // 8️⃣ Success response
     return res.status(200).json({
       success: true,
       message: "OTP verified successfully",
