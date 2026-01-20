@@ -518,8 +518,8 @@ body {
    RESPONSIVE DESIGN
    ============================================ */
 
-/* Tablets (768px and below) */
-@media (max-width: 768px) {
+/* Tablets (1024px and below - including iPad Pro) */
+@media (max-width: 1024px) {
     .container {
         padding: 1.5rem 1rem;
     }
@@ -532,6 +532,10 @@ body {
 
     .gallery-container {
         flex-direction: column-reverse;
+    }
+
+    .main-image-wrapper {
+        max-height: 500px;
     }
 
     .thumbnails-col {
@@ -548,11 +552,11 @@ body {
     }
 
     .product-title {
-        font-size: 1.5rem;
+        font-size: 1.75rem;
     }
 
     .price-tag {
-        font-size: 1.75rem;
+        font-size: 2rem;
     }
 
     .old-price {
@@ -560,7 +564,8 @@ body {
     }
 
     .action-buttons {
-        flex-direction: column;
+        flex-direction: row;
+        /* Keep buttons side-by-side if they fit, or column on smaller */
     }
 
     .reviews-section,
@@ -579,6 +584,17 @@ body {
 
     .related-price {
         font-size: 1rem;
+    }
+}
+
+/* Medium Tablets & Mobile (768px and below) */
+@media (max-width: 768px) {
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .product-title {
+        font-size: 1.5rem;
     }
 }
 
