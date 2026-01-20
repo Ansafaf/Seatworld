@@ -9,11 +9,17 @@ const otpInputs = document.querySelectorAll(".otp-inputs input");
 otpInputs.forEach((input, index) => {
     // Allow only numbers
     input.addEventListener("input", (e) => {
-        input.value = input.value.replace(/[^0-9]/g, "");
+        // Enforce numeric only and single character
+        const value = e.target.value.replace(/[^0-9]/g, "");
 
-        // Move to next input automatically
-        if (input.value && index < otpInputs.length - 1) {
-            otpInputs[index + 1].focus();
+        if (value.length > 0) {
+            // Take only the first character if accidentally multiple
+            e.target.value = value.charAt(0);
+
+            // Move to next input automatically
+            if (index < otpInputs.length - 1) {
+                otpInputs[index + 1].focus();
+            }
         }
     });
 
