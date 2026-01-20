@@ -48,20 +48,38 @@ otpInputs.forEach((input, index) => {
 // Disable resend initially
 if (resendBox) resendBox.classList.add("disabled");
 
-function startTimer(duration, display) {
-    let timer = duration;
-    const interval = setInterval(() => {
-        if (timer <= 0) {
-            clearInterval(interval);
-            if (display) display.textContent = "Expired";
+function startTimer(resendDuration, expiryDuration, display) {
+    let resendTimer = resendDuration;
+    let expiryTimer = expiryDuration;
 
-            // Enable resend when timer ends
+    const interval = setInterval(() => {
+        // Handle Resend Timer
+        if (resendTimer > 0) {
+            const minutes = Math.floor(resendTimer / 60);
+            const seconds = resendTimer % 60;
+            if (display) {
+                display.textContent = `Resend in ${(minutes < 10 ? "0" : "") + minutes}:${(seconds < 10 ? "0" : "") + seconds}`;
+            }
+            resendTimer--;
+        } else if (resendTimer === 0) {
             if (resendBox) {
                 resendBox.classList.remove("disabled");
                 resendBox.style.opacity = "1";
                 resendBox.style.pointerEvents = "auto";
             }
+            if (display) display.textContent = "Resend available";
+            resendTimer = -1; // Stop updating resend status
+        }
 
+        // Handle OTP Expiry
+        if (expiryTimer <= 0) {
+            clearInterval(interval);
+            if (display) display.textContent = "Expired";
+            if (resendBox) {
+                resendBox.classList.remove("disabled");
+                resendBox.style.opacity = "1";
+                resendBox.style.pointerEvents = "auto";
+            }
             if (verifyBtn) {
                 verifyBtn.disabled = true;
                 verifyBtn.style.background = "#ccc";
@@ -70,16 +88,9 @@ function startTimer(duration, display) {
             return;
         }
 
-        const minutes = Math.floor(timer / 60);
-        const seconds = timer % 60;
-        if (display) {
-            display.textContent =
-                (minutes < 10 ? "0" : "") + minutes + ":" +
-                (seconds < 10 ? "0" : "") + seconds;
-        }
-
-        timer--;
+        expiryTimer--;
     }, 1000);
+    return interval;
 }
 
 // Verification Form AJAX
@@ -151,12 +162,14 @@ if (resendLink) {
                 if (otpInputs[0]) otpInputs[0].focus();
 
                 // Restart timer if expiry provided
-                if (result.otpExpires) {
+                if (result.otpExpires && result.resendExpires) {
                     const expiryTime = new Date(result.otpExpires).getTime();
+                    const resendExpTime = new Date(result.resendExpires).getTime();
                     const now = Date.now();
-                    const secondsLeft = Math.floor((expiryTime - now) / 1000);
+                    const expirySeconds = Math.floor((expiryTime - now) / 1000);
+                    const resendSeconds = Math.floor((resendExpTime - now) / 1000);
 
-                    if (secondsLeft > 0) {
+                    if (expirySeconds > 0) {
                         if (timerDisplay) timerDisplay.textContent = "";
                         resendBox.classList.add("disabled");
                         resendBox.style.opacity = "0.5";
@@ -166,7 +179,8 @@ if (resendLink) {
                             verifyBtn.style.background = ""; // Reset to default
                             verifyBtn.style.opacity = "1";
                         }
-                        startTimer(secondsLeft, timerDisplay);
+                        if (window.otpInterval) clearInterval(window.otpInterval);
+                        window.otpInterval = startTimer(resendSeconds, expirySeconds, timerDisplay);
                     }
                 }
             } else {
@@ -194,14 +208,19 @@ window.onload = function () {
     otpInputs.forEach(input => input.value = "");
     if (otpInputs[0]) otpInputs[0].focus();
 
+    const resendInput = document.getElementById("resendExpiryValue");
+
     const expiryTime = otpExpiryInput ? parseInt(otpExpiryInput.value) : 0;
+    const resendExpTime = resendInput ? parseInt(resendInput.value) : 0;
 
     if (expiryTime > 0 && !isNaN(expiryTime)) {
         const now = Date.now();
-        const secondsLeft = Math.floor((expiryTime - now) / 1000);
+        const expirySeconds = Math.floor((expiryTime - now) / 1000);
+        const resendSeconds = Math.floor((resendExpTime - now) / 1000);
 
-        if (secondsLeft > 0) {
-            startTimer(secondsLeft, timerDisplay);
+        if (expirySeconds > 0) {
+            if (window.otpInterval) clearInterval(window.otpInterval);
+            window.otpInterval = startTimer(resendSeconds, expirySeconds, timerDisplay);
         } else {
             if (timerDisplay) timerDisplay.textContent = "Expired";
             if (resendBox) {

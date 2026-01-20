@@ -38,6 +38,8 @@
         </form>
         <input type="hidden" id="otpExpiryValue"
           value="<%= (typeof otpExpires !== 'undefined' && otpExpires) ? new Date(otpExpires).getTime() : 0 %>">
+        <input type="hidden" id="resendExpiryValue"
+          value="<%= (typeof resendExpires !== 'undefined' && resendExpires) ? new Date(resendExpires).getTime() : 0 %>">
 
         <div class="resend" id="resendBox">
           Didn't receive code?

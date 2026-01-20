@@ -167,7 +167,8 @@ export async function postSignup(req, res) {
       lowerCaseAlphabets: false,
       specialChars: false,
     });
-    const otpExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+    const otpExpires = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes
+    const resendExpires = new Date(Date.now() + 2 * 60 * 1000); // 2 minutes
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Store signup info in session for verification
@@ -177,6 +178,7 @@ export async function postSignup(req, res) {
       password: hashedPassword,
       otp,
       otpExpires,
+      resendExpires,
       referralCode: referralCode || null,
     };
 
@@ -191,7 +193,7 @@ export async function postSignup(req, res) {
         from: process.env.EMAIL,
         to: email,
         subject: "Your OTP Code",
-        text: `Your OTP is ${otp}. It will expire in 10 minutes.`,
+        text: `Your OTP is ${otp}. It will expire in 5 minutes.`,
       });
     } catch (mailError) {
       console.error("Email sending failed:", mailError.message);
@@ -219,6 +221,7 @@ export function getverifyOtp(req, res) {
   const signupInfo = req.session.signupInfo;
   res.render("users/otp", {
     otpExpires: signupInfo.otpExpires,
+    resendExpires: signupInfo.resendExpires,
     breadcrumbs: buildBreadcrumb([
       { label: "Signup", url: "/signup" },
       { label: "Verify OTP", url: "/verify-otp" }
@@ -360,10 +363,12 @@ export async function resendOtp(req, res) {
         lowerCaseAlphabets: false,
         specialChars: false
       });
-      const otpExpires = new Date(Date.now() + 10 * 60 * 1000);
+      const otpExpires = new Date(Date.now() + 5 * 60 * 1000);
+      const resendExpires = new Date(Date.now() + 2 * 60 * 1000);
 
       req.session.signupInfo.otp = otp;
       req.session.signupInfo.otpExpires = otpExpires;
+      req.session.signupInfo.resendExpires = resendExpires;
 
       const transporter = nodemailer.createTransport({
         service: "gmail",
@@ -375,7 +380,7 @@ export async function resendOtp(req, res) {
           from: process.env.EMAIL,
           to: req.session.signupInfo.email,
           subject: "Your OTP Code",
-          text: `Your OTP is ${otp}. It will expire in 10 minutes.`
+          text: `Your OTP is ${otp}. It will expire in 5 minutes.`
         });
       } catch (mailError) {
         console.error("Resend signup OTP mail failed:", mailError.message);
@@ -388,7 +393,8 @@ export async function resendOtp(req, res) {
       return res.status(200).json({
         success: true,
         message: "New OTP sent to your email",
-        otpExpires
+        otpExpires,
+        resendExpires
       });
     }
 
@@ -426,8 +432,10 @@ export async function resendOtp(req, res) {
 
     // 2. Email Change Flow
     if (type === "email" || (user.tempEmail && type !== "forgot")) {
+      const resendExpires = new Date(Date.now() + 2 * 60 * 1000);
       user.emailChangeOtp = otp;
       user.emailChangeOtpExpiry = otpExpires;
+      user.resendExpires = resendExpires; // Assuming User model has this or can store it
       user.otpAttempts = 0;
       await user.save();
 
@@ -449,13 +457,16 @@ export async function resendOtp(req, res) {
       return res.status(200).json({
         success: true,
         message: "New OTP sent to your email",
-        otpExpires
+        otpExpires,
+        resendExpires
       });
     }
 
     // 3. Forgot Password Flow
+    const resendExpires = new Date(Date.now() + 2 * 60 * 1000);
     user.otp = otp;
     user.otpExpires = otpExpires;
+    user.resendExpires = resendExpires;
     await user.save();
 
     try {
@@ -476,7 +487,8 @@ export async function resendOtp(req, res) {
     return res.status(200).json({
       success: true,
       message: "New OTP sent to your email",
-      otpExpires
+      otpExpires,
+      resendExpires
     });
 
   } catch (err) {
@@ -524,10 +536,11 @@ export async function postforgotPass(req, res) {
       specialChars: false
     });
 
-    const expiry = new Date(Date.now() + 5 * 60 * 1000);
+    const resendExpires = new Date(Date.now() + 2 * 60 * 1000);
 
     user.otp = String(otp);
     user.otpExpires = expiry;
+    user.resendExpires = resendExpires;
     await user.save();
 
     const transporter = nodemailer.createTransport({
@@ -728,6 +741,7 @@ export async function getotpForgot(req, res) {
   const user = await User.findById(req.session.resetUserId);
   res.render("users/otp2", {
     otpExpires: user.otpExpires,
+    resendExpires: user.resendExpires,
     breadcrumbs: buildBreadcrumb([
       { label: "Forgot Password", url: "/forgot-password" },
       { label: "Verify OTP", url: "/forgot-password/verify" }
