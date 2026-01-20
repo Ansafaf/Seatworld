@@ -490,7 +490,7 @@ export async function resendOtp(req, res) {
 
 // ------------------ Forgot Password ------------------
 export function getforgotPass(req, res) {
-  res.render("users/forgotPassword", {
+  res.render("users/forgotpassword", {
     breadcrumbs: buildBreadcrumb([
       { label: "Forgot Password", url: "/forgot-password" }
     ])
