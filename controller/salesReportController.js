@@ -121,8 +121,12 @@ export const getDownloadExcel = async (req, res) => {
         worksheet.getRow(worksheet.rowCount).font = { bold: true, size: 12 };
 
         worksheet.addRow(['Total Orders', report.totalOrders]);
-        worksheet.addRow(['Total Sales', report.totalSales]);
+        worksheet.addRow(['Gross Sales', report.grossSales]);
         worksheet.addRow(['Total Discount', report.totalDiscount]);
+        worksheet.addRow(['Shipping Fees', report.totalShipping]);
+        worksheet.addRow(['Net Sales', report.totalSales]);
+        worksheet.addRow(['Refunded Amount', report.totalRefunded]);
+        worksheet.addRow(['Coupons Used', report.couponsUsed]);
         worksheet.addRow(['Avg Order Value', report.avgOrderValue]);
 
         res.setHeader(

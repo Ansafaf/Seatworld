@@ -64,21 +64,55 @@ export const generateSalesReportData = async ({ startDate = null, endDate = null
     // But for stats, let's aggregate.
 
     const statsAggregation = await Order.aggregate([
-        { $match: { ...dateFilter } }, // Filter by date
+        { $match: { ...dateFilter, paymentStatus: { $ne: 'failed' } } },
         {
             $group: {
                 _id: null,
                 totalSales: { $sum: "$totalAmount" },
                 totalDiscount: { $sum: "$discountAmount" },
+                totalShipping: { $sum: "$shippingFee" },
+                grossSales: { $sum: "$subtotal" },
+                couponsUsed: {
+                    $sum: { $cond: [{ $ifNull: ["$couponId", false] }, 1, 0] }
+                },
                 count: { $sum: 1 }
             }
         }
     ]);
 
-    const stats = statsAggregation[0] || { totalSales: 0, totalDiscount: 0, count: 0 };
+    const stats = statsAggregation[0] || {
+        totalSales: 0,
+        totalDiscount: 0,
+        totalShipping: 0,
+        grossSales: 0,
+        couponsUsed: 0,
+        count: 0
+    };
+
+    // Calculate Refunded Amount from OrderItems
+    const refundAggregation = await OrderItem.aggregate([
+        {
+            $match: {
+                orderId: { $in: orders.map(o => o._id) },
+                refundStatus: 'refunded'
+            }
+        },
+        {
+            $group: {
+                _id: null,
+                totalRefunded: { $sum: "$refundAmount" }
+            }
+        }
+    ]);
+
+    const totalRefunded = refundAggregation[0]?.totalRefunded || 0;
+
     totalSales = stats.totalSales;
     totalDiscount = stats.totalDiscount;
-    totalOrdersList = stats.count; // Total transactions count
+    totalOrdersList = stats.count;
+    const totalShipping = stats.totalShipping;
+    const grossSales = stats.grossSales || (totalSales + totalDiscount - totalShipping);
+    const couponsUsed = stats.couponsUsed;
 
     // Average Order Value
     const avgOrderValue = totalOrdersList > 0 ? Math.round(totalSales / totalOrdersList) : 0;
@@ -112,10 +146,14 @@ export const generateSalesReportData = async ({ startDate = null, endDate = null
 
     return {
         totalSales,
-        totalOrders: totalOrdersList,
+        grossSales,
+        totalShipping,
         totalDiscount,
+        totalRefunded,
+        couponsUsed,
         avgOrderValue,
         transactions,
-        dateRange: { start, end }
+        dateRange: { start, end },
+        totalOrders: totalOrdersList
     };
 }

@@ -16,13 +16,12 @@ export const getLoginAdmin = (req, res) => {
 export const postLoginAdmin = async (req, res) => {
     const { email, password } = req.body;
 
-    // Try both new and old environment variable names for backward compatibility
     const adminExist = {
-        email: process.env.ADMIN_EMAIL || process.env.AdminMail,
-        password: process.env.ADMIN_PASSWORD || process.env.AdminPassword
+        email: process.env.ADMIN_EMAIL,
+        password: process.env.ADMIN_PASSWORD
     }
 
-    // Check if admin credentials are configured
+
     if (!adminExist.email || !adminExist.password) {
         console.error("Admin credentials not configured in environment variables");
         console.error("Looking for: ADMIN_EMAIL, ADMIN_PASSWORD, AdminMail, or AdminPassword");
@@ -103,12 +102,10 @@ export const blockUser = async (req, res) => {
             return res.redirect("/admin/users");
         }
 
-        // Check if user is already blocked
         if (user.status == "blocked") {
             return res.status(200).json({ success: false, message: "User is already blocked" });
         }
 
-        // Block the user
         await User.findByIdAndUpdate(userId, { status: "blocked" });
 
         res.status(200).json({ success: true, message: "User blocked successfully", redirectUrl: "/admin/users" });

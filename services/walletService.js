@@ -4,12 +4,7 @@ import OrderItem from "../models/orderItemModel.js";
 import crypto from "crypto";
 import logger from "../utils/logger.js";
 
-/**
- * Calculates the refundable amount for a specific order item, accounting for order-level discounts.
- * @param {Object} order - The order object.
- * @param {Object} item - The order item object.
- * @returns {Number} The calculated refund amount.
- */
+
 export const calculateItemRefundAmount = (order, item) => {
     if (!order || !item) return 0;
 
@@ -20,8 +15,7 @@ export const calculateItemRefundAmount = (order, item) => {
         return itemTotal;
     }
 
-    // Calculate the discount ratio applied to the whole order
-    // Discount ratio = Discount / Items Subtotal
+   
     const discountRatio = order.discountAmount / order.subtotal
     
     const refundAmount = itemTotal * (1 - discountRatio);
