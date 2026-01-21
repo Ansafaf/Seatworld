@@ -1221,3 +1221,4 @@ breadcrumbs is not defined
 [2026-01-21 10:53:21] ERROR: E11000 duplicate key error collection: seatworld.users index: username_1 dup key: { username: null }
 [2026-01-21 11:05:57] ERROR: Passport Auth Error: E11000 duplicate key error collection: seatworld.users index: email_1 dup key: { email: "plustwolearning@gmail.com" }
 [2026-01-21 11:05:57] ERROR: E11000 duplicate key error collection: seatworld.users index: email_1 dup key: { email: "plustwolearning@gmail.com" }
+[2026-01-21 11:40:08] ERROR: Update Coupon Error: today is not defined

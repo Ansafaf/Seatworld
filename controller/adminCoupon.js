@@ -146,12 +146,18 @@ export const updateCoupon = async (req, res) => {
         if (!existingCoupon) {
             return res.status(404).json({ success: false, message: "Coupon not found" });
         }
+        if (discountType == "percentage" && discountValue >= 50) {
+            return res.status(400).json({ success: false, message: "Discount value must be less than 50" })
+        }
 
         // Also check if NEW code matches another existing coupon (prevent duplicates on edit)
         const duplicateCoupon = await Coupon.findOne({ couponCode: couponCode.toUpperCase(), _id: { $ne: id } });
         if (duplicateCoupon) {
             return res.status(400).json({ success: false, message: "Coupon code already exists in another coupon" });
         }
+        
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
 
         const start = new Date(startDate);
         const expiry = new Date(expiryDate);
