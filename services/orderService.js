@@ -14,10 +14,6 @@ export const getUserOrders = async (userId, page = 1, limit = 8, search = "") =>
 
     let query = { userId };
 
-    if (search) {
-        // Search logic if needed in future
-    }
-
     const [totalOrders, orders] = await Promise.all([
         Order.countDocuments(query),
         Order.find(query)
