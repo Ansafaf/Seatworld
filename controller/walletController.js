@@ -69,6 +69,7 @@ export const getWallet = async (req, res) => {
 };
 
 export const getWalletHistory = async (req, res) => {
+   if (!req.session.user) return res.redirect("/login");
   try {
     const userId = req.session.user.id;
     const page = parseInt(req.query.page) || 1;
@@ -112,8 +113,6 @@ export const getWalletHistory = async (req, res) => {
   }
 };
 
-// NOTE: In a real app, this would be a callback from Razorpay/Stripe.
-// For now,  implemented a basic add.
 export const verifyAndAddMoney = async (req, res) => {
   try {
     const userId = req.session.user.id;
@@ -129,7 +128,6 @@ export const verifyAndAddMoney = async (req, res) => {
       return res.status(400).json({ success: false, message: "Payment data missing" });
     }
 
-    // 🔐 Step 1: Verify signature
     const body = razorpay_order_id + "|" + razorpay_payment_id;
 
     const expectedSignature = crypto
@@ -141,13 +139,11 @@ export const verifyAndAddMoney = async (req, res) => {
       return res.status(400).json({ success: false, message: "Invalid payment signature" });
     }
 
-    // 💰 Step 2: Get wallet
     let wallet = await Wallet.findOne({ userId });
     if (!wallet) {
       wallet = new Wallet({ userId, balance: 0, transactions: [] });
     }
 
-    // 🛑 Step 3: Prevent duplicate credit
     const alreadyCredited = wallet.transactions.find(
       tx => tx.razorpayPaymentId === razorpay_payment_id
     );
@@ -158,7 +154,6 @@ export const verifyAndAddMoney = async (req, res) => {
 
     const numericAmount = Number(amount);
 
-    // 🧾 Step 4: Add transaction
     wallet.transactions.push({
       walletTransactionId: crypto.randomBytes(8).toString("hex"),
       amount: numericAmount,
@@ -169,7 +164,6 @@ export const verifyAndAddMoney = async (req, res) => {
       status: "success"
     });
 
-    // 💰 Step 5: Update balance
     wallet.balance += numericAmount;
 
     await wallet.save();
