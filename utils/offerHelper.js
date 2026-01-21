@@ -1,11 +1,4 @@
-/**
- * Computes the best active offer for a given product by comparing product-specific offers 
- * and category-level offers.
- * 
- * @param {Object} product - The product object (should have _id and categoryId).
- * @param {Array} activeOffers - Array of all currently active offer documents.
- * @returns {Object|null} - The offer object with the highest discount percentage, or null if none found.
- */
+
 export const getBestOffer = (product, activeOffers) => {
     if (!activeOffers || activeOffers.length === 0) return null;
 
@@ -27,14 +20,7 @@ export const getBestOffer = (product, activeOffers) => {
         , applicableOffers[0]);
 };
 
-/**
- * Enriches a product or variant object with discount calculations.
- * 
- * @param {Object} item - The product or variant object.
- * @param {Number} originalPrice - The base/original price of the item.
- * @param {Array} activeOffers - Array of active offers.
- * @returns {Object} - Object containing discountedPrice, hasOffer, and discountPercentage.
- */
+
 export const calculateDiscount = (item, originalPrice, activeOffers) => {
     const bestOffer = getBestOffer(item, activeOffers);
 

@@ -9,11 +9,17 @@ const otpInputs = document.querySelectorAll(".otp-inputs input");
 otpInputs.forEach((input, index) => {
     // Allow only numbers
     input.addEventListener("input", (e) => {
-        input.value = input.value.replace(/[^0-9]/g, "");
+        // Enforce numeric only and single character
+        const value = e.target.value.replace(/[^0-9]/g, "");
 
-        // Move to next input automatically
-        if (input.value && index < otpInputs.length - 1) {
-            otpInputs[index + 1].focus();
+        if (value.length > 0) {
+            // Take only the first character if accidentally multiple
+            e.target.value = value.charAt(0);
+
+            // Move to next input automatically
+            if (index < otpInputs.length - 1) {
+                otpInputs[index + 1].focus();
+            }
         }
     });
 
@@ -40,16 +46,30 @@ otpInputs.forEach((input, index) => {
 // Disable resend initially
 if (resendBox) resendBox.classList.add("disabled");
 
-function startTimer(duration, display) {
-    let timer = duration;
+function startTimer(resendDuration, expiryDuration, display) {
+    let resendTimer = resendDuration;
+    let expiryTimer = expiryDuration;
+
     const interval = setInterval(() => {
-        if (timer <= 0) {
+        // Handle Resend Timer
+        if (resendTimer > 0) {
+            const minutes = Math.floor(resendTimer / 60);
+            const seconds = resendTimer % 60;
+            if (display) {
+                display.textContent = `Resend in ${(minutes < 10 ? "0" : "") + minutes}:${(seconds < 10 ? "0" : "") + seconds}`;
+            }
+            resendTimer--;
+        } else if (resendTimer === 0) {
+            if (resendBox) resendBox.classList.remove("disabled");
+            if (display) display.textContent = "Resend available";
+            resendTimer = -1; // Stop updating resend status
+        }
+
+        // Handle OTP Expiry
+        if (expiryTimer <= 0) {
             clearInterval(interval);
             if (display) display.textContent = "Expired";
-
-            // ✅ Enable resend when timer ends
             if (resendBox) resendBox.classList.remove("disabled");
-
             if (verifyBtn) {
                 verifyBtn.disabled = true;
                 verifyBtn.style.background = "#ccc";
@@ -57,16 +77,9 @@ function startTimer(duration, display) {
             return;
         }
 
-        const minutes = Math.floor(timer / 60);
-        const seconds = timer % 60;
-        if (display) {
-            display.textContent =
-                (minutes < 10 ? "0" : "") + minutes + ":" +
-                (seconds < 10 ? "0" : "") + seconds;
-        }
-
-        timer--;
+        expiryTimer--;
     }, 1000);
+    return interval; // Return to allow clearing
 }
 
 // Verification Form AJAX
@@ -138,19 +151,22 @@ if (resendLink) {
                 if (otpInputs[0]) otpInputs[0].focus();
 
                 // Restart timer if expiry provided
-                if (result.otpExpires) {
+                if (result.otpExpires && result.resendExpires) {
                     const expiryTime = new Date(result.otpExpires).getTime();
+                    const resendExpTime = new Date(result.resendExpires).getTime();
                     const now = Date.now();
-                    const secondsLeft = Math.floor((expiryTime - now) / 1000);
+                    const expirySeconds = Math.floor((expiryTime - now) / 1000);
+                    const resendSeconds = Math.floor((resendExpTime - now) / 1000);
 
-                    if (secondsLeft > 0) {
+                    if (expirySeconds > 0) {
                         if (timerDisplay) timerDisplay.textContent = "";
                         resendBox.classList.add("disabled");
                         if (verifyBtn) {
                             verifyBtn.disabled = false;
                             verifyBtn.style.background = ""; // Reset to default
                         }
-                        startTimer(secondsLeft, timerDisplay);
+                        if (window.otpInterval) clearInterval(window.otpInterval);
+                        window.otpInterval = startTimer(resendSeconds, expirySeconds, timerDisplay);
                     }
                 }
             } else {
@@ -179,14 +195,19 @@ window.onload = function () {
     if (otpInputs[0]) otpInputs[0].focus();
 
     const expiryInput = document.getElementById("otpExpiryValue");
+    const resendInput = document.getElementById("resendExpiryValue");
+
     const expiryTime = expiryInput ? parseInt(expiryInput.value) : 0;
+    const resendExpTime = resendInput ? parseInt(resendInput.value) : 0;
 
     if (!isNaN(expiryTime) && expiryTime > 0) {
         const now = Date.now();
-        const secondsLeft = Math.floor((expiryTime - now) / 1000);
+        const expirySeconds = Math.floor((expiryTime - now) / 1000);
+        const resendSeconds = Math.floor((resendExpTime - now) / 1000);
 
-        if (secondsLeft > 0) {
-            startTimer(secondsLeft, timerDisplay);
+        if (expirySeconds > 0) {
+            if (window.otpInterval) clearInterval(window.otpInterval);
+            window.otpInterval = startTimer(resendSeconds, expirySeconds, timerDisplay);
         } else {
             if (timerDisplay) timerDisplay.textContent = "Expired";
             if (resendBox) resendBox.classList.remove("disabled");

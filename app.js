@@ -5,6 +5,7 @@ import nocache from "nocache";
 import dotenv from "dotenv";
 import logger from "./utils/logger.js";
 
+
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -41,7 +42,8 @@ import { optionalAuth } from "./middleware/optionalAuth.js";
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(nocache());
-app.use(express.static("public"));
+app.use(express.static('public'));
+
 
 app.use((req, res, next) => {
   logger.info(`[${req.method}] ${req.url}`);

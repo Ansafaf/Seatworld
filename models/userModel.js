@@ -69,6 +69,7 @@ const userSchema = new mongoose.Schema({
 
   otp: { type: String },
   otpExpires: { type: Date },
+  resendExpires: { type: Date },
 
   tempEmail: { type: String },
   emailChangeOtp: { type: String },
