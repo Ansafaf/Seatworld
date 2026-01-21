@@ -5,6 +5,7 @@ import * as cartService from "../services/cartService.js";
 import * as inventoryService from "../services/inventoryService.js";
 
 export const createRazorpayOrder = async (req, res) => {
+     if (!req.session.user) return res.redirect("/login");
     try {
         const userId = req.session.user.id;
         const cartTotals = await cartService.calculateCartTotals(userId);
