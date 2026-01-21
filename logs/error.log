@@ -1205,3 +1205,19 @@ breadcrumbs is not defined
 [2026-01-20 21:39:19] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
 [2026-01-20 21:39:57] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
 [2026-01-20 21:40:46] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-21 10:38:49] ERROR: Passport Auth Error: E11000 duplicate key error collection: seatworld.users index: email_1 dup key: { email: "ansafafafaf@gmail.com" }
+[2026-01-21 10:38:49] ERROR: E11000 duplicate key error collection: seatworld.users index: email_1 dup key: { email: "ansafafafaf@gmail.com" }
+[2026-01-21 10:40:51] ERROR: Passport Auth Error: E11000 duplicate key error collection: seatworld.users index: username_1 dup key: { username: null }
+[2026-01-21 10:40:51] ERROR: E11000 duplicate key error collection: seatworld.users index: username_1 dup key: { username: null }
+[2026-01-21 10:41:04] ERROR: Passport Auth Error: E11000 duplicate key error collection: seatworld.users index: username_1 dup key: { username: null }
+[2026-01-21 10:41:04] ERROR: E11000 duplicate key error collection: seatworld.users index: username_1 dup key: { username: null }
+[2026-01-21 10:49:04] ERROR: Passport Auth Error: E11000 duplicate key error collection: seatworld.users index: username_1 dup key: { username: null }
+[2026-01-21 10:49:04] ERROR: E11000 duplicate key error collection: seatworld.users index: username_1 dup key: { username: null }
+[2026-01-21 10:49:55] ERROR: Passport Auth Error: E11000 duplicate key error collection: seatworld.users index: username_1 dup key: { username: null }
+[2026-01-21 10:49:55] ERROR: E11000 duplicate key error collection: seatworld.users index: username_1 dup key: { username: null }
+[2026-01-21 10:53:01] ERROR: Passport Auth Error: E11000 duplicate key error collection: seatworld.users index: username_1 dup key: { username: null }
+[2026-01-21 10:53:01] ERROR: E11000 duplicate key error collection: seatworld.users index: username_1 dup key: { username: null }
+[2026-01-21 10:53:21] ERROR: Passport Auth Error: E11000 duplicate key error collection: seatworld.users index: username_1 dup key: { username: null }
+[2026-01-21 10:53:21] ERROR: E11000 duplicate key error collection: seatworld.users index: username_1 dup key: { username: null }
+[2026-01-21 11:05:57] ERROR: Passport Auth Error: E11000 duplicate key error collection: seatworld.users index: email_1 dup key: { email: "plustwolearning@gmail.com" }
+[2026-01-21 11:05:57] ERROR: E11000 duplicate key error collection: seatworld.users index: email_1 dup key: { email: "plustwolearning@gmail.com" }

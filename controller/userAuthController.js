@@ -63,6 +63,13 @@ export async function postLogin(req, res) {
       });
     }
 
+    if (user.authType === "google") {
+      return res.status(403).json({
+        success: false,
+        message: "This email is linked to a Google account. Please use Google Login."
+      });
+    }
+
     if (user.status == "blocked") {
       return res.status(403).json({
         success: false,
@@ -155,6 +162,12 @@ export async function postSignup(req, res) {
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
+      if (existingUser.authType === "google") {
+        return res.status(409).json({
+          success: false,
+          message: "This email is linked to a Google account. Please use Google Login."
+        });
+      }
       return res.status(409).json({
         success: false,
         message: "Email already in use"
