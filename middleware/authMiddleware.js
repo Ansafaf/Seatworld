@@ -24,6 +24,18 @@ export const requireAuth = async (req, res, next) => {
       return res.redirect("/login");
     }
 
+    if (user.status === "blocked") {
+      req.session.destroy();
+      if (req.xhr || req.headers.accept?.includes("application/json")) {
+        return res.status(403).json({
+          success: false,
+          message: "Your account has been blocked by admin",
+          redirectUrl: "/login"
+        });
+      }
+      return res.redirect("/login");
+    }
+
     req.user = user;
     res.locals.user = user;
     next();

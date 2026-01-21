@@ -8,6 +8,7 @@ import Wallet from "../models/walletModel.js";
 import generateInvoicePDF from "../utils/invoiceGenerator.js";
 
 export const getorders = async (req, res) => {
+   if (!req.session.user) return res.redirect("/login");
   try {
     const userId = req.session.user.id;
     const page = parseInt(req.query.page) || 1;

@@ -50,6 +50,7 @@ export const getWishlist = async (req, res) => {
 };
 
 export const addToWishlist = async (req, res) => {
+     if (!req.session.user) return res.redirect("/login");
     try {
         const userId = req.session.user.id;
         const { variantId } = req.body;

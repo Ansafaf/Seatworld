@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
     trim: true,
-    match: [/^[a-zA-Z\s.]{3,50}$/, 'Name must be 3-50 characters and contain only letters, spaces, and dots']
+    match: [/^[a-zA-Z\s.]{3,50}$/, 'Name must be 3-50 characters and contain only letters, spaces, and dots'],
   },
 
   email: {
@@ -20,17 +20,23 @@ const userSchema = new mongoose.Schema({
 
   mobile: {
     type: String,
-    unique: true,
-    sparse: true,
+    index: {
+      unique: true,
+      partialFilterExpression: { mobile: { $type: "string" } }
+    },
   },
   username: {
     type: String,
+    index: {
+      unique: true,
+      partialFilterExpression: { username: { $type: "string" } }
+    },
     required: function () {
       return this.authType === "local";
     },
-    unique: true,
     trim: true,
-    match: [/^[a-zA-Z0-9_]{3,20}$/, 'Username must be 3-20 characters and contain only letters, numbers, and underscores']
+    match: [/^[a-zA-Z0-9_]{3,20}$/, 'Username must be 3-20 characters and contain only letters, numbers, and underscores'],
+
   },
 
   password: {
@@ -48,7 +54,10 @@ const userSchema = new mongoose.Schema({
 
   referralCode: {
     type: String,
-    unique: true
+    index: {
+      unique: true,
+      partialFilterExpression: { referralCode: { $type: "string" } }
+    },
   },
   refferedBy: {
     type: mongoose.Schema.Types.ObjectId,
