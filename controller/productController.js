@@ -185,7 +185,6 @@ const prepareUIHelpers = (params, categories, minPriceValue, maxPriceValue) => {
 
 export async function getProducts(req, res) {
     try {
-        console.log("getProducts controller hit. User:", req.session?.user?.id);
 
         const params = normalizeQuery(req.query);
 
@@ -454,7 +453,6 @@ export async function getProductdetail(req, res) {
         });
 
     } catch (err) {
-        console.log(err);
         res.status(500).send("Internal Server Error");
     }
 }

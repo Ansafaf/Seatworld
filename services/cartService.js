@@ -8,30 +8,32 @@ import Coupon from "../models/couponModel.js";
 import { Offer } from "../models/offerModel.js";
 import * as offerHelper from "../utils/offerHelper.js";
 
-export async function calculateCartTotals(userId) {
-    const carts = await Cart.find({ userId }).populate({
-        path: 'variantId',
-        populate: { path: 'productId' }
-    });
+export async function calculateCartTotals(userId, providedCarts = null, providedOffers = null) {
+    // 1. Parallelize initial data fetching if not provided
+    const [carts, activeOffers] = await Promise.all([
+        providedCarts || Cart.find({ userId }).populate({
+            path: 'variantId',
+            populate: { path: 'productId' }
+        }).lean(),
+        providedOffers || Offer.find({ isActive: true }).lean()
+    ]);
 
-    // Check for applied coupon on the first item (couponId is same for all cart items of a user usually, or we find one)
-    // Actually schema has couponId. Let's find one cart item with couponId or better yet, check if any has it.
-    // Note: Mongoose population depends on Schema. The previous checkoutController assumed `userCart` (a single doc?) has couponId.
-    // userCart there was `await Cart.findOne`. 
-    // Since Cart items are individual documents in this design (probably), we check one.
-    const cartWithCoupon = await Cart.findOne({ userId, couponId: { $ne: null } }).populate('couponId');
-    let appliedCoupon = null;
-
-    if (cartWithCoupon && cartWithCoupon.couponId) {
-        appliedCoupon = cartWithCoupon.couponId;
+    if (!carts.length) {
+        return {
+            items: [], subtotal: 0, deliveryFee: "Free", total: 0,
+            rawTotal: 0, discountAmount: 0, appliedCoupon: null, cartCount: 0
+        };
     }
 
-    const activeOffers = await Offer.find({ isActive: true });
+    // 2. Optimized Coupon Fetch (only if any cart item has it)
+    const firstCouponId = carts.find(c => c.couponId)?.couponId;
+    let appliedCoupon = null;
+    if (firstCouponId) {
+        appliedCoupon = await Coupon.findById(firstCouponId).lean();
+    }
 
     let subtotal = 0;
-    const items = [];
-
-    carts.forEach(item => {
+    const items = carts.map(item => {
         const variant = item.variantId;
         const product = variant?.productId;
 
@@ -48,7 +50,7 @@ export async function calculateCartTotals(userId) {
             const itemTotal = price * item.productQuantity;
             subtotal += itemTotal;
 
-            items.push({
+            return {
                 productName: product.name,
                 image: variant.images && variant.images.length > 0 ? variant.images[0] : '',
                 quantity: item.productQuantity,
@@ -63,10 +65,9 @@ export async function calculateCartTotals(userId) {
                 productId: product._id,
                 variantId: variant._id,
                 outOfStock: false
-            });
+            };
         } else {
-            // Item is out of stock or unavailable, still add to list but don't count in subtotal
-            items.push({
+            return {
                 productName: product ? product.name : "Unavailable Product",
                 image: variant?.images?.[0] || '',
                 quantity: item.productQuantity,
@@ -74,59 +75,43 @@ export async function calculateCartTotals(userId) {
                 total: 0,
                 outOfStock: true,
                 variantId: variant?._id || item.variantId
-            });
+            };
         }
     });
 
     const deliveryFeeValue = subtotal > 0 && subtotal < 1000 ? 50 : 0;
-    let total = subtotal + deliveryFeeValue;
+    const rawTotal = subtotal + deliveryFeeValue;
 
     let discountAmount = 0;
-    let finalTotal = total;
     let couponDetails = null;
 
-    if (appliedCoupon) {
-        // Validate Coupon Validity Again
-        const isValid = appliedCoupon.couponStatus === 'active' &&
-            new Date() < appliedCoupon.expiryDate &&
-            total >= appliedCoupon.minAmount;
+    if (appliedCoupon && appliedCoupon.couponStatus === 'active' &&
+        new Date() < new Date(appliedCoupon.expiryDate) &&
+        rawTotal >= appliedCoupon.minAmount) {
 
-        if (isValid) {
-            if (appliedCoupon.discountType === 'percentage') {
-                discountAmount = (total * appliedCoupon.discountValue) / 100;
-            } else {
-                discountAmount = appliedCoupon.discountValue;
+        if (appliedCoupon.discountType === 'percentage') {
+            discountAmount = (rawTotal * appliedCoupon.discountValue) / 100;
+            if (appliedCoupon.maxAmount && discountAmount > appliedCoupon.maxAmount) {
+                discountAmount = appliedCoupon.maxAmount;
             }
-
-            // Cap discount at maxAmount if specified (ONLY for percentage coupons)
-            if (appliedCoupon.discountType === 'percentage' && appliedCoupon.maxAmount && appliedCoupon.maxAmount > 0) {
-                if (discountAmount > appliedCoupon.maxAmount) {
-                    discountAmount = appliedCoupon.maxAmount;
-                }
-            }
-
-            // Cap discount at total amount
-            if (discountAmount > total) discountAmount = total;
-
-            finalTotal = total - discountAmount;
-
-            couponDetails = {
-                code: appliedCoupon.couponCode,
-                discountAmount: discountAmount,
-                _id: appliedCoupon._id
-            };
         } else {
-            // Invalid coupon, maybe should remove it? 
-            // For now, just ignore it in calculation.
+            discountAmount = appliedCoupon.discountValue;
         }
+
+        discountAmount = Math.min(discountAmount, rawTotal);
+        couponDetails = {
+            code: appliedCoupon.couponCode,
+            discountAmount: discountAmount,
+            _id: appliedCoupon._id
+        };
     }
 
     return {
         items,
         subtotal,
         deliveryFee: deliveryFeeValue === 0 ? "Free" : `₹${deliveryFeeValue}`,
-        total: finalTotal, // The MAIN total is now the final payable amount
-        rawTotal: total,   // The total before discount
+        total: rawTotal - discountAmount,
+        rawTotal,
         discountAmount,
         appliedCoupon: couponDetails,
         cartCount: carts.length
@@ -135,53 +120,26 @@ export async function calculateCartTotals(userId) {
 
 
 export async function getCartByUserId(userId, page = 1, limit = 8) {
+    // 1. Reduced to ONE main query for all user cart data
+    const [allCarts, activeOffers] = await Promise.all([
+        Cart.find({ userId }).populate({
+            path: 'variantId',
+            populate: { path: 'productId' }
+        }).lean(),
+        Offer.find({ isActive: true }).lean()
+    ]);
+
+    const totalItems = allCarts.length;
     const skip = (page - 1) * limit;
+    const cartsPerPage = allCarts.slice(skip, skip + limit);
 
-    const allCartsRaw = await Cart.find({ userId })
-        .populate({
-            path: 'variantId',
-            populate: { path: 'productId' }
-        });
-    const totalItems = allCartsRaw.length;
-    const cartsPerPage = await Cart.find({ userId })
-        .populate({
-            path: 'variantId',
-            populate: { path: 'productId' }
-        })
-        .skip(skip)
-        .limit(limit)
-        .lean();//convert to plain js
-
-    let subtotal = 0;
-    const activeOffers = await Offer.find({ isActive: true });
-
-    const allCarts = await Cart.find({ userId }).populate({
-        path: 'variantId',
-        populate: { path: 'productId' }
-    }).lean();
-
-    allCarts.forEach(item => {
-        const variant = item.variantId;
-        const product = variant?.productId;
-
-        const isAvailable = variant &&
-            variant.stock > 0 &&
-            variant.status === "Active" &&
-            product &&
-            !product.isBlocked;
-
-        if (isAvailable) {
-            const basePrice = variant.salePrice || variant.price;
-            const offerData = offerHelper.calculateDiscount(product, basePrice, activeOffers);
-            subtotal += offerData.discountedPrice * (item.productQuantity || 1);
-        }
-    });
+    // 2. Reuse the fetched allCarts to calculate totals without re-querying
+    const totals = await calculateCartTotals(userId, allCarts, activeOffers);
 
     const cartItems = cartsPerPage.map(item => {
         const variant = item.variantId;
-        const product = variant ? variant.productId : null;
+        const product = variant?.productId;
         const itemPrice = (variant && variant.salePrice) ? variant.salePrice : (variant ? variant.price : 0);
-        const itemQuantity = item.productQuantity || 1;
 
         const isAvailable = variant &&
             variant.stock > 0 &&
@@ -202,28 +160,20 @@ export async function getCartByUserId(userId, page = 1, limit = 8) {
             originalPrice: offerData.originalPrice,
             hasOffer: offerData.hasOffer,
             discountPercentage: offerData.discountPercentage,
-            quantity: itemQuantity,
+            quantity: item.productQuantity || 1,
             stock: variant ? variant.stock : 0,
             outOfStock: !isAvailable
         };
     });
 
-    const deliveryFeeValue = subtotal > 0 && subtotal < 1000 ? 50 : 0;
-    const total = subtotal + deliveryFeeValue;
-
-    const totalPages = Math.ceil(totalItems / limit) || 1;
-
     return {
+        ...totals,
         cartItems,
-        subtotal,
-        deliveryFee: deliveryFeeValue === 0 ? "Free" : `₹${deliveryFeeValue}`,
-        total,
-        removedItemNames: [], // No longer removing items automatically
         pagination: {
             currentPage: page,
-            totalPages,
+            totalPages: Math.ceil(totalItems / limit) || 1,
             totalItems,
-            hasNextPage: page < totalPages,
+            hasNextPage: page < (Math.ceil(totalItems / limit) || 1),
             hasPrevPage: page > 1,
             limit
         }
@@ -233,50 +183,41 @@ export async function getCartByUserId(userId, page = 1, limit = 8) {
 
 export async function addItemToCart(userId, variantId) {
     const cartLimit = 6;
-    const variant = await ProductVariant.findById(variantId).populate('productId');
-    if (!variant) {
-        throw new Error("Product variant not found");
-    }
+    const variant = await ProductVariant.findById(variantId).populate('productId').lean();
+    if (!variant) throw new Error("Product variant not found");
 
     if (variant.stock <= 0 || variant.status !== "Active" || (variant.productId && variant.productId.isBlocked)) {
         throw new Error("This product is currently unavailable");
     }
 
-    let cartItem = await Cart.findOne({ userId, variantId });
+    const cartItem = await Cart.findOne({ userId, variantId });
 
     if (cartItem) {
-        const newQuantity = (cartItem.productQuantity || 1) + 1;
-        if (variant.stock < newQuantity) {
-            throw new Error(`Cannot add more. Only ${variant.stock} in stock.`);
-        }
-        if (cartLimit < newQuantity) {
-            throw new Error(`Cannot add more than ${cartLimit}`);
-        }
+        const newQuantity = (cartItem.productQuantity || 0) + 1;
+        if (variant.stock < newQuantity) throw new Error(`Only ${variant.stock} in stock.`);
+        if (newQuantity > cartLimit) throw new Error(`Max ${cartLimit} units per item.`);
+
         cartItem.productQuantity = newQuantity;
         await cartItem.save();
     } else {
-        cartItem = new Cart({
-            userId,
-            variantId,
-            productQuantity: 1
-        });
-        await cartItem.save();
+        await Cart.create({ userId, variantId, productQuantity: 1 });
     }
 
-    return await Cart.countDocuments({ userId });
+    return Cart.countDocuments({ userId });
 }
 
 
 export async function updateItemQuantity(userId, variantId, quantity) {
-    let quantityLimit = 6;
-    if (quantity < 1) {
-        throw new Error("Quantity must be at least 1");
-    }
-    if (quantity > quantityLimit) {
-        throw new Error("Quantity must be less than or equal to 6");
-    }
+    const quantityLimit = 6;
+    if (quantity < 1) throw new Error("Min quantity is 1");
+    if (quantity > quantityLimit) throw new Error(`Max quantity is ${quantityLimit}`);
 
-    const variant = await ProductVariant.findById(variantId).populate('productId');
+    // Parallelize availability check and offer fetching
+    const [variant, activeOffers] = await Promise.all([
+        ProductVariant.findById(variantId).populate('productId').lean(),
+        Offer.find({ isActive: true }).lean()
+    ]);
+
     const isAvailable = variant &&
         variant.stock > 0 &&
         variant.status === "Active" &&
@@ -284,30 +225,21 @@ export async function updateItemQuantity(userId, variantId, quantity) {
         !variant.productId.isBlocked;
 
     if (!isAvailable) {
-        return {
-            ...(await calculateCartTotals(userId)),
-            outOfStock: true
-        };
+        const totals = await calculateCartTotals(userId, null, activeOffers);
+        return { ...totals, outOfStock: true };
     }
 
-    if (variant.stock < quantity) {
-        throw new Error(`Only ${variant.stock} items in stock`);
-    }
+    if (variant.stock < quantity) throw new Error(`Only ${variant.stock} units available`);
 
-    await Cart.findOneAndUpdate(
-        { userId, variantId },
-        { productQuantity: quantity }
-    );
+    // Update and then calculate totals in one combined flow if possible
+    await Cart.updateOne({ userId, variantId }, { productQuantity: quantity });
 
-    return {
-        ...(await calculateCartTotals(userId)),
-        outOfStock: false
-    };
+    const totals = await calculateCartTotals(userId, null, activeOffers);
+    return { ...totals, outOfStock: false };
 }
 
 
 export async function removeItemFromCart(userId, variantId) {
-    await Cart.findOneAndDelete({ userId, variantId: new mongoose.Types.ObjectId(variantId) });
-
-    return await calculateCartTotals(userId);
+    await Cart.deleteOne({ userId, variantId });
+    return calculateCartTotals(userId);
 }

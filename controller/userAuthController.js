@@ -809,7 +809,6 @@ export async function getUserCounts(req, res) {
 
 export function getLogout(req, res) {
   req.session.destroy((err) => {
-    if (err) console.log(err);
     res.clearCookie("connect.sid");
     res.redirect("/login");
   });

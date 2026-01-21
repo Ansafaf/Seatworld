@@ -221,23 +221,16 @@ if (editProductForm) {
             }
         });
 
+        const formData = new FormData(this);
         try {
-            console.log("Submitting form...");
-            const formData = new FormData(this);
-            console.log("FormData created", formData);
-
-            console.log("Fetching", this.action);
             const response = await fetch(this.action, {
                 method: 'POST',
                 body: formData
             });
-            console.log("Response received", response);
 
             const data = await response.json();
-            console.log("Data parsed", data);
 
             if (response.ok && data.success) {
-                console.log("Success path");
                 Swal.fire({
                     icon: 'success',
                     title: 'Success',
@@ -248,7 +241,6 @@ if (editProductForm) {
                     window.location.href = data.redirectUrl || '/admin/products';
                 });
             } else {
-                console.warn("Error path", data);
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalBtnText;
                 Swal.fire({

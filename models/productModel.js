@@ -51,7 +51,7 @@ const productVariantSchema = new mongoose.Schema({
     stock: {
         type: Number,
         default: 0,
-        min: 0 
+        min: 0
     },
     lowStockThreshold: {
         type: Number,
@@ -71,5 +71,7 @@ const productVariantSchema = new mongoose.Schema({
         default: []
     }
 }, { timestamps: true });
+
+productVariantSchema.index({ productId: 1 });
 
 export const ProductVariant = mongoose.model("ProductVariant", productVariantSchema);

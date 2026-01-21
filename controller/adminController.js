@@ -169,7 +169,6 @@ export const searchUsers = async (req, res) => {
 
     }
     catch (err) {
-        console.log("Search error");
         res.send("Internal Server error");
     }
 
