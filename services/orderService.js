@@ -66,7 +66,7 @@ export const createOrder = async ({ userId, paymentMethod, checkoutSession, cart
     try {
         const addressData = checkoutSession.address;
         const discountAmount = cartTotals.discountAmount || 0;
-        const finalAmount = cartTotals.total; // Service already provides the final discounted total
+        const finalAmount = cartTotals.total; 
 
         const newOrder = new Order({
             userId,
@@ -96,7 +96,7 @@ export const createOrder = async ({ userId, paymentMethod, checkoutSession, cart
         if (paymentMethod === "wallet") {
             const wallet = await Wallet.findOne({ userId });
             if (!wallet || wallet.balance < finalAmount) {
-                // This should ideally be checked earlier in controller, but as a safeguard:
+               
                 throw new Error("Insufficient wallet balance");
             }
 

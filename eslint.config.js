@@ -1,11 +1,8 @@
-
-
-
 import js from "@eslint/js";
 
 export default [
 
-  /* ---------- YOUR EXISTING FRONTEND CONFIG (KEEP AS-IS) ---------- */
+  /* ---------- FRONTEND CONFIG (SAFE, NO AUTOFIX) ---------- */
   {
     files: ["public/**/*.js"],
     languageOptions: {
@@ -22,7 +19,7 @@ export default [
     }
   },
 
-  /* ---------- ADD THIS BACKEND CONFIG ---------- */
+  /* ---------- BACKEND CONFIG (SAFE, NO AUTOFIX) ---------- */
   {
     files: [
       "controllers/**/*.js",
@@ -44,15 +41,26 @@ export default [
     },
     rules: {
       ...js.configs.recommended.rules,
+
+      /* ---- SAFETY RULES (NO FILE MUTATION SIDE EFFECTS) ---- */
       "no-console": "off",
-      "no-unused-vars": ["warn"],
-      "consistent-return": "warn"
+      "no-unused-vars": "warn",
+      "consistent-return": "warn",
+
+      /* ---- PREVENT DANGEROUS AUTOFIX BEHAVIOR ---- */
+      "no-extra-semi": "warn",
+      "no-multi-spaces": "warn",
+      "no-trailing-spaces": "off",
+      "eol-last": "off"
     }
   },
 
-  /* ---------- IGNORE EJS ---------- */
+  /* ---------- IGNORE ALL TEMPLATE FILES ---------- */
   {
-    ignores: ["views/**"]
+    ignores: [
+      "views/**",
+      "**/*.ejs",
+      "**/*.html"
+    ]
   }
 ];
-

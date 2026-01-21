@@ -87,6 +87,8 @@ export default function generateInvoicePDF(order, items) {
       doc.text(`${addr.pincode}, ${addr.country}`);
       doc.text(`Phone: ${addr.mobile}`);
 
+      const addressY = doc.y;
+
       doc
         .fillColor("#4b5563")
         .fontSize(10)
@@ -108,7 +110,8 @@ export default function generateInvoicePDF(order, items) {
         align: "right",
       });
 
-      doc.moveDown(3);
+      // Ensure table starts below the taller of the two sections
+      doc.y = Math.max(addressY, doc.y) + 20;
 
       // ====== PRODUCT TABLE ======
       const col1X = leftMargin;
@@ -119,13 +122,14 @@ export default function generateInvoicePDF(order, items) {
 
       doc.rect(leftMargin, doc.y - 5, rightMargin - leftMargin, 25).fill("#f9fafb");
 
+      const headY = doc.y;
       doc.fillColor("#4b5563").fontSize(10).font("Helvetica-Bold");
-      doc.text("PRODUCT", col1X, doc.y);
-      doc.text("PRICE", col2X, doc.y, { width: colWidths.pr, align: "right" });
-      doc.text("QTY", col3X, doc.y, { width: colWidths.q, align: "right" });
-      doc.text("TOTAL", col4X, doc.y, { width: colWidths.t, align: "right" });
+      doc.text("PRODUCT", col1X, headY);
+      doc.text("PRICE", col2X, headY, { width: colWidths.pr, align: "right" });
+      doc.text("QTY", col3X, headY, { width: colWidths.q, align: "right" });
+      doc.text("TOTAL", col4X, headY, { width: colWidths.t, align: "right" });
 
-      doc.moveDown(1);
+      doc.moveDown(1.5);
 
       let calculatedSubtotal = 0;
 
@@ -139,13 +143,59 @@ export default function generateInvoicePDF(order, items) {
         const total = price * qty;
         calculatedSubtotal += total;
 
-        doc.text(name + variant, col1X, doc.y, { width: colWidths.p });
-        doc.text(`INR ${price.toFixed(2)}`, col2X, doc.y, { width: colWidths.pr, align: "right" });
-        doc.text(qty.toString(), col3X, doc.y, { width: colWidths.q, align: "right" });
-        doc.text(`INR ${total.toFixed(2)}`, col4X, doc.y, { width: colWidths.t, align: "right" });
+        const rowY = doc.y;
+
+        doc.text(name + variant, col1X, rowY, { width: colWidths.p });
+        doc.text(`INR ${price.toFixed(2)}`, col2X, rowY, { width: colWidths.pr, align: "right" });
+        doc.text(qty.toString(), col3X, rowY, { width: colWidths.q, align: "right" });
+        doc.text(`INR ${total.toFixed(2)}`, col4X, rowY, { width: colWidths.t, align: "right" });
 
         doc.moveDown(1);
       }
+
+      // ====== SUMMARY SECTION ======
+      doc.moveDown(1);
+      const summaryX = 350;
+      const summaryValueX = 420;
+      const summaryWidth = 125;
+
+      doc
+        .moveTo(summaryX, doc.y)
+        .lineTo(rightMargin, doc.y)
+        .lineWidth(0.5)
+        .strokeColor("#e5e7eb")
+        .stroke();
+
+      doc.moveDown(0.5);
+
+      // Subtotal
+      let summaryY = doc.y;
+      doc.fillColor("#4b5563").font("Helvetica").text("Subtotal:", summaryX, summaryY);
+      doc.fillColor("#1f2937").text(`INR ${order.subtotal?.toFixed(2) || calculatedSubtotal.toFixed(2)}`, summaryValueX, summaryY, { width: summaryWidth, align: "right" });
+      doc.moveDown(0.5);
+
+      // Shipping
+      if (order.shippingFee > 0) {
+        summaryY = doc.y;
+        doc.fillColor("#4b5563").text("Shipping Fee:", summaryX, summaryY);
+        doc.fillColor("#1f2937").text(`INR ${order.shippingFee.toFixed(2)}`, summaryValueX, summaryY, { width: summaryWidth, align: "right" });
+        doc.moveDown(0.5);
+      }
+
+      // Discount
+      if (order.discountAmount > 0) {
+        summaryY = doc.y;
+        doc.fillColor("#4b5563").text("Discount:", summaryX, summaryY);
+        doc.fillColor("#1f2937").text(`- INR ${order.discountAmount.toFixed(2)}`, summaryValueX, summaryY, { width: summaryWidth, align: "right" });
+        doc.moveDown(0.5);
+      }
+
+      // Total
+      doc.moveDown(0.5);
+      summaryY = doc.y;
+      doc.rect(summaryX - 10, summaryY - 5, (rightMargin - summaryX) + 10, 25).fill("#f3f4f6");
+      doc.fillColor("#1f2937").font("Helvetica-Bold").fontSize(12).text("TOTAL:", summaryX, summaryY + 2);
+      doc.text(`INR ${order.totalAmount.toFixed(2)}`, summaryValueX, summaryY + 2, { width: summaryWidth, align: "right" });
 
       // ====== FOOTER ======
       doc

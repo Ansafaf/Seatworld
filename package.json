@@ -1,4 +1,18 @@
 {
+  "name": "seatworld",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "lint:ejs": "npx ejs-lint views/**/*.ejs",
+    "lint:frontend": "eslint public/**/*.js",
+    "lint:backend": "eslint **/*.js --ignore-pattern public/** --ignore-pattern views/**",
+    "lint": "npm run lint:ejs && npm run lint:frontend && npm run lint:backend"
+  },
   "dependencies": {
     "bcrypt": "^6.0.0",
     "cloudinary": "^1.41.3",
@@ -9,42 +23,33 @@
     "dotenv": "^17.2.2",
     "ejs": "^3.1.10",
     "exceljs": "^4.4.0",
-    "exec": "^0.2.1",
     "express": "^5.1.0",
     "express-generator": "^4.14.1",
     "express-rate-limit": "^7.5.1",
     "express-session": "^1.18.2",
-    "lint": "^0.8.19",
     "mongoose": "^8.20.4",
     "multer": "^2.0.2",
     "multer-storage-cloudinary": "^4.0.0",
-    "ngrok": "^5.0.0-beta.2",
     "nocache": "^4.0.0",
     "node-cron": "^4.2.1",
     "nodemailer": "^7.0.6",
-    "nvm": "^0.0.4",
     "otp-generator": "^4.0.1",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "pdfkit": "^0.17.2",
-    "pkg": "^5.8.1",
     "razorpay": "^2.9.6",
     "sharp": "^0.33.5",
     "validator": "^13.15.15",
     "winston": "^3.19.0"
   },
-  "name": "seatworld",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "dev": "nodemon app.js",
-    "lint:ejs": "npx ejs-lint views/**/*.ejs",
-    "lint": "npm run lint:ejs && npm run lint:frontend",
-    "lint:frontend": "eslint public/**/*.js",
-    "lint:backend": "eslint **/*.js --ignore-pattern public/** --ignore-pattern views/**"
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "eslint": "^9.39.2",
+    "globals": "^17.0.0",
+    "ejs-lint": "^2.0.1",
+    "nodemon": "^3.0.1",
+    "ngrok": "^5.0.0-beta.2",
+    "pkg": "^5.8.1"
   },
   "repository": {
     "type": "git",
@@ -53,15 +58,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "bugs": {
     "url": "https://github.com/Ansafaf/Login-with-server/issues"
   },
-  "homepage": "https://github.com/Ansafaf/Login-with-server#readme",
-  "devDependencies": {
-    "@eslint/js": "^9.39.2",
-    "ejs-lint": "^2.0.1",
-    "eslint": "^9.39.2",
-    "globals": "^17.0.0"
-  }
+  "homepage": "https://github.com/Ansafaf/Login-with-server#readme"
 }
