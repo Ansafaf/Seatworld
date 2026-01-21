@@ -36,14 +36,9 @@ export const getOrderlist = async (req, res) => {
                 idQuery.push({ _id: new mongoose.Types.ObjectId(search) });
             }
 
-            if (/^[0-9a-fA-F]{1,24}$/.test(search)) {
-                // This is harder in Mongo without $expr, but we can at least check if it matches the string representation
-                // For now, partial ID match is less common, but we can support prefix/suffix if needed.
-                // Redirecting to property match for simplicity.
-            }
 
             const escapedSearch = escapeRegExp(search);
-            // Search by Payment/Order Status
+
             const orderMatches = await Order.find({
                 $or: [
                     ...idQuery,
@@ -52,7 +47,6 @@ export const getOrderlist = async (req, res) => {
             }).select("_id");
             const orderFieldIds = orderMatches.map(o => o._id);
 
-            // 3. Search by User (Email or Name)
             const userMatches = await User.find({
                 $or: [
                     { email: { $regex: escapedSearch, $options: "i" } },
@@ -63,7 +57,6 @@ export const getOrderlist = async (req, res) => {
             const userOrderMatches = await Order.find({ userId: { $in: userIds } }).select("_id");
             const userOrderIds = userOrderMatches.map(o => o._id);
 
-            // 4. Search by Product Name (Find matching products -> variants -> items)
             const productMatches = await Product.find({
                 name: { $regex: escapedSearch, $options: "i" }
             }).select("_id");
@@ -77,8 +70,8 @@ export const getOrderlist = async (req, res) => {
             const itemMatches = await OrderItem.find({
                 $or: [
                     { variantId: { $in: variantIds } },
-                    { productName: { $regex: escapedSearch, $options: "i" } }, // Also check recorded productName
-                    { status: { $regex: escapedSearch, $options: "i" } }      // Include item status
+                    { productName: { $regex: escapedSearch, $options: "i" } },
+                    { status: { $regex: escapedSearch, $options: "i" } }     
                 ]
             }).select("orderId");
             const productOrderIds = itemMatches.map(item => item.orderId);
