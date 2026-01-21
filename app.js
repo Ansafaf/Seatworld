@@ -171,6 +171,6 @@ import "./cron/couponExpiry.job.js";
 
 
 app.listen(PORT, '0.0.0.0', () => {
-  logger.info(`Server running on ${process.env.LOCALURL}`);
+  logger.info(`Server running on ${process.env.URL}`);
 });
 
