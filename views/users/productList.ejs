@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,14 +52,14 @@
                     <div class="price-inputs">
                       <div class="price-input-group">
                         <label>Min</label>
-                        <input type="number" id="minPriceInput" name="minPrice"
-                          value="<%= filters?.minPrice || priceRange?.min || 0 %>">
-                      </div>
+                       <input type="number" id="minPriceInput" name="minPrice" value="<%= filters?.minPrice || '' %>"
+                          placeholder="0">
+                    </div>
                        <br>
                       <div class="price-input-group">
                         <label>Max</label>
-                        <input type="number" id="maxPriceInput" name="maxPrice"
-                          value="<%= filters?.maxPrice || priceRange?.max || 5000 %>">
+                        <input type="number" id="maxPriceInput" name="maxPrice" value="<%= filters?.maxPrice || '' %>"
+                          placeholder="0">
                       </div>
                     </div>
                   </div>

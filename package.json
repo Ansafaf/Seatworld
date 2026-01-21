@@ -41,11 +41,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "lint:ejs": "npx ejs-lint views/**/*.ejs",
-    "lint": "npm run lint:ejs && npm run lint:frontend",
-    "lint:frontend": "eslint public/**/*.js",
-    "lint:backend": "eslint **/*.js --ignore-pattern public/** --ignore-pattern views/**"
-  },
+    "lint": "eslint . && ejslint views"
+   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Ansafaf/Login-with-server.git"
@@ -60,7 +57,6 @@
   "homepage": "https://github.com/Ansafaf/Login-with-server#readme",
   "devDependencies": {
     "@eslint/js": "^9.39.2",
-    "ejs-lint": "^2.0.1",
     "eslint": "^9.39.2",
     "globals": "^17.0.0"
   }
