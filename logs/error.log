@@ -1196,3 +1196,12 @@ breadcrumbs is not defined
 [2026-01-18 21:34:12] ERROR: Razorpay Create Order Error: Cannot read properties of undefined (reading 'status')
 [2026-01-19 11:36:21] ERROR: id is not defined
 [2026-01-19 11:36:25] ERROR: id is not defined
+[2026-01-20 21:35:38] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-20 21:35:47] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-20 21:37:30] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-20 21:38:02] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-20 21:38:31] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-20 21:38:57] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-20 21:39:19] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-20 21:39:57] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
+[2026-01-20 21:40:46] ERROR: getaddrinfo ENOTFOUND ac-ljqolrk-shard-00-00.uuxwmkk.mongodb.net
