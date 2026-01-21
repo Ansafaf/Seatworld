@@ -18,13 +18,9 @@ const userSchema = new mongoose.Schema({
 
   avatar: { type: String },
 
-  mobile: {
-    type: String,
-    index: {
-      unique: true,
-      partialFilterExpression: { mobile: { $type: "string" } }
-    },
-  },
+ mobile: {
+  type: Number,
+},
   username: {
     type: String,
     index: {
