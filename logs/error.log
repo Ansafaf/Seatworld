@@ -1196,3 +1196,21 @@ breadcrumbs is not defined
 [2026-01-18 21:34:12] ERROR: Razorpay Create Order Error: Cannot read properties of undefined (reading 'status')
 [2026-01-19 11:36:21] ERROR: id is not defined
 [2026-01-19 11:36:25] ERROR: id is not defined
+[2026-01-21 01:15:02] ERROR: Passport Auth Error: User validation failed: name: Name must be 3-50 characters and contain only letters, spaces, and dots
+[2026-01-21 01:15:02] ERROR: User validation failed: name: Name must be 3-50 characters and contain only letters, spaces, and dots
+[2026-01-21 01:17:12] ERROR: Cannot read properties of undefined (reading 'otpExpires')
+[2026-01-21 03:33:10] ERROR: Passport Auth Error: E11000 duplicate key error collection: seatworld.users index: username_1 dup key: { username: null }
+[2026-01-21 03:33:10] ERROR: E11000 duplicate key error collection: seatworld.users index: username_1 dup key: { username: null }
+[2026-01-21 03:59:11] ERROR: Passport Auth Error: E11000 duplicate key error collection: seatworld.users index: username_1 dup key: { username: null }
+[2026-01-21 03:59:11] ERROR: E11000 duplicate key error collection: seatworld.users index: username_1 dup key: { username: null }
+[2026-01-21 03:59:52] ERROR: Passport Auth Error: E11000 duplicate key error collection: seatworld.users index: email_1 dup key: { email: "ansafafafaf@gmail.com" }
+[2026-01-21 03:59:52] ERROR: E11000 duplicate key error collection: seatworld.users index: email_1 dup key: { email: "ansafafafaf@gmail.com" }
+[2026-01-21 03:59:53] ERROR: Passport Auth Error: E11000 duplicate key error collection: seatworld.users index: username_1 dup key: { username: null }
+[2026-01-21 03:59:53] ERROR: E11000 duplicate key error collection: seatworld.users index: username_1 dup key: { username: null }
+[2026-01-21 04:25:18] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-21 04:25:23] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-21 04:25:23] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-21 04:25:23] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-21 04:25:23] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-21 04:25:24] ERROR: Update quantity error: Quantity must be less than or equal to 6
+[2026-01-21 04:25:40] ERROR: Update quantity error: Quantity must be less than or equal to 6
