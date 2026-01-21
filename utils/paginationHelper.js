@@ -1,7 +1,7 @@
 
 export const paginate = async (model, query = {}, options = {}) => {
     const page = Math.max(1, parseInt(options.page, 10) || 1);
-    const limit = Math.max(1, parseInt(options.limit, 9) || 9);
+    const limit = Math.max(1, parseInt(options.limit, 10) || 9);
     const skip = (page - 1) * limit;
 
     const [totalItems, items] = await Promise.all([
@@ -13,7 +13,7 @@ export const paginate = async (model, query = {}, options = {}) => {
             .populate(options.populate || [])
             .lean()
     ]);
-    
+
     const totalPages = Math.ceil(totalItems / limit) || 1;
 
     return {
