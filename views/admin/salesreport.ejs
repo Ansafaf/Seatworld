@@ -124,50 +124,116 @@
                             </form>
                         </div>
 
-                        <!-- Stats Cards -->
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                            <!-- Total Orders -->
-                            <div
-                                class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
-                                <div>
-                                    <div class="text-sm font-medium text-gray-500 mb-1">Total Orders</div>
-                                    <div class="text-3xl font-bold text-gray-900">
-                                        <%= salesData.totalOrders.toLocaleString('en-IN') %>
+                        <!-- Stats Cards Section -->
+                        <div class="space-y-6 mb-8">
+                            <!-- Row 1: Primary Metrics -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <!-- Total Orders -->
+                                <div
+                                    class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
+                                    <div>
+                                        <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">
+                                            Total Orders</div>
+                                        <div class="text-3xl font-bold text-gray-900">
+                                            <%= salesData.totalOrders.toLocaleString('en-IN') %>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600">
+                                        <span class="material-icons-outlined">shopping_bag</span>
                                     </div>
                                 </div>
+
+                                <!-- Net Sales (Total Sales) -->
                                 <div
-                                    class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600">
-                                    <span class="material-icons-outlined">shopping_bag</span>
+                                    class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between ring-2 ring-indigo-500 ring-offset-2">
+                                    <div>
+                                        <div
+                                            class="text-xs font-semibold text-indigo-500 uppercase tracking-wider mb-1">
+                                            Net Revenue</div>
+                                        <div class="text-3xl font-bold text-gray-900">
+                                            ₹<%= salesData.totalSales.toLocaleString('en-IN') %>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="w-12 h-12 bg-indigo-50 rounded-lg flex items-center justify-center text-indigo-600">
+                                        <span class="material-icons-outlined">payments</span>
+                                    </div>
+                                </div>
+
+                                <!-- Total Discount -->
+                                <div
+                                    class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
+                                    <div>
+                                        <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">
+                                            Total Discount</div>
+                                        <div class="text-3xl font-bold text-red-600">
+                                            ₹<%= salesData.totalDiscount.toLocaleString('en-IN') %>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="w-12 h-12 bg-red-50 rounded-lg flex items-center justify-center text-red-600">
+                                        <span class="material-icons-outlined">sell</span>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- Total Sales -->
-                            <div
-                                class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
-                                <div>
-                                    <div class="text-sm font-medium text-gray-500 mb-1">Total Sales</div>
-                                    <div class="text-3xl font-bold text-gray-900">
-                                        ₹<%= salesData.totalSales.toLocaleString('en-IN') %>
+                            <!-- Row 2: Secondary Metrics -->
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                                <!-- Gross Sales -->
+                                <div
+                                    class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
+                                    <div>
+                                        <div class="text-xs font-medium text-gray-500 mb-1">Gross Sales</div>
+                                        <div class="text-xl font-bold text-gray-800">
+                                            ₹<%= salesData.grossSales.toLocaleString('en-IN') %>
+                                        </div>
+                                    </div>
+                                    <div class="text-gray-400">
+                                        <span class="material-icons-outlined text-xl">account_balance_wallet</span>
                                     </div>
                                 </div>
-                                <div
-                                    class="w-12 h-12 bg-indigo-50 rounded-lg flex items-center justify-center text-indigo-600">
-                                    <span class="material-icons-outlined">currency_rupee</span>
-                                </div>
-                            </div>
 
-                            <!-- Total Discount -->
-                            <div
-                                class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
-                                <div>
-                                    <div class="text-sm font-medium text-gray-500 mb-1">Total Discount</div>
-                                    <div class="text-3xl font-bold text-red-600">
-                                        ₹<%= salesData.totalDiscount.toLocaleString('en-IN') %>
+                                <!-- Shipping Fees -->
+                                <div
+                                    class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
+                                    <div>
+                                        <div class="text-xs font-medium text-gray-500 mb-1">Shipping Rev.</div>
+                                        <div class="text-xl font-bold text-gray-800">
+                                            ₹<%= salesData.totalShipping.toLocaleString('en-IN') %>
+                                        </div>
+                                    </div>
+                                    <div class="text-gray-400">
+                                        <span class="material-icons-outlined text-xl">local_shipping</span>
                                     </div>
                                 </div>
+
+                                <!-- Refunded Amount -->
                                 <div
-                                    class="w-12 h-12 bg-red-50 rounded-lg flex items-center justify-center text-red-600">
-                                    <span class="material-icons-outlined">percent</span>
+                                    class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
+                                    <div>
+                                        <div class="text-xs font-medium text-gray-500 mb-1">Refunded</div>
+                                        <div class="text-xl font-bold text-orange-600">
+                                            ₹<%= salesData.totalRefunded.toLocaleString('en-IN') %>
+                                        </div>
+                                    </div>
+                                    <div class="text-gray-400">
+                                        <span class="material-icons-outlined text-xl">history</span>
+                                    </div>
+                                </div>
+
+                                <!-- Coupons Used -->
+                                <div
+                                    class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
+                                    <div>
+                                        <div class="text-xs font-medium text-gray-500 mb-1">Coupons Used</div>
+                                        <div class="text-xl font-bold text-gray-800">
+                                            <%= salesData.couponsUsed %>
+                                        </div>
+                                    </div>
+                                    <div class="text-gray-400">
+                                        <span class="material-icons-outlined text-xl">confirmation_number</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>

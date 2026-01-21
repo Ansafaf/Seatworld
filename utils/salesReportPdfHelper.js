@@ -89,29 +89,25 @@ export function generateSummary(doc, report, startY) {
 
     doc.fontSize(10).fillColor("#333");
 
-    doc.font("Helvetica-Bold")
-        .text("Total Sales:", PAGE.left, y);
-    doc.font("Helvetica")
-        .text(
-            `Rs. ${Number(report.totalSales || 0).toLocaleString("en-IN")}`,
-            PAGE.left + 90,
-            y
-        );
+    doc.font("Helvetica-Bold").text("Gross Sales:", PAGE.left, y);
+    doc.font("Helvetica").text(`Rs. ${Number(report.grossSales || 0).toLocaleString("en-IN")}`, PAGE.left + 90, y);
 
-    doc.font("Helvetica-Bold")
-        .text("Total Orders:", 240, y);
-    doc.font("Helvetica")
-        .text(report.totalOrders || 0, 340, y);
+    doc.font("Helvetica-Bold").text("Total Orders:", 240, y);
+    doc.font("Helvetica").text(report.totalOrders || 0, 340, y);
 
-    doc.font("Helvetica-Bold")
-        .text("Total Discount:", 400, y);
-    doc.font("Helvetica")
-        .text(
-            `Rs. ${Number(report.totalDiscount || 0).toLocaleString("en-IN")}`,
-            PAGE.right - 120,
-            y,
-            { width: 120, align: "right" }
-        );
+    doc.font("Helvetica-Bold").text("Total Discount:", 400, y);
+    doc.font("Helvetica").text(`Rs. ${Number(report.totalDiscount || 0).toLocaleString("en-IN")}`, PAGE.right - 120, y, { width: 120, align: "right" });
+
+    y += GAP.row;
+
+    doc.font("Helvetica-Bold").text("Shipping Rev:", PAGE.left, y);
+    doc.font("Helvetica").text(`Rs. ${Number(report.totalShipping || 0).toLocaleString("en-IN")}`, PAGE.left + 90, y);
+
+    doc.font("Helvetica-Bold").text("Coupons Used:", 240, y);
+    doc.font("Helvetica").text(report.couponsUsed || 0, 340, y);
+
+    doc.font("Helvetica-Bold").text("Net Sales:", 400, y);
+    doc.font("Helvetica").text(`Rs. ${Number(report.totalSales || 0).toLocaleString("en-IN")}`, PAGE.right - 120, y, { width: 120, align: "right" });
 
     return y + GAP.large + 10;
 }
