@@ -27,7 +27,7 @@ const normalizeQuery = (query) => {
         selectedTags: normalizeValue(query.tag),
         sort: query.sort || "featured",
         page: Math.max(1, parseInt(query.page, 10) || 1),
-        limit: Math.max(1, parseInt(query.limit, 10) || 9),
+        limit: 9,
         stock: query.stock,
         discount: query.discount,
         search: query.search,
@@ -163,7 +163,7 @@ const prepareUIHelpers = (params, categories, minPriceValue, maxPriceValue) => {
     if (stock) queryParams.append("stock", stock);
     if (discount === 'true') queryParams.append("discount", "true");
     if (sort && sort !== "featured") queryParams.append("sort", sort);
-    if (limit && limit != 12) queryParams.append("limit", limit);
+    // Limit is now fixed to 9, no need to append to query string
 
     const heading = selectedCategories.length === 1
         ? categories.find(cat => cat._id.toString() === selectedCategories[0])?.categoryName || "Products"
@@ -185,7 +185,6 @@ const prepareUIHelpers = (params, categories, minPriceValue, maxPriceValue) => {
 
 export async function getProducts(req, res) {
     try {
-        console.log("getProducts controller hit. User:", req.session?.user?.id);
 
         const params = normalizeQuery(req.query);
 
@@ -298,11 +297,7 @@ export async function getProducts(req, res) {
             logoUrl,
             sortOptions,
             appliedFiltersCount,
-            pagination: {
-                ...pagination,
-                totalItems: finalProducts.length,
-                totalPages: Math.ceil(finalProducts.length / pagination.limit) || 1
-            },
+            pagination,
             filters: {
                 categories: params.selectedCategories,
                 brands: params.selectedBrands,
@@ -458,7 +453,6 @@ export async function getProductdetail(req, res) {
         });
 
     } catch (err) {
-        console.log(err);
         res.status(500).send("Internal Server Error");
     }
 }

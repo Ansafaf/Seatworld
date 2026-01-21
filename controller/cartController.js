@@ -89,8 +89,6 @@ export async function removeFromCart(req, res) {
             cartCount: totals.cartCount
         });
     } catch (err) {
-        console.log("variantId:", req.params.variantId);
-        console.log("type:", typeof req.params.variantId);
 
         logger.error("Remove from cart error:", err);
         res.status(500).json({ success: false, message: "Internal Server Error" });

@@ -17,9 +17,6 @@ cron.schedule(
         }
       );
 
-      console.log(
-        `[CRON] Coupon expiry job ran. Expired coupons: ${result.modifiedCount}`
-      );
     } catch (error) {
       console.error("[CRON] Coupon expiry job failed", error);
     }
