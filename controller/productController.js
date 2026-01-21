@@ -27,7 +27,7 @@ const normalizeQuery = (query) => {
         selectedTags: normalizeValue(query.tag),
         sort: query.sort || "featured",
         page: Math.max(1, parseInt(query.page, 10) || 1),
-        limit: Math.max(1, parseInt(query.limit, 9) || 9),
+        limit: Math.max(1, parseInt(query.limit, 10) || 9),
         stock: query.stock,
         discount: query.discount,
         search: query.search,
@@ -251,6 +251,18 @@ export async function getProducts(req, res) {
             isInWishlist: product.variant && wishlistVariantIds.includes(product.variant._id.toString())
         }));
 
+        // POST-FILTER: Apply price filter to discounted prices (not base prices)
+        // This ensures products with offers are correctly filtered by their displayed price
+        let finalProducts = productsWithWishlist;
+        if (hasMinPrice || hasMaxPrice) {
+            finalProducts = productsWithWishlist.filter(product => {
+                const displayPrice = product.discountedPrice || product.originalPrice || 0;
+                if (hasMinPrice && displayPrice < params.minPrice) return false;
+                if (hasMaxPrice && displayPrice > params.maxPrice) return false;
+                return true;
+            });
+        }
+
         const rawColors = await ProductVariant.distinct("color", { status: "Active" });
         const availableColors = [...new Set(rawColors.filter(Boolean).map(c => c.trim().toLowerCase()))]
             .sort();
@@ -277,7 +289,7 @@ export async function getProducts(req, res) {
         // 8. Render
         res.render("users/productList", {
             user: req.session.user,
-            products: productsWithWishlist,
+            products: finalProducts,
             categories,
             brands,
             colors: availableColors,
@@ -286,14 +298,18 @@ export async function getProducts(req, res) {
             logoUrl,
             sortOptions,
             appliedFiltersCount,
-            pagination,
+            pagination: {
+                ...pagination,
+                totalItems: finalProducts.length,
+                totalPages: Math.ceil(finalProducts.length / pagination.limit) || 1
+            },
             filters: {
                 categories: params.selectedCategories,
                 brands: params.selectedBrands,
                 colors: params.selectedColors,
                 tags: params.selectedTags,
-                minPrice: priceRange.selectedMin,
-                maxPrice: priceRange.selectedMax,
+                minPrice: hasMinPrice ? params.minPrice : null,
+                maxPrice: hasMaxPrice ? params.maxPrice : null,
                 search: params.search || "",
                 sort: params.sort || "featured",
                 stock: params.stock || "",
