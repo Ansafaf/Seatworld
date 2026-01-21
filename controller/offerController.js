@@ -186,6 +186,10 @@ export const postEditOffer = async (req, res) => {
         if (!offer) {
             return res.status(404).json({ success: false, message: "Offer not found" });
         }
+         if (discountPercentage >= 50) {
+            return res.status(400).json({ success: false, message: "discount percentage must be less than 50" })
+        }
+        
 
         // Handle product association changes if needed
         if (offer.offerType === 'Product' && offer.productId) {
