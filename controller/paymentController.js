@@ -2,6 +2,7 @@
 import { razorpayInstance } from "../config/razorpay.js";
 
 export const createRazorpayOrder = async (req, res) => {
+   if (!req.session.user) return res.redirect("/login");
   try {
     const { amount } = req.body;
 

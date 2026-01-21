@@ -11,8 +11,14 @@ export const optionalAuth = async (req, res, next) => {
     }
 
     if (user) {
-      req.user = user;
-      res.locals.user = user;
+      if (user.status === "blocked") {
+        req.session.destroy();
+        req.user = null;
+        res.locals.user = null;
+      } else {
+        req.user = user;
+        res.locals.user = user;
+      }
     } else {
       req.user = null;
       res.locals.user = null;

@@ -12,6 +12,7 @@ import { createReferralForUser } from "../services/referralService.js";
 
 
 export async function getProfile(req, res) {
+   if (!req.session.user) return res.redirect("/login");
   try {
     if (!req.session.user) return res.redirect("/login");
     const customer = await User.findById(req.session.user.id);
@@ -276,6 +277,7 @@ export async function postEmailchange(req, res) {
 
 
 export async function getEmailOtp(req, res) {
+   if (!req.session.user) return res.redirect("/login");
   try {
     // Check if user is logged in
     if (!req.session.user || !req.session.user.id) {
@@ -418,6 +420,7 @@ export async function postEmailOtp(req, res) {
 }
 
 export async function getAddresslist(req, res) {
+   if (!req.session.user) return res.redirect("/login");
   try {
     const userId = req.session.user.id;
     const page = parseInt(req.query.page) || 1;
@@ -476,7 +479,7 @@ export async function postDefaultAddres(req, res) {
 }
 
 export async function getAddaddress(req, res) {
-
+ if (!req.session.user) return res.redirect("/login");
   res.render("users/addressAdd", {
     user: req.user,
     breadcrumbs: buildBreadcrumb([
@@ -547,6 +550,7 @@ export async function postAddaddress(req, res) {
 }
 
 export const getEditAddress = async (req, res) => {
+   if (!req.session.user) return res.redirect("/login");
   try {
     const userId = req.session.user.id;
     const addressId = req.params.id;
@@ -814,6 +818,7 @@ export async function postupdatePass(req, res) {
 }
 
 export async function getCoupons(req, res) {
+   if (!req.session.user) return res.redirect("/login");
   try {
     const userId = req.session.user.id;
     const page = parseInt(req.query.page) || 1;

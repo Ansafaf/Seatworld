@@ -1,6 +1,6 @@
 import express from "express";
 import { upload } from "../config/cloudinary.js";
-import { productList, postAddProduct, getAddProduct, editProduct, postEditProduct, blockProduct, unblockProduct } from "../controller/AdminproductController.js";
+import { productList, postAddProduct, getAddProduct, editProduct, postEditProduct, blockProduct, unblockProduct } from "../controller/adminProductController.js";
 import { adminAuthMiddleware } from "../middleware/adminAuthMiddleware.js";
 import logger from "../utils/logger.js";
 

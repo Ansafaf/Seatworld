@@ -4,4 +4,9 @@ node_modules/
 
 logs/
 *.log
+<<<<<<< HEAD
+logs/
+=======
+
+>>>>>>> c477661ecbb8711fe486495553e14112f534e9f3
 logs/

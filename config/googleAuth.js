@@ -15,6 +15,14 @@ passport.use(new GoogleStrategy({
     try {
       let user = await User.findOne({ googleId: profile.id });
       if (!user) {
+        // Check if a user with this email already exists
+        const existingEmailUser = await User.findOne({ email: profile.emails[0].value });
+        if (existingEmailUser) {
+          return done(null, false, {
+            message: "An account already exists with this email. Please log in using your password."
+          });
+        }
+
         user = new User({
           googleId: profile.id,
           name: profile.displayName,
