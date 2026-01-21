@@ -162,11 +162,9 @@ export const handleItemAction = async ({ orderId, userId, itemId, action, return
                 throw new Error(`Cannot cancel item with status: ${currentStatus}`);
             }
 
-            // 🛑 Step 1: Update Item Status Directly
             item.status = "cancelled";
             item.cancelledOn = new Date();
 
-            // 📦 Step 2: Restore Inventory
             await inventoryService.updateStock({
                 variantId: item.variantId,
                 quantity: item.productQuantity,
@@ -175,11 +173,11 @@ export const handleItemAction = async ({ orderId, userId, itemId, action, return
                 notes: "User cancelled item directly"
             });
 
-            // 💰 Step 3: Handle Wallet Refund if paid
+        
             if (order.paymentStatus === 'paid' && item.refundStatus !== 'refunded') {
                 let refundAmount = walletService.calculateItemRefundAmount(order, item);
 
-                // Check if this is the last active item to include shipping fee
+        
                 const activeItems = await OrderItem.find({
                     orderId,
                     _id: { $ne: item._id },
@@ -201,11 +199,10 @@ export const handleItemAction = async ({ orderId, userId, itemId, action, return
                 }
             }
 
-            //Step 4: Update Order total
             const refundAmountForItem = walletService.calculateItemRefundAmount(order, item);
             order.totalAmount = Math.max(0, order.totalAmount - refundAmountForItem);
 
-            // Check if this is the last active item to also remove shipping fee from total
+         
             const activeItemsCount = await OrderItem.countDocuments({
                 orderId,
                 _id: { $ne: item._id },
@@ -220,7 +217,7 @@ export const handleItemAction = async ({ orderId, userId, itemId, action, return
             if (currentStatus !== "delivered") {
                 throw new Error(`Cannot request return for item with status: ${currentStatus}`);
             }
-            // Returns still happen via request flow as they usually require inspection
+         
             item.status = "return_requested";
             item.returnRequestedOn = new Date();
             item.returnReason = returnReason;
