@@ -63,20 +63,31 @@ export async function postprofileEdit(req, res) {
       });
     }
 
-    // Name validation
+    const trimmedName = name?.trim();
+    const trimmedMobile = mobile?.trim();
+
+    // Name validation - must be 3-50 chars, contain only letters/spaces/dots, AND must have letters
     const nameRegex = /^[a-zA-Z\s.]{3,50}$/;
-    if (!nameRegex.test(name)) {
+    if (!nameRegex.test(trimmedName) || !/[a-zA-Z]/.test(trimmedName)) {
       return res.status(400).json({
         success: false,
-        message: "Name must be 3-50 characters and contain only letters, spaces, and dots"
+        message: "Name must be 3-50 characters and contain letters"
+      });
+    }
+
+    // Mobile validation - exactly 10 digits
+    if (trimmedMobile && !/^\d{10}$/.test(trimmedMobile)) {
+      return res.status(400).json({
+        success: false,
+        message: "Mobile number must be exactly 10 digits"
       });
     }
 
     const currentName = customer.name || customer.username;
 
     if (
-      currentName === name &&
-      (customer.mobile || "") === (mobile || "")
+      currentName === trimmedName &&
+      (customer.mobile || "") === (trimmedMobile || "")
     ) {
       return res.status(200).json({
         success: false,
@@ -86,8 +97,8 @@ export async function postprofileEdit(req, res) {
     }
 
     // Check if mobile already exists for ANOTHER user
-    if (mobile && mobile !== customer.mobile) {
-      const existingMobile = await User.findOne({ mobile, _id: { $ne: customer._id } });
+    if (trimmedMobile && trimmedMobile !== customer.mobile) {
+      const existingMobile = await User.findOne({ mobile: trimmedMobile, _id: { $ne: customer._id } });
       if (existingMobile) {
         return res.status(400).json({
           success: false,
@@ -97,8 +108,8 @@ export async function postprofileEdit(req, res) {
     }
 
     // Update the customer object
-    customer.name = name;
-    customer.mobile = mobile;
+    customer.name = trimmedName;
+    customer.mobile = trimmedMobile;
     await customer.save();
 
     // Re-populate session if name changed (since it might be used elsewhere)
@@ -494,45 +505,67 @@ export async function postAddaddress(req, res) {
   try {
     const id = req.session.user.id;
     const { name, housename, street, city, state, country, pincode, mobile } = req.body;
-    // Validation for text fields (allowing letters, numbers, spaces, and basic punctuation)
+
+    // Address Limit Check
     const count = await Address.countDocuments({ userId: id });
-    let addressLimit = 5;
-    if (count >= addressLimit) {
-      return res.status(400).json({ success: false, message: `you cannot add more than ${addressLimit} address` });
-    }
-    const textRegex = /^[a-zA-Z\s.-\/]+$/;
-    const fieldsToValidate = { name, street, city, state, country };
-    if (!/^[a-zA-Z0-9\s.-]+$/.test(housename)) {
-      return res.status(400).json({ success: false, message: "House name contains invalid characters, Only letters, spaces, dots, numbers and hyphens" });
+    if (count >= 5) {
+      return res.status(400).json({ success: false, message: "You cannot add more than 5 addresses" });
     }
 
-    for (const [fieldName, value] of Object.entries(fieldsToValidate)) {
-      if (value && !textRegex.test(value)) {
-        return res.status(400).json({
-          success: false,
-          message: `The ${fieldName} field contains invalid characters. Only letters, spaces, dots and slashes are allowed.`
-        });
+    const trimmedData = {
+      name: name?.trim(),
+      housename: housename?.trim(),
+      street: street?.trim(),
+      city: city?.trim(),
+      state: state?.trim(),
+      country: country?.trim(),
+      pincode: pincode?.trim(),
+      mobile: mobile?.trim()
+    };
+
+    // 1. Basic empty checks
+    for (const [key, value] of Object.entries(trimmedData)) {
+      if (!value && key !== 'housename') { // housename might be optional in some contexts, but most are required
+        return res.status(400).json({ success: false, message: `${key.charAt(0).toUpperCase() + key.slice(1)} is required.` });
       }
     }
 
-    // Pincode and Mobile specific validation
-    if (!/^\d{6}$/.test(pincode)) {
+    // 2. Specialized Regex Validations
+    const nameRegex = /^[a-zA-Z\s.]{3,50}$/;
+    const generalTextRegex = /^[a-zA-Z\s.,\-\/()]{2,100}$/; // Allows letters, spaces, and basic punctuation
+    const alphaNumericRegex = /^[a-zA-Z0-9\s.,\-\/()]{1,100}$/;
+
+    // Ensure at least some letters are present in text fields
+    const hasLetters = (str) => /[a-zA-Z]/.test(str);
+    const hasAlphanumeric = (str) => /[a-zA-Z0-9]/.test(str);
+
+    if (!nameRegex.test(trimmedData.name) || !hasLetters(trimmedData.name)) {
+      return res.status(400).json({ success: false, message: "Name must be 3-50 characters and contain letters" });
+    }
+
+    if (trimmedData.housename && (!alphaNumericRegex.test(trimmedData.housename) || !hasAlphanumeric(trimmedData.housename))) {
+      return res.status(400).json({ success: false, message: "House name is invalid or contains only punctuation" });
+    }
+
+    const simpleFields = ['street', 'city', 'state', 'country'];
+    for (const field of simpleFields) {
+      if (!generalTextRegex.test(trimmedData[field]) || !hasLetters(trimmedData[field])) {
+        return res.status(400).json({ success: false, message: `${field.charAt(0).toUpperCase() + field.slice(1)} is invalid or contains only punctuation` });
+      }
+    }
+
+    // 3. Pincode and Mobile
+    if (!/^\d{6}$/.test(trimmedData.pincode)) {
       return res.status(400).json({ success: false, message: "Pincode must be exactly 6 digits" });
     }
-    if (!/^\d{10}$/.test(mobile)) {
+    if (!/^\d{10}$/.test(trimmedData.mobile)) {
       return res.status(400).json({ success: false, message: "Mobile number must be exactly 10 digits" });
     }
+
     const address = new Address({
       userId: id,
-      name,
-      housename,
-      street,
-      city,
-      state,
-      country,
-      pincode,
-      mobile
-    })
+      ...trimmedData
+    });
     await address.save();
     return res.status(200).json({
       success: true,
@@ -588,51 +621,52 @@ export async function postEditAddress(req, res) {
     const addressId = req.params.id;
     const userId = req.session.user.id;
 
-    const {
-      name,
-      housename,
-      street,
-      city,
-      state,
-      country,
-      pincode,
-      mobile,
-      returnTo
-    } = req.body;
+    const { name, housename, street, city, state, country, pincode, mobile, returnTo } = req.body;
 
-    // Validation for text fields
-    const textRegex = /^[a-zA-Z0-9\s.,#\-\/]+$/;
-    const fieldsToValidate = { name, housename, street, city, state, country };
+    const trimmedData = {
+      name: name?.trim(),
+      housename: housename?.trim(),
+      street: street?.trim(),
+      city: city?.trim(),
+      state: state?.trim(),
+      country: country?.trim(),
+      pincode: pincode?.trim(),
+      mobile: mobile?.trim()
+    };
 
-    for (const [fieldName, value] of Object.entries(fieldsToValidate)) {
-      if (value && !textRegex.test(value)) {
-        return res.status(400).json({
-          success: false,
-          message: `The ${fieldName} field contains invalid characters. Only letters, numbers, spaces, and . , # - / are allowed.`
-        });
+    // Validation Regexes (Consolidated)
+    const nameRegex = /^[a-zA-Z\s.]{3,50}$/;
+    const generalTextRegex = /^[a-zA-Z\s.,\-\/()]{2,100}$/;
+    const alphaNumericRegex = /^[a-zA-Z0-9\s.,\-\/()]{1,100}$/;
+
+    const hasLetters = (str) => /[a-zA-Z]/.test(str);
+    const hasAlphanumeric = (str) => /[a-zA-Z0-9]/.test(str);
+
+    if (!nameRegex.test(trimmedData.name) || !hasLetters(trimmedData.name)) {
+      return res.status(400).json({ success: false, message: "Name must be 3-50 characters and contain letters" });
+    }
+
+    if (trimmedData.housename && (!alphaNumericRegex.test(trimmedData.housename) || !hasAlphanumeric(trimmedData.housename))) {
+      return res.status(400).json({ success: false, message: "House name is invalid or contains only punctuation" });
+    }
+
+    const simpleFields = ['street', 'city', 'state', 'country'];
+    for (const field of simpleFields) {
+      if (!generalTextRegex.test(trimmedData[field]) || !hasLetters(trimmedData[field])) {
+        return res.status(400).json({ success: false, message: `${field.charAt(0).toUpperCase() + field.slice(1)} is invalid or contains only punctuation` });
       }
     }
 
-    // Pincode and Mobile validation
-    if (!/^\d{6}$/.test(pincode)) {
+    if (!/^\d{6}$/.test(trimmedData.pincode)) {
       return res.status(400).json({ success: false, message: "Pincode must be exactly 6 digits" });
     }
-    if (!/^\d{10}$/.test(mobile)) {
+    if (!/^\d{10}$/.test(trimmedData.mobile)) {
       return res.status(400).json({ success: false, message: "Mobile number must be exactly 10 digits" });
     }
 
     const updated = await Address.findOneAndUpdate(
-      { _id: addressId, userId: userId }, // ownership check
-      {
-        name,
-        housename,
-        street,
-        city,
-        state,
-        country,
-        pincode,
-        mobile
-      },
+      { _id: addressId, userId: userId },
+      { ...trimmedData },
       { new: true }
     );
 
