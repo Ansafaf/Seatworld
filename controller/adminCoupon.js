@@ -74,9 +74,18 @@ export const createCoupon = async (req, res) => {
         if (existingCoupon) {
             return res.status(400).json({ success: false, message: "Coupon code already exists" });
         }
+
         if (discountType == "percentage" && discountValue >= 50) {
             return res.status(400).json({ success: false, message: "Discount value must be less than 50" })
         }
+
+        if(discountType == "flat" && discountValue >= minAmount){
+            return res.status(400).json({success:false, message:"Discount value must not be more than or equal to minimun purchase value"});
+        }
+        if(discountType == "flat" && discountValue  >= 5000){
+            return res.status(400).json({success:false , message:"Discount value must be less than 5000"});
+        }
+
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
@@ -148,6 +157,12 @@ export const updateCoupon = async (req, res) => {
         }
         if (discountType == "percentage" && discountValue >= 50) {
             return res.status(400).json({ success: false, message: "Discount value must be less than 50" })
+        }
+         if(discountType == "flat" && discountValue >= minAmount){
+            return res.status(400).json({success:false, message:"Discount value must not be more than or equal to minimun purchase value"});
+        }
+        if(discountType == "flat" && discountValue  >= 500){
+            return res.status(400).json({success:false , message:"Discount value must be less than 500"});
         }
 
         // Also check if NEW code matches another existing coupon (prevent duplicates on edit)
