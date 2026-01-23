@@ -126,15 +126,18 @@
                                     </div>
 
                                     <div id="variantContainer" class="space-y-4">
-                                        <% if (variants && variants.length> 0) { %>
+                                        <%if (variants && variants.length> 0) { %>
                                             <% variants.forEach((variant, index)=> { %>
                                                 <div
                                                     class="variant-row grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-gray-50 p-4 rounded-lg border border-gray-200 relative">
+                                                    <% if(variants.length > 1){ %>
                                                     <button type="button" onclick="removeVariant(this)"
                                                         class="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-white rounded-full p-1 shadow-md"
                                                         title="Remove variant">
                                                         <span class="material-icons-outlined text-sm">close</span>
                                                     </button>
+                                                    <% } %>
+                    
 
                                                     <input type="hidden" name="variantId[]" value="<%= variant._id %>">
                                                     <input type="hidden" name="variantIndices[]" value="<%= index %>">
