@@ -164,8 +164,7 @@ export const updateCoupon = async (req, res) => {
         if(discountType == "flat" && discountValue  >= 500){
             return res.status(400).json({success:false , message:"Discount value must be less than 500"});
         }
-
-        // Also check if NEW code matches another existing coupon (prevent duplicates on edit)
+        
         const duplicateCoupon = await Coupon.findOne({ couponCode: couponCode.toUpperCase(), _id: { $ne: id } });
         if (duplicateCoupon) {
             return res.status(400).json({ success: false, message: "Coupon code already exists in another coupon" });

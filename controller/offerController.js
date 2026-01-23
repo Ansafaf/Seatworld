@@ -84,7 +84,7 @@ export const getAddOffer = async (req, res) => {
         const categories = await Category.find({ isActive: true });
 
         res.render("admin/offerAdd", {
-            products: [], // Products will be searched via AJAX
+            products: [], //search added
             categories,
             path: '/admin/offers'
         });
@@ -98,12 +98,12 @@ export const postAddOffer = async (req, res) => {
     try {
         const { name, offerType, productId, categoryId, discountPercentage } = req.body;
 
-        if (!mongoose.Types.ObjectId.isValid(productId)) {
-            return res.status(400).json({
-                success: false,
-                message: "Invalid product ID"
-            });
-        }
+        // if (!mongoose.Types.ObjectId.isValid(productId)) {
+        //     return res.status(400).json({
+        //         success: false,
+        //         message: "Invalid product ID"
+        //     });
+        // }
 
         if (discountPercentage >= 50) {
             return res.status(400).json({ success: false, message: "discount percentage must be less than 50" })
@@ -119,12 +119,9 @@ export const postAddOffer = async (req, res) => {
 
         await newOffer.save();
 
-        // If it's a product offer, update the product
         if (offerType === 'Product') {
             await Product.findByIdAndUpdate(productId, { offerId: newOffer._id });
         }
-        // Category offers could potentially updated the category too if needed
-        // but often we just rely on the Offer model's reference.
 
         res.status(200).json({ success: true, message: "Offer added successfully" });
     } catch (error) {
