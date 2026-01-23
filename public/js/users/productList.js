@@ -102,4 +102,3 @@ document.addEventListener('click', (e) => {
         window.location.href = newUrl;
     }
 });
-
