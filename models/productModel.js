@@ -9,9 +9,6 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    tags: {
-        type: [String]
-    },
     Baseprice: {
         type: Number,
         required: true

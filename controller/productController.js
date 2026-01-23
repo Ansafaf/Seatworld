@@ -24,7 +24,6 @@ const normalizeQuery = (query) => {
         selectedCategories: normalizeValue(query.category),
         selectedBrands: normalizeValue(query.brand),
         selectedColors: normalizeValue(query.color).map(c => c.trim().toLowerCase()),
-        selectedTags: normalizeValue(query.tag),
         sort: query.sort || "featured",
         page: Math.max(1, parseInt(query.page, 10) || 1),
         limit: 9,
@@ -38,12 +37,11 @@ const normalizeQuery = (query) => {
 
 
 const buildBaseFilter = (params) => {
-    const { selectedCategories, selectedBrands, selectedTags, discount, search } = params;
+    const { selectedCategories, selectedBrands, discount, search } = params;
     const filter = { isBlocked: { $ne: true } };
 
     if (selectedCategories.length) filter.categoryId = { $in: selectedCategories };
     if (selectedBrands.length) filter.brand = { $in: selectedBrands };
-    if (selectedTags.length) filter.tags = { $in: selectedTags };
     if (discount === 'true') filter.offerId = { $ne: null, $exists: true };
 
     if (search) {
@@ -147,7 +145,7 @@ const enrichProducts = async (products, activeOffers) => {
 // Helper: Prepare UI elements (query string, heading, filter count)
 const prepareUIHelpers = (params, categories, minPriceValue, maxPriceValue) => {
     const {
-        selectedCategories, selectedBrands, selectedColors, selectedTags,
+        selectedCategories, selectedBrands, selectedColors,
         hasMinPrice, hasMaxPrice, minPrice, maxPrice, search, stock, discount, sort, limit
     } = params;
 
@@ -155,7 +153,6 @@ const prepareUIHelpers = (params, categories, minPriceValue, maxPriceValue) => {
     selectedCategories.forEach(cat => queryParams.append("category", cat));
     selectedBrands.forEach(b => queryParams.append("brand", b));
     selectedColors.forEach(c => queryParams.append("color", c));
-    selectedTags.forEach(t => queryParams.append("tag", t));
 
     if (hasMinPrice) queryParams.append("minPrice", minPrice);
     if (hasMaxPrice) queryParams.append("maxPrice", maxPrice);
@@ -173,7 +170,6 @@ const prepareUIHelpers = (params, categories, minPriceValue, maxPriceValue) => {
         selectedCategories.length +
         selectedBrands.length +
         selectedColors.length +
-        selectedTags.length +
         (search ? 1 : 0) +
         (stock ? 1 : 0) +
         (discount === 'true' ? 1 : 0) +
@@ -197,23 +193,21 @@ export async function getProducts(req, res) {
         filter.categoryId = { $in: activeCategoryIds };
 
         if (params.selectedCategories.length) {
-            // Further filter by user selection, but ONLY within active categories
+
             const userSelectedActive = params.selectedCategories.filter(id => activeCategoryIds.includes(id));
             filter.categoryId = { $in: userSelectedActive };
         }
-        const [brandsDistinct, priceStats, tagsDistinct] = await Promise.all([
+        const [brandsDistinct, priceStats] = await Promise.all([
             Product.distinct("brand"),
             ProductVariant.aggregate([
                 { $match: { status: "Active" } },
                 { $group: { _id: null, minPrice: { $min: "$price" }, maxPrice: { $max: "$price" } } },
             ]),
-            Product.distinct("tags"),
         ]);
 
         const minPriceValue = priceStats[0]?.minPrice ?? 0;
         const maxPriceValue = priceStats[0]?.maxPrice ?? 0;
 
-        // 4. Apply Variant-Specific Filters (Color, Stock, Price)
         const { filter: finalFilter, hasMinPrice, hasMaxPrice } = await applyVariantFilters(filter, params);
 
         const priceRange = {
@@ -223,7 +217,6 @@ export async function getProducts(req, res) {
             selectedMax: hasMaxPrice ? params.maxPrice : maxPriceValue,
         };
 
-        // 5. Pagination and Sorting
         const sortOption = getSortOption(params.sort);
 
         const { items: products, pagination } = await paginate(Product, finalFilter, {
@@ -233,25 +226,21 @@ export async function getProducts(req, res) {
             populate: ["categoryId", "offerId"]
         });
 
-        // 6. Enrichment and Additional UI Data
         const activeOffers = await Offer.find({ isActive: true });
         const productsWithVariants = await enrichProducts(products, activeOffers);
 
-        // Fetch user's wishlist if logged in
         let wishlistVariantIds = [];
         if (req.session.user && req.session.user.id) {
             const userWishlist = await Wishlist.find({ userId: req.session.user.id }).select("variantId");
             wishlistVariantIds = userWishlist.map(item => item.variantId?.toString()).filter(Boolean);
         }
 
-        // Mark products that are in wishlist
         const productsWithWishlist = productsWithVariants.map(product => ({
             ...product,
             isInWishlist: product.variant && wishlistVariantIds.includes(product.variant._id.toString())
         }));
 
-        // POST-FILTER: Apply price filter to discounted prices (not base prices)
-        // This ensures products with offers are correctly filtered by their displayed price
+
         let finalProducts = productsWithWishlist;
         if (hasMinPrice || hasMaxPrice) {
             finalProducts = productsWithWishlist.filter(product => {
@@ -269,8 +258,7 @@ export async function getProducts(req, res) {
         const rawBrands = brandsDistinct.filter(Boolean);
         const brands = [...new Set(rawBrands.map(b => b.trim()))].sort();
 
-        const rawTags = tagsDistinct.filter(Boolean).flat();
-        const tags = [...new Set(rawTags.map(t => t.trim()))].sort();
+
 
         // 7. Prepare UI Helpers
         const { queryString, heading, appliedFiltersCount } = prepareUIHelpers(params, categories, minPriceValue, maxPriceValue);
@@ -292,7 +280,6 @@ export async function getProducts(req, res) {
             categories,
             brands,
             colors: availableColors,
-            tags,
             priceRange,
             logoUrl,
             sortOptions,
@@ -302,7 +289,6 @@ export async function getProducts(req, res) {
                 categories: params.selectedCategories,
                 brands: params.selectedBrands,
                 colors: params.selectedColors,
-                tags: params.selectedTags,
                 minPrice: hasMinPrice ? params.minPrice : null,
                 maxPrice: hasMaxPrice ? params.maxPrice : null,
                 search: params.search || "",
@@ -324,7 +310,6 @@ export async function getProducts(req, res) {
             categories: [],
             brands: [],
             colors: [],
-            tags: [],
             priceRange: { min: 0, max: 0, selectedMin: 0, selectedMax: 0 },
             logoUrl,
             sortOptions: [
@@ -347,7 +332,6 @@ export async function getProducts(req, res) {
                 categories: [],
                 brands: [],
                 colors: [],
-                tags: [],
                 minPrice: 0,
                 maxPrice: 0,
                 search: "",
@@ -357,6 +341,7 @@ export async function getProducts(req, res) {
                 heading: "Products",
             },
             query: "",
+            breadcrumbs: buildBreadcrumb([{ label: "Products", url: "/products" }])
         });
     }
 }
@@ -398,7 +383,7 @@ export async function getProductdetail(req, res) {
             discountPercentage: discountData.discountPercentage,
             image: (selectedVariant && selectedVariant.images && selectedVariant.images.length > 0)
                 ? selectedVariant.images[0]
-                : "https://dummyimage.com/600x600/f3f4f6/94a3b8&text=No+Image",
+                : "",
             stock: selectedVariant ? selectedVariant.stock : 0,
             variant: selectedVariant,
             variants: variants.map(v => {
@@ -425,7 +410,7 @@ export async function getProductdetail(req, res) {
 
             return {
                 ...rp,
-                image: (v && v.images && v.images.length > 0) ? v.images[0] : "https://dummyimage.com/300x300/f3f4f6/94a3b8&text=No+Image",
+                image: (v && v.images && v.images.length > 0) ? v.images[0] : "",
                 price: discountData.discountedPrice,
                 originalPrice: discountData.originalPrice,
                 hasOffer: discountData.hasOffer

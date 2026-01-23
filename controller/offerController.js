@@ -98,13 +98,6 @@ export const postAddOffer = async (req, res) => {
     try {
         const { name, offerType, productId, categoryId, discountPercentage } = req.body;
 
-        // if (!mongoose.Types.ObjectId.isValid(productId)) {
-        //     return res.status(400).json({
-        //         success: false,
-        //         message: "Invalid product ID"
-        //     });
-        // }
-
         if (discountPercentage >= 50) {
             return res.status(400).json({ success: false, message: "discount percentage must be less than 50" })
         }
@@ -116,7 +109,7 @@ export const postAddOffer = async (req, res) => {
             categoryId: offerType === 'Category' ? categoryId : undefined,
             discountPercentage
         });
-
+        
         await newOffer.save();
 
         if (offerType === 'Product') {
@@ -183,12 +176,11 @@ export const postEditOffer = async (req, res) => {
         if (!offer) {
             return res.status(404).json({ success: false, message: "Offer not found" });
         }
-         if (discountPercentage >= 50) {
+        if (discountPercentage >= 50) {
             return res.status(400).json({ success: false, message: "discount percentage must be less than 50" })
         }
         
 
-        // Handle product association changes if needed
         if (offer.offerType === 'Product' && offer.productId) {
             await Product.findByIdAndUpdate(offer.productId, { $unset: { offerId: "" } });
         }
@@ -204,7 +196,6 @@ export const postEditOffer = async (req, res) => {
         if (offerType === 'Product') {
             await Product.findByIdAndUpdate(productId, { offerId: offer._id });
         }
-
         res.status(200).json({ success: true, message: "Offer updated successfully" });
     } catch (error) {
         logger.error("Post Edit Offer Error:", error);

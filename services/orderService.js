@@ -66,7 +66,7 @@ export const createOrder = async ({ userId, paymentMethod, checkoutSession, cart
     try {
         const addressData = checkoutSession.address;
         const discountAmount = cartTotals.discountAmount || 0;
-        const finalAmount = cartTotals.total; 
+        const finalAmount = cartTotals.total;
 
         const newOrder = new Order({
             userId,
@@ -96,7 +96,7 @@ export const createOrder = async ({ userId, paymentMethod, checkoutSession, cart
         if (paymentMethod === "wallet") {
             const wallet = await Wallet.findOne({ userId });
             if (!wallet || wallet.balance < finalAmount) {
-               
+
                 throw new Error("Insufficient wallet balance");
             }
 
@@ -152,7 +152,10 @@ export const handleItemAction = async ({ orderId, userId, itemId, action, return
         const order = await Order.findOne({ _id: orderId, userId });
         if (!order) throw new Error("Order not found or access denied");
 
-        const item = await OrderItem.findOne({ _id: itemId, orderId });
+        const item = await OrderItem.findOne({ _id: itemId, orderId }).populate({
+            path: 'variantId',
+            populate: { path: 'productId' }
+        });
         if (!item) throw new Error("Item not found in this order");
 
         const currentStatus = item.status;
@@ -173,11 +176,22 @@ export const handleItemAction = async ({ orderId, userId, itemId, action, return
                 notes: "User cancelled item directly"
             });
 
-        
+
             if (order.paymentStatus === 'paid' && item.refundStatus !== 'refunded') {
                 let refundAmount = walletService.calculateItemRefundAmount(order, item);
 
-        
+                // Apply 50% refund policy for items with offers in price range (1000 - 10000)
+                const itemTotal = item.purchasedPrice * item.productQuantity;
+
+                // Re-fetch active offers to check if THIS specific product has an active offer
+                const { Offer } = await import("../models/offerModel.js");
+                const activeOffers = await Offer.find({ isActive: true });
+                const bestOffer = offerHelper.getBestOffer(item.variantId.productId, activeOffers);
+
+                if (bestOffer && itemTotal >= 1000 && itemTotal <= 10000) {
+                    refundAmount = refundAmount * 0.5;
+                }
+
                 const activeItems = await OrderItem.find({
                     orderId,
                     _id: { $ne: item._id },
@@ -192,7 +206,7 @@ export const handleItemAction = async ({ orderId, userId, itemId, action, return
                     await walletService.refundToWallet(
                         order.userId,
                         refundAmount,
-                        `Refund for user-cancelled item`,
+                        `Refund for user-cancelled item (50% policy applied if applicable)`,
                         order._id,
                         item._id
                     );
@@ -202,7 +216,7 @@ export const handleItemAction = async ({ orderId, userId, itemId, action, return
             const refundAmountForItem = walletService.calculateItemRefundAmount(order, item);
             order.totalAmount = Math.max(0, order.totalAmount - refundAmountForItem);
 
-         
+
             const activeItemsCount = await OrderItem.countDocuments({
                 orderId,
                 _id: { $ne: item._id },
@@ -217,7 +231,7 @@ export const handleItemAction = async ({ orderId, userId, itemId, action, return
             if (currentStatus !== "delivered") {
                 throw new Error(`Cannot request return for item with status: ${currentStatus}`);
             }
-         
+
             item.status = "return_requested";
             item.returnRequestedOn = new Date();
             item.returnReason = returnReason;
