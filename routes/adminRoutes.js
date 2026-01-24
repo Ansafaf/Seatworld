@@ -4,6 +4,7 @@ import {
     getLoginAdmin,
     postLoginAdmin,
     getAdminDashboard,
+    getRevenueData,
     getCustomerlist,
     adminLogout,
     blockUser,
@@ -17,6 +18,7 @@ adminRouter.post("/login", postLoginAdmin);
 
 
 adminRouter.get("/dashboard", adminAuthMiddleware, getAdminDashboard);
+adminRouter.get("/dashboard/revenue", adminAuthMiddleware, getRevenueData);
 
 adminRouter.get("/logout", adminLogout);
 

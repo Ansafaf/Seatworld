@@ -14,9 +14,8 @@ export const calculateItemRefundAmount = (order, item) => {
     if (!order.discountAmount || order.discountAmount === 0 || !order.subtotal) {
         return itemTotal;
     }
-
-   
-    const discountRatio = order.discountAmount / order.subtotal
+    
+    const discountRatio = order.discountAmount / order.subtotal;
     
     const refundAmount = itemTotal * (1 - discountRatio);
 

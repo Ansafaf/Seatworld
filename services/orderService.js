@@ -8,6 +8,7 @@ import logger from "../utils/logger.js";
 import crypto from "crypto";
 import * as walletService from "./walletService.js";
 import { calculateDerivedStatus } from "../utils/orderStatusHelper.js";
+import * as offerHelper from "../utils/offerHelper.js";
 
 export const getUserOrders = async (userId, page = 1, limit = 8, search = "") => {
     const skip = (page - 1) * limit;
@@ -214,7 +215,7 @@ export const handleItemAction = async ({ orderId, userId, itemId, action, return
             }
 
             const refundAmountForItem = walletService.calculateItemRefundAmount(order, item);
-            order.totalAmount = Math.max(0, order.totalAmount - refundAmountForItem);
+            // order.totalAmount = Math.max(0, order.totalAmount - refundAmountForItem);
 
 
             const activeItemsCount = await OrderItem.countDocuments({
@@ -222,11 +223,7 @@ export const handleItemAction = async ({ orderId, userId, itemId, action, return
                 _id: { $ne: item._id },
                 status: { $nin: ['cancelled', 'returned'] }
             });
-
-            if (activeItemsCount === 0) {
-                order.totalAmount = 0;
-            }
-
+            
         } else if (action === "return") {
             if (currentStatus !== "delivered") {
                 throw new Error(`Cannot request return for item with status: ${currentStatus}`);

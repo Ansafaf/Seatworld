@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import { paginate } from '../utils/paginationHelper.js';
 import { escapeRegExp } from '../utils/regexHelper.js';
+import Order from '../models/orderModel.js';
 
 dotenv.config();
 export const getLoginAdmin = (req, res) => {
@@ -38,18 +39,162 @@ export const postLoginAdmin = async (req, res) => {
 }
 
 export const getAdminDashboard = async (req, res) => {
+    try {
+        // Fetch real dashboard statistics
+        const [totalUsers, totalOrders, revenueStats] = await Promise.all([
+            User.countDocuments(),
+            Order.countDocuments({ paymentStatus: { $ne: 'failed' } }),
+            Order.aggregate([
+                { $match: { paymentStatus: { $ne: 'failed' } } },
+                {
+                    $group: {
+                        _id: null,
+                        totalRevenue: { $sum: "$totalAmount" }
+                    }
+                }
+            ])
+        ]);
 
-    let users = await User.find();
-    let admin = {
-        email: process.env.ADMIN_EMAIL,
+        const totalRevenue = revenueStats[0]?.totalRevenue || 0;
+
+        let admin = {
+            email: process.env.ADMIN_EMAIL,
+        }
+
+        res.render("admin/dashboard", { 
+            totalUsers, 
+            totalOrders, 
+            totalRevenue: totalRevenue.toFixed(2),
+            admin 
+        });
+    } catch (error) {
+        console.error("Dashboard Error:", error);
+        res.render("admin/dashboard", { 
+            totalUsers: 0, 
+            totalOrders: 0, 
+            totalRevenue: 0,
+            admin: { email: process.env.ADMIN_EMAIL } 
+        });
     }
-    res.render("admin/dashboard", { users, admin });
+}
+
+export const getRevenueData = async (req, res) => {
+    try {
+        const { period = 'daily' } = req.query;
+        const now = new Date();
+        let startDate, endDate;
+        let groupFormat = {};
+
+        switch (period) {
+            case 'daily':
+                // Last 7 days
+                startDate = new Date(now);
+                startDate.setDate(startDate.getDate() - 6);
+                startDate.setHours(0, 0, 0, 0);
+                endDate = new Date(now);
+                endDate.setHours(23, 59, 59, 999);
+                groupFormat = {
+                    year: { $year: "$createdAt" },
+                    month: { $month: "$createdAt" },
+                    day: { $dayOfMonth: "$createdAt" }
+                };
+                break;
+            case 'weekly':
+                // Last 4 weeks
+                startDate = new Date(now);
+                startDate.setDate(startDate.getDate() - 27);
+                startDate.setHours(0, 0, 0, 0);
+                endDate = new Date(now);
+                endDate.setHours(23, 59, 59, 999);
+                groupFormat = {
+                    year: { $year: "$createdAt" },
+                    week: { $week: "$createdAt" }
+                };
+                break;
+            case 'monthly':
+                // Last 12 months
+                startDate = new Date(now.getFullYear(), now.getMonth() - 11, 1);
+                startDate.setHours(0, 0, 0, 0);
+                endDate = new Date(now);
+                endDate.setHours(23, 59, 59, 999);
+                groupFormat = {
+                    year: { $year: "$createdAt" },
+                    month: { $month: "$createdAt" }
+                };
+                break;
+            case 'yearly':
+                // Last 5 years
+                startDate = new Date(now.getFullYear() - 4, 0, 1);
+                startDate.setHours(0, 0, 0, 0);
+                endDate = new Date(now);
+                endDate.setHours(23, 59, 59, 999);
+                groupFormat = {
+                    year: { $year: "$createdAt" }
+                };
+                break;
+            default:
+                startDate = new Date(now);
+                startDate.setDate(startDate.getDate() - 6);
+                startDate.setHours(0, 0, 0, 0);
+                endDate = new Date(now);
+                endDate.setHours(23, 59, 59, 999);
+                groupFormat = {
+                    year: { $year: "$createdAt" },
+                    month: { $month: "$createdAt" },
+                    day: { $dayOfMonth: "$createdAt" }
+                };
+        }
+
+        const revenueData = await Order.aggregate([
+            {
+                $match: {
+                    createdAt: { $gte: startDate, $lte: endDate },
+                    paymentStatus: { $ne: 'failed' }
+                }
+            },
+            {
+                $group: {
+                    _id: groupFormat,
+                    revenue: { $sum: "$totalAmount" }
+                }
+            },
+            {
+                $sort: { "_id": 1 }
+            }
+        ]);
+
+        // Format data for chart
+        const labels = [];
+        const data = [];
+
+        revenueData.forEach(item => {
+            let label = '';
+            if (period === 'daily') {
+                const date = new Date(item._id.year, item._id.month - 1, item._id.day);
+                label = date.toISOString().split('T')[0];
+            } else if (period === 'weekly') {
+                label = `Week ${item._id.week}, ${item._id.year}`;
+            } else if (period === 'monthly') {
+                const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                label = `${monthNames[item._id.month - 1]} ${item._id.year}`;
+            } else if (period === 'yearly') {
+                label = item._id.year.toString();
+            }
+            labels.push(label);
+            data.push(item.revenue);
+        });
+
+        res.json({ success: true, labels, data });
+    } catch (error) {
+        console.error("Revenue Data Error:", error);
+        res.status(500).json({ success: false, message: "Failed to fetch revenue data" });
+    }
 }
 
 export const getCustomerlist = async (req, res, next) => {
     try {
         const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 8;
+        const limit = parseInt(req.query.limit) || 7;
         const searchQuery = req.query.search || "";
 
         const query = {};

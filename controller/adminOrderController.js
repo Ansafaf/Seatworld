@@ -12,7 +12,7 @@ import { escapeRegExp } from "../utils/regexHelper.js";
 export const getOrderlist = async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 10;
+        const limit = parseInt(req.query.limit) || 7;
         const skip = (page - 1) * limit;
 
         const search = req.query.search || "";
@@ -193,7 +193,8 @@ export const getOrderDetails = async (req, res) => {
                 image: item.productImage || item.variantId?.images?.[0] || '',
                 label: item.variantLabel || item.variantId?.color || '',
                 total: item.purchasedPrice * item.productQuantity,
-                finalAmount: walletService.calculateItemRefundAmount(order, item)
+                // finalAmount: walletService.calculateItemRefundAmount(order, item)
+                finalAmount: order.totalAmount
             })),
             orderStatus: summaryStatus
         };
@@ -236,7 +237,6 @@ export const updateOrderStatus = async (req, res) => {
                     });
                 }
             }
-            order.totalAmount = 0;
         }
 
         await order.save();
@@ -254,7 +254,6 @@ export const updateOrderStatus = async (req, res) => {
                     newlyRefundedItemIds.push(item._id);
                 }
             }
-
             // If ALL items are now cancelled/returned, we refund everything left in the order (including shipping)
             const remainingActiveItems = items.filter(i => !['cancelled', 'returned'].includes(i.status));
             if (remainingActiveItems.length === 0) {
@@ -324,7 +323,7 @@ export const updateItemStatus = async (req, res) => {
 
         if (!wasInactive && isNowInactive) {
             const refundAmountForItem = walletService.calculateItemRefundAmount(order, item);
-            order.totalAmount = Math.max(0, order.totalAmount - refundAmountForItem);
+            const refundedAmount = refundAmountForItem;
 
             // Check if this is the last active item to also remove shipping fee from total
             const activeItemsCount = await OrderItem.countDocuments({
@@ -333,9 +332,7 @@ export const updateItemStatus = async (req, res) => {
                 status: { $nin: ['cancelled', 'returned'] }
             });
 
-            if (activeItemsCount === 0) {
-                order.totalAmount = 0;
-            }
+           
 
             await inventoryService.updateStock({
                 variantId: item.variantId,
@@ -452,9 +449,7 @@ export const approveItemAction = async (req, res) => {
         }
 
         if (action !== 'reject_return') {
-            // Apply financial and inventory updates
             const refundAmountForItem = walletService.calculateItemRefundAmount(order, item);
-            order.totalAmount = Math.max(0, order.totalAmount - refundAmountForItem);
 
             // Check if this is the last active item to also remove shipping fee from total
             const activeItemsCount = await OrderItem.countDocuments({
@@ -463,9 +458,6 @@ export const approveItemAction = async (req, res) => {
                 status: { $nin: ['cancelled', 'returned'] }
             });
 
-            if (activeItemsCount === 0) {
-                order.totalAmount = 0;
-            }
 
             await inventoryService.updateStock({
                 variantId: item.variantId,

@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="/js/admin/common.js"></script>
 </head>
 
@@ -25,42 +26,73 @@
                 <!-- Main Content -->
                 <main class="flex-1 p-8 overflow-y-auto bg-white/50">
                     <div class="max-w-7xl mx-auto">
-                        <h2 class="text-2xl font-bold text-gray-800 mb-8">Dashboard</h2>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-2">Dashboard Overview</h2>
+                        <p class="text-gray-500 mb-8">Welcome back, Admin!</p>
 
                         <!-- Stats Grid -->
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
                             <!-- Stat Card 1 -->
                             <div
                                 class="bg-white p-6 rounded-2xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.1)] border border-gray-100 hover:shadow-md transition-shadow">
-                                <div class="text-sm font-medium text-gray-500 mb-4">Total Sales</div>
-                                <div class="text-3xl font-bold text-gray-800 mb-2">$12,500</div>
-                                <div
-                                    class="flex items-center text-sm text-green-600 font-medium bg-green-50 w-fit px-2 py-1 rounded-full">
-                                    <span class="material-icons-outlined text-sm mr-1">trending_up</span>
-                                    +15%
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="text-sm font-medium text-gray-500">Total Users</div>
+                                    <div class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                                        <span class="material-icons-outlined text-blue-600">people</span>
+                                    </div>
                                 </div>
+                                <div class="text-3xl font-bold text-gray-800 mb-2"><%= totalUsers || 0 %></div>
                             </div>
                             <!-- Stat Card 2 -->
                             <div
                                 class="bg-white p-6 rounded-2xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.1)] border border-gray-100 hover:shadow-md transition-shadow">
-                                <div class="text-sm font-medium text-gray-500 mb-4">Orders</div>
-                                <div class="text-3xl font-bold text-gray-800 mb-2">350</div>
-                                <div
-                                    class="flex items-center text-sm text-green-600 font-medium bg-green-50 w-fit px-2 py-1 rounded-full">
-                                    <span class="material-icons-outlined text-sm mr-1">trending_up</span>
-                                    +10%
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="text-sm font-medium text-gray-500">Total Orders</div>
+                                    <div class="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center">
+                                        <span class="material-icons-outlined text-green-600">shopping_cart</span>
+                                    </div>
                                 </div>
+                                <div class="text-3xl font-bold text-gray-800 mb-2"><%= totalOrders || 0 %></div>
                             </div>
                             <!-- Stat Card 3 -->
                             <div
                                 class="bg-white p-6 rounded-2xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.1)] border border-gray-100 hover:shadow-md transition-shadow">
-                                <div class="text-sm font-medium text-gray-500 mb-4">New Customers</div>
-                                <div class="text-3xl font-bold text-gray-800 mb-2">75</div>
-                                <div
-                                    class="flex items-center text-sm text-green-600 font-medium bg-green-50 w-fit px-2 py-1 rounded-full">
-                                    <span class="material-icons-outlined text-sm mr-1">trending_up</span>
-                                    +20%
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="text-sm font-medium text-gray-500">Revenue</div>
+                                    <div class="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center">
+                                        <span class="material-icons-outlined text-purple-600">show_chart</span>
+                                    </div>
                                 </div>
+                                <div class="text-3xl font-bold text-gray-800 mb-2">₹<%= (totalRevenue || 0).toLocaleString('en-IN') %></div>
+                            </div>
+                        </div>
+
+                        <!-- Revenue Overview Graph -->
+                        <div class="bg-white p-6 rounded-2xl shadow-[0_2px_10px_-4px_rgba(0,0,0,0.1)] border border-gray-100 mb-12">
+                            <h3 class="text-xl font-bold text-gray-800 mb-6">Revenue Overview</h3>
+                            
+                            <!-- Period Filter Buttons -->
+                            <div class="flex gap-2 mb-6">
+                                <button onclick="loadRevenueData('daily')" id="filter-daily" 
+                                    class="px-4 py-2 rounded-full text-sm font-medium bg-indigo-600 text-white transition-all">
+                                    Daily
+                                </button>
+                                <button onclick="loadRevenueData('weekly')" id="filter-weekly"
+                                    class="px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all">
+                                    Weekly
+                                </button>
+                                <button onclick="loadRevenueData('monthly')" id="filter-monthly"
+                                    class="px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all">
+                                    Monthly
+                                </button>
+                                <button onclick="loadRevenueData('yearly')" id="filter-yearly"
+                                    class="px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all">
+                                    Yearly
+                                </button>
+                            </div>
+
+                            <!-- Chart Container -->
+                            <div class="relative h-80">
+                                <canvas id="revenueChart"></canvas>
                             </div>
                         </div>
 
@@ -132,6 +164,129 @@
         </main>
         </div>
 
+        <script>
+            let revenueChart = null;
+            let currentPeriod = 'daily';
+
+            // Initialize chart
+            function initChart(labels, data) {
+                const ctx = document.getElementById('revenueChart');
+                if (revenueChart) {
+                    revenueChart.destroy();
+                }
+
+                revenueChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Revenue',
+                            data: data,
+                            borderColor: 'rgb(79, 70, 229)',
+                            backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 4,
+                            pointHoverRadius: 6,
+                            pointBackgroundColor: 'rgb(79, 70, 229)',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                padding: 12,
+                                titleFont: {
+                                    size: 14,
+                                    weight: 'bold'
+                                },
+                                bodyFont: {
+                                    size: 13
+                                },
+                                callbacks: {
+                                    label: function(context) {
+                                        return '₹' + context.parsed.y.toLocaleString('en-IN');
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.05)',
+                                    drawBorder: false
+                                },
+                                ticks: {
+                                    callback: function(value) {
+                                        return '₹' + value.toLocaleString('en-IN');
+                                    },
+                                    color: '#6B7280',
+                                    font: {
+                                        size: 11
+                                    }
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false,
+                                    drawBorder: false
+                                },
+                                ticks: {
+                                    color: '#6B7280',
+                                    font: {
+                                        size: 11
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Load revenue data
+            async function loadRevenueData(period = 'daily') {
+                currentPeriod = period;
+                
+                // Update button styles
+                document.querySelectorAll('[id^="filter-"]').forEach(btn => {
+                    btn.classList.remove('bg-indigo-600', 'text-white');
+                    btn.classList.add('bg-gray-100', 'text-gray-700');
+                });
+                
+                const activeBtn = document.getElementById(`filter-${period}`);
+                if (activeBtn) {
+                    activeBtn.classList.remove('bg-gray-100', 'text-gray-700');
+                    activeBtn.classList.add('bg-indigo-600', 'text-white');
+                }
+
+                try {
+                    const response = await fetch(`/admin/dashboard/revenue?period=${period}`);
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        initChart(result.labels, result.data);
+                    } else {
+                        console.error('Failed to load revenue data');
+                    }
+                } catch (error) {
+                    console.error('Error loading revenue data:', error);
+                }
+            }
+
+            // Load initial data
+            document.addEventListener('DOMContentLoaded', function() {
+                loadRevenueData('daily');
+            });
+        </script>
 
 </body>
 

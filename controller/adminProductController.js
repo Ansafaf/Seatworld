@@ -8,7 +8,7 @@ import { escapeRegExp } from '../utils/regexHelper.js';
 export const productList = async (req, res, next) => {
   try {
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 8;
+    const limit = parseInt(req.query.limit) || 7;
     const searchQuery = req.query.search || "";
 
     const query = {};
