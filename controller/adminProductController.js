@@ -81,6 +81,7 @@ export const postAddProduct = async (req, res, next) => {
       name: { $regex: new RegExp(`^${escapeRegExp(productName)}$`, 'i') }
     });
 
+
     if (existingProduct) {
       return res.status(400).json({ success: false, message: 'Product with this name already exists' });
     }
@@ -105,8 +106,21 @@ export const postAddProduct = async (req, res, next) => {
       price: prices[index] || Baseprice,
       imageIndex: variantIndices[index]
     }));
+    const files = req.files || [];
+    
+    // Validate that each variant has at least 3 images
+    for(let i = 0; i < variantIndices.length; i++){
+      const imageField = `images_${variantIndices[i]}`;
+      const vFiles = files.filter((f) => f.fieldname === imageField);
+      if(vFiles.length < 3){
+        return res.status(400).json({
+          success: false, 
+          message: `Variant "${colors[i]}" must have at least 3 images. Currently has ${vFiles.length} image(s). Please upload ${3 - vFiles.length} more image(s).`
+        });
+      }
+    }
 
-    await productService.addProductWithVariants(productData, variantsData, req.files || []);
+    await productService.addProductWithVariants(productData, variantsData, files);
 
     res.status(200).json({ success: true, message: 'Product added Successfully', redirectUrl: "/admin/products" });
   } catch (error) {
@@ -132,7 +146,7 @@ export const postEditProduct = async (req, res, next) => {
     const { id } = req.params;
     logger.info(`[postEditProduct] Request received for Product ID: ${id}`);
 
-    // Log body keys to debug data
+    //Log body keys to debug data
     logger.info(`[postEditProduct] Body keys: ${Object.keys(req.body).join(', ')}`);
     const productName = req.body.productName;
     const Baseprice = req.body.Baseprice;
@@ -159,7 +173,7 @@ export const postEditProduct = async (req, res, next) => {
     const prices = variantPrice ? (Array.isArray(variantPrice) ? variantPrice : [variantPrice]) : [];
     const stocks = variantStock ? (Array.isArray(variantStock) ? variantStock : [variantStock]) : [];
 
-    // Normalized variant indices
+    //Normalize variant indices
     let vIndices = req.body.variantIndices || req.body['variantIndices[]'];
     const variantIndices = Array.isArray(vIndices) ? vIndices : (vIndices ? [vIndices] : []);
 
@@ -182,7 +196,7 @@ export const postEditProduct = async (req, res, next) => {
       }
 
       const existingImagesJson = req.body[`existingImages_${currentIndex}`];
-      let finalImages = existingImagesJson ? JSON.parse(existingImagesJson) : [];
+      var finalImages = existingImagesJson ? JSON.parse(existingImagesJson) : [];
 
       const imageField = `images_${currentIndex}`;
       const vFiles = files.filter((f) => f.fieldname === imageField);
@@ -206,6 +220,13 @@ export const postEditProduct = async (req, res, next) => {
         finalImages = [...finalImages, ...newImages];
       }
 
+      if (finalImages.length < 3) {
+        return res.status(400).json({
+          success: false,
+          message: `Variant "${colors[i]}" must have at least 3 images. Currently has ${finalImages.length} image(s). Please add ${3 - finalImages.length} more image(s).`
+        });
+      }
+
       processedVariants.push({
         id: currentVariantId,
         data: {
@@ -227,7 +248,7 @@ export const postEditProduct = async (req, res, next) => {
       .map(v => v._id);
 
     logger.info(`[postEditProduct] Updating database. Deleted variants: ${deletedVariantIds.length}`);
-
+    
     await productService.updateProductWithVariants(id, productData, processedVariants, deletedVariantIds);
 
     logger.info(`[postEditProduct] Success.`);

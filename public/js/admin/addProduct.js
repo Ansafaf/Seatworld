@@ -21,6 +21,8 @@ window.handleImageSelect = (event, index) => {
 
 window.renderPreviews = (index) => {
   const container = document.getElementById(`preview_${index}`);
+  if (!container) return;
+  
   container.innerHTML = '';
 
   currentFiles[index].forEach((fileObj, i) => {
@@ -35,6 +37,49 @@ window.renderPreviews = (index) => {
   });
 
   updateInputFiles(index);
+  updateImageCountDisplay(index);
+}
+
+// Function to update image count display for each variant
+function updateImageCountDisplay(index) {
+    const totalCount = getTotalImageCount(index);
+    const minRequired = 3;
+    const remaining = Math.max(0, minRequired - totalCount);
+    
+    // Find or create count display element
+    let countElement = document.getElementById(`imageCount_${index}`);
+    if (!countElement) {
+        // Find the variant row and add count display after the image preview container
+        const variantRow = document.querySelector(`input[name="variantIndices[]"][value="${index}"]`)?.closest('.variant-row');
+        if (variantRow) {
+            const imageDiv = variantRow.querySelector('div:has(input[name="images_"])') || 
+                           variantRow.querySelector('div').lastElementChild;
+            if (imageDiv) {
+                countElement = document.createElement('div');
+                countElement.id = `imageCount_${index}`;
+                countElement.className = 'mt-2 text-xs font-medium';
+                imageDiv.appendChild(countElement);
+            }
+        }
+    }
+    
+    if (countElement) {
+        if (totalCount >= minRequired) {
+            countElement.innerHTML = `
+                <span class="text-green-600 font-semibold">
+                    ✓ ${totalCount} images (Requirement met)
+                </span>
+            `;
+            countElement.className = 'mt-2 text-xs font-medium text-green-600';
+        } else {
+            countElement.innerHTML = `
+                <span class="text-red-600 font-semibold">
+                    ⚠ ${totalCount} / ${minRequired} images (${remaining} more required)
+                </span>
+            `;
+            countElement.className = 'mt-2 text-xs font-medium text-red-600';
+        }
+    }
 }
 
 window.removeImage = (index, fileIndex) => {
@@ -96,6 +141,11 @@ function updateInputFiles(index) {
   input.files = dataTransfer.files;
 }
 
+// Helper function to get total image count for a variant
+function getTotalImageCount(index) {
+    return currentFiles[index] ? currentFiles[index].length : 0;
+}
+
 // Submit validation
 const addProductForm = document.getElementById('addProductForm');
 if (addProductForm) {
@@ -104,6 +154,44 @@ if (addProductForm) {
 
     const submitBtn = this.querySelector('button[type="submit"]');
     if (submitBtn.disabled) return;
+
+    // Validate image counts before submission
+    const variantIndices = Array.from(document.querySelectorAll('input[name="variantIndices[]"]'))
+        .map(input => input.value);
+    
+    const invalidVariants = [];
+    for (const index of variantIndices) {
+        const totalCount = getTotalImageCount(index);
+        if (totalCount < 3) {
+            const colorInput = document.querySelector(`input[name="variantIndices[]"][value="${index}"]`)
+                .closest('.variant-row')
+                .querySelector('input[name="color[]"]');
+            const colorName = colorInput ? colorInput.value : `Variant ${index}`;
+            invalidVariants.push({
+                index,
+                color: colorName || `Variant ${index}`,
+                count: totalCount,
+                needed: 3 - totalCount
+            });
+        }
+    }
+
+    if (invalidVariants.length > 0) {
+        const variantList = invalidVariants.map(v => 
+            `• ${v.color}: ${v.count} image(s) (need ${v.needed} more)`
+        ).join('\n');
+        
+        Swal.fire({
+            icon: 'error',
+            title: 'Insufficient Images',
+            html: `<div style="text-align: left;">
+                <p style="margin-bottom: 10px;">Each variant must have at least 3 images:</p>
+                <pre style="background: #f3f4f6; padding: 10px; border-radius: 5px; font-size: 12px;">${variantList}</pre>
+            </div>`,
+            confirmButtonText: 'OK'
+        });
+        return;
+    }
 
     // Show loading state
     submitBtn.disabled = true;

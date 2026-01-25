@@ -32,6 +32,7 @@ export const addProductWithVariants = async (productData, variantsData, files) =
     const savedProduct = await product.save();
 
     const variantsToInsert = await Promise.all(variantsData.map(async (variant, index) => {
+
         const imageField = `images_${variant.imageIndex !== undefined ? variant.imageIndex : index}`;
         const variantFiles = files.filter((f) => f.fieldname === imageField);
 
@@ -48,15 +49,16 @@ export const addProductWithVariants = async (productData, variantsData, files) =
                 uploadStream.end(processedBuffer);
             });
         }));
-
+        
         return {
             ...variant,
             productId: savedProduct._id,
             images: imageUrls,
             status: (variant.stock && variant.stock > 0) ? "Active" : "OutofStock",
         };
+        
     }));
-
+   
     if (variantsToInsert.length > 0) {
         await ProductVariant.insertMany(variantsToInsert);
     }
