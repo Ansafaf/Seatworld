@@ -7,6 +7,7 @@ import Cart from "../models/cartModel.js";
 import * as cartService from "../services/cartService.js";
 import * as inventoryService from "../services/inventoryService.js";
 import Coupon from "../models/couponModel.js";
+import { status_Codes } from "../enums/statusCodes.js";
 
 export const getCheckoutAddress = async (req, res) => {
     if (!req.session.user) return res.redirect("/login");
@@ -78,7 +79,7 @@ export const postAddress = async (req, res) => {
                     addressId: existingAddress._id,
                     step: 'payment'
                 };
-                return res.status(200).json({
+                return res.status(status_Codes.OK).json({
                     success: true,
                     redirectUrl: "/checkout/payment-options"
                 });
@@ -87,7 +88,7 @@ export const postAddress = async (req, res) => {
 
         // 2. Validate new address data
         if (!addressData) {
-            return res.status(400).json({ success: false, message: "Valid address is required" });
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Valid address is required" });
         }
 
         // Text field validation (allowing letters, numbers, spaces, and basic punctuation)
@@ -97,10 +98,10 @@ export const postAddress = async (req, res) => {
         for (const field of textFields) {
             const value = addressData[field];
             if (!value) {
-                return res.status(400).json({ success: false, message: `Missing required field: ${field}` });
+                return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: `Missing required field: ${field}` });
             }
             if (!textRegex.test(value)) {
-                return res.status(400).json({
+                return res.status(status_Codes.BAD_REQUEST).json({
                     success: false,
                     message: `The ${field} field contains invalid characters.`
                 });
@@ -109,10 +110,10 @@ export const postAddress = async (req, res) => {
 
         // Pincode and Mobile validation
         if (!/^\d{6}$/.test(addressData.pincode)) {
-            return res.status(400).json({ success: false, message: "Pincode must be exactly 6 digits" });
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Pincode must be exactly 6 digits" });
         }
         if (!/^\d{10}$/.test(addressData.mobile)) {
-            return res.status(400).json({ success: false, message: "Mobile number must be exactly 10 digits" });
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Mobile number must be exactly 10 digits" });
         }
 
         // 3. Check for existing identical address to prevent duplication
@@ -158,14 +159,14 @@ export const postAddress = async (req, res) => {
             };
         }
 
-        return res.status(200).json({
+        return res.status(status_Codes.OK).json({
             success: true,
             redirectUrl: "/checkout/payment-options"
         });
 
     } catch (error) {
         logger.error("Post Address Error:", error);
-        return res.status(500).json({ success: false, message: "Failed to process address" });
+        return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Failed to process address" });
     }
 }
 
@@ -215,25 +216,25 @@ export const applyCoupon = async (req, res) => {
         // Fetch coupon
         const coupon = await Coupon.findOne({ _id: couponId, couponStatus: 'active' });
         if (!coupon) {
-            return res.status(404).json({ success: false, message: "Coupon not found or inactive" });
+            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: "Coupon not found or inactive" });
         }
         // Validate expiry
         if (new Date() > coupon.expiryDate) {
-            return res.status(400).json({ success: false, message: "Coupon has expired" });
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Coupon has expired" });
         }
 
         // Validate usage limit
         const alreadyUsed = await Order.exists({ userId, couponId: coupon._id });
         if (alreadyUsed) {
-            return res.status(400).json({ success: false, message: "Coupon already used" });
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Coupon already used" });
         }
 
 
         const currentTotals = await cartService.calculateCartTotals(userId);
-        // Note: currentTotals.rawTotal is the amount before discount.
+        //bf discount
 
         if (currentTotals.rawTotal < coupon.minAmount) {
-            return res.status(400).json({
+            return res.status(status_Codes.BAD_REQUEST).json({
                 success: false,
                 message: `Minimum purchase amount of ₹${coupon.minAmount} required`
             });
@@ -257,7 +258,7 @@ export const applyCoupon = async (req, res) => {
 
     } catch (error) {
         logger.error("Apply Coupon Error:", error);
-        return res.status(500).json({ success: false, message: "Failed to apply coupon" });
+        return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Failed to apply coupon" });
     }
 }
 
@@ -285,6 +286,6 @@ export const removeCoupon = async (req, res) => {
 
     } catch (error) {
         logger.error("Remove Coupon Error:", error);
-        return res.status(500).json({ success: false, message: "Failed to remove coupon" });
+        return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Failed to remove coupon" });
     }
 }

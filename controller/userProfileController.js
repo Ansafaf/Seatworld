@@ -9,6 +9,7 @@ import validator from "validator";
 import { buildBreadcrumb } from "../utils/breadcrumb.js";
 import Coupon from "../models/couponModel.js";
 import { createReferralForUser } from "../services/referralService.js";
+import { status_Codes } from "../enums/statusCodes.js";
 
 
 export async function getProfile(req, res) {
@@ -35,7 +36,7 @@ export async function getProfile(req, res) {
   } catch (error) {
     console.error("Get Profile Error:", error);
     logger.error("Get Profile Error:", error);
-    res.status(500).render("500", { message: "Internal Server Error" });
+    res.status(status_Codes.INTERNAL_SERVER_ERROR).render("500", { message: "Internal Server Error" });
   }
 }
 
@@ -56,7 +57,7 @@ export async function postprofileEdit(req, res) {
     // Use req.user which is populated by authMiddleware
     const customer = req.user;
     if (!customer) {
-      return res.status(401).json({
+      return res.status(status_Codes.UNAUTHORIZED).json({
         success: false,
         message: "Unauthorized. Please login again.",
         redirectUrl: "/login"
@@ -69,7 +70,7 @@ export async function postprofileEdit(req, res) {
     // Name validation - must be 3-50 chars, contain only letters/spaces/dots, AND must have letters
     const nameRegex = /^[a-zA-Z\s.]{3,50}$/;
     if (!nameRegex.test(trimmedName) || !/[a-zA-Z]/.test(trimmedName)) {
-      return res.status(400).json({
+      return res.status(status_Codes.BAD_REQUEST).json({
         success: false,
         message: "Name must be 3-50 characters and contain letters"
       });
@@ -77,7 +78,7 @@ export async function postprofileEdit(req, res) {
 
     // Mobile validation - exactly 10 digits
     if (trimmedMobile && !/^\d{10}$/.test(trimmedMobile)) {
-      return res.status(400).json({
+      return res.status(status_Codes.BAD_REQUEST).json({
         success: false,
         message: "Mobile number must be exactly 10 digits"
       });
@@ -89,7 +90,7 @@ export async function postprofileEdit(req, res) {
       currentName === trimmedName &&
       (customer.mobile || "") === (trimmedMobile || "")
     ) {
-      return res.status(200).json({
+      return res.status(status_Codes.OK).json({
         success: false,
         message: "You did not change anything",
         noChange: true
@@ -100,7 +101,7 @@ export async function postprofileEdit(req, res) {
     if (trimmedMobile && trimmedMobile !== customer.mobile) {
       const existingMobile = await User.findOne({ mobile: trimmedMobile, _id: { $ne: customer._id } });
       if (existingMobile) {
-        return res.status(400).json({
+        return res.status(status_Codes.BAD_REQUEST).json({
           success: false,
           message: "Mobile number already in use by another account"
         });
@@ -117,15 +118,15 @@ export async function postprofileEdit(req, res) {
       req.session.user.name = name;
     }
 
-    return res.status(200).json({
+    return res.status(status_Codes.OK).json({
       success: true,
-      message: "Successfully updated profile info",
-      redirectUrl: "/profile"
+      message: "Profile picture updated successfully",
+      avatarUrl: imageUrl
     });
 
   } catch (error) {
     console.error("Profile Edit Error:", error);
-    return res.status(500).json({
+    return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: error.message || "Something went wrong while updating profile"
     });
@@ -135,7 +136,7 @@ export async function postprofileEdit(req, res) {
 export async function updateProfile(req, res) {
   try {
     if (!req.file) {
-      return res.status(400).json({
+      return res.status(status_Codes.BAD_REQUEST).json({
         success: false,
         message: "File not uploaded"
       });
@@ -163,14 +164,14 @@ export async function updateProfile(req, res) {
       req.session.user.avatar = imageUrl;
     }
 
-    return res.status(200).json({
+    return res.status(status_Codes.OK).json({
       success: true,
       message: "Profile picture updated successfully",
       avatarUrl: imageUrl
     });
   } catch (err) {
     console.error("Profile picture update error:", err);
-    return res.status(500).json({
+    return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: "Failed to update profile picture"
     });
@@ -217,21 +218,8 @@ export async function postEmailchange(req, res) {
   try {
     let user = await User.findById(req.session.user.id);
     const { newEmail, confirmEmail } = req.body;
-    if (user.email == newEmail) {
-      return res.status(400).json({
-        success: false,
-        message: "Your current email id and new email id are same"
-      });
-    }
-    if (newEmail !== confirmEmail) {
-      return res.status(400).json({
-        success: false,
-        message: "Your email not matching"
-      });
-    }
-    const isAvailable = await User.findOne({ email: newEmail });
     if (isAvailable) {
-      return res.status(400).json({
+      return res.status(status_Codes.BAD_REQUEST).json({
         success: false,
         message: "Entered email id is already exist"
       });
@@ -259,7 +247,7 @@ export async function postEmailchange(req, res) {
       });
     } catch (mailError) {
       console.error(mailError);
-      return res.status(500).json({
+      return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
         success: false,
         message: "Internal Server cant generate mail right now"
       });
@@ -271,7 +259,7 @@ export async function postEmailchange(req, res) {
     user.resendExpires = resendExpires;
     await user.save();
 
-    return res.status(200).json({
+    return res.status(status_Codes.OK).json({
       success: true,
       message: "Otp has been sent successfully",
       redirectUrl: "/email/change-otp"
@@ -279,7 +267,7 @@ export async function postEmailchange(req, res) {
   }
   catch (err) {
     console.error(err);
-    return res.status(500).json({
+    return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: "Something went wrong"
     });
@@ -337,7 +325,7 @@ export async function postEmailOtp(req, res) {
     const { otp1, otp2, otp3, otp4 } = req.body;
 
     if (!req.session.user || !req.session.user.id) {
-      return res.status(401).json({
+      return res.status(status_Codes.UNAUTHORIZED).json({
         success: false,
         message: "Please login first",
         redirectUrl: "/login"
@@ -346,61 +334,8 @@ export async function postEmailOtp(req, res) {
 
     const user = await User.findById(req.session.user.id);
 
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: "User not found",
-        redirectUrl: "/login"
-      });
-    }
-
-    if (!otp1 || !otp2 || !otp3 || !otp4) {
-      return res.status(400).json({
-        success: false,
-        message: "Please enter all 4 digits of the OTP."
-      });
-    }
-
-    const otp = `${otp1}${otp2}${otp3}${otp4}`;
-
-    if (!otp || otp.length !== 4 || !/^\d{4}$/.test(otp)) {
-      return res.status(400).json({
-        success: false,
-        message: "Please enter a valid 4-digit numeric OTP."
-      });
-    }
-
-    if (!user.emailChangeOtp || !user.emailChangeOtpExpiry) {
-      return res.status(400).json({
-        success: false,
-        message: "No OTP found. Please request a new OTP."
-      });
-    }
-
-    const now = Date.now();
-    const expiryTime = new Date(user.emailChangeOtpExpiry).getTime();
-
-    if (now > expiryTime) {
-      user.emailChangeOtp = null;
-      user.emailChangeOtpExpiry = null;
-      await user.save();
-
-      return res.status(400).json({
-        success: false,
-        message: "OTP has expired. Please request a new OTP."
-      });
-    }
-
-
-    if (user.emailChangeOtp !== otp) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid OTP. Please try again."
-      });
-    }
-
     if (!user.tempEmail) {
-      return res.status(400).json({
+      return res.status(status_Codes.BAD_REQUEST).json({
         success: false,
         message: "Email change request not found. Please start over."
       });
@@ -415,7 +350,7 @@ export async function postEmailOtp(req, res) {
 
     await user.save();
 
-    return res.status(200).json({
+    return res.status(status_Codes.OK).json({
       success: true,
       message: "Email updated successfully",
       redirectUrl: "/profile/edit"
@@ -423,7 +358,7 @@ export async function postEmailOtp(req, res) {
 
   } catch (error) {
     console.error("Email OTP verification error:", error);
-    return res.status(500).json({
+    return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: "An error occurred. Please try again."
     });
@@ -475,14 +410,14 @@ export async function postDefaultAddres(req, res) {
       $set: { isDefault: true }
     });
 
-    return res.status(200).json({
+    return res.status(status_Codes.OK).json({
       success: true,
       message: "Default address updated successfully",
       redirectUrl: "/address"
     });
   } catch (error) {
     console.error("Set default address error:", error);
-    return res.status(500).json({
+    return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: "Failed to set default address"
     });
@@ -509,7 +444,7 @@ export async function postAddaddress(req, res) {
     // Address Limit Check
     const count = await Address.countDocuments({ userId: id });
     if (count >= 5) {
-      return res.status(400).json({ success: false, message: "You cannot add more than 5 addresses" });
+      return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "You cannot add more than 5 addresses" });
     }
 
     const trimmedData = {
@@ -526,7 +461,7 @@ export async function postAddaddress(req, res) {
     // 1. Basic empty checks
     for (const [key, value] of Object.entries(trimmedData)) {
       if (!value && key !== 'housename') { // housename might be optional in some contexts, but most are required
-        return res.status(400).json({ success: false, message: `${key.charAt(0).toUpperCase() + key.slice(1)} is required.` });
+        return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: `${key.charAt(0).toUpperCase() + key.slice(1)} is required.` });
       }
     }
 
@@ -540,26 +475,26 @@ export async function postAddaddress(req, res) {
     const hasAlphanumeric = (str) => /[a-zA-Z0-9]/.test(str);
 
     if (!nameRegex.test(trimmedData.name) || !hasLetters(trimmedData.name)) {
-      return res.status(400).json({ success: false, message: "Name must be 3-50 characters and contain letters" });
+      return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Name must be 3-50 characters and contain letters" });
     }
 
     if (trimmedData.housename && (!alphaNumericRegex.test(trimmedData.housename) || !hasAlphanumeric(trimmedData.housename))) {
-      return res.status(400).json({ success: false, message: "House name is invalid or contains only punctuation" });
+      return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "House name is invalid or contains only punctuation" });
     }
 
     const simpleFields = ['street', 'city', 'state', 'country'];
     for (const field of simpleFields) {
       if (!generalTextRegex.test(trimmedData[field]) || !hasLetters(trimmedData[field])) {
-        return res.status(400).json({ success: false, message: `${field.charAt(0).toUpperCase() + field.slice(1)} is invalid or contains only punctuation` });
+        return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: `${field.charAt(0).toUpperCase() + field.slice(1)} is invalid or contains only punctuation` });
       }
     }
 
     // 3. Pincode and Mobile
     if (!/^\d{6}$/.test(trimmedData.pincode)) {
-      return res.status(400).json({ success: false, message: "Pincode must be exactly 6 digits" });
+      return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Pincode must be exactly 6 digits" });
     }
     if (!/^\d{10}$/.test(trimmedData.mobile)) {
-      return res.status(400).json({ success: false, message: "Mobile number must be exactly 10 digits" });
+      return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Mobile number must be exactly 10 digits" });
     }
 
     const address = new Address({
@@ -567,7 +502,7 @@ export async function postAddaddress(req, res) {
       ...trimmedData
     });
     await address.save();
-    return res.status(200).json({
+    return res.status(status_Codes.OK).json({
       success: true,
       message: "New Address added successfully",
       redirectUrl: "/address"
@@ -575,7 +510,7 @@ export async function postAddaddress(req, res) {
   }
   catch (err) {
     console.error("Error in address adding", err);
-    return res.status(500).json({
+    return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: "Something went wrong while adding address"
     });
@@ -643,25 +578,25 @@ export async function postEditAddress(req, res) {
     const hasAlphanumeric = (str) => /[a-zA-Z0-9]/.test(str);
 
     if (!nameRegex.test(trimmedData.name) || !hasLetters(trimmedData.name)) {
-      return res.status(400).json({ success: false, message: "Name must be 3-50 characters and contain letters" });
+      return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Name must be 3-50 characters and contain letters" });
     }
 
     if (trimmedData.housename && (!alphaNumericRegex.test(trimmedData.housename) || !hasAlphanumeric(trimmedData.housename))) {
-      return res.status(400).json({ success: false, message: "House name is invalid or contains only punctuation" });
+      return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "House name is invalid or contains only punctuation" });
     }
 
     const simpleFields = ['street', 'city', 'state', 'country'];
     for (const field of simpleFields) {
       if (!generalTextRegex.test(trimmedData[field]) || !hasLetters(trimmedData[field])) {
-        return res.status(400).json({ success: false, message: `${field.charAt(0).toUpperCase() + field.slice(1)} is invalid or contains only punctuation` });
+        return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: `${field.charAt(0).toUpperCase() + field.slice(1)} is invalid or contains only punctuation` });
       }
     }
 
     if (!/^\d{6}$/.test(trimmedData.pincode)) {
-      return res.status(400).json({ success: false, message: "Pincode must be exactly 6 digits" });
+      return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Pincode must be exactly 6 digits" });
     }
     if (!/^\d{10}$/.test(trimmedData.mobile)) {
-      return res.status(400).json({ success: false, message: "Mobile number must be exactly 10 digits" });
+      return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Mobile number must be exactly 10 digits" });
     }
 
     const updated = await Address.findOneAndUpdate(
@@ -671,7 +606,7 @@ export async function postEditAddress(req, res) {
     );
 
     if (!updated) {
-      return res.status(404).json({
+      return res.status(status_Codes.NOT_FOUND).json({
         success: false,
         message: "Address not found or unauthorized"
       });
@@ -682,14 +617,14 @@ export async function postEditAddress(req, res) {
       redirectUrl = "/checkout";
     }
 
-    return res.status(200).json({
+    return res.status(status_Codes.OK).json({
       success: true,
       message: "Address edited successfully",
       redirectUrl: redirectUrl
     });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({
+    return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: "Error editing address"
     });
@@ -702,22 +637,8 @@ export async function deleteAddress(req, res) {
     const userId = req.session.user.id;
     const address = await Address.findOne({ _id: addressId, userId: userId })
 
-    if (!address) {
-      return res.status(404).json({
-        success: false,
-        message: "Address not found"
-      });
-    }
-    // Count total addresses
-    const addressCount = await Address.countDocuments({ userId });
-    if (addressCount === 1) {
-      return res.status(400).json({
-        success: false,
-        message: "You must have at least one address"
-      });
-    }
     if (address.isDefault) {
-      return res.status(400).json({
+      return res.status(status_Codes.BAD_REQUEST).json({
         success: false,
         message: "Default address cannot be deleted"
       });
@@ -725,14 +646,14 @@ export async function deleteAddress(req, res) {
 
     await Address.deleteOne({ _id: addressId, userId });
 
-    return res.status(200).json({
+    return res.status(status_Codes.OK).json({
       success: true,
       message: "Address deleted successfully",
       redirectUrl: "/address"
     });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({
+    return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: "Failed to delete address"
     });
@@ -769,7 +690,7 @@ export async function postupdatePass(req, res) {
 
     // Check if all fields are provided
     if (!currentPass || !newPass || !confirmPass) {
-      return res.status(400).json({
+      return res.status(status_Codes.BAD_REQUEST).json({
         success: false,
         message: "All fields are required"
       });
@@ -777,7 +698,7 @@ export async function postupdatePass(req, res) {
 
     // Validate new password length
     if (newPass.length < 8) {
-      return res.status(400).json({
+      return res.status(status_Codes.BAD_REQUEST).json({
         success: false,
         message: "New password must be at least 8 characters"
       });
@@ -785,7 +706,7 @@ export async function postupdatePass(req, res) {
 
     // Check if new password and confirm password match
     if (newPass !== confirmPass) {
-      return res.status(400).json({
+      return res.status(status_Codes.BAD_REQUEST).json({
         success: false,
         message: "Passwords do not match"
       });
@@ -793,7 +714,7 @@ export async function postupdatePass(req, res) {
 
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(404).json({
+      return res.status(status_Codes.NOT_FOUND).json({
         success: false,
         message: "User not found",
         redirectUrl: "/login"
@@ -802,16 +723,15 @@ export async function postupdatePass(req, res) {
 
     // Check if user is a Google user (can't change password)
     if (user.authType === "google") {
-      return res.status(403).json({
+      return res.status(status_Codes.FORBIDDEN).json({
         success: false,
         message: "You cannot change password for Google Sign-In accounts"
       });
     }
 
-    //CORRECT: Use bcrypt.compare() to verify current password
     const isCurrentPasswordCorrect = await bcrypt.compare(currentPass, user.password);
     if (!isCurrentPasswordCorrect) {
-      return res.status(401).json({
+      return res.status(status_Codes.UNAUTHORIZED).json({
         success: false,
         message: "Current password is incorrect"
       });
@@ -820,22 +740,18 @@ export async function postupdatePass(req, res) {
     // Check if new password is same as current password
     const isSameAsOldPassword = await bcrypt.compare(newPass, user.password);
     if (isSameAsOldPassword) {
-      return res.status(400).json({
+      return res.status(status_Codes.BAD_REQUEST).json({
         success: false,
         message: "New password cannot be the same as your current password"
       });
     }
 
-    // Hash the new password
     const hashedPassword = await bcrypt.hash(newPass, 10);
 
-    // Update user password
     user.password = hashedPassword;
     await user.save();
 
-    // Optional: Log password change activity
-
-    return res.status(200).json({
+    return res.status(status_Codes.OK).json({
       success: true,
       message: "Password updated successfully",
       redirectUrl: "/profile"
@@ -843,7 +759,7 @@ export async function postupdatePass(req, res) {
 
   } catch (error) {
     console.error("Error updating password:", error);
-    return res.status(500).json({
+    return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: "Something went wrong. Please try again"
     });

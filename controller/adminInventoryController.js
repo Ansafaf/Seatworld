@@ -1,3 +1,4 @@
+import { status_Codes } from "../enums/statusCodes.js";
 import { Product, ProductVariant } from "../models/productModel.js";
 import StockHistory from "../models/stockHistoryModel.js";
 import * as inventoryService from "../services/inventoryService.js";
@@ -67,7 +68,7 @@ export const getInventoryList = async (req, res) => {
         });
     } catch (error) {
         logger.error(`Error fetching inventory list: ${error.message}`);
-        res.status(500).render("500", { message: "Internal Server Error" });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).render("500", { message: "Internal Server Error" });
     }
 };
 
@@ -97,7 +98,7 @@ export const updateStockManually = async (req, res) => {
         });
     } catch (error) {
         logger.error(`Error manual stock update: ${error.message}`);
-        res.status(400).json({ success: false, message: error.message });
+        res.status(status_Codes.BAD_REQUEST).json({ success: false, message: error.message });
     }
 };
 
@@ -111,6 +112,6 @@ export const getStockHistory = async (req, res) => {
 
         res.json({ success: true, history });
     } catch (error) {
-        res.status(500).json({ success: false, message: "Error fetching history" });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Error fetching history" });
     }
 };

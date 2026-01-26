@@ -13,6 +13,7 @@ import Wallet from "../models/walletModel.js";
 import { loggers } from "winston";
 import { createReferralForUser } from "../services/referralService.js";
 import { generateReferralCode } from "../utils/generateReferral.js";
+import { status_Codes } from "../enums/statusCodes.js";
 
 
 // Landing Page 
@@ -57,21 +58,21 @@ export async function postLogin(req, res) {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(401).json({
+      return res.status(status_Codes.UNAUTHORIZED).json({
         success: false,
         message: "Invalid email or password"
       });
     }
 
     if (user.authType === "google") {
-      return res.status(403).json({
+      return res.status(status_Codes.FORBIDDEN).json({
         success: false,
         message: "This email is linked to a Google account. Please use Google Login."
       });
     }
 
     if (user.status == "blocked") {
-      return res.status(403).json({
+      return res.status(status_Codes.FORBIDDEN).json({
         success: false,
         message: "This account has been blocked by admin"
       });
@@ -84,20 +85,20 @@ export async function postLogin(req, res) {
         email: user.email,
         avatar: user.avatar
       };
-      return res.status(200).json({
+      return res.status(status_Codes.OK).json({
         success: true,
         message: "Login successful",
         redirectUrl: "/home"
       });
     } else {
-      return res.status(401).json({
+      return res.status(status_Codes.UNAUTHORIZED).json({
         success: false,
         message: "Invalid email or password"
       });
     }
   } catch (err) {
     console.error(err);
-    return res.status(500).json({
+    return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: "Something went wrong"
     });
@@ -118,7 +119,7 @@ export async function postSignup(req, res) {
   referralCode = referralCode?.trim();
 
   if (!username || !email || !password || !confirmPassword) {
-    return res.status(400).json({
+    return res.status(status_Codes.BAD_REQUEST).json({
       success: false,
       message: "All fields are required and cannot be empty"
     });
@@ -127,25 +128,25 @@ export async function postSignup(req, res) {
   // Username validation
   const usernameRegex = /^[a-zA-Z0-9_ ]{3,20}$/;
   if (!usernameRegex.test(username)) {
-    return res.status(400).json({
+    return res.status(status_Codes.BAD_REQUEST).json({
       success: false,
       message: "Username must be 3-20 characters and contain only letters, numbers, and underscores"
     });
   }
   if (password !== confirmPassword) {
-    return res.status(400).json({
+    return res.status(status_Codes.BAD_REQUEST).json({
       success: false,
       message: "Passwords do not match"
     });
   }
   if (!validator.isEmail(email)) {
-    return res.status(400).json({
+    return res.status(status_Codes.BAD_REQUEST).json({
       success: false,
       message: "Invalid email address"
     });
   }
   if (password.length < 6) {
-    return res.status(400).json({
+    return res.status(status_Codes.BAD_REQUEST).json({
       success: false,
       message: "Password must be at least 6 characters"
     });
@@ -154,7 +155,7 @@ export async function postSignup(req, res) {
   if (referralCode) {
     let refferer = await User.findOne({ referralCode });
     if (!refferer) {
-      return res.status(400).json({ message: "Invalid referral code" });
+      return res.status(status_Codes.BAD_REQUEST).json({ message: "Invalid referral code" });
     }
 
   }
@@ -163,12 +164,12 @@ export async function postSignup(req, res) {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       if (existingUser.authType === "google") {
-        return res.status(409).json({
+        return res.status(status_Codes.CONFLICT).json({
           success: false,
           message: "This email is linked to a Google account. Please use Google Login."
         });
       }
-      return res.status(409).json({
+      return res.status(status_Codes.CONFLICT).json({
         success: false,
         message: "Email already in use"
       });
@@ -210,20 +211,20 @@ export async function postSignup(req, res) {
       });
     } catch (mailError) {
       console.error("Email sending failed:", mailError.message);
-      return res.status(500).json({
+      return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
         success: false,
         message: "Invalid email or OTP could not be sent"
       });
     }
     // Redirect to OTP verification page
-    return res.status(200).json({
+    return res.status(status_Codes.OK).json({
       success: true,
       message: "OTP sent to your email",
       redirectUrl: "/verify-otp"
     });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({
+    return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: "Something went wrong. Please try again."
     });
@@ -248,7 +249,7 @@ export async function verifyOtp(req, res) {
   try {
     const { signupInfo } = req.session;
     if (!signupInfo) {
-      return res.status(400).json({
+      return res.status(status_Codes.BAD_REQUEST).json({
         success: false,
         message: "Session expired. Please signup again.",
         redirectUrl: "/signup"
@@ -257,13 +258,13 @@ export async function verifyOtp(req, res) {
 
     // Check OTP validity
     if (!otp || otp.length !== 4 || signupInfo.otp !== otp) {
-      return res.status(400).json({
+      return res.status(status_Codes.BAD_REQUEST).json({
         success: false,
         message: "Invalid OTP"
       });
     }
     if (signupInfo.otpExpires < new Date()) {
-      return res.status(400).json({
+      return res.status(status_Codes.BAD_REQUEST).json({
         success: false,
         message: "OTP expired. Please resend."
       });
@@ -328,7 +329,7 @@ export async function verifyOtp(req, res) {
 
     req.session.save(err => {
       if (err) {
-        return res.status(500).json({
+        return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
           success: false,
           message: "Something went wrong saving session"
         });
@@ -336,7 +337,7 @@ export async function verifyOtp(req, res) {
       delete req.session.signupInfo;
       delete req.session.otp;
       delete req.session.otpExpires;
-      return res.status(200).json({
+      return res.status(status_Codes.OK).json({
         success: true,
         message: "Verification successful",
         redirectUrl: "/home"
@@ -344,7 +345,7 @@ export async function verifyOtp(req, res) {
     });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({
+    return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: "Something went wrong"
     });
@@ -356,10 +357,10 @@ export const getReferralCode = async (req, res) => {
     const userId = req.session.user.id;
     const referralCode = await createReferralForUser(userId);
 
-    return res.status(200).json({ success: true, referralCode });
+    return res.status(status_Codes.OK).json({ success: true, referralCode });
   }
   catch (err) {
-    return res.status(400).json({ success: false, message: err.message });
+    return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: err.message });
   }
 }
 
@@ -397,13 +398,13 @@ export async function resendOtp(req, res) {
         });
       } catch (mailError) {
         console.error("Resend signup OTP mail failed:", mailError.message);
-        return res.status(500).json({
+        return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
           success: false,
           message: "Unable to resend OTP. Try again later."
         });
       }
 
-      return res.status(200).json({
+      return res.status(status_Codes.OK).json({
         success: true,
         message: "New OTP sent to your email",
         otpExpires,
@@ -414,7 +415,7 @@ export async function resendOtp(req, res) {
     // Determine User for and Forgot/Email flows
     const userId = req.session.resetUserId || req.session.user?.id || req.session.userId;
     if (!userId) {
-      return res.status(401).json({
+      return res.status(status_Codes.UNAUTHORIZED).json({
         success: false,
         message: "Session expired",
         redirectUrl: "/signup"
@@ -423,7 +424,7 @@ export async function resendOtp(req, res) {
 
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(404).json({
+      return res.status(status_Codes.NOT_FOUND).json({
         success: false,
         message: "User not found",
         redirectUrl: "/signup"
@@ -461,13 +462,13 @@ export async function resendOtp(req, res) {
         });
       } catch (mailError) {
         console.error("Resend email change OTP mail failed:", mailError.message);
-        return res.status(500).json({
+        return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
           success: false,
           message: "Unable to resend OTP. Try again later."
         });
       }
 
-      return res.status(200).json({
+      return res.status(status_Codes.OK).json({
         success: true,
         message: "New OTP sent to your email",
         otpExpires,
@@ -491,13 +492,13 @@ export async function resendOtp(req, res) {
       });
     } catch (mailError) {
       console.error("Resend forgot pass OTP mail failed:", mailError.message);
-      return res.status(500).json({
+      return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
         success: false,
         message: "Unable to resend OTP. Try again later."
       });
     }
 
-    return res.status(200).json({
+    return res.status(status_Codes.OK).json({
       success: true,
       message: "New OTP sent to your email",
       otpExpires,
@@ -506,7 +507,7 @@ export async function resendOtp(req, res) {
 
   } catch (err) {
     console.error(err);
-    return res.status(500).json({
+    return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: "Something went wrong"
     });
@@ -529,14 +530,14 @@ export async function postforgotPass(req, res) {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(404).json({
+      return res.status(status_Codes.NOT_FOUND).json({
         success: false,
         message: "No account found with this email"
       });
     }
 
     if (user.authType === "google") {
-      return res.status(403).json({
+      return res.status(status_Codes.UNAUTHORIZED).json({
         success: false,
         message: "Password reset is not available for Google login accounts"
       });
@@ -574,7 +575,7 @@ export async function postforgotPass(req, res) {
       });
     } catch (mailError) {
       console.error("Email sending failed:", mailError.message);
-      return res.status(500).json({
+      return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
         success: false,
         message: "Unable to send OTP. Please try again later."
       });
@@ -591,7 +592,7 @@ export async function postforgotPass(req, res) {
 
   } catch (error) {
     console.error("Forgot password error:", error);
-    return res.status(500).json({
+    return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: "Something went wrong. Please try again."
     });
@@ -601,16 +602,16 @@ export async function otpverifyForgot(req, res) {
   try {
 
     if (!req.session || !req.session.resetUserId) {
-      return res.status(401).json({
+      return res.status(status_Codes.UNAUTHORIZED).json({
         success: false,
         message: "Session expired. Please request OTP again.",
         redirectUrl: "/forgot-password"
       });
     }
 
-    // 2️⃣ Validate ObjectId
+    //  Validate ObjectId
     if (!mongoose.Types.ObjectId.isValid(req.session.resetUserId)) {
-      return res.status(401).json({
+      return res.status(status_Codes.UNAUTHORIZED).json({
         success: false,
         message: "Invalid session. Please request OTP again.",
         redirectUrl: "/forgot-password"
@@ -620,7 +621,7 @@ export async function otpverifyForgot(req, res) {
 
     const user = await User.findById(req.session.resetUserId);
     if (!user) {
-      return res.status(404).json({
+      return res.status(status_Codes.NOT_FOUND).json({
         success: false,
         message: "User not found."
       });
@@ -630,7 +631,7 @@ export async function otpverifyForgot(req, res) {
     const enteredOtp = `${otp1 || ""}${otp2 || ""}${otp3 || ""}${otp4 || ""}`.trim();
 
     if (enteredOtp.length !== 4) {
-      return res.status(400).json({
+      return res.status(status_Codes.BAD_REQUEST).json({
         success: false,
         message: "Please enter the 4-digit OTP."
       });
@@ -640,14 +641,14 @@ export async function otpverifyForgot(req, res) {
     const expiresAt = new Date(user.otpExpires).getTime();
 
     if (!user.otp || expiresAt < now) {
-      return res.status(400).json({
+      return res.status(status_Codes.BAD_REQUEST).json({
         success: false,
         message: "OTP expired. Please request a new one."
       });
     }
 
     if (user.otp !== enteredOtp) {
-      return res.status(400).json({
+      return res.status(status_Codes.BAD_REQUEST).json({
         success: false,
         message: "Invalid OTP. Please try again."
       });
@@ -659,7 +660,7 @@ export async function otpverifyForgot(req, res) {
     user.otpExpires = null;
     await user.save();
 
-    return res.status(200).json({
+    return res.status(status_Codes.OK).json({
       success: true,
       message: "OTP verified successfully",
       redirectUrl: "/create-password"
@@ -667,7 +668,7 @@ export async function otpverifyForgot(req, res) {
 
   } catch (error) {
     console.error("OTP verification error:", error);
-    return res.status(500).json({
+    return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: "Something went wrong. Please try again."
     });
@@ -688,7 +689,7 @@ export async function postPassCreation(req, res) {
 
     // Check if user is allowed to reset password
     if (!req.session.allowPasswordReset || !req.session.resetUserId) {
-      return res.status(403).json({
+      return res.status(status_Codes.UNAUTHORIZED).json({
         success: false,
         message: "Session expired or unauthorized. Please request OTP again.",
         redirectUrl: "/forgot-password"
@@ -697,14 +698,14 @@ export async function postPassCreation(req, res) {
 
     // Validate passwords
     if (!newPassword || !confirmPassword) {
-      return res.status(400).json({
+      return res.status(status_Codes.BAD_REQUEST).json({
         success: false,
         message: "Please fill all fields."
       });
     }
 
     if (newPassword !== confirmPassword) {
-      return res.status(400).json({
+      return res.status(status_Codes.BAD_REQUEST).json({
         success: false,
         message: "Passwords do not match."
       });
@@ -713,7 +714,7 @@ export async function postPassCreation(req, res) {
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     const user = await User.findById(req.session.resetUserId);
     if (!user) {
-      return res.status(404).json({
+      return res.status(status_Codes.NOT_FOUND).json({
         success: false,
         message: "User not found."
       });
@@ -727,7 +728,7 @@ export async function postPassCreation(req, res) {
     delete req.session.resetUserId;
 
     // Success response
-    return res.status(200).json({
+    return res.status(status_Codes.OK).json({
       success: true,
       message: "Password reset successful. Please login.",
       redirectUrl: "/login"
@@ -735,7 +736,7 @@ export async function postPassCreation(req, res) {
 
   } catch (error) {
     console.error("Error creating new password:", error);
-    return res.status(500).json({
+    return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: "Something went wrong. Please try again."
     });
@@ -782,7 +783,7 @@ export async function getHome(req, res) {
     });
   } catch (err) {
     console.error(err);
-    res.status(500).send("Internal Server Error");
+    res.status(status_Codes.INTERNAL_SERVER_ERROR).send("Internal Server Error");
   }
 }
 
@@ -802,7 +803,7 @@ export async function getUserCounts(req, res) {
     res.json({ cartCount, wishlistCount });
   } catch (error) {
     console.error("Error fetching user counts:", error);
-    res.status(500).json({ success: false, message: "Internal server error" });
+    res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Internal server error" });
   }
 }
 

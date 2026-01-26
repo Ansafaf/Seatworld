@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import { paginate } from '../utils/paginationHelper.js';
 import { escapeRegExp } from '../utils/regexHelper.js';
 import Order from '../models/orderModel.js';
+import { status_Codes } from '../enums/statusCodes.js';
 
 dotenv.config();
 export const getLoginAdmin = (req, res) => {
@@ -33,9 +34,9 @@ export const postLoginAdmin = async (req, res) => {
     if (adminExist.email === email && adminExist.password === password) {
         req.session.isAdmin = true;
         req.session.adminEmail = email;
-        return res.status(200).json({ success: true, message: "Login successful", redirectUrl: "/admin/dashboard" });
+        return res.status(status_Codes.OK).json({ success: true, message: "Login successful", redirectUrl: "/admin/dashboard" });
     }
-    res.status(401).json({ success: false, message: "Invalid email or password", redirectUrl: "/admin/login" });
+    res.status(status_Codes.UNAUTHORIZED).json({ success: false, message: "Invalid email or password", redirectUrl: "/admin/login" });
 }
 
 export const getAdminDashboard = async (req, res) => {
@@ -187,7 +188,7 @@ export const getRevenueData = async (req, res) => {
         res.json({ success: true, labels, data });
     } catch (error) {
         console.error("Revenue Data Error:", error);
-        res.status(500).json({ success: false, message: "Failed to fetch revenue data" });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Failed to fetch revenue data" });
     }
 }
 
@@ -215,7 +216,7 @@ export const getCustomerlist = async (req, res, next) => {
 
         // AJAX Support
         if (req.xhr || req.headers.accept?.includes("application/json")) {
-            return res.status(200).json({
+            return res.status(status_Codes.OK).json({
                 success: true,
                 users,
                 pagination,
@@ -248,16 +249,16 @@ export const blockUser = async (req, res) => {
         }
 
         if (user.status == "blocked") {
-            return res.status(200).json({ success: false, message: "User is already blocked" });
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "User is already blocked" });
         }
 
         await User.findByIdAndUpdate(userId, { status: "blocked" });
 
-        res.status(200).json({ success: true, message: "User blocked successfully", redirectUrl: "/admin/users" });
+        res.status(status_Codes.OK).json({ success: true, message: "User blocked successfully", redirectUrl: "/admin/users" });
 
     } catch (error) {
         console.error("Error blocking user:", error);
-        res.status(500).json({
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
             success: false,
             message: "Internal server error"
         });
@@ -274,16 +275,16 @@ export const unblockUser = async (req, res) => {
         }
 
         if (user.status == "active") {
-            return res.status(200).json({ success: false, message: "User is already unblocked" });
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "User is already unblocked" });
         }
 
         await User.findByIdAndUpdate(userId, { status: "active" });
 
-        res.status(200).json({ success: true, message: "User unblocked successfully", redirectUrl: "/admin/users" });
+        res.status(status_Codes.OK).json({ success: true, message: "User unblocked successfully", redirectUrl: "/admin/users" });
 
     } catch (error) {
         console.error("Error unblocking user:", error);
-        res.status(500).json({
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
             success: false,
             message: "Internal server error"
         });

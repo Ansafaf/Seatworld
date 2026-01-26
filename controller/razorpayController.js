@@ -3,20 +3,21 @@ import crypto from "crypto";
 import logger from "../utils/logger.js";
 import * as cartService from "../services/cartService.js";
 import * as inventoryService from "../services/inventoryService.js";
+import { status_Codes } from "../enums/statusCodes.js";
 
 export const createRazorpayOrder = async (req, res) => {
-     if (!req.session.user) return res.redirect("/login");
+    if (!req.session.user) return res.redirect("/login");
     try {
         const userId = req.session.user.id;
         const cartTotals = await cartService.calculateCartTotals(userId);
 
         if (!cartTotals.items || cartTotals.items.length === 0) {
-            return res.status(400).json({ success: false, message: "Cart is empty" });
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Cart is empty" });
         }
 
         const stockCheck = await inventoryService.checkStockAvailability(cartTotals.items);
         if (!stockCheck.available) {
-            return res.status(400).json({
+            return res.status(status_Codes.BAD_REQUEST).json({
                 success: false,
                 message: `Insufficient stock for ${stockCheck.item}. Only ${stockCheck.availableStock} left.`
             });
@@ -46,7 +47,7 @@ export const createRazorpayOrder = async (req, res) => {
         });
     } catch (error) {
         logger.error("Razorpay Create Order Error:", error);
-        res.status(500).json({ success: false, message: "Failed to create Razorpay order" });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Failed to create Razorpay order" });
     }
 };
 
@@ -67,10 +68,10 @@ export const verifyRazorpayPayment = async (req, res) => {
         if (expectedSignature === razorpay_signature) {
             res.json({ success: true, message: "Payment verified" });
         } else {
-            res.status(400).json({ success: false, message: "Invalid payment signature" });
+            res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Invalid payment signature" });
         }
     } catch (error) {
         logger.error("Razorpay Verify Payment Error:", error);
-        res.status(500).json({ success: false, message: "Payment verification failed" });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Payment verification failed" });
     }
 };

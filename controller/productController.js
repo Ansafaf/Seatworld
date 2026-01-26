@@ -7,6 +7,7 @@ import { paginate } from "../utils/paginationHelper.js";
 import { Offer } from "../models/offerModel.js";
 import * as offerHelper from "../utils/offerHelper.js";
 import { escapeRegExp } from "../utils/regexHelper.js";
+import { status_Codes } from "../enums/statusCodes.js";
 
 
 const normalizeQuery = (query) => {
@@ -357,7 +358,7 @@ export async function getProductdetail(req, res) {
 
 
         if (!product || (product.categoryId && product.categoryId.isActive === false)) {
-            return res.status(404).render("404");
+            return res.status(status_Codes.NOT_FOUND).render("404");
         }
 
         const variants = await ProductVariant.find({ productId: productId, status: { $in: ["Active", "OutofStock"] } }).lean();
@@ -438,7 +439,7 @@ export async function getProductdetail(req, res) {
         });
 
     } catch (err) {
-        res.status(500).send("Internal Server Error");
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).send("Internal Server Error");
     }
 }
 

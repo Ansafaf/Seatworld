@@ -2,6 +2,7 @@ import Coupon from "../models/couponModel.js";
 import { paginate } from "../utils/paginationHelper.js";
 import logger from "../utils/logger.js";
 import { escapeRegExp } from "../utils/regexHelper.js";
+import { status_Codes } from "../enums/statusCodes.js";
 
 export const getCouponlist = async (req, res) => {
     try {
@@ -43,7 +44,7 @@ export const getCouponlist = async (req, res) => {
         });
     } catch (error) {
         logger.error("Get Coupon List Error:", error);
-        res.status(500).render("500", { error: error.message });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).render("500", { error: error.message });
     }
 };
 
@@ -67,23 +68,23 @@ export const createCoupon = async (req, res) => {
         // Alphanumeric validation for coupon code
         const codeRegex = /^[A-Z0-9]+$/;
         if (!codeRegex.test(couponCode.toUpperCase())) {
-            return res.status(400).json({ success: false, message: "Coupon code must contain only letters and numbers" });
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Coupon code must contain only letters and numbers" });
         }
 
         const existingCoupon = await Coupon.findOne({ couponCode: couponCode.toUpperCase() });
         if (existingCoupon) {
-            return res.status(400).json({ success: false, message: "Coupon code already exists" });
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Coupon code already exists" });
         }
 
         if (discountType == "percentage" && discountValue >= 50) {
-            return res.status(400).json({ success: false, message: "Discount value must be less than 50" })
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Discount value must be less than 50" })
         }
 
         if(discountType == "flat" && discountValue >= minAmount){
-            return res.status(400).json({success:false, message:"Discount value must not be more than or equal to minimun purchase value"});
+            return res.status(status_Codes.BAD_REQUEST).json({success:false, message:"Discount value must not be more than or equal to minimun purchase value"});
         }
         if(discountType == "flat" && discountValue  >= 5000){
-            return res.status(400).json({success:false , message:"Discount value must be less than 5000"});
+            return res.status(status_Codes.BAD_REQUEST).json({success:false , message:"Discount value must be less than 5000"});
         }
 
         const today = new Date();
@@ -93,10 +94,10 @@ export const createCoupon = async (req, res) => {
         const expiry = new Date(expiryDate);
 
         if (start < today) {
-            return res.status(400).json({ success: false, message: "Start date cannot be in the past" });
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Start date cannot be in the past" });
         }
         if (expiry <= start) {
-            return res.status(400).json({ success: false, message: "Expiry date must be after start date" });
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Expiry date must be after start date" });
         }
         const newCoupon = new Coupon({
             couponName,
@@ -110,10 +111,10 @@ export const createCoupon = async (req, res) => {
         });
 
         await newCoupon.save();
-        res.status(201).json({ success: true, message: "Coupon created successfully" });
+        res.status(status_Codes.CREATED).json({ success: true, message: "Coupon created successfully" });
     } catch (error) {
         logger.error("Create Coupon Error:", error);
-        res.status(500).json({ success: false, message: error.message });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: error.message });
     }
 };
 
@@ -148,26 +149,26 @@ export const updateCoupon = async (req, res) => {
         // Alphanumeric validation for coupon code
         const codeRegex = /^[A-Z0-9]+$/;
         if (!codeRegex.test(couponCode.toUpperCase())) {
-            return res.status(400).json({ success: false, message: "Coupon code must contain only letters and numbers" });
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Coupon code must contain only letters and numbers" });
         }
 
         const existingCoupon = await Coupon.findById(id);
         if (!existingCoupon) {
-            return res.status(404).json({ success: false, message: "Coupon not found" });
+            return res.status(status_Codes.N).json({ success: false, message: "Coupon not found" });
         }
         if (discountType == "percentage" && discountValue >= 50) {
-            return res.status(400).json({ success: false, message: "Discount value must be less than 50" })
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Discount value must be less than 50" })
         }
          if(discountType == "flat" && discountValue >= minAmount){
-            return res.status(400).json({success:false, message:"Discount value must not be more than or equal to minimun purchase value"});
+            return res.status(status_Codes.BAD_REQUEST).json({success:false, message:"Discount value must not be more than or equal to minimun purchase value"});
         }
         if(discountType == "flat" && discountValue  >= 500){
-            return res.status(400).json({success:false , message:"Discount value must be less than 500"});
+            return res.status(status_Codes.BAD_REQUEST).json({success:false , message:"Discount value must be less than 500"});
         }
         
         const duplicateCoupon = await Coupon.findOne({ couponCode: couponCode.toUpperCase(), _id: { $ne: id } });
         if (duplicateCoupon) {
-            return res.status(400).json({ success: false, message: "Coupon code already exists in another coupon" });
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Coupon code already exists in another coupon" });
         }
         
         const today = new Date();
@@ -177,7 +178,7 @@ export const updateCoupon = async (req, res) => {
         const expiry = new Date(expiryDate);
 
         if (expiry <= start) {
-            return res.status(400).json({ success: false, message: "Expiry date must be after start date" });
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Expiry date must be after start date" });
         }
 
         let newStatus = existingCoupon.couponStatus;
@@ -203,13 +204,13 @@ export const updateCoupon = async (req, res) => {
         }, { new: true });
 
         if (!updatedCoupon) {
-            return res.status(404).json({ success: false, message: "Coupon not found" });
+            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: "Coupon not found" });
         }
 
-        res.status(200).json({ success: true, message: "Coupon updated successfully" });
+        res.status(status_Codes.OK).json({ success: true, message: "Coupon updated successfully" });
     } catch (error) {
         logger.error("Update Coupon Error:", error);
-        res.status(500).json({ success: false, message: error.message });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: error.message });
     }
 };
 
@@ -218,12 +219,12 @@ export const deleteCoupon = async (req, res) => {
         const { id } = req.params;
         const deletedCoupon = await Coupon.findByIdAndDelete(id);
         if (!deletedCoupon) {
-            return res.status(404).json({ success: false, message: "Coupon not found" });
+            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: "Coupon not found" });
         }
-        res.status(200).json({ success: true, message: "Coupon deleted successfully" });
+        res.status(status_Codes.OK).json({ success: true, message: "Coupon deleted successfully" });
     } catch (error) {
         logger.error("Delete Coupon Error:", error);
-        res.status(500).json({ success: false, message: error.message });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: error.message });
     }
 };
 
@@ -232,19 +233,19 @@ export const toggleCouponStatus = async (req, res) => {
         const { id } = req.params;
         const coupon = await Coupon.findById(id);
         if (!coupon) {
-            return res.status(404).json({ success: false, message: "Coupon not found" });
+            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: "Coupon not found" });
         }
 
         coupon.couponStatus = coupon.couponStatus === "active" ? "blocked" : "active";
         await coupon.save();
 
-        res.status(200).json({
+        res.status(status_Codes.OK).json({
             success: true,
             message: `Coupon ${coupon.couponStatus === "active" ? "activated" : "deactivated"} successfully`,
             status: coupon.couponStatus
         });
     } catch (error) {
         logger.error("Toggle Coupon Status Error:", error);
-        res.status(500).json({ success: false, message: error.message });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: error.message });
     }
 };

@@ -4,13 +4,14 @@ import { buildBreadcrumb } from "../utils/breadcrumb.js";
 import { paginate } from "../utils/paginationHelper.js";
 import crypto from "crypto";
 import { razorpayInstance } from "../config/razorpayConfig.js";
+import { status_Codes } from "../enums/statusCodes.js";
 
 
 export const createWalletRazorpayOrder = async (req, res) => {
   try {
     const { amount } = req.body;
     if (!amount || isNaN(amount) || amount <= 0) {
-      return res.status(400).json({ success: false, message: "Invalid amount" });
+      return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Invalid amount" });
     }
 
     const options = {
@@ -21,7 +22,7 @@ export const createWalletRazorpayOrder = async (req, res) => {
 
     const order = await razorpayInstance.orders.create(options);
 
-    return res.status(200).json({
+    return res.status(status_Codes.OK).json({
       success: true,
       orderId: order.id,
       amount: order.amount,
@@ -31,7 +32,7 @@ export const createWalletRazorpayOrder = async (req, res) => {
 
   } catch (error) {
     console.error("Create Wallet Razorpay Order Error:", error);
-    return res.status(500).json({ success: false, message: "Failed to create payment order" });
+    return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Failed to create payment order" });
   }
 };
 
@@ -49,7 +50,6 @@ export const getWallet = async (req, res) => {
     // Sorting transactions
     wallet.transactions.sort((a, b) => b.date - a.date);
 
-    // Take only top 3 for overview
     const recentTransactions = wallet.transactions.slice(0, 3);
 
     res.render("users/wallet", {
@@ -125,7 +125,7 @@ export const verifyAndAddMoney = async (req, res) => {
     } = req.body;
 
     if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
-      return res.status(400).json({ success: false, message: "Payment data missing" });
+      return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Payment data missing" });
     }
 
     const body = razorpay_order_id + "|" + razorpay_payment_id;
@@ -136,7 +136,7 @@ export const verifyAndAddMoney = async (req, res) => {
       .digest("hex");
 
     if (expectedSignature !== razorpay_signature) {
-      return res.status(400).json({ success: false, message: "Invalid payment signature" });
+      return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Invalid payment signature" });
     }
 
     let wallet = await Wallet.findOne({ userId });
@@ -168,7 +168,7 @@ export const verifyAndAddMoney = async (req, res) => {
 
     await wallet.save();
 
-    return res.status(200).json({
+    return res.status(status_Codes.OK).json({
       success: true,
       message: "Money added to wallet",
       newBalance: wallet.balance
@@ -176,7 +176,6 @@ export const verifyAndAddMoney = async (req, res) => {
 
   } catch (error) {
     console.error("Verify & Add Money Error:", error);
-    return res.status(500).json({ success: false, message: "Wallet update failed" });
+    return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Wallet update failed" });
   }
 };
-

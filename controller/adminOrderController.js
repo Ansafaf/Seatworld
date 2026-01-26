@@ -8,6 +8,7 @@ import logger from "../utils/logger.js";
 import mongoose from "mongoose";
 import { calculateDerivedStatus } from "../utils/orderStatusHelper.js";
 import { escapeRegExp } from "../utils/regexHelper.js";
+import { status_Codes } from "../enums/statusCodes.js";
 
 export const getOrderlist = async (req, res) => {
     try {
@@ -162,7 +163,7 @@ export const getOrderlist = async (req, res) => {
 
     } catch (error) {
         console.error("Error fetching order list:", error);
-        res.status(500).render("500", { message: "Internal Server Error" });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).render("500", { message: "Internal Server Error" });
     }
 }
 
@@ -173,7 +174,7 @@ export const getOrderDetails = async (req, res) => {
         const order = await Order.findById(id).populate('userId', 'name email mobile');
 
         if (!order) {
-            return res.status(404).render("500", { message: "Order not found" });
+            return res.status(status_Codes.NOT_FOUND).render("500", { message: "Order not found" });
         }
 
         const items = await OrderItem.find({ orderId: order._id })
@@ -206,7 +207,7 @@ export const getOrderDetails = async (req, res) => {
 
     } catch (error) {
         console.error("Error fetching order details:", error);
-        res.status(500).render("500", { message: "Internal Server Error" });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).render("500", { message: "Internal Server Error" });
     }
 }
 
@@ -216,7 +217,7 @@ export const updateOrderStatus = async (req, res) => {
 
         const order = await Order.findById(orderId);
         if (!order) {
-            return res.status(404).json({ success: false, message: "Order not found" });
+            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: "Order not found" });
         }
 
         await OrderItem.updateMany({ orderId }, { status });
@@ -286,7 +287,7 @@ export const updateOrderStatus = async (req, res) => {
 
     } catch (error) {
         console.error("Error updating order status:", error);
-        res.status(500).json({ success: false, message: "Internal Server Error" });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Internal Server Error" });
     }
 }
 
@@ -297,18 +298,18 @@ export const updateItemStatus = async (req, res) => {
 
         const order = await Order.findById(orderId);
         if (!order) {
-            return res.status(404).json({ success: false, message: "Order not found" });
+            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: "Order not found" });
         }
 
         const item = await OrderItem.findById(itemId);
         if (!item) {
-            return res.status(404).json({ success: false, message: "Item not found" });
+            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: "Item not found" });
         }
 
         const oldItemStatus = item.status;
 
         if (oldItemStatus === status) {
-            return res.status(400).json({ success: false, message: "Status is already set to " + status });
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Status is already set to " + status });
         }
 
         item.status = status;
@@ -368,7 +369,7 @@ export const updateItemStatus = async (req, res) => {
         await item.save();
 
         // Handle Wallet Refund for single item status change
-        // Safeguard for COD: Only refund if the item is RETURNED (cancellations aren't paid for in COD)
+      
         const isRefundableStatus = (order.paymentMethod === 'COD') ? (status === 'returned') : isNowInactive;
 
         if (isRefundableStatus && order.paymentStatus === 'paid' && item.refundStatus !== 'refunded') {
@@ -408,7 +409,7 @@ export const updateItemStatus = async (req, res) => {
 
     } catch (error) {
         console.error("Error updating item status:", error);
-        res.status(500).json({ success: false, message: "Internal Server Error" });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Internal Server Error" });
     }
 };
 
@@ -419,12 +420,12 @@ export const approveItemAction = async (req, res) => {
     try {
         const item = await OrderItem.findById(itemId);
         if (!item) {
-            return res.status(404).json({ success: false, message: "Item not found" });
+            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: "Item not found" });
         }
 
         const order = await Order.findById(item.orderId);
         if (!order) {
-            return res.status(404).json({ success: false, message: "Order not found" });
+            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: "Order not found" });
         }
 
         const orderId = order._id;
@@ -433,19 +434,19 @@ export const approveItemAction = async (req, res) => {
 
         if (action === 'approve_return') {
             if (!isReturnRequested) {
-                return res.status(400).json({ success: false, message: `Item is not in return_requested state (current: ${item.status})` });
+                return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: `Item is not in return_requested state (current: ${item.status})` });
             }
             item.status = 'returned';
             item.returnedOn = new Date();
             item.refundStatus = 'initiated';
         } else if (action === 'reject_return') {
             if (!isReturnRequested) {
-                return res.status(400).json({ success: false, message: `Item is not in return_requested state (current: ${item.status})` });
+                return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: `Item is not in return_requested state (current: ${item.status})` });
             }
             item.status = 'delivered';
             item.rejectedOn = new Date();
         } else {
-            return res.status(400).json({ success: false, message: "Invalid action" });
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Invalid action" });
         }
 
         if (action !== 'reject_return') {
@@ -471,7 +472,7 @@ export const approveItemAction = async (req, res) => {
         await item.save();
 
         // Handle Wallet Refund for approved action
-        // Safeguard for COD: Only refund if the item is RETURNED (cancellations aren't paid for in COD)
+       
         const isRefundableStatus = (order.paymentMethod === 'COD') ? (item.status === 'returned') : true;
 
         if (isRefundableStatus && order.paymentStatus === 'paid' && item.refundStatus !== 'refunded') {
@@ -511,11 +512,9 @@ export const approveItemAction = async (req, res) => {
 
     } catch (error) {
         logger.error("Error approving item action:", error);
-        res.status(500).json({
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
             success: false,
             message: `Failed to ${action ? action.replace('_', ' ') : 'process'}: ${error.message}`
         });
     }
 };
-
-

@@ -4,6 +4,7 @@ import logger from '../utils/logger.js';
 import { Product, ProductVariant } from '../models/productModel.js';
 import { paginate } from '../utils/paginationHelper.js';
 import { escapeRegExp } from '../utils/regexHelper.js';
+import { status_Codes } from '../enums/statusCodes.js';
 
 export const productList = async (req, res, next) => {
   try {
@@ -35,7 +36,7 @@ export const productList = async (req, res, next) => {
 
     // AJAX Support
     if (req.xhr || req.headers.accept?.includes("application/json")) {
-      return res.status(200).json({
+      return res.status(status_Codes.OK).json({
         success: true,
         products,
         pagination,
@@ -83,7 +84,7 @@ export const postAddProduct = async (req, res, next) => {
 
 
     if (existingProduct) {
-      return res.status(400).json({ success: false, message: 'Product with this name already exists' });
+      return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: 'Product with this name already exists' });
     }
 
     const productData = {
@@ -113,7 +114,7 @@ export const postAddProduct = async (req, res, next) => {
       const imageField = `images_${variantIndices[i]}`;
       const vFiles = files.filter((f) => f.fieldname === imageField);
       if(vFiles.length < 3){
-        return res.status(400).json({
+        return res.status(status_Codes.BAD_REQUEST).json({
           success: false, 
           message: `Variant "${colors[i]}" must have at least 3 images. Currently has ${vFiles.length} image(s). Please upload ${3 - vFiles.length} more image(s).`
         });
@@ -122,7 +123,7 @@ export const postAddProduct = async (req, res, next) => {
 
     await productService.addProductWithVariants(productData, variantsData, files);
 
-    res.status(200).json({ success: true, message: 'Product added Successfully', redirectUrl: "/admin/products" });
+    res.status(status_Codes.OK).json({ success: true, message: 'Product added Successfully', redirectUrl: "/admin/products" });
   } catch (error) {
     next(error);
   }
@@ -221,7 +222,7 @@ export const postEditProduct = async (req, res, next) => {
       }
 
       if (finalImages.length < 3) {
-        return res.status(400).json({
+        return res.status(status_Codes.BAD_REQUEST).json({
           success: false,
           message: `Variant "${colors[i]}" must have at least 3 images. Currently has ${finalImages.length} image(s). Please add ${3 - finalImages.length} more image(s).`
         });
@@ -252,7 +253,7 @@ export const postEditProduct = async (req, res, next) => {
     await productService.updateProductWithVariants(id, productData, processedVariants, deletedVariantIds);
 
     logger.info(`[postEditProduct] Success.`);
-    res.status(200).json({ success: true, message: 'Product updated Successfully', redirectUrl: "/admin/products" });
+    res.status(status_Codes.OK).json({ success: true, message: 'Product updated Successfully', redirectUrl: "/admin/products" });
   } catch (error) {
     logger.error(`[postEditProduct] Error: ${error.message}`);
     next(error);
@@ -263,10 +264,10 @@ export const blockProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
     const product = await productService.getProductById(id);
-    if (!product) return res.status(404).json({ message: "Product not found" });
+    if (!product) return res.status(status_Codes.NOT_FOUND).json({ message: "Product not found" });
 
     await productService.updateProductStatus(id, true);
-    res.status(200).json({ message: `Product "${product.name}" blocked successfully`, productName: product.name });
+    res.status(status_Codes.OK).json({ message: `Product "${product.name}" blocked successfully`, productName: product.name });
   } catch (error) {
     next(error);
   }
@@ -276,12 +277,11 @@ export const unblockProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
     const product = await productService.getProductById(id);
-    if (!product) return res.status(404).json({ message: "Product not found" });
+    if (!product) return res.status(status_Codes.NOT_FOUND).json({ message: "Product not found" });
 
     await productService.updateProductStatus(id, false);
-    res.status(200).json({ message: `Product "${product.name}" unblocked successfully`, productName: product.name });
+    res.status(status_Codes.OK).json({ message: `Product "${product.name}" unblocked successfully`, productName: product.name });
   } catch (error) {
     next(error);
   }
 };
-

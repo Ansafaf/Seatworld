@@ -6,9 +6,10 @@ import Order from "../models/orderModel.js";
 import OrderItem from "../models/orderItemModel.js";
 import Wallet from "../models/walletModel.js";
 import generateInvoicePDF from "../utils/invoiceGenerator.js";
+import { status_Codes } from "../enums/statusCodes.js";
 
 export const getorders = async (req, res) => {
-   if (!req.session.user) return res.redirect("/login");
+  if (!req.session.user) return res.redirect("/login");
   try {
     const userId = req.session.user.id;
     const page = parseInt(req.query.page) || 1;
@@ -26,7 +27,7 @@ export const getorders = async (req, res) => {
   } catch (error) {
     console.error("Get Orders Controller Error:", error);
     logger.error("Get Orders Error:", error);
-    res.status(500).render("500", { error: error.message });
+    res.status(status_Codes.INTERNAL_SERVER_ERROR).render("500", { error: error.message });
   }
 }
 
@@ -41,23 +42,23 @@ export const placeOrder = async (req, res) => {
     }
 
     if (!paymentMethod) {
-      return res.status(400).json({ success: false, message: "Payment method is required" });
+      return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Payment method is required" });
     }
 
     if (!req.session.checkout || !req.session.checkout.address) {
       logger.error("Session missing checkout or address");
-      return res.status(400).json({ success: false, message: "Session expired or address missing" });
+      return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Session expired or address missing" });
     }
 
     const cartTotals = await cartService.calculateCartTotals(userId);
     if (!cartTotals.items || cartTotals.items.length === 0) {
       logger.error("Cart is empty");
-      return res.status(400).json({ success: false, message: "Cart is empty" });
+      return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Cart is empty" });
     }
 
     const stockCheck = await inventoryService.checkStockAvailability(cartTotals.items);
     if (!stockCheck.available) {
-      return res.status(400).json({
+      return res.status(status_Codes.BAD_REQUEST).json({
         success: false,
         message: `Insufficient stock for ${stockCheck.item}. Only ${stockCheck.availableStock} left.`
       });
@@ -70,7 +71,7 @@ export const placeOrder = async (req, res) => {
       if (paymentMethod === "wallet") {
         const wallet = await Wallet.findOne({ userId });
         if (!wallet || wallet.balance < cartTotals.total) {
-          return res.status(400).json({
+          return res.status(status_Codes.BAD_REQUEST).json({
             success: false,
             message: "Insufficient wallet balance. Please add money to your wallet or choose another payment method."
           });
@@ -85,7 +86,7 @@ export const placeOrder = async (req, res) => {
         paymentStatus: (paymentMethod === "ONLINE" || paymentMethod === "wallet") ? "paid" : "pending"
       });
     } else {
-      return res.status(400).json({
+      return res.status(status_Codes.BAD_REQUEST).json({
         success: false,
         message: `${paymentMethod} payment method is not supported yet.`
       });
@@ -95,7 +96,7 @@ export const placeOrder = async (req, res) => {
     const redirectUrl = `/order-success?orderId=${newOrder._id}`;
 
     if (req.xhr || req.headers.accept?.includes("json")) {
-      return res.status(200).json({
+      return res.status(status_Codes.OK).json({
         success: true,
         orderId: newOrder._id,
         redirectUrl
@@ -107,7 +108,7 @@ export const placeOrder = async (req, res) => {
   } catch (error) {
     logger.error("Place Order Error:", error);
     if (req.xhr || req.headers.accept?.includes("json")) {
-      return res.status(500).json({ success: false, message: "Failed to place order" });
+      return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Failed to place order" });
     }
     res.redirect("/checkout/payment-options");
   }
@@ -125,7 +126,7 @@ export const getOrderSuccess = async (req, res) => {
     res.render("users/orderSuccess", { order });
   } catch (err) {
     logger.error("Get Order Success Page Error:", err);
-    res.status(500).render("500");
+    res.status(status_Codes.INTERNAL_SERVER_ERROR).render("500");
   }
 }
 
@@ -138,7 +139,7 @@ export const getOrderFailed = async (req, res) => {
     });
   } catch (err) {
     logger.error("Get Order Failed Page Error:", err);
-    res.status(500).render("500");
+    res.status(status_Codes.INTERNAL_SERVER_ERROR).render("500");
   }
 }
 
@@ -166,7 +167,7 @@ export const getOrderDetails = async (req, res) => {
     });
   } catch (error) {
     logger.error("Get Order Details Error:", error);
-    res.status(500).render("500");
+    res.status(status_Codes.INTERNAL_SERVER_ERROR).render("500");
   }
 };
 
@@ -185,7 +186,7 @@ export const handleItemAction = async (req, res) => {
       returnComment
     });
 
-    res.status(200).json({
+    res.status(status_Codes.OK).json({
       success: true,
       message: `${action === 'cancel' ? 'Item cancelled successfully' : 'Return request submitted successfully'}`,
       orderStatus: order.orderStatus,
@@ -193,7 +194,7 @@ export const handleItemAction = async (req, res) => {
     });
   } catch (error) {
     logger.error("Handle Item Action Error:", error);
-    res.status(400).json({
+    res.status(status_Codes.BAD_REQUEST).json({
       success: false,
       message: error.message || "Failed to process item action"
     });
@@ -210,7 +211,7 @@ export const downloadInvoice = async (req, res) => {
 
     const orderData = await orderService.getOrderById(orderId, userId);
     if (!orderData) {
-      return res.status(404).send("Invoice not found");
+      return res.status(status_Codes.NOT_FOUND).send("Invoice not found");
     }
 
     const pdfBuffer = await generateInvoicePDF(orderData, orderData.items);
@@ -224,6 +225,6 @@ export const downloadInvoice = async (req, res) => {
     res.send(pdfBuffer);
   } catch (err) {
     console.error("Invoice download error:", err);
-    res.status(500).send("Failed to generate invoice");
+    res.status(status_Codes.INTERNAL_SERVER_ERROR).send("Failed to generate invoice");
   }
 };

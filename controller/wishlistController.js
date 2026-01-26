@@ -3,6 +3,7 @@ import * as wishlistService from "../services/wishlistService.js";
 import Cart from "../models/cartModel.js";
 import logger from "../utils/logger.js";
 import { paginate } from "../utils/paginationHelper.js";
+import { status_Codes } from "../enums/statusCodes.js";
 
 export const getWishlist = async (req, res) => {
     if (!req.session.user) return res.redirect("/login");
@@ -10,7 +11,7 @@ export const getWishlist = async (req, res) => {
         const userId = req.session.user.id;
         const page = parseInt(req.query.page) || 1;
         const limit = 10;
-
+        
         const cartCount = await Cart.find({ userId: userId }).countDocuments();
 
         const { items: wishlistItems, pagination } = await paginate(Wishlist, { userId: userId }, {
@@ -45,7 +46,7 @@ export const getWishlist = async (req, res) => {
         });
     } catch (error) {
         logger.error("Get Wishlist Error:", error);
-        res.status(500).render("500", { error: error.message });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).render("500", { error: error.message });
     }
 };
 
@@ -56,13 +57,13 @@ export const addToWishlist = async (req, res) => {
         const { variantId } = req.body;
 
         if (!variantId) {
-            return res.status(400).json({ success: false, message: "Variant ID is required" });
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Variant ID is required" });
         }
 
         const result = await wishlistService.toggleWishlist(userId, variantId);
         const wishlistCount = await Wishlist.countDocuments({ userId });
 
-        res.status(200).json({
+        res.status(status_Codes.OK).json({
             success: true,
             action: result.action,
             message: result.action === "added" ? "Added to wishlist" : "Removed from wishlist",
@@ -70,7 +71,7 @@ export const addToWishlist = async (req, res) => {
         });
     } catch (error) {
         logger.error("Add to Wishlist Error:", error);
-        res.status(500).json({ success: false, message: "Failed to update wishlist" });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Failed to update wishlist" });
     }
 };
 
@@ -83,7 +84,7 @@ export const removeFromWishlist = async (req, res) => {
         const wishlistCount = await Wishlist.countDocuments({ userId });
 
         if (req.xhr || req.headers.accept.indexOf('json') > -1 || req.method === 'DELETE') {
-            return res.status(200).json({ success: true, message: "Item removed from wishlist", wishlistCount });
+            return res.status(status_Codes.OK).json({ success: true, message: "Item removed from wishlist", wishlistCount });
         }
 
         req.session.message = { type: "success", text: "Item removed from wishlist" };
@@ -91,7 +92,7 @@ export const removeFromWishlist = async (req, res) => {
     } catch (error) {
         logger.error("Remove from Wishlist Error:", error);
         if (req.xhr || req.headers.accept.indexOf('json') > -1 || req.method === 'DELETE') {
-            return res.status(500).json({ success: false, message: "Failed to remove item" });
+            return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Failed to remove item" });
         }
         req.session.message = { type: "error", text: "Failed to remove item" };
         res.redirect("/wishlist");

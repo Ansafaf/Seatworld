@@ -5,6 +5,7 @@ import { buildBreadcrumb } from '../utils/breadcrumb.js';
 import logger from '../utils/logger.js';
 import mongoose from "mongoose";
 import { escapeRegExp } from '../utils/regexHelper.js';
+import { status_Codes } from '../enums/statusCodes.js';
 
 export const getOfferList = async (req, res) => {
     try {
@@ -75,7 +76,7 @@ export const getOfferList = async (req, res) => {
 
     } catch (error) {
         logger.error("Get Offer List Error:", error);
-        res.status(500).render("500", { homeLink: '/admin/dashboard' });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).render("500", { homeLink: '/admin/dashboard' });
     }
 };
 
@@ -90,7 +91,7 @@ export const getAddOffer = async (req, res) => {
         });
     } catch (error) {
         logger.error("Get Add Offer Error:", error);
-        res.status(500).render("500", { homeLink: '/admin/dashboard' });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).render("500", { homeLink: '/admin/dashboard' });
     }
 };
 
@@ -99,7 +100,7 @@ export const postAddOffer = async (req, res) => {
         const { name, offerType, productId, categoryId, discountPercentage } = req.body;
 
         if (discountPercentage >= 50) {
-            return res.status(400).json({ success: false, message: "discount percentage must be less than 50" })
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "discount percentage must be less than 50" })
         }
         
         const newOffer = new Offer({
@@ -116,10 +117,10 @@ export const postAddOffer = async (req, res) => {
             await Product.findByIdAndUpdate(productId, { offerId: newOffer._id });
         }
 
-        res.status(200).json({ success: true, message: "Offer added successfully" });
+        res.status(status_Codes.OK).json({ success: true, message: "Offer added successfully" });
     } catch (error) {
         logger.error("Post Add Offer Error:", error);
-        res.status(500).json({ success: false, message: "Failed to add offer" });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Failed to add offer" });
     }
 };
 
@@ -128,20 +129,20 @@ export const toggleOfferStatus = async (req, res) => {
         const { id } = req.params;
         const offer = await Offer.findById(id);
         if (!offer) {
-            return res.status(404).json({ success: false, message: "Offer not found" });
+            return res.status(status_Codes.N).json({ success: false, message: "Offer not found" });
         }
 
         offer.isActive = !offer.isActive;
         await offer.save();
 
-        res.status(200).json({
+        res.status(status_Codes.OK).json({
             success: true,
             message: `Offer ${offer.isActive ? 'activated' : 'blocked'} successfully`,
             isActive: offer.isActive
         });
     } catch (error) {
         logger.error("Toggle Offer Status Error:", error);
-        res.status(500).json({ success: false, message: "Failed to toggle offer status" });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Failed to toggle offer status" });
     }
 };
 
@@ -163,7 +164,7 @@ export const getEditOffer = async (req, res) => {
         });
     } catch (error) {
         logger.error("Get Edit Offer Error:", error);
-        res.status(500).render("500", { homeLink: '/admin/dashboard' });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).render("500", { homeLink: '/admin/dashboard' });
     }
 };
 
@@ -174,10 +175,10 @@ export const postEditOffer = async (req, res) => {
 
         const offer = await Offer.findById(id);
         if (!offer) {
-            return res.status(404).json({ success: false, message: "Offer not found" });
+            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: "Offer not found" });
         }
         if (discountPercentage >= 50) {
-            return res.status(400).json({ success: false, message: "discount percentage must be less than 50" })
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "discount percentage must be less than 50" })
         }
         
 
@@ -196,9 +197,9 @@ export const postEditOffer = async (req, res) => {
         if (offerType === 'Product') {
             await Product.findByIdAndUpdate(productId, { offerId: offer._id });
         }
-        res.status(200).json({ success: true, message: "Offer updated successfully" });
+        res.status(status_Codes.OK).json({ success: true, message: "Offer updated successfully" });
     } catch (error) {
         logger.error("Post Edit Offer Error:", error);
-        res.status(500).json({ success: false, message: "Failed to update offer" });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Failed to update offer" });
     }
 };
