@@ -9,6 +9,7 @@ import mongoose from "mongoose";
 import { calculateDerivedStatus } from "../utils/orderStatusHelper.js";
 import { escapeRegExp } from "../utils/regexHelper.js";
 import { status_Codes } from "../enums/statusCodes.js";
+import { Message } from "../enums/message.js";
 
 export const getOrderlist = async (req, res) => {
     try {
@@ -163,7 +164,7 @@ export const getOrderlist = async (req, res) => {
 
     } catch (error) {
         console.error("Error fetching order list:", error);
-        res.status(status_Codes.INTERNAL_SERVER_ERROR).render("500", { message: "Internal Server Error" });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).render("500", { message: Message.COMMON.INTERNAL_SERVER });
     }
 }
 
@@ -207,7 +208,7 @@ export const getOrderDetails = async (req, res) => {
 
     } catch (error) {
         console.error("Error fetching order details:", error);
-        res.status(status_Codes.INTERNAL_SERVER_ERROR).render("500", { message: "Internal Server Error" });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).render("500", { message: Message.COMMON.INTERNAL_SERVER});
     }
 }
 
@@ -217,7 +218,7 @@ export const updateOrderStatus = async (req, res) => {
 
         const order = await Order.findById(orderId);
         if (!order) {
-            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: "Order not found" });
+            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: Message.ORDER.NOT_FOUND });
         }
 
         await OrderItem.updateMany({ orderId }, { status });
@@ -283,11 +284,11 @@ export const updateOrderStatus = async (req, res) => {
             }
         }
 
-        res.json({ success: true, message: "Order and items updated successfully" });
+        res.json({ success: true, message: Message.ORDER_ITEM.UPDATED_SUCCESS });
 
     } catch (error) {
         console.error("Error updating order status:", error);
-        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Internal Server Error" });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: Message.COMMON.INTERNAL_SERVER });
     }
 }
 
@@ -298,12 +299,12 @@ export const updateItemStatus = async (req, res) => {
 
         const order = await Order.findById(orderId);
         if (!order) {
-            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: "Order not found" });
+            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: Message.ORDER.NOT_FOUND });
         }
 
         const item = await OrderItem.findById(itemId);
         if (!item) {
-            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: "Item not found" });
+            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: Message.ITEM.NOT_FOUND });
         }
 
         const oldItemStatus = item.status;
@@ -403,7 +404,7 @@ export const updateItemStatus = async (req, res) => {
 
         res.json({
             success: true,
-            message: "Item status updated successfully",
+            message: Message.ITEM.UPDATED_SUCCESS,
             orderStatus: summaryStatus
         });
 
@@ -420,12 +421,12 @@ export const approveItemAction = async (req, res) => {
     try {
         const item = await OrderItem.findById(itemId);
         if (!item) {
-            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: "Item not found" });
+            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: Message.ITEM.NOT_FOUND });
         }
 
         const order = await Order.findById(item.orderId);
         if (!order) {
-            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: "Order not found" });
+            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: Message.ORDER.NOT_FOUND});
         }
 
         const orderId = order._id;
@@ -446,7 +447,7 @@ export const approveItemAction = async (req, res) => {
             item.status = 'delivered';
             item.rejectedOn = new Date();
         } else {
-            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Invalid action" });
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: Message.COMMON.INVALID_REQUEST });
         }
 
         if (action !== 'reject_return') {

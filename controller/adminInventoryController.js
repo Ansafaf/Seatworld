@@ -1,3 +1,4 @@
+import { Message } from "../enums/message.js";
 import { status_Codes } from "../enums/statusCodes.js";
 import { Product, ProductVariant } from "../models/productModel.js";
 import StockHistory from "../models/stockHistoryModel.js";
@@ -68,7 +69,7 @@ export const getInventoryList = async (req, res) => {
         });
     } catch (error) {
         logger.error(`Error fetching inventory list: ${error.message}`);
-        res.status(status_Codes.INTERNAL_SERVER_ERROR).render("500", { message: "Internal Server Error" });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).render("500", { message: Message.COMMON.INTERNAL_SERVER });
     }
 };
 

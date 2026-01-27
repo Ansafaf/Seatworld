@@ -4,6 +4,7 @@ import { Category } from '../models/categoryModel.js';
 import { paginate } from '../utils/paginationHelper.js';
 import { escapeRegExp } from '../utils/regexHelper.js';
 import { status_Codes } from '../enums/statusCodes.js';
+import { Message } from '../enums/message.js';
 
 export const getCategoryList = async (req, res, next) => {
     try {
@@ -51,7 +52,7 @@ export const postAddCategory = async (req, res, next) => {
     try {
         const { categoryName } = req.body;
         await categoryService.createCategory(categoryName);
-        res.status(status_Codes.OK).json({ success: true, message: "Category added successfully", redirectUrl: "/admin/categories" });
+        res.status(status_Codes.OK).json({ success: true, message: Message.CATEGORY.ADD, redirectUrl: "/admin/categories" });
     } catch (err) {
         next(err);
     }
@@ -63,7 +64,7 @@ export const getEditCategory = async (req, res, next) => {
         const category = await categoryService.getCategoryById(id);
 
         if (!category) {
-            req.session.message = { type: 'error', message: "Category not found" };
+            req.session.message = { type: 'error', message: Message.CATEGORY.NOT_FOUND };
             return res.redirect("/admin/categories");
         }
 
@@ -85,7 +86,7 @@ export const postEditCategory = async (req, res, next) => {
         const { categoryName } = req.body;
         const { id } = req.params;
         await categoryService.updateCategory(id, categoryName);
-        res.status(status_Codes.OK).json({ success: true, message: "Category updated successfully", redirectUrl: "/admin/categories" });
+        res.status(status_Codes.OK).json({ success: true, message: Message.CATEGORY.UPDATED_SUCCESS, redirectUrl: "/admin/categories" });
     } catch (err) {
         next(err);
     }
@@ -95,7 +96,7 @@ export const postBlockCategory = async (req, res, next) => {
     try {
         const { id } = req.params;
         await categoryService.updateCategoryStatus(id, false);
-        res.status(status_Codes.OK).json({ success: true, message: "Category blocked successfully", redirectUrl: "/admin/categories" });
+        res.status(status_Codes.OK).json({ success: true, message: Message.CATEGORY.BLOCK, redirectUrl: "/admin/categories" });
     } catch (error) {
         next(error);
     }
@@ -105,7 +106,7 @@ export const postUnblockCategory = async (req, res, next) => {
     try {
         const { id } = req.params;
         await categoryService.updateCategoryStatus(id, true);
-        res.status(status_Codes.OK).json({ success: true, message: "Category unblocked successfully", redirectUrl: "/admin/categories" });
+        res.status(status_Codes.OK).json({ success: true, message: Message.CATEGORY.UNBLOCK, redirectUrl: "/admin/categories" });
     } catch (error) {
         next(error);
     }

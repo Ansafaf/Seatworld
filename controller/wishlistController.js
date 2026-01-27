@@ -4,6 +4,7 @@ import Cart from "../models/cartModel.js";
 import logger from "../utils/logger.js";
 import { paginate } from "../utils/paginationHelper.js";
 import { status_Codes } from "../enums/statusCodes.js";
+import { Message } from "../enums/message.js";
 
 export const getWishlist = async (req, res) => {
     if (!req.session.user) return res.redirect("/login");
@@ -66,12 +67,12 @@ export const addToWishlist = async (req, res) => {
         res.status(status_Codes.OK).json({
             success: true,
             action: result.action,
-            message: result.action === "added" ? "Added to wishlist" : "Removed from wishlist",
+            message: result.action === "added" ? Message.WISHLIST.ADD : Message.WISHLIST.REMOVE,
             wishlistCount
         });
     } catch (error) {
         logger.error("Add to Wishlist Error:", error);
-        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Failed to update wishlist" });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: Message.WISHLIST.FAILED_UPDATE});
     }
 };
 
@@ -84,7 +85,7 @@ export const removeFromWishlist = async (req, res) => {
         const wishlistCount = await Wishlist.countDocuments({ userId });
 
         if (req.xhr || req.headers.accept.indexOf('json') > -1 || req.method === 'DELETE') {
-            return res.status(status_Codes.OK).json({ success: true, message: "Item removed from wishlist", wishlistCount });
+            return res.status(status_Codes.OK).json({ success: true, message: Message.W, wishlistCount });
         }
 
         req.session.message = { type: "success", text: "Item removed from wishlist" };
@@ -92,7 +93,7 @@ export const removeFromWishlist = async (req, res) => {
     } catch (error) {
         logger.error("Remove from Wishlist Error:", error);
         if (req.xhr || req.headers.accept.indexOf('json') > -1 || req.method === 'DELETE') {
-            return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Failed to remove item" });
+            return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: Message.ITEM.FAILED_REMOVE });
         }
         req.session.message = { type: "error", text: "Failed to remove item" };
         res.redirect("/wishlist");

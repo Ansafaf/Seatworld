@@ -8,6 +8,7 @@ import { Offer } from "../models/offerModel.js";
 import * as offerHelper from "../utils/offerHelper.js";
 import { escapeRegExp } from "../utils/regexHelper.js";
 import { status_Codes } from "../enums/statusCodes.js";
+import { Message } from "../enums/message.js";
 
 
 const normalizeQuery = (query) => {
@@ -439,7 +440,7 @@ export async function getProductdetail(req, res) {
         });
 
     } catch (err) {
-        res.status(status_Codes.INTERNAL_SERVER_ERROR).send("Internal Server Error");
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({success:false, message: Message.COMMON.INTERNAL_SERVER});
     }
 }
 

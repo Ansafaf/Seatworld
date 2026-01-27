@@ -7,6 +7,7 @@ import OrderItem from "../models/orderItemModel.js";
 import Wallet from "../models/walletModel.js";
 import generateInvoicePDF from "../utils/invoiceGenerator.js";
 import { status_Codes } from "../enums/statusCodes.js";
+import { Message } from "../enums/message.js";
 
 export const getorders = async (req, res) => {
   if (!req.session.user) return res.redirect("/login");
@@ -108,7 +109,7 @@ export const placeOrder = async (req, res) => {
   } catch (error) {
     logger.error("Place Order Error:", error);
     if (req.xhr || req.headers.accept?.includes("json")) {
-      return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Failed to place order" });
+      return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: Message.ORDER.PLACED_FAILURE});
     }
     res.redirect("/checkout/payment-options");
   }
@@ -150,7 +151,7 @@ export const getOrderDetails = async (req, res) => {
     const order = await orderService.getOrderById(orderId, userId);
 
     if (!order) {
-      return res.status(404).render("500", { message: "Order not found" });
+      return res.status(404).render("500", { message: Message.ORDER.NOT_FOUND });
     }
 
     const shortOrderId = orderId.toString().slice(-6).toUpperCase();

@@ -6,6 +6,7 @@ import logger from '../utils/logger.js';
 import mongoose from "mongoose";
 import { escapeRegExp } from '../utils/regexHelper.js';
 import { status_Codes } from '../enums/statusCodes.js';
+import { Message } from '../enums/message.js';
 
 export const getOfferList = async (req, res) => {
     try {
@@ -117,7 +118,7 @@ export const postAddOffer = async (req, res) => {
             await Product.findByIdAndUpdate(productId, { offerId: newOffer._id });
         }
 
-        res.status(status_Codes.OK).json({ success: true, message: "Offer added successfully" });
+        res.status(status_Codes.OK).json({ success: true, message: Message.OFFER.added });
     } catch (error) {
         logger.error("Post Add Offer Error:", error);
         res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Failed to add offer" });
@@ -129,7 +130,7 @@ export const toggleOfferStatus = async (req, res) => {
         const { id } = req.params;
         const offer = await Offer.findById(id);
         if (!offer) {
-            return res.status(status_Codes.N).json({ success: false, message: "Offer not found" });
+            return res.status(status_Codes.N).json({ success: false, message: Message.OFFER.NOT_FOUND });
         }
 
         offer.isActive = !offer.isActive;
@@ -197,9 +198,9 @@ export const postEditOffer = async (req, res) => {
         if (offerType === 'Product') {
             await Product.findByIdAndUpdate(productId, { offerId: offer._id });
         }
-        res.status(status_Codes.OK).json({ success: true, message: "Offer updated successfully" });
+        res.status(status_Codes.OK).json({ success: true, message: Message.OFFER.UPDATED_SUCCESS });
     } catch (error) {
         logger.error("Post Edit Offer Error:", error);
-        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Failed to update offer" });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: Message.OFFER.FAILED_UPDATE});
     }
 };

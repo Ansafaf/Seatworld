@@ -14,6 +14,7 @@ import { loggers } from "winston";
 import { createReferralForUser } from "../services/referralService.js";
 import { generateReferralCode } from "../utils/generateReferral.js";
 import { status_Codes } from "../enums/statusCodes.js";
+import { Message } from "../enums/message.js";
 
 
 // Landing Page 
@@ -60,7 +61,7 @@ export async function postLogin(req, res) {
     if (!user) {
       return res.status(status_Codes.UNAUTHORIZED).json({
         success: false,
-        message: "Invalid email or password"
+        message: Message.auth.LOGIN_FAILED
       });
     }
 
@@ -87,13 +88,13 @@ export async function postLogin(req, res) {
       };
       return res.status(status_Codes.OK).json({
         success: true,
-        message: "Login successful",
+        message: Message.auth.LOGIN_SUCCESS,
         redirectUrl: "/home"
       });
     } else {
       return res.status(status_Codes.UNAUTHORIZED).json({
         success: false,
-        message: "Invalid email or password"
+        message: Message.auth.LOGIN_FAILED
       });
     }
   } catch (err) {
@@ -105,7 +106,7 @@ export async function postLogin(req, res) {
   }
 }
 
-// ------------------ Signup ------------------
+// Signup 
 export function getSignup(req, res) {
   res.render("users/signup");
 }
@@ -136,13 +137,13 @@ export async function postSignup(req, res) {
   if (password !== confirmPassword) {
     return res.status(status_Codes.BAD_REQUEST).json({
       success: false,
-      message: "Passwords do not match"
+      message: Message.auth.PASSWORD_NOT_MATCH
     });
   }
   if (!validator.isEmail(email)) {
     return res.status(status_Codes.BAD_REQUEST).json({
       success: false,
-      message: "Invalid email address"
+      message: Message.auth.INVALID_EMAIL
     });
   }
   if (password.length < 6) {
@@ -171,7 +172,7 @@ export async function postSignup(req, res) {
       }
       return res.status(status_Codes.CONFLICT).json({
         success: false,
-        message: "Email already in use"
+        message: Message.auth.ALREADY_EXIST_EMAIL
       });
     }
 
@@ -213,7 +214,7 @@ export async function postSignup(req, res) {
       console.error("Email sending failed:", mailError.message);
       return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
         success: false,
-        message: "Invalid email or OTP could not be sent"
+        message: "Invalid email [or] OTP could not be sent"
       });
     }
     // Redirect to OTP verification page
@@ -226,7 +227,7 @@ export async function postSignup(req, res) {
     console.error(err);
     return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
       success: false,
-      message: "Something went wrong. Please try again."
+      message: Message.COMMON.SOMETHING_WENT_WRONG
     });
   }
 }
@@ -260,13 +261,13 @@ export async function verifyOtp(req, res) {
     if (!otp || otp.length !== 4 || signupInfo.otp !== otp) {
       return res.status(status_Codes.BAD_REQUEST).json({
         success: false,
-        message: "Invalid OTP"
+        message: Message.auth.OTP_INVALID
       });
     }
     if (signupInfo.otpExpires < new Date()) {
       return res.status(status_Codes.BAD_REQUEST).json({
         success: false,
-        message: "OTP expired. Please resend."
+        message: Message.auth.OTP_EXPIRES
       });
     }
     let referrer = null;
@@ -339,7 +340,7 @@ export async function verifyOtp(req, res) {
       delete req.session.otpExpires;
       return res.status(status_Codes.OK).json({
         success: true,
-        message: "Verification successful",
+        message: Message.auth.VERIFY_SUCCESS,
         redirectUrl: "/home"
       });
     });
@@ -347,7 +348,7 @@ export async function verifyOtp(req, res) {
     console.error(err);
     return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
       success: false,
-      message: "Something went wrong"
+      message: Message.COMMON.SOMETHING_WENT_WRONG
     });
   }
 }
@@ -417,7 +418,7 @@ export async function resendOtp(req, res) {
     if (!userId) {
       return res.status(status_Codes.UNAUTHORIZED).json({
         success: false,
-        message: "Session expired",
+        message: Message.auth.SESSION_EXPIRES,
         redirectUrl: "/signup"
       });
     }
@@ -426,7 +427,7 @@ export async function resendOtp(req, res) {
     if (!user) {
       return res.status(status_Codes.NOT_FOUND).json({
         success: false,
-        message: "User not found",
+        message: Message.USER.NOT_FOUND,
         redirectUrl: "/signup"
       });
     }
@@ -470,7 +471,7 @@ export async function resendOtp(req, res) {
 
       return res.status(status_Codes.OK).json({
         success: true,
-        message: "New OTP sent to your email",
+        message: Message.auth.NEW_OTP,
         otpExpires,
         resendExpires
       });
@@ -500,7 +501,7 @@ export async function resendOtp(req, res) {
 
     return res.status(status_Codes.OK).json({
       success: true,
-      message: "New OTP sent to your email",
+      message: Message.auth.NEW_OTP,
       otpExpires,
       resendExpires
     });
@@ -509,7 +510,7 @@ export async function resendOtp(req, res) {
     console.error(err);
     return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
       success: false,
-      message: "Something went wrong"
+      message: Message.COMMON.SOMETHING_WENT_WRONG
     });
   }
 }
@@ -532,7 +533,7 @@ export async function postforgotPass(req, res) {
     if (!user) {
       return res.status(status_Codes.NOT_FOUND).json({
         success: false,
-        message: "No account found with this email"
+        message: Message.auth.NO_ACCOUNT
       });
     }
 
@@ -594,7 +595,7 @@ export async function postforgotPass(req, res) {
     console.error("Forgot password error:", error);
     return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
       success: false,
-      message: "Something went wrong. Please try again."
+      message: Message.COMMON.SOMETHING_WENT_WRONG
     });
   }
 }
@@ -623,7 +624,7 @@ export async function otpverifyForgot(req, res) {
     if (!user) {
       return res.status(status_Codes.NOT_FOUND).json({
         success: false,
-        message: "User not found."
+        message: Message.USER.NOT_FOUND
       });
     }
 
@@ -650,7 +651,7 @@ export async function otpverifyForgot(req, res) {
     if (user.otp !== enteredOtp) {
       return res.status(status_Codes.BAD_REQUEST).json({
         success: false,
-        message: "Invalid OTP. Please try again."
+        message: Message.auth.OTP_INVALID
       });
     }
 
@@ -662,7 +663,7 @@ export async function otpverifyForgot(req, res) {
 
     return res.status(status_Codes.OK).json({
       success: true,
-      message: "OTP verified successfully",
+      message: Message.auth.OTP_VERIFY_SUCCESS,
       redirectUrl: "/create-password"
     });
 
@@ -670,7 +671,7 @@ export async function otpverifyForgot(req, res) {
     console.error("OTP verification error:", error);
     return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
       success: false,
-      message: "Something went wrong. Please try again."
+      message: Message.COMMON.SOMETHING_WENT_WRONG
     });
   }
 }
@@ -707,7 +708,7 @@ export async function postPassCreation(req, res) {
     if (newPassword !== confirmPassword) {
       return res.status(status_Codes.BAD_REQUEST).json({
         success: false,
-        message: "Passwords do not match."
+        message: Message.auth.PASSWORD_NOT_MATCH
       });
     }
 
@@ -716,7 +717,7 @@ export async function postPassCreation(req, res) {
     if (!user) {
       return res.status(status_Codes.NOT_FOUND).json({
         success: false,
-        message: "User not found."
+        message: Message.USER.NOT_FOUND
       });
     }
 
@@ -738,7 +739,7 @@ export async function postPassCreation(req, res) {
     console.error("Error creating new password:", error);
     return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
       success: false,
-      message: "Something went wrong. Please try again."
+      message: Message.COMMON.SOMETHING_WENT_WRONG
     });
   }
 }
@@ -783,7 +784,7 @@ export async function getHome(req, res) {
     });
   } catch (err) {
     console.error(err);
-    res.status(status_Codes.INTERNAL_SERVER_ERROR).send("Internal Server Error");
+    res.status(status_Codes.INTERNAL_SERVER_ERROR).json({success:false,message:Message.COMMON.INTERNAL_SERVER})
   }
 }
 
@@ -803,7 +804,7 @@ export async function getUserCounts(req, res) {
     res.json({ cartCount, wishlistCount });
   } catch (error) {
     console.error("Error fetching user counts:", error);
-    res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Internal server error" });
+    res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: Message.COMMON.INTERNAL_SERVER });
   }
 }
 

@@ -2,6 +2,7 @@ import logger from "../utils/logger.js";
 import { buildBreadcrumb } from "../utils/breadcrumb.js";
 import * as cartService from "../services/cartService.js";
 import { status_Codes } from "../enums/statusCodes.js";
+import { Message } from "../enums/message.js";
 
 
 export async function getCart(req, res) {
@@ -71,7 +72,7 @@ export async function updateQuantity(req, res) {
         });
     } catch (err) {
         logger.error("Update quantity error:", err);
-        res.status(status_Codes.BAD_REQUEST).json({ success: false, message: err.message || "Internal Server Error" });
+        res.status(status_Codes.BAD_REQUEST).json({ success: false, message: err.message || Message.COMMON.INVALID_REQUEST });
     }
 }
 
@@ -85,13 +86,13 @@ export async function removeFromCart(req, res) {
 
         res.json({
             success: true,
-            message: "Item removed from cart",
+            message: Message.ITEM.REMOVED_CART,
             ...totals,
             cartCount: totals.cartCount
         });
     } catch (err) {
 
         logger.error("Remove from cart error:", err);
-        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Internal Server Error" });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: Message.COMMON.INTERNAL_SERVER });
     }
 }

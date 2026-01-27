@@ -6,6 +6,7 @@ import { paginate } from '../utils/paginationHelper.js';
 import { escapeRegExp } from '../utils/regexHelper.js';
 import Order from '../models/orderModel.js';
 import { status_Codes } from '../enums/statusCodes.js';
+import { Message } from '../enums/message.js';
 
 dotenv.config();
 export const getLoginAdmin = (req, res) => {
@@ -34,9 +35,9 @@ export const postLoginAdmin = async (req, res) => {
     if (adminExist.email === email && adminExist.password === password) {
         req.session.isAdmin = true;
         req.session.adminEmail = email;
-        return res.status(status_Codes.OK).json({ success: true, message: "Login successful", redirectUrl: "/admin/dashboard" });
+        return res.status(status_Codes.OK).json({ success: true, message: Message.auth.LOGIN_SUCCESS, redirectUrl: "/admin/dashboard" });
     }
-    res.status(status_Codes.UNAUTHORIZED).json({ success: false, message: "Invalid email or password", redirectUrl: "/admin/login" });
+    res.status(status_Codes.UNAUTHORIZED).json({ success: false, message: Message.auth.LOGIN_FAILED, redirectUrl: "/admin/login" });
 }
 
 export const getAdminDashboard = async (req, res) => {
@@ -188,7 +189,7 @@ export const getRevenueData = async (req, res) => {
         res.json({ success: true, labels, data });
     } catch (error) {
         console.error("Revenue Data Error:", error);
-        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Failed to fetch revenue data" });
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: Message.ADMIN_DASHBOARD.REVENUE_FAILED });
     }
 }
 
@@ -244,23 +245,23 @@ export const blockUser = async (req, res) => {
 
         const user = await User.findById(userId);
         if (!user) {
-            req.session.message = { type: 'error', message: "user not found" };
+            req.session.message = { type: 'error', message: Message.USER.NOT_FOUND };
             return res.redirect("/admin/users");
         }
 
         if (user.status == "blocked") {
-            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "User is already blocked" });
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: Message.ADMIN_USER.ALREADY_BLOCKED });
         }
 
         await User.findByIdAndUpdate(userId, { status: "blocked" });
 
-        res.status(status_Codes.OK).json({ success: true, message: "User blocked successfully", redirectUrl: "/admin/users" });
+        res.status(status_Codes.OK).json({ success: true, message: Message.ADMIN_USER.BLOCKED_SUCCESS, redirectUrl: "/admin/users" });
 
     } catch (error) {
         console.error("Error blocking user:", error);
         res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
             success: false,
-            message: "Internal server error"
+            message: Message.COMMON.INTERNAL_SERVER
         });
     }
 };
@@ -270,23 +271,23 @@ export const unblockUser = async (req, res) => {
 
         const user = await User.findById(userId);
         if (!user) {
-            req.session.message = { type: 'error', message: "user not found" };
+            req.session.message = { type: 'error', message: Message.USER.NOT_FOUND };
             return res.redirect("/admin/users");
         }
 
         if (user.status == "active") {
-            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "User is already unblocked" });
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: Message.ADMIN_USER.ALREADY_UNBLOCKED });
         }
 
         await User.findByIdAndUpdate(userId, { status: "active" });
 
-        res.status(status_Codes.OK).json({ success: true, message: "User unblocked successfully", redirectUrl: "/admin/users" });
+        res.status(status_Codes.OK).json({ success: true, message:Message.ADMIN_USER.UNBLOCKED_SUCCESS, redirectUrl: "/admin/users" });
 
     } catch (error) {
         console.error("Error unblocking user:", error);
         res.status(status_Codes.INTERNAL_SERVER_ERROR).json({
             success: false,
-            message: "Internal server error"
+            message: Message.COMMON.INTERNAL_SERVER
         });
     }
 };
@@ -312,7 +313,7 @@ export const searchUsers = async (req, res) => {
 
     }
     catch (err) {
-        res.send("Internal Server error");
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({success:false, message:Message.COMMON.INTERNAL_SERVER});
     }
 
 }

@@ -3,6 +3,7 @@ import { paginate } from "../utils/paginationHelper.js";
 import logger from "../utils/logger.js";
 import { escapeRegExp } from "../utils/regexHelper.js";
 import { status_Codes } from "../enums/statusCodes.js";
+import { Message } from "../enums/message.js";
 
 export const getCouponlist = async (req, res) => {
     try {
@@ -111,7 +112,7 @@ export const createCoupon = async (req, res) => {
         });
 
         await newCoupon.save();
-        res.status(status_Codes.CREATED).json({ success: true, message: "Coupon created successfully" });
+        res.status(status_Codes.CREATED).json({ success: true, message: Message.COUPON.CREATED_SUCCESS });
     } catch (error) {
         logger.error("Create Coupon Error:", error);
         res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: error.message });
@@ -204,10 +205,10 @@ export const updateCoupon = async (req, res) => {
         }, { new: true });
 
         if (!updatedCoupon) {
-            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: "Coupon not found" });
+            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: Message.COUPON.NOT_FOUND });
         }
 
-        res.status(status_Codes.OK).json({ success: true, message: "Coupon updated successfully" });
+        res.status(status_Codes.OK).json({ success: true, message: Message.COUPON.UPDATED_SUCCESS });
     } catch (error) {
         logger.error("Update Coupon Error:", error);
         res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: error.message });
@@ -219,9 +220,9 @@ export const deleteCoupon = async (req, res) => {
         const { id } = req.params;
         const deletedCoupon = await Coupon.findByIdAndDelete(id);
         if (!deletedCoupon) {
-            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: "Coupon not found" });
+            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: Message.COUPON.NOT_FOUND });
         }
-        res.status(status_Codes.OK).json({ success: true, message: "Coupon deleted successfully" });
+        res.status(status_Codes.OK).json({ success: true, message: Message.COUPON.DELETED_SUCCESS});
     } catch (error) {
         logger.error("Delete Coupon Error:", error);
         res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: error.message });
@@ -233,7 +234,7 @@ export const toggleCouponStatus = async (req, res) => {
         const { id } = req.params;
         const coupon = await Coupon.findById(id);
         if (!coupon) {
-            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: "Coupon not found" });
+            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: Message.COUPON.NOT_FOUND });
         }
 
         coupon.couponStatus = coupon.couponStatus === "active" ? "blocked" : "active";

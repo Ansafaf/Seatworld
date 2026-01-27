@@ -5,6 +5,7 @@ import { Product, ProductVariant } from '../models/productModel.js';
 import { paginate } from '../utils/paginationHelper.js';
 import { escapeRegExp } from '../utils/regexHelper.js';
 import { status_Codes } from '../enums/statusCodes.js';
+import { Message } from '../enums/message.js';
 
 export const productList = async (req, res, next) => {
   try {
@@ -123,7 +124,7 @@ export const postAddProduct = async (req, res, next) => {
 
     await productService.addProductWithVariants(productData, variantsData, files);
 
-    res.status(status_Codes.OK).json({ success: true, message: 'Product added Successfully', redirectUrl: "/admin/products" });
+    res.status(status_Codes.OK).json({ success: true, message: Message.PRODUCT.CREATED_SUCCESS, redirectUrl: "/admin/products" });
   } catch (error) {
     next(error);
   }
@@ -253,7 +254,7 @@ export const postEditProduct = async (req, res, next) => {
     await productService.updateProductWithVariants(id, productData, processedVariants, deletedVariantIds);
 
     logger.info(`[postEditProduct] Success.`);
-    res.status(status_Codes.OK).json({ success: true, message: 'Product updated Successfully', redirectUrl: "/admin/products" });
+    res.status(status_Codes.OK).json({ success: true, message: Message.PRODUCT.UPDATED_SUCCESS, redirectUrl: "/admin/products" });
   } catch (error) {
     logger.error(`[postEditProduct] Error: ${error.message}`);
     next(error);
@@ -264,7 +265,7 @@ export const blockProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
     const product = await productService.getProductById(id);
-    if (!product) return res.status(status_Codes.NOT_FOUND).json({ message: "Product not found" });
+    if (!product) return res.status(status_Codes.NOT_FOUND).json({ message: Message.PRODUCT.NOT_FOUND });
 
     await productService.updateProductStatus(id, true);
     res.status(status_Codes.OK).json({ message: `Product "${product.name}" blocked successfully`, productName: product.name });
@@ -277,7 +278,7 @@ export const unblockProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
     const product = await productService.getProductById(id);
-    if (!product) return res.status(status_Codes.NOT_FOUND).json({ message: "Product not found" });
+    if (!product) return res.status(status_Codes.NOT_FOUND).json({ message: Message.PRODUCT.NOT_FOUND });
 
     await productService.updateProductStatus(id, false);
     res.status(status_Codes.OK).json({ message: `Product "${product.name}" unblocked successfully`, productName: product.name });

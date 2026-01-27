@@ -8,6 +8,7 @@ import * as cartService from "../services/cartService.js";
 import * as inventoryService from "../services/inventoryService.js";
 import Coupon from "../models/couponModel.js";
 import { status_Codes } from "../enums/statusCodes.js";
+import { Message } from "../enums/message.js";
 
 export const getCheckoutAddress = async (req, res) => {
     if (!req.session.user) return res.redirect("/login");
@@ -34,9 +35,7 @@ export const getCheckoutAddress = async (req, res) => {
         logger.info(`Found ${availableCoupons.length} available coupons for checkout`);
 
 
-        // CLEAR persistent coupon on checkout entry UNLESS it was just applied
-        // CLEAR persistent coupon on checkout entry (User request: Manual apply only)
-        // Since we now use AJAX for application, any fresh page load should clear the coupon to prevent auto-apply from history.
+        
         await Cart.updateOne({ userId }, { couponId: null });
         if (req.session.checkout) {
             delete req.session.checkout.coupon;
@@ -60,7 +59,7 @@ export const getCheckoutAddress = async (req, res) => {
         });
     } catch (error) {
         logger.error("Checkout Address Page Error:", error);
-        req.session.message = { type: 'error', message: "Something went wrong" };
+        req.session.message = { type: 'error', message: Message.COMMON.SOMETHING_WENT_WRONG };
         res.redirect("/cart");
     }
 }
@@ -70,7 +69,6 @@ export const postAddress = async (req, res) => {
         const { addressData, addressId } = req.body;
         const userId = req.session.user.id;
 
-        // 1. If we have an addressId, it's an existing address. No need to save.
         if (addressId) {
             const existingAddress = await Address.findOne({ _id: addressId, userId });
             if (existingAddress) {
@@ -86,7 +84,7 @@ export const postAddress = async (req, res) => {
             }
         }
 
-        // 2. Validate new address data
+        // Validate new address data
         if (!addressData) {
             return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Valid address is required" });
         }
@@ -116,7 +114,7 @@ export const postAddress = async (req, res) => {
             return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Mobile number must be exactly 10 digits" });
         }
 
-        // 3. Check for existing identical address to prevent duplication
+        //Check for existing identical address to prevent duplication
         const duplicateAddress = await Address.findOne({
             userId,
             name: addressData.name,
@@ -135,7 +133,7 @@ export const postAddress = async (req, res) => {
                 step: 'payment'
             };
         } else {
-            // 4. Save the new address
+            //Save the new address
             const newAddress = new Address({
                 userId,
                 name: addressData.name,
@@ -198,8 +196,7 @@ export const getPaymentOptions = async (req, res) => {
             ...cartTotals,
             couponApplied: !!cartTotals.appliedCoupon,
             discountAmount: cartTotals.discountAmount || 0,
-            // Explicitly passing raw subtotal if needed by view, though service returns 'subtotal' (items only) and 'rawTotal' (items+delivery) 
-            // view uses 'total' which is final.
+          
         });
 
     } catch (error) {
@@ -213,25 +210,22 @@ export const applyCoupon = async (req, res) => {
         const { couponId } = req.body;
         const userId = req.session.user.id;
 
-        // Fetch coupon
         const coupon = await Coupon.findOne({ _id: couponId, couponStatus: 'active' });
         if (!coupon) {
-            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: "Coupon not found or inactive" });
+            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: Message.COUPON.NOT_FOUND});
         }
-        // Validate expiry
+    
         if (new Date() > coupon.expiryDate) {
-            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Coupon has expired" });
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: Message.COUPON.EXPIRED });
         }
 
-        // Validate usage limit
         const alreadyUsed = await Order.exists({ userId, couponId: coupon._id });
         if (alreadyUsed) {
-            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Coupon already used" });
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: Message.COUPON.ALREADY_USED });
         }
 
 
         const currentTotals = await cartService.calculateCartTotals(userId);
-        //bf discount
 
         if (currentTotals.rawTotal < coupon.minAmount) {
             return res.status(status_Codes.BAD_REQUEST).json({
@@ -240,16 +234,13 @@ export const applyCoupon = async (req, res) => {
             });
         }
 
-        // Apply to DB
         await Cart.updateOne({ userId }, { couponId: coupon._id });
 
-        // Recalculate with new coupon
         const newTotals = await cartService.calculateCartTotals(userId);
 
-        // Response
         return res.json({
             success: true,
-            message: "Coupon applied successfully",
+            message: Message.COUPON.APPLIED,
             discountAmount: newTotals.discountAmount,
             subtotal: newTotals.rawTotal,
             newTotal: newTotals.total, // This is the "Final Amount" from the service
@@ -258,7 +249,7 @@ export const applyCoupon = async (req, res) => {
 
     } catch (error) {
         logger.error("Apply Coupon Error:", error);
-        return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: "Failed to apply coupon" });
+        return res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: Message.COUPON.APPLY_FAIL });
     }
 }
 
@@ -269,16 +260,13 @@ export const removeCoupon = async (req, res) => {
         if (req.session.checkout && req.session.checkout.coupon) {
             delete req.session.checkout.coupon;
         }
-
-        // Remove from DB
         await Cart.updateMany({ userId }, { couponId: null });
 
-        // Recalculate (will now be without discount)
         const cartTotals = await cartService.calculateCartTotals(userId);
 
         return res.json({
             success: true,
-            message: "Coupon removed",
+            message: Message.COUPON.DELETED_SUCCESS,
             newTotal: cartTotals.total, // "total" is now the raw/undiscounted amount since coupon is gone
             subtotal: cartTotals.rawTotal,
             discountAmount: 0
