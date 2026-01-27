@@ -78,7 +78,7 @@ export async function postLogin(req, res) {
         message: "This account has been blocked by admin"
       });
     }
-
+    
     if (await bcrypt.compare(password, user.password)) {
       req.session.user = {
         id: user._id,
@@ -86,6 +86,8 @@ export async function postLogin(req, res) {
         email: user.email,
         avatar: user.avatar
       };
+      user.islogged = true;
+      await user.save();
       return res.status(status_Codes.OK).json({
         success: true,
         message: Message.auth.LOGIN_SUCCESS,
