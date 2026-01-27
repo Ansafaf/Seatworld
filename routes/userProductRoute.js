@@ -2,7 +2,7 @@ import { getProductdetail, getProducts } from '../controller/productController.j
 import express from 'express';
 const router = express.Router();
 router.get('/products', getProducts);
-router.get('/product/:id', getProductdetail);
+router.get('/product/:productId', getProductdetail);
 
 
 export default router;

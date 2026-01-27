@@ -350,7 +350,7 @@ export async function getProducts(req, res) {
 
 export async function getProductdetail(req, res) {
     try {
-        const productId = req.params.id;
+        const productId = req.params.productId;
         const variantId = req.query.variant;
 
         const product = await Product.findOne({ _id: productId, isBlocked: { $ne: true } })

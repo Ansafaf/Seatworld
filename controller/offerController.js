@@ -127,10 +127,10 @@ export const postAddOffer = async (req, res) => {
 
 export const toggleOfferStatus = async (req, res) => {
     try {
-        const { id } = req.params;
-        const offer = await Offer.findById(id);
+        const { offerId } = req.params;
+        const offer = await Offer.findById(offerId);
         if (!offer) {
-            return res.status(status_Codes.N).json({ success: false, message: Message.OFFER.NOT_FOUND });
+            return res.status(status_Codes.NOT_FOUND).json({ success: false, message: Message.OFFER.NOT_FOUND });
         }
 
         offer.isActive = !offer.isActive;
@@ -149,8 +149,8 @@ export const toggleOfferStatus = async (req, res) => {
 
 export const getEditOffer = async (req, res) => {
     try {
-        const { id } = req.params;
-        const offer = await Offer.findById(id).populate('productId');
+        const { offerId } = req.params;
+        const offer = await Offer.findById(offerId).populate('productId');
         if (!offer) {
             return res.redirect("/admin/offers");
         }
@@ -171,10 +171,10 @@ export const getEditOffer = async (req, res) => {
 
 export const postEditOffer = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { offerId} = req.params;
         const { name, offerType, productId, categoryId, discountPercentage } = req.body;
 
-        const offer = await Offer.findById(id);
+        const offer = await Offer.findById(offerId);
         if (!offer) {
             return res.status(status_Codes.NOT_FOUND).json({ success: false, message: "Offer not found" });
         }

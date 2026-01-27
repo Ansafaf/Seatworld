@@ -171,8 +171,8 @@ export const getOrderlist = async (req, res) => {
 export const getOrderDetails = async (req, res) => {
     try {
 
-        const { id } = req.params;
-        const order = await Order.findById(id).populate('userId', 'name email mobile');
+        const { orderId } = req.params;
+        const order = await Order.findById(orderId).populate('userId', 'name email mobile');
 
         if (!order) {
             return res.status(status_Codes.NOT_FOUND).render("500", { message: "Order not found" });

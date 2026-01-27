@@ -396,7 +396,7 @@ export async function getAddresslist(req, res) {
 }
 export async function postDefaultAddres(req, res) {
   try {
-    const addressId = req.params.id;
+    const addressId = req.params.addressId;
     const userId = req.session.user.id;
 
     // Remove default flag from all addresses of this user
@@ -521,7 +521,7 @@ export const getEditAddress = async (req, res) => {
   if (!req.session.user) return res.redirect("/login");
   try {
     const userId = req.session.user.id;
-    const addressId = req.params.id;
+    const addressId = req.params.addressId;
 
     const address = await Address.findOne({
       _id: addressId,
@@ -553,7 +553,7 @@ export const getEditAddress = async (req, res) => {
 
 export async function postEditAddress(req, res) {
   try {
-    const addressId = req.params.id;
+    const addressId = req.params.addressId;
     const userId = req.session.user.id;
 
     const { name, housename, street, city, state, country, pincode, mobile, returnTo } = req.body;
@@ -633,7 +633,7 @@ export async function postEditAddress(req, res) {
 
 export async function deleteAddress(req, res) {
   try {
-    const addressId = req.params.id;
+    const addressId = req.params.addressId;
     const userId = req.session.user.id;
     const address = await Address.findOne({ _id: addressId, userId: userId })
 
@@ -663,7 +663,7 @@ export async function deleteAddress(req, res) {
 export async function getupdatePass(req, res) {
   const userId = req.session.user.id;
   const user = await User.findById(userId);
-
+  
   if (!user) {
     return res.redirect("/login");
   }

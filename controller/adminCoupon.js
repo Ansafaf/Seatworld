@@ -121,8 +121,8 @@ export const createCoupon = async (req, res) => {
 
 export const renderEditCoupon = async (req, res) => {
     try {
-        const { id } = req.params;
-        const coupon = await Coupon.findById(id);
+        const { couponId } = req.params;
+        const coupon = await Coupon.findById(couponId);
         if (!coupon) {
             return res.redirect("/admin/coupons");
         }
@@ -135,7 +135,7 @@ export const renderEditCoupon = async (req, res) => {
 
 export const updateCoupon = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { couponId } = req.params;
         const {
             couponName,
             couponCode,
@@ -153,7 +153,7 @@ export const updateCoupon = async (req, res) => {
             return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Coupon code must contain only letters and numbers" });
         }
 
-        const existingCoupon = await Coupon.findById(id);
+        const existingCoupon = await Coupon.findById(couponId);
         if (!existingCoupon) {
             return res.status(status_Codes.N).json({ success: false, message: "Coupon not found" });
         }
@@ -167,7 +167,7 @@ export const updateCoupon = async (req, res) => {
             return res.status(status_Codes.BAD_REQUEST).json({success:false , message:"Discount value must be less than 500"});
         }
         
-        const duplicateCoupon = await Coupon.findOne({ couponCode: couponCode.toUpperCase(), _id: { $ne: id } });
+        const duplicateCoupon = await Coupon.findOne({ couponCode: couponCode.toUpperCase(), _id: { $ne: couponId } });
         if (duplicateCoupon) {
             return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Coupon code already exists in another coupon" });
         }
@@ -192,7 +192,7 @@ export const updateCoupon = async (req, res) => {
             newStatus = 'active';
         }
 
-        const updatedCoupon = await Coupon.findByIdAndUpdate(id, {
+        const updatedCoupon = await Coupon.findByIdAndUpdate(couponId, {
             couponName,
             couponCode: couponCode.toUpperCase(),
             discountValue,
@@ -217,8 +217,8 @@ export const updateCoupon = async (req, res) => {
 
 export const deleteCoupon = async (req, res) => {
     try {
-        const { id } = req.params;
-        const deletedCoupon = await Coupon.findByIdAndDelete(id);
+        const {couponId } = req.params;
+        const deletedCoupon = await Coupon.findByIdAndDelete(couponId);
         if (!deletedCoupon) {
             return res.status(status_Codes.NOT_FOUND).json({ success: false, message: Message.COUPON.NOT_FOUND });
         }
@@ -231,8 +231,8 @@ export const deleteCoupon = async (req, res) => {
 
 export const toggleCouponStatus = async (req, res) => {
     try {
-        const { id } = req.params;
-        const coupon = await Coupon.findById(id);
+        const {couponId } = req.params;
+        const coupon = await Coupon.findById(couponId);
         if (!coupon) {
             return res.status(status_Codes.NOT_FOUND).json({ success: false, message: Message.COUPON.NOT_FOUND });
         }

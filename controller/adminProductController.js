@@ -132,10 +132,10 @@ export const postAddProduct = async (req, res, next) => {
 
 export const editProduct = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { productId } = req.params;
     const { ProductVariant } = await import('../models/productModel.js');
-    const product = await Product.findById(id);
-    const variants = await ProductVariant.find({ productId: id });
+    const product = await Product.findById(productId);
+    const variants = await ProductVariant.find({ productId: productId });
     const categories = await categoryService.getActiveCategories();
     res.render("admin/editProduct", { product, variants, categories });
   } catch (error) {
@@ -145,8 +145,8 @@ export const editProduct = async (req, res, next) => {
 
 export const postEditProduct = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    logger.info(`[postEditProduct] Request received for Product ID: ${id}`);
+    const { productId } = req.params;
+    logger.info(`[postEditProduct] Request received for Product ID: ${productId}`);
 
     //Log body keys to debug data
     logger.info(`[postEditProduct] Body keys: ${Object.keys(req.body).join(', ')}`);
@@ -232,7 +232,7 @@ export const postEditProduct = async (req, res, next) => {
       processedVariants.push({
         id: currentVariantId,
         data: {
-          productId: id,
+          productId: productId,
           color: colors[i],
           price: prices[i],
           stock: stocks[i],
@@ -244,14 +244,14 @@ export const postEditProduct = async (req, res, next) => {
 
     const processedVariantIds = processedVariants.map(v => v.id).filter(id => id);
     const { ProductVariant } = await import('../models/productModel.js');
-    const allCurrentVariants = await ProductVariant.find({ productId: id });
+    const allCurrentVariants = await ProductVariant.find({ productId: productId });
     const deletedVariantIds = allCurrentVariants
       .filter(v => !processedVariantIds.includes(v._id.toString()))
       .map(v => v._id);
 
     logger.info(`[postEditProduct] Updating database. Deleted variants: ${deletedVariantIds.length}`);
     
-    await productService.updateProductWithVariants(id, productData, processedVariants, deletedVariantIds);
+    await productService.updateProductWithVariants(productId, productData, processedVariants, deletedVariantIds);
 
     logger.info(`[postEditProduct] Success.`);
     res.status(status_Codes.OK).json({ success: true, message: Message.PRODUCT.UPDATED_SUCCESS, redirectUrl: "/admin/products" });
@@ -263,11 +263,11 @@ export const postEditProduct = async (req, res, next) => {
 
 export const blockProduct = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const product = await productService.getProductById(id);
+    const { productId } = req.params;
+    const product = await productService.getProductById(productId);
     if (!product) return res.status(status_Codes.NOT_FOUND).json({ message: Message.PRODUCT.NOT_FOUND });
 
-    await productService.updateProductStatus(id, true);
+    await productService.updateProductStatus(productId, true);
     res.status(status_Codes.OK).json({ message: `Product "${product.name}" blocked successfully`, productName: product.name });
   } catch (error) {
     next(error);
@@ -276,11 +276,11 @@ export const blockProduct = async (req, res, next) => {
 
 export const unblockProduct = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const product = await productService.getProductById(id);
+    const { productId } = req.params;
+    const product = await productService.getProductById(productId);
     if (!product) return res.status(status_Codes.NOT_FOUND).json({ message: Message.PRODUCT.NOT_FOUND });
 
-    await productService.updateProductStatus(id, false);
+    await productService.updateProductStatus(productId, false);
     res.status(status_Codes.OK).json({ message: `Product "${product.name}" unblocked successfully`, productName: product.name });
   } catch (error) {
     next(error);

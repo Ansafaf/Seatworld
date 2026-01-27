@@ -22,11 +22,11 @@ router.get("/address", requireAuth, getAddresslist);
 router.get("/address/add", requireAuth, getAddaddress);
 router.post("/address/add", requireAuth, postAddaddress);
 
-router.get("/address/edit/:id", requireAuth, getEditAddress);
-router.post("/address/edit/:id", requireAuth, postEditAddress);
-router.post('/address/set-default/:id', requireAuth, postDefaultAddres);
+router.get("/address/edit/:addressId", requireAuth, getEditAddress);
+router.post("/address/edit/:addressId", requireAuth, postEditAddress);
+router.post('/address/set-default/:addressId', requireAuth, postDefaultAddres);
 
-router.post("/address/delete/:id", requireAuth, deleteAddress); //delete request through post
+router.post("/address/delete/:addressId", requireAuth, deleteAddress); //delete request through post
 //pass
 router.get("/password-change", requireAuth, getupdatePass);
 router.post("/password-change", requireAuth, postupdatePass);

@@ -241,7 +241,7 @@ export const getCustomerlist = async (req, res, next) => {
 
 export const blockUser = async (req, res) => {
     try {
-        const userId = req.params.id;
+        const userId = req.params.userId;
 
         const user = await User.findById(userId);
         if (!user) {
@@ -267,7 +267,7 @@ export const blockUser = async (req, res) => {
 };
 export const unblockUser = async (req, res) => {
     try {
-        const userId = req.params.id;
+        const userId = req.params.userId;
 
         const user = await User.findById(userId);
         if (!user) {

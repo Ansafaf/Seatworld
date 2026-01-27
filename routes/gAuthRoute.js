@@ -17,7 +17,7 @@ router.get("/google/callback", (req, res, next) => {
       return next(err);
     }
     if (!user) {
-      // Handle failure (e.g., blocked user)
+     
       req.session.message = {
         type: 'error',
         message: info ? info.message : "Authentication failed"

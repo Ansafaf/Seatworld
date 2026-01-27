@@ -6,8 +6,8 @@ import { adminAuthMiddleware } from '../middleware/adminAuthMiddleware.js';
 router.get('/', adminAuthMiddleware, offerController.getOfferList);
 router.get('/add', adminAuthMiddleware, offerController.getAddOffer);
 router.post('/add', adminAuthMiddleware, offerController.postAddOffer);
-router.patch('/:id/toggle', adminAuthMiddleware, offerController.toggleOfferStatus);
-router.get('/edit/:id', adminAuthMiddleware, offerController.getEditOffer);
-router.post('/edit/:id', adminAuthMiddleware, offerController.postEditOffer);
+router.patch('/:offerId/toggle', adminAuthMiddleware, offerController.toggleOfferStatus);
+router.get('/edit/:offerId', adminAuthMiddleware, offerController.getEditOffer);
+router.post('/edit/:offerId', adminAuthMiddleware, offerController.postEditOffer);
 
 export default router;

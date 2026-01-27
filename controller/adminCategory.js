@@ -60,8 +60,8 @@ export const postAddCategory = async (req, res, next) => {
 
 export const getEditCategory = async (req, res, next) => {
     try {
-        const { id } = req.params;
-        const category = await categoryService.getCategoryById(id);
+        const { categoryId } = req.params;
+        const category = await categoryService.getCategoryById(categoryId);
 
         if (!category) {
             req.session.message = { type: 'error', message: Message.CATEGORY.NOT_FOUND };
@@ -84,8 +84,8 @@ export const getEditCategory = async (req, res, next) => {
 export const postEditCategory = async (req, res, next) => {
     try {
         const { categoryName } = req.body;
-        const { id } = req.params;
-        await categoryService.updateCategory(id, categoryName);
+        const { categoryId } = req.params;
+        await categoryService.updateCategory(categoryId, categoryName);
         res.status(status_Codes.OK).json({ success: true, message: Message.CATEGORY.UPDATED_SUCCESS, redirectUrl: "/admin/categories" });
     } catch (err) {
         next(err);
@@ -94,8 +94,8 @@ export const postEditCategory = async (req, res, next) => {
 
 export const postBlockCategory = async (req, res, next) => {
     try {
-        const { id } = req.params;
-        await categoryService.updateCategoryStatus(id, false);
+        const { categoryId } = req.params;
+        await categoryService.updateCategoryStatus(categoryId, false);
         res.status(status_Codes.OK).json({ success: true, message: Message.CATEGORY.BLOCK, redirectUrl: "/admin/categories" });
     } catch (error) {
         next(error);
@@ -104,8 +104,8 @@ export const postBlockCategory = async (req, res, next) => {
 
 export const postUnblockCategory = async (req, res, next) => {
     try {
-        const { id } = req.params;
-        await categoryService.updateCategoryStatus(id, true);
+        const {categoryId} = req.params;
+        await categoryService.updateCategoryStatus(categoryId, true);
         res.status(status_Codes.OK).json({ success: true, message: Message.CATEGORY.UNBLOCK, redirectUrl: "/admin/categories" });
     } catch (error) {
         next(error);

@@ -21,9 +21,9 @@ const debugMulter = (req, res, next) => {
 adminRouter.get("/products", adminAuthMiddleware, productList);
 adminRouter.get("/add-product", adminAuthMiddleware, getAddProduct);
 adminRouter.post("/add-product", adminAuthMiddleware, upload.any(), postAddProduct);
-adminRouter.get("/edit-product/:id", adminAuthMiddleware, editProduct);
-adminRouter.post("/edit-product/:id", adminAuthMiddleware, debugMulter, postEditProduct);
-adminRouter.patch("/block-product/:id", adminAuthMiddleware, blockProduct);
-adminRouter.patch("/unblock-product/:id", adminAuthMiddleware, unblockProduct);
+adminRouter.get("/edit-product/:productId", adminAuthMiddleware, editProduct);
+adminRouter.post("/edit-product/:productId", adminAuthMiddleware, debugMulter, postEditProduct);
+adminRouter.patch("/block-product/:productId", adminAuthMiddleware, blockProduct);
+adminRouter.patch("/unblock-product/:productId", adminAuthMiddleware, unblockProduct);
 
 export default adminRouter;

@@ -14,10 +14,10 @@ import {
 adminRouter.get("/categories", adminAuthMiddleware, getCategoryList);
 adminRouter.get("/add-category", adminAuthMiddleware, getAddCategory);
 adminRouter.post("/add-category", adminAuthMiddleware, postAddCategory);
-adminRouter.get("/edit-category/:id", adminAuthMiddleware, getEditCategory);
-adminRouter.post("/edit-category/:id", adminAuthMiddleware, postEditCategory);
-adminRouter.post("/block-category/:id", adminAuthMiddleware, postBlockCategory);
-adminRouter.post("/unblock-category/:id", adminAuthMiddleware, postUnblockCategory);
+adminRouter.get("/edit-category/:categoryId", adminAuthMiddleware, getEditCategory);
+adminRouter.post("/edit-category/:categoryId", adminAuthMiddleware, postEditCategory);
+adminRouter.post("/block-category/:categoryId", adminAuthMiddleware, postBlockCategory);
+adminRouter.post("/unblock-category/:categoryId", adminAuthMiddleware, postUnblockCategory);
 
 // adminRouter.patch("/")
 
