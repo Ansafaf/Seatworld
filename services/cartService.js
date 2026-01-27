@@ -1,6 +1,6 @@
 import logger from "../utils/logger.js"
 import Cart from "../models/cartModel.js";
-import { ProductVariant } from "../models/productModel.js";
+import { Product, ProductVariant } from "../models/productModel.js";
 import mongoose from "mongoose";
 
 
@@ -208,34 +208,51 @@ export async function addItemToCart(userId, variantId) {
 
 
 export async function updateItemQuantity(userId, variantId, quantity) {
-    const quantityLimit = 6;
-    if (quantity < 1) throw new Error("Min quantity is 1");
-    if (quantity > quantityLimit) throw new Error(`Max quantity is ${quantityLimit}`);
+  const quantityLimit = 6;
 
-    // Parallelize availability check and offer fetching
-    const [variant, activeOffers] = await Promise.all([
-        ProductVariant.findById(variantId).populate('productId').lean(),
-        Offer.find({ isActive: true }).lean()
-    ]);
+  if (quantity < 1) throw new Error("Min quantity is 1");
+  if (quantity > quantityLimit) throw new Error(`Max quantity is ${quantityLimit}`);
 
-    const isAvailable = variant &&
-        variant.stock > 0 &&
-        variant.status === "Active" &&
-        variant.productId &&
-        !variant.productId.isBlocked;
+  // Fetch only what you need
+  const variant = await ProductVariant.findById(variantId)
+    .select("stock status productId")
+    .lean();
 
-    if (!isAvailable) {
-        const totals = await calculateCartTotals(userId, null, activeOffers);
-        return { ...totals, outOfStock: true };
-    }
+  if (!variant) throw new Error("Variant not found");
 
-    if (variant.stock < quantity) throw new Error(`Only ${variant.stock} units available`);
+  const product = await Product.findById(variant.productId)
+    .select("isBlocked")
+    .lean();
 
-    // Update and then calculate totals in one combined flow if possible
-    await Cart.updateOne({ userId, variantId }, { productQuantity: quantity });
+  const isAvailable =
+    variant.stock > 0 &&
+    variant.status === "Active" &&
+    product &&
+    !product.isBlocked;
 
-    const totals = await calculateCartTotals(userId, null, activeOffers);
-    return { ...totals, outOfStock: false };
+  if (!isAvailable) {
+    const totals = await calculateCartTotals(userId);
+    return { ...totals, outOfStock: true };
+  }
+
+  if (variant.stock < quantity) {
+    throw new Error(`Only ${variant.stock} units available`);
+  }
+
+  //Update the single cart document
+  const updateResult = await Cart.updateOne(
+    { userId, variantId },
+    { $set: { productQuantity: quantity } }
+  );
+
+  if (updateResult.matchedCount === 0) {
+    throw new Error("Cart item not found");
+  }
+
+  //Recalculate totals (no offers here)
+  const totals = await calculateCartTotals(userId);
+
+  return { ...totals, outOfStock: false };
 }
 
 
