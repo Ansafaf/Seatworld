@@ -86,8 +86,7 @@ export async function postprofileEdit(req, res) {
 
     const currentName = customer.name || customer.username;
 
-    if (
-      currentName === trimmedName &&
+    if (currentName === trimmedName &&
       (customer.mobile || "") === (trimmedMobile || "")
     ) {
       return res.status(status_Codes.OK).json({
@@ -120,8 +119,8 @@ export async function postprofileEdit(req, res) {
 
     return res.status(status_Codes.OK).json({
       success: true,
-      message: "Profile picture updated successfully",
-      avatarUrl: imageUrl
+      message: "Profile information updated successfully",
+      redirectUrl:"/profile"
     });
 
   } catch (error) {
