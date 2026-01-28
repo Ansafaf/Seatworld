@@ -87,13 +87,6 @@
                                                     <%= product.name %>
                                                 </h1>
 
-                                                <div class="rating-summary">
-                                                    <div class="stars">
-                                                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                                                    </div>
-                                                    <span>4.8 (124 reviews)</span>
-                                                </div>
-
                                                 <p class="product-desc">
                                                     <%= product.description
                                                         || "Ergonomic gaming chair with durable synthetic leather and high-density foam cushions, built for long hours of comfort and support."
@@ -106,7 +99,7 @@
                                                     </div>
                                                     <% if (product.hasOffer) { %>
                                                         <div class="old-price">₹<%=
-                                                                Number(product.originalPrice).toLocaleString('en-IN') %>
+                                                            Number(product.originalPrice).toLocaleString('en-IN') %>
                                                         </div>
                                                         <div class="discount-badge">
                                                             <%= product.discountPercentage %>% OFF
@@ -141,48 +134,6 @@
                                 </div>
                             </section>
 
-                            <!-- Dummy Reviews Section -->
-                            <section class="reviews-section">
-                                <div class="reviews-header">
-                                    <h2 class="reviews-title">Customer Reviews</h2>
-                                </div>
-                                <div class="reviews-grid">
-                                    <div class="review-card">
-                                        <div class="review-user">
-                                            <div class="user-avatar">JS</div>
-                                            <div class="user-info">
-                                                <span class="name">Jackson Silva</span>
-                                                <span class="date">Dec 15, 2025</span>
-                                            </div>
-                                            <div class="stars" style="margin-left: auto;">
-                                                ★ ★ ★ ★ ★
-                                            </div>
-                                        </div>
-                                        <div class="review-content">
-                                            "Absolutely love this chair! Extremely comfortable for long gaming sessions
-                                            and the
-                                            lumbar support is exactly what I needed. Build quality is also good."
-                                        </div>
-                                    </div>
-                                    <div class="review-card">
-                                        <div class="review-user">
-                                            <div class="user-avatar">VK</div>
-                                            <div class="user-info">
-                                                <span class="name">Virat Kohli</span>
-                                                <span class="date">Nov 28, 2023</span>
-                                            </div>
-                                            <div class="stars" style="margin-left: auto;">
-                                                ★ ★ ★ ★ ★
-                                            </div>
-                                        </div>
-                                        <div class="review-content">
-                                            "Great aesthetics and very sturdy. Set up was straightforward. The material
-                                            feels
-                                            premium and it fits perfectly in my home office space."
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
 
                             <!-- Related Products -->
                             <section class="related-section">
