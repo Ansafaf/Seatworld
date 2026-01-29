@@ -1,4 +1,4 @@
-// Search Debouncing & Auto-submit
+
 const filterForm = document.getElementById('productFilters');
 const headerSearchInput = document.getElementById('headerSearchInput');
 const hiddenSearchInput = filterForm ? filterForm.querySelector('input[name="search"]') : null;
@@ -32,8 +32,6 @@ if (headerSearchInput) {
     }
 }
 
-// Auto-submit only on sort change (Sorting is an immediate action)
-// The sort select has form="productFilters" so it's associated with the form even if not inside it
 const sortSelect = document.querySelector('.sort-select');
 if (sortSelect && filterForm) {
     sortSelect.addEventListener('change', () => {
@@ -89,7 +87,6 @@ document.addEventListener('click', (e) => {
     if (removeSortBtn) {
         e.preventDefault();
         e.stopPropagation();
-
         // Build URL with all current filters except sort
         const currentUrl = new URL(window.location.href);
         const params = new URLSearchParams(currentUrl.search);

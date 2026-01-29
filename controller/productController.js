@@ -54,19 +54,14 @@ const buildBaseFilter = (params) => {
             { description: { $regex: escapedSearch, $options: "i" } },
         ];
     }
-
     return { filter };
 };
 
-// Helper: Apply variant-based filtering (color, stock, price)
 const applyVariantFilters = async (filter, params) => {
     const { selectedColors, stock, minPrice, maxPrice } = params;
 
     const hasMinPrice = !Number.isNaN(minPrice) && minPrice > 0;
     const hasMaxPrice = !Number.isNaN(maxPrice) && maxPrice > 0;
-
-    // We no longer return early here because we ALWAYS want to filter out products that have NO active/in-stock variants
-    // even if no specific filters are applied.
 
     // First find products matching basic filters to narrow down variant search
     const products = await Product.find(filter).select('_id').lean();
@@ -75,10 +70,9 @@ const applyVariantFilters = async (filter, params) => {
     const variantFilter = {
         productId: { $in: productIds },
         status: "Active",
-        stock: { $gt: 0 } // Only show items with actual stock in the list
+        stock: { $gt: 0 }
     };
 
-    // Add color filter
     if (selectedColors.length) {
         variantFilter.color = {
             $in: selectedColors.map(c => new RegExp(`^${escapeRegExp(c)}$`, 'i'))
@@ -183,7 +177,6 @@ const prepareUIHelpers = (params, categories, minPriceValue, maxPriceValue) => {
 
 export async function getProducts(req, res) {
     try {
-
         const params = normalizeQuery(req.query);
 
         const { filter } = buildBaseFilter(params);

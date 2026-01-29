@@ -49,7 +49,8 @@ export const Message = Object.freeze({
         UPDATED_SUCCESS:"Category updated successfully",
         BLOCK:"Category blocked successfully",
         UNBLOCK:"Category unblocked successfully",
-        NOT_FOUND:"category not found"
+        NOT_FOUND:"category not found",
+        ALREADY_EXISTS:"this category already exist try another one"
     },
     COMMON:{
         SOMETHING_WENT_WRONG: "Something went wrong",
