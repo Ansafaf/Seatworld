@@ -86,12 +86,12 @@ const applyVariantFilters = async (filter, params) => {
         variantFilter.stock = { $lte: 0 };
     }
 
-    // Add price filter based on variant prices
-    if (hasMinPrice || hasMaxPrice) {
-        variantFilter.price = {};
-        if (hasMinPrice) variantFilter.price.$gte = minPrice;
-        if (hasMaxPrice) variantFilter.price.$lte = maxPrice;
-    }
+    // Price filter will be handled after enrichment in memory to account for offers
+    // if (hasMinPrice || hasMaxPrice) {
+    //     variantFilter.price = {};
+    //     if (hasMinPrice) variantFilter.price.$gte = minPrice;
+    //     if (hasMaxPrice) variantFilter.price.$lte = maxPrice;
+    // }
 
     const matchingVariants = await ProductVariant.find(variantFilter).select('productId').lean();
     const filteredProductIds = [...new Set(matchingVariants.map(v => v.productId.toString()))];
@@ -212,17 +212,13 @@ export async function getProducts(req, res) {
             selectedMax: hasMaxPrice ? params.maxPrice : maxPriceValue,
         };
 
-        const sortOption = getSortOption(params.sort);
-
-        const { items: products, pagination } = await paginate(Product, finalFilter, {
-            page: params.page,
-            limit: params.limit,
-            sort: sortOption,
-            populate: ["categoryId", "offerId"]
-        });
+        // Fetch ALL products that match non-price/non-sort filters to allow memory sorting/filtering
+        const allProducts = await Product.find(finalFilter)
+            .populate(["categoryId", "offerId"])
+            .lean();
 
         const activeOffers = await Offer.find({ isActive: true });
-        const productsWithVariants = await enrichProducts(products, activeOffers);
+        const enrichedProducts = await enrichProducts(allProducts, activeOffers);
 
         let wishlistVariantIds = [];
         if (req.session.user && req.session.user.id) {
@@ -230,21 +226,55 @@ export async function getProducts(req, res) {
             wishlistVariantIds = userWishlist.map(item => item.variantId?.toString()).filter(Boolean);
         }
 
-        const productsWithWishlist = productsWithVariants.map(product => ({
+        const productsWithWishlist = enrichedProducts.map(product => ({
             ...product,
             isInWishlist: product.variant && wishlistVariantIds.includes(product.variant._id.toString())
         }));
 
-
-        let finalProducts = productsWithWishlist;
+        // 4. Apply Price Filter in Memory (Account for Selling Price)
+        let processedProducts = productsWithWishlist;
         if (hasMinPrice || hasMaxPrice) {
-            finalProducts = productsWithWishlist.filter(product => {
-                const displayPrice = product.discountedPrice || product.originalPrice || 0;
+            processedProducts = processedProducts.filter(product => {
+                const displayPrice = product.discountedPrice !== undefined ? product.discountedPrice : product.originalPrice;
                 if (hasMinPrice && displayPrice < params.minPrice) return false;
                 if (hasMaxPrice && displayPrice > params.maxPrice) return false;
                 return true;
             });
         }
+
+        // 5. Apply Sorting in Memory (Account for Selling Price)
+        processedProducts.sort((a, b) => {
+            const priceA = a.discountedPrice !== undefined ? a.discountedPrice : a.originalPrice;
+            const priceB = b.discountedPrice !== undefined ? b.discountedPrice : b.originalPrice;
+
+            switch (params.sort) {
+                case "price-low":
+                    return priceA - priceB;
+                case "price-high":
+                    return priceB - priceA;
+                case "name":
+                    return a.name.localeCompare(b.name);
+                case "newest":
+                case "featured":
+                default:
+                    return new Date(b.createdAt) - new Date(a.createdAt);
+            }
+        });
+
+        // 6. Manual Pagination
+        const totalItems = processedProducts.length;
+        const totalPages = Math.ceil(totalItems / params.limit) || 1;
+        const skip = (params.page - 1) * params.limit;
+        const finalProducts = processedProducts.slice(skip, skip + params.limit);
+
+        const pagination = {
+            currentPage: params.page,
+            totalPages,
+            totalItems,
+            hasNextPage: params.page < totalPages,
+            hasPrevPage: params.page > 1,
+            limit: params.limit
+        };
 
         const rawColors = await ProductVariant.distinct("color", { status: "Active" });
         const availableColors = [...new Set(rawColors.filter(Boolean).map(c => c.trim().toLowerCase()))]
@@ -433,7 +463,7 @@ export async function getProductdetail(req, res) {
         });
 
     } catch (err) {
-        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({success:false, message: Message.COMMON.INTERNAL_SERVER});
+        res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: Message.COMMON.INTERNAL_SERVER });
     }
 }
 
