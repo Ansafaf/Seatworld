@@ -135,11 +135,27 @@
             // Initial call
             toggleMaxAmount();
 
+            document.addEventListener('DOMContentLoaded', () => {
+                const today = new Date().toISOString().split('T')[0];
+                const expiryDateInput = document.getElementById('expiryDate');
+                // For edit, we might not want to restrict startDate to today if it already started,
+                // but we should at least ensure expiry date is not in the past relative to today if it's being updated
+                if (expiryDateInput) expiryDateInput.setAttribute('min', today);
+            });
+
             document.getElementById('editCouponForm').addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const id = document.getElementById('couponId').value;
                 const formData = new FormData(e.target);
                 const data = Object.fromEntries(formData.entries());
+
+                const startDate = new Date(data.startDate);
+                const expiryDate = new Date(data.expiryDate);
+
+                if (expiryDate <= startDate) {
+                    Swal.fire('Error', 'Expiry date must be after start date', 'error');
+                    return;
+                }
 
                 try {
                     const response = await fetch(`/admin/coupons/edit/${id}`, {

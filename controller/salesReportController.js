@@ -17,6 +17,22 @@ import { status_Codes } from "../enums/statusCodes.js";
 export const getSalesReport = async (req, res) => {
     try {
         const { startDate, endDate, quickFilter } = req.query;
+
+        // Validation for custom date range
+        if (startDate && endDate) {
+            const today = new Date();
+            today.setHours(23, 59, 59, 999);
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+
+            if (start > end) {
+                return res.status(status_Codes.BAD_REQUEST).render("500", { message: "Start date cannot be after end date" });
+            }
+            if (start > today || end > today) {
+                return res.status(status_Codes.BAD_REQUEST).render("500", { message: "Future dates are not allowed" });
+            }
+        }
+
         const reportData = await generateSalesReportData({ startDate, endDate, quickFilter });
         // Render View
         res.render("admin/salesreport", {
@@ -38,6 +54,22 @@ export const getSalesReport = async (req, res) => {
 export const getDownloadSales = async (req, res) => {
     try {
         const { startDate, endDate, quickFilter } = req.query;
+
+        // Validation for custom date range
+        if (startDate && endDate) {
+            const today = new Date();
+            today.setHours(23, 59, 59, 999);
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+
+            if (start > end) {
+                return res.status(status_Codes.BAD_REQUEST).json({ message: "Start date cannot be after end date" });
+            }
+            if (start > today || end > today) {
+                return res.status(status_Codes.BAD_REQUEST).json({ message: "Future dates are not allowed" });
+            }
+        }
+
         const report = await generateSalesReportData({ startDate, endDate, quickFilter });
 
         const doc = new PDFDocument({ margin: 50 });
@@ -68,6 +100,22 @@ export const getDownloadSales = async (req, res) => {
 export const getDownloadExcel = async (req, res) => {
     try {
         const { startDate, endDate, quickFilter } = req.query;
+
+        // Validation for custom date range
+        if (startDate && endDate) {
+            const today = new Date();
+            today.setHours(23, 59, 59, 999);
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+
+            if (start > end) {
+                return res.status(status_Codes.BAD_REQUEST).json({ message: "Start date cannot be after end date" });
+            }
+            if (start > today || end > today) {
+                return res.status(status_Codes.BAD_REQUEST).json({ message: "Future dates are not allowed" });
+            }
+        }
+
         const report = await generateSalesReportData({ startDate, endDate, quickFilter });
 
         const workbook = new ExcelJS.Workbook();
