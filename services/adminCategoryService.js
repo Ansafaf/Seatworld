@@ -1,3 +1,4 @@
+import { status_Codes } from '../enums/statusCodes.js';
 import { Category } from '../models/categoryModel.js';
 
 export const getCategories = async (query = {}, skip, limit) => {
@@ -12,12 +13,34 @@ export const getCategoryCount = async (query = {}) => {
 };
 
 export const createCategory = async (name) => {
-    const category = new Category({ categoryName: name });
-    return await category.save();
+    try{
+         const category = new Category({ categoryName: name });
+         return await category.save();
+    }
+    catch(error){
+        if(error.code === 11000){
+            throw{
+                status: status_Codes.CONFLICT,
+                message:"Category already exist"
+            }
+        }
+    }
 };
 
 export const updateCategory = async (id, name) => {
-    return await Category.findByIdAndUpdate(id, { categoryName: name.trim() }, { new: true });
+    try{
+        return await Category.findByIdAndUpdate(id, { categoryName: name.trim() },{new : true});
+    }
+    catch(error){
+        if(error.code === 11000){
+            throw{
+                status: status_Codes.CONFLICT,
+                message:"Category already exist"
+            }
+        }
+
+    }
+    
 };
 
 export const updateCategoryStatus = async (id, isActive) => {

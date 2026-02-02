@@ -28,13 +28,12 @@ if (form) {
 
         const categoryNameInput = document.getElementById('categoryName');
         const categoryName = categoryNameInput.value.trim();
-
-        if (!categoryName) {
+        const nameRegex = /^[a-zA-Z\s]{3,20}$/;
+        if (!nameRegex.test(categoryName)) {
             Swal.fire({
                 icon: 'error',
                 title: 'Validation Error',
-                text: 'Please enter a category name',
-                confirmButtonColor: '#3b82f6'
+                text: 'Category name must be 3-20 characters long and contain only letters.'
             });
             return;
         }
@@ -63,11 +62,14 @@ if (form) {
             }
         } catch (error) {
             console.error('Error:', error);
+
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
-                text: 'An unexpected error occurred',
+                text: error.data?.message || error.message || 'Something went wrong',
+                confirmButtonColor: '#3b82f6'
             });
         }
+
     });
 }

@@ -173,7 +173,7 @@ export const getOrderDetails = async (req, res) => {
 
         const { orderId } = req.params;
         const order = await Order.findById(orderId).populate('userId', 'name email mobile');
-
+        
         if (!order) {
             return res.status(status_Codes.NOT_FOUND).render("500", { message: "Order not found" });
         }

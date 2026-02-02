@@ -129,10 +129,34 @@
             // Initial call
             toggleMaxAmount();
 
+            document.addEventListener('DOMContentLoaded', () => {
+                const today = new Date().toISOString().split('T')[0];
+                const startDateInput = document.getElementById('startDate');
+                const expiryDateInput = document.getElementById('expiryDate');
+
+                if (startDateInput) startDateInput.setAttribute('min', today);
+                if (expiryDateInput) expiryDateInput.setAttribute('min', today);
+            });
+
             document.getElementById('addCouponForm').addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const formData = new FormData(e.target);
                 const data = Object.fromEntries(formData.entries());
+
+                const startDate = new Date(data.startDate);
+                const expiryDate = new Date(data.expiryDate);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                if (startDate < today) {
+                    Swal.fire('Error', 'Start date cannot be in the past', 'error');
+                    return;
+                }
+
+                if (expiryDate <= startDate) {
+                    Swal.fire('Error', 'Expiry date must be after start date', 'error');
+                    return;
+                }
 
                 try {
                     const response = await fetch('/admin/coupons/add', {

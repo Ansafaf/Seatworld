@@ -51,6 +51,15 @@ export const getAddCategory = (req, res) => {
 export const postAddCategory = async (req, res, next) => {
     try {
         const { categoryName } = req.body;
+        if (!/^[a-zA-Z\s]{3,20}$/.test(categoryName)) {
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Category name must be 3-20 characters long and contain only letters." });
+        }
+        const existingValue = await Category.findOne({
+            categoryName: { $regex: new RegExp(`^${categoryName.trim()}$`, "i") }
+        });
+        if (existingValue) {
+            return res.status(status_Codes.CONFLICT).json({ success: false, message: Message.CATEGORY.ALREADY_EXISTS })
+        }
         await categoryService.createCategory(categoryName);
         res.status(status_Codes.OK).json({ success: true, message: Message.CATEGORY.ADD, redirectUrl: "/admin/categories" });
     } catch (err) {
@@ -73,7 +82,7 @@ export const getEditCategory = async (req, res, next) => {
             breadcrumbs: [
                 { label: "Dashboard", url: "/admin/dashboard" },
                 { label: "Categories", url: "/admin/categories" },
-                { label: "Edit Category", url: `/admin/edit-category/${id}` }
+                { label: "Edit Category", url: `/admin/edit-category/${categoryId}` }
             ]
         });
     } catch (error) {
@@ -85,6 +94,18 @@ export const postEditCategory = async (req, res, next) => {
     try {
         const { categoryName } = req.body;
         const { categoryId } = req.params;
+        if (!/^[a-zA-Z\s]{3,20}$/.test(categoryName)) {
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Category name must be 3-20 characters long and contain only letters." });
+        }
+
+        const exists = await Category.findOne({
+            categoryName: { $regex: new RegExp(`^${categoryName.trim()}$`, "i") },
+            _id: { $ne: categoryId }
+        });
+
+        if (exists) {
+            return res.status(status_Codes.CONFLICT).json({ success: false, message: Message.CATEGORY.ALREADY_EXISTS })
+        }
         await categoryService.updateCategory(categoryId, categoryName);
         res.status(status_Codes.OK).json({ success: true, message: Message.CATEGORY.UPDATED_SUCCESS, redirectUrl: "/admin/categories" });
     } catch (err) {
@@ -104,7 +125,7 @@ export const postBlockCategory = async (req, res, next) => {
 
 export const postUnblockCategory = async (req, res, next) => {
     try {
-        const {categoryId} = req.params;
+        const { categoryId } = req.params;
         await categoryService.updateCategoryStatus(categoryId, true);
         res.status(status_Codes.OK).json({ success: true, message: Message.CATEGORY.UNBLOCK, redirectUrl: "/admin/categories" });
     } catch (error) {

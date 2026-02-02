@@ -10,7 +10,7 @@ import nodemailer from "nodemailer";
 import validator from "validator";
 import { buildBreadcrumb } from "../utils/breadcrumb.js";
 import Wallet from "../models/walletModel.js";
-import { loggers } from "winston";
+import { Logger, loggers } from "winston";
 import { createReferralForUser } from "../services/referralService.js";
 import { generateReferralCode } from "../utils/generateReferral.js";
 import { status_Codes } from "../enums/statusCodes.js";
@@ -78,7 +78,7 @@ export async function postLogin(req, res) {
         message: "This account has been blocked by admin"
       });
     }
-
+    
     if (await bcrypt.compare(password, user.password)) {
       req.session.user = {
         id: user._id,
@@ -86,6 +86,8 @@ export async function postLogin(req, res) {
         email: user.email,
         avatar: user.avatar
       };
+      user.islogged = true;
+      await user.save();
       return res.status(status_Codes.OK).json({
         success: true,
         message: Message.auth.LOGIN_SUCCESS,
@@ -285,7 +287,7 @@ export async function verifyOtp(req, res) {
       isVerified: true,
       authType: "local"
     });
-
+    newUser.islogged = true;
     await newUser.save();
 
     const newWallet = new Wallet({
@@ -338,6 +340,7 @@ export async function verifyOtp(req, res) {
       delete req.session.signupInfo;
       delete req.session.otp;
       delete req.session.otpExpires;
+
       return res.status(status_Codes.OK).json({
         success: true,
         message: Message.auth.VERIFY_SUCCESS,
@@ -775,6 +778,8 @@ export async function getHome(req, res) {
       req.session.destroy();
       return res.redirect("/login");
     }
+    freshUser.islogged = true;
+    await freshUser.save();
 
     res.render("users/home", {
       user: freshUser,
@@ -809,7 +814,10 @@ export async function getUserCounts(req, res) {
 }
 
 
-export function getLogout(req, res) {
+export async function getLogout(req, res) {
+  const user = await User.findById({_id:req.session.user.id});
+  user.islogged = false;
+  await user.save();
   req.session.destroy((err) => {
     res.clearCookie("connect.sid");
     res.redirect("/login");

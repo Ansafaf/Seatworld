@@ -1,29 +1,25 @@
-export const apiRequest = async (url, method = "GET", data = null) => {
-    const options = {
-        method: method,
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }
+export const apiRequest = async (url, method = "GET", body = null) => {
+  const options = {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
 
-    if (data) {
-        options.body = JSON.stringify(data);
-    }
+  if (body) {
+    options.body = JSON.stringify(body);
+  }
 
-    try {
-        const response = await fetch(url, options);
-        const result = await response.json();
+  const response = await fetch(url, options);
 
-        if (!response.ok) {
-            const error = new Error(result.message || `HTTP error: ${response.status}`);
-            error.status = response.status;
-            error.data = result;
-            throw error;
-        }
+  const data = await response.json();
 
-        return result;
-    } catch (err) {
-        if (err.status) throw err; // Re-throw if it's already an error with status (our custom error)
-        throw new Error(err.message || 'Network error or invalid JSON');
-    }
-}
+  if (!response.ok) {
+    const error = new Error(data.message || "Request failed");
+    error.status = response.status;
+    error.data = data;
+    throw error;
+  }
+
+  return data;
+};

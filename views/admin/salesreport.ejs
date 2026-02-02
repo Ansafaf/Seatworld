@@ -328,7 +328,65 @@
         </div>
 
         <script src="/js/admin/salesReport.js"></script>
-        <!-- Include Date Range Logic if custom JS needed, else straightforward form submission -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const today = new Date().toISOString().split('T')[0];
+                const startDateInput = document.getElementById('startDate');
+                const endDateInput = document.getElementById('endDate');
+                const salesForm = document.getElementById('salesReportForm');
+
+                // Set max date for both inputs to today
+                if (startDateInput) startDateInput.setAttribute('max', today);
+                if (endDateInput) endDateInput.setAttribute('max', today);
+
+                if (salesForm) {
+                    salesForm.addEventListener('submit', function (e) {
+                        const filterMode = document.querySelector('input[name="filterMode"]:checked').value;
+
+                        if (filterMode === 'custom') {
+                            const start = startDateInput.value;
+                            const end = endDateInput.value;
+
+                            if (!start || !end) {
+                                e.preventDefault();
+                                Swal.fire('Error', 'Please select both start and end dates', 'error');
+                                return;
+                            }
+
+                            if (new Date(start) > new Date(end)) {
+                                e.preventDefault();
+                                Swal.fire('Error', 'Start date cannot be after end date', 'error');
+                                return;
+                            }
+
+                            if (new Date(start) > new Date() || new Date(end) > new Date()) {
+                                e.preventDefault();
+                                Swal.fire('Error', 'Future dates are not allowed', 'error');
+                                return;
+                            }
+                        }
+                    });
+                }
+
+                // Toggle logic already exists in common.js or similar? 
+                // Let's ensure it works if hidden
+                const radioButtons = document.querySelectorAll('input[name="filterMode"]');
+                const quickSection = document.getElementById('quickFilterSection');
+                const customSection = document.getElementById('customDateSection');
+
+                radioButtons.forEach(radio => {
+                    radio.addEventListener('change', function () {
+                        if (this.value === 'quick') {
+                            quickSection.classList.remove('hidden');
+                            customSection.classList.add('hidden');
+                        } else {
+                            quickSection.classList.add('hidden');
+                            customSection.classList.remove('hidden');
+                        }
+                    });
+                });
+            });
+        </script>
 </body>
 
 </html>

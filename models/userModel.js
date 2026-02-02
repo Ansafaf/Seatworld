@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
   },
 
   avatar: { type: String },
-
+  
  mobile: {
   type: Number,
 },
@@ -33,6 +33,10 @@ const userSchema = new mongoose.Schema({
     trim: true,
     match: [/^[a-zA-Z0-9_]{3,20}$/, 'Username must be 3-20 characters and contain only letters, numbers, and underscores'],
 
+  },
+  islogged:{
+    type:String,
+    default:false
   },
 
   password: {

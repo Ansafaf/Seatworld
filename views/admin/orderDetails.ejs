@@ -138,6 +138,51 @@
                                 <!-- End of product table -->
 
                                 <!-- Customer Details -->
+                                    <div class="bg-white rounded-xl shadow-sm p-8">
+                                    <h3
+                                        class="text-xl font-bold text-orange-500 mb-6 pb-2 border-b-2 border-gray-50 uppercase tracking-widest">
+                                        Customer Details</h3>
+                                    <div class="space-y-4">
+                                        <div class="flex items-start py-3 border-b border-gray-50">
+                                            <span class="w-48 text-gray-900 font-bold">Customer Name</span>
+                                            <span class="flex-1 text-gray-700 font-bold">
+                                                <%= order.userId?.name || 'Unknown' %>
+                                            </span>
+                                        </div>
+                                        <div class="flex items-start py-3 border-b border-gray-50">
+                                            <span class="w-48 text-gray-900 font-bold">Mobile Number</span>
+                                            <span class="flex-1 text-gray-700 font-bold">
+                                                <%= order.shippingAddress.mobile %>
+                                            </span>
+                                        </div>
+                                        <div class="flex items-start py-3 border-b border-gray-50">
+                                            <span class="w-48 text-gray-900 font-bold">Type of Payment</span>
+                                            <span class="flex-1 text-gray-700 font-bold text-indigo-600 capitalize">
+                                                <%= order.paymentMethod %>
+                                            </span>
+                                        </div>
+                                        <div class="flex items-start py-3">
+                                            <span class="w-48 text-gray-900 font-bold">Address</span>
+                                            <div class="flex-1 text-gray-700 font-bold">
+                                                <p>
+                                                    <%= order.shippingAddress.housename %>, <%=
+                                                            order.shippingAddress.street %>
+                                                </p>
+                                                <p>
+                                                    <%= order.shippingAddress.city %>, <%= order.shippingAddress.state
+                                                            %>
+                                                </p>
+                                                <p>
+                                                    <%= order.shippingAddress.pincode %>
+                                                </p>
+                                                <p>
+                                                    <%= order.shippingAddress.country %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             </div>
 
                             <!-- Order Summary -->

@@ -81,11 +81,11 @@ export const createCoupon = async (req, res) => {
             return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Discount value must be less than 50" })
         }
 
-        if(discountType == "flat" && discountValue >= minAmount){
-            return res.status(status_Codes.BAD_REQUEST).json({success:false, message:"Discount value must not be more than or equal to minimun purchase value"});
+        if (discountType == "flat" && discountValue >= minAmount) {
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Discount value must not be more than or equal to minimun purchase value" });
         }
-        if(discountType == "flat" && discountValue  >= 5000){
-            return res.status(status_Codes.BAD_REQUEST).json({success:false , message:"Discount value must be less than 5000"});
+        if (discountType == "flat" && discountValue >= 5000) {
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Discount value must be less than 5000" });
         }
 
         const today = new Date();
@@ -160,18 +160,18 @@ export const updateCoupon = async (req, res) => {
         if (discountType == "percentage" && discountValue >= 50) {
             return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Discount value must be less than 50" })
         }
-         if(discountType == "flat" && discountValue >= minAmount){
-            return res.status(status_Codes.BAD_REQUEST).json({success:false, message:"Discount value must not be more than or equal to minimun purchase value"});
+        if (discountType == "flat" && discountValue >= minAmount) {
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Discount value must not be more than or equal to minimun purchase value" });
         }
-        if(discountType == "flat" && discountValue  >= 500){
-            return res.status(status_Codes.BAD_REQUEST).json({success:false , message:"Discount value must be less than 500"});
+        if (discountType == "flat" && discountValue >= 500) {
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Discount value must be less than 500" });
         }
-        
+
         const duplicateCoupon = await Coupon.findOne({ couponCode: couponCode.toUpperCase(), _id: { $ne: couponId } });
         if (duplicateCoupon) {
             return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Coupon code already exists in another coupon" });
         }
-        
+
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
@@ -182,8 +182,14 @@ export const updateCoupon = async (req, res) => {
             return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "Expiry date must be after start date" });
         }
 
-        let newStatus = existingCoupon.couponStatus;
         const now = new Date();
+        // If updating expiry date, it shouldn't be in the past relative to right now
+        // if the coupon is meant to be active or newly extended.
+        if (expiry < now && existingCoupon.expiryDate.getTime() !== expiry.getTime()) {
+            return res.status(status_Codes.BAD_REQUEST).json({ success: false, message: "New expiry date cannot be in the past" });
+        }
+
+        let newStatus = existingCoupon.couponStatus;
         const newExpiry = new Date(expiryDate);
 
         if (newExpiry < now) {
@@ -217,12 +223,12 @@ export const updateCoupon = async (req, res) => {
 
 export const deleteCoupon = async (req, res) => {
     try {
-        const {couponId } = req.params;
+        const { couponId } = req.params;
         const deletedCoupon = await Coupon.findByIdAndDelete(couponId);
         if (!deletedCoupon) {
             return res.status(status_Codes.NOT_FOUND).json({ success: false, message: Message.COUPON.NOT_FOUND });
         }
-        res.status(status_Codes.OK).json({ success: true, message: Message.COUPON.DELETED_SUCCESS});
+        res.status(status_Codes.OK).json({ success: true, message: Message.COUPON.DELETED_SUCCESS });
     } catch (error) {
         logger.error("Delete Coupon Error:", error);
         res.status(status_Codes.INTERNAL_SERVER_ERROR).json({ success: false, message: error.message });
@@ -231,7 +237,7 @@ export const deleteCoupon = async (req, res) => {
 
 export const toggleCouponStatus = async (req, res) => {
     try {
-        const {couponId } = req.params;
+        const { couponId } = req.params;
         const coupon = await Coupon.findById(couponId);
         if (!coupon) {
             return res.status(status_Codes.NOT_FOUND).json({ success: false, message: Message.COUPON.NOT_FOUND });
